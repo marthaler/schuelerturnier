@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="../../layouts/100.xhtml" xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="heading">
+        <h:outputText value="Account"/>
+    </ui:define>
+
+    <ui:define name="caption">
+        <p>Benutzerinformationen</p>
+    </ui:define>
+
+
+    <ui:define name="main">
+        <div id="main">
+            <div class="page_margins"></div>
+
+            <div class="page_margins">
+                <div class="page">
+                    <div class="inset">
+
+                        <p:fieldset legend="Informationen zum angemeldeten Benutzer">
+
+                            <h:outputText value="#{currentUser.principal.username}"/>
+                            <br/>
+                            <h:outputText value="#{currentUser.authorities}"/>
+                            <br/>
+                            <br/>
+                        </p:fieldset>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+
+</ui:composition>

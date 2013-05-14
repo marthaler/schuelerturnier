@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:sec="http://www.springframework.org/security/tags"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <div id="mainnav">
+        <h:form id="form_m">
+            <p:menubar id="menubar" styleClass="menubar">
+
+                <!-- home -->
+                <p:menuitem id="m_home" rendered="#{sec:areAnyGranted('ROLE_ADMIN')}" title="Home" icon="ui-icon-home" action="dashboard"/>
+
+                <!-- vorbereitung: anmeldung -->
+                <p:submenu id="m_anmeldung" rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.anmeldephase}" label="Anmeldephase" icon="ui-icon-refresh">
+                    <p:menuitem id="mm_hinzu" value="Mannschaft hinzufügen" icon="ui-icon-plus" action="newmannschaft"/>
+                    <p:menuitem id="mm_auflisten" value="Mannschaften auflisten" icon="ui-icon-carat-2-n-s" action="mannschaftsliste"/>
+                    <p:menuitem id="mm_phasen1" rendered="#{sec:areAnyGranted('ROLE_USER, ROLE_ADMIN')}" value="Phasenverwaltung" icon="ui-icon-arrow-4-diag" action="spielsteuerung"/>
+                </p:submenu>
+
+                <!-- vorbereitung: kategoriezuordnungsphase -->
+                <p:submenu id="m_kat" rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.kategoriezuordnungsphase}" label="Kategoriezuordnugsphase" icon="ui-icon-refresh">
+                    <p:menuitem id="mm_maedchen" value="Kategorien Mädchen" icon="ui-icon-carat-2-n-s" action="kategorien_m"/>
+                    <p:menuitem id="mm_knaben" value="Kategorien Knaben" icon="ui-icon-carat-2-n-s" action="kategorien_k"/>
+                    <p:menuitem id="mm_phasen2" rendered="#{sec:areAnyGranted('ROLE_USER, ROLE_ADMIN')}" value="Phasenverwaltung" icon="ui-icon-arrow-4-diag" action="spielsteuerung"/>
+                </p:submenu>
+
+                <!-- vorbereitung: spieltagezuordnungsphase -->
+                <p:submenu id="m_spieltage" rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.spieltagezuordnungsphase}" label="Spieltagezuordnung" icon="ui-icon-refresh">
+                    <p:menuitem id="mm_einstelung1" value="Spieleinstellungen" icon="ui-icon-carat-2-n-s" action="spieleinstellungen"/>
+                    <p:menuitem id="mm_phasen3" rendered="#{sec:areAnyGranted('ROLE_USER, ROLE_ADMIN')}" value="Phasenverwaltung" icon="ui-icon-arrow-4-diag" action="spielsteuerung"/>
+                </p:submenu>
+
+                <!-- vorbereitung: spielzuordnungsphase -->
+                <p:submenu id="m_spieltagekontrolle" rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.spielzuordnungsphase}" label="Spielzuordnung" icon="ui-icon-refresh">
+                    <p:menuitem id="mm_einstelung2" value="Spieleinstellungen" icon="ui-icon-carat-2-n-s" action="spieleinstellungen"/>
+                    <p:menuitem id="mm_phasen4" rendered="#{sec:areAnyGranted('ROLE_USER, ROLE_ADMIN')}" value="Phasenverwaltung" icon="ui-icon-arrow-4-diag" action="spielsteuerung"/>
+                </p:submenu>
+
+                <!-- spielen -->
+                <p:menuitem id="m_spielen" rendered="#{sec:areAnyGranted('ROLE_ADMIN,ROLE_TESTMANAGER') and spielstatusWebBean.spielphase}" value="Spiel Start/Stopp" icon="ui-icon-person" action="spiel_start"/>
+
+                <!-- stammdaten -->
+                <p:submenu id="m_stammdaten" rendered="#{sec:areAnyGranted('ROLE_ADMIN')}" label="Stammdaten" icon="ui-icon-contact">
+                    <p:menuitem id="mm_mannschaften" value="Mannschaften auflisten" icon="ui-icon-carat-2-n-s" action="mannschaftsliste"/>
+                    <p:menuitem id="mm_mannschaften_export" value="Mannschaften export" icon="ui-icon-carat-2-n-s" action="mannschaftslisteExport"/>
+                    <p:menuitem id="mm_mannschaften_inport" value="Mannschaften import" icon="ui-icon-carat-2-n-s" action="mannschaftslisteImport"/>
+                    <p:menuitem rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.spielphase}" value="Spieleinstellungen" icon="ui-icon-carat-2-n-s" action="spieleinstellungen"/>
+
+                    <p:menuitem id="mm_spiele_export" value="Spiele export" icon="ui-icon-carat-2-n-s" action="spielListeExport"/>
+                    <p:menuitem id="mm_spiele_import" value="Spiele import" icon="ui-icon-carat-2-n-s" action="spielListeImport"/>
+                    <p:menuitem id="mm_spiele_vertauschungen" value="Manuelle Korrekturen" icon="ui-icon-carat-2-n-s" action="korrekturen"/>
+                    <p:menuitem id="mm_einstelung3" value="Spieleinstellungen" icon="ui-icon-carat-2-n-s" action="spieleinstellungen" rendered="#{sec:areAnyGranted('ROLE_ADMIN,ROLE_EINTRAGER') and spielstatusWebBean.spielphase}"/>
+
+                </p:submenu>
+
+                <!-- spielen: rollen -->
+                <!-- spielen: rollen : eintrager-->
+                <p:menuitem id="m_eintrager" rendered="#{sec:areAnyGranted('ROLE_ADMIN,ROLE_EINTRAGER') and spielstatusWebBean.spielphase}" value="Eintrager" icon="ui-icon-person"
+                            action="eintrager"/>
+
+                <!-- spielen: rollen : kontrollierer-->
+                <p:menuitem id="m_kontrollierer" rendered="#{sec:areAnyGranted('ROLE_ADMIN,ROLE_KONTROLLIERER') and spielstatusWebBean.spielphase}" value="Kontrollierer" icon="ui-icon-person"
+                            action="kontrollierer"/>
+
+                <!-- spielen: rollen : speaker-->
+                <p:menuitem id="m_speaker" rendered="#{sec:areAnyGranted('ROLE_ADMIN,ROLE_SPEAKER') and spielstatusWebBean.spielphase}"
+                            value="speaker" icon="ui-icon-arrow-4-diag" action="speaker"/>
+
+                <!-- spielen : rollen : beobachter -->
+                <p:submenu id="m_beobachter" rendered="#{sec:areAnyGranted('ROLE_ADMIN,ROLE_BEOBACHTER') and spielstatusWebBean.spielphase or spielstatusWebBean.isBeendet()}" label="Beobachter" icon="ui-icon-contact">
+                    <p:menuitem id="mm_resultate" value="Resultate + Historie" icon="ui-icon-carat-2-n-s" action="gt_historie"/>
+                    <p:menuitem id="mm_matrix" value="Spielmatrix" icon="ui-icon-carat-2-n-s" action="gt_matrix"/>
+                    <p:menuitem id="mm_schiri" value="Schirizettel" icon="ui-icon-carat-2-n-s" action="gt_schiri"/>
+                    <p:menuitem id="mm_rangliste" value="Rangliste" icon="ui-icon-carat-2-n-s" action="gt_rangliste"/>
+                </p:submenu>
+
+                <!-- info -->
+                <p:menuitem id="m_user" style="position: absolute; right:84px;"
+                            rendered="#{sec:areAnyGranted('ROLE_USER, ROLE_ADMIN')}"
+                            value="#{request.userPrincipal.name}" icon="ui-icon-person"
+                            action="user"/>
+
+                <!-- logout -->
+                <p:menuitem id="m_logout" style="position: absolute; right: 4px;"
+                            rendered="#{sec:areAnyGranted('ROLE_USER, ROLE_ADMIN')}"
+                            value="Abmelden" icon="ui-icon-power" url="/app/logout"/>
+            </p:menubar>
+
+        </h:form>
+    </div>
+</ui:composition>

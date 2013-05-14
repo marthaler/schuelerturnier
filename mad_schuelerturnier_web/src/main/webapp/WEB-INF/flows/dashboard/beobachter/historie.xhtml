@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="../../../layouts/100.xhtml">
+
+    <ui:define name="heading">
+        <h:outputText value=""/>
+    </ui:define>
+
+    <ui:define name="">
+        <p></p>
+    </ui:define>
+
+    <ui:define name="main">
+        <div id="main">
+            <div class="page_margins">
+                <div class="page">
+                    <div class="inset">
+
+                        <h:form id="form1">
+
+                            <p:fieldset legend="Kategorie wählen">
+                                <p:messages/>
+
+                                <h:panelGrid columns="3" id="inputelements">
+
+                                    <p:selectOneMenu value="#{beobachterBean.auswahl}">
+                                        <f:selectItem itemLabel="Kategorie Auswaehlen" itemValue=""/>
+                                        <f:selectItems value="#{beobachterBean.kategorien}"/>
+
+                                        <p:ajax update="historie" event="change" actionListener="#{beobachterBean.auswahl}"/>
+
+                                    </p:selectOneMenu>
+
+                                    <p:commandButton action="#{beobachterBean.neuBerechnen()}" icon="ui-icon-arrowrefresh" ajax="false">
+
+                                    </p:commandButton>
+
+                                    <p:commandButton action="#{beobachterBean.dumpOutPages()}" value="dump" ajax="false">
+
+                                    </p:commandButton>
+
+                                </h:panelGrid>
+
+                            </p:fieldset>
+                            <br/><br/>
+                            <p:fieldset legend="Historie">
+                                <h:panelGroup id="historie" layout="block">
+                                    <h:outputText value="#{beobachterBean.getHistorie()}" escape="false"/>
+                                </h:panelGroup>
+                            </p:fieldset>
+                        </h:form>
+
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

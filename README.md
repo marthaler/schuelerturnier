@@ -1,4 +1,0 @@
-schuelerturnier
-===============
-
-schuelerturnier

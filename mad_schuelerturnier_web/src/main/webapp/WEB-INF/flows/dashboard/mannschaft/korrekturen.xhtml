@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../layouts/100.xhtml">
+
+
+    <ui:define name="caption">
+        <p>Korrekturen</p>
+    </ui:define>
+
+    <ui:define name="main">
+
+        <div id="main">
+
+            <div class="page_margins">
+                <div class="page">
+                    <div class="inset">
+
+                        <p:messages/>
+                        <h:form id="form1">
+
+
+                            <p:fieldset id="leg" legend="Korrekturen eintragen und auslesen">
+
+                                <h:panelGrid columns="2" id="inputelements">
+
+                                    <p:inputTextarea name="text" id="text" rows="20" cols="90" value="#{korrekturen.spielVertauschungen}" autoResize="false"/>
+
+                                    <br/>
+
+                                    <p:commandButton widgetVar="submit" id="submit" value="Save" action="save" ajax="true" execute="@form" update="@form"/>
+
+
+                                </h:panelGrid>
+
+                            </p:fieldset>
+
+                            <p:blockUI id="blocker" block="leg" trigger="submit">
+                                <p:graphicImage value="/app/resources/static/images/ajax-loader.gif"/>
+                            </p:blockUI>
+
+                        </h:form>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

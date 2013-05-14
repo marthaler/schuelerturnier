@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="../../../layouts/100.xhtml">
+
+    <ui:define name="heading">
+        <h:outputText value="Mannschaftsliste"/>
+    </ui:define>
+
+    <!--<ui:define name="header"/>-->
+    <ui:define name="caption">
+        <p>Mannschaftsliste</p>
+    </ui:define>
+
+    <ui:define name="main">
+
+        <div id="main">
+
+            <div class="page_margins">
+                <div class="page">
+                    <div class="inset">
+
+                        <p:messages/>
+                        <h:form id="form1">
+
+                            <p:fieldset legend="Alle Spiele">
+
+                                <p:dataTable emptyMessage="leer" id="tbl" var="spiel" value="#{spielImportExportDelegate.spiele}"
+                                             paginator="false" rowIndexVar="ri" scrollable="true">
+
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Id"/>
+                                        </f:facet>
+                                        <h:outputText value="#{spiel.idString}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Mannschaft A"/>
+                                        </f:facet>
+                                        <h:outputText value="#{spiel.mannschaftAName}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Tore A"/>
+                                        </f:facet>
+                                        <h:outputText value="#{spiel.toreABestaetigt}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Mannschaft B"/>
+                                        </f:facet>
+                                        <h:outputText value="#{spiel.mannschaftBName}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Tore B"/>
+                                        </f:facet>
+                                        <h:outputText value="#{spiel.toreBBestaetigt}"/>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Tore B"/>
+                                        </f:facet>
+                                        <h:outputText value="#{spiel.typ}"/>
+                                    </p:column>
+
+
+                                </p:dataTable>
+
+                            </p:fieldset>
+
+                            <br/>
+
+                            <p:fieldset legend="Alle Spiele exportieren">
+
+                                <h:commandLink>
+                                    <p:graphicImage
+                                            value="/app/resources/static/images/export/excel.png"/>
+                                    <p:dataExporter type="xls" target="tbl" fileName="spiele" encoding="UTF-8"/>
+                                </h:commandLink>
+
+                                <h:commandLink>
+                                    <p:graphicImage
+                                            value="/app/resources/static/images/export/csv.png"/>
+                                    <p:dataExporter type="csv" target="tbl" fileName="spiele" encoding="UTF-8"/>
+                                </h:commandLink>
+
+                            </p:fieldset>
+                        </h:form>
+
+                    </div>
+                    <br/>
+                </div>
+            </div>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

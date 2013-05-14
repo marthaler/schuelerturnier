@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="../../../layouts/100.xhtml">
+
+    <ui:define name="heading">
+        <h:outputText value="Mannschaft bearbeiten"/>
+    </ui:define>
+
+    <ui:define name="caption">
+        <p>CAPTION</p>
+    </ui:define>
+
+    <ui:define name="main">
+        <div id="main">
+            <div class="page_margins">
+                <div class="page">
+                    <div class="inset">
+                        <h:form id="form1">
+
+
+                            <p:fieldset legend="eintragen: ">
+                                <p:messages/>
+
+                                <h:panelGrid columns="1" id="inputelements">
+
+                                    <script type="text/javascript">
+                                        setTimeout(function () {
+                                            window.location.reload(1);
+                                        }, 30000);
+                                    </script>
+
+                                    <p:tab title="Einzutragende">
+
+
+                                        <h:outputText id="zeit2" value="Echte Zeit #{spielUhr.richtigeZeit}"/> - <h:outputText id="zeit3" value="Spiel Zeit: #{spielUhr.spielZeit}"/>
+                                        <p:poll interval="1" listener="#{spielUhr.getRichtigeZeit}" update="zeit2,zeit3"/>
+                                        <br/><br/>
+
+
+                                        <p:dataTable emptyMessage="leer" id="dataTablePen" var="penalty" value="#{penaltyAnstehend}" rendered="#{!penaltyAnstehend.isEmpty()}">
+
+                                            <p:column headerText="Reihenfolge">
+
+                                                    <h:inputText value="#{penalty.reihenfolge}"/>
+
+                                            </p:column>
+
+                                            <p:column headerText="Penalty">
+                                                <p:commandButton value="#{penalty.toString()}" disabled="true" action="save">
+                                                </p:commandButton>
+                                            </p:column>
+
+                                            <p:column headerText="Sichern">
+                                                <p:commandButton value="Sichern"  action="saveP">
+                                                </p:commandButton>
+                                            </p:column>
+
+                                        </p:dataTable>
+                                        <br/>
+
+                                        <p:dataTable id="dataTable1" var="spiel" value="#{einzutragende}" emptyMessage="leer">
+
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Spiel ID"/>
+                                                </f:facet>
+                                                <h:outputText value="#{spiel.idString}"/>
+                                            </p:column>
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Typ"/>
+                                                </f:facet>
+                                                <h:outputText value="#{spiel.typ}"/>
+                                            </p:column>
+
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Start"/>
+                                                </f:facet>
+                                                <h:outputText value="#{spiel.start}">
+                                                    <f:convertDateTime type="date" pattern="HH:mm" timeZone="Europe/Zurich"/>
+                                                </h:outputText>
+                                            </p:column>
+
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Zurückgewiesen"/>
+                                                </f:facet>
+                                                <h:outputText value="#{spiel.zurueckgewiesen}"/>
+                                            </p:column>
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Tore A"/>
+                                                </f:facet>
+                                                <h:outputText value="#{spiel.mannschaftAName}:  "/><p:inputText id="toreA" size="3" value="#{spiel.toreA}"> </p:inputText>
+
+                                            </p:column>
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Tore B"/>
+                                                </f:facet>
+                                                <h:outputText value="#{spiel.mannschaftBName}:  "/><p:inputText id="toreB" size="3" value="#{spiel.toreB}"> </p:inputText>
+
+                                            </p:column>
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                </f:facet>
+                                                <p:commandButton id="save" icon="ui-icon-check"
+                                                                 action="save" ajax="false">
+                                                    <f:param name="id" value="#{spiel.id}"/>
+                                                </p:commandButton>
+                                            </p:column>
+
+                                        </p:dataTable>
+                                    </p:tab>
+
+
+                                </h:panelGrid>
+
+
+                            </p:fieldset>
+                        </h:form>
+
+
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

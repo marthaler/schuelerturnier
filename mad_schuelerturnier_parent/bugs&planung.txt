@@ -1,0 +1,150 @@
+feautures:
+**********
+[ok]     eintrager realisieren, mit zurückgeben vom kontrollieren, neuen status auf spiel einführen
+
+[ok]     kontrollierer einführen, wie vorher
+
+[ok]     automatisch spieldurchführung mit test einführen
+
+[ok]     automatisch spieldurchführungtest, eintrager und kontrollierer
+
+[ok]     pruefen ob resultateberechnung funktioniert
+
+[ok]     letztes gruppenspiel in matrix ansicht wird nicht richtig gesetzt, in kategorie machen
+
+[ok]     upload download der mannschaften
+
+[ok]     weitere felder der mannschaften nach test mit urs
+
+[ok]     ranglistenberechnung übernehmen
+
+[ok]     rechtekonzept überarbeiten
+
+[ok]     testdaten 2012 aufereiten
+
+[ok]     import der testdaten via files beim startup einbauen
+
+[ok]     cvs export reparieren
+
+[ok]     out to website publisher mit den resultaten einschalten
+
+[ok]     alle resultate sicht aufbereiten / reparieren
+
+[ok]     bei der resultate matrix gelb hinterlegen bei laufenden matches
+
+[ok]     schirizettel fertig übernehmen
+[ok]         - neue seite
+[ok]         - finalspiele gruppe und oder kategorie zuordnen
+[ok]         - zeile unter stammdaten, sichtbar nach entsprechender phase
+
+[ok]     mannschaften zu finalspielen zuordnen nachdem fertig gespielt wurde
+
+[ok]     finale in rangliste eintragen
+
+[ok]     gererangliste generieren
+
+[ok]     gererangliste publishen
+
+[ok]     machen, dass keine gruppe sammstag und sonntag spielen muss
+
+[ok]     spieldurchfuehrung absichern mit laden aus der db beim neustart
+
+[ok]     start/stop, aufraeumen
+
+[ok]     resultate der spiele exportieren und importieren
+
+[ok]     moeglichkeit einbauen zeit einzuholen manuell oder automatisch
+
+[ok]     automatischer gong einbauen
+
+[ip]     test mit allen mannschaften
+
+[ok]     gererangliste drucken
+
+[ok]     automatisches drucken der resultateliste einstellen
+
+[ok]     moegliches eintragen von pennalty
+
+[ok]     spielabbruch auschaltbar machen
+
+[rj]     beobachter rangliste anwaehlbar machen
+
+[rj]     beim eintrager id's in stack fuellen und asynchron verarbeiten
+
+[  ]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
+
+==============
+
+
+bugs:
+*****
+[ok]     automatische spieleverteilung reparieren nach neuem model
+
+[ok]     countdown springt auf nächste stunde bei verschnellerung von 35 sekunden
+
+[ok]     bei der eingabe des starttages wird der starttag zum sonntag
+
+[ok]     beim letzten finalspiel stoppt der countdown
+
+[ok]     schauen warum der cvs import nicht funktioniert
+
+[ok]     http request bei login weg
+
+[ok]     bei finalen ist weder gruppe noch kategorie gesetzt
+
+[ok]     kategoriezuordnung funktioniert nicht mehr
+
+[ok]     nullpointer beim spiele exportieren
+
+[ok]     uhr stoppt nicht, wenn vorbereitungszeit abgelaufen ist nach verschnellerung
+
+[ok]     uhr laesst sich nicht stoppen und wieder neu starten (ev hier durchfuehrungsmodell neu laden ?)
+
+[ok]     automatischer test funktioniert nicht mehr
+
+[ok]     neuberechnen der rangliste geht nicht mehr nachdem finale gespielt wurde
+
+[ok]     nach finale stehen bei allen ranglistenzeilen finale als grund
+
+[ok]     automatische vorbereitung und stimme zu wenig lang, gong ok
+
+[ok]     beim erneuten laden der mannschaften werden bei allen als grund gr und kl finale angegeben (bei k30x)
+
+[rj]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
+
+[rj]     countdown ueber eine stunde springt (stunden einbeziehen)
+
+[  ]     wenn erster penalty erkannt wird wird 2. nicht mehr gesucht nur WEITERSUCHEN
+
+[  ]     version wird nicht agezeigt nach release
+
+[  ]     drucken geht nicht nach release
+
+dokumentation
+*************
+[]       merkkarten fuer schiris (tore nicht punkte)
+
+[]       plan fuer lan und material
+
+
+fuer nachher
+************
+[  ]     dump knopf und logik weg in den ranglisten
+
+[  ]     refactoring paarung weg
+
+[  ]     beim vorbereiten funktioniert das loeschen einer leeren kategorie nicht
+
+[  ]     beobachter bean dumpout weg
+
+[  ]     automatischer gong auschaltbar machen
+
+[  ]     barcode generieren lassen beim start
+
+[rj]     speaker bot vervollstaendigen
+
+[rj]     sprachsteuerung in bot programmieren
+
+[rj]     resultengine asynchron machen
+
+[rj]     out to website publisher schlau konfigurieren
