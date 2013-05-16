@@ -10,11 +10,12 @@ feautures:
 
 bugs:
 *****
-[rj]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
+[??]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
 [rj]     countdown ueber eine stunde springt (stunden einbeziehen)
 [  ]     wenn erster penalty erkannt wird wird 2. nicht mehr gesucht nur WEITERSUCHEN
-[  ]     version wird nicht agezeigt nach release
-[  ]     drucken geht nicht nach release
+[ok]     version wird nicht agezeigt nach release
+[ok]     drucken geht nicht nach release
+[  ]     beim letzten Finalspiel phase auf beendet und letzte liste drucken
 
 dokumentation
 *************
