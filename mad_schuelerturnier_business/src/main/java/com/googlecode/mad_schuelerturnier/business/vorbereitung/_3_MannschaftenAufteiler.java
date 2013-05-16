@@ -82,26 +82,6 @@ public class _3_MannschaftenAufteiler {
             } else if (mannschaftenSize == 3) {
                 LOG.debug("vor und rueckrunge stehen an: " + kategorie.getName());
 
-                //    kategorie = createGruppeB(kategorie);
-
-              /*
-                for (Mannschaft m : kategorie.getGruppeA().getMannschaften()) {
-                      Mannschaft m1 = this.mannschaftenRepo.findOne(m.getId())   ;
-                    m1.setGruppeB(kategorie.getGruppeB());
-                    //m1 = mannschaftenRepo.save(m1);
-                    try {
-                        kategorie.getGruppeB().addMannschaft(m1);
-                        //mannschaftenRepo.save(m1);
-                        //kategorieRepo.save(kategorie);
-                    } catch (MixtGroupException e) {
-                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                    }
-
-
-                }
-
-                */
-
                 Spiel gf = new Spiel();
                 gf.setTyp(SpielEnum.GFINAL);
                 gf.setIdString(IDGeneratorContainer.getNext());
@@ -113,9 +93,6 @@ public class _3_MannschaftenAufteiler {
 
                 kategorie = kategorieRepo.save(kategorie);
 
-
-                //kategorieRepo.save(kategorie);
-                //gruppeRepo.save(kategorie.getGruppeB());
 
             } else if (mannschaftenSize > 7) {
                 LOG.debug("aufteilen einer gruppe von: " + kategorie.getName() + " anzahl mannschaften: " + mannschaftenSize);

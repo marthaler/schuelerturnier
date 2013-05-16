@@ -20,6 +20,9 @@ import javax.print.attribute.standard.Copies;
 import javax.print.attribute.standard.PrinterName;
 import java.io.*;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,6 +46,8 @@ public class PrintAgent {
 
     private String printer = "brother";
 
+    private Map<String,String> map = new HashMap();
+
     public void init(String path){
         this.pathprinter = path  + "printer" + System.getProperty("file.separator");
         this.pathdone = path  + "printerdone" + System.getProperty("file.separator");
@@ -50,18 +55,34 @@ public class PrintAgent {
         new File(pathdone).mkdirs();
 
         LOG.info("pathdone erstellt: " + pathdone);
+        LOG.info("pathprinter erstellt: " + pathprinter);
 
         this.running = true;
         this.init = true;
+
+        if(map.size() > 0){
+            Set<String> keys = map.keySet();
+
+            for (String key : keys) {
+                String content = map.get(key);
+                this.printPage(key,content);
+            }
+        }
     }
 
     public void printTestpage(){
-        this.saveFileToPrint("testpage","this is the testpage");
-        check();
+        this.printPage("testpage", "Dies ist eine Testseite. Ein At:@ Und die lieben Umlaute: ä ö ü");
     }
     
     public void printPage(String name, String content){
-        this.saveFileToPrint(name,content);
+
+        if(this.init){
+            this.saveFileToPrint(name,content);
+        }
+        else{
+             map.put(name,content);
+        }
+
         check();
     }
 
@@ -109,34 +130,41 @@ public class PrintAgent {
 
             // serialize to xml file
             new PrettyXmlSerializer(props).writeToFile(
-                    (TagNode) o[0], pathprinter+"out.xml", "utf-8"
+                  //  (TagNode) o[0], pathprinter+"out.xml", "utf-8"
+                    (TagNode) o[0], pathprinter+"out.xml"
             );
 
             String outputFile = pathprinter+name+".pdf";
             OutputStream os = new FileOutputStream(outputFile);
 
-
             Document doc = new Document(PageSize.A4);
             PdfWriter.getInstance(doc, os);
             doc.open();
             HTMLWorker hw = new HTMLWorker(doc);
+
             hw.parse(new FileReader(pathprinter+"out.xml"));
             doc.close();
+
+
+
+
+
+
             os.close();
 
     } catch (Exception e) {
             LOG.error(e.getMessage(), e);
     }
-        FileUtils.deleteQuietly(new File(pathprinter+"out.xml"));
+ //       FileUtils.deleteQuietly(new File(pathprinter+"out.xml"));
     }
 
     private void print(File f) {
 
         try {
-            LOG.info("file zum drucken: " + f.getCanonicalPath());
-            LOG.info("file existiert: " + f.exists());
-            LOG.info("file ist file: " + f.isFile());
-            LOG.info("file ist directory: " + f.isDirectory());
+            LOG.debug("file zum drucken: " + f.getCanonicalPath());
+            LOG.debug("file existiert: " + f.exists());
+            LOG.debug("file ist file: " + f.isFile());
+            LOG.debug("file ist directory: " + f.isDirectory());
         } catch (IOException e) {
            LOG.error(e.getMessage(),e);
         }
@@ -162,7 +190,7 @@ public class PrintAgent {
 
         DocPrintJob job = service.createPrintJob();
 
-        LOG.info("PrintObserver: printing" + f.getName());
+        LOG.info("PrintObserver: printing: " + f.getName());
 
         try {
             job.print(doc, null);

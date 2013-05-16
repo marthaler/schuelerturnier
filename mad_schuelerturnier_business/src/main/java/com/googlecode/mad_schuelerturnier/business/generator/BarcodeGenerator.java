@@ -56,6 +56,8 @@ public class BarcodeGenerator {
 
             if (!f.exists()) {
                 f.createNewFile();
+            } else{
+                return;
             }
 
             BarcodeImageHandler.savePNG(barcode, f);

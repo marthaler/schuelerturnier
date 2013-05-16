@@ -9,6 +9,7 @@ import com.googlecode.mad_schuelerturnier.business.zeit.Zeitgeber;
 import com.googlecode.mad_schuelerturnier.model.enums.SpielEnum;
 import com.googlecode.mad_schuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.mad_schuelerturnier.model.enums.SpielZeilenPhaseEnum;
+import com.googlecode.mad_schuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import com.googlecode.mad_schuelerturnier.model.spiel.tabelle.SpielZeile;
 import com.googlecode.mad_schuelerturnier.persistence.repository.PenaltyRepository;
@@ -252,7 +253,13 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
             if(! endranglistegedruckt){
                 agent.saveFileToPrint("rangliste",verarbeiter.getRangliste());
                 endranglistegedruckt = true;
-                LOG.info("spiel fertig");
+
+                // phase abschliessen
+                SpielEinstellungen einstellung =  business.getSpielEinstellungen();
+                einstellung.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
+                business.saveEinstellungen(einstellung);
+
+                LOG.info("spiel abgeschlossen");
             }
         }
     }

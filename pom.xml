@@ -12,10 +12,8 @@
 
     </properties>
 
-
     <modules>
         <module>mad_schuelerturnier_parent</module>
     </modules>
-
 
 </project> 

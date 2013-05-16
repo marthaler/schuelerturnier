@@ -45,7 +45,7 @@ public interface IBusiness {
      */
     public void spielzeitEinholen(int seconds);
 
-    public int spielzeitVerspaetung();
+    public String spielzeitVerspaetung();
 
     public void resumeSpiel();
 

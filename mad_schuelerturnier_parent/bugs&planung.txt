@@ -1,5 +1,50 @@
 feautures:
 **********
+[ok]     barcode generieren lassen beim start
+[ok]     speaker bot vervollstaendigen
+[rj]     beobachter rangliste anwaehlbar machen
+[rj]     beim eintrager id's in stack fuellen und asynchron verarbeiten
+[  ]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
+
+==============
+
+bugs:
+*****
+[rj]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
+[rj]     countdown ueber eine stunde springt (stunden einbeziehen)
+[  ]     wenn erster penalty erkannt wird wird 2. nicht mehr gesucht nur WEITERSUCHEN
+[  ]     version wird nicht agezeigt nach release
+[  ]     drucken geht nicht nach release
+
+dokumentation
+*************
+[]       merkkarten fuer schiris (tore nicht punkte)
+[]       plan fuer lan und material
+
+
+
+fuer nachher
+************
+[  ]     dump knopf und logik weg in den ranglisten
+
+[  ]     refactoring paarung weg
+
+[  ]     beim vorbereiten funktioniert das loeschen einer leeren kategorie nicht
+
+[  ]     beobachter bean dumpout weg
+
+[  ]     automatischer gong auschaltbar machen
+
+
+[rj]     sprachsteuerung in bot programmieren
+
+[rj]     resultengine asynchron machen
+
+[rj]     out to website publisher schlau konfigurieren
+
+
+feautures ok:
+**********
 [ok]     eintrager realisieren, mit zurückgeben vom kontrollieren, neuen status auf spiel einführen
 
 [ok]     kontrollierer einführen, wie vorher
@@ -67,16 +112,7 @@ feautures:
 
 [ok]     spielabbruch auschaltbar machen
 
-[rj]     beobachter rangliste anwaehlbar machen
-
-[rj]     beim eintrager id's in stack fuellen und asynchron verarbeiten
-
-[  ]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
-
-==============
-
-
-bugs:
+bugs gefixt:
 *****
 [ok]     automatische spieleverteilung reparieren nach neuem model
 
@@ -113,38 +149,3 @@ bugs:
 [rj]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
 
 [rj]     countdown ueber eine stunde springt (stunden einbeziehen)
-
-[  ]     wenn erster penalty erkannt wird wird 2. nicht mehr gesucht nur WEITERSUCHEN
-
-[  ]     version wird nicht agezeigt nach release
-
-[  ]     drucken geht nicht nach release
-
-dokumentation
-*************
-[]       merkkarten fuer schiris (tore nicht punkte)
-
-[]       plan fuer lan und material
-
-
-fuer nachher
-************
-[  ]     dump knopf und logik weg in den ranglisten
-
-[  ]     refactoring paarung weg
-
-[  ]     beim vorbereiten funktioniert das loeschen einer leeren kategorie nicht
-
-[  ]     beobachter bean dumpout weg
-
-[  ]     automatischer gong auschaltbar machen
-
-[  ]     barcode generieren lassen beim start
-
-[rj]     speaker bot vervollstaendigen
-
-[rj]     sprachsteuerung in bot programmieren
-
-[rj]     resultengine asynchron machen
-
-[rj]     out to website publisher schlau konfigurieren
