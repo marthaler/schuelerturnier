@@ -14,8 +14,7 @@
 
 
     <modules>
-        <module>../mad_schuelerturnier_parent</module>
-
+        <module>mad_schuelerturnier_parent</module>
     </modules>
 
 
