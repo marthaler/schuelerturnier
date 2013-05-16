@@ -12,6 +12,10 @@
 
     </properties>
 
+    <scm>
+        <developerConnection>scm:git:https://github.com/marthaler/schuelerturnier.git</developerConnection>
+    </scm>
+
     <modules>
         <module>mad_schuelerturnier_parent</module>
     </modules>
