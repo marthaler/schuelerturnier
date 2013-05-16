@@ -20,4 +20,11 @@
         <module>mad_schuelerturnier_parent</module>
     </modules>
 
+    <distributionManagement>
+        <repository>
+            <id>file-repository</id>
+            <url>file:/repository/</url>
+        </repository>
+    </distributionManagement>
+
 </project> 

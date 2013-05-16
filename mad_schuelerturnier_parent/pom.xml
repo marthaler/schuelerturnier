@@ -821,13 +821,6 @@
 
     </repositories>
 
-    <distributionManagement>
-        <repository>
-            <id>file-repository</id>
-            <url>file:/repository/</url>
-        </repository>
-    </distributionManagement>
-
     <profiles>
         <profile>
             <id>test</id>
