@@ -35,7 +35,7 @@ public class SpielPrintManager {
     
     private Map<Integer, String> savedPages = new HashMap<Integer, String>();
 
-    // idee war, dass beim admin gui ausgeschlatet wewrden kann
+    // idee war, dass beim admin gui ausgeschlatet werden kann
     private  boolean print = true;
 
     @Autowired
