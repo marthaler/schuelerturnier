@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.googlecode.mad_schuelerturnier</groupId>
         <artifactId>mad_schuelerturnier_root</artifactId>
-        <version>1.0.6-SNAPSHOT</version>
+        <version>1.0.6</version>
     </parent>
 
     <groupId>com.googlecode.mad_schuelerturnier</groupId>
     <artifactId>mad_schuelerturnier_parent</artifactId>
-    <version>1.0.6-SNAPSHOT</version>
+    <version>1.0.6</version>
 
     <packaging>pom</packaging>
 
