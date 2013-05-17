@@ -127,22 +127,14 @@ public class ResultengineIntegrationTest {
 
             System.out.println("********");
             System.out.println(str);
-            try {
-                FileUtils.writeStringToFile(new File("/" + ranglisteneintragHistorie.getKategorie().getName() + "test.html"), str);
-            } catch (final IOException e) {
-                e.printStackTrace(); // To change body of catch statement use File | Settings | File Templates.
-            }
+
             System.out.println("********");
 
         }
 
         System.out.println("********");
         System.out.println(str);
-        try {
-            FileUtils.writeStringToFile(new File("/test.html"), str);
-        } catch (final IOException e) {
-            e.printStackTrace(); // To change body of catch statement use File | Settings | File Templates.
-        }
+
         System.out.println("********");
         Assert.assertTrue(str.length() > 10);
 
