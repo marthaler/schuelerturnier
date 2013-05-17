@@ -15,11 +15,6 @@
     <scm>
         <developerConnection>scm:git:https://github.com/marthaler/schuelerturnier.git</developerConnection>
 
-        <!--
-        <developerConnection>scm:git:git@github.com:marthaler/schuelerturnier.git</developerConnection>
-        -->
-
-      <tag>mad_schuelerturnier_root-1.0.6</tag>
   </scm>
 
     <modules>
