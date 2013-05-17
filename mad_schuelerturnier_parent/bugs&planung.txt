@@ -17,6 +17,18 @@ bugs:
 [ok]     drucken geht nicht nach release
 [  ]     beim letzten Finalspiel phase auf beendet und letzte liste drucken
 
+[??]     Rangliste drucken immer bei 1
+[??]     Rangliste, letzte Seite drucken
+[??]     schlaue Startseite
+[??]     wenn fertig dinge nicht ausblenden
+
+[  ]     Seiten werden zuerst nach bin gedruckt
+[  ]     Rangliste im web Sonderzeichen
+
+[  ]     gong per hit space ausloesen
+
+
+
 dokumentation
 *************
 []       merkkarten fuer schiris (tore nicht punkte)
@@ -100,6 +112,10 @@ feautures ok:
 [ok]     moegliches eintragen von pennalty
 
 [ok]     spielabbruch auschaltbar machen
+
+
+
+
 
 bugs gefixt:
 *****
