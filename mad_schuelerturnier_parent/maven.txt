@@ -11,4 +11,4 @@ mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoUrl=http://ma
 
 release
 *******
-mvn release:prepare release:perform --batch-mode -DreleaseVersion=1.0.3 -DdevelopmentVersion=1.0.4-SNAPSHOT -Dusername=marthaler.worb@gmail.com -Dpassword=${scmPassword} -P imac
+mvn --batch-mode -DreleaseVersion=1.0.4 -DdevelopmentVersion=1.0.5-SNAPSHOT -Dusername=marthaler.worb@gmail.com -Dpassword=${scmPassword} -P imac release:prepare release:perform
