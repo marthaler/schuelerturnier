@@ -123,7 +123,7 @@
                                 <configuration>
 
                                     <target>
-                                        <copy file="./target/${project.artifactId}-${project.version}.war" tofile="/ROOT.war" overwrite="true" />
+                                        <copy file="./target/${project.artifactId}-${project.version}.war" tofile="/Users/dama/Dropbox/shared/schuelerturnier/Informatik/app/server/ROOT.war" overwrite="true" />
                                     </target>
 
                                 </configuration>

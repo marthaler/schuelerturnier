@@ -1,9 +1,14 @@
-
+befehle
+*******
 mvn versions:display-plugin-updates
 mvn versions:display-dependency-updates
 
 http://maven.apache.org/guides/plugin/guide-ant-plugin-development.html
 
-Gruppen Klassen auf JPA not null
-
+vom ftp repo holen:
+*******************
 mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoUrl=http://macart.ch/repo1 -Dartifact=com.googlecode.mad_schuelerturnier:mad_schuelerturnier_test:0.0.10-SNAPSHOT
+
+release
+*******
+release:prepare release:perform --batch-mode -DreleaseVersion=1.0.3 -DdevelopmentVersion=1.0.4-SNAPSHOT -Dusername=marthaler.worb@gmail.com -Dpassword=${scmPassword} -P imac
