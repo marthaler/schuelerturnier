@@ -3,6 +3,7 @@ package com.googlecode.mad_schuelerturnier.business.spieldurchfuehrung;
 import com.googlecode.mad_schuelerturnier.business.controller.resultate.ResultateVerarbeiter;
 import com.googlecode.mad_schuelerturnier.business.impl.Business;
 import com.googlecode.mad_schuelerturnier.business.print.PrintAgent;
+import com.googlecode.mad_schuelerturnier.business.print.SpielPrintManager;
 import com.googlecode.mad_schuelerturnier.business.zeit.Countdown;
 import com.googlecode.mad_schuelerturnier.business.zeit.ZeitPuls;
 import com.googlecode.mad_schuelerturnier.business.zeit.Zeitgeber;
@@ -54,6 +55,9 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
     @Autowired
     private PrintAgent agent;
+
+    @Autowired
+    private SpielPrintManager spielPrinter;
 
      private boolean endranglistegedruckt = false;
 
@@ -253,6 +257,9 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
             if(! endranglistegedruckt){
                 agent.saveFileToPrint("rangliste",verarbeiter.getRangliste());
                 endranglistegedruckt = true;
+
+                // letzte resultate drucken
+                spielPrinter.printPage();
 
                 // phase abschliessen
                 SpielEinstellungen einstellung =  business.getSpielEinstellungen();

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.googlecode.mad_schuelerturnier.model.util.XstreamUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -90,8 +89,10 @@ public class SpielPrintManager {
 
         buff.append("<tr><td align=\"right\" colspan=\"5\">");
 
+        int pageN = savedPages.size();
+        pageN = pageN ++;
 
-        buff.append("Seite: " +this.savedPages.size());
+        buff.append("Seite: " +pageN);
 
         buff.append("</td></tr>");
 
@@ -99,8 +100,7 @@ public class SpielPrintManager {
 
     	String page = this.cleaner.cleanup(buff.toString(), false);
     	
-    	int pageN = savedPages.size();
-    	pageN = pageN ++;
+
     	this.savedPages.put(pageN, page);
 
         this.aktuelleSpiele.clear();
