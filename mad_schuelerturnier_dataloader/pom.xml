@@ -4,7 +4,7 @@
     <parent>
         <artifactId>mad_schuelerturnier_parent</artifactId>
         <groupId>com.googlecode.mad_schuelerturnier</groupId>
-        <version>1.0.8</version>
+        <version>1.0.9-SNAPSHOT</version>
         <relativePath>../mad_schuelerturnier_parent</relativePath>
     </parent>
 
