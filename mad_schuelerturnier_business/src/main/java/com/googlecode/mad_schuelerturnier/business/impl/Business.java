@@ -422,8 +422,13 @@ public class Business implements IBusiness {
 
     }
 
-    public int spielzeitVerspaetung() {
-        return Math.abs(this.zeitgeber.getVerspaetung());
+    public String spielzeitVerspaetung() {
+        int sekunden = Math.abs(this.zeitgeber.getVerspaetung());
+
+        int rest = sekunden %60;
+        int minuten = sekunden / 60;
+
+        return minuten + ":" + rest;
     }
 
     public void resumeSpiel() {

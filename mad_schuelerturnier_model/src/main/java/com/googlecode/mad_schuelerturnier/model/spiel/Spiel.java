@@ -70,19 +70,12 @@ public class Spiel extends AbstractPersistable<Long> {
         if (mannschaftA != null) {
             return mannschaftA.getName();
         }
-        /*if (paarung == null) {
-            // TODO fix me
-            System.out.println("PAARUNG VON FINAL NULL !!!");
-            return "PAARUNG VON FINAL NULL !!!";
-        }  */
 
         if ((paarung == null || paarung.getMannschaftA() == null) && typ == SpielEnum.GFINAL) {
             return "A, GF";
-            //return "A, GF " + paarung.getGruppe().getName();
         }
 
         if ((paarung == null || paarung.getMannschaftA() == null) && typ == SpielEnum.KFINAL) {
-            //return "KFINAL";
             return "A, KF ";
         }
 
@@ -95,19 +88,11 @@ public class Spiel extends AbstractPersistable<Long> {
             return mannschaftB.getName();
         }
 
-        /*if (paarung == null) {
-            // TODO fix me
-            System.out.println("PAARUNG VON FINAL NULL !!!");
-            return "PAARUNG VON FINAL NULL !!!";
-        } */
-
         if ((paarung == null || paarung.getMannschaftB() == null) && typ == SpielEnum.GFINAL) {
             return "B, GF";
-            //return "B, GF " + paarung.getGruppe().getName();
         }
 
         if ((paarung == null || paarung.getMannschaftB() == null) && typ == SpielEnum.KFINAL) {
-            //return "KFINAL";
             return "B, KF ";
         }
 

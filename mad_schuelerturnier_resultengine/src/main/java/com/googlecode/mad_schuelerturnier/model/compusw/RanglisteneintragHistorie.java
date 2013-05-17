@@ -77,8 +77,6 @@ public class RanglisteneintragHistorie {
 
         if(spiel == null){
             this.sortNachPenalty();
-            // todo
-           // this.grund = Sp
         } else{
 
         this.sortNachPunkten();

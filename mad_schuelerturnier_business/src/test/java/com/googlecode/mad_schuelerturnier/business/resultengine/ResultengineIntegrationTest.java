@@ -14,6 +14,7 @@ import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepos
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.apache.commons.io.FileUtils;
@@ -95,6 +96,7 @@ public class ResultengineIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void generateMannschaften() {
 
         final List<Spiel> spiele = this.spielRepo.findAll();
@@ -127,22 +129,14 @@ public class ResultengineIntegrationTest {
 
             System.out.println("********");
             System.out.println(str);
-            try {
-                FileUtils.writeStringToFile(new File("/" + ranglisteneintragHistorie.getKategorie().getName() + "test.html"), str);
-            } catch (final IOException e) {
-                e.printStackTrace(); // To change body of catch statement use File | Settings | File Templates.
-            }
+
             System.out.println("********");
 
         }
 
         System.out.println("********");
         System.out.println(str);
-        try {
-            FileUtils.writeStringToFile(new File("/test.html"), str);
-        } catch (final IOException e) {
-            e.printStackTrace(); // To change body of catch statement use File | Settings | File Templates.
-        }
+
         System.out.println("********");
         Assert.assertTrue(str.length() > 10);
 

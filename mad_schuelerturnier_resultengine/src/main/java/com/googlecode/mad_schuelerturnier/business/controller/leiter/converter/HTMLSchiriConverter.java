@@ -3,6 +3,7 @@
  */
 package com.googlecode.mad_schuelerturnier.business.controller.leiter.converter;
 
+import com.googlecode.mad_schuelerturnier.model.enums.SpielEnum;
 import com.googlecode.mad_schuelerturnier.model.helper.IDGeneratorContainer;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import net.sourceforge.barbecue.Barcode;
@@ -54,13 +55,22 @@ public class HTMLSchiriConverter {
 
             String nameA = "";
             if (spiel.getMannschaftA() == null) {
-                nameA = spiel.getTyp().toString().toLowerCase().replace("inal", "") + " ";
+
+                if(spiel.getTyp() == SpielEnum.GFINAL){
+                    nameA = "GrFin-"+spiel.getKategorieName();
+                }
+
+                if(spiel.getTyp() == SpielEnum.KFINAL){
+                    nameA = "GrFin-"+spiel.getKategorieName();
+                }
+
+
             } else {
                 nameA = spiel.getMannschaftA().getName();
             }
             String nameB = "";
             if (spiel.getMannschaftB() == null) {
-                nameB = spiel.getTyp().toString().toLowerCase().replace("inal", "");
+                nameB = "";
             } else {
                 nameB = spiel.getMannschaftB().getName();
             }

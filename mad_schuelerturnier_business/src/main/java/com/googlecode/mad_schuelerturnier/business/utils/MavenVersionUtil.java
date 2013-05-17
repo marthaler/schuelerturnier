@@ -25,14 +25,14 @@ public class MavenVersionUtil {
 
         try {
             final Properties p = new Properties();
-            final InputStream is = getClass().getResourceAsStream("/META-INF/MANIFEST.MF");
+            final InputStream is = getClass().getResourceAsStream("/version.properties");
             if (is != null) {
                 p.load(is);
 
                 MavenVersionUtil.LOG.info("maven version util keys: " + p.stringPropertyNames());
 
-                this.time = p.getProperty("Buildtime", "--");
-                this.version = p.getProperty("Implementation-Version", "--");
+                this.time = p.getProperty("timestamp", "--");
+                this.version = p.getProperty("version", "--");
             }
             is.close();
         } catch (final Exception e) {

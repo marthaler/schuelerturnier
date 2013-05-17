@@ -10,7 +10,7 @@ import com.googlecode.mad_schuelerturnier.model.enums.SpielPhasenEnum;
 
 @Component
 public class SpielstatusWebBean implements Serializable {
-	// TODO weiter in den guis anpassen
+
 	@Autowired
 	private ISpielKontroller kontroller;
 
