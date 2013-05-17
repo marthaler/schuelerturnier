@@ -124,7 +124,8 @@
 
                                     <target>
                                         <copy file="./target/${project.artifactId}-${project.version}.war" tofile="/Users/dama/Dropbox/shared/schuelerturnier/Informatik/app/server/webapps/ROOT.war" overwrite="true" />
-                                        <copy file="./target/${project.artifactId}-${project.version}.war" tofile="//app/server/webapps/ROOT.war" overwrite="true" />
+                                        <copy file="./target/${project.artifactId}-${project.version}.war" tofile="/app/server/webapps/ROOT.war" overwrite="true" />
+                                        <delete dir="/app/server/webapps/ROOT" quiet="true"/>
                                     </target>
 
                                 </configuration>
