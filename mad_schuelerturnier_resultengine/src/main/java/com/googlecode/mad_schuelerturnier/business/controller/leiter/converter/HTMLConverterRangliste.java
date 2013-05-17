@@ -61,7 +61,7 @@ public class HTMLConverterRangliste {
                 klassenLable = "Knaben " + k.replace("K", "") + ". Klasse";
                 geschlecht = GeschlechtEnum.K;
             } else {
-                klassenLable = "Maedchen " + k.replace("M", "") + ". Klasse";
+                klassenLable = "Mädchen " + k.replace("M", "") + ". Klasse";
                 geschlecht = GeschlechtEnum.M;
             }
 
