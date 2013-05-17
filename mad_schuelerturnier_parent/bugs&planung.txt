@@ -22,27 +22,15 @@ dokumentation
 []       merkkarten fuer schiris (tore nicht punkte)
 []       plan fuer lan und material
 
-
-
 fuer nachher
 ************
 [  ]     dump knopf und logik weg in den ranglisten
-
 [  ]     refactoring paarung weg
-
 [  ]     beim vorbereiten funktioniert das loeschen einer leeren kategorie nicht
-
 [  ]     beobachter bean dumpout weg
-
 [  ]     automatischer gong auschaltbar machen
-
-
-[rj]     sprachsteuerung in bot programmieren
-
 [rj]     resultengine asynchron machen
-
 [rj]     out to website publisher schlau konfigurieren
-
 
 feautures ok:
 **********
