@@ -4,7 +4,7 @@
 
     <groupId>com.googlecode.mad_schuelerturnier</groupId>
     <artifactId>mad_schuelerturnier_root</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.6-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
@@ -14,7 +14,6 @@
 
     <scm>
         <developerConnection>scm:git:https://github.com/marthaler/schuelerturnier.git</developerConnection>
-
   </scm>
 
     <modules>
