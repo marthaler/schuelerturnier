@@ -14,6 +14,7 @@ import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepos
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.apache.commons.io.FileUtils;
@@ -95,6 +96,7 @@ public class ResultengineIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void generateMannschaften() {
 
         final List<Spiel> spiele = this.spielRepo.findAll();
