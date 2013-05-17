@@ -4,13 +4,13 @@
 
     <parent>
         <groupId>com.googlecode.mad_schuelerturnier</groupId>
-        <artifactId>mad_schuelerturnier_root</artifactId>
-        <version>1.0.3-SNAPSHOT</version>
+        <artifactId>mad_schuelerturnier</artifactId>
+        <version>1.0.13-SNAPSHOT</version>
     </parent>
 
     <groupId>com.googlecode.mad_schuelerturnier</groupId>
     <artifactId>mad_schuelerturnier_parent</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.13-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
@@ -673,19 +673,6 @@
                             </plugin>
                         </reportPlugins>
                     </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>2.4.1</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>com.google.code.maven-scm-provider-svnjava</groupId>
-                            <artifactId>maven-scm-provider-svnjava</artifactId>
-                            <version>2.0.4</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
 
                 <!--This plugin's configuration is used to store Eclipse m2e settings 
