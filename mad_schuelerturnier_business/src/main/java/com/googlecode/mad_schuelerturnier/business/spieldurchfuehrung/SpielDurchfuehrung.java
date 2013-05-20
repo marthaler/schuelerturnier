@@ -30,8 +30,9 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
     private static final Logger LOG = Logger.getLogger(SpielDurchfuehrung.class);
 
-    private static int WARTEND_SIZE = 3;
-    private static int MINUTEN_ZUM_VORBEREITEN = 3;
+
+    private int wartendSize = 3;
+    private int minutenZumVorbereiten = 3;
 
     private String delim = System.getProperty("file.separator");
 
@@ -43,9 +44,6 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
     @Autowired
     private SpielRepository spielRepo;
-
-    @Autowired
-    private PenaltyRepository penaltyRepo;
 
     @Autowired
     private Business business;
@@ -79,8 +77,6 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     private List<SpielZeile> _6_eingetragen = new ArrayList<SpielZeile>();
 
     private boolean init = false;
-
-    private long lastText = System.currentTimeMillis();
 
     public void onApplicationEvent(final ZeitPuls event) {
 
@@ -127,7 +123,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
     private synchronized void prepare_1_wartend() {
         // wartende auffuellen
-        if (this._1_wartend.size() < WARTEND_SIZE) {
+        if (this._1_wartend.size() < wartendSize) {
             final List<SpielZeile> list = this.spielzeilenRepo.findNextZeile();
 
             if (!list.isEmpty()) {
@@ -156,7 +152,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
                         if (!spielZeile.checkEmty()) {
                             this._1_wartend.add(0, spielZeile);
                             SpielDurchfuehrung.LOG.info("neue zeile geholt: " + spielZeile);
-                            if (this._1_wartend.size() == WARTEND_SIZE) {
+                            if (this._1_wartend.size() == wartendSize) {
                                 break;
                             }
                         }
@@ -173,7 +169,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
             if ((this._2_zum_vorbereiten.isEmpty())) {
 
                 // pruefung ob nachste zeile bereits zur vorbereitung
-                long naechste = this._1_wartend.get(this._1_wartend.size() - 1).getStart().getTime()- (60 * MINUTEN_ZUM_VORBEREITEN * 1000);
+                long naechste = this._1_wartend.get(this._1_wartend.size() - 1).getStart().getTime()- (60 * minutenZumVorbereiten * 1000);
                 long now = jetzt.getSpielZeit().getMillis();
 
                 if( naechste < now){
@@ -455,5 +451,22 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     public void fertigesSpiel(Spiel spiel) {
         this.verarbeiter.signalFertigesSpiel(spiel.getId());
     }
+
+    public int getWartendSize() {
+        return wartendSize;
+    }
+
+    public void setWartendSize(int wartendSize) {
+        this.wartendSize = wartendSize;
+    }
+
+    public int getMinutenZumVorbereiten() {
+        return minutenZumVorbereiten;
+    }
+
+    public void setMinutenZumVorbereiten(int minutenZumVorbereiten) {
+        this.minutenZumVorbereiten = minutenZumVorbereiten;
+    }
+
 
 }
