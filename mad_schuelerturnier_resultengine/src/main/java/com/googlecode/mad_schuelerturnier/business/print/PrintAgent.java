@@ -145,11 +145,6 @@ public class PrintAgent {
             hw.parse(new FileReader(pathprinter+"out.xml"));
             doc.close();
 
-
-
-
-
-
             os.close();
 
     } catch (Exception e) {

@@ -4,16 +4,11 @@
 package com.googlecode.mad_schuelerturnier.business.controller.leiter.converter;
 
 import com.googlecode.mad_schuelerturnier.model.enums.SpielEnum;
-import com.googlecode.mad_schuelerturnier.model.helper.IDGeneratorContainer;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
-import net.sourceforge.barbecue.Barcode;
-import net.sourceforge.barbecue.BarcodeFactory;
-import net.sourceforge.barbecue.BarcodeImageHandler;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +56,7 @@ public class HTMLSchiriConverter {
                 }
 
                 if(spiel.getTyp() == SpielEnum.KFINAL){
-                    nameA = "GrFin-"+spiel.getKategorieName();
+                    nameA = "KlFin-"+spiel.getKategorieName();
                 }
 
 
@@ -69,13 +64,11 @@ public class HTMLSchiriConverter {
                 nameA = spiel.getMannschaftA().getName();
             }
             String nameB = "";
-            if (spiel.getMannschaftB() == null) {
-                nameB = "";
-            } else {
+            if (spiel.getMannschaftB() != null) {
                 nameB = spiel.getMannschaftB().getName();
             }
 
-            final StringBuffer b = new StringBuffer();
+            final StringBuilder b = new StringBuilder();
 
 
             // zeilenumbruch

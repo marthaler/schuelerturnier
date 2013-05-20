@@ -4,28 +4,28 @@ feautures:
 [ok]     speaker bot vervollstaendigen
 [rj]     beobachter rangliste anwaehlbar machen
 [rj]     beim eintrager id's in stack fuellen und asynchron verarbeiten
-[  ]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
+[rj]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
 
 ==============
 
 bugs:
 *****
-[??]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
+[ok]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
 [rj]     countdown ueber eine stunde springt (stunden einbeziehen)
 [  ]     wenn erster penalty erkannt wird wird 2. nicht mehr gesucht nur WEITERSUCHEN
 [ok]     version wird nicht agezeigt nach release
 [ok]     drucken geht nicht nach release
-[  ]     beim letzten Finalspiel phase auf beendet und letzte liste drucken
+[??]     beim letzten Finalspiel phase auf beendet und letzte liste drucken
 
 [??]     Rangliste drucken immer bei 1
 [??]     Rangliste, letzte Seite drucken
-[??]     schlaue Startseite
+[ok]     schlaue Startseite
 [??]     wenn fertig dinge nicht ausblenden
 
 [  ]     Seiten werden zuerst nach bin gedruckt
 [  ]     Rangliste im web Sonderzeichen
 
-[  ]     gong per hit space ausloesen
+[rj]     gong per hit space ausloesen
 
 
 
@@ -151,6 +151,6 @@ bugs gefixt:
 
 [ok]     beim erneuten laden der mannschaften werden bei allen als grund gr und kl finale angegeben (bei k30x)
 
-[rj]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
+[ok]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
 
 [rj]     countdown ueber eine stunde springt (stunden einbeziehen)

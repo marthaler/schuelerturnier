@@ -54,6 +54,14 @@
                                         ajax="true">
                                 </p:selectBooleanCheckbox>
 
+                                    <h:outputText id="output3" value="Anzahl wartende: #{spielDurchfuehrung.wartendSize}"/>
+                                    <h:inputHidden id="wartendSize" value="#{spielDurchfuehrung.wartendSize}" />
+                                    <p:slider for="wartendSize" display="output3"  displayTemplate="Anzahl wartende: {value}" ajax="true" minValue="1" maxValue="10" />
+
+                                    <h:outputText id="output4" value="Minuten fuer Vorbereitung: #{spielDurchfuehrung.minutenZumVorbereiten} "/>
+                                    <h:inputHidden id="minutenZumVorbereiten" value="#{spielDurchfuehrung.minutenZumVorbereiten}" />
+                                    <p:slider for="minutenZumVorbereiten" display="output4"  displayTemplate="Minuten fuer Vorbereitung: {value}" ajax="true" minValue="1" maxValue="10"/>
+
                                 </h:panelGrid>
 
                                 <br/>
@@ -149,6 +157,11 @@
                                 </p:selectBooleanCheckbox>
 
                                 <p:separator id="customSeparator234"/>
+
+
+
+
+                                <p:separator id="customSeparator2345"/>
 
                             </p:fieldset>
 
