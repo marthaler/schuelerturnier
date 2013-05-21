@@ -107,6 +107,10 @@
                                         <copy file="./target/${project.artifactId}-${project.version}.jar"
                                               tofile="/Users/dama/Dropbox/shared/schuelerturnier/Informatik/app/test.jar"
                                               overwrite="true"/>
+
+                                        <copy file="./target/${project.artifactId}-${project.version}.jar"
+                                              tofile="/app/test.jar" overwrite="true"/>
+
                                     </target>
 
                                 </configuration>
