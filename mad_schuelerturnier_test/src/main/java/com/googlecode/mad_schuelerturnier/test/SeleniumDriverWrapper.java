@@ -53,7 +53,7 @@ public class SeleniumDriverWrapper {
         this.sendById("account_user", user);
         driver.findElement(By.id("account_password")).clear();
         driver.findElement(By.id("account_password")).sendKeys(password);
-        this.sendById("account_password", "t");
+        this.sendById("account_password", password);
         this.clickById("account_submit");
 
     }
