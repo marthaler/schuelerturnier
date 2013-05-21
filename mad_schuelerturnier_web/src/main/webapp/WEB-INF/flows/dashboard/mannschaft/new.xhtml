@@ -127,14 +127,16 @@
 
                                     <h:outputLabel for="geschlecht" value="M / K"/>
                                     <p:selectOneMenu id="geschlecht"
-                                                     value="#{mannschaftBean.geschlecht}" disabled="#{! spielstatusWebBean.anmeldephase}">
+                                                     value="#{mannschaftBean.geschlecht}"
+                                                     disabled="#{! spielstatusWebBean.anmeldephase}">
                                         <f:selectItem itemLabel="Knaben" itemValue="K"/>
                                         <f:selectItem itemLabel="M&#228;dchen" itemValue="M"/>
                                     </p:selectOneMenu>
 
 
                                     <h:outputLabel for="notizen" value="Notitzen"/>
-                                    <p:inputTextarea id="notizen" rows="5" cols="30" value="#{mannschaftBean.notizen}" autoResize="false"/>
+                                    <p:inputTextarea id="notizen" rows="5" cols="30" value="#{mannschaftBean.notizen}"
+                                                     autoResize="false"/>
 
 
                                     <h:panelGroup id="button" layout="block">

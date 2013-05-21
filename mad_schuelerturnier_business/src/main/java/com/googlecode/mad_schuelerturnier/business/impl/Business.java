@@ -63,13 +63,12 @@ public class Business implements IBusiness {
     }
 
     @PostConstruct
-      private void init(){
-          SpielEinstellungen einst = getSpielEinstellungen();
-          if(einst.isStartJetzt()){
-              this.startClock();
-          }
-      }
-
+    private void init() {
+        SpielEinstellungen einst = getSpielEinstellungen();
+        if (einst.isStartJetzt()) {
+            this.startClock();
+        }
+    }
 
 
     /*
@@ -179,7 +178,7 @@ public class Business implements IBusiness {
 
 
     public void saveVertauschungen(String vertauschungen) {
-        SpielEinstellungen einst = getSpielEinstellungen() ;
+        SpielEinstellungen einst = getSpielEinstellungen();
         einst.setSpielVertauschungen(vertauschungen);
     }
 
@@ -201,17 +200,17 @@ public class Business implements IBusiness {
         String spielwunsch = null;
         if (wunsch.equals(SpielTageszeit.EGAL)) {
             k.setSpielwunsch(SpielTageszeit.SAMSTAGMORGEN);
-            spielwunsch ="morgen";
+            spielwunsch = "morgen";
         } else if (wunsch.equals(SpielTageszeit.SAMSTAGMORGEN)) {
             k.setSpielwunsch(SpielTageszeit.SAMMSTAGNACHMITTAG);
-            spielwunsch ="nachmittag";
+            spielwunsch = "nachmittag";
         } else if (wunsch.equals(SpielTageszeit.SAMMSTAGNACHMITTAG)) {
             k.setSpielwunsch(SpielTageszeit.SONNTAGMORGEN);
-            spielwunsch ="sonntag";
+            spielwunsch = "sonntag";
         }
         if (wunsch.equals(SpielTageszeit.SONNTAGMORGEN)) {
             k.setSpielwunsch(SpielTageszeit.EGAL);
-            spielwunsch ="";
+            spielwunsch = "";
         }
 
         // nachfuehren der spielwunschhints auf den mannschaften der kategorie
@@ -401,7 +400,7 @@ public class Business implements IBusiness {
             Business.LOG.error("starten nicht moeglich, falsch phase: " + this.getSpielEinstellungen().getPhase());
         }
 
-        this.zeitgeber.startGame(0,"nach neustart der clock");
+        this.zeitgeber.startGame(0, "nach neustart der clock");
 
     }
 
@@ -417,17 +416,17 @@ public class Business implements IBusiness {
 
     }
 
-  
+
     public void spielzeitEinholen(int seconds) {
         int effVerspaetung = this.zeitgeber.getVerspaetung();
         effVerspaetung = Math.abs(effVerspaetung);
-        if(effVerspaetung < 1){
-           return;
+        if (effVerspaetung < 1) {
+            return;
         }
 
-        if(effVerspaetung >= seconds){
+        if (effVerspaetung >= seconds) {
             this.zeitgeber.startGame(seconds, "einholung: " + seconds);
-        } else{
+        } else {
             this.zeitgeber.startGame(effVerspaetung, "einholung effektiv: " + effVerspaetung);
         }
 
@@ -436,7 +435,7 @@ public class Business implements IBusiness {
     public String spielzeitVerspaetung() {
         int sekunden = Math.abs(this.zeitgeber.getVerspaetung());
 
-        int rest = sekunden %60;
+        int rest = sekunden % 60;
         int minuten = sekunden / 60;
 
         return minuten + ":" + rest;
@@ -456,10 +455,10 @@ public class Business implements IBusiness {
     public List<Penalty> anstehendePenalty() {
         List<Penalty> alle = penaltyRepo.findAll();
         List<Penalty> result = new ArrayList<Penalty>();
-        for(Penalty p : alle){
-                  if(!p.isBestaetigt() && !p.isGespielt()){
-                      result.add(p);
-                  }
+        for (Penalty p : alle) {
+            if (!p.isBestaetigt() && !p.isGespielt()) {
+                result.add(p);
+            }
         }
         return result;
     }
@@ -467,8 +466,8 @@ public class Business implements IBusiness {
     public List<Penalty> gespieltePenalty() {
         List<Penalty> alle = penaltyRepo.findAll();
         List<Penalty> result = new ArrayList<Penalty>();
-        for(Penalty p : alle){
-            if(!p.isBestaetigt() && p.isGespielt()){
+        for (Penalty p : alle) {
+            if (!p.isBestaetigt() && p.isGespielt()) {
                 result.add(p);
                 // sofort zurueckgeben, weil immer nur ein eintrag in der liste erscheinen soll
                 return result;
@@ -479,32 +478,32 @@ public class Business implements IBusiness {
 
     public void penaltyEintragen(List<Penalty> list) {
 
-        for(Penalty p : list){
-           if(p.getReihenfolge() != null && ! p.getReihenfolge().isEmpty()){
+        for (Penalty p : list) {
+            if (p.getReihenfolge() != null && !p.getReihenfolge().isEmpty()) {
 
-               if(p.isBestaetigt() && p.isGespielt()){
+                if (p.isBestaetigt() && p.isGespielt()) {
                     continue;
-               }
+                }
 
-               if(p.getReihenfolge().equals(Penalty.LEER)){
+                if (p.getReihenfolge().equals(Penalty.LEER)) {
                     continue;
-               }
+                }
 
-               p.setGespielt(true);
-               p.setBestaetigt(true);
-               p = this.penaltyRepo.save(p);
+                p.setGespielt(true);
+                p.setBestaetigt(true);
+                p = this.penaltyRepo.save(p);
 
-               this.verarbeiter.signalPenalty(p);
+                this.verarbeiter.signalPenalty(p);
 
-           }
+            }
         }
     }
 
     public List<Penalty> eingetragenePenalty() {
         List<Penalty> alle = penaltyRepo.findAll();
         List<Penalty> result = new ArrayList<Penalty>();
-        for(Penalty p : alle){
-            if(p.isBestaetigt() && p.isGespielt()){
+        for (Penalty p : alle) {
+            if (p.isBestaetigt() && p.isGespielt()) {
                 result.add(p);
             }
         }

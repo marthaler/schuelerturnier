@@ -40,9 +40,9 @@ public class HTMLConverterRangliste {
     public String printOutGere(final Collection<RanglisteneintragHistorie> kat, boolean menuon) {
         final StringBuffer buffer = new StringBuffer();
 
-        if(menuon) {
-          new HTMLMenu();
-          buffer.append(menu.generateMenu("_"));
+        if (menuon) {
+            new HTMLMenu();
+            buffer.append(menu.generateMenu("_"));
         }
 
         buffer.append("<br/>");

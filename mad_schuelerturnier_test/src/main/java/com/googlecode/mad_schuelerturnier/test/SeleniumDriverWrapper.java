@@ -64,17 +64,17 @@ public class SeleniumDriverWrapper {
 
     public void sendById(String selector, String keys) {
 
-            try {
-                WebDriverWait wait = new WebDriverWait(driver, TIME_OUT_IN_SECONDS);
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(selector)));
-                driver.findElement(By.id(selector)).click();
-                driver.findElement(By.id(selector)).clear();
-                driver.findElement(By.id(selector)).sendKeys(keys);
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, TIME_OUT_IN_SECONDS);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(selector)));
+            driver.findElement(By.id(selector)).click();
+            driver.findElement(By.id(selector)).clear();
+            driver.findElement(By.id(selector)).sendKeys(keys);
 
-            } catch (Exception e) {
-                LOG.info("sendById NOK: " + e.getMessage());
-                sleepAMoment();
-                 return;
+        } catch (Exception e) {
+            LOG.info("sendById NOK: " + e.getMessage());
+            sleepAMoment();
+            return;
 
         }
         LOG.info("sendById ok: " + selector);
@@ -105,37 +105,37 @@ public class SeleniumDriverWrapper {
             selector = selector.replace("id=", "");
         }
 
-            try {
+        try {
 
-                WebDriverWait wait = new WebDriverWait(driver, TIME_OUT_IN_SECONDS);
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(selector)));
-                driver.findElement(By.id(selector)).click();
+            WebDriverWait wait = new WebDriverWait(driver, TIME_OUT_IN_SECONDS);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(selector)));
+            driver.findElement(By.id(selector)).click();
 
 
-            } catch (Exception e) {
-                LOG.info("clickById NOK: " + e.getMessage());
-                sleepAMoment();
-                return;
+        } catch (Exception e) {
+            LOG.info("clickById NOK: " + e.getMessage());
+            sleepAMoment();
+            return;
         }
         LOG.info("clickById ok: " + selector);
     }
 
     public void clickByXpath(String selector, boolean retry) {
 
-            try {
+        try {
 
-                WebDriverWait wait = new WebDriverWait(driver, TIME_OUT_IN_SECONDS);
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(selector)));
+            WebDriverWait wait = new WebDriverWait(driver, TIME_OUT_IN_SECONDS);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(selector)));
 
-                driver.findElement(By.xpath(selector)).click();
+            driver.findElement(By.xpath(selector)).click();
 
-            } catch (Exception e) {
-                LOG.info("clickByXpath NOK: " + e.getMessage().replace("\n", " "));
-                if(!retry){
-                    return;
-                }
-                sleepAMoment();
+        } catch (Exception e) {
+            LOG.info("clickByXpath NOK: " + e.getMessage().replace("\n", " "));
+            if (!retry) {
+                return;
             }
+            sleepAMoment();
+        }
 
 
         LOG.info("clickByXpath ok: " + selector);

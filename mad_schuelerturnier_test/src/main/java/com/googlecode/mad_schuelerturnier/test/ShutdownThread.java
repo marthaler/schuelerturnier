@@ -10,7 +10,7 @@ package com.googlecode.mad_schuelerturnier.test;
 public class ShutdownThread extends Thread {
 
     @Override
-	public void run() {
+    public void run() {
         ShutdownableRegistry.getInstance().shutdownReal();
     }
 

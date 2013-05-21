@@ -25,14 +25,15 @@
 
     <sec:authorize ifAnyGranted="ROLE_SPEAKER">
 
-    <p:commandButton value = "refresh" id="refresh" action="refresh" icon="ui-icon-check" disabled="false" ajax="false">
-    </p:commandButton>
-    w: #{wait}
+        <p:commandButton value="refresh" id="refresh" action="refresh" icon="ui-icon-check" disabled="false"
+                         ajax="false">
+        </p:commandButton>
+        w: #{wait}
 
-    <p:media value="#{speak}" width="200" height="20" player="quicktime" rendered="#{speak != null}">
-        <f:param name="autoPlay" value="true" />
-    </p:media>
- </sec:authorize>
+        <p:media value="#{speak}" width="200" height="20" player="quicktime" rendered="#{speak != null}">
+            <f:param name="autoPlay" value="true"/>
+        </p:media>
+    </sec:authorize>
 
 </h:form>
 <br/>
@@ -41,7 +42,11 @@
 <p:fieldset legend="Spieldurchfuehrung">
 <p:messages/>
 
-<h:outputText id="zeit2" value="Echte Zeit #{spielUhr.richtigeZeit}"/> - <h:outputText id="zeit3" value="Spiel Zeit: #{spielUhr.spielZeit}"/> - <h:outputText id="versp" value="Verspätung: #{business.spielzeitVerspaetung()}"/>
+<h:outputText id="zeit2" value="Echte Zeit #{spielUhr.richtigeZeit}"/>
+-
+<h:outputText id="zeit3" value="Spiel Zeit: #{spielUhr.spielZeit}"/>
+-
+<h:outputText id="versp" value="Verspätung: #{business.spielzeitVerspaetung()}"/>
 <p:poll interval="1" listener="#{spielUhr.getRichtigeZeit}" update="zeit2,zeit3, versp"/>
 <br/>
 
@@ -49,11 +54,12 @@
 <h:panelGrid columns="1" id="inputelements">
 
 <script type="text/javascript">
-    setTimeout("document.getElementById('form2:refresh').click();",#{wait});
+    setTimeout("document.getElementById('form2:refresh').click();", #{wait});
 </script>
 <br/>
 
-<p:dataTable emptyMessage="leer" id="dataTablePen" var="penalty" value="#{penaltyAnstehend}" rendered="#{!penaltyAnstehend.isEmpty()}">
+<p:dataTable emptyMessage="leer" id="dataTablePen" var="penalty" value="#{penaltyAnstehend}"
+             rendered="#{!penaltyAnstehend.isEmpty()}">
 
     <p:column headerText="Penalty">
         <p:commandButton value="#{penalty.toString()}" disabled="true" action="notExisting">
@@ -229,7 +235,8 @@
         <p:column>
             <f:facet name="header">
             </f:facet>
-            <p:commandButton icon="ui-icon-check" ajax="false" action="beenden" disabled="#{sec:areNotGranted('ROLE_SPEAKER') and !spieleinstellungen.abbrechenZulassen}">
+            <p:commandButton icon="ui-icon-check" ajax="false" action="beenden"
+                             disabled="#{sec:areNotGranted('ROLE_SPEAKER') and !spieleinstellungen.abbrechenZulassen}">
             </p:commandButton>
         </p:column>
 
@@ -270,9 +277,6 @@
 </p:tab>
 
 </p:accordionPanel>
-
-
-
 
 
 </h:panelGrid>

@@ -2,11 +2,9 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:sec="http://www.springframework.org/security/tags"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 template="../../../layouts/100.xhtml">
-
 
 
     <ui:define name="heading">
@@ -39,33 +37,40 @@
                                     <p:tab title="Einzutragende">
 
 
-                                        <h:outputText id="zeit2" value="Echte Zeit #{spielUhr.richtigeZeit}"/> - <h:outputText id="zeit3" value="Spiel Zeit: #{spielUhr.spielZeit}"/>
-                                        <p:poll interval="1" listener="#{spielUhr.getRichtigeZeit}" update="zeit2,zeit3"/>
+                                        <h:outputText id="zeit2" value="Echte Zeit #{spielUhr.richtigeZeit}"/>
+                                        -
+                                        <h:outputText id="zeit3" value="Spiel Zeit: #{spielUhr.spielZeit}"/>
+                                        <p:poll interval="1" listener="#{spielUhr.getRichtigeZeit}"
+                                                update="zeit2,zeit3"/>
                                         <br/><br/>
 
 
-                                        <p:dataTable emptyMessage="leer" id="dataTablePen" var="penalty" value="#{penaltyAnstehend}" rendered="#{!penaltyAnstehend.isEmpty()}">
+                                        <p:dataTable emptyMessage="leer" id="dataTablePen" var="penalty"
+                                                     value="#{penaltyAnstehend}"
+                                                     rendered="#{!penaltyAnstehend.isEmpty()}">
 
                                             <p:column headerText="Reihenfolge">
 
-                                                    <h:inputText value="#{penalty.reihenfolge}"/>
+                                                <h:inputText value="#{penalty.reihenfolge}"/>
 
                                             </p:column>
 
                                             <p:column headerText="Penalty">
-                                                <p:commandButton value="#{penalty.toString()}" disabled="true" action="save">
+                                                <p:commandButton value="#{penalty.toString()}" disabled="true"
+                                                                 action="save">
                                                 </p:commandButton>
                                             </p:column>
 
                                             <p:column headerText="Sichern">
-                                                <p:commandButton value="Sichern"  action="saveP">
+                                                <p:commandButton value="Sichern" action="saveP">
                                                 </p:commandButton>
                                             </p:column>
 
                                         </p:dataTable>
                                         <br/>
 
-                                        <p:dataTable id="dataTable1" var="spiel" value="#{einzutragende}" emptyMessage="leer">
+                                        <p:dataTable id="dataTable1" var="spiel" value="#{einzutragende}"
+                                                     emptyMessage="leer">
 
 
                                             <p:column>
@@ -88,7 +93,8 @@
                                                     <h:outputText value="Start"/>
                                                 </f:facet>
                                                 <h:outputText value="#{spiel.start}">
-                                                    <f:convertDateTime type="date" pattern="HH:mm" timeZone="Europe/Zurich"/>
+                                                    <f:convertDateTime type="date" pattern="HH:mm"
+                                                                       timeZone="Europe/Zurich"/>
                                                 </h:outputText>
                                             </p:column>
 
@@ -97,14 +103,17 @@
                                                 <f:facet name="header">
                                                     <h:outputText value=""/>
                                                 </f:facet>
-                                                <h:outputText value= "Zurückgewiesen" rendered="#{spiel.zurueckgewiesen}"/>
+                                                <h:outputText value="Zurückgewiesen"
+                                                              rendered="#{spiel.zurueckgewiesen}"/>
                                             </p:column>
 
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Tore A"/>
                                                 </f:facet>
-                                                <h:outputText value="#{spiel.mannschaftAName}:  "/><p:inputText id="toreA" size="3" value="#{spiel.toreA}" disabled="#{sec:areNotGranted('ROLE_EINTRAGER')}"> </p:inputText>
+                                                <h:outputText value="#{spiel.mannschaftAName}:  "/>
+                                                <p:inputText id="toreA" size="3" value="#{spiel.toreA}"
+                                                             disabled="#{sec:areNotGranted('ROLE_EINTRAGER')}"></p:inputText>
 
                                             </p:column>
 
@@ -112,7 +121,9 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Tore B"/>
                                                 </f:facet>
-                                                <h:outputText value="#{spiel.mannschaftBName}:  "/><p:inputText id="toreB" size="3" value="#{spiel.toreB}" disabled="#{sec:areNotGranted('ROLE_EINTRAGER')}"> </p:inputText>
+                                                <h:outputText value="#{spiel.mannschaftBName}:  "/>
+                                                <p:inputText id="toreB" size="3" value="#{spiel.toreB}"
+                                                             disabled="#{sec:areNotGranted('ROLE_EINTRAGER')}"></p:inputText>
 
                                             </p:column>
 
@@ -120,7 +131,8 @@
                                                 <f:facet name="header">
                                                 </f:facet>
                                                 <p:commandButton id="save" icon="ui-icon-check"
-                                                                 action="save" ajax="false" disabled="#{sec:areNotGranted('ROLE_EINTRAGER')}">
+                                                                 action="save" ajax="false"
+                                                                 disabled="#{sec:areNotGranted('ROLE_EINTRAGER')}">
                                                     <f:param name="id" value="#{spiel.id}"/>
                                                 </p:commandButton>
                                             </p:column>

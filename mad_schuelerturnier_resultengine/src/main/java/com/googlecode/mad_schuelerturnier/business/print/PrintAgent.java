@@ -46,11 +46,11 @@ public class PrintAgent {
 
     private String printer = "brother";
 
-    private Map<String,String> map = new HashMap();
+    private Map<String, String> map = new HashMap();
 
-    public void init(String path){
-        this.pathprinter = path  + "printer" + System.getProperty("file.separator");
-        this.pathdone = path  + "printerdone" + System.getProperty("file.separator");
+    public void init(String path) {
+        this.pathprinter = path + "printer" + System.getProperty("file.separator");
+        this.pathdone = path + "printerdone" + System.getProperty("file.separator");
         new File(pathprinter).mkdirs();
         new File(pathdone).mkdirs();
 
@@ -60,81 +60,80 @@ public class PrintAgent {
         this.running = true;
         this.init = true;
 
-        if(map.size() > 0){
+        if (map.size() > 0) {
             Set<String> keys = map.keySet();
 
             for (String key : keys) {
                 String content = map.get(key);
-                this.printPage(key,content);
+                this.printPage(key, content);
             }
         }
     }
 
-    public void printTestpage(){
+    public void printTestpage() {
         this.printPage("testpage", "Dies ist eine Testseite. Ein At:@ Und die lieben Umlaute: ä ö ü");
     }
-    
-    public void printPage(String name, String content){
 
-        if(this.init){
-            this.saveFileToPrint(name,content);
-        }
-        else{
-             map.put(name,content);
+    public void printPage(String name, String content) {
+
+        if (this.init) {
+            this.saveFileToPrint(name, content);
+        } else {
+            map.put(name, content);
         }
 
         check();
     }
 
-    @Scheduled(fixedDelay=15000)
-    private void check(){
+    @Scheduled(fixedDelay = 15000)
+    private void check() {
 
-        if(!init){
+        if (!init) {
             return;
         }
 
         Collection<File> files = FileUtils.listFiles(new File(pathprinter), null, false);
-        for(File f : files){
-            if(f.getName().contains(".xml")){
-                 continue;
+        for (File f : files) {
+            if (f.getName().contains(".xml")) {
+                continue;
             }
 
-            if(running){
+            if (running) {
                 this.print(f);
             }
 
             try {
-                FileUtils.copyFile(f,new File(this.pathdone + f.getName()));
+                FileUtils.copyFile(f, new File(this.pathdone + f.getName()));
             } catch (IOException e) {
-                LOG.error(e.getMessage(),e);
+                LOG.error(e.getMessage(), e);
             }
             FileUtils.deleteQuietly(f);
         }
     }
 
-    public void saveFileToPrint(String name, String htmlContent){
+    public void saveFileToPrint(String name, String htmlContent) {
         try {
-        CleanerProperties props = new CleanerProperties();
+            CleanerProperties props = new CleanerProperties();
 
-         // set some properties to non-default values
-        props.setTranslateSpecialEntities(true);
-        props.setTransResCharsToNCR(true);
-        props.setOmitComments(true);
+            // set some properties to non-default values
+            props.setTranslateSpecialEntities(true);
+            props.setTransResCharsToNCR(true);
+            props.setOmitComments(true);
 
-        // do parsing
-        TagNode tagNode = new HtmlCleaner(props).clean(
-                htmlContent
-        );
+            // do parsing
+            TagNode tagNode = new HtmlCleaner(props).clean(
+                    htmlContent
+            );
 
-        Object[] o = tagNode.evaluateXPath("//body");
+            Object[] o = tagNode.evaluateXPath("//body");
 
             // serialize to xml file
             new PrettyXmlSerializer(props).writeToFile(
-                  //  (TagNode) o[0], pathprinter+"out.xml", "utf-8"
-                    (TagNode) o[0], pathprinter+"out.xml"
+                    //  (TagNode) o[0], pathprinter+"out.xml", "utf-8"
+                    (TagNode) o[0], pathprinter + "out.xml"
             );
 
-            String outputFile = pathprinter+name+".pdf";
+            String outputFile = pathprinter + name + ".pdf";
             OutputStream os = new FileOutputStream(outputFile);
 
             Document doc = new Document(PageSize.A4);
@@ -142,15 +141,15 @@ public class PrintAgent {
             doc.open();
             HTMLWorker hw = new HTMLWorker(doc);
 
-            hw.parse(new FileReader(pathprinter+"out.xml"));
+            hw.parse(new FileReader(pathprinter + "out.xml"));
             doc.close();
 
             os.close();
 
-    } catch (Exception e) {
+        } catch (Exception e) {
             LOG.error(e.getMessage(), e);
-    }
- //       FileUtils.deleteQuietly(new File(pathprinter+"out.xml"));
+        }
+        //       FileUtils.deleteQuietly(new File(pathprinter+"out.xml"));
     }
 
     private void print(File f) {
@@ -161,7 +160,7 @@ public class PrintAgent {
             LOG.debug("file ist file: " + f.isFile());
             LOG.debug("file ist directory: " + f.isDirectory());
         } catch (IOException e) {
-           LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
 
         FileInputStream in = null;
@@ -169,7 +168,7 @@ public class PrintAgent {
         try {
             in = new FileInputStream(f);
         } catch (FileNotFoundException e) {
-           LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
         DocFlavor flavor = DocFlavor.INPUT_STREAM.PDF;
 
@@ -181,8 +180,8 @@ public class PrintAgent {
         PrintService service = PrintServiceLookup.lookupDefaultPrintService();
 
 
-        if(service == null){
-                      LOG.error("default printer ist: null");
+        if (service == null) {
+            LOG.error("default printer ist: null");
             return;
         }
 
@@ -206,11 +205,11 @@ public class PrintAgent {
         }
     }
 
-    public boolean isRunning(){
+    public boolean isRunning() {
         return running;
     }
 
-    public void setRunning(boolean running){
+    public void setRunning(boolean running) {
         this.running = running;
     }
 

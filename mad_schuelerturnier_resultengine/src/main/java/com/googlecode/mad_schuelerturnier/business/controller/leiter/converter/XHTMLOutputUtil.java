@@ -4,7 +4,8 @@ import org.apache.log4j.Logger;
 import org.htmlcleaner.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import java.io.*;
+
+import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.

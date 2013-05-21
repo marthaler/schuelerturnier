@@ -31,10 +31,10 @@
                                         <f:selectItem itemLabel="Kategorie Auswaehlen" itemValue=""/>
                                         <f:selectItems value="#{beobachterBean.kategorien}"/>
 
-                                        <p:ajax update="historie" event="change" actionListener="#{beobachterBean.auswahl}"/>
+                                        <p:ajax update="historie" event="change"
+                                                actionListener="#{beobachterBean.auswahl}"/>
 
                                     </p:selectOneMenu>
-
 
 
                                 </h:panelGrid>

@@ -313,16 +313,15 @@ public class Spiel extends AbstractPersistable<Long> {
     @Override
     public String toString() {
 
-        String ret ="";
+        String ret = "";
 
-      if (this.mannschaftA != null) {
+        if (this.mannschaftA != null) {
             ret = this.getMannschaftAName() + ":" + this.getMannschaftBName();
-        } else if(this.typ == SpielEnum.GFINAL){
-            ret = ret + "GrFin-"+this.getKategorieName();
-      } else if(this.typ == SpielEnum.KFINAL){
-          ret = ret + "KlFin-"+this.getKategorieName();
-      }
-      else{
+        } else if (this.typ == SpielEnum.GFINAL) {
+            ret = ret + "GrFin-" + this.getKategorieName();
+        } else if (this.typ == SpielEnum.KFINAL) {
+            ret = ret + "KlFin-" + this.getKategorieName();
+        } else {
             ret = ret + this.getTyp();
         }
         return ret;

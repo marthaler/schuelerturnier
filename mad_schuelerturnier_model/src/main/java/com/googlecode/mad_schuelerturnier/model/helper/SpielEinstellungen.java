@@ -3,15 +3,14 @@
  */
 package com.googlecode.mad_schuelerturnier.model.helper;
 
-import java.util.Date;
-
-import javax.persistence.Entity;
+import com.googlecode.mad_schuelerturnier.model.enums.SpielPhasenEnum;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import org.joda.time.DateTime;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import com.googlecode.mad_schuelerturnier.model.enums.SpielPhasenEnum;
+import javax.persistence.Entity;
+import java.util.Date;
 
 /**
  * @author $Author: marthaler.worb@gmail.com $
@@ -20,27 +19,27 @@ import com.googlecode.mad_schuelerturnier.model.enums.SpielPhasenEnum;
 @Entity
 public class SpielEinstellungen extends AbstractPersistable<Long> {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private SpielPhasenEnum phase = SpielPhasenEnum.A_ANMELDEPHASE;
+    private SpielPhasenEnum phase = SpielPhasenEnum.A_ANMELDEPHASE;
 
-	private Date starttag = new Date();
+    private Date starttag = new Date();
 
-	private String starttagstr;
+    private String starttagstr;
 
-	private String test;
+    private String test;
 
-	private Date start = new Date();
+    private Date start = new Date();
 
     private int verschnellerungsFaktor = 1;
 
-	private boolean startJetzt = true;
+    private boolean startJetzt = true;
 
     private String spielVertauschungen;
 
-	private int pause = 2;
+    private int pause = 2;
 
-	private int spiellaenge = 10;
+    private int spiellaenge = 10;
 
     private int aufholzeitInSekunden = 60;
 
@@ -55,22 +54,22 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
     private boolean gongEinschalten = false;
 
 
-    public SpielEinstellungen(){
+    public SpielEinstellungen() {
         DateTime date = new DateTime();
-        date.withDate(2013,6,8);
+        date.withDate(2013, 6, 8);
         starttag = date.toDate();
     }
 
-    public MannschaftTageskorrektur grabMannschaftsTageskorrekturen(){
+    public MannschaftTageskorrektur grabMannschaftsTageskorrekturen() {
         XStream xStream = new XStream(new DomDriver());
         xStream.alias("korrekturen", MannschaftTageskorrektur.class);
-        if(spielVertauschungen == null || spielVertauschungen.isEmpty()){
-           return null;
+        if (spielVertauschungen == null || spielVertauschungen.isEmpty()) {
+            return null;
         }
         return (MannschaftTageskorrektur) xStream.fromXML(spielVertauschungen);
     }
 
-    public void placeMannschaftsTageskorrekturen(MannschaftTageskorrektur korr){
+    public void placeMannschaftsTageskorrekturen(MannschaftTageskorrektur korr) {
         XStream xStream = new XStream(new DomDriver());
         xStream.alias("korrekturen", MannschaftTageskorrektur.class);
         spielVertauschungen = xStream.toXML(korr);
@@ -85,68 +84,68 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
     }
 
     public int getPause() {
-		return this.pause;
-	}
+        return this.pause;
+    }
 
-	public void setPause(final int pause) {
-		this.pause = pause;
-	}
+    public void setPause(final int pause) {
+        this.pause = pause;
+    }
 
-	public int getSpiellaenge() {
-		return this.spiellaenge;
-	}
+    public int getSpiellaenge() {
+        return this.spiellaenge;
+    }
 
-	public void setSpiellaenge(final int spiellaenge) {
-		this.spiellaenge = spiellaenge;
-	}
+    public void setSpiellaenge(final int spiellaenge) {
+        this.spiellaenge = spiellaenge;
+    }
 
-	public SpielPhasenEnum getPhase() {
-		return this.phase;
-	}
+    public SpielPhasenEnum getPhase() {
+        return this.phase;
+    }
 
-	public void setPhase(final SpielPhasenEnum phase) {
-		this.phase = phase;
-	}
+    public void setPhase(final SpielPhasenEnum phase) {
+        this.phase = phase;
+    }
 
-	public Date getStarttag() {
-		return this.starttag;
-	}
+    public Date getStarttag() {
+        return this.starttag;
+    }
 
-	public void setStarttag(final Date starttag) {
-		this.starttag = starttag;
-	}
+    public void setStarttag(final Date starttag) {
+        this.starttag = starttag;
+    }
 
-	public String getTest() {
-		return this.test;
-	}
+    public String getTest() {
+        return this.test;
+    }
 
-	public void setTest(final String test) {
-		this.test = test;
-	}
+    public void setTest(final String test) {
+        this.test = test;
+    }
 
-	public Date getStart() {
-		return this.start;
-	}
+    public Date getStart() {
+        return this.start;
+    }
 
-	public boolean isStartJetzt() {
-		return this.startJetzt;
-	}
+    public boolean isStartJetzt() {
+        return this.startJetzt;
+    }
 
-	public void setStartJetzt(final boolean startJetzt) {
-		this.startJetzt = startJetzt;
-	}
+    public void setStartJetzt(final boolean startJetzt) {
+        this.startJetzt = startJetzt;
+    }
 
-	public void setStart(final Date start) {
-		this.start = start;
-	}
+    public void setStart(final Date start) {
+        this.start = start;
+    }
 
-	public int getVerschnellerungsFaktor() {
-		return this.verschnellerungsFaktor;
-	}
+    public int getVerschnellerungsFaktor() {
+        return this.verschnellerungsFaktor;
+    }
 
-	public void setVerschnellerungsFaktor(final int verschnellerungsFaktor) {
-		this.verschnellerungsFaktor = verschnellerungsFaktor;
-	}
+    public void setVerschnellerungsFaktor(final int verschnellerungsFaktor) {
+        this.verschnellerungsFaktor = verschnellerungsFaktor;
+    }
 
     public String getSpielVertauschungen() {
         return spielVertauschungen;

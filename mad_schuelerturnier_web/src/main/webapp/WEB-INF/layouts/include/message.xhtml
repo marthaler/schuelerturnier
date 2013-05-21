@@ -6,17 +6,18 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
 
     <f:subview id="part">
-        <h:panelGroup id="message" styleClass="message #{style eq null ? 'note' : style}" rendered="#{rendered ne null ? rendered: true}">
+        <h:panelGroup id="message" styleClass="message #{style eq null ? 'note' : style}"
+                      rendered="#{rendered ne null ? rendered: true}">
             <ui:insert name="text">
                 <h:outputText value="#{text}" rendered="#{rendered ne null ? rendered: true}"/>
             </ui:insert>
         </h:panelGroup>
         <script type="text/javascript">
             /* <![CDATA[ */
-            jQuery(#{rich:element('message')}).click(function() {
-                jQuery(#{rich:element('message')}).toggle(function() {
-                // Animation complete.
-              });
+            jQuery(#{rich:element('message')}).click(function () {
+                jQuery(#{rich:element('message')}).toggle(function () {
+                    // Animation complete.
+                });
             });
             /* ]]> */
         </script>

@@ -3,7 +3,6 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:sec="http://www.springframework.org/security/tags"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui">
 
@@ -12,61 +11,93 @@
             <p:menubar id="menubar" styleClass="menubar">
 
                 <!-- home -->
-                <p:menuitem id="m_home" rendered="#{sec:areAnyGranted('ROLE_ADMIN')}" title="Home" icon="ui-icon-home" action="dashboard"/>
+                <p:menuitem id="m_home" rendered="#{sec:areAnyGranted('ROLE_ADMIN')}" title="Home" icon="ui-icon-home"
+                            action="dashboard"/>
 
                 <!-- vorbereitung: anmeldung -->
-                <p:submenu id="m_anmeldung" rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.anmeldephase}" label="Anmeldephase" icon="ui-icon-refresh">
+                <p:submenu id="m_anmeldung"
+                           rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.anmeldephase}"
+                           label="Anmeldephase" icon="ui-icon-refresh">
                     <p:menuitem id="mm_hinzu" value="Mannschaft hinzufügen" icon="ui-icon-plus" action="newmannschaft"/>
-                    <p:menuitem id="mm_auflisten" value="Mannschaften auflisten" icon="ui-icon-carat-2-n-s" action="mannschaftsliste"/>
-                    <p:menuitem id="mm_phasen1" value="Phasenverwaltung" icon="ui-icon-arrow-4-diag" action="spielsteuerung"/>
+                    <p:menuitem id="mm_auflisten" value="Mannschaften auflisten" icon="ui-icon-carat-2-n-s"
+                                action="mannschaftsliste"/>
+                    <p:menuitem id="mm_phasen1" value="Phasenverwaltung" icon="ui-icon-arrow-4-diag"
+                                action="spielsteuerung"/>
                 </p:submenu>
 
                 <!-- vorbereitung: kategoriezuordnungsphase -->
-                <p:submenu id="m_kat" rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.kategoriezuordnungsphase}" label="Kategoriezuordnugsphase" icon="ui-icon-refresh">
-                    <p:menuitem id="mm_maedchen" value="Kategorien Mädchen" icon="ui-icon-carat-2-n-s" action="kategorien_m"/>
-                    <p:menuitem id="mm_knaben" value="Kategorien Knaben" icon="ui-icon-carat-2-n-s" action="kategorien_k"/>
-                    <p:menuitem id="mm_phasen2" value="Phasenverwaltung" icon="ui-icon-arrow-4-diag" action="spielsteuerung"/>
+                <p:submenu id="m_kat"
+                           rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.kategoriezuordnungsphase}"
+                           label="Kategoriezuordnugsphase" icon="ui-icon-refresh">
+                    <p:menuitem id="mm_maedchen" value="Kategorien Mädchen" icon="ui-icon-carat-2-n-s"
+                                action="kategorien_m"/>
+                    <p:menuitem id="mm_knaben" value="Kategorien Knaben" icon="ui-icon-carat-2-n-s"
+                                action="kategorien_k"/>
+                    <p:menuitem id="mm_phasen2" value="Phasenverwaltung" icon="ui-icon-arrow-4-diag"
+                                action="spielsteuerung"/>
                 </p:submenu>
 
                 <!-- vorbereitung: spieltagezuordnungsphase -->
-                <p:submenu id="m_spieltage" rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.spieltagezuordnungsphase}" label="Spieltagezuordnung" icon="ui-icon-refresh">
-                    <p:menuitem id="mm_einstelung1" value="Spieleinstellungen" icon="ui-icon-carat-2-n-s" action="spieleinstellungen"/>
-                    <p:menuitem id="mm_phasen3" value="Phasenverwaltung" icon="ui-icon-arrow-4-diag" action="spielsteuerung"/>
+                <p:submenu id="m_spieltage"
+                           rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.spieltagezuordnungsphase}"
+                           label="Spieltagezuordnung" icon="ui-icon-refresh">
+                    <p:menuitem id="mm_einstelung1" value="Spieleinstellungen" icon="ui-icon-carat-2-n-s"
+                                action="spieleinstellungen"/>
+                    <p:menuitem id="mm_phasen3" value="Phasenverwaltung" icon="ui-icon-arrow-4-diag"
+                                action="spielsteuerung"/>
                 </p:submenu>
 
                 <!-- vorbereitung: spielzuordnungsphase -->
-                <p:submenu id="m_spieltagekontrolle" rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.spielzuordnungsphase}" label="Spielzuordnung" icon="ui-icon-refresh">
-                    <p:menuitem id="mm_einstelung2" value="Spieleinstellungen" icon="ui-icon-carat-2-n-s" action="spieleinstellungen"/>
-                    <p:menuitem id="mm_phasen4" value="Phasenverwaltung" icon="ui-icon-arrow-4-diag" action="spielsteuerung"/>
+                <p:submenu id="m_spieltagekontrolle"
+                           rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.spielzuordnungsphase}"
+                           label="Spielzuordnung" icon="ui-icon-refresh">
+                    <p:menuitem id="mm_einstelung2" value="Spieleinstellungen" icon="ui-icon-carat-2-n-s"
+                                action="spieleinstellungen"/>
+                    <p:menuitem id="mm_phasen4" value="Phasenverwaltung" icon="ui-icon-arrow-4-diag"
+                                action="spielsteuerung"/>
                 </p:submenu>
 
                 <!-- spielen -->
-                <p:menuitem id="m_spielen" rendered="#{sec:areAnyGranted('ROLE_OPERATOR')}" value="Spielsteuerung" icon="ui-icon-heart" action="spiel_start"/>
+                <p:menuitem id="m_spielen" rendered="#{sec:areAnyGranted('ROLE_OPERATOR')}" value="Spielsteuerung"
+                            icon="ui-icon-heart" action="spiel_start"/>
 
                 <!-- spielen: schirizettel -->
-                <p:menuitem id="mm_schiri" rendered="#{sec:areAnyGranted('ROLE_OPERATOR')}" value="Schirizettel" icon="ui-icon-print" action="gt_schiri"/>
+                <p:menuitem id="mm_schiri" rendered="#{sec:areAnyGranted('ROLE_OPERATOR')}" value="Schirizettel"
+                            icon="ui-icon-print" action="gt_schiri"/>
 
                 <!-- stammdaten -->
-                <p:submenu id="m_stammdaten" rendered="#{sec:areAnyGranted('ROLE_ADMIN')}" label="Stammdaten" icon="ui-icon-contact">
-                    <p:menuitem id="mm_mannschaften" value="Mannschaften auflisten" icon="ui-icon-carat-2-n-s" action="mannschaftsliste"/>
-                    <p:menuitem id="mm_mannschaften_export" value="Mannschaften export" icon="ui-icon-carat-2-n-s" action="mannschaftslisteExport"/>
-                    <p:menuitem id="mm_mannschaften_inport" value="Mannschaften import" icon="ui-icon-carat-2-n-s" action="mannschaftslisteImport"/>
-                    <p:menuitem rendered="#{spielstatusWebBean.spielphase}" value="Spieleinstellungen" icon="ui-icon-carat-2-n-s" action="spieleinstellungen"/>
+                <p:submenu id="m_stammdaten" rendered="#{sec:areAnyGranted('ROLE_ADMIN')}" label="Stammdaten"
+                           icon="ui-icon-contact">
+                    <p:menuitem id="mm_mannschaften" value="Mannschaften auflisten" icon="ui-icon-carat-2-n-s"
+                                action="mannschaftsliste"/>
+                    <p:menuitem id="mm_mannschaften_export" value="Mannschaften export" icon="ui-icon-carat-2-n-s"
+                                action="mannschaftslisteExport"/>
+                    <p:menuitem id="mm_mannschaften_inport" value="Mannschaften import" icon="ui-icon-carat-2-n-s"
+                                action="mannschaftslisteImport"/>
+                    <p:menuitem rendered="#{spielstatusWebBean.spielphase}" value="Spieleinstellungen"
+                                icon="ui-icon-carat-2-n-s" action="spieleinstellungen"/>
 
-                    <p:menuitem id="mm_spiele_export" value="Spiele export" icon="ui-icon-carat-2-n-s" action="spielListeExport"/>
-                    <p:menuitem id="mm_spiele_import" value="Spiele import" icon="ui-icon-carat-2-n-s" action="spielListeImport"/>
-                    <p:menuitem id="mm_spiele_vertauschungen" value="Manuelle Korrekturen" icon="ui-icon-carat-2-n-s" action="korrekturen"/>
-                    <p:menuitem id="mm_einstelung3" value="Spieleinstellungen" icon="ui-icon-carat-2-n-s" action="spieleinstellungen" rendered="#{sec:areAnyGranted('ROLE_ROOT,ROLE_EINTRAGER') and spielstatusWebBean.spielphase}"/>
+                    <p:menuitem id="mm_spiele_export" value="Spiele export" icon="ui-icon-carat-2-n-s"
+                                action="spielListeExport"/>
+                    <p:menuitem id="mm_spiele_import" value="Spiele import" icon="ui-icon-carat-2-n-s"
+                                action="spielListeImport"/>
+                    <p:menuitem id="mm_spiele_vertauschungen" value="Manuelle Korrekturen" icon="ui-icon-carat-2-n-s"
+                                action="korrekturen"/>
+                    <p:menuitem id="mm_einstelung3" value="Spieleinstellungen" icon="ui-icon-carat-2-n-s"
+                                action="spieleinstellungen"
+                                rendered="#{sec:areAnyGranted('ROLE_ROOT,ROLE_EINTRAGER') and spielstatusWebBean.spielphase}"/>
 
                 </p:submenu>
 
                 <!-- spielen: rollen -->
                 <!-- spielen: rollen : eintrager-->
-                <p:menuitem id="m_eintrager" rendered="#{sec:areAnyGranted('ROLE_EINTRAGER, ROLE_BEOBACHTER')}" value="Eintrager" icon="ui-icon-pencil"
+                <p:menuitem id="m_eintrager" rendered="#{sec:areAnyGranted('ROLE_EINTRAGER, ROLE_BEOBACHTER')}"
+                            value="Eintrager" icon="ui-icon-pencil"
                             action="eintrager"/>
 
                 <!-- spielen: rollen : kontrollierer-->
-                <p:menuitem id="m_kontrollierer" rendered="#{sec:areAnyGranted('ROLE_KONTROLLIERER, ROLE_BEOBACHTER')}" value="Kontrollierer" icon="ui-icon-check"
+                <p:menuitem id="m_kontrollierer" rendered="#{sec:areAnyGranted('ROLE_KONTROLLIERER, ROLE_BEOBACHTER')}"
+                            value="Kontrollierer" icon="ui-icon-check"
                             action="kontrollierer"/>
 
                 <!-- spielen: rollen : speaker-->
@@ -74,8 +105,10 @@
                             value="speaker" icon="ui-icon-volume-on" action="speaker"/>
 
                 <!-- spielen : rollen : beobachter -->
-                <p:submenu id="m_beobachter" rendered="#{sec:areAnyGranted('ROLE_BEOBACHTER')}" label="Beobachter" icon="ui-icon-search">
-                    <p:menuitem id="mm_resultate" value="Resultate + Historie" icon="ui-icon-clock" action="gt_historie"/>
+                <p:submenu id="m_beobachter" rendered="#{sec:areAnyGranted('ROLE_BEOBACHTER')}" label="Beobachter"
+                           icon="ui-icon-search">
+                    <p:menuitem id="mm_resultate" value="Resultate + Historie" icon="ui-icon-clock"
+                                action="gt_historie"/>
                     <p:menuitem id="mm_matrix" value="Spielmatrix" icon="ui-icon-bookmark" action="gt_matrix"/>
                     <p:menuitem id="mm_rangliste" value="Rangliste" icon="ui-icon-calculator" action="gt_rangliste"/>
                 </p:submenu>

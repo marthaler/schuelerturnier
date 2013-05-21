@@ -1,28 +1,28 @@
 package com.googlecode.mad_schuelerturnier.web;
 
-import java.io.Serializable;
-
 import org.springframework.stereotype.Component;
+
+import java.io.Serializable;
 
 @Component
 public class ReloadBackingBean implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	private int i = 0;
-	private boolean state = false;
-	
-	
-	public boolean getState(){
-		i++;
-		 state = false;
-		if(i%3 == 0){
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-			return false;
-		}
-		return true;
-	}
+    private int i = 0;
+    private boolean state = false;
+
+
+    public boolean getState() {
+        i++;
+        state = false;
+        if (i % 3 == 0) {
+
+            return false;
+        }
+        return true;
+    }
 }

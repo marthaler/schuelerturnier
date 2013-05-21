@@ -60,13 +60,13 @@ public class ResultateVerarbeiter {
     public void signalPenalty(Penalty p) {
 
         //nachladen num sichergehen, dass die penaltys aktuelle sind
-        String katName  = p.getKategorie().getKategorie().getName();
+        String katName = p.getKategorie().getKategorie().getName();
 
         LOG.info("verarbeite penalty: " + p);
 
         map.remove(katName);
-        map.remove(katName+"_A");
-        map.remove(katName+"_B");
+        map.remove(katName + "_A");
+        map.remove(katName + "_B");
 
         this.initialisierenKategorie(p.getKategorie().getKategorie());
     }
@@ -84,7 +84,7 @@ public class ResultateVerarbeiter {
         if (!spiel.getGruppe().getKategorie().hasVorUndRueckrunde() && spiel.getGruppe().getKategorie().getGruppeB().getMannschaften().size() > 0) {
 
             // mannschaft a des spiels ist in gruppe a
-            if(spiel.getGruppe().getKategorie().getGruppeA().getMannschaften().contains(spiel.getMannschaftA()) && spiel.getTyp() == SpielEnum.GRUPPE){
+            if (spiel.getGruppe().getKategorie().getGruppeA().getMannschaften().contains(spiel.getMannschaftA()) && spiel.getTyp() == SpielEnum.GRUPPE) {
                 rangListe = map.get(katName + "_A");
 
                 if (rangListe == null) {
@@ -93,7 +93,7 @@ public class ResultateVerarbeiter {
                     rangListe = new RanglisteneintragHistorie(spiel, rangListe, Boolean.TRUE);
                 }
 
-                if(rangListe.isPenaltyAuswertungNoetig()){
+                if (rangListe.isPenaltyAuswertungNoetig()) {
                     rangListe = new RanglisteneintragHistorie(null, rangListe, Boolean.TRUE);
                 }
 
@@ -102,16 +102,16 @@ public class ResultateVerarbeiter {
             }
 
             // mannschaft a des spiels ist in gruppe b
-            if(spiel.getGruppe().getKategorie().getGruppeB().getMannschaften().contains(spiel.getMannschaftA())&& spiel.getTyp() == SpielEnum.GRUPPE){
+            if (spiel.getGruppe().getKategorie().getGruppeB().getMannschaften().contains(spiel.getMannschaftA()) && spiel.getTyp() == SpielEnum.GRUPPE) {
 
-            rangListe = map.get(katName + "_B");
+                rangListe = map.get(katName + "_B");
 
-            if (rangListe == null) {
-                rangListe = new RanglisteneintragHistorie(spiel, null, Boolean.FALSE);
-            } else {
-                rangListe = new RanglisteneintragHistorie(spiel, rangListe, Boolean.FALSE);
-            }
-                if(rangListe.isPenaltyAuswertungNoetig()){
+                if (rangListe == null) {
+                    rangListe = new RanglisteneintragHistorie(spiel, null, Boolean.FALSE);
+                } else {
+                    rangListe = new RanglisteneintragHistorie(spiel, rangListe, Boolean.FALSE);
+                }
+                if (rangListe.isPenaltyAuswertungNoetig()) {
                     rangListe = new RanglisteneintragHistorie(null, rangListe, Boolean.FALSE);
                 }
 
@@ -131,7 +131,7 @@ public class ResultateVerarbeiter {
             rangListe = new RanglisteneintragHistorie(spiel, rangListe, null);
         }
 
-        if(rangListe.isPenaltyAuswertungNoetig()){
+        if (rangListe.isPenaltyAuswertungNoetig()) {
             rangListe = new RanglisteneintragHistorie(null, rangListe, null);
         }
 
@@ -141,11 +141,11 @@ public class ResultateVerarbeiter {
         Penalty penA = rangListe.getPenaltyA();
         Penalty penB = rangListe.getPenaltyB();
 
-         // in kategorie setzen, falls neue penalty
-        if(spiel.getGruppe().getKategorie().getPenaltyA() == null && penA != null){
+        // in kategorie setzen, falls neue penalty
+        if (spiel.getGruppe().getKategorie().getPenaltyA() == null && penA != null) {
             spiel.getGruppe().getKategorie().setPenaltyA(penA);
         }
-        if(spiel.getGruppe().getKategorie().getPenaltyB() == null && penB != null){
+        if (spiel.getGruppe().getKategorie().getPenaltyB() == null && penB != null) {
             spiel.getGruppe().getKategorie().setPenaltyA(penB);
         }
 
@@ -156,7 +156,7 @@ public class ResultateVerarbeiter {
 
         uploadKat(kat);
 
-       printer.saveSpiel(spiel);
+        printer.saveSpiel(spiel);
 
     }
 
@@ -164,7 +164,7 @@ public class ResultateVerarbeiter {
         // pruefen ob gruppenspiel fertig und gruppenspiel fertig, dann finalmannschaften eintragen
         if (rangListe.isFertigGespielt() && spiel.getTyp() == SpielEnum.GRUPPE) {
 
-            if(spiel.getGruppe().getKategorie().getGrosserFinal().getMannschaftA() != null  ){
+            if (spiel.getGruppe().getKategorie().getGrosserFinal().getMannschaftA() != null) {
                 LOG.info("achtung grosser finale, mannschaft wurde bereits zugeordnet");
                 return;
             }
@@ -218,7 +218,7 @@ public class ResultateVerarbeiter {
     }
 
     @Async
-    public void uploadAllKat(){
+    public void uploadAllKat() {
         for (Kategorie kat : this.katRepo.findAll()) {
             uploadKat(kat);
         }
@@ -233,7 +233,7 @@ public class ResultateVerarbeiter {
         this.ftpPublisher.addPage(kat.getName() + ".html".toLowerCase(), page);
 
         // hochladen der resultate
-        this.ftpPublisher.addPage("rangliste.html", this.rangliste.printOutGere(map.values(),true));
+        this.ftpPublisher.addPage("rangliste.html", this.rangliste.printOutGere(map.values(), true));
     }
 
     @PostConstruct
@@ -265,10 +265,10 @@ public class ResultateVerarbeiter {
                 this.signalFertigesSpiel(spiel.getId());
             }
         }
-        if(kat.getGrosserFinal().isFertigBestaetigt()){
+        if (kat.getGrosserFinal().isFertigBestaetigt()) {
             this.signalFertigesSpiel(kat.getGrosserFinal().getId());
         }
-        if(kat.getGrosserFinal().isFertigBestaetigt()){
+        if (kat.getGrosserFinal().isFertigBestaetigt()) {
             this.signalFertigesSpiel(kat.getGrosserFinal().getId());
         }
 
@@ -288,7 +288,7 @@ public class ResultateVerarbeiter {
     }
 
     public String getRangliste() {
-        return rangliste.printOutGere(map.values(),false);
+        return rangliste.printOutGere(map.values(), false);
     }
 
     @Deprecated

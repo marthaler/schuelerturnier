@@ -2,7 +2,6 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:sec="http://www.springframework.org/security/tags"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 template="../../../layouts/100.xhtml">
@@ -37,10 +36,14 @@
 
                                     <p:tab title="Kontrollieren">
 
-                                        <h:outputText id="zeit2" value="Echte Zeit #{spielUhr.richtigeZeit}"/> - <h:outputText id="zeit3" value="Spiel Zeit: #{spielUhr.spielZeit}"/>
-                                        <p:poll interval="1" listener="#{spielUhr.getRichtigeZeit}" update="zeit2,zeit3"/>
+                                        <h:outputText id="zeit2" value="Echte Zeit #{spielUhr.richtigeZeit}"/>
+                                        -
+                                        <h:outputText id="zeit3" value="Spiel Zeit: #{spielUhr.spielZeit}"/>
+                                        <p:poll interval="1" listener="#{spielUhr.getRichtigeZeit}"
+                                                update="zeit2,zeit3"/>
                                         <br/><br/>
-                                        <p:dataTable id="dataTable1" var="spiel" value="#{bestaetigen}" emptyMessage="leer">
+                                        <p:dataTable id="dataTable1" var="spiel" value="#{bestaetigen}"
+                                                     emptyMessage="leer">
 
 
                                             <p:column>
@@ -63,7 +66,8 @@
                                                     <h:outputText value="Start"/>
                                                 </f:facet>
                                                 <h:outputText value="#{spiel.start}">
-                                                    <f:convertDateTime type="date" pattern="HH:mm" timeZone="Europe/Zurich"/>
+                                                    <f:convertDateTime type="date" pattern="HH:mm"
+                                                                       timeZone="Europe/Zurich"/>
                                                 </h:outputText>
                                             </p:column>
 
@@ -72,7 +76,8 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Tore A"/>
                                                 </f:facet>
-                                                <h:outputText value="#{spiel.mannschaftAName}:  "/><h:outputText value="#{spiel.toreA}"/>
+                                                <h:outputText value="#{spiel.mannschaftAName}:  "/>
+                                                <h:outputText value="#{spiel.toreA}"/>
 
                                             </p:column>
 
@@ -80,7 +85,8 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Tore B"/>
                                                 </f:facet>
-                                                <h:outputText value="#{spiel.mannschaftBName}:  "/><h:outputText value="#{spiel.toreB}"/>
+                                                <h:outputText value="#{spiel.mannschaftBName}:  "/>
+                                                <h:outputText value="#{spiel.toreB}"/>
 
                                             </p:column>
 
@@ -89,13 +95,15 @@
                                                 </f:facet>
 
                                                 <p:commandButton id="reject" icon="ui-icon-close"
-                                                                 action="save" ajax="false" disabled="#{sec:areNotGranted('ROLE_KONTROLLIERER')}">
+                                                                 action="save" ajax="false"
+                                                                 disabled="#{sec:areNotGranted('ROLE_KONTROLLIERER')}">
                                                     <f:param name="id" value="#{spiel.id}"/>
                                                     <f:param name="ok" value="no"/>
                                                 </p:commandButton>
 
                                                 <p:commandButton id="save" icon="ui-icon-check"
-                                                                 action="save" ajax="false" disabled="#{sec:areNotGranted('ROLE_KONTROLLIERER')}">
+                                                                 action="save" ajax="false"
+                                                                 disabled="#{sec:areNotGranted('ROLE_KONTROLLIERER')}">
                                                     <f:param name="id" value="#{spiel.id}"/>
                                                     <f:param name="ok" value="ok"/>
                                                 </p:commandButton>

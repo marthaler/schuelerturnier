@@ -20,9 +20,9 @@ import java.nio.charset.Charset;
  * @headurl $HeadURL: https://mad-schuelerturnier.googlecode.com/svn/trunk/mad_schuelereturnier /src/main/java/com/googlecode/mad_schuelerturnier/business/ controller/out/OutToWebsitePublisher.java $
  */
 public class OutToWebsiteSender extends Thread {
-    
-	private final static Logger LOG = Logger.getLogger(OutToWebsiteSender.class);
-	private int MAX_RETRY = 5;
+
+    private final static Logger LOG = Logger.getLogger(OutToWebsiteSender.class);
+    private int MAX_RETRY = 5;
     private String folder = "";
     private String name = "";
     private String content = "";
@@ -60,14 +60,14 @@ public class OutToWebsiteSender extends Thread {
             if (this.ok) {
                 break;
             }
-            
+
             i++;
 
-            if(i > this.MAX_RETRY){
-            	LOG.error("senden nicht moeglich: Abbruch");
-            	return;
+            if (i > this.MAX_RETRY) {
+                LOG.error("senden nicht moeglich: Abbruch");
+                return;
             }
-            
+
             OutToWebsiteSender.LOG.info("neuer versuch: " + i);
 
             try {

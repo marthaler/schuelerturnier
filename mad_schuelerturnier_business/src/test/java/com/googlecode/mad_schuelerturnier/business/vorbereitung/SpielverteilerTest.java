@@ -74,12 +74,12 @@ public class SpielverteilerTest {
         Iterable<SpielZeile> liste = repo.findAll();
 
         for (SpielZeile spielZeile : liste) {
-             System.out.println(spielZeile);
+            System.out.println(spielZeile);
         }
 
 
-       // ;
-       // this.kontroller.shiftSpielPhase();
+        // ;
+        // this.kontroller.shiftSpielPhase();
 
     }
 

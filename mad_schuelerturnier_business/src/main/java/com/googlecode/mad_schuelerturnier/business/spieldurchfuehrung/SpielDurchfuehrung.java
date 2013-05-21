@@ -13,7 +13,6 @@ import com.googlecode.mad_schuelerturnier.model.enums.SpielZeilenPhaseEnum;
 import com.googlecode.mad_schuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import com.googlecode.mad_schuelerturnier.model.spiel.tabelle.SpielZeile;
-import com.googlecode.mad_schuelerturnier.persistence.repository.PenaltyRepository;
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.apache.log4j.Logger;
@@ -57,7 +56,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     @Autowired
     private SpielPrintManager spielPrinter;
 
-     private boolean endranglistegedruckt = false;
+    private boolean endranglistegedruckt = false;
 
     private Countdown countdown;
 
@@ -81,8 +80,8 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     public void onApplicationEvent(final ZeitPuls event) {
 
         //beim ersten aufruf, initialisierung
-        if(! init){
-           init();
+        if (!init) {
+            init();
             init = true;
         }
 
@@ -112,10 +111,11 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
 
     }
-     /*
-      * dient dazu beim ersten aufruf die liste zu fuellen mit den zeilen aus der db
-      */
-    private synchronized  void init(){
+
+    /*
+     * dient dazu beim ersten aufruf die liste zu fuellen mit den zeilen aus der db
+     */
+    private synchronized void init() {
         _2_zum_vorbereiten.addAll(spielzeilenRepo.find_B_ZurVorbereitung());
         _3_vorbereitet.addAll(spielzeilenRepo.find_C_Vorbereitet());
         _4_spielend.addAll(spielzeilenRepo.find_D_Spielend());
@@ -169,17 +169,17 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
             if ((this._2_zum_vorbereiten.isEmpty())) {
 
                 // pruefung ob nachste zeile bereits zur vorbereitung
-                long naechste = this._1_wartend.get(this._1_wartend.size() - 1).getStart().getTime()- (60 * minutenZumVorbereiten * 1000);
+                long naechste = this._1_wartend.get(this._1_wartend.size() - 1).getStart().getTime() - (60 * minutenZumVorbereiten * 1000);
                 long now = jetzt.getSpielZeit().getMillis();
 
-                if( naechste < now){
-                SpielZeile temp = this._1_wartend.remove(this._1_wartend.size() - 1);
-                temp.setPhase(SpielZeilenPhaseEnum.B_ZUR_VORBEREITUNG);
-                temp = this.spielzeilenRepo.save(temp);
-                this._2_zum_vorbereiten.add(temp);
+                if (naechste < now) {
+                    SpielZeile temp = this._1_wartend.remove(this._1_wartend.size() - 1);
+                    temp.setPhase(SpielZeilenPhaseEnum.B_ZUR_VORBEREITUNG);
+                    temp = this.spielzeilenRepo.save(temp);
+                    this._2_zum_vorbereiten.add(temp);
 
                     // automatisches vorbereiten
-                    if(this.business.getSpielEinstellungen().isAutomatischesVorbereiten()){
+                    if (this.business.getSpielEinstellungen().isAutomatischesVorbereiten()) {
                         this.vorbereitet();
                     }
 
@@ -193,33 +193,33 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
         }
 
         // zeit wieder starten, falls zum vorbereiten leer ist oder eine zeile mit start in der zukunft hat, falls evnet auf pause ist
-        if (jetzt.isUnterbruch() && !stopBecause_wartenAufStart() ) {
+        if (jetzt.isUnterbruch() && !stopBecause_wartenAufStart()) {
             if (this._2_zum_vorbereiten.isEmpty() || jetzt.getSpielZeit().isBefore(new DateTime(_2_zum_vorbereiten.get(0).getStart()))) {
-                this.zeitgeber.startGame(0,"liste mit zu_vorbereiteten ist wieder leer");
+                this.zeitgeber.startGame(0, "liste mit zu_vorbereiteten ist wieder leer");
             }
         }
 
     }
 
     private boolean stopBecause_zumVorbereiten() {
-        boolean result = ! this._2_zum_vorbereiten.isEmpty() && jetzt.getSpielZeit().isAfter(new DateTime(_2_zum_vorbereiten.get(0).getStart()));
+        boolean result = !this._2_zum_vorbereiten.isEmpty() && jetzt.getSpielZeit().isAfter(new DateTime(_2_zum_vorbereiten.get(0).getStart()));
         return result;
     }
 
     private boolean stopBecause_wartenAufStart() {
-        boolean result = ! this._3_vorbereitet.isEmpty() && jetzt.getSpielZeit().isAfter(new DateTime(_3_vorbereitet.get(0).getStart()));
+        boolean result = !this._3_vorbereitet.isEmpty() && jetzt.getSpielZeit().isAfter(new DateTime(_3_vorbereitet.get(0).getStart()));
         return result;
     }
 
     private void prepare_3_warten_auf_start() {
 
         // zeit anhalten, falls die spielzeit des zum vorbereiten abgelaufen ist
-        if (stopBecause_wartenAufStart() ) {
+        if (stopBecause_wartenAufStart()) {
             this.zeitgeber.stopGame("spielzeit des vorbereitenden ist abgelaufen");
         }
 
         // zeit wieder starten, falls vorbereiten leer ist oder eine zeile mit start in der zukunft hat, falls evnet auf pause ist
-        if (jetzt.isUnterbruch() && ! stopBecause_zumVorbereiten()) {
+        if (jetzt.isUnterbruch() && !stopBecause_zumVorbereiten()) {
             if (this._3_vorbereitet.isEmpty() || jetzt.getSpielZeit().isBefore(new DateTime(_3_vorbereitet.get(0).getStart()))) {
                 this.zeitgeber.startGame(0, "liste mit vorbereiteten ist wieder leer");
             }
@@ -246,19 +246,19 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
             List<Spiel> einzutragende = this.spielRepo.findAllEinzutragende();
             List<Spiel> bestaetigen = this.spielRepo.findAllZuBestaetigen();
 
-            if(einzutragende.size() > 0 || bestaetigen.size() > 0){
-                 return;
+            if (einzutragende.size() > 0 || bestaetigen.size() > 0) {
+                return;
             }
 
-            if(! endranglistegedruckt){
-                agent.saveFileToPrint("rangliste",verarbeiter.getRangliste());
+            if (!endranglistegedruckt) {
+                agent.saveFileToPrint("rangliste", verarbeiter.getRangliste());
                 endranglistegedruckt = true;
 
                 // letzte resultate drucken
                 spielPrinter.printPage();
 
                 // phase abschliessen
-                SpielEinstellungen einstellung =  business.getSpielEinstellungen();
+                SpielEinstellungen einstellung = business.getSpielEinstellungen();
                 einstellung.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
                 business.saveEinstellungen(einstellung);
 
@@ -297,7 +297,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
         this._4_spielend.add(temp);
 
         // zeit aufholen, falls eingestellt auf automatisch
-        if(this.business.getSpielEinstellungen().isAutomatischesAufholen()){
+        if (this.business.getSpielEinstellungen().isAutomatischesAufholen()) {
             this.business.spielzeitEinholen(this.business.getSpielEinstellungen().getAufholzeitInSekunden());
         }
     }
@@ -335,74 +335,75 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
         return this._1_wartend;
     }
 
-    public String getText(){
-        if(text.size() > 0){
+    public String getText() {
+        if (text.size() > 0) {
             return this.text.remove(0);
         }
         return null;
     }
 
-    private void gong(){
+    private void gong() {
         // bell setzen
-        if(business.getSpielEinstellungen().isGongEinschalten()){
-            text.add("resources"+delim+"static"+delim+"sound"+delim+"bell01.mov");
+        if (business.getSpielEinstellungen().isGongEinschalten()) {
+            text.add("resources" + delim + "static" + delim + "sound" + delim + "bell01.mov");
         }
     }
 
-    public int countText(){
-        if(text.size() > 0){
+    public int countText() {
+        if (text.size() > 0) {
             return this.text.get(0).length();
         }
         return 0;
     }
-    public String getWait(){
+
+    public String getWait() {
 
         // 15 Sekunden default
         int millis = 15000;
 
         // countdown
-        if(countdown != null &&!countdown.isFertig()){
-            if(  millis > (countdown.getSecondsPlus2() * 1000)){
+        if (countdown != null && !countdown.isFertig()) {
+            if (millis > (countdown.getSecondsPlus2() * 1000)) {
                 millis = (countdown.getSecondsPlus2() * 1000);
             }
         }
 
         // countdownToStart
-        if(countdownToStart != null && !countdownToStart.isFertig()){
-            if( millis > (countdownToStart.getSecondsPlus2() * 1000)){
+        if (countdownToStart != null && !countdownToStart.isFertig()) {
+            if (millis > (countdownToStart.getSecondsPlus2() * 1000)) {
                 millis = (countdownToStart.getSecondsPlus2() * 1000);
             }
         }
 
         // ansagetext fuer platze
-        if(isTextAvailable() && (countText() == 31 ||   countText() == 30  )){
-            if(millis < 25000){
+        if (isTextAvailable() && (countText() == 31 || countText() == 30)) {
+            if (millis < 25000) {
                 millis = 25000;
             }
         }
 
         // bell
-        if(isTextAvailable() && (countText() == 35 )){
+        if (isTextAvailable() && (countText() == 35)) {
             millis = 6000;
         }
 
-        if(millis < 5000){
+        if (millis < 5000) {
             millis = 5000;
         }
 
         return "" + millis;
     }
 
-    public boolean isTextAvailable(){
-        if(this.text.size() > 0){
+    public boolean isTextAvailable() {
+        if (this.text.size() > 0) {
             return true;
         }
         return false;
     }
 
-    public void generateText(SpielZeile zeile){
-        if(this.business.getSpielEinstellungen().isAutomatischesAnsagen()){
-            text.add("resources/static/sound/" + zeile.getId()+".mp3");
+    public void generateText(SpielZeile zeile) {
+        if (this.business.getSpielEinstellungen().isAutomatischesAnsagen()) {
+            text.add("resources/static/sound/" + zeile.getId() + ".mp3");
         }
     }
 

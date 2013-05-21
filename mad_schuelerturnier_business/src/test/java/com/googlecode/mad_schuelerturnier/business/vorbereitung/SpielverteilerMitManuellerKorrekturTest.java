@@ -56,9 +56,9 @@ public class SpielverteilerMitManuellerKorrekturTest {
         final List<Mannschaft> liste2 = new ArrayList<Mannschaft>();
 
         for (Mannschaft mannschaft : liste1) {
-                  if(mannschaft.getKlasse() == 6){
-                      liste2.add(mannschaft);
-                  }
+            if (mannschaft.getKlasse() == 6) {
+                liste2.add(mannschaft);
+            }
         }
 
         this.mannschaftRepo.save(liste2);
@@ -88,13 +88,13 @@ public class SpielverteilerMitManuellerKorrekturTest {
 
         for (SpielZeile spielZeile : liste) {
 
-            if(! spielZeile.isEmty()){
+            if (!spielZeile.isEmty()) {
                 System.out.println(spielZeile);
             }
         }
 
 
-    String vertauschungen = "sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;";
+        String vertauschungen = "sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;";
 
 
         final SpielEinstellungen einstellungen = this.business.getSpielEinstellungen();
@@ -109,7 +109,7 @@ public class SpielverteilerMitManuellerKorrekturTest {
 
         for (SpielZeile spielZeile : liste2) {
 
-            if(! spielZeile.isEmty()){
+            if (!spielZeile.isEmty()) {
                 System.out.println(spielZeile);
             }
         }

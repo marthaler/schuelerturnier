@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyBean {
 
-	public void onTabChange(final TabChangeEvent event) {
-		System.out.println(event.getTab().getId());
-	}
+    public void onTabChange(final TabChangeEvent event) {
+        System.out.println(event.getTab().getId());
+    }
 }
