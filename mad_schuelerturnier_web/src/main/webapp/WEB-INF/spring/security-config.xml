@@ -14,8 +14,7 @@
                         default-target-url="/app/dashboard" always-use-default-target="true" authentication-failure-url="/app/login?login_error=1"/>
         <sec:logout logout-url="/app/logout" logout-success-url="/app/login"
                     invalidate-session="true" delete-cookies="JSESSIONID"/>
-        <sec:intercept-url pattern="/app/dashboard" method="GET"
-                           access="hasRole('ROLE_USER')"/>
+        <sec:intercept-url pattern="/app/dashboard" method="GET" access="hasRole('ROLE_USER')"/>
         <sec:remember-me/>
 
     </sec:http>
@@ -24,12 +23,19 @@
     <sec:authentication-manager>
         <sec:authentication-provider>
             <sec:user-service>
-                <sec:user name="admin" password="admin" authorities="ROLE_ADMIN, ROLE_USER, ROLE_ANONYMOUS"/>
-                <sec:user name="tester" password="tester" authorities="ROLE_TESTMANAGER, ROLE_USER, ROLE_ANONYMOUS"/>
-                <sec:user name="t" password="t" authorities="ROLE_ADMIN, ROLE_TESTMANAGER, ROLE_USER, ROLE_ANONYMOUS"/>
-                <sec:user name="ich" password="ich" authorities="ROLE_TESTMANAGER, ROLE_ADMIN ,ROLE_USER, ROLE_ANONYMOUS"/>
-                <sec:user name="eintrager" password="eintrager" authorities="ROLE_EINTRAEGER"/>
-                <sec:user name="bestaetiger" password="bestaetiger" authorities="ROLE_BESTAETIGER"/>
+
+
+                <sec:user name="t" password="t" authorities="ROLE_ROOT,ROLE_ADMIN,ROLE_TESTMANAGER, ROLE_USER"/>
+
+                <sec:user name="root" password="root" authorities="ROLE_ROOT,ROLE_ADMIN,ROLE_OPERATOR,ROLE_BEOBACHTER,ROLE_EINTRAGER,ROLE_KONTROLLIERER,ROLE_SPEAKER,ROLE_USER"/>
+
+                <sec:user name="admin" password="admin" authorities="ROLE_ADMIN, ROLE_USER"/>
+
+                <sec:user name="operator" password="operator" authorities="ROLE_OPERATOR,ROLE_BEOBACHTER,ROLE_USER"/>
+                <sec:user name="eintrager" password="eintrager" authorities="ROLE_EINTRAGER,ROLE_USER"/>
+                <sec:user name="kontrollierer" password="kontrollierer" authorities="ROLE_KONTROLLIERER,ROLE_USER"/>
+                <sec:user name="speaker" password="speaker" authorities="ROLE_SPEAKER,ROLE_USER"/>
+                <sec:user name="beobachter" password="beobachter" authorities="ROLE_BEOBACHTER,ROLE_USER"/>
             </sec:user-service>
         </sec:authentication-provider>
     </sec:authentication-manager>

@@ -2,6 +2,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:sec="http://www.springframework.org/security/tags"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 template="../../../layouts/100.xhtml">
@@ -88,13 +89,13 @@
                                                 </f:facet>
 
                                                 <p:commandButton id="reject" icon="ui-icon-close"
-                                                                 action="save" ajax="false">
+                                                                 action="save" ajax="false" disabled="#{sec:areNotGranted('ROLE_KONTROLLIERER')}">
                                                     <f:param name="id" value="#{spiel.id}"/>
                                                     <f:param name="ok" value="no"/>
                                                 </p:commandButton>
 
                                                 <p:commandButton id="save" icon="ui-icon-check"
-                                                                 action="save" ajax="false">
+                                                                 action="save" ajax="false" disabled="#{sec:areNotGranted('ROLE_KONTROLLIERER')}">
                                                     <f:param name="id" value="#{spiel.id}"/>
                                                     <f:param name="ok" value="ok"/>
                                                 </p:commandButton>

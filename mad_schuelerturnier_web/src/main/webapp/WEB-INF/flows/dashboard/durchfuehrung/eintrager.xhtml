@@ -2,9 +2,12 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:sec="http://www.springframework.org/security/tags"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 template="../../../layouts/100.xhtml">
+
+
 
     <ui:define name="heading">
         <h:outputText value="Mannschaft bearbeiten"/>
@@ -92,16 +95,16 @@
 
                                             <p:column>
                                                 <f:facet name="header">
-                                                    <h:outputText value="Zurückgewiesen"/>
+                                                    <h:outputText value=""/>
                                                 </f:facet>
-                                                <h:outputText value="#{spiel.zurueckgewiesen}"/>
+                                                <h:outputText value= "Zurückgewiesen" rendered="#{spiel.zurueckgewiesen}"/>
                                             </p:column>
 
                                             <p:column>
                                                 <f:facet name="header">
                                                     <h:outputText value="Tore A"/>
                                                 </f:facet>
-                                                <h:outputText value="#{spiel.mannschaftAName}:  "/><p:inputText id="toreA" size="3" value="#{spiel.toreA}"> </p:inputText>
+                                                <h:outputText value="#{spiel.mannschaftAName}:  "/><p:inputText id="toreA" size="3" value="#{spiel.toreA}" disabled="#{sec:areNotGranted('ROLE_EINTRAGER')}"> </p:inputText>
 
                                             </p:column>
 
@@ -109,7 +112,7 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Tore B"/>
                                                 </f:facet>
-                                                <h:outputText value="#{spiel.mannschaftBName}:  "/><p:inputText id="toreB" size="3" value="#{spiel.toreB}"> </p:inputText>
+                                                <h:outputText value="#{spiel.mannschaftBName}:  "/><p:inputText id="toreB" size="3" value="#{spiel.toreB}" disabled="#{sec:areNotGranted('ROLE_EINTRAGER')}"> </p:inputText>
 
                                             </p:column>
 
@@ -117,7 +120,7 @@
                                                 <f:facet name="header">
                                                 </f:facet>
                                                 <p:commandButton id="save" icon="ui-icon-check"
-                                                                 action="save" ajax="false">
+                                                                 action="save" ajax="false" disabled="#{sec:areNotGranted('ROLE_EINTRAGER')}">
                                                     <f:param name="id" value="#{spiel.id}"/>
                                                 </p:commandButton>
                                             </p:column>

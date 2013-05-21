@@ -180,6 +180,7 @@ public class PrintAgent {
 
         PrintService service = PrintServiceLookup.lookupDefaultPrintService();
 
+
         if(service == null){
                       LOG.error("default printer ist: null");
             return;

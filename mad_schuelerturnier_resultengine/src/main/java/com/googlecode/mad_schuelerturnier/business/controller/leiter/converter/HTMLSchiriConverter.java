@@ -85,7 +85,7 @@ public class HTMLSchiriConverter {
             b.append("<tr>");
             b.append("<td colspan='12'>");
             final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            b.append("<b>Platz " + spiel.getPlatz() + " um " + sdf.format(spiel.getStart()) + "</b>");
+            b.append("<b>Platz " + spiel.getPlatz() + " um " + sdf.format(spiel.getStart()) + "&nbsp;" +spiel.getIdString() + " </b>");
             b.append(" <img src='resources/static/barcode/" + spiel.getIdString() + ".png' width='100' height='26'> </b>");
             b.append("</td>");
 

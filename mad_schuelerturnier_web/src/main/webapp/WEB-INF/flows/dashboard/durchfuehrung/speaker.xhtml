@@ -2,6 +2,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:sec="http://www.springframework.org/security/tags"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 template="../../../layouts/100.xhtml">
@@ -22,6 +23,8 @@
 
 <h:form id="form2">
 
+    <sec:authorize ifAnyGranted="ROLE_SPEAKER">
+
     <p:commandButton value = "refresh" id="refresh" action="refresh" icon="ui-icon-check" disabled="false" ajax="false">
     </p:commandButton>
     w: #{wait}
@@ -29,7 +32,7 @@
     <p:media value="#{speak}" width="200" height="20" player="quicktime" rendered="#{speak != null}">
         <f:param name="autoPlay" value="true" />
     </p:media>
-
+ </sec:authorize>
 
 </h:form>
 <br/>
@@ -132,7 +135,7 @@
             <f:facet name="header">
             </f:facet>
             <p:commandButton icon="ui-icon-check"
-                             disabled="#{!spielDurchfuehrung.readyToVorbereiten}"
+                             disabled="#{sec:areNotGranted('ROLE_SPEAKER') or !spielDurchfuehrung.readyToVorbereiten}"
                              action="vorbereitet">
             </p:commandButton>
         </p:column>
@@ -226,7 +229,7 @@
         <p:column>
             <f:facet name="header">
             </f:facet>
-            <p:commandButton icon="ui-icon-check" ajax="false" action="beenden" disabled="#{!spieleinstellungen.abbrechenZulassen}">
+            <p:commandButton icon="ui-icon-check" ajax="false" action="beenden" disabled="#{sec:areNotGranted('ROLE_SPEAKER') and !spieleinstellungen.abbrechenZulassen}">
             </p:commandButton>
         </p:column>
 

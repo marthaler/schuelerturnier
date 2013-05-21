@@ -3,8 +3,11 @@
  */
 package com.googlecode.mad_schuelerturnier.business.zeit;
 
+import com.googlecode.mad_schuelerturnier.business.impl.Business;
+import com.googlecode.mad_schuelerturnier.model.helper.SpielEinstellungen;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -29,6 +32,8 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
 
     private boolean gameRunning = false;
 
+    @Autowired
+    private Business business;
 
     public Zeitgeber() {
 
@@ -36,7 +41,6 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
 
     @PostConstruct
     private void init(){
-        stopClock();
         sendPuls();
     }
 

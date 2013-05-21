@@ -31,8 +31,8 @@ bugs:
 
 dokumentation
 *************
-[]       merkkarten fuer schiris (tore nicht punkte)
-[]       plan fuer lan und material
+[  ]     merkkarten fuer schiris (tore nicht punkte)
+[  ]     plan fuer lan und material
 
 fuer nachher
 ************

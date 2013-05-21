@@ -3,10 +3,12 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+    <action-state id="start">
+        <evaluate expression="startAction.start(currentUser)"/>
+    </action-state>
+
     <view-state id="dashboard">
-        <on-entry>
-            <evaluate expression="loginPrepareAction.execute()"/>
-        </on-entry>
+
     </view-state>
 
     <view-state id="user">

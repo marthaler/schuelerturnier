@@ -22,6 +22,7 @@ import org.joda.time.DateTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 
 /**
@@ -60,6 +61,16 @@ public class Business implements IBusiness {
     public Business() {
 
     }
+
+    @PostConstruct
+      private void init(){
+          SpielEinstellungen einst = getSpielEinstellungen();
+          if(einst.isStartJetzt()){
+              this.startClock();
+          }
+      }
+
+
 
     /*
      * (non-Javadoc)
