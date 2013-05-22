@@ -13,7 +13,7 @@ bugs:
 [ok]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
 [rj]     countdown ueber eine stunde springt (stunden einbeziehen)
 [  ]     wenn erster penalty erkannt wird wird 2. nicht mehr gesucht nur WEITERSUCHEN
-[ok]     version wird nicht agezeigt nach release
+[ok]     version wird nicht angezeigt nach release
 [ok]     drucken geht nicht nach release
 [??]     beim letzten Finalspiel phase auf beendet und letzte liste drucken
 
@@ -22,7 +22,7 @@ bugs:
 [ok]     schlaue Startseite
 [??]     wenn fertig dinge nicht ausblenden
 
-[  ]     Seiten werden zuerst nach bin gedruckt
+[??]     Seiten werden zuerst nach bin gedruckt
 [  ]     Rangliste im web Sonderzeichen
 
 [rj]     gong per hit space ausloesen

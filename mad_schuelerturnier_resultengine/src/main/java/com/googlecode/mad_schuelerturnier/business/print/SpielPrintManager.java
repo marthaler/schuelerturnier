@@ -84,7 +84,7 @@ public class SpielPrintManager {
         buff.append("<tr><td align=\"right\" colspan=\"5\">");
 
         int pageN = savedPages.size();
-        pageN = pageN++;
+        pageN = pageN + 1;
 
         buff.append("Seite: " + pageN);
 

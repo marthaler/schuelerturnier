@@ -4,6 +4,7 @@ import com.googlecode.mad_schuelerturnier.business.IBusiness;
 import com.googlecode.mad_schuelerturnier.business.controller.leiter.converter.HTMLOutConverter;
 import com.googlecode.mad_schuelerturnier.business.generator.BarcodeGenerator;
 import com.googlecode.mad_schuelerturnier.business.generator.SpeakerGenerator;
+import com.googlecode.mad_schuelerturnier.business.out.OutToWebsitePublisher;
 import com.googlecode.mad_schuelerturnier.business.print.PrintAgent;
 import com.googlecode.mad_schuelerturnier.model.enums.SpielPhasenEnum;
 import org.apache.log4j.Logger;
@@ -29,6 +30,9 @@ public class LoginPrepareAction {
 
     @Autowired
     BarcodeGenerator barcodeGenerator;
+
+    @Autowired
+    OutToWebsitePublisher outToWebsite;
 
     @Autowired
     IBusiness business;
@@ -64,6 +68,8 @@ public class LoginPrepareAction {
         converter.setPath(path + "static" + delim);
 
         barcodeGenerator.init(path + "static" + delim);
+
+        outToWebsite.init(path + "static" + delim);
 
         init = true;
 

@@ -113,6 +113,12 @@ public class PrintAgent {
 
     public void saveFileToPrint(String name, String htmlContent) {
         try {
+
+            if (!this.init) {
+                map.put(name, htmlContent);
+                return;
+            }
+
             CleanerProperties props = new CleanerProperties();
 
             // set some properties to non-default values
@@ -129,7 +135,7 @@ public class PrintAgent {
 
             // serialize to xml file
             new PrettyXmlSerializer(props).writeToFile(
-                    //  (TagNode) o[0], pathprinter+"out.xml", "utf-8"
+                    //  --> mit utf-8 wurden sonderzeichen falsch gedruckt pathprinter+"out.xml", "utf-8"
                     (TagNode) o[0], pathprinter + "out.xml"
             );
 
