@@ -5,6 +5,7 @@ package com.googlecode.mad_schuelerturnier.business.out;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.log4j.Logger;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -29,6 +30,8 @@ public class OutToWebsiteSender extends Thread {
     private boolean ok = false;
     private boolean isTest = false;
 
+    public static boolean DOWN = false;
+
     private final long start = System.currentTimeMillis();
 
     private String ftp_server;
@@ -50,12 +53,18 @@ public class OutToWebsiteSender extends Thread {
         this.start();
     }
 
-    @Override
+
     public void run() {
 
         int i = 1;
         this.ok = false;
         while (!this.ok) {
+
+            if (this.DOWN) {
+                LOG.info("senden nicht moeglich, keine verbindung zum host: " + this.ftp_server);
+                break;
+            }
+
             this.ok = this.sendFile();
             if (this.ok) {
                 break;
@@ -91,11 +100,17 @@ public class OutToWebsiteSender extends Thread {
 
     private boolean sendFile() {
         FTPClient client = null;
-        try {
-            OutToWebsiteSender.LOG.info("upload start: " + this.name);
-            client = connect();
 
-            if (isTest) {
+            OutToWebsiteSender.LOG.info("upload start: " + this.name);
+        try {
+            client = connect();
+        } catch (final Exception e) {
+            OutToWebsiteSender.LOG.error(e.getMessage(), e);
+            DOWN = true;
+            return false;
+        }
+        try {
+        if (isTest) {
                 client.makeDirectory("testdurchfuehrungen");
                 client.changeWorkingDirectory("testdurchfuehrungen");
                 client.makeDirectory(this.folder);

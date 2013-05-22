@@ -219,6 +219,8 @@ public class ResultateVerarbeiter {
 
     @Async
     public void uploadAllKat() {
+        LOG.info("ftpPublisher: reconnect");
+        this.ftpPublisher.reconnect();
         for (Kategorie kat : this.katRepo.findAll()) {
             uploadKat(kat);
         }

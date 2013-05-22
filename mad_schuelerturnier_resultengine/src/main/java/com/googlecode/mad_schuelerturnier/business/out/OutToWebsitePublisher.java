@@ -125,8 +125,11 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
     }
 
     public void addPage(final String name, final String content) {
-
         this.map.put(name.replace("..", ".").toLowerCase(), content);
+    }
+
+    public void reconnect(){
+        OutToWebsiteSender.DOWN = false;
     }
 
 
