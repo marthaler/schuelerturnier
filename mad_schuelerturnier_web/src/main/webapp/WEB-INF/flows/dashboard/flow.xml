@@ -4,6 +4,7 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
     <action-state id="start">
+        <evaluate expression="loginPrepareAction.execute()"/>
         <evaluate expression="startAction.start(currentUser)"/>
     </action-state>
 
