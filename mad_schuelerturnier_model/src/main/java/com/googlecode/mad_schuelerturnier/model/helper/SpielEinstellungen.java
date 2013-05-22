@@ -60,15 +60,6 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
         starttag = date.toDate();
     }
 
-    public MannschaftTageskorrektur grabMannschaftsTageskorrekturen() {
-        XStream xStream = new XStream(new DomDriver());
-        xStream.alias("korrekturen", MannschaftTageskorrektur.class);
-        if (spielVertauschungen == null || spielVertauschungen.isEmpty()) {
-            return null;
-        }
-        return (MannschaftTageskorrektur) xStream.fromXML(spielVertauschungen);
-    }
-
     public void placeMannschaftsTageskorrekturen(MannschaftTageskorrektur korr) {
         XStream xStream = new XStream(new DomDriver());
         xStream.alias("korrekturen", MannschaftTageskorrektur.class);
@@ -202,4 +193,55 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
     public void setGongEinschalten(boolean gongEinschalten) {
         this.gongEinschalten = gongEinschalten;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        SpielEinstellungen that = (SpielEinstellungen) o;
+
+        if (abbrechenZulassen != that.abbrechenZulassen) return false;
+        if (aufholzeitInSekunden != that.aufholzeitInSekunden) return false;
+        if (automatischesAnsagen != that.automatischesAnsagen) return false;
+        if (automatischesAufholen != that.automatischesAufholen) return false;
+        if (automatischesVorbereiten != that.automatischesVorbereiten) return false;
+        if (gongEinschalten != that.gongEinschalten) return false;
+        if (pause != that.pause) return false;
+        if (spiellaenge != that.spiellaenge) return false;
+        if (startJetzt != that.startJetzt) return false;
+        if (verschnellerungsFaktor != that.verschnellerungsFaktor) return false;
+        if (phase != that.phase) return false;
+        if (!spielVertauschungen.equals(that.spielVertauschungen)) return false;
+        if (!start.equals(that.start)) return false;
+        if (!starttag.equals(that.starttag)) return false;
+        if (!starttagstr.equals(that.starttagstr)) return false;
+        if (!test.equals(that.test)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + phase.hashCode();
+        result = 31 * result + starttag.hashCode();
+        result = 31 * result + starttagstr.hashCode();
+        result = 31 * result + test.hashCode();
+        result = 31 * result + start.hashCode();
+        result = 31 * result + verschnellerungsFaktor;
+        result = 31 * result + (startJetzt ? 1 : 0);
+        result = 31 * result + spielVertauschungen.hashCode();
+        result = 31 * result + pause;
+        result = 31 * result + spiellaenge;
+        result = 31 * result + aufholzeitInSekunden;
+        result = 31 * result + (automatischesAufholen ? 1 : 0);
+        result = 31 * result + (automatischesVorbereiten ? 1 : 0);
+        result = 31 * result + (automatischesAnsagen ? 1 : 0);
+        result = 31 * result + (abbrechenZulassen ? 1 : 0);
+        result = 31 * result + (gongEinschalten ? 1 : 0);
+        return result;
+    }
+
 }

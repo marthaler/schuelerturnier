@@ -58,14 +58,16 @@ public class Business implements IBusiness {
     @Autowired
     private Zeitgeber zeitgeber;
 
+    private SpielEinstellungen einstellungen;
+
     public Business() {
 
     }
 
     @PostConstruct
     private void init() {
-        SpielEinstellungen einst = getSpielEinstellungen();
-        if (einst.isStartJetzt()) {
+        einstellungen = getSpielEinstellungen();
+        if (einstellungen.isStartJetzt()) {
             this.startClock();
         }
     }
@@ -153,13 +155,19 @@ public class Business implements IBusiness {
      * @see com.googlecode.mad_schuelerturnier.business.sdfdf#getSpielEinstellungen()
      */
     public SpielEinstellungen getSpielEinstellungen() {
+
+        if(this.einstellungen != null){
+             return einstellungen;
+        }
+
         if (this.spielEinstellungenRepo.count() > 1) {
             Business.LOG.fatal("achtung in der einstellungstabelle hat es: " + this.spielEinstellungenRepo.count() + " eintraege");
         } else if (this.spielEinstellungenRepo.count() < 1) {
             final SpielEinstellungen einstellungen = new SpielEinstellungen();
             return this.spielEinstellungenRepo.save(einstellungen);
         }
-        return this.spielEinstellungenRepo.findAll().iterator().next();
+        einstellungen =  this.spielEinstellungenRepo.findAll().iterator().next();
+        return einstellungen;
     }
 
     /*
@@ -168,6 +176,12 @@ public class Business implements IBusiness {
      * @see com.googlecode.mad_schuelerturnier.business.sdfdf#saveEinstellungen(com .googlecode.mad_schuelerturnier.model.helper.SpielEinstellungen)
      */
     public SpielEinstellungen saveEinstellungen(final SpielEinstellungen einstellungen) {
+
+        // falls keine aenderung wird einstellung zurueckgegeben
+        if(einstellungen.equals(einstellungen)){
+            return einstellungen;
+        }
+
         // spieldatum auf 0 Uhr zuruecksetzen
         DateTime time = new DateTime(einstellungen.getStarttag());
         final int millis = time.getMillisOfDay();
