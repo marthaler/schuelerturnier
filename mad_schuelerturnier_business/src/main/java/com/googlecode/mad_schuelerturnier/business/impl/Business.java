@@ -163,8 +163,8 @@ public class Business implements IBusiness {
         if (this.spielEinstellungenRepo.count() > 1) {
             Business.LOG.fatal("achtung in der einstellungstabelle hat es: " + this.spielEinstellungenRepo.count() + " eintraege");
         } else if (this.spielEinstellungenRepo.count() < 1) {
-            final SpielEinstellungen einstellungen = new SpielEinstellungen();
-            return this.spielEinstellungenRepo.save(einstellungen);
+            SpielEinstellungen einstellungen = new SpielEinstellungen();
+            einstellungen = this.spielEinstellungenRepo.save(einstellungen);
         }
         einstellungen =  this.spielEinstellungenRepo.findAll().iterator().next();
         return einstellungen;
@@ -175,19 +175,20 @@ public class Business implements IBusiness {
      *
      * @see com.googlecode.mad_schuelerturnier.business.sdfdf#saveEinstellungen(com .googlecode.mad_schuelerturnier.model.helper.SpielEinstellungen)
      */
-    public SpielEinstellungen saveEinstellungen(final SpielEinstellungen einstellungen) {
+    public SpielEinstellungen saveEinstellungen(SpielEinstellungen einstellungenNeu) {
 
         // falls keine aenderung wird einstellung zurueckgegeben
-        if(einstellungen.equals(einstellungen)){
-            return einstellungen;
+        if(this.einstellungen != null && einstellungenNeu.equals(this.einstellungen)){
+            return einstellungenNeu;
         }
 
         // spieldatum auf 0 Uhr zuruecksetzen
-        DateTime time = new DateTime(einstellungen.getStarttag());
+        DateTime time = new DateTime(einstellungenNeu.getStarttag());
         final int millis = time.getMillisOfDay();
         time = time.minusMillis(millis);
-        einstellungen.setStarttag(new Date(time.getMillis()));
-        return this.spielEinstellungenRepo.save(einstellungen);
+        einstellungenNeu.setStarttag(new Date(time.getMillis()));
+        this.einstellungen =  this.spielEinstellungenRepo.save(einstellungenNeu);
+        return this.einstellungen;
     }
 
 

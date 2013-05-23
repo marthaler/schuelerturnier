@@ -62,7 +62,7 @@ public class OutToWebsiteSender extends Thread {
 
             if (this.DOWN) {
                 LOG.info("senden nicht moeglich, keine verbindung zum host: " + this.ftp_server);
-                break;
+                return;
             }
 
             this.ok = this.sendFile();
@@ -99,6 +99,7 @@ public class OutToWebsiteSender extends Thread {
     }
 
     private boolean sendFile() {
+
         FTPClient client = null;
 
             OutToWebsiteSender.LOG.info("upload start: " + this.name);

@@ -39,12 +39,11 @@ public class SeleniumSpeakerThread extends Thread {
             try {
 
                 this.util.sleepAMoment();
-
-                this.util.clickById("form1:j_idt54:dataTable3:0:j_idt98");
+                this.util.clickById("formular:panel:play_table:0:play");
 
             } catch (final Exception e) {
                 this.util.sleepAMoment();
-                SeleniumSpeakerThread.LOG.error("not found: form1:j_idt54:dataTable3:0:j_idt98");
+                SeleniumSpeakerThread.LOG.error("not found: formular:panel:play_table:0:play");
             }
 
             this.util.sleepAMoment(10);

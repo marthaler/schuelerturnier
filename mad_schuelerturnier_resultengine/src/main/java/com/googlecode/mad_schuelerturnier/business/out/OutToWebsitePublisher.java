@@ -91,12 +91,6 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
                         String content = this.map.get(file);
                         content = content.replace(OutToWebsitePublisher.dateMarker, sdf.format(new Date()));
 
-                        try {
-                            FileUtils.writeStringToFile(new File(this.ftpPath + file),content);
-                        } catch (IOException e) {
-                            LOG.error(e.getMessage(),e);
-                        }
-
                         final OutToWebsiteSender p = new OutToWebsiteSender(file, content, ftpUnterordner, ftpServer, ftpPort, ftpUser, ftpPassword, isTest);
                         try {
                             p.join(15000);
@@ -123,12 +117,6 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
                     String content = this.map.get(file);
                     content = content.replace(OutToWebsitePublisher.dateMarker, sdf.format(new Date()));
 
-                    try {
-                        FileUtils.writeStringToFile(new File(this.ftpPath + file),content);
-                    } catch (IOException e) {
-                       LOG.error(e.getMessage(),e);
-                    }
-
                     final OutToWebsiteSender p = new OutToWebsiteSender(file, content, ftpUnterordner, ftpServer, ftpPort, ftpUser, ftpPassword, isTest);
                     try {
                         p.join(15000);
@@ -152,8 +140,15 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
         }
     }
 
-    public void addPage(final String name, final String content) {
-        this.map.put(name.replace("..", ".").toLowerCase(), content);
+    public void addPage(final String file, final String content) {
+        this.map.put(file.replace("..", ".").toLowerCase(), content);
+
+        try {
+            FileUtils.writeStringToFile(new File(this.ftpPath + file),content);
+        } catch (IOException e) {
+            LOG.error(e.getMessage(),e);
+        }
+
     }
 
     public void reconnect(){

@@ -17,10 +17,12 @@ import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -50,15 +52,36 @@ public class ResultateVerarbeiter {
     @Autowired
     private OutToWebsitePublisher ftpPublisher;
 
+    private boolean init = false;
+
+    boolean uploadAllKat = false;
+
     @Autowired
     private SpielPrintManager printer;
+
+    private  Queue<Long> spielQueue = new ConcurrentLinkedQueue<Long>();
+
+    private  Queue<Penalty> penaltyQueue = new ConcurrentLinkedQueue<Penalty>();
 
     private static final Logger LOG = Logger.getLogger(ResultateVerarbeiter.class);
 
     private Map<String, RanglisteneintragHistorie> map = new HashMap<String, RanglisteneintragHistorie>();
 
     public void signalPenalty(Penalty p) {
+        penaltyQueue.offer(p) ;
+    }
 
+    public void verarbeitePenalty() {
+        Penalty p = null;
+        try{
+        p = penaltyQueue.remove();
+        } catch (Exception e){
+
+        }
+
+        if(p == null){
+            return;
+        }
         //nachladen num sichergehen, dass die penaltys aktuelle sind
         String katName = p.getKategorie().getKategorie().getName();
 
@@ -71,7 +94,53 @@ public class ResultateVerarbeiter {
         this.initialisierenKategorie(p.getKategorie().getKategorie());
     }
 
+
+
     public void signalFertigesSpiel(Long id) {
+        spielQueue.offer(id);
+        LOG.info("spiel signalisiert: " + id + " queuesize: " + spielQueue.size());
+    }
+
+    public int getQueueSize(){
+        int count = spielQueue.size();
+        count = count + penaltyQueue.size();
+        if(uploadAllKat){
+            count = count +1;
+        }
+        return count;
+    }
+
+    @Scheduled(fixedRate = 1000 * 15)
+    private void verarbeiten(){
+
+        verarbeitePenalty();
+
+        verarbeiteUploadAllKat();
+
+         if(!init){
+            initialisieren();
+             init = true;
+         }
+
+        Long id = null;
+        try{
+        id = spielQueue.remove();
+         } catch(NoSuchElementException e){
+
+         }
+
+        while (id != null){
+            verarbeiteSpiel(id);
+            try{
+            id =  spielQueue.remove();
+        } catch(NoSuchElementException e){
+           id = null;
+        }
+        }
+
+    }
+
+    private void verarbeiteSpiel(Long id) {
 
         LOG.info("verarbeite fertiges spiel: " + id);
         Spiel spiel = repo.findOne(id);
@@ -217,13 +286,23 @@ public class ResultateVerarbeiter {
         }
     }
 
-    @Async
+
     public void uploadAllKat() {
+        uploadAllKat = true;
+    }
+
+    private void verarbeiteUploadAllKat(){
+
+        if(!uploadAllKat){
+            return;
+        }
+
         LOG.info("ftpPublisher: reconnect");
         this.ftpPublisher.reconnect();
         for (Kategorie kat : this.katRepo.findAll()) {
             uploadKat(kat);
         }
+        uploadAllKat = false;
     }
 
     private void uploadKat(Kategorie kat) {
@@ -238,7 +317,7 @@ public class ResultateVerarbeiter {
         this.ftpPublisher.addPage("rangliste.html", this.rangliste.printOutGere(map.values(), true));
     }
 
-    @PostConstruct
+
     public void initialisieren() {
 
         // neuberechnen der historien nach dem neustart

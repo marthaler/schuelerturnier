@@ -70,11 +70,52 @@
                                               displayTemplate="Minuten fuer Vorbereitungsansage: {value}" ajax="true"
                                               minValue="1" maxValue="10" style="width:200px"/>
 
+
+                                    <h:outputText id="_1Active"
+                                                  value="Wartende Spiele ausblenden"/>
+                                    <p:selectBooleanCheckbox
+                                            id="_1Activec"
+                                            value="#{speakerTabModel._1Active}"
+                                            ajax="true">
+                                    </p:selectBooleanCheckbox>
+
+                                    <h:outputText id="_2Active" value="Zum Vorbereiten ausblenden"/>
+                                    <p:selectBooleanCheckbox
+                                            id="_2Activec"
+                                            value="#{speakerTabModel._2Active}"
+                                            ajax="true">
+                                    </p:selectBooleanCheckbox>
+
+                                    <h:outputText id="_3Active" value="Wartet auf Start ausblenden"/>
+                                    <p:selectBooleanCheckbox
+                                            id="_3Activec"
+                                            value="#{speakerTabModel._3Active}"
+                                            ajax="true">
+                                    </p:selectBooleanCheckbox>
+
+                                    <h:outputText id="_4Active"
+                                                  value="Am Spielen ausblenden"/>
+                                    <p:selectBooleanCheckbox
+                                            id="_4Activec"
+                                            value="#{speakerTabModel._4Active}"
+                                            ajax="true">
+                                    </p:selectBooleanCheckbox>
+
+                                    <h:outputText id="_5Active"
+                                                  value="Beendet ausblenden"/>
+                                    <p:selectBooleanCheckbox
+                                            id="_5Activec"
+                                            value="#{speakerTabModel._5Active}"
+                                            ajax="true">
+                                    </p:selectBooleanCheckbox>
+
+
                                 </h:panelGrid>
 
                                 <h:inputHidden id="wartendSize" value="#{spielDurchfuehrung.wartendSize}"/>
                                 <h:inputHidden id="minutenZumVorbereiten"
                                                value="#{spielDurchfuehrung.minutenZumVorbereiten}"/>
+
 
                                 <br/>
 
@@ -87,13 +128,22 @@
                                 <h:outputText id="versp" value="Verspätung: #{business.spielzeitVerspaetung()}"/>
                                 <p:poll interval="1" listener="#{spielUhr.getRichtigeZeit}"
                                         update="zeit2,zeit3, versp"/>
+                                <p:separator id="customSeparator25"/>
 
-                                <br/> #{spieleinstellungen.phase}
 
-                                <br/>
+
+                                <br/> Phase: #{spieleinstellungen.phase}
+
+
+                                <br/><br/>
+                                <p:separator id="customSeparator15"/>
+                                <h:outputText id="queue" value="Jobs in der Hintergrundverarbeitung: #{resultateVerarbeiter.getQueueSize()}"/>
+                                <p:poll interval="1" listener="#{resultateVerarbeiter.getQueueSize()}"
+                                        update="queue"/>
+
                                 <br/>
                                 <p:separator id="customSeparator05"/>
-
+                                <br/>
                                 <h:panelGrid columns="2" id="inputelements"
                                              style="margin-bottom:10px" cellpadding="5">
 
@@ -162,6 +212,10 @@
 
                                 <p:commandButton action="#{spielPrintManager.printPage()}"
                                                  value="Restliche Resultate der Rangliste drucken" ajax="true"/>
+
+
+                                <p:commandButton action="#{printAgent.printSchiriAnleitung()}" value="Schirianleitung Drucken"
+                                                 ajax="true"/>
 
                                 <h:outputText value=" Druckdienst: "/>
 

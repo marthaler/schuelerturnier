@@ -43,6 +43,7 @@ public class PrintAgent {
 
     private String pathprinter = "";
     private String pathdone = "";
+    private String printtemplates = "";
 
     private String printer = "brother";
 
@@ -51,6 +52,7 @@ public class PrintAgent {
     public void init(String path) {
         this.pathprinter = path + "printer" + System.getProperty("file.separator");
         this.pathdone = path + "printerdone" + System.getProperty("file.separator");
+        this.printtemplates = path + "printtemplates" + System.getProperty("file.separator");
         new File(pathprinter).mkdirs();
         new File(pathdone).mkdirs();
 
@@ -155,7 +157,15 @@ public class PrintAgent {
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
-        //       FileUtils.deleteQuietly(new File(pathprinter+"out.xml"));
+        FileUtils.deleteQuietly(new File(pathprinter+"out.xml"));
+    }
+
+    public void printSchiriAnleitung(){
+        try {
+            FileUtils.copyFile(new File(this.printtemplates + "schirizettel.pdf"), new File(this.pathprinter + "schirizettel.pdf"));
+        } catch (IOException e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
 
     private void print(File f) {

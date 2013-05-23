@@ -25,7 +25,7 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
 
     private Date starttag = new Date();
 
-    private String starttagstr;
+    private String starttagstr = "";
 
     private String test;
 
@@ -213,11 +213,12 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
         if (startJetzt != that.startJetzt) return false;
         if (verschnellerungsFaktor != that.verschnellerungsFaktor) return false;
         if (phase != that.phase) return false;
-        if (!spielVertauschungen.equals(that.spielVertauschungen)) return false;
-        if (!start.equals(that.start)) return false;
-        if (!starttag.equals(that.starttag)) return false;
-        if (!starttagstr.equals(that.starttagstr)) return false;
-        if (!test.equals(that.test)) return false;
+        if (spielVertauschungen != null ? !spielVertauschungen.equals(that.spielVertauschungen) : that.spielVertauschungen != null)
+            return false;
+        if (start != null ? !start.equals(that.start) : that.start != null) return false;
+        if (starttag != null ? !starttag.equals(that.starttag) : that.starttag != null) return false;
+        if (starttagstr != null ? !starttagstr.equals(that.starttagstr) : that.starttagstr != null) return false;
+        if (test != null ? !test.equals(that.test) : that.test != null) return false;
 
         return true;
     }
@@ -225,14 +226,14 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + phase.hashCode();
-        result = 31 * result + starttag.hashCode();
-        result = 31 * result + starttagstr.hashCode();
-        result = 31 * result + test.hashCode();
-        result = 31 * result + start.hashCode();
+        result = 31 * result + (phase != null ? phase.hashCode() : 0);
+        result = 31 * result + (starttag != null ? starttag.hashCode() : 0);
+        result = 31 * result + (starttagstr != null ? starttagstr.hashCode() : 0);
+        result = 31 * result + (test != null ? test.hashCode() : 0);
+        result = 31 * result + (start != null ? start.hashCode() : 0);
         result = 31 * result + verschnellerungsFaktor;
         result = 31 * result + (startJetzt ? 1 : 0);
-        result = 31 * result + spielVertauschungen.hashCode();
+        result = 31 * result + (spielVertauschungen != null ? spielVertauschungen.hashCode() : 0);
         result = 31 * result + pause;
         result = 31 * result + spiellaenge;
         result = 31 * result + aufholzeitInSekunden;
@@ -243,5 +244,4 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
         result = 31 * result + (gongEinschalten ? 1 : 0);
         return result;
     }
-
 }
