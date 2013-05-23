@@ -132,10 +132,10 @@
 
 
 
-                                <br/> Phase: #{spieleinstellungen.phase}
+                                Phase: #{spieleinstellungen.phase}
 
 
-                                <br/><br/>
+                                <br/>
                                 <p:separator id="customSeparator15"/>
                                 <h:outputText id="queue" value="Jobs in der Hintergrundverarbeitung: #{resultateVerarbeiter.getQueueSize()}"/>
                                 <p:poll interval="1" listener="#{resultateVerarbeiter.getQueueSize()}"

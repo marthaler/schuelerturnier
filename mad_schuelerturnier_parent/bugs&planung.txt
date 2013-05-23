@@ -1,9 +1,6 @@
 feautures:
 **********
-[ok]     barcode generieren lassen beim start
-[ok]     speaker bot vervollstaendigen
 [rj]     beobachter rangliste anwaehlbar machen
-[rj]     beim eintrager id's in stack fuellen und asynchron verarbeiten
 [rj]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
 
 ==============
@@ -25,14 +22,11 @@ bugs:
 [??]     Seiten werden zuerst nach bin gedruckt
 [  ]     Rangliste im web Sonderzeichen
 
-[rj]     gong per hit space ausloesen
-
-
 
 dokumentation
 *************
-[  ]     merkkarten fuer schiris (tore nicht punkte)
-[  ]     plan fuer lan und material
+[ok]     merkkarten fuer schiris (tore nicht punkte)
+[ok]     plan fuer lan und material
 
 fuer nachher
 ************
@@ -43,6 +37,8 @@ fuer nachher
 [  ]     automatischer gong auschaltbar machen
 [rj]     resultengine asynchron machen
 [rj]     out to website publisher schlau konfigurieren
+[rj]     countdown ueber eine stunde springt (stunden einbeziehen)
+[rj]     gong per hit space ausloesen
 
 feautures ok:
 **********
@@ -103,7 +99,7 @@ feautures ok:
 
 [ok]     automatischer gong einbauen
 
-[ip]     test mit allen mannschaften
+[ok]     test mit allen mannschaften
 
 [ok]     gererangliste drucken
 
@@ -113,9 +109,11 @@ feautures ok:
 
 [ok]     spielabbruch auschaltbar machen
 
+[ok]     barcode generieren lassen beim start
 
+[ok]     speaker bot vervollstaendigen
 
-
+[ok]     beim eintrager id's in stack fuellen und asynchron verarbeiten
 
 bugs gefixt:
 *****
@@ -153,4 +151,3 @@ bugs gefixt:
 
 [ok]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
 
-[rj]     countdown ueber eine stunde springt (stunden einbeziehen)
