@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Component
@@ -37,7 +38,10 @@ public class LoginPrepareAction {
     @Autowired
     IBusiness business;
 
+    private String ip;
+
     @Autowired
+
     private HTMLOutConverter converter;
 
     private String delim = System.getProperty("file.separator");
@@ -61,6 +65,9 @@ public class LoginPrepareAction {
 
         String path = sc.getRealPath("index.html").replace("index.html", "");
 
+        HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        ip = httpServletRequest.getRemoteAddr();
+
         speakerGenerator.init(path + "static" + delim);
 
         printAgent.init(path + "static" + delim);
@@ -75,6 +82,10 @@ public class LoginPrepareAction {
 
         LOG.info("LoginPrepareAction: job gestartet");
 
+    }
+
+    public String getIp() {
+        return ip;
     }
 
 }
