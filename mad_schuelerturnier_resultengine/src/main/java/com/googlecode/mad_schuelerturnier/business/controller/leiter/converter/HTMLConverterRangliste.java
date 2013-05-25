@@ -40,9 +40,9 @@ public class HTMLConverterRangliste {
     public String printOutGere(final Collection<RanglisteneintragHistorie> kat, boolean menuon) {
         final StringBuffer buffer = new StringBuffer();
 
-        if(menuon) {
-          new HTMLMenu();
-          buffer.append(menu.generateMenu("_"));
+        if (menuon) {
+            new HTMLMenu();
+            buffer.append(menu.generateMenu("_"));
         }
 
         buffer.append("<br/>");
@@ -61,7 +61,7 @@ public class HTMLConverterRangliste {
                 klassenLable = "Knaben " + k.replace("K", "") + ". Klasse";
                 geschlecht = GeschlechtEnum.K;
             } else {
-                klassenLable = "Maedchen " + k.replace("M", "") + ". Klasse";
+                klassenLable = "Mädchen " + k.replace("M", "") + ". Klasse";
                 geschlecht = GeschlechtEnum.M;
             }
 

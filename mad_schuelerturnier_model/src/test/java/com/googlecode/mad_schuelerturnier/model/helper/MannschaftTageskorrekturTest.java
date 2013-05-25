@@ -1,6 +1,7 @@
 package com.googlecode.mad_schuelerturnier.model.helper;
 
 import org.junit.Test;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,15 +19,14 @@ public class MannschaftTageskorrekturTest {
         MannschaftTageskorrektur korr = new MannschaftTageskorrektur();
         SpielEinstellungen einst = new SpielEinstellungen();
 
-        Map<String,String> map = new HashMap<String,String>();
+        Map<String, String> map = new HashMap<String, String>();
 
-        map.put("sa,9:24,a","so,9:24,a");
-        map.put("sa,9:00,a","so,9:00,a");
+        map.put("sa,9:24,a", "so,9:24,a");
+        map.put("sa,9:00,a", "so,9:00,a");
 
         korr.setVertauschungen(map);
-         einst.placeMannschaftsTageskorrekturen(korr);
+        einst.placeMannschaftsTageskorrekturen(korr);
         System.out.println(einst.getSpielVertauschungen());
-
 
 
     }

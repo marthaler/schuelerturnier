@@ -3,8 +3,10 @@
  */
 package com.googlecode.mad_schuelerturnier.business.zeit;
 
+import com.googlecode.mad_schuelerturnier.business.impl.Business;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -29,14 +31,15 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
 
     private boolean gameRunning = false;
 
+    @Autowired
+    private Business business;
 
     public Zeitgeber() {
 
     }
 
     @PostConstruct
-    private void init(){
-        stopClock();
+    private void init() {
         sendPuls();
     }
 
@@ -46,8 +49,8 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
 
         // falls nicht "started" weiter
 
-        if(!clockRunning){
-              return;
+        if (!clockRunning) {
+            return;
         }
 
         if (!gameRunning) {
@@ -58,12 +61,11 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
     }
 
 
-
     public synchronized void stopGame(String grund) {
 
         if (!isGameStarted()) {
             Zeitgeber.LOG.info("zeitgeber: stopGame() -> ohne effekt, weil bereits gestoppt:" + grund);
-        } else{
+        } else {
             this.stopGame();
             Zeitgeber.LOG.info("zeitgeber: stopGame() -> mit Grund: " + grund);
             // eine einheit zurueck, weil stoppevent immer eine einheit zu spaet kommt
@@ -75,18 +77,16 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
     }
 
 
-
-
     public synchronized void startGame(int seconds, String grund) {
         Zeitgeber.LOG.info("zeitgeber: startGame() -> aufholung:" + grund + " -> " + seconds);
         this.abweichungZuSpielzeit = this.abweichungZuSpielzeit + seconds * 1000;
-        Zeitgeber.LOG.info("zeitgeber: startGame() -> aufholung von " + seconds + " sekunden = abweichung: " + this.abweichungZuSpielzeit / 1000+ " sekunden");
+        Zeitgeber.LOG.info("zeitgeber: startGame() -> aufholung von " + seconds + " sekunden = abweichung: " + this.abweichungZuSpielzeit / 1000 + " sekunden");
         startGame();
     }
 
     public synchronized void startClock(final DateTime richtigeZeit, final DateTime spielzeit, final Integer verschnellerung) {
 
-        if(verschnellerung != null){
+        if (verschnellerung != null) {
             this.verschnellerungsfaktor = verschnellerung;
         } else {
             this.verschnellerungsfaktor = 1;
@@ -117,24 +117,24 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
         return gameRunning;
     }
 
-    public void stopGame(){
+    public void stopGame() {
         gameRunning = false;
     }
 
-    private void startGame(){
+    private void startGame() {
         gameRunning = true;
     }
 
     // start & stop ganze clock
-    public boolean isClockStarted(){
+    public boolean isClockStarted() {
         return clockRunning;
     }
 
-    public void stopClock(){
+    public void stopClock() {
         clockRunning = false;
     }
 
-    private void startClock(){
+    private void startClock() {
         clockRunning = true;
     }
 
@@ -158,8 +158,8 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
     }
 
 
-    public int getVerspaetung(){
-         return (int) abweichungZuSpielzeit / 1000;
+    public int getVerspaetung() {
+        return (int) abweichungZuSpielzeit / 1000;
     }
 
 

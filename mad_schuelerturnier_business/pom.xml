@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.googlecode.mad_schuelerturnier</groupId>
@@ -10,29 +11,29 @@
     <artifactId>mad_schuelerturnier_business</artifactId>
 
     <build>
-         <plugins>
-             <plugin>
-                 <artifactId>maven-antrun-plugin</artifactId>
+        <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
 
-                 <executions>
-                     <execution>
-                         <phase>process-resources</phase>
-                         <configuration>
-                             <tasks>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <tasks>
 
-                                 <echo file="${project.build.outputDirectory}/version.properties" append="false">
-                                      version=${project.version}
-timestamp=${timestamp}
-                                 </echo>
+                                <echo file="${project.build.outputDirectory}/version.properties" append="false">
+                                    version=${project.version}
+                                    timestamp=${timestamp}
+                                </echo>
 
-                             </tasks>
-                         </configuration>
-                         <goals>
-                             <goal>run</goal>
-                         </goals>
-                     </execution>
-                 </executions>
-             </plugin>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 

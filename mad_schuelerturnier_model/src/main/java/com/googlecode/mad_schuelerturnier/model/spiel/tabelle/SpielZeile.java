@@ -197,17 +197,17 @@ public class SpielZeile extends AbstractPersistable<Long> implements Serializabl
 
     @Override
     public String toString() {
-        return "SpielZeile [pause=" + this.pause + ", finale=" + this.finale + ", start=" + this.start + ", a=" + this.a + ", b=" + this.b + ", c=" + this.c + ", sonntag="+isSonntag() + ", zeit="+getZeitAsString() +"]";
+        return "SpielZeile [pause=" + this.pause + ", finale=" + this.finale + ", start=" + this.start + ", a=" + this.a + ", b=" + this.b + ", c=" + this.c + ", sonntag=" + isSonntag() + ", zeit=" + getZeitAsString() + "]";
     }
 
-    public boolean isEmty(){
-        if(this.a == null && this.b == null && this.c == null){
-              return true;
+    public boolean isEmty() {
+        if (this.a == null && this.b == null && this.c == null) {
+            return true;
         }
         return false;
     }
 
-    public String getZeitAsString(){
+    public String getZeitAsString() {
         SimpleDateFormat form = new SimpleDateFormat("HH:mm");
         return form.format(this.start);
     }

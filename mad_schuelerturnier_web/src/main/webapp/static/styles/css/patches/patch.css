@@ -16,7 +16,7 @@
 
 /* Layout independent adjustments | Layout-unabhängige Anpassungen ----------------------------------- */
 @import url(../../yaml/core/iehacks.css);
-/* Box Modell Korrekturen */
+    /* Box Modell Korrekturen */
 @import url(../../yaml/patches/patch_nav_vlist.css);
 
 /* Layout-dependent adjustments | Layout-abhängige Anpassungen --------------------------------------- */

@@ -30,11 +30,15 @@
 
                                 <h:panelGrid columns="2" id="inputelements">
 
-                                    <p:inputTextarea name="text" id="text" rows="20" cols="90" value="#{eintragDelegate.text}" autoResize="false" disabled="#{eintragDelegate.isBlockField()}"/>
+                                    <p:inputTextarea name="text" id="text" rows="20" cols="90"
+                                                     value="#{eintragDelegate.text}" autoResize="false"
+                                                     disabled="#{eintragDelegate.isBlockField()}"/>
 
                                     <br/>
 
-                                    <p:commandButton widgetVar="submit" id="submit" value="Eintragen" action="#{eintragDelegate.eintragen()}" ajax="true" execute="@form" update="@form" disabled="#{eintragDelegate.isBlockField()}"/>
+                                    <p:commandButton widgetVar="submit" id="submit" value="Eintragen"
+                                                     action="#{eintragDelegate.eintragen()}" ajax="true" execute="@form"
+                                                     update="@form" disabled="#{eintragDelegate.isBlockField()}"/>
 
                                 </h:panelGrid>
 

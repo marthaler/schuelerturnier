@@ -3,10 +3,13 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+    <action-state id="start">
+        <evaluate expression="loginPrepareAction.execute()"/>
+        <evaluate expression="startAction.start(currentUser)"/>
+    </action-state>
+
     <view-state id="dashboard">
-        <on-entry>
-            <evaluate expression="loginPrepareAction.execute()"/>
-        </on-entry>
+
     </view-state>
 
     <view-state id="user">
@@ -14,7 +17,8 @@
 
     <action-state id="newmannschaft">
         <on-entry>
-            <evaluate expression="modelFactory.getInstance('com.googlecode.mad_schuelerturnier.model.Mannschaft')" result="flowScope.mannschaftBean"/>
+            <evaluate expression="modelFactory.getInstance('com.googlecode.mad_schuelerturnier.model.Mannschaft')"
+                      result="flowScope.mannschaftBean"/>
         </on-entry>
         <evaluate expression="modelFactory.ok()"/>
         <transition on="ok" to="newmannschaft_view"/>
@@ -31,7 +35,8 @@
             <evaluate expression="business.getMannschaften()" result="flowScope.mannschaftList"/>
         </on-entry>
         <transition on="newmannschaft_view" to="newmannschaft_view">
-            <evaluate expression="mannschaftRepositoryDelegate.findOne(requestParameters.id)"  result="flowScope.mannschaftBean"/>
+            <evaluate expression="mannschaftRepositoryDelegate.findOne(requestParameters.id)"
+                      result="flowScope.mannschaftBean"/>
         </transition>
     </view-state>
 
@@ -116,7 +121,7 @@
         </transition>
 
         <transition on="man" to="spieleinstellungen" bind="true">
-            <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)" />
+            <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"/>
             <evaluate expression="_6_SpielverteilerManuelleKorrekturen.korrekturenVornehmen()"/>
         </transition>
 
@@ -141,16 +146,15 @@
         <evaluate expression="spielDurchfuehrung.getWait()" result="flowScope.wait"/>
         <evaluate expression="spielDurchfuehrung.getText()" result="flowScope.speak"/>
 
-        <evaluate expression="speakerReloadAction" />
+        <evaluate expression="speakerReloadAction"/>
 
 
-
-        <transition on="speaker_view" to="speaker_view" />
+        <transition on="speaker_view" to="speaker_view"/>
 
     </action-state>
 
 
-    <view-state id="speaker_view" view="durchfuehrung/speaker.xhtml" >
+    <view-state id="speaker_view" view="durchfuehrung/speaker.xhtml">
 
         <on-render>
             <evaluate expression="business.getSpielEinstellungen()"
@@ -166,7 +170,7 @@
         </transition>
 
         <transition on="spielen" to="speaker_reload_action" history="invalidate">
-            <evaluate expression="spielDurchfuehrung.spielen()" />
+            <evaluate expression="spielDurchfuehrung.spielen()"/>
         </transition>
 
         <transition on="beenden" to="speaker_reload_action">
@@ -175,10 +179,12 @@
 
     </view-state>
 
-    <view-state id="spiel_start" view="durchfuehrung/spiel_start.xhtml" redirect="true" model="flowScope.spieleinstellungen">
+    <view-state id="spiel_start" view="durchfuehrung/spiel_start.xhtml" redirect="true"  model="flowScope.spieleinstellungen">
 
         <on-render>
             <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"/>
+            <evaluate expression="business.getSpielEinstellungen()"
+                      result="flowScope.spieleinstellungen"/>
         </on-render>
 
         <transition on="start" to="spiel_start" bind="true">
@@ -193,7 +199,6 @@
         </transition>
 
 
-
     </view-state>
 
     <view-state id="eintrager" view="durchfuehrung/eintrager.xhtml" redirect="true">
@@ -201,6 +206,10 @@
         <on-render>
             <evaluate expression="business.anstehendePenalty()" result="flowScope.penaltyAnstehend"/>
         </on-render>
+
+        <transition on="zuweisen" to="eintrager">
+            <evaluate expression="pictureAgent.zuweisen()"/>
+        </transition>
 
         <transition on="save" to="eintrager">
             <evaluate expression="spielRepositoryDelegate.eintragen(flowScope.einzutragende,requestParameters.id)"/>
@@ -236,7 +245,8 @@
 
     <view-state id="kontrollierer" view="durchfuehrung/kontrollierer.xhtml" redirect="true">
         <transition on="save" to="kontrollierer">
-            <evaluate expression="spielRepositoryDelegate.bestaetigen(flowScope.bestaetigen,requestParameters.id,requestParameters.ok)"/>
+            <evaluate
+                    expression="spielRepositoryDelegate.bestaetigen(flowScope.bestaetigen,requestParameters.id,requestParameters.ok)"/>
             <evaluate expression="spielRepositoryDelegate.findAllZuBestaetigen()"
                       result="flowScope.bestaetigen"/>
 
@@ -268,7 +278,7 @@
 
         <transition on="korrekturen" to="korrekturen">
             <evaluate expression="business.getSpielEinstellungen()"
-            result="flowScope.korrekturen"/>
+                      result="flowScope.korrekturen"/>
         </transition>
 
         <transition on="spieleinstellungen" to="spieleinstellungen">

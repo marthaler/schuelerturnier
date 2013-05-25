@@ -5,9 +5,9 @@ import org.junit.Test;
 
 public class TestSpielTabelleTest {
 
-	@Test
-	public void countTest(){
-	
-	}
-	
+    @Test
+    public void countTest() {
+
+    }
+
 }

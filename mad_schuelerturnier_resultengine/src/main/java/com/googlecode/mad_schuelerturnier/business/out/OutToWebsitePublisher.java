@@ -4,11 +4,14 @@
 package com.googlecode.mad_schuelerturnier.business.out;
 
 import com.googlecode.mad_schuelerturnier.business.zeit.ZeitPuls;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -28,15 +31,17 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
     private static final String marker = "[ranglisten]";
     private static final String dateMarker = "[dateTime]";
 
-    private boolean ftpEin = true;
+    private boolean ftpEin = false;
     private boolean isTest = false;
 
     private String ftpServer = "ftp.schuelerturnier-scworb.ch";
     private int ftpPort = 21;
     private String ftpUnterordner = "2013";
     private String ftpUser = "turnier@schuelerturnier-scworb.ch";
-    private String ftpPassword = "schuetu12";
+    private String ftpPassword = "turnier11";
     private String ftpDateFormat = "dd.MM.yyyy HH:mm:ss";
+
+    private String ftpPath = null;
 
 
     private final Map<String, String> map = new HashMap<String, String>();
@@ -49,6 +54,17 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
     public OutToWebsitePublisher() {
         OutToWebsitePublisher.LOG.info("OutToWebsitePublisher: start");
         this.map.put("info.txt", new Date().toString());
+    }
+
+    public void init(String path) {
+        this.ftpPath = path + "ftp" + System.getProperty("file.separator");
+
+        new File(ftpPath).mkdirs();
+
+        LOG.info("ftpPath erstellt: " + ftpPath);
+
+        this.ftpEin = true;
+
     }
 
     @Scheduled(fixedRate = 1000 * 10)
@@ -124,9 +140,20 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
         }
     }
 
-    public void addPage(final String name, final String content) {
+    public void addPage(final String file, final String content) {
+        this.map.put(file.replace("..", ".").toLowerCase(), content);
 
-        this.map.put(name.replace("..", ".").toLowerCase(), content);
+        if(this.ftpEin){
+        try {
+            FileUtils.writeStringToFile(new File(this.ftpPath + file.toLowerCase()),content);
+        } catch (IOException e) {
+            LOG.error(e.getMessage(),e);
+        }
+        }
+    }
+
+    public void reconnect(){
+        OutToWebsiteSender.DOWN = false;
     }
 
 

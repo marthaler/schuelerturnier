@@ -8,15 +8,15 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MVCController {
 
-	private static final Logger LOG = Logger.getLogger(MVCController.class);
+    private static final Logger LOG = Logger.getLogger(MVCController.class);
 
-	@RequestMapping("demomvc")
-	public ModelAndView helloWorld() {
-		MVCController.LOG.info("--> Request");
-		final ModelAndView mav = new ModelAndView();
-		mav.setViewName("demomvc");
-		mav.getModel().put("message", "Hallo demomvc");
-		MVCController.LOG.info("<-- Response: " + mav.getModel());
-		return mav;
-	}
+    @RequestMapping("demomvc")
+    public ModelAndView helloWorld() {
+        MVCController.LOG.info("--> Request");
+        final ModelAndView mav = new ModelAndView();
+        mav.setViewName("demomvc");
+        mav.getModel().put("message", "Hallo demomvc");
+        MVCController.LOG.info("<-- Response: " + mav.getModel());
+        return mav;
+    }
 }

@@ -87,9 +87,9 @@ TableQueryWrapper.prototype.sendAndDraw = function () {
 /** Handles the query response after a send returned by the data source. */
 TableQueryWrapper.prototype.handleResponse = function (response) {
     this.currentDataTable = null;
-    if(response.isError()) {
+    if (response.isError()) {
         google.visualization.errors.addError(this.container, response.getMessage(),
-            response.getDetailedMessage(), {'showInTooltip':false});
+            response.getDetailedMessage(), {'showInTooltip': false});
     }
     else {
         this.currentDataTable = response.getDataTable();
@@ -108,7 +108,7 @@ TableQueryWrapper.prototype.handleSort = function (properties) {
     var colID = this.currentDataTable.getColumnId(columnIndex);
     this.sortQueryClause = 'order by `' + colID + (!isAscending ? '` desc' : '`');
     // Calls sendAndDraw internally.
-    this.handlePage({'page':0});
+    this.handlePage({'page': 0});
 };
 
 
@@ -116,10 +116,10 @@ TableQueryWrapper.prototype.handleSort = function (properties) {
 TableQueryWrapper.prototype.handlePage = function (properties) {
     var localTableNewPage = properties['page']; // 1, -1 or 0
     var newPage = 0;
-    if(localTableNewPage != 0) {
+    if (localTableNewPage != 0) {
         newPage = this.currentPageIndex + localTableNewPage;
     }
-    if(this.setPageQueryClause(newPage)) {
+    if (this.setPageQueryClause(newPage)) {
         this.sendAndDraw();
     }
 };
@@ -134,12 +134,12 @@ TableQueryWrapper.prototype.handlePage = function (properties) {
 TableQueryWrapper.prototype.setPageQueryClause = function (pageIndex) {
     var pageSize = this.pageSize;
 
-    if(pageIndex < 0) {
+    if (pageIndex < 0) {
         return false;
     }
     var dataTable = this.currentDataTable;
-    if((pageIndex == this.currentPageIndex + 1) && dataTable) {
-        if(dataTable.getNumberOfRows() <= pageSize) {
+    if ((pageIndex == this.currentPageIndex + 1) && dataTable) {
+        if (dataTable.getNumberOfRows() <= pageSize) {
             return false;
         }
     }
@@ -156,7 +156,7 @@ TableQueryWrapper.prototype.setPageQueryClause = function (pageIndex) {
 /** Performs a shallow clone of the given object. */
 TableQueryWrapper.clone = function (obj) {
     var newObj = {};
-    for(var key in obj) {
+    for (var key in obj) {
         newObj[key] = obj[key];
     }
     return newObj;

@@ -78,7 +78,6 @@ public class RanglisteneintragZeile {
     }
 
 
-
     public int getPunkte() {
         return this.punkte;
     }

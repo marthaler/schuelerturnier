@@ -66,7 +66,7 @@ public class SeleniumMainThread extends Thread implements Shutdownable {
     }
 
     public void eintragen(final String filter) {
-       // final DataGenerator gen = new DataGenerator(this, filter);
+        // final DataGenerator gen = new DataGenerator(this, filter);
     }
 
     public void insertMannschaft(final String captain, final String begleiter, final String klassenbezeichner, final String schulhaus, final int klasse, final String geschlecht, int spieler) {
@@ -182,7 +182,7 @@ public class SeleniumMainThread extends Thread implements Shutdownable {
     }
 
     @Override
-	public void run() {
+    public void run() {
 
         while (this.upAndRunning) {
 
@@ -231,7 +231,7 @@ public class SeleniumMainThread extends Thread implements Shutdownable {
 
     protected void clickByXpath(final String selector) {
 
-        this.util.clickByXpath(selector,false);
+        this.util.clickByXpath(selector, false);
 
     }
 

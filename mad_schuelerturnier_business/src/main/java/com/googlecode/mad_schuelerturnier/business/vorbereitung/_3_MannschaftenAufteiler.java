@@ -90,7 +90,6 @@ public class _3_MannschaftenAufteiler {
                 kategorie.setGrosserFinal(gf);
 
 
-
                 kategorie = kategorieRepo.save(kategorie);
 
 

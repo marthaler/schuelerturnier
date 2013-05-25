@@ -16,11 +16,11 @@ import com.googlecode.mad_schuelerturnier.persistence.repository.KategorieReposi
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -53,25 +53,137 @@ public class ResultateVerarbeiter {
     @Autowired
     private SpielPrintManager printer;
 
+    private boolean init = false;
+
+    boolean uploadAllKat = false;
+
+    private Map<String,Boolean> beendet = new HashMap<String,Boolean>();
+
+    private  Queue<Long> spielQueue = new ConcurrentLinkedQueue<Long>();
+
+    private  Queue<Penalty> penaltyQueue = new ConcurrentLinkedQueue<Penalty>();
+
     private static final Logger LOG = Logger.getLogger(ResultateVerarbeiter.class);
 
     private Map<String, RanglisteneintragHistorie> map = new HashMap<String, RanglisteneintragHistorie>();
 
     public void signalPenalty(Penalty p) {
+        penaltyQueue.offer(p) ;
+    }
+
+    public void verarbeitePenalty() {
+        Penalty p = null;
+        try{
+        p = penaltyQueue.remove();
+        } catch (Exception e){
+
+        }
+
+        if(p == null){
+            return;
+        }
 
         //nachladen num sichergehen, dass die penaltys aktuelle sind
-        String katName  = p.getKategorie().getKategorie().getName();
+        String katName = p.getKategorie().getKategorie().getName();
 
         LOG.info("verarbeite penalty: " + p);
 
         map.remove(katName);
-        map.remove(katName+"_A");
-        map.remove(katName+"_B");
-
-        this.initialisierenKategorie(p.getKategorie().getKategorie());
+        map.remove(katName + "_A");
+        map.remove(katName + "_B");
+        // todo fix: p.getKategorie().getKategorie()
+        this.neuberechnenDerKategorie(p.getKategorie().getKategorie());
     }
 
+
+
+    public boolean isFertig(){
+
+        if(this.spielQueue.size() > 0){
+           return false;
+        }
+
+        if(this.penaltyQueue.size() > 0){
+            return false;
+        }
+
+        beendet.remove("invalide");
+        if(beendet.size() < 1){
+             return false;
+        }
+
+        for(boolean ok : beendet.values()){
+            if(!ok){
+               return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void initFertigMap(){
+        if(beendet.size() > 0){
+            return;
+        }
+        List<Kategorie> katList = this.katRepo.findAll();
+
+        for(Kategorie kat : katList){
+           this.beendet.put(kat.getName(), false);
+        }
+    }
+
+
     public void signalFertigesSpiel(Long id) {
+        spielQueue.offer(id);
+        LOG.info("spiel signalisiert: " + id + " queuesize: " + spielQueue.size());
+    }
+
+    public int getQueueSize(){
+        int count = spielQueue.size();
+        count = count + penaltyQueue.size();
+        if(uploadAllKat){
+            count = count +1;
+        }
+        return count;
+    }
+
+    @Scheduled(fixedRate = 1000 * 15)
+    private void verarbeiten(){
+
+         if(!init){
+            initialisieren();
+             init = true;
+         }
+
+        Long id = null;
+        try{
+        id = spielQueue.remove();
+         } catch(NoSuchElementException e){
+
+         }
+
+        while (id != null){
+
+
+            // map mit den fertig flags initialisieren
+            initFertigMap();
+
+            verarbeitePenalty();
+
+            verarbeiteUploadAllKat();
+
+
+            verarbeiteSpiel(id);
+            try{
+            id =  spielQueue.remove();
+        } catch(NoSuchElementException e){
+           id = null;
+        }
+        }
+
+    }
+
+    private void verarbeiteSpiel(Long id) {
 
         LOG.info("verarbeite fertiges spiel: " + id);
         Spiel spiel = repo.findOne(id);
@@ -84,7 +196,7 @@ public class ResultateVerarbeiter {
         if (!spiel.getGruppe().getKategorie().hasVorUndRueckrunde() && spiel.getGruppe().getKategorie().getGruppeB().getMannschaften().size() > 0) {
 
             // mannschaft a des spiels ist in gruppe a
-            if(spiel.getGruppe().getKategorie().getGruppeA().getMannschaften().contains(spiel.getMannschaftA()) && spiel.getTyp() == SpielEnum.GRUPPE){
+            if (spiel.getGruppe().getKategorie().getGruppeA().getMannschaften().contains(spiel.getMannschaftA()) && spiel.getTyp() == SpielEnum.GRUPPE) {
                 rangListe = map.get(katName + "_A");
 
                 if (rangListe == null) {
@@ -93,7 +205,7 @@ public class ResultateVerarbeiter {
                     rangListe = new RanglisteneintragHistorie(spiel, rangListe, Boolean.TRUE);
                 }
 
-                if(rangListe.isPenaltyAuswertungNoetig()){
+                if (rangListe.isPenaltyAuswertungNoetig()) {
                     rangListe = new RanglisteneintragHistorie(null, rangListe, Boolean.TRUE);
                 }
 
@@ -102,16 +214,16 @@ public class ResultateVerarbeiter {
             }
 
             // mannschaft a des spiels ist in gruppe b
-            if(spiel.getGruppe().getKategorie().getGruppeB().getMannschaften().contains(spiel.getMannschaftA())&& spiel.getTyp() == SpielEnum.GRUPPE){
+            if (spiel.getGruppe().getKategorie().getGruppeB().getMannschaften().contains(spiel.getMannschaftA()) && spiel.getTyp() == SpielEnum.GRUPPE) {
 
-            rangListe = map.get(katName + "_B");
+                rangListe = map.get(katName + "_B");
 
-            if (rangListe == null) {
-                rangListe = new RanglisteneintragHistorie(spiel, null, Boolean.FALSE);
-            } else {
-                rangListe = new RanglisteneintragHistorie(spiel, rangListe, Boolean.FALSE);
-            }
-                if(rangListe.isPenaltyAuswertungNoetig()){
+                if (rangListe == null) {
+                    rangListe = new RanglisteneintragHistorie(spiel, null, Boolean.FALSE);
+                } else {
+                    rangListe = new RanglisteneintragHistorie(spiel, rangListe, Boolean.FALSE);
+                }
+                if (rangListe.isPenaltyAuswertungNoetig()) {
                     rangListe = new RanglisteneintragHistorie(null, rangListe, Boolean.FALSE);
                 }
 
@@ -131,7 +243,7 @@ public class ResultateVerarbeiter {
             rangListe = new RanglisteneintragHistorie(spiel, rangListe, null);
         }
 
-        if(rangListe.isPenaltyAuswertungNoetig()){
+        if (rangListe.isPenaltyAuswertungNoetig()) {
             rangListe = new RanglisteneintragHistorie(null, rangListe, null);
         }
 
@@ -141,11 +253,11 @@ public class ResultateVerarbeiter {
         Penalty penA = rangListe.getPenaltyA();
         Penalty penB = rangListe.getPenaltyB();
 
-         // in kategorie setzen, falls neue penalty
-        if(spiel.getGruppe().getKategorie().getPenaltyA() == null && penA != null){
+        // in kategorie setzen, falls neue penalty
+        if (spiel.getGruppe().getKategorie().getPenaltyA() == null && penA != null) {
             spiel.getGruppe().getKategorie().setPenaltyA(penA);
         }
-        if(spiel.getGruppe().getKategorie().getPenaltyB() == null && penB != null){
+        if (spiel.getGruppe().getKategorie().getPenaltyB() == null && penB != null) {
             spiel.getGruppe().getKategorie().setPenaltyA(penB);
         }
 
@@ -156,7 +268,21 @@ public class ResultateVerarbeiter {
 
         uploadKat(kat);
 
-       printer.saveSpiel(spiel);
+        printer.saveSpiel(spiel);
+
+
+        // pruefe ob rangliste kategorie fertig
+        if(rangListe.isFertigGespielt()){
+            boolean fertig = false;
+            if(kat.getGrosserFinal() != null && kat.getGrosserFinal().isFertigBestaetigt()){
+                 fertig = true;
+            }
+
+            if(kat.getKleineFinal() != null && !kat.getKleineFinal().isFertigBestaetigt()){
+                fertig = false;
+            }
+            this.beendet.put(kat.getName(),fertig);
+        }
 
     }
 
@@ -164,7 +290,7 @@ public class ResultateVerarbeiter {
         // pruefen ob gruppenspiel fertig und gruppenspiel fertig, dann finalmannschaften eintragen
         if (rangListe.isFertigGespielt() && spiel.getTyp() == SpielEnum.GRUPPE) {
 
-            if(spiel.getGruppe().getKategorie().getGrosserFinal().getMannschaftA() != null  ){
+            if (spiel.getGruppe().getKategorie().getGrosserFinal().getMannschaftA() != null) {
                 LOG.info("achtung grosser finale, mannschaft wurde bereits zugeordnet");
                 return;
             }
@@ -217,11 +343,23 @@ public class ResultateVerarbeiter {
         }
     }
 
-    @Async
-    public void uploadAllKat(){
+
+    public void uploadAllKat() {
+        uploadAllKat = true;
+    }
+
+    private void verarbeiteUploadAllKat(){
+
+        if(!uploadAllKat){
+            return;
+        }
+
+        LOG.info("ftpPublisher: reconnect");
+        this.ftpPublisher.reconnect();
         for (Kategorie kat : this.katRepo.findAll()) {
             uploadKat(kat);
         }
+        uploadAllKat = false;
     }
 
     private void uploadKat(Kategorie kat) {
@@ -233,10 +371,10 @@ public class ResultateVerarbeiter {
         this.ftpPublisher.addPage(kat.getName() + ".html".toLowerCase(), page);
 
         // hochladen der resultate
-        this.ftpPublisher.addPage("rangliste.html", this.rangliste.printOutGere(map.values(),true));
+        this.ftpPublisher.addPage("rangliste.html", this.rangliste.printOutGere(map.values(), true));
     }
 
-    @PostConstruct
+
     public void initialisieren() {
 
         // neuberechnen der historien nach dem neustart
@@ -256,7 +394,7 @@ public class ResultateVerarbeiter {
         this.ftpPublisher.addPage("index.html", this.historieGenerator.generatePageIndex());
     }
 
-    public void initialisierenKategorie(Kategorie kat) {
+    public void neuberechnenDerKategorie(Kategorie kat) {
 
         List<Spiel> spiele = this.repo.findGruppenSpielAsc();
 
@@ -265,10 +403,10 @@ public class ResultateVerarbeiter {
                 this.signalFertigesSpiel(spiel.getId());
             }
         }
-        if(kat.getGrosserFinal().isFertigBestaetigt()){
+        if (kat.getGrosserFinal().isFertigBestaetigt()) {
             this.signalFertigesSpiel(kat.getGrosserFinal().getId());
         }
-        if(kat.getGrosserFinal().isFertigBestaetigt()){
+        if (kat.getGrosserFinal().isFertigBestaetigt()) {
             this.signalFertigesSpiel(kat.getGrosserFinal().getId());
         }
 
@@ -288,7 +426,7 @@ public class ResultateVerarbeiter {
     }
 
     public String getRangliste() {
-        return rangliste.printOutGere(map.values(),false);
+        return rangliste.printOutGere(map.values(), false);
     }
 
     @Deprecated

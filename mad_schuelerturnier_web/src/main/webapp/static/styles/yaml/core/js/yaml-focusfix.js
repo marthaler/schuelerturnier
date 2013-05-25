@@ -20,37 +20,37 @@
 
 (function () {
     var YAML_focusFix = {
-        skipClass : 'skip',
+        skipClass: 'skip',
 
-        init : function () {
+        init: function () {
             var userAgent = navigator.userAgent.toLowerCase();
             var is_webkit = userAgent.indexOf('webkit') > -1;
             var is_ie = userAgent.indexOf('msie') > -1;
 
-            if(is_webkit || is_ie) {
+            if (is_webkit || is_ie) {
                 var body = document.body,
-                        handler = YAML_focusFix.click;
-                if(body.addEventListener) {
+                    handler = YAML_focusFix.click;
+                if (body.addEventListener) {
                     body.addEventListener('click', handler, false);
-                } else if(body.attachEvent) {
+                } else if (body.attachEvent) {
                     body.attachEvent('onclick', handler);
                 }
             }
         },
 
-        click : function (e) {
+        click: function (e) {
             e = e || window.event;
             var target = e.target || e.srcElement;
-            if(target.className.indexOf(YAML_focusFix.skipClass) > -1) {
+            if (target.className.indexOf(YAML_focusFix.skipClass) > -1) {
                 YAML_focusFix.focus(target);
             }
         },
 
-        focus : function (link) {
+        focus: function (link) {
             var href = link.href,
-                    id = href.substr(href.indexOf('#') + 1),
-                    target = document.getElementById(id);
-            if(target) {
+                id = href.substr(href.indexOf('#') + 1),
+                target = document.getElementById(id);
+            if (target) {
                 target.setAttribute("tabindex", "-1");
                 target.focus();
             }

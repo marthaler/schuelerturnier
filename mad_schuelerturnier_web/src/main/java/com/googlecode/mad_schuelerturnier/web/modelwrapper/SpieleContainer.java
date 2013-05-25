@@ -3,11 +3,11 @@
  */
 package com.googlecode.mad_schuelerturnier.web.modelwrapper;
 
+import com.googlecode.mad_schuelerturnier.model.spiel.tabelle.SpielZeile;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.googlecode.mad_schuelerturnier.model.spiel.tabelle.SpielZeile;
 
 /**
  * @author $Author: marthaler.worb@gmail.com $
@@ -15,60 +15,60 @@ import com.googlecode.mad_schuelerturnier.model.spiel.tabelle.SpielZeile;
  */
 public class SpieleContainer implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	private List<SpielZeile> zeilen = new ArrayList<SpielZeile>();
-	private SpielZeile[] selectedZeilen;
-	
-	private SpielZeilenWrapper dataModel;
+    private static final long serialVersionUID = 1L;
+    private List<SpielZeile> zeilen = new ArrayList<SpielZeile>();
+    private SpielZeile[] selectedZeilen;
 
-	public List<SpielZeile> getZeilen() {
-		return zeilen;
-	}
+    private SpielZeilenWrapper dataModel;
 
-	public void setZeilen(List<SpielZeile> zeilen) {
-		dataModel = new SpielZeilenWrapper(zeilen);
-		this.zeilen = zeilen;
-	}
+    public List<SpielZeile> getZeilen() {
+        return zeilen;
+    }
 
-	public SpielZeile[] getSelectedZeilen() {
+    public void setZeilen(List<SpielZeile> zeilen) {
+        dataModel = new SpielZeilenWrapper(zeilen);
+        this.zeilen = zeilen;
+    }
 
-		List<SpielZeile> ret = new ArrayList<SpielZeile>();
+    public SpielZeile[] getSelectedZeilen() {
 
-		for (SpielZeile ze : zeilen) {
-			if (!ze.isPause()) {
-				ret.add(ze);
-			}
-		}
-		SpielZeile[] retArr = new SpielZeile[ret.size()];
-		for (int i = 0; i < retArr.length; i++) {
-			 retArr[i] = ret.get(i);
-			
-		}
-				
-		return retArr;
-	}
+        List<SpielZeile> ret = new ArrayList<SpielZeile>();
 
-	public void setSelectedZeilen(Object[] selectedZeilen) {
-		List<SpielZeile> zel = new ArrayList<SpielZeile>();
-		for (Object spielZeile : selectedZeilen) {
-			zel.add((SpielZeile) spielZeile);
-		}
-		
-		for (SpielZeile ze : zeilen) {
-			if(zel.contains(ze)){
-				ze.setPause(false);
-			} else{
-			ze.setPause(true);
-			}
-		}
-	}
+        for (SpielZeile ze : zeilen) {
+            if (!ze.isPause()) {
+                ret.add(ze);
+            }
+        }
+        SpielZeile[] retArr = new SpielZeile[ret.size()];
+        for (int i = 0; i < retArr.length; i++) {
+            retArr[i] = ret.get(i);
 
-	public SpielZeilenWrapper getDataModel() {
-		return dataModel;
-	}
+        }
 
-	public void setDataModel(SpielZeilenWrapper dataModel) {
-		this.dataModel = dataModel;
-	}
+        return retArr;
+    }
+
+    public void setSelectedZeilen(Object[] selectedZeilen) {
+        List<SpielZeile> zel = new ArrayList<SpielZeile>();
+        for (Object spielZeile : selectedZeilen) {
+            zel.add((SpielZeile) spielZeile);
+        }
+
+        for (SpielZeile ze : zeilen) {
+            if (zel.contains(ze)) {
+                ze.setPause(false);
+            } else {
+                ze.setPause(true);
+            }
+        }
+    }
+
+    public SpielZeilenWrapper getDataModel() {
+        return dataModel;
+    }
+
+    public void setDataModel(SpielZeilenWrapper dataModel) {
+        this.dataModel = dataModel;
+    }
 
 }
