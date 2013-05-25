@@ -52,10 +52,16 @@
                                         </f:facet>
 
 
-                                        <p:commandLink id="commandlinkDialogCapatin" onclick="dlgca#{ri}.show();"><h:outputText value="#{mannschaft.captainName}"/></p:commandLink>
-                                        <p:dialog id="dialogCaptain" header="Kontakdaten des Begleiters" widgetVar="dlgca#{ri}" showEffect="drop" hideEffect="drop" height="100" width="300">
-                                            <h:outputText value="Telefonnummer: #{mannschaft.captainTelefon}"/> <br/>
-                                            <h:outputText value="Emailadresse: #{mannschaft.captainEmail}"/> <br/>
+                                        <p:commandLink id="commandlinkDialogCapatin" onclick="dlgca#{ri}.show();">
+                                            <h:outputText value="#{mannschaft.captainName}"/>
+                                        </p:commandLink>
+                                        <p:dialog id="dialogCaptain" header="Kontakdaten des Begleiters"
+                                                  widgetVar="dlgca#{ri}" showEffect="drop" hideEffect="drop"
+                                                  height="100" width="300">
+                                            <h:outputText value="Telefonnummer: #{mannschaft.captainTelefon}"/>
+                                            <br/>
+                                            <h:outputText value="Emailadresse: #{mannschaft.captainEmail}"/>
+                                            <br/>
 
                                         </p:dialog>
 
@@ -68,10 +74,16 @@
                                         </f:facet>
 
 
-                                        <p:commandLink id="notitzenButtons" onclick="dlgs#{ri}.show();"><h:outputText value="#{mannschaft.begleitpersonName}"/></p:commandLink>
-                                        <p:dialog id="notizen_dialogs" header="Kontakdaten des Begleiters" widgetVar="dlgs#{ri}" showEffect="drop" hideEffect="drop" height="100" width="300">
-                                            <h:outputText value="Telefonnummer: #{mannschaft.begleitpersonTelefon}"/> <br/>
-                                            <h:outputText value="Emailadresse: #{mannschaft.begleitpersonEmail}"/> <br/>
+                                        <p:commandLink id="notitzenButtons" onclick="dlgs#{ri}.show();">
+                                            <h:outputText value="#{mannschaft.begleitpersonName}"/>
+                                        </p:commandLink>
+                                        <p:dialog id="notizen_dialogs" header="Kontakdaten des Begleiters"
+                                                  widgetVar="dlgs#{ri}" showEffect="drop" hideEffect="drop" height="100"
+                                                  width="300">
+                                            <h:outputText value="Telefonnummer: #{mannschaft.begleitpersonTelefon}"/>
+                                            <br/>
+                                            <h:outputText value="Emailadresse: #{mannschaft.begleitpersonEmail}"/>
+                                            <br/>
 
                                         </p:dialog>
 
@@ -110,8 +122,12 @@
                                         <f:facet name="header">
                                             <h:outputText value="Notizen"/>
                                         </f:facet>
-                                        <p:commandButton id="notitzenButton" icon="ui-icon-note" onclick="dlg#{ri}.show();" type="button" rendered="#{mannschaft.notizen.length() > 0}"/>
-                                        <p:dialog id="notizen_dialog" header="Notitzen zu dieser Mannschaft" widgetVar="dlg#{ri}" showEffect="drop" hideEffect="drop" height="200" width="400">
+                                        <p:commandButton id="notitzenButton" icon="ui-icon-note"
+                                                         onclick="dlg#{ri}.show();" type="button"
+                                                         rendered="#{mannschaft.notizen.length() > 0}"/>
+                                        <p:dialog id="notizen_dialog" header="Notitzen zu dieser Mannschaft"
+                                                  widgetVar="dlg#{ri}" showEffect="drop" hideEffect="drop" height="200"
+                                                  width="400">
                                             <h:outputText value="#{mannschaft.notizen}"/>
                                         </p:dialog>
                                     </p:column>

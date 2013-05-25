@@ -31,17 +31,11 @@
                                         <f:selectItem itemLabel="Kategorie Auswaehlen" itemValue=""/>
                                         <f:selectItems value="#{beobachterBean.kategorien}"/>
 
-                                        <p:ajax update="historie" event="change" actionListener="#{beobachterBean.auswahl}"/>
+                                        <p:ajax update="historie" event="change"
+                                                actionListener="#{beobachterBean.auswahl}"/>
 
                                     </p:selectOneMenu>
 
-                                    <p:commandButton action="#{beobachterBean.neuBerechnen()}" icon="ui-icon-arrowrefresh" ajax="false">
-
-                                    </p:commandButton>
-
-                                    <p:commandButton action="#{beobachterBean.dumpOutPages()}" value="dump" ajax="false">
-
-                                    </p:commandButton>
 
                                 </h:panelGrid>
 

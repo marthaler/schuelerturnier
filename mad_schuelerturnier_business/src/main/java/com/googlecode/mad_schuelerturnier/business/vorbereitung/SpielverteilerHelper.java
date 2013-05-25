@@ -33,42 +33,42 @@ public class SpielverteilerHelper {
         for (Spiel spiel : spiele) {
             String katname = spiel.getMannschaftA().getKategorie().getName();
 
-            Map<String,Integer> counter = map.get(katname);
-            if(counter == null){
-                counter =  new HashMap<String,Integer>();
-                counter.put(CONSUMED_KEY,0);
-                counter.put(AVAILABLE_KEY,0);
+            Map<String, Integer> counter = map.get(katname);
+            if (counter == null) {
+                counter = new HashMap<String, Integer>();
+                counter.put(CONSUMED_KEY, 0);
+                counter.put(AVAILABLE_KEY, 0);
             }
 
             Integer avn = counter.get(AVAILABLE_KEY);
-            avn = avn +1;
-            counter.put(AVAILABLE_KEY,avn);
+            avn = avn + 1;
+            counter.put(AVAILABLE_KEY, avn);
 
-            map.put(katname,counter);
+            map.put(katname, counter);
         }
     }
 
-    public boolean isFirstSpielInGruppe(Spiel spiel){
+    public boolean isFirstSpielInGruppe(Spiel spiel) {
         String katname = spiel.getMannschaftA().getKategorie().getName();
         Integer res = map.get(katname).get(CONSUMED_KEY);
-        if(res == 0){
-           return true;
+        if (res == 0) {
+            return true;
         }
         return false;
     }
 
-    public void consumeSpiel(Spiel spiel){
+    public void consumeSpiel(Spiel spiel) {
         String katname = spiel.getMannschaftA().getKategorie().getName();
 
-        Map<String,Integer> counter = map.get(katname);
+        Map<String, Integer> counter = map.get(katname);
         Integer avn = counter.get(AVAILABLE_KEY);
-        avn = avn -1;
-        counter.put(AVAILABLE_KEY,avn);
+        avn = avn - 1;
+        counter.put(AVAILABLE_KEY, avn);
 
         Integer con = counter.get(CONSUMED_KEY);
-        con = con +1;
-        counter.put(CONSUMED_KEY,con);
+        con = con + 1;
+        counter.put(CONSUMED_KEY, con);
 
-        map.put(katname,counter);
+        map.put(katname, counter);
     }
 }

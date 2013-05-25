@@ -54,9 +54,8 @@ public interface IBusiness {
     public void penaltyEintragen(List<Penalty> list);
 
     public List<Penalty> gespieltePenalty();
+
     public List<Penalty> eingetragenePenalty();
-
-
 
 
 }

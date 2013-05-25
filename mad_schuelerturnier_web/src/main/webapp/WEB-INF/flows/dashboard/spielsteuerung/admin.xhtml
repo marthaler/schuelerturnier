@@ -38,16 +38,27 @@
                                     <h:panelGrid columns="4" style="margin-bottom:10px"
                                                  cellpadding="5">
 
-                                        <p:commandButton id="anmeldung" widgetVar="anmeldung" value="Anmeldephase" onclick="anmeldung.disable();katzuordnung.enable()" action="go" disabled="#{!spielstatusWebBean.anmeldephase}"/>
+                                        <p:commandButton id="anmeldung" widgetVar="anmeldung" value="Anmeldephase"
+                                                         onclick="anmeldung.disable();katzuordnung.enable()" action="go"
+                                                         disabled="#{!spielstatusWebBean.anmeldephase}"/>
 
-                                        <p:commandButton id="katzuordnung" widgetVar="katzuordnung" value="Kategoriezuordnung"
-                                                         onclick="katzuordnung.disable();spieltagezuordnung.enable()" disabled="#{!spielstatusWebBean.kategoriezuordnungsphase}" action="go"/>
+                                        <p:commandButton id="katzuordnung" widgetVar="katzuordnung"
+                                                         value="Kategoriezuordnung"
+                                                         onclick="katzuordnung.disable();spieltagezuordnung.enable()"
+                                                         disabled="#{!spielstatusWebBean.kategoriezuordnungsphase}"
+                                                         action="go"/>
 
-                                        <p:commandButton id="spieltagezuordnung" widgetVar="spieltagezuordnung" value="Spieltagezuordnung"
-                                                         onclick="spielzuordnung.enable();spieltagezuordnung.disable()" disabled="#{!spielstatusWebBean.spieltagezuordnungsphase}" action="go"/>
+                                        <p:commandButton id="spieltagezuordnung" widgetVar="spieltagezuordnung"
+                                                         value="Spieltagezuordnung"
+                                                         onclick="spielzuordnung.enable();spieltagezuordnung.disable()"
+                                                         disabled="#{!spielstatusWebBean.spieltagezuordnungsphase}"
+                                                         action="go"/>
 
-                                        <p:commandButton id="spielzuordnung" widgetVar="spielzuordnung" value="Spielfreigabe"
-                                                         onclick="spielen.enable();spielzuordnung.disable()" disabled="#{!spielstatusWebBean.spielzuordnungsphase}" action="go"/>
+                                        <p:commandButton id="spielzuordnung" widgetVar="spielzuordnung"
+                                                         value="Spielfreigabe"
+                                                         onclick="spielen.enable();spielzuordnung.disable()"
+                                                         disabled="#{!spielstatusWebBean.spielzuordnungsphase}"
+                                                         action="go"/>
 
                                     </h:panelGrid>
 

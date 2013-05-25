@@ -30,34 +30,40 @@
                                     <h:panelGrid columns="2">
 
                                         <h:outputLabel value="Starttag "/>
-                                        <p:calendar id="starttag" value="#{spieleinstellungen.starttag}" disabled="#{!empty spielZeilenSa}"/>
+                                        <p:calendar id="starttag" value="#{spieleinstellungen.starttag}"
+                                                    disabled="#{!empty spielZeilenSa}"/>
 
                                         <h:outputLabel value="Spiellaenge "/>
-                                        <p:inputMask value="#{spieleinstellungen.spiellaenge}" disabled="#{!empty spielZeilenSa}"/>
+                                        <p:inputMask value="#{spieleinstellungen.spiellaenge}"
+                                                     disabled="#{!empty spielZeilenSa}"/>
 
                                         <h:outputLabel value="Pause "/>
-                                        <p:inputMask value="#{spieleinstellungen.pause}" mask="9" disabled="#{!empty spielZeilenSa}"/>
+                                        <p:inputMask value="#{spieleinstellungen.pause}" mask="9"
+                                                     disabled="#{!empty spielZeilenSa}"/>
 
-                                        <p:commandButton id="submit" value="Speichern" action="save" rendered="#{empty spielZeilenSa}"/>
+                                        <p:commandButton id="submit" value="Speichern" action="save"
+                                                         rendered="#{empty spielZeilenSa}"/>
 
 
                                     </h:panelGrid>
 
 
-                                    Anzahl Spiele:  #{spielInformationExpert.anzahlSpiele} <br/>
-                                    Anzahl Spielplätze:  #{spielInformationExpert.vorhandeneSpielplaetze}<br/>
+                                    Anzahl Spiele: #{spielInformationExpert.anzahlSpiele} <br/>
+                                    Anzahl Spielplätze: #{spielInformationExpert.vorhandeneSpielplaetze}<br/>
                                     <br/>
-                                    Anzahl Finalspiele:  #{spielInformationExpert.anzahlFinale}<br/>
-                                    Anzahl Finalspielplätze:  #{spielInformationExpert.vorhandeneFinalplaetze}<br/>
+                                    Anzahl Finalspiele: #{spielInformationExpert.anzahlFinale}<br/>
+                                    Anzahl Finalspielplätze: #{spielInformationExpert.vorhandeneFinalplaetze}<br/>
                                     <br/>
-                                    <br/>
-
-                                    <p:inputTextarea name="text" id="text" rows="20" cols="20" value="#{spieleinstellungen.spielVertauschungen}" autoResize="false"/>
-
                                     <br/>
 
-                                    <p:commandButton widgetVar="submit2" id="man" value="Change" action="man" ajax="false" execute="@form" update="@form"/>
+                                    <p:inputTextarea name="text" id="text" rows="20" cols="20"
+                                                     value="#{spieleinstellungen.spielVertauschungen}"
+                                                     autoResize="false"/>
 
+                                    <br/>
+
+                                    <p:commandButton widgetVar="submit2" id="man" value="Change" action="man"
+                                                     ajax="false" execute="@form" update="@form"/>
 
 
                                 </h:panelGrid>
@@ -83,12 +89,14 @@
 
                                                     <p:column headerText="Samstag">
                                                         <p:commandButton action="toggleP" icon="ui-icon-cancel"
-                                                                         rendered="#{zeile.pause}" disabled="#{!spielstatusWebBean.spieltagezuordnungsphase}">
+                                                                         rendered="#{zeile.pause}"
+                                                                         disabled="#{!spielstatusWebBean.spieltagezuordnungsphase}">
                                                             <f:param name="id" value="#{zeile.id}"/>
 
                                                         </p:commandButton>
                                                         <p:commandButton action="toggleP" icon="ui-icon-check"
-                                                                         rendered="#{!zeile.pause}" disabled="#{!spielstatusWebBean.spieltagezuordnungsphase}">
+                                                                         rendered="#{!zeile.pause}"
+                                                                         disabled="#{!spielstatusWebBean.spieltagezuordnungsphase}">
                                                             <f:param name="id" value="#{zeile.id}"/>
 
                                                         </p:commandButton>
@@ -96,7 +104,8 @@
 
                                                     <p:column headerText="Start">
                                                         <h:outputText value="#{zeile.start}">
-                                                            <f:convertDateTime type="date" pattern="HH:mm" timeZone="Europe/Zurich"/>
+                                                            <f:convertDateTime type="date" pattern="HH:mm"
+                                                                               timeZone="Europe/Zurich"/>
                                                         </h:outputText>
 
 
@@ -136,12 +145,14 @@
                                                     <br/>
                                                     <p:column headerText="Sonntag">
                                                         <p:commandButton action="toggleP" icon="ui-icon-cancel"
-                                                                         rendered="#{zeile.pause}" disabled="#{!spielstatusWebBean.spieltagezuordnungsphase}">
+                                                                         rendered="#{zeile.pause}"
+                                                                         disabled="#{!spielstatusWebBean.spieltagezuordnungsphase}">
                                                             <f:param name="id" value="#{zeile.id}"/>
 
                                                         </p:commandButton>
                                                         <p:commandButton action="toggleP" icon="ui-icon-check"
-                                                                         rendered="#{!zeile.pause}" disabled="#{!spielstatusWebBean.spieltagezuordnungsphase}">
+                                                                         rendered="#{!zeile.pause}"
+                                                                         disabled="#{!spielstatusWebBean.spieltagezuordnungsphase}">
                                                             <f:param name="id" value="#{zeile.id}"/>
 
                                                         </p:commandButton>
@@ -149,7 +160,8 @@
 
                                                     <p:column headerText="Start">
                                                         <h:outputText value="#{zeile.start}">
-                                                            <f:convertDateTime type="date" pattern="HH:mm" timeZone="Europe/Zurich"/>
+                                                            <f:convertDateTime type="date" pattern="HH:mm"
+                                                                               timeZone="Europe/Zurich"/>
                                                         </h:outputText>
 
 

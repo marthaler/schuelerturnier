@@ -2,6 +2,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:sec="http://www.springframework.org/security/tags"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
                 template="../../../layouts/100.xhtml">
@@ -22,35 +23,41 @@
 
 <h:form id="form2">
 
-    <p:commandButton value = "refresh" id="refresh" action="refresh" icon="ui-icon-check" disabled="false" ajax="false">
-    </p:commandButton>
-    w: #{wait}
-
-    <p:media value="#{speak}" width="200" height="20" player="quicktime" rendered="#{speak != null}">
-        <f:param name="autoPlay" value="true" />
-    </p:media>
-
+    <sec:authorize ifAnyGranted="ROLE_SPEAKER">
+     <!--
+        <p:commandButton value="refresh" id="refresh" action="refresh" icon="ui-icon-check" disabled="false"
+                         ajax="false">
+        </p:commandButton>
+        w: #{wait}
+         -->
+        <p:media value="#{speak}" width="200" height="20" player="quicktime" rendered="#{speak != null}">
+            <f:param name="autoPlay" value="true"/>
+        </p:media>
+    </sec:authorize>
 
 </h:form>
 <br/>
-<h:form id="form1">
+<h:form id="formular">
 
 <p:fieldset legend="Spieldurchfuehrung">
 <p:messages/>
 
-<h:outputText id="zeit2" value="Echte Zeit #{spielUhr.richtigeZeit}"/> - <h:outputText id="zeit3" value="Spiel Zeit: #{spielUhr.spielZeit}"/> - <h:outputText id="versp" value="Verspätung: #{business.spielzeitVerspaetung()}"/>
+<h:outputText id="zeit2" value="Echte Zeit #{spielUhr.richtigeZeit}"/>
+-
+<h:outputText id="zeit3" value="Spiel Zeit: #{spielUhr.spielZeit}"/>
+-
+<h:outputText id="versp" value="Verspätung: #{business.spielzeitVerspaetung()}"/>
 <p:poll interval="1" listener="#{spielUhr.getRichtigeZeit}" update="zeit2,zeit3, versp"/>
-<br/>
-
 <br/>
 <h:panelGrid columns="1" id="inputelements">
 
 <script type="text/javascript">
-    setTimeout("document.getElementById('form2:refresh').click();",#{wait});
+    setTimeout("document.getElementById('form_m:m_speaker').click();", #{wait});
 </script>
 <br/>
 
-<p:dataTable emptyMessage="leer" id="dataTablePen" var="penalty" value="#{penaltyAnstehend}" rendered="#{!penaltyAnstehend.isEmpty()}">
+<p:dataTable emptyMessage="leer" id="dataTablePen" var="penalty" value="#{penaltyAnstehend}"
+             rendered="#{!penaltyAnstehend.isEmpty()}">
 
     <p:column headerText="Penalty">
         <p:commandButton value="#{penalty.toString()}" disabled="true" action="notExisting">
@@ -58,10 +65,9 @@
     </p:column>
 
 </p:dataTable>
-<br/>
 
-<p:accordionPanel multiple="true" activeIndex="0,1,2,3,4,5">
-<p:ajax event="tabChange" listener="#{myBean.onTabChange}"/>
+<p:accordionPanel id="panel" multiple="true" activeIndex="#{speakerTabModel.open}">
+
 <p:tab title="Wartende Spiele">
     <p:dataTable emptyMessage="leer" id="dataTable1" var="zeile"
                  value="#{spielDurchfuehrung._1_wartend}">
@@ -132,7 +138,7 @@
             <f:facet name="header">
             </f:facet>
             <p:commandButton icon="ui-icon-check"
-                             disabled="#{!spielDurchfuehrung.readyToVorbereiten}"
+                             disabled="#{sec:areNotGranted('ROLE_SPEAKER') or !spielDurchfuehrung.readyToVorbereiten}"
                              action="vorbereitet">
             </p:commandButton>
         </p:column>
@@ -141,7 +147,7 @@
     </p:dataTable>
 </p:tab>
 <p:tab title="Wartet auf Start">
-    <p:dataTable emptyMessage="leer" id="dataTable3" var="zeile"
+    <p:dataTable emptyMessage="leer" id="play_table" var="zeile"
                  value="#{spielDurchfuehrung._3_vorbereitet}">
 
         <p:column headerText="Start">
@@ -180,10 +186,11 @@
         <p:column>
             <f:facet name="header">
             </f:facet>
-            <p:commandButton icon="ui-icon-check"
+            <p:commandButton id="play" icon="ui-icon-check"
                              disabled="#{!spielDurchfuehrung.readyToSpielen}"
-                             action="spielen">
+                             action="spielen" widgetVar="play" ajax="false">
             </p:commandButton>
+
         </p:column>
 
     </p:dataTable>
@@ -191,7 +198,7 @@
 
 
 <p:tab title="Am Spielen">
-    <p:dataTable emptyMessage="leer" id="dataTable4" var="zeile" value="#{spielDurchfuehrung._4_spielend}">
+    <p:dataTable emptyMessage="leer" id="spielentabelle" var="zeile" value="#{spielDurchfuehrung._4_spielend}">
 
         <p:column headerText="Start">
             <h:outputText value="#{zeile.start}">
@@ -225,7 +232,8 @@
         <p:column>
             <f:facet name="header">
             </f:facet>
-            <p:commandButton icon="ui-icon-check" ajax="false" action="beenden" disabled="#{!spieleinstellungen.abbrechenZulassen}">
+            <p:commandButton icon="ui-icon-check" ajax="false" action="beenden"
+                             disabled="#{sec:areNotGranted('ROLE_SPEAKER') and !spieleinstellungen.abbrechenZulassen}">
             </p:commandButton>
         </p:column>
 
@@ -266,9 +274,6 @@
 </p:tab>
 
 </p:accordionPanel>
-
-
-
 
 
 </h:panelGrid>

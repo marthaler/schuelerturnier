@@ -28,7 +28,8 @@
                                     <p:selectOneButton value="#{beobachterBean.schiriAuswahl}">
                                         <f:selectItem itemLabel="Gruppe" itemValue="gruppe"/>
                                         <f:selectItem itemLabel="Finale" itemValue="finale"/>
-                                        <p:ajax event="change" update="schiri" actionListener="#{beobachterBean.schiriAuswahl}"/>
+                                        <p:ajax event="change" update="schiri"
+                                                actionListener="#{beobachterBean.schiriAuswahl}"/>
                                     </p:selectOneButton>
 
                                     <p:commandButton action="newmannschaft_view" icon="ui-icon-print" ajax="false">

@@ -26,19 +26,19 @@ import java.io.File;
 @Controller
 public class BarcodeGenerator {
 
-   private static final Logger LOG = Logger.getLogger(BarcodeGenerator.class);
+    private static final Logger LOG = Logger.getLogger(BarcodeGenerator.class);
 
-   private static String folder;
+    private static String folder;
 
-   @Async
-   public void init(String path){
-       folder = path + "barcode" + System.getProperty("file.separator") ;
-       new File(folder).mkdirs();
-      for(int i = 0;i< 676 ; i++){
-          barcode(IDGeneratorContainer.getNext());
-      }
+    @Async
+    public void init(String path) {
+        folder = path + "barcode" + System.getProperty("file.separator");
+        new File(folder).mkdirs();
+        for (int i = 0; i < 676; i++) {
+            barcode(IDGeneratorContainer.getNext());
+        }
 
-   }
+    }
 
     private void barcode(String text) {
 
@@ -56,7 +56,7 @@ public class BarcodeGenerator {
 
             if (!f.exists()) {
                 f.createNewFile();
-            } else{
+            } else {
                 return;
             }
 
