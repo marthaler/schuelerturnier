@@ -1,37 +1,36 @@
 package com.googlecode.mad_schuelerturnier.model;
 
-import java.io.Serializable;
-import java.util.UUID;
+import org.joda.time.DateTime;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-
-import org.joda.time.DateTime;
-import org.springframework.data.jpa.domain.AbstractPersistable;
+import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
 @MappedSuperclass
- public class Persistent extends AbstractPersistable<Long> implements Serializable, IPersistent {
-	 
-	private static final long serialVersionUID = 1L;
-	
-	@Column(name="ID2")
-	private String id = UUID.randomUUID().toString();
-	
-	protected DateTime creationdate = new DateTime();
-	
-	/* (non-Javadoc)
-	 * @see com.googlecode.mad_schuelerturnier.model.IPersistent#getId()
-	 */
-	public String getIdString(){
-		return id;
-	}
+public class Persistent extends AbstractPersistable<Long> implements Serializable, IPersistent {
 
-	public DateTime getCreationdate() {
-		return creationdate;
-	}
-	
+    private static final long serialVersionUID = 1L;
+
+    @Column(name = "ID2")
+    private String id = UUID.randomUUID().toString();
+
+    protected DateTime creationdate = new DateTime();
+
+    /* (non-Javadoc)
+     * @see com.googlecode.mad_schuelerturnier.model.IPersistent#getId()
+     */
+    public String getIdString() {
+        return id;
+    }
+
+    public DateTime getCreationdate() {
+        return creationdate;
+    }
+
 }

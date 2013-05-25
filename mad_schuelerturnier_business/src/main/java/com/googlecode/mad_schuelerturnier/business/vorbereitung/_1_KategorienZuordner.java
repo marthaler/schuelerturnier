@@ -83,31 +83,31 @@ public class _1_KategorienZuordner {
             for (Mannschaft mann : kategorie.getGruppeA().getMannschaften()) {
 
                 // SpielwunschHint beruecksichtigen, beispielsweise aus der Import Liste
-                        if(mann.getSpielWunschHint() != null && !mann.getSpielWunschHint().isEmpty()){
-                            String hint = mann.getSpielWunschHint().toLowerCase();
+                if (mann.getSpielWunschHint() != null && !mann.getSpielWunschHint().isEmpty()) {
+                    String hint = mann.getSpielWunschHint().toLowerCase();
 
-                            if(hint.contains("onn")){
-                                kategorie.setSpielwunsch(SpielTageszeit.SONNTAGMORGEN);
-                                hintS =  "sonntag";
-                            }
+                    if (hint.contains("onn")) {
+                        kategorie.setSpielwunsch(SpielTageszeit.SONNTAGMORGEN);
+                        hintS = "sonntag";
+                    }
 
-                            if(hint.contains("orge")){
-                                kategorie.setSpielwunsch(SpielTageszeit.SAMSTAGMORGEN);
-                                hintS =  "morgen";
-                            }
+                    if (hint.contains("orge")) {
+                        kategorie.setSpielwunsch(SpielTageszeit.SAMSTAGMORGEN);
+                        hintS = "morgen";
+                    }
 
-                            if(hint.contains("nach")){
-                                kategorie.setSpielwunsch(SpielTageszeit.SAMMSTAGNACHMITTAG);
-                                hintS =  "nachmittag";
-                            }
-                            this.kategorieRepo.save(kategorie);
-                        }
+                    if (hint.contains("nach")) {
+                        kategorie.setSpielwunsch(SpielTageszeit.SAMMSTAGNACHMITTAG);
+                        hintS = "nachmittag";
+                    }
+                    this.kategorieRepo.save(kategorie);
+                }
 
                 mann.setGruppe(gruppe);
                 mannschaftRepo.save(mann);
             }
 
-            if(hintS != null){
+            if (hintS != null) {
                 for (Mannschaft mann : kategorie.getGruppeA().getMannschaften()) {
                     mann.setSpielWunschHint(hintS);
                     mannschaftRepo.save(mann);

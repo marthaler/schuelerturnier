@@ -13,52 +13,52 @@ public class SeleniumSpeakerThread extends Thread {
 
     private static final Logger LOG = Logger.getLogger(SeleniumMainThread.class);
 
-	private SeleniumDriverWrapper util = new SeleniumDriverWrapper();
+    private SeleniumDriverWrapper util = new SeleniumDriverWrapper();
 
-	@Override
-	public void run() {
+    @Override
+    public void run() {
 
-		this.util.login("t", "t");
-		this.util.clickById("form_m:m_speaker");
+        this.util.login("root", "root");
+        this.util.clickById("form_m:m_speaker");
 
-        for (int i = 0;i< 10; i++){
+        for (int i = 0; i < 20000; i++) {
 
-            if(MatchOnly.restart){
+            if (MatchOnly.restart) {
                 break;
             }
 
             try {
-            this.util.sleepAMoment();
-            //this.util.clickById("form1:j_idt46:dataTable2:0:j_idt74",false);
+                this.util.sleepAMoment();
+                //this.util.clickById("form1:j_idt46:dataTable2:0:j_idt74",false);
 
-        } catch (final Exception e) {
-            SeleniumSpeakerThread.LOG.error("not found: j_idt74");
-        }
-
-        this.util.sleepAMoment();
-        try {
+            } catch (final Exception e) {
+                SeleniumSpeakerThread.LOG.error("not found: j_idt74");
+            }
 
             this.util.sleepAMoment();
-            this.util.clickById("form1:j_idt53:dataTable3:0:j_idt97");
+            try {
 
-        } catch (final Exception e) {
-            this.util.sleepAMoment();
-            SeleniumSpeakerThread.LOG.error("not found: form1:j_idt50:dataTable3:0:j_idt94");
-        }
+                this.util.sleepAMoment();
+                this.util.clickById("formular:panel:play_table:0:play");
+
+            } catch (final Exception e) {
+                this.util.sleepAMoment();
+                SeleniumSpeakerThread.LOG.error("not found: formular:panel:play_table:0:play");
+            }
 
             this.util.sleepAMoment(10);
 
-       }
+        }
         this.util.distroy();
-	}
+    }
 
-	public static void main(final String[] args) {
-		final SeleniumSpeakerThread th = new SeleniumSpeakerThread();
-		th.run();
-		try {
-			th.join();
-		} catch (final InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
+    public static void main(final String[] args) {
+        final SeleniumSpeakerThread th = new SeleniumSpeakerThread();
+        th.run();
+        try {
+            th.join();
+        } catch (final InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

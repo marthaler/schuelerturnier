@@ -8,5 +8,5 @@ package com.googlecode.mad_schuelerturnier.model.enums;
  * @since 0.7
  */
 public enum GeschlechtEnum {
-	M, K
+    M, K
 }

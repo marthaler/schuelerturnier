@@ -10,7 +10,9 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class Penalty extends AbstractPersistable<Long> {
     private String reihenfolge = LEER;
 
     private String idString;
-    
+
     @OneToOne
     private Gruppe gruppe = null;
 
@@ -98,18 +100,18 @@ public class Penalty extends AbstractPersistable<Long> {
     }
 
     public List<Mannschaft> getFinallist() {
-         List<Mannschaft> result = new ArrayList<Mannschaft>();
-        if(this.reihenfolge != null && !this.reihenfolge.equals("")){
-            String[] re = reihenfolge.split(",") ;
+        List<Mannschaft> result = new ArrayList<Mannschaft>();
+        if (this.reihenfolge != null && !this.reihenfolge.equals("")) {
+            String[] re = reihenfolge.split(",");
 
-            for(String str:re){
-                for(Mannschaft m :this.finalList){
-                    if(str.toLowerCase().equals(m.getName().toLowerCase())){
+            for (String str : re) {
+                for (Mannschaft m : this.finalList) {
+                    if (str.toLowerCase().equals(m.getName().toLowerCase())) {
                         result.add(m);
                     }
                 }
             }
-           return result;
+            return result;
         }
         return this.finalList;
     }
@@ -122,18 +124,18 @@ public class Penalty extends AbstractPersistable<Long> {
 
     public String toMannschaftsString() {
 
-        if(finalList.size() == 0){
+        if (finalList.size() == 0) {
             return "penalty ohne mannschaften " + this.idString;
         }
 
         StringBuffer b = new StringBuffer();
         Mannschaft latest = null;
-        for(Mannschaft m:finalList){
+        for (Mannschaft m : finalList) {
             b.append(m.getName().toLowerCase() + ",");
             latest = m;
         }
         String ret = b.toString();
-        return ret.replace(latest.getName().toLowerCase()+",",latest.getName().toLowerCase());
+        return ret.replace(latest.getName().toLowerCase() + ",", latest.getName().toLowerCase());
     }
 
     public String getReihenfolge() {
@@ -144,12 +146,12 @@ public class Penalty extends AbstractPersistable<Long> {
         this.reihenfolge = reihenfolge;
     }
 
-	public String getIdString() {
-		return idString;
-	}
+    public String getIdString() {
+        return idString;
+    }
 
-	public void setIdString(String idString) {
-		this.idString = idString;
-	}
+    public void setIdString(String idString) {
+        this.idString = idString;
+    }
 
 }

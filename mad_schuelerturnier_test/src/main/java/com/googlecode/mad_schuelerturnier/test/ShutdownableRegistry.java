@@ -96,16 +96,16 @@ public class ShutdownableRegistry {
 
         // hack
         SeleniumSpeakerThread th = new SeleniumSpeakerThread();
-                   th.run();
+        th.run();
 
         this.message = mailSubject;
         this.failed = failed;
         this.sendMail(message);
-        String [] temp = null;
+        String[] temp = null;
         MatchOnly.main(temp);
-       // this.sd = new ShutdownThread();
-       // down = true;
-       // sd.start();
+        // this.sd = new ShutdownThread();
+        // down = true;
+        // sd.start();
     }
 
 

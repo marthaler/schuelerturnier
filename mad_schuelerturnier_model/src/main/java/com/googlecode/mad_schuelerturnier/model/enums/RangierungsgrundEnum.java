@@ -4,11 +4,9 @@
 package com.googlecode.mad_schuelerturnier.model.enums;
 
 /**
- * 
- * 
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
 public enum RangierungsgrundEnum {
-	PUNKTE, TORDIFFERENZ, MEHRTORE, DIREKTBEGEGNUNG, PENALTY, KEINSPIEL, WEITERSUCHEN, PENALTYOK, FINAL_KL, FINAL_GR, VONHAND
+    PUNKTE, TORDIFFERENZ, MEHRTORE, DIREKTBEGEGNUNG, PENALTY, KEINSPIEL, WEITERSUCHEN, PENALTYOK, FINAL_KL, FINAL_GR, VONHAND
 }

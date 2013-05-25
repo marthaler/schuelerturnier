@@ -13,6 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -340,7 +341,7 @@ public class HTMLOutConverter {
             try {
                 FileUtils.writeStringToFile(new File(this.path + "/website/" + kategorie.getName() + ".html"), page);
             } catch (IOException e) {
-                LOG.error(e.getMessage(),e);
+                LOG.error(e.getMessage(), e);
             }
         }
     }
@@ -369,7 +370,7 @@ public class HTMLOutConverter {
     }
 
     public void setPath(String path) {
-        this.path = path +System.getProperty("file.separator") + "sound";
+        this.path = path + System.getProperty("file.separator") + "sound";
     }
 
 }

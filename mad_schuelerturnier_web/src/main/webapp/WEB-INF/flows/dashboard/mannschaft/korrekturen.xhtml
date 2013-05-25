@@ -26,11 +26,13 @@
 
                                 <h:panelGrid columns="2" id="inputelements">
 
-                                    <p:inputTextarea name="text" id="text" rows="20" cols="90" value="#{korrekturen.spielVertauschungen}" autoResize="false"/>
+                                    <p:inputTextarea name="text" id="text" rows="20" cols="90"
+                                                     value="#{korrekturen.spielVertauschungen}" autoResize="false"/>
 
                                     <br/>
 
-                                    <p:commandButton widgetVar="submit" id="submit" value="Save" action="save" ajax="true" execute="@form" update="@form"/>
+                                    <p:commandButton widgetVar="submit" id="submit" value="Save" action="save"
+                                                     ajax="true" execute="@form" update="@form"/>
 
 
                                 </h:panelGrid>
