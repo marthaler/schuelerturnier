@@ -121,7 +121,7 @@ public class OutToWebsiteSender extends Thread {
 
             InputStream fis = null;
 
-            fis = new ByteArrayInputStream(this.content.getBytes(Charset.forName("UTF-8")));
+            fis = new ByteArrayInputStream(this.content.getBytes());
             client.storeFile(this.folder + "/" + this.name, fis);
 
             fis.close();

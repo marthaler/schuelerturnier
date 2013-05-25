@@ -157,6 +157,10 @@ public class Business implements IBusiness {
     public SpielEinstellungen getSpielEinstellungen() {
 
         if(this.einstellungen != null){
+
+            if(verarbeiter.isFertig()){
+                einstellungen.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
+            }
              return einstellungen;
         }
 
@@ -176,6 +180,10 @@ public class Business implements IBusiness {
      * @see com.googlecode.mad_schuelerturnier.business.sdfdf#saveEinstellungen(com .googlecode.mad_schuelerturnier.model.helper.SpielEinstellungen)
      */
     public SpielEinstellungen saveEinstellungen(SpielEinstellungen einstellungenNeu) {
+
+        if(verarbeiter.isFertig()){
+            einstellungen.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
+        }
 
         // falls keine aenderung wird einstellung zurueckgegeben
         if(this.einstellungen != null && einstellungenNeu.equals(this.einstellungen)){

@@ -366,4 +366,5 @@ public class Spiel extends AbstractPersistable<Long> {
     public void setKategorieName(String kategorieName) {
         this.kategorieName = kategorieName;
     }
+
 }

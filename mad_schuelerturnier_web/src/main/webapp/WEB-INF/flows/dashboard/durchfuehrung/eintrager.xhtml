@@ -43,7 +43,23 @@
                                         <h:outputText id="zeit3" value="Spiel Zeit: #{spielUhr.spielZeit}"/>
                                         <p:poll interval="1" listener="#{spielUhr.getRichtigeZeit}"
                                                 update="zeit2,zeit3"/>
-                                        <br/><br/>
+                                        <br/>
+
+                                        <h:graphicImage value="#{pictureAgent.getPicToCheck()}" />
+
+                                        <h:panelGrid columns="2" id="save" rendered="#{pictureAgent.hasPicToCheck()}">
+
+                                            <p:selectOneMenu value="#{pictureAgent.selected}">
+                                                <f:selectItem itemLabel="Spiel Zuordnen" itemValue=""/>
+                                                <f:selectItems value="#{einzutragende}" var="spiel" itemLabel="#{spiel.idString}" itemValue="#{spiel.id}" />
+                                            </p:selectOneMenu>
+
+
+                                            <p:commandButton id="zuweisen" value="Speichern"
+                                                             action="zuweisen" ajax="false">
+                                            </p:commandButton>
+
+                                        </h:panelGrid>
 
 
                                         <p:dataTable emptyMessage="leer" id="dataTablePen" var="penalty"
@@ -80,6 +96,18 @@
                                                 </f:facet>
                                                 <h:outputText value="#{spiel.idString}"/>
                                             </p:column>
+
+
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="Schirizettel"/>
+                                                </f:facet>
+                                                <p:commandButton id="carBtn" icon="ui-icon-image" onclick="dlg#{spiel.id}.show();"  type="button" rendered="#{pictureAgent.existiert(spiel.id)}"/>
+                                                <p:dialog id="modalDialog" header="Schirizettel: #{spiel.idString}" widgetVar="dlg#{spiel.id}"   width="580" height="320" position="50,100">
+                                                    <p:graphicImage value="resources/static/schirizettel/#{spiel.id}.png" width="550" height="300"/>
+                                                </p:dialog>
+                                            </p:column>
+
 
                                             <p:column>
                                                 <f:facet name="header">
@@ -145,8 +173,13 @@
                                 </h:panelGrid>
 
 
+
+
+
+
                             </p:fieldset>
                         </h:form>
+
 
 
                     </div>

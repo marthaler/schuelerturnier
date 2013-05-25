@@ -1,27 +1,14 @@
 feautures:
 **********
-[rj]     beobachter rangliste anwaehlbar machen
-[rj]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
 
 ==============
 
 bugs:
 *****
-[ok]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
-[rj]     countdown ueber eine stunde springt (stunden einbeziehen)
-[  ]     wenn erster penalty erkannt wird wird 2. nicht mehr gesucht nur WEITERSUCHEN
-[ok]     version wird nicht angezeigt nach release
-[ok]     drucken geht nicht nach release
-[??]     beim letzten Finalspiel phase auf beendet und letzte liste drucken
 
-[??]     Rangliste drucken immer bei 1
-[??]     Rangliste, letzte Seite drucken
-[ok]     schlaue Startseite
-[??]     wenn fertig dinge nicht ausblenden
-
-[??]     Seiten werden zuerst nach bin gedruckt
 [  ]     Rangliste im web Sonderzeichen
 
+==============
 
 dokumentation
 *************
@@ -30,11 +17,15 @@ dokumentation
 
 fuer nachher
 ************
+[rj]     beobachter rangliste anwaehlbar machen
+[rj]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
 [  ]     dump knopf und logik weg in den ranglisten
 [  ]     refactoring paarung weg
 [  ]     beim vorbereiten funktioniert das loeschen einer leeren kategorie nicht
 [  ]     beobachter bean dumpout weg
-[  ]     automatischer gong auschaltbar machen
+
+[rj]     countdown ueber eine stunde springt (stunden einbeziehen)
+
 [rj]     resultengine asynchron machen
 [rj]     out to website publisher schlau konfigurieren
 [rj]     countdown ueber eine stunde springt (stunden einbeziehen)
@@ -42,6 +33,9 @@ fuer nachher
 
 feautures ok:
 **********
+
+[ok]     wenn erster penalty erkannt wird wird 2. nicht mehr gesucht nur WEITERSUCHEN
+
 [ok]     eintrager realisieren, mit zurückgeben vom kontrollieren, neuen status auf spiel einführen
 
 [ok]     kontrollierer einführen, wie vorher
@@ -115,8 +109,22 @@ feautures ok:
 
 [ok]     beim eintrager id's in stack fuellen und asynchron verarbeiten
 
+[ok]     automatischer gong auschaltbar machen
+
+[ok]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
+[ok]     version wird nicht angezeigt nach release
+[ok]     drucken geht nicht nach release
+[ok]     beim letzten Finalspiel phase auf beendet und letzte liste drucken
+
+[ok]     Rangliste drucken immer bei 1
+[ok]     Rangliste, letzte Seite drucken
+[ok]     schlaue Startseite
+[ok]     wenn fertig dinge nicht ausblenden
+
 bugs gefixt:
 *****
+[ok]     Seiten werden zuerst nach bin gedruckt
+
 [ok]     automatische spieleverteilung reparieren nach neuem model
 
 [ok]     countdown springt auf nächste stunde bei verschnellerung von 35 sekunden
@@ -150,4 +158,3 @@ bugs gefixt:
 [ok]     beim erneuten laden der mannschaften werden bei allen als grund gr und kl finale angegeben (bei k30x)
 
 [ok]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
-

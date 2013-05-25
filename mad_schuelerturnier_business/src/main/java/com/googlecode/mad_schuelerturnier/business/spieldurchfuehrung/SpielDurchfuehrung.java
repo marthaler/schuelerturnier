@@ -279,7 +279,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
         temp.setPhase(SpielZeilenPhaseEnum.C_VORBEREITET);
         temp = this.spielzeilenRepo.save(temp);
         this._3_vorbereitet.add(temp);
-        // tts
+        // tts                   get
         generateText(temp);
     }
 

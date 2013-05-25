@@ -38,7 +38,7 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
     private int ftpPort = 21;
     private String ftpUnterordner = "2013";
     private String ftpUser = "turnier@schuelerturnier-scworb.ch";
-    private String ftpPassword = "schuetu12";
+    private String ftpPassword = "turnier11";
     private String ftpDateFormat = "dd.MM.yyyy HH:mm:ss";
 
     private String ftpPath = null;
@@ -143,12 +143,13 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
     public void addPage(final String file, final String content) {
         this.map.put(file.replace("..", ".").toLowerCase(), content);
 
+        if(this.ftpEin){
         try {
             FileUtils.writeStringToFile(new File(this.ftpPath + file.toLowerCase()),content);
         } catch (IOException e) {
             LOG.error(e.getMessage(),e);
         }
-
+        }
     }
 
     public void reconnect(){

@@ -99,6 +99,15 @@ public class ResultateVerarbeiter {
 
     public boolean isFertig(){
 
+        if(this.spielQueue.size() > 0){
+           return false;
+        }
+
+        if(this.penaltyQueue.size() > 0){
+            return false;
+        }
+
+        beendet.remove("invalide");
         if(beendet.size() < 1){
              return false;
         }
@@ -141,13 +150,6 @@ public class ResultateVerarbeiter {
     @Scheduled(fixedRate = 1000 * 15)
     private void verarbeiten(){
 
-        // map mit den fertig flags initialisieren
-        initFertigMap();
-
-        verarbeitePenalty();
-
-        verarbeiteUploadAllKat();
-
          if(!init){
             initialisieren();
              init = true;
@@ -161,6 +163,16 @@ public class ResultateVerarbeiter {
          }
 
         while (id != null){
+
+
+            // map mit den fertig flags initialisieren
+            initFertigMap();
+
+            verarbeitePenalty();
+
+            verarbeiteUploadAllKat();
+
+
             verarbeiteSpiel(id);
             try{
             id =  spielQueue.remove();

@@ -179,11 +179,12 @@
 
     </view-state>
 
-    <view-state id="spiel_start" view="durchfuehrung/spiel_start.xhtml" redirect="true"
-                model="flowScope.spieleinstellungen">
+    <view-state id="spiel_start" view="durchfuehrung/spiel_start.xhtml" redirect="true"  model="flowScope.spieleinstellungen">
 
         <on-render>
             <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"/>
+            <evaluate expression="business.getSpielEinstellungen()"
+                      result="flowScope.spieleinstellungen"/>
         </on-render>
 
         <transition on="start" to="spiel_start" bind="true">
@@ -205,6 +206,10 @@
         <on-render>
             <evaluate expression="business.anstehendePenalty()" result="flowScope.penaltyAnstehend"/>
         </on-render>
+
+        <transition on="zuweisen" to="eintrager">
+            <evaluate expression="pictureAgent.zuweisen()"/>
+        </transition>
 
         <transition on="save" to="eintrager">
             <evaluate expression="spielRepositoryDelegate.eintragen(flowScope.einzutragende,requestParameters.id)"/>
