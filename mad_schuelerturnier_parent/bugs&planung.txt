@@ -1,51 +1,41 @@
 feautures:
 **********
-[ok]     barcode generieren lassen beim start
-[ok]     speaker bot vervollstaendigen
-[rj]     beobachter rangliste anwaehlbar machen
-[rj]     beim eintrager id's in stack fuellen und asynchron verarbeiten
-[  ]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
 
 ==============
 
 bugs:
 *****
-[??]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
-[rj]     countdown ueber eine stunde springt (stunden einbeziehen)
-[  ]     wenn erster penalty erkannt wird wird 2. nicht mehr gesucht nur WEITERSUCHEN
-[ok]     version wird nicht agezeigt nach release
-[ok]     drucken geht nicht nach release
-[  ]     beim letzten Finalspiel phase auf beendet und letzte liste drucken
+
+[  ]     Rangliste im web Sonderzeichen
+
+==============
 
 dokumentation
 *************
-[]       merkkarten fuer schiris (tore nicht punkte)
-[]       plan fuer lan und material
-
-
+[ok]     merkkarten fuer schiris (tore nicht punkte)
+[ok]     plan fuer lan und material
 
 fuer nachher
 ************
+[rj]     beobachter rangliste anwaehlbar machen
+[rj]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
 [  ]     dump knopf und logik weg in den ranglisten
-
 [  ]     refactoring paarung weg
-
 [  ]     beim vorbereiten funktioniert das loeschen einer leeren kategorie nicht
-
 [  ]     beobachter bean dumpout weg
 
-[  ]     automatischer gong auschaltbar machen
-
-
-[rj]     sprachsteuerung in bot programmieren
+[rj]     countdown ueber eine stunde springt (stunden einbeziehen)
 
 [rj]     resultengine asynchron machen
-
 [rj]     out to website publisher schlau konfigurieren
-
+[rj]     countdown ueber eine stunde springt (stunden einbeziehen)
+[rj]     gong per hit space ausloesen
 
 feautures ok:
 **********
+
+[ok]     wenn erster penalty erkannt wird wird 2. nicht mehr gesucht nur WEITERSUCHEN
+
 [ok]     eintrager realisieren, mit zurückgeben vom kontrollieren, neuen status auf spiel einführen
 
 [ok]     kontrollierer einführen, wie vorher
@@ -103,7 +93,7 @@ feautures ok:
 
 [ok]     automatischer gong einbauen
 
-[ip]     test mit allen mannschaften
+[ok]     test mit allen mannschaften
 
 [ok]     gererangliste drucken
 
@@ -113,8 +103,28 @@ feautures ok:
 
 [ok]     spielabbruch auschaltbar machen
 
+[ok]     barcode generieren lassen beim start
+
+[ok]     speaker bot vervollstaendigen
+
+[ok]     beim eintrager id's in stack fuellen und asynchron verarbeiten
+
+[ok]     automatischer gong auschaltbar machen
+
+[ok]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
+[ok]     version wird nicht angezeigt nach release
+[ok]     drucken geht nicht nach release
+[ok]     beim letzten Finalspiel phase auf beendet und letzte liste drucken
+
+[ok]     Rangliste drucken immer bei 1
+[ok]     Rangliste, letzte Seite drucken
+[ok]     schlaue Startseite
+[ok]     wenn fertig dinge nicht ausblenden
+
 bugs gefixt:
 *****
+[ok]     Seiten werden zuerst nach bin gedruckt
+
 [ok]     automatische spieleverteilung reparieren nach neuem model
 
 [ok]     countdown springt auf nächste stunde bei verschnellerung von 35 sekunden
@@ -147,6 +157,4 @@ bugs gefixt:
 
 [ok]     beim erneuten laden der mannschaften werden bei allen als grund gr und kl finale angegeben (bei k30x)
 
-[rj]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
-
-[rj]     countdown ueber eine stunde springt (stunden einbeziehen)
+[ok]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf

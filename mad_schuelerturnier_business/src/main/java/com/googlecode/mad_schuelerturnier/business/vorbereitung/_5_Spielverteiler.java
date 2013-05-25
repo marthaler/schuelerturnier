@@ -240,7 +240,6 @@ public class _5_Spielverteiler {
     private Spiel getNextSpiel(SpielZeile zeile, List<Spiel> gruppenSpiele, int iB) {
 
 
-
         Spiel firstEgal = null;
         int ieg = 0;
         int ineg = 0;
@@ -251,11 +250,11 @@ public class _5_Spielverteiler {
                 if (ieg == iB) {
 
                     // falls bereits spaeter als 16 uhr am Sammstag, keine neue Kategorie mehr verplanen
-                    if(isSammstagNachNeuekategoriesperre(zeile)){
-                        if(!helper.isFirstSpielInGruppe(spiel)){
+                    if (isSammstagNachNeuekategoriesperre(zeile)) {
+                        if (!helper.isFirstSpielInGruppe(spiel)) {
                             firstEgal = spiel;
                         }
-                    }else{
+                    } else {
                         firstEgal = spiel;
                     }
                 }
@@ -267,11 +266,11 @@ public class _5_Spielverteiler {
                 if (ineg == iB) {
 
                     // falls bereits spaeter als 16 uhr am Sammstag, keine neue Kategorie mehr verplanen
-                    if(isSammstagNachNeuekategoriesperre(zeile)){
-                       if(!helper.isFirstSpielInGruppe(spiel)){
-                           return spiel;
-                       }
-                    }else{
+                    if (isSammstagNachNeuekategoriesperre(zeile)) {
+                        if (!helper.isFirstSpielInGruppe(spiel)) {
+                            return spiel;
+                        }
+                    } else {
                         firstEgal = spiel;
                     }
 
@@ -284,11 +283,11 @@ public class _5_Spielverteiler {
     }
 
 
-    private boolean isSammstagNachNeuekategoriesperre(SpielZeile zeile){
+    private boolean isSammstagNachNeuekategoriesperre(SpielZeile zeile) {
         DateTime start = new DateTime(zeile.getStart());
-          if(zeile.getSpieltageszeit() == SpielTageszeit.SAMMSTAGNACHMITTAG && start.getHourOfDay() > 17){
-              return true;
-          }
+        if (zeile.getSpieltageszeit() == SpielTageszeit.SAMMSTAGNACHMITTAG && start.getHourOfDay() > 17) {
+            return true;
+        }
         return false;
     }
 

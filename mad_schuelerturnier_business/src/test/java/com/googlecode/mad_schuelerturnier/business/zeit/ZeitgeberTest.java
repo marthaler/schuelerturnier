@@ -60,7 +60,7 @@ public class ZeitgeberTest {
         Assert.assertEquals(0, last.getSpielzeitAbweichungZuEchteZeitInSekunden());
 
         Thread.sleep(1000);
-        zeitgeber.startGame(0,"text");
+        zeitgeber.startGame(0, "text");
         zeitgeber.run();
 
         Assert.assertTrue(last.isUnterbruch() == false);
@@ -76,7 +76,7 @@ public class ZeitgeberTest {
         Assert.assertEquals(0, last.getSpielzeitAbweichungZuEchteZeitInSekunden());
 
         Thread.sleep(1000);
-        zeitgeber.startGame(0,"text");
+        zeitgeber.startGame(0, "text");
         zeitgeber.run();
 
         Assert.assertTrue(last.isUnterbruch() == false);

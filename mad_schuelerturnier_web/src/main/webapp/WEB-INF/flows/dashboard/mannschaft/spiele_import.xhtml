@@ -26,13 +26,24 @@
 
                                 <h:panelGrid columns="2" id="inputelements">
 
-                                    <p:inputTextarea name="text" id="text" rows="20" cols="90" value="#{spielImportExportDelegate.text}" autoResize="false" disabled="#{spielImportExportDelegate.isBlockField()}"/>
+                                    <p:inputTextarea name="text" id="text" rows="20" cols="90"
+                                                     value="#{spielImportExportDelegate.text}" autoResize="false"
+                                                     disabled="#{spielImportExportDelegate.isBlockField()}"/>
 
                                     <br/>
 
-                                    <p:commandButton widgetVar="submit" id="submit" value="Eintragen Beide" action="#{spielImportExportDelegate.eintragenBeide()}" ajax="true" execute="@form" update="@form" disabled="#{spielImportExportDelegate.isBlockField()}"/>
-                                    <p:commandButton widgetVar="submita" id="submita" value="Eintragen Bestaetigt" action="#{spielImportExportDelegate.eintragenBestaetigt()}" ajax="true" execute="@form" update="@form" disabled="#{spielImportExportDelegate.isBlockField()}"/>
-                                    <p:commandButton widgetVar="submits" id="submitd" value="Eintragen Eingetragen" action="#{spielImportExportDelegate.eintragen()}" ajax="true" execute="@form" update="@form" disabled="#{spielImportExportDelegate.isBlockField()}"/>
+                                    <p:commandButton widgetVar="submit" id="submit" value="Eintragen Beide"
+                                                     action="#{spielImportExportDelegate.eintragenBeide()}" ajax="true"
+                                                     execute="@form" update="@form"
+                                                     disabled="#{spielImportExportDelegate.isBlockField()}"/>
+                                    <p:commandButton widgetVar="submita" id="submita" value="Eintragen Bestaetigt"
+                                                     action="#{spielImportExportDelegate.eintragenBestaetigt()}"
+                                                     ajax="true" execute="@form" update="@form"
+                                                     disabled="#{spielImportExportDelegate.isBlockField()}"/>
+                                    <p:commandButton widgetVar="submits" id="submitd" value="Eintragen Eingetragen"
+                                                     action="#{spielImportExportDelegate.eintragen()}" ajax="true"
+                                                     execute="@form" update="@form"
+                                                     disabled="#{spielImportExportDelegate.isBlockField()}"/>
 
                                 </h:panelGrid>
 

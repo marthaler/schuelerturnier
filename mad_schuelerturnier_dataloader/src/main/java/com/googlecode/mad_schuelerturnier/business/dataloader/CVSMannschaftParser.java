@@ -84,7 +84,7 @@ public class CVSMannschaftParser {
             List<String[]> lines = reader.readAll();
             for (String[] line : lines) {
                 Mannschaft m = parseLine(line);
-                if(m != null){
+                if (m != null) {
                     result.add(m);
                 }
             }
@@ -153,9 +153,9 @@ public class CVSMannschaftParser {
 
         // 14 Notizen
         mann.setNotizen(myEntry[14]);
-         if(myEntry.length > 15){
-        mann.setSpielWunschHint(myEntry[15]);
-         }
+        if (myEntry.length > 15) {
+            mann.setSpielWunschHint(myEntry[15]);
+        }
 
         return mann;
     }

@@ -54,11 +54,11 @@ public class ResultengineStarter {
     Business business;
 
     @PostConstruct
-    public void init(){
-        generateMannschaften() ;
+    public void init() {
+        generateMannschaften();
     }
 
-          @Async
+    @Async
     public void generateMannschaften() {
 
 
@@ -125,7 +125,6 @@ public class ResultengineStarter {
         for (final Spiel spiel : spiele) {
 
 
-
             spiel.setFertigEingetragen(true);
             spiel.setFertigGespielt(true);
             spiel.setFertigBestaetigt(true);
@@ -164,8 +163,8 @@ public class ResultengineStarter {
             spiel.setFertigGespielt(true);
             spiel.setFertigBestaetigt(true);
 
-            if(spiel.getMannschaftA() == null){
-                                           continue;
+            if (spiel.getMannschaftA() == null) {
+                continue;
             }
 
             final String a = spiel.getMannschaftA().getName().substring(3, 4);

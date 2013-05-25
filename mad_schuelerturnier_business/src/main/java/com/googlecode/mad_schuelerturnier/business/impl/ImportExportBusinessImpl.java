@@ -40,7 +40,6 @@ public class ImportExportBusinessImpl implements ImportExportBusiness {
     }
 
 
-   
     public void updateSpiele(String spiele, boolean bestaetigt, boolean eingetraegen) {
         List<Spiel> sp = cvsParser.parseFileContent(spiele);
 

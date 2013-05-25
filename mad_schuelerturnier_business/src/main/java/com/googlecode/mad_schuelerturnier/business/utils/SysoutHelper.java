@@ -51,9 +51,9 @@ public class SysoutHelper {
 
         for (Kategorie key : map) {
             String name = (key.getName() + "                           ").substring(0, 10);
-             if(key.getGruppeA() == null){
-                                        continue;
-             }
+            if (key.getGruppeA() == null) {
+                continue;
+            }
             System.out.println(" " + name + "   --> " + key.getGruppeA().getMannschaftenSorted());
             if (key.getGruppeB() != null) {
                 System.out.println("              --> " + key.getGruppeB().getMannschaftenSorted());

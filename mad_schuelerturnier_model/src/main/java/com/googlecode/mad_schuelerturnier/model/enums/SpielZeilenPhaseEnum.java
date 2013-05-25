@@ -8,5 +8,5 @@ package com.googlecode.mad_schuelerturnier.model.enums;
  * @since 0.7
  */
 public enum SpielZeilenPhaseEnum {
-	A_ANSTEHEND, B_ZUR_VORBEREITUNG, C_VORBEREITET, D_SPIELEND, E_BEENDET
+    A_ANSTEHEND, B_ZUR_VORBEREITUNG, C_VORBEREITET, D_SPIELEND, E_BEENDET
 }

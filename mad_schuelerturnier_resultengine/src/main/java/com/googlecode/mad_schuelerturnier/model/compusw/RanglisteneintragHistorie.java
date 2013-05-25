@@ -11,9 +11,7 @@ import com.googlecode.mad_schuelerturnier.model.enums.SpielEnum;
 import com.googlecode.mad_schuelerturnier.model.helper.IDGeneratorContainer;
 import com.googlecode.mad_schuelerturnier.model.spiel.Penalty;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
-
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,20 +39,20 @@ public class RanglisteneintragHistorie {
     private List<RanglisteneintragZeile> zeilen = new ArrayList<RanglisteneintragZeile>();
 
     private SpielEnum grund = null;
-    
-    private Kategorie kat =null;
+
+    private Kategorie kat = null;
 
     public RanglisteneintragHistorie(final Spiel spiel, final RanglisteneintragHistorie vorherigerEintrag, Boolean a) {
 
         this.vorherigerEintrag = vorherigerEintrag;
 
-        if(spiel == null){
+        if (spiel == null) {
             this.gruppe = vorherigerEintrag.getGruppe();
             this.cloneZeilen();
             this.kat = this.vorherigerEintrag.getKategorie();
             //this.setPenaltyA(vorherigerEintrag.getPenaltyA());
             //this.setPenaltyB(vorherigerEintrag.getPenaltyB());
-    } else{
+        } else {
 
             this.kat = spiel.getGruppe().getMannschaften().get(0).getKategorie();
             this.gruppe = spiel.getGruppe();
@@ -64,69 +62,65 @@ public class RanglisteneintragHistorie {
             //this.penaltyB = spiel.getGruppe().getKategorie().getPenaltyB();
 
 
-
-        if (a == null) {
-            this.mannschaften = gruppe.getKategorie().getMannschaftenSorted();
-        } else if (a) {
-            this.mannschaften = gruppe.getKategorie().getGruppeA().getMannschaften();
-        } else if (!a) {
-            this.mannschaften = gruppe.getKategorie().getGruppeB().getMannschaften();
+            if (a == null) {
+                this.mannschaften = gruppe.getKategorie().getMannschaftenSorted();
+            } else if (a) {
+                this.mannschaften = gruppe.getKategorie().getGruppeA().getMannschaften();
+            } else if (!a) {
+                this.mannschaften = gruppe.getKategorie().getGruppeB().getMannschaften();
+            }
+            this.addNewZeilen();
         }
-        this.addNewZeilen();
-        }
 
-        if(spiel == null){
+        if (spiel == null) {
             this.sortNachPenalty();
-        } else{
+        } else {
 
-        this.sortNachPunkten();
-        this.sortNachTorverhaeltnis();
-        this.sortNachMehrToren();
-        this.sortNachDirektbegegnung();
-        this.penaltyBestimmen(true);
+            this.sortNachPunkten();
+            this.sortNachTorverhaeltnis();
+            this.sortNachMehrToren();
+            this.sortNachDirektbegegnung();
+            this.penaltyBestimmen(true);
             this.penaltyBestimmen(true);
             this.sortNachFinal();
         }
 
 
-
-
-
     }
 
-    public boolean isFertigGespielt(){
-        for (RanglisteneintragZeile zeile :this.zeilen){
-              if(zeile.getSpieleAnstehend() > 0){
-                  return false;
-              }
-            if(zeile.getRangierungsgrund() == RangierungsgrundEnum.PENALTY){
+    public boolean isFertigGespielt() {
+        for (RanglisteneintragZeile zeile : this.zeilen) {
+            if (zeile.getSpieleAnstehend() > 0) {
+                return false;
+            }
+            if (zeile.getRangierungsgrund() == RangierungsgrundEnum.PENALTY) {
                 return false;
             }
         }
-       return true;
+        return true;
     }
 
-    public boolean isPenaltyAuswertungNoetig(){
-        for (RanglisteneintragZeile zeile :this.zeilen){
-            if(zeile.getSpieleAnstehend() != 0){
+    public boolean isPenaltyAuswertungNoetig() {
+        for (RanglisteneintragZeile zeile : this.zeilen) {
+            if (zeile.getSpieleAnstehend() != 0) {
                 return false;
             }
             // auch nicht wenn der penalty noch nicht bestaetigt wurde
-            if(this.getPenaltyA() != null && !this.getPenaltyA().isBestaetigt()){
+            if (this.getPenaltyA() != null && !this.getPenaltyA().isBestaetigt()) {
                 return false;
             }
-            if(this.getPenaltyB() != null && !this.getPenaltyB().isBestaetigt()){
+            if (this.getPenaltyB() != null && !this.getPenaltyB().isBestaetigt()) {
                 return false;
             }
-            if(zeile.getRangierungsgrund() == RangierungsgrundEnum.PENALTY){
+            if (zeile.getRangierungsgrund() == RangierungsgrundEnum.PENALTY) {
                 return true;
             }
         }
         return false;
     }
 
-    private void cloneZeilen(){
-        for(RanglisteneintragZeile zeile :this.vorherigerEintrag.getZeilen()){
+    private void cloneZeilen() {
+        for (RanglisteneintragZeile zeile : this.vorherigerEintrag.getZeilen()) {
             RanglisteneintragZeile zeileN = new RanglisteneintragZeile();
 
             zeileN.setSpieleVorbei(zeile.getSpieleVorbei());
@@ -148,7 +142,7 @@ public class RanglisteneintragHistorie {
 
         // ist erster eintrag, also werden alle zeilen neu erstellt
 
-        if(this.vorherigerEintrag == null){
+        if (this.vorherigerEintrag == null) {
             for (Mannschaft mannschaft : mannschaften) {
                 RanglisteneintragZeile zeile = new RanglisteneintragZeile();
 
@@ -167,7 +161,7 @@ public class RanglisteneintragHistorie {
             // kopie von vorherigen zeilen machen
             for (Mannschaft mannschaft : mannschaften) {
                 RanglisteneintragZeile zeile = new RanglisteneintragZeile();
-                RanglisteneintragZeile zeileAlt = getZeileByMannschaft(mannschaft,this.vorherigerEintrag.getZeilen());
+                RanglisteneintragZeile zeileAlt = getZeileByMannschaft(mannschaft, this.vorherigerEintrag.getZeilen());
 
                 zeile.setSpieleVorbei(zeileAlt.getSpieleVorbei());
                 zeile.setMannschaft(mannschaft);
@@ -186,24 +180,24 @@ public class RanglisteneintragHistorie {
 
         // Eintragungen machen
         // Zeilen holen
-        RanglisteneintragZeile zeileA = getZeileByMannschaft(spiel.getMannschaftA(),this.zeilen);
-        RanglisteneintragZeile zeileB = getZeileByMannschaft(spiel.getMannschaftB(),this.zeilen);
+        RanglisteneintragZeile zeileA = getZeileByMannschaft(spiel.getMannschaftA(), this.zeilen);
+        RanglisteneintragZeile zeileB = getZeileByMannschaft(spiel.getMannschaftB(), this.zeilen);
 
-        if(zeileA == null){
+        if (zeileA == null) {
             LOG.fatal("zeile nicht gefunden! " + spiel.getMannschaftA());
         }
 
-        if(zeileB == null){
+        if (zeileB == null) {
             LOG.fatal("zeile nicht gefunden! " + spiel.getMannschaftB());
         }
 
         // anstehende Spiele
-        zeileA.setSpieleAnstehend(zeileA.getSpieleAnstehend() -1);
-        zeileB.setSpieleAnstehend(zeileB.getSpieleAnstehend() -1);
+        zeileA.setSpieleAnstehend(zeileA.getSpieleAnstehend() - 1);
+        zeileB.setSpieleAnstehend(zeileB.getSpieleAnstehend() - 1);
 
         // Spiele vorbei
-        zeileA.setSpieleVorbei(zeileA.getSpieleVorbei() +1);
-        zeileB.setSpieleVorbei(zeileB.getSpieleVorbei() +1);
+        zeileA.setSpieleVorbei(zeileA.getSpieleVorbei() + 1);
+        zeileB.setSpieleVorbei(zeileB.getSpieleVorbei() + 1);
 
         // erziehlte tore
         zeileA.setToreErziehlt(zeileA.getToreErziehlt() + spiel.getToreABestaetigt());
@@ -214,21 +208,21 @@ public class RanglisteneintragHistorie {
         zeileB.setToreKassiert(zeileB.getToreKassiert() + spiel.getToreABestaetigt());
 
 
-        if(spiel.getToreABestaetigt() > spiel.getToreBBestaetigt()){
+        if (spiel.getToreABestaetigt() > spiel.getToreBBestaetigt()) {
             zeileA.setPunkte(zeileA.getPunkte() + 3);
-        } else if(spiel.getToreABestaetigt() < spiel.getToreBBestaetigt()){
+        } else if (spiel.getToreABestaetigt() < spiel.getToreBBestaetigt()) {
             zeileB.setPunkte(zeileB.getPunkte() + 3);
-        } else{
+        } else {
             zeileA.setPunkte(zeileA.getPunkte() + 1);
             zeileB.setPunkte(zeileB.getPunkte() + 1);
         }
     }
 
-    private RanglisteneintragZeile getZeileByMannschaft(Mannschaft mannschaft, List<RanglisteneintragZeile> zeilen){
+    private RanglisteneintragZeile getZeileByMannschaft(Mannschaft mannschaft, List<RanglisteneintragZeile> zeilen) {
         for (RanglisteneintragZeile ranglisteneintragZeile : zeilen) {
-           if(mannschaft.getName().equals(ranglisteneintragZeile.getMannschaft().getName())){
-                 return  ranglisteneintragZeile;
-           }
+            if (mannschaft.getName().equals(ranglisteneintragZeile.getMannschaft().getName())) {
+                return ranglisteneintragZeile;
+            }
         }
         return null;
     }
@@ -501,8 +495,8 @@ public class RanglisteneintragHistorie {
 
             final RanglisteneintragZeile temp = this.zeilen.get(i);
 
-           if ((temp.getRangierungsgrund().equals(RangierungsgrundEnum.PENALTY) || temp.getRangierungsgrund().equals(RangierungsgrundEnum.WEITERSUCHEN))) {
-          //  if (( temp.getRangierungsgrund().equals(RangierungsgrundEnum.WEITERSUCHEN))) {
+            if ((temp.getRangierungsgrund().equals(RangierungsgrundEnum.PENALTY) || temp.getRangierungsgrund().equals(RangierungsgrundEnum.WEITERSUCHEN))) {
+                //  if (( temp.getRangierungsgrund().equals(RangierungsgrundEnum.WEITERSUCHEN))) {
                 if ((last != null) && (temp.getToreErziehlt() != last.getToreErziehlt())) {
                     this.penaltyBestimmenSub(su, generate);
 
@@ -559,11 +553,11 @@ public class RanglisteneintragHistorie {
 
     private void penaltyBestimmenSub(final List<RanglisteneintragZeile> su, final boolean generate) {
 
-        for(RanglisteneintragZeile ze : su){
-             if(ze.getSpieleAnstehend() > 0){
+        for (RanglisteneintragZeile ze : su) {
+            if (ze.getSpieleAnstehend() > 0) {
                 LOG.debug("penaltyBestimmenSub(): wird nicht mehr weiterverfolgt, weil noch nicht das letzte Spiel gespielt wurde");
                 return;
-             }
+            }
         }
 
         List<RanglisteneintragZeile> pList = new ArrayList<RanglisteneintragZeile>();
@@ -571,27 +565,27 @@ public class RanglisteneintragHistorie {
             ranglisteneintragZeile.setRangierungsgrund(RangierungsgrundEnum.PENALTY);
             pList.add(ranglisteneintragZeile);
         }
-        
-        if(pList.size() < 1){
-        	return;
+
+        if (pList.size() < 1) {
+            return;
         }
 
         // penalty bereits gesetzt
-   
+
         final Penalty penalty = new Penalty();
 
 
         for (RanglisteneintragZeile ranglisteneintragZeile : pList) {
-        	penalty.addMannschaft(ranglisteneintragZeile.getMannschaft());
-		}
+            penalty.addMannschaft(ranglisteneintragZeile.getMannschaft());
+        }
 
         // verhindert, dass selber penalty bei a und b vorkommt
-        if(kat.getPenaltyA() != null && kat.getPenaltyA().toMannschaftsString().equals(penalty.toMannschaftsString())){
+        if (kat.getPenaltyA() != null && kat.getPenaltyA().toMannschaftsString().equals(penalty.toMannschaftsString())) {
             LOG.debug("kein neuer penaltyA: " + kat.getPenaltyA().toMannschaftsString() + " + " + penalty.toMannschaftsString());
             return;
         }
 
-        if(this.kat.getPenaltyB() != null){
+        if (this.kat.getPenaltyB() != null) {
             LOG.debug("kein neuer penaltyB: " + this.kat.getPenaltyB().toMannschaftsString() + " + " + penalty.toMannschaftsString());
             return;
         }
@@ -602,7 +596,7 @@ public class RanglisteneintragHistorie {
         penalty.setGr(this.gruppe);
 
 
-        if ((this.kat.getPenaltyA() == null) ) {
+        if ((this.kat.getPenaltyA() == null)) {
             LOG.info("neuer penalty st to A: " + penalty);
             this.kat.setPenaltyA(penalty);
 
@@ -615,7 +609,7 @@ public class RanglisteneintragHistorie {
 
     private void sortNachPenalty() {
 
-        if(this.spiel != null){
+        if (this.spiel != null) {
             return;
         }
 
@@ -718,7 +712,7 @@ public class RanglisteneintragHistorie {
 
     private void sortNachFinal() {
 
-        if(this.spiel.getTyp() == SpielEnum.GRUPPE){
+        if (this.spiel.getTyp() == SpielEnum.GRUPPE) {
             LOG.info("sortNachFinal(): wird nicht ausgefuehrt, weil spiel ein gruppenspiel ist");
             return;
         }
@@ -826,22 +820,22 @@ public class RanglisteneintragHistorie {
 
     }
 
-    public Penalty getPenaltyA(){
-        if(this.kat != null && this.kat.getPenaltyA() != null){
-           return this.kat.getPenaltyA();
-        } else{
-            if(this.vorherigerEintrag != null){
+    public Penalty getPenaltyA() {
+        if (this.kat != null && this.kat.getPenaltyA() != null) {
+            return this.kat.getPenaltyA();
+        } else {
+            if (this.vorherigerEintrag != null) {
                 this.vorherigerEintrag.getPenaltyA();
             }
         }
         return null;
     }
 
-    public Penalty getPenaltyB(){
-        if(this.kat != null && this.kat.getPenaltyB() != null){
+    public Penalty getPenaltyB() {
+        if (this.kat != null && this.kat.getPenaltyB() != null) {
             return this.kat.getPenaltyB();
-        } else{
-            if(this.vorherigerEintrag != null){
+        } else {
+            if (this.vorherigerEintrag != null) {
                 this.vorherigerEintrag.getPenaltyB();
             }
         }
@@ -854,7 +848,6 @@ public class RanglisteneintragHistorie {
         }
         return false;
     }
-
 
 
     public SpielEnum getGrund() {

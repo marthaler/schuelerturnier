@@ -47,7 +47,6 @@ public class _4_GeneratePaarungenAndSpiele {
     private Business business;
 
 
-
     public void generatPaarungenAndSpiele() {
 
         int spieleCount = 0;
