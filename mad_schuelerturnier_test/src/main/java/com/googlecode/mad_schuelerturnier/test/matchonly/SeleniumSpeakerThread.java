@@ -21,7 +21,7 @@ public class SeleniumSpeakerThread extends Thread {
         this.util.login("root", "root");
         this.util.clickById("form_m:m_speaker");
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20000; i++) {
 
             if (MatchOnly.restart) {
                 break;

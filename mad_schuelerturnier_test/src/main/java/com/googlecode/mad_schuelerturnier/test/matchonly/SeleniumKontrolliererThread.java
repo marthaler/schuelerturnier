@@ -26,7 +26,7 @@ public class SeleniumKontrolliererThread extends Thread {
         this.util.login("root", "root");
 
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20000; i++) {
 
             if (MatchOnly.restart) {
                 break;
