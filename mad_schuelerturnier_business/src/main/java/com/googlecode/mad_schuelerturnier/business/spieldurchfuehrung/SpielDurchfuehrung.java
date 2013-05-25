@@ -246,8 +246,14 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
             List<Spiel> einzutragende = this.spielRepo.findAllEinzutragende();
             List<Spiel> bestaetigen = this.spielRepo.findAllZuBestaetigen();
 
+            // anstehende spiele vorhanden - return
             if (einzutragende.size() > 0 || bestaetigen.size() > 0) {
                 return;
+            }
+
+            // ranglistenverarbeiter sagt noch nicht fertig - return
+            if(!this.verarbeiter.isFertig()){
+               return;
             }
 
             if (!endranglistegedruckt) {

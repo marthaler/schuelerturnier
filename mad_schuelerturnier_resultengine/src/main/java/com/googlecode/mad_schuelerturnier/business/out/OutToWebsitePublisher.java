@@ -144,7 +144,7 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
         this.map.put(file.replace("..", ".").toLowerCase(), content);
 
         try {
-            FileUtils.writeStringToFile(new File(this.ftpPath + file),content);
+            FileUtils.writeStringToFile(new File(this.ftpPath + file.toLowerCase()),content);
         } catch (IOException e) {
             LOG.error(e.getMessage(),e);
         }

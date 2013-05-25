@@ -16,11 +16,9 @@ import com.googlecode.mad_schuelerturnier.persistence.repository.KategorieReposi
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -52,12 +50,14 @@ public class ResultateVerarbeiter {
     @Autowired
     private OutToWebsitePublisher ftpPublisher;
 
+    @Autowired
+    private SpielPrintManager printer;
+
     private boolean init = false;
 
     boolean uploadAllKat = false;
 
-    @Autowired
-    private SpielPrintManager printer;
+    private Map<String,Boolean> beendet = new HashMap<String,Boolean>();
 
     private  Queue<Long> spielQueue = new ConcurrentLinkedQueue<Long>();
 
@@ -82,6 +82,7 @@ public class ResultateVerarbeiter {
         if(p == null){
             return;
         }
+
         //nachladen num sichergehen, dass die penaltys aktuelle sind
         String katName = p.getKategorie().getKategorie().getName();
 
@@ -90,10 +91,37 @@ public class ResultateVerarbeiter {
         map.remove(katName);
         map.remove(katName + "_A");
         map.remove(katName + "_B");
-
-        this.initialisierenKategorie(p.getKategorie().getKategorie());
+        // todo fix: p.getKategorie().getKategorie()
+        this.neuberechnenDerKategorie(p.getKategorie().getKategorie());
     }
 
+
+
+    public boolean isFertig(){
+
+        if(beendet.size() < 1){
+             return false;
+        }
+
+        for(boolean ok : beendet.values()){
+            if(!ok){
+               return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void initFertigMap(){
+        if(beendet.size() > 0){
+            return;
+        }
+        List<Kategorie> katList = this.katRepo.findAll();
+
+        for(Kategorie kat : katList){
+           this.beendet.put(kat.getName(), false);
+        }
+    }
 
 
     public void signalFertigesSpiel(Long id) {
@@ -112,6 +140,9 @@ public class ResultateVerarbeiter {
 
     @Scheduled(fixedRate = 1000 * 15)
     private void verarbeiten(){
+
+        // map mit den fertig flags initialisieren
+        initFertigMap();
 
         verarbeitePenalty();
 
@@ -227,6 +258,20 @@ public class ResultateVerarbeiter {
 
         printer.saveSpiel(spiel);
 
+
+        // pruefe ob rangliste kategorie fertig
+        if(rangListe.isFertigGespielt()){
+            boolean fertig = false;
+            if(kat.getGrosserFinal() != null && kat.getGrosserFinal().isFertigBestaetigt()){
+                 fertig = true;
+            }
+
+            if(kat.getKleineFinal() != null && !kat.getKleineFinal().isFertigBestaetigt()){
+                fertig = false;
+            }
+            this.beendet.put(kat.getName(),fertig);
+        }
+
     }
 
     private void pruefeUndSetzeFinale(Spiel spiel, Kategorie kat, String katName, RanglisteneintragHistorie rangListe) {
@@ -337,7 +382,7 @@ public class ResultateVerarbeiter {
         this.ftpPublisher.addPage("index.html", this.historieGenerator.generatePageIndex());
     }
 
-    public void initialisierenKategorie(Kategorie kat) {
+    public void neuberechnenDerKategorie(Kategorie kat) {
 
         List<Spiel> spiele = this.repo.findGruppenSpielAsc();
 
