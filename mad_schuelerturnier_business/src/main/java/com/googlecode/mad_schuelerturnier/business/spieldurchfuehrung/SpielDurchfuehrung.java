@@ -2,6 +2,7 @@ package com.googlecode.mad_schuelerturnier.business.spieldurchfuehrung;
 
 import com.googlecode.mad_schuelerturnier.business.controller.resultate.ResultateVerarbeiter;
 import com.googlecode.mad_schuelerturnier.business.impl.Business;
+import com.googlecode.mad_schuelerturnier.business.out.OutToWebsitePublisher;
 import com.googlecode.mad_schuelerturnier.business.print.PrintAgent;
 import com.googlecode.mad_schuelerturnier.business.print.SpielPrintManager;
 import com.googlecode.mad_schuelerturnier.business.zeit.Countdown;
@@ -52,6 +53,9 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
     @Autowired
     private PrintAgent agent;
+
+    @Autowired
+    private OutToWebsitePublisher publisher;
 
     @Autowired
     private SpielPrintManager spielPrinter;
@@ -108,6 +112,13 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
             checkSpielende();
 
         }
+
+        if (this.business.getSpielEinstellungen().getPhase().equals(SpielPhasenEnum.G_ABGESCHLOSSEN)) {
+
+            checkSpielende();
+
+        }
+
 
 
     }
@@ -241,36 +252,20 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     }
 
     private void checkSpielende() {
-        if (this.get_1_wartend().isEmpty() && this.get_2_zum_vorbereiten().isEmpty() && this.get_3_vorbereitet().isEmpty() && this.get_4_spielend().isEmpty()) {
+        LOG.info("checkSpielende: start");
+            if (!endranglistegedruckt && business.getSpielEinstellungen().getPhase() == SpielPhasenEnum.G_ABGESCHLOSSEN) {
 
-            List<Spiel> einzutragende = this.spielRepo.findAllEinzutragende();
-            List<Spiel> bestaetigen = this.spielRepo.findAllZuBestaetigen();
-
-            // anstehende spiele vorhanden - return
-            if (einzutragende.size() > 0 || bestaetigen.size() > 0) {
-                return;
-            }
-
-            // ranglistenverarbeiter sagt noch nicht fertig - return
-            if(!this.verarbeiter.isFertig()){
-               return;
-            }
-
-            if (!endranglistegedruckt) {
                 agent.saveFileToPrint("rangliste", verarbeiter.getRangliste());
-                endranglistegedruckt = true;
+
+                publisher.addPage("rangliste", verarbeiter.getRangliste());
 
                 // letzte resultate drucken
                 spielPrinter.printPage();
 
-                // phase abschliessen
-                SpielEinstellungen einstellung = business.getSpielEinstellungen();
-                einstellung.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
-                business.saveEinstellungen(einstellung);
-
-                LOG.info("spiel abgeschlossen");
+                endranglistegedruckt = true;
+                LOG.info("checkSpielende: spiel abgeschlossen");
             }
-        }
+
     }
 
     public void vorbereitet() {

@@ -118,8 +118,7 @@ public class Penalty extends AbstractPersistable<Long> {
 
     @Override
     public String toString() {
-
-        return toMannschaftsString() + this.idString;
+        return toMannschaftsString();
     }
 
     public String toMannschaftsString() {
