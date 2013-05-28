@@ -23,6 +23,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="mad_schuelerturnier_business" />
+    <orderEntry type="library" name="Maven: com.google.zxing:core:2.2" level="project" />
+    <orderEntry type="library" name="Maven: com.google.zxing:javase:2.2" level="project" />
     <orderEntry type="module" module-name="mad_schuelerturnier_persistence" />
     <orderEntry type="module" module-name="mad_schuelerturnier_model" />
     <orderEntry type="library" name="Maven: com.thoughtworks.xstream:xstream:1.4.4" level="project" />

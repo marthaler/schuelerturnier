@@ -117,6 +117,7 @@
         <module>../mad_schuelerturnier_web</module>
         <module>../mad_schuelerturnier_resultengine</module>
         <module>../mad_schuelerturnier_dataloader</module>
+        <module>../mad_schuelerturnier_imageprocessing</module>
 
     </modules>
 

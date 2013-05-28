@@ -228,6 +228,36 @@
                                 <br/><br/>
                                 <p:separator id="customSeparator234"/>
 
+
+
+
+
+
+
+
+                                <p:separator id="customSeparatordd"/>
+
+                                <h:outputText value="Kamera IP: "/>
+                                <h:inputText value="#{scannerAgent.imageUrl}" ajax="true"/>
+                                 <br/>
+
+                                <h:outputText value="Scanne on/off: "/>
+                                <p:selectBooleanCheckbox   value="#{scannerAgent.running}"  ajax="true" />
+                                <br/>
+                                <h:outputText value="Scanne Abfall löschen: "/>
+                                <p:selectBooleanCheckbox   value="#{scannerAgent.deleteGarbage}"  ajax="true" />
+                                <br/>
+
+                                <h:outputText value="Wartesekunden: "/>
+                                <h:inputText value="#{scannerAgent.wartefaktor}" ajax="true"/>
+                                <br/>
+
+                                <p:commandButton action="#{scannerAgent.scann()}" value="Scannen" ajax="true"/>
+                                <br/>
+                                <p:commandButton action="#{scannerAgent.reset()}" value="Reset" ajax="true"/>
+                                <br/>
+
+
                             </p:fieldset>
 
                         </h:form>
