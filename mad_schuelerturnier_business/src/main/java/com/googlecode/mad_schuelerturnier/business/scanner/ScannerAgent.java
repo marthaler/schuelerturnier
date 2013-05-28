@@ -88,11 +88,7 @@ public class ScannerAgent {
 
         try {
 
-            files.add(saveImage());
-
             openConnection("http://" + imageUrl + "/decoder_control.cgi?command=33");
-
-
 
         Thread.sleep(wartefaktor * 1000);
             files.add(saveImage());
