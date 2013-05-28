@@ -43,7 +43,7 @@ public class ScannerAgent {
 
 
 
-    private int wartefaktor = 5;
+    private int wartefaktor = 7;
 
     private  String path = "/";
     private  String schirizettel = "/";
