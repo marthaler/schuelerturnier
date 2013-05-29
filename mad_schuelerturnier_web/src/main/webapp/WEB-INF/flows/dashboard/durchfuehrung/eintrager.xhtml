@@ -49,6 +49,9 @@
 
                                         <h:panelGrid columns="2" id="save" rendered="#{pictureAgent.hasPicToCheck()}">
 
+
+
+
                                             <p:selectOneMenu value="#{pictureAgent.selected}">
                                                 <f:selectItem itemLabel="Spiel Zuordnen" itemValue=""/>
                                                 <f:selectItems value="#{einzutragende}" var="spiel" itemLabel="#{spiel.idString}" itemValue="#{spiel.id}" />
@@ -57,6 +60,10 @@
 
                                             <p:commandButton id="zuweisen" value="Speichern"
                                                              action="zuweisen" ajax="false">
+                                            </p:commandButton>
+
+                                            <p:commandButton id="loeschen" value="Löschen"
+                                                             action="#{pictureAgent.delPicToCheck()}" ajax="false">
                                             </p:commandButton>
 
                                         </h:panelGrid>
@@ -73,9 +80,9 @@
                                             </p:column>
 
                                             <p:column headerText="Penalty">
-                                                <p:commandButton value="#{penalty.toString()}" disabled="true"
-                                                                 action="save">
-                                                </p:commandButton>
+
+                                                <h:outputText value="#{penalty.toString()}"/>
+
                                             </p:column>
 
                                             <p:column headerText="Sichern">
