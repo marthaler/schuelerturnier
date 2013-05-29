@@ -47,7 +47,7 @@
         <primefaces.version>3.5.RC1</primefaces.version>
         <!-- nok: <primefaces.version>3.5.RC1 -> 3.5</primefaces.version>-->
 
-        <jsf.version>2.2.0</jsf.version>
+        <jsf.version>2.1.7</jsf.version>
         <!-- nok: <jsf.version>2.1.7 -> 2.2.0</jsf.version>-->
 
         <!-- PERSISTENZ -->

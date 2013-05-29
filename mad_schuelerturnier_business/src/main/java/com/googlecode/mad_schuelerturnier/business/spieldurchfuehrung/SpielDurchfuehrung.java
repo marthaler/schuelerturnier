@@ -252,7 +252,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     }
 
     private void checkSpielende() {
-        LOG.info("checkSpielende: start");
+        LOG.debug("checkSpielende: start");
             if (!endranglistegedruckt && business.getSpielEinstellungen().getPhase() == SpielPhasenEnum.G_ABGESCHLOSSEN) {
 
                 agent.saveFileToPrint("rangliste", verarbeiter.getRangliste());
@@ -263,7 +263,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
                 spielPrinter.printPage();
 
                 endranglistegedruckt = true;
-                LOG.info("checkSpielende: spiel abgeschlossen");
+                LOG.debug("checkSpielende: spiel abgeschlossen");
             }
 
     }
