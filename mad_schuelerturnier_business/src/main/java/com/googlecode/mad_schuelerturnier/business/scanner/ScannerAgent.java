@@ -72,6 +72,7 @@ public class ScannerAgent {
         if(! init || ! running){
             return;
         }
+        scann();
     }
 
 
@@ -110,7 +111,7 @@ public class ScannerAgent {
        for(String file : files){
 
            GryscaleConverter.convertToGray(file,file);
-           Cropper.crop(file,file,0, 180, 590 , 260);
+           Cropper.crop(file,file,0, 180, 610 , 280);
            String res = BarcodeDecoder.decode(file );
 
            if(res.length() == 2){
