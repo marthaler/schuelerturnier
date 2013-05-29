@@ -63,7 +63,7 @@ public class ScannerAgent {
             Thread.sleep(wartefaktor * 1000 * 2);
             this.geradeamGehen = false;
         } catch (Exception e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            LOG.error(e.getMessage(),e);
         }
     }
 
@@ -75,6 +75,16 @@ public class ScannerAgent {
         scann();
     }
 
+
+    public void doNow(){
+        String image=null;
+        try {
+           image = saveImage();
+        } catch (IOException e) {
+            LOG.error(e.getMessage(),e);
+        }
+        process(image);
+    }
 
     public void scann(){
 
@@ -110,25 +120,28 @@ public class ScannerAgent {
 
        for(String file : files){
 
-           GryscaleConverter.convertToGray(file,file);
-           Cropper.crop(file,file,0, 180, 610 , 280);
-           String res = BarcodeDecoder.decode(file );
+           process(file);
 
-           if(res.length() == 2){
-               try {
-                   FileUtils.moveFile(new File(file), new File(schirizettel + System.getProperty("file.separator") + res.toLowerCase() + ".png"));
-               } catch (IOException e) {
-                   LOG.error(e.getMessage(), e);
-               }
-           }
-
-           if(this.deleteGarbage){
-            FileUtils.deleteQuietly(new File(file));
-           }
-
-           this.geradeamGehen = false;
        }
+        this.geradeamGehen = false;
+    }
 
+    private void process(String file) {
+        GryscaleConverter.convertToGray(file, file);
+        Cropper.crop(file, file, 0, 180, 610, 280);
+        String res = BarcodeDecoder.decode(file);
+
+        if(res.length() == 2){
+            try {
+                FileUtils.moveFile(new File(file), new File(schirizettel + System.getProperty("file.separator") + res.toLowerCase() + ".png"));
+            } catch (IOException e) {
+                LOG.error(e.getMessage(), e);
+            }
+        }
+
+        if(this.deleteGarbage){
+         FileUtils.deleteQuietly(new File(file));
+        }
     }
 
     public String saveImage() throws IOException {
