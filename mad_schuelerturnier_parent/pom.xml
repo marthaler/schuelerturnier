@@ -5,12 +5,11 @@
     <parent>
         <groupId>com.googlecode.mad_schuelerturnier</groupId>
         <artifactId>mad_schuelerturnier</artifactId>
-        <version>1.0.13-SNAPSHOT</version>
+        <version>1.1.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.googlecode.mad_schuelerturnier</groupId>
     <artifactId>mad_schuelerturnier_parent</artifactId>
-    <version>1.0.13-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
@@ -48,8 +47,8 @@
         <primefaces.version>3.5.RC1</primefaces.version>
         <!-- nok: <primefaces.version>3.5.RC1 -> 3.5</primefaces.version>-->
 
-        <jsf.version>2.1.7</jsf.version>
-        <!-- nok: <jsf.version>2.1.7 -> 2.2.0-m09</jsf.version>-->
+        <jsf.version>2.2.0</jsf.version>
+        <!-- nok: <jsf.version>2.1.7 -> 2.2.0</jsf.version>-->
 
         <!-- PERSISTENZ -->
         <springdata.version>1.2.0.RC1</springdata.version>
@@ -72,6 +71,7 @@
         <slf4j.version>1.7.2</slf4j.version>
 
         <jodatime.version>2.1</jodatime.version>
+        <!-- 2.1 -> 2.2-->
 
         <xstream.version>1.4.4</xstream.version>
 
@@ -98,11 +98,14 @@
         <mockftp.version>2.0.2</mockftp.version>
         <!-- nok <mockftp.version>2.4</mockftp.version>-->
 
-        <commons-email.version>1.3</commons-email.version>
+        <commons-email.version>1.3.1</commons-email.version>
+        <!-- 1.3 -> 1.3.1-->
 
-        <selenium.version>2.32.0</selenium.version>
+        <selenium.version>2.33.0</selenium.version>
+        <!-- 2.32.0 -> 2.33.0-->
 
         <htmlunit.version>2.11</htmlunit.version>
+        <!-- 2.11 -> 2.12-->
 
     </properties>
 
@@ -117,7 +120,6 @@
         <module>../mad_schuelerturnier_web</module>
         <module>../mad_schuelerturnier_resultengine</module>
         <module>../mad_schuelerturnier_dataloader</module>
-
     </modules>
 
     <licenses>
@@ -573,6 +575,12 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
                     <version>2.4</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.7</version>
                 </plugin>
 
                 <plugin>

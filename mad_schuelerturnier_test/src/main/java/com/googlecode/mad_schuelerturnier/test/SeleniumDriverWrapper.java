@@ -33,7 +33,7 @@ public class SeleniumDriverWrapper {
 
     private static int TIME_OUT_IN_SECONDS = 5;
 
-    private String baseURL = "http://localhost";
+    private String baseURL = "http://localhost:8080";
 
     public WebDriver getDriver() {
         return driver;

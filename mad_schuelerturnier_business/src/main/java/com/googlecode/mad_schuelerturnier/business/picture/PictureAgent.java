@@ -59,7 +59,7 @@ public class PictureAgent {
     private Map<String, String> map = new HashMap();
 
     public void init(String path) {
-        this.tempPath = path + "tempSchueri" + System.getProperty("file.separator");
+        this.tempPath = path + "schirizetteltemp" + System.getProperty("file.separator");
         this.schirizettel = path + "schirizettel" + System.getProperty("file.separator");
 
         new File(tempPath).mkdirs();
@@ -75,6 +75,12 @@ public class PictureAgent {
 
     public boolean existiert(String id){
         return new File(schirizettel + id +".png").exists();
+    }
+
+    public void  delPicToCheck(){
+        if(this.hasPicToCheck()){
+            FileUtils.deleteQuietly(new File(getPicToCheck()));
+        }
     }
 
     public void zuweisen(){
@@ -120,7 +126,7 @@ public class PictureAgent {
             return null;
         }
 
-        ret = "resources/static/tempSchueri/" +  picToCheck;
+        ret = "resources/static/schirizetteltemp/" +  picToCheck;
         return ret;
     }
 
