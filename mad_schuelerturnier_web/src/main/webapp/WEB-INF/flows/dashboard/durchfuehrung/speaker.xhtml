@@ -187,7 +187,7 @@
             <f:facet name="header">
             </f:facet>
             <p:commandButton id="play" icon="ui-icon-check"
-                             disabled="#{!spielDurchfuehrung.readyToSpielen}"
+                             disabled="#{sec:areNotGranted('ROLE_SPEAKER') or !spielDurchfuehrung.readyToSpielen}"
                              action="spielen" widgetVar="play" ajax="false">
             </p:commandButton>
 
@@ -233,7 +233,7 @@
             <f:facet name="header">
             </f:facet>
             <p:commandButton icon="ui-icon-check" ajax="false" action="beenden"
-                             disabled="#{sec:areNotGranted('ROLE_SPEAKER') and !spieleinstellungen.abbrechenZulassen}">
+                             disabled="#{sec:areNotGranted('ROLE_SPEAKER') or !spieleinstellungen.abbrechenZulassen}">
             </p:commandButton>
         </p:column>
 

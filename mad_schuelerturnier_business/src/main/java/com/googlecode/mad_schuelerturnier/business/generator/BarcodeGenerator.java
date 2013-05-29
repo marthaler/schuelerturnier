@@ -49,8 +49,8 @@ public class BarcodeGenerator {
         try {
             barcode = BarcodeFactory.createCode128(text);
 
-            barcode.setBarHeight(1);
-            barcode.setResolution(200);
+            barcode.setBarHeight(30);
+            barcode.setResolution(300);
 
             File f = new File(folder + text + ".png");
 

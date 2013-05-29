@@ -7,6 +7,7 @@ import com.googlecode.mad_schuelerturnier.business.generator.SpeakerGenerator;
 import com.googlecode.mad_schuelerturnier.business.out.OutToWebsitePublisher;
 import com.googlecode.mad_schuelerturnier.business.picture.PictureAgent;
 import com.googlecode.mad_schuelerturnier.business.print.PrintAgent;
+import com.googlecode.mad_schuelerturnier.business.scanner.ScannerAgent;
 import com.googlecode.mad_schuelerturnier.model.enums.SpielPhasenEnum;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,9 @@ public class LoginPrepareAction {
 
     @Autowired
     IBusiness business;
+
+    @Autowired
+    ScannerAgent scannerAgent;
 
     @Autowired
     PictureAgent pictureAgent;
@@ -96,6 +100,8 @@ public class LoginPrepareAction {
         outToWebsite.init(path + "static" + delim);
 
         pictureAgent.init(path + "static" + delim);
+
+        scannerAgent.init(path + "static" + delim);
 
         init = true;
 
