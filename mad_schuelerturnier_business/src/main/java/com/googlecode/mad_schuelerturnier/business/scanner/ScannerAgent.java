@@ -4,9 +4,12 @@
 package com.googlecode.mad_schuelerturnier.business.scanner;
 
 
+import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
+import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.xerces.impl.dv.util.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -29,19 +32,18 @@ public class ScannerAgent {
 
     private final static Logger LOG = Logger.getLogger(ScannerAgent.class);
 
+    @Autowired
+    private SpielRepository spielRepository;
+
     private boolean geradeamGehen = false;
 
-    private String imageUrl = "192.168.1.107";
-
+    private String imageUrl = "192.168.2.3";
 
     private boolean running = true;
 
     private boolean init = false;
 
     private boolean deleteGarbage = false;
-
-
-
 
     private int wartefaktor = 7;
 
@@ -63,7 +65,7 @@ public class ScannerAgent {
             Thread.sleep(wartefaktor * 1000 * 2);
             this.geradeamGehen = false;
         } catch (Exception e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            LOG.error(e.getMessage(),e);
         }
     }
 
@@ -72,8 +74,19 @@ public class ScannerAgent {
         if(! init || ! running){
             return;
         }
+        scann();
     }
 
+
+    public void doNow(){
+        String image=null;
+        try {
+           image = saveImage();
+        } catch (IOException e) {
+            LOG.error(e.getMessage(),e);
+        }
+        process(image);
+    }
 
     public void scann(){
 
@@ -109,25 +122,29 @@ public class ScannerAgent {
 
        for(String file : files){
 
-           GryscaleConverter.convertToGray(file,file);
-           Cropper.crop(file,file,0, 180, 590 , 260);
-           String res = BarcodeDecoder.decode(file );
+           process(file);
 
-           if(res.length() == 2){
-               try {
-                   FileUtils.moveFile(new File(file), new File(schirizettel + System.getProperty("file.separator") + res.toLowerCase() + ".png"));
-               } catch (IOException e) {
-                   LOG.error(e.getMessage(), e);
-               }
-           }
-
-           if(this.deleteGarbage){
-            FileUtils.deleteQuietly(new File(file));
-           }
-
-           this.geradeamGehen = false;
        }
+        this.geradeamGehen = false;
+    }
 
+    private void process(String file) {
+        GryscaleConverter.convertToGray(file, file);
+        Cropper.crop(file, file, 0, 180, 610, 280);
+        String res = BarcodeDecoder.decode(file);
+
+        if(res.length() == 2){
+            Spiel sp = this.spielRepository.findSpielByIdString(res);
+            try {
+                FileUtils.moveFile(new File(file), new File(schirizettel + System.getProperty("file.separator") + sp.getId() + ".png"));
+            } catch (IOException e) {
+                LOG.error(e.getMessage(), e);
+            }
+        }
+
+        if(this.deleteGarbage){
+         FileUtils.deleteQuietly(new File(file));
+        }
     }
 
     public String saveImage() throws IOException {

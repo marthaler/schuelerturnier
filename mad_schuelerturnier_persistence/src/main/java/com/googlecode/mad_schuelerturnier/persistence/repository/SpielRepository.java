@@ -36,5 +36,8 @@ public interface SpielRepository extends JpaRepository<Spiel, Long> {
     @Query("select o from Spiel o where o.fertigGespielt = TRUE and o.fertigEingetragen = TRUE and o.fertigBestaetigt = FALSE")
     List<Spiel> findAllZuBestaetigen();
 
+    @Query("select o from Spiel o where o.idString = ?1")
+    Spiel findSpielByIdString(String idString);
+
 
 }
