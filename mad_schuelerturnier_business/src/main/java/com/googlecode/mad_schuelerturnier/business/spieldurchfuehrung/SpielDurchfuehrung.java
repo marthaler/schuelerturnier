@@ -377,14 +377,14 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
         }
 
         // ansagetext fuer platze
-        if (isTextAvailable() && (countText() == 31 || countText() == 30)) {
+        if (isTextAvailable() && this.text.get(0).contains(".mp3")) {
             if (millis < 25000) {
                 millis = 25000;
             }
         }
 
         // bell
-        if (isTextAvailable() && (countText() == 35)) {
+        if (isTextAvailable() && this.text.get(0).contains("bell")) {
             millis = 6000;
         }
 
