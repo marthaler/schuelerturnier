@@ -1,5 +1,8 @@
 package com.googlecode.mad_schuelerturnier.business.picture;
 
+import com.googlecode.mad_schuelerturnier.business.scanner.BarcodeDecoder;
+import com.googlecode.mad_schuelerturnier.business.scanner.Cropper;
+import com.googlecode.mad_schuelerturnier.business.scanner.GryscaleConverter;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
 import com.lowagie.text.Document;
@@ -141,9 +144,27 @@ public class PictureAgent {
         for (File f : files) {
             if (f.getName().contains("Bildschirmfoto")) {
                 try {
-                    FileUtils.copyFile(f, new File(this.tempPath + f.getName().replace(" ","")));
+
+                    String neu =  this.tempPath + f.getName().replace(" ","");
+                    File fneu = new File(neu);
+
+                    FileUtils.copyFile(f, fneu);
+
+
+                        String res = BarcodeDecoder.decode(neu);
+
+                        if(res.length() == 2){
+                            try {
+                                FileUtils.moveFile(fneu, new File(schirizettel + System.getProperty("file.separator") + res.toLowerCase() + ".png"));
+                            } catch (IOException e) {
+                                LOG.error(e.getMessage(), e);
+                            }
+                        }
+
+
+
                     FileUtils.deleteQuietly(f);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     LOG.error(e.getMessage(), e);
                 }
             }
