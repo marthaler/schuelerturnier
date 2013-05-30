@@ -252,7 +252,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     }
 
     private void checkSpielende() {
-        LOG.info("checkSpielende: start");
+        LOG.debug("checkSpielende: start");
             if (!endranglistegedruckt && business.getSpielEinstellungen().getPhase() == SpielPhasenEnum.G_ABGESCHLOSSEN) {
 
                 agent.saveFileToPrint("rangliste", verarbeiter.getRangliste());
@@ -263,7 +263,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
                 spielPrinter.printPage();
 
                 endranglistegedruckt = true;
-                LOG.info("checkSpielende: spiel abgeschlossen");
+                LOG.debug("checkSpielende: spiel abgeschlossen");
             }
 
     }
@@ -377,14 +377,14 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
         }
 
         // ansagetext fuer platze
-        if (isTextAvailable() && (countText() == 31 || countText() == 30)) {
+        if (isTextAvailable() && this.text.get(0).contains(".mp3")) {
             if (millis < 25000) {
                 millis = 25000;
             }
         }
 
         // bell
-        if (isTextAvailable() && (countText() == 35)) {
+        if (isTextAvailable() && this.text.get(0).contains("bell")) {
             millis = 6000;
         }
 
