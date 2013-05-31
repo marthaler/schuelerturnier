@@ -1,5 +1,8 @@
 package com.googlecode.mad_schuelerturnier.business.picture;
 
+import com.googlecode.mad_schuelerturnier.business.scanner.BarcodeDecoder;
+import com.googlecode.mad_schuelerturnier.business.scanner.Cropper;
+import com.googlecode.mad_schuelerturnier.business.scanner.GryscaleConverter;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
 import com.lowagie.text.Document;
@@ -54,10 +57,6 @@ public class PictureAgent {
     private String tempPath = "";
     private String schirizettel = "";
 
-    private String printer = "brother";
-
-    private Map<String, String> map = new HashMap();
-
     public void init(String path) {
         this.tempPath = path + "schirizetteltemp" + System.getProperty("file.separator");
         this.schirizettel = path + "schirizettel" + System.getProperty("file.separator");
@@ -77,7 +76,7 @@ public class PictureAgent {
         return new File(schirizettel + id +".png").exists();
     }
 
-    public void  delPicToCheck(){
+    public void delPicToCheck(){
         if(this.hasPicToCheck()){
             FileUtils.deleteQuietly(new File(getPicToCheck()));
         }
@@ -97,11 +96,10 @@ public class PictureAgent {
             FileUtils.copyFile(source, dest);
             FileUtils.deleteQuietly(source);
 
-            this.picToCheck = null;
         } catch (IOException e) {
             LOG.error(e.getMessage(),e);
         }
-
+        this.picToCheck = null;
     }
 
     public boolean hasPicToCheck(){
@@ -141,17 +139,31 @@ public class PictureAgent {
         for (File f : files) {
             if (f.getName().contains("Bildschirmfoto")) {
                 try {
-                    FileUtils.copyFile(f, new File(this.tempPath + f.getName().replace(" ","")));
+
+                    String neu =  this.tempPath + f.getName().replace(" ","");
+                    File fneu = new File(neu);
+
+                    FileUtils.copyFile(f, fneu);
+
+                        String res = BarcodeDecoder.decode(neu);
+                    if(res.length() == 2){
+                    Spiel sp = this.spielRepository.findSpielByIdString(res);
+
+
+                            try {
+                                FileUtils.moveFile(fneu, new File(schirizettel + System.getProperty("file.separator") + sp.getId() + ".png"));
+                            } catch (IOException e) {
+                                LOG.error(e.getMessage(), e);
+                            }
+                        }
+
                     FileUtils.deleteQuietly(f);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     LOG.error(e.getMessage(), e);
                 }
             }
-
-
         }
     }
-
 
     public String getSelected() {
         return selected;
