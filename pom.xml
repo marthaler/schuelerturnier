@@ -852,10 +852,12 @@
 
     <profiles>
         <profile>
-            <id>test</id>
+            <id>testcompile</id>
+            <!--
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            -->
             <modules>
                 <module>mad_schuelerturnier_test</module>
             </modules>
