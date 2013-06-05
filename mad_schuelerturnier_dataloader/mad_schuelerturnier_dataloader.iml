@@ -54,5 +54,13 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.objenesis:objenesis:1.0" level="project" />
   </component>
+  <component name="SonarConfiguration">
+    <option name="host" value="localhost:9000" />
+    <option name="user" value="" />
+    <option name="password" value="" />
+    <option name="projectKey" value="com.googlecode.mad_schuelerturnier:mad_schuelerturnier_dataloader" />
+    <option name="configured" value="true" />
+    <option name="useProxy" value="true" />
+  </component>
 </module>
 
