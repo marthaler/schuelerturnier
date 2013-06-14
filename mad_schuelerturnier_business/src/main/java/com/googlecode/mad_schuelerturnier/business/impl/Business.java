@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -461,7 +462,9 @@ public class Business implements IBusiness {
         int rest = sekunden % 60;
         int minuten = sekunden / 60;
 
-        return minuten + ":" + rest;
+        DecimalFormat df2 = new DecimalFormat( "00" );
+
+        return df2.format(minuten) + ":" + df2.format(rest);
     }
 
     public void resumeSpiel() {
