@@ -6,7 +6,26 @@ import java.io.File;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+
+
+
+
         BufferedImage image = ImageIO.read(new File("/res/a.png"));
+        image = CornerUtil.setCorners(image);
+        ImageIO.write(image, "png", new File("/res/b.png"));
+
+        image = ImageUtils.rotateImage(image, 10);
+        image = CornerUtil.setCorners(image);
+        ImageIO.write(image, "png", new File("/res/b1.png"));
+
+        image = ImageUtils.rotateImage(image, 10);
+        ImageIO.write(image, "png", new File("/res/b2.png"));
+
+        image = ImageUtils.rotateImage(image, 10);
+        ImageIO.write(image, "png", new File("/res/b3.png"));
+
+        image = ImageUtils.rotateImage(image, 10);
+        ImageIO.write(image, "png", new File("/res/b4.png"));
         //image = BarcodeUtil.encode("4");
        // image = CornerUtil.setCorners(image);
 

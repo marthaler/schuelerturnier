@@ -25,11 +25,11 @@ public class CornerUtil {
 
         attr = new MarvinAttributes();
         moravec.process(imageIn, null, attr);
-        imageIn = showCorners(imageIn, attr, 3);
+        imageIn = showCorners(imageIn, attr, 1);
 
 
 
-       return  CornerUtil.showCorners(imageIn, attr, 5).getBufferedImage();
+       return  CornerUtil.showCorners(imageIn, attr, 1).getBufferedImage();
 	}
 	
 	private static MarvinImage showCorners(MarvinImage image, MarvinAttributes attr, int rectSize){
