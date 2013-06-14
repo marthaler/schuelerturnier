@@ -324,7 +324,7 @@ public class HTMLSchiriConverter {
         b.append("<tr align=\"center\">");
         b.append("<td colspan=\"1\" rowspan=\"1\">" +
 
-                "&nbsp;1 <input name=\"1\" value=\"1\" type=\"radio\">" +
+                "1 <input name=\"1\" value=\"1\" type=\"radio\">" +
                 "2 <input name=\"1\" value=\"1\" type=\"radio\">" +
                 "3 <input name=\"1\" value=\"1\" type=\"radio\">" +
                 "4 <input name=\"1\" value=\"1\" type=\"radio\">" +
@@ -342,7 +342,7 @@ public class HTMLSchiriConverter {
         b.append("<tr align=\"center\">");
         b.append("<td colspan=\"1\" rowspan=\"1\">" +
 
-                "&nbsp;1 <input name=\"1\" value=\"1\" type=\"radio\">" +
+                "1 <input name=\"1\" value=\"1\" type=\"radio\">" +
                 "2 <input name=\"1\" value=\"1\" type=\"radio\">" +
                 "3 <input name=\"1\" value=\"1\" type=\"radio\">" +
                 "4 <input name=\"1\" value=\"1\" type=\"radio\">" +

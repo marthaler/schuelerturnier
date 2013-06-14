@@ -36,7 +36,7 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
 
     private String ftpServer = "ftp.schuelerturnier-scworb.ch";
     private int ftpPort = 21;
-    private String ftpUnterordner = "2013";
+    private String ftpUnterordner = "2014";
     private String ftpUser = "turnier@schuelerturnier-scworb.ch";
     private String ftpPassword = "turnier11";
     private String ftpDateFormat = "dd.MM.yyyy HH:mm:ss";
