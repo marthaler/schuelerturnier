@@ -3,6 +3,7 @@
  */
 package com.googlecode.mad_schuelerturnier.business.generator;
 
+import com.googlecode.mad_schuelerturnier.business.picture.BarcodeUtil;
 import com.googlecode.mad_schuelerturnier.model.helper.IDGeneratorContainer;
 import net.sourceforge.barbecue.Barcode;
 import net.sourceforge.barbecue.BarcodeFactory;
@@ -11,6 +12,8 @@ import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 /**
@@ -45,22 +48,16 @@ public class BarcodeGenerator {
         if (text == null || "".equals(text)) {
             text = "00";
         }
-        Barcode barcode = null;
+
         try {
-            barcode = BarcodeFactory.createCode128(text);
 
-            barcode.setBarHeight(30);
-            barcode.setResolution(300);
 
+            BufferedImage image = BarcodeUtil.encode(text);
             File f = new File(folder + text + ".png");
 
-            if (!f.exists()) {
-                f.createNewFile();
-            } else {
-                return;
-            }
+            ImageIO.write(image,"png",f);
 
-            BarcodeImageHandler.savePNG(barcode, f);
+
 
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);

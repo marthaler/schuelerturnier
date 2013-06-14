@@ -6,7 +6,7 @@ feautures:
 bugs:
 *****
 
-[  ]     Rangliste im web Sonderzeichen
+[ok]     Rangliste im web Sonderzeichen
 
 ==============
 
@@ -19,14 +19,14 @@ fuer nachher
 ************
 [rj]     beobachter rangliste anwaehlbar machen
 [rj]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
-[  ]     dump knopf und logik weg in den ranglisten
+[ok]     dump knopf und logik weg in den ranglisten
 [  ]     refactoring paarung weg
 [  ]     beim vorbereiten funktioniert das loeschen einer leeren kategorie nicht
 [  ]     beobachter bean dumpout weg
 
 [rj]     countdown ueber eine stunde springt (stunden einbeziehen)
 
-[rj]     resultengine asynchron machen
+[ok]     resultengine asynchron machen
 [rj]     out to website publisher schlau konfigurieren
 [rj]     countdown ueber eine stunde springt (stunden einbeziehen)
 [rj]     gong per hit space ausloesen
