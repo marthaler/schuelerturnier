@@ -76,22 +76,15 @@ public class ResultateVerarbeiter {
         try{
         p = penaltyQueue.remove();
         } catch (Exception e){
-
+             LOG.error(e.getMessage(),e);
         }
 
         if(p == null){
             return;
         }
 
-        //nachladen num sichergehen, dass die penaltys aktuelle sind
-        String katName = p.getKategorie().getKategorie().getName();
-
         LOG.info("verarbeite penalty: " + p);
 
-        map.remove(katName);
-        map.remove(katName + "_A");
-        map.remove(katName + "_B");
-        // todo fix: p.getKategorie().getKategorie()
         this.neuberechnenDerKategorie(p.getKategorie().getKategorie());
     }
 
@@ -290,10 +283,11 @@ public class ResultateVerarbeiter {
         // pruefen ob gruppenspiel fertig und gruppenspiel fertig, dann finalmannschaften eintragen
         if (rangListe.isFertigGespielt() && spiel.getTyp() == SpielEnum.GRUPPE) {
 
-            if (spiel.getGruppe().getKategorie().getGrosserFinal().getMannschaftA() != null) {
-                LOG.info("achtung grosser finale, mannschaft wurde bereits zugeordnet");
-                return;
-            }
+            // 18.06.13 auskommentiert, soll immer gesetzt werden wegen korrekturen
+            //if (spiel.getGruppe().getKategorie().getGrosserFinal().getMannschaftA() != null) {
+            //    LOG.info("achtung grosser finale, mannschaft wurde bereits zugeordnet");
+            //    return;
+            //}
 
             List<Mannschaft> gross = new ArrayList<Mannschaft>();
             List<Mannschaft> klein = new ArrayList<Mannschaft>();
@@ -395,6 +389,12 @@ public class ResultateVerarbeiter {
     }
 
     public void neuberechnenDerKategorie(Kategorie kat) {
+
+        String katName = kat.getName();
+
+        map.remove(katName);
+        map.remove(katName + "_A");
+        map.remove(katName + "_B");
 
         List<Spiel> spiele = this.repo.findGruppenSpielAsc();
 
