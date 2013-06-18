@@ -41,7 +41,7 @@
         <commons-fileupload.version>1.2.2</commons-fileupload.version>
 
         <!-- JSF & Co. -->
-        <primefaces.version>3.5.RC1</primefaces.version>
+        <primefaces.version>3.5</primefaces.version>
         <!-- nok: <primefaces.version>3.5.RC1 -> 3.5</primefaces.version>-->
 
         <jsf.version>2.1.7</jsf.version>

@@ -3,5 +3,6 @@
 **/.project
 **/.settings
 **/*.iml
+**.iml
 .idea
 .metadata
