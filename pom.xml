@@ -24,50 +24,54 @@
         <!-- ============= -->
 
         <!-- SPRING -->
-        <springframework.version>3.2.1.RELEASE</springframework.version>
+        <springframework.version>3.2.3.RELEASE</springframework.version>
+        <!--3.2.1.RELEASE -> 3.2.3.RELEASE-->
 
-        <springaop.version>3.2.0.RC2</springaop.version>
-        <!--nok: error opening zip <springaop.version>3.2.1.RELEASE</springaop.version>-->
+        <springaop.version>3.2.3.RELEASE</springaop.version>
+        <!--3.2.0.RC2 -> 3.2.3.RELEASE-->
 
         <springsecurity.version>3.1.3.RELEASE</springsecurity.version>
-        <!--nok <springsecurity.version>nok-3.2.0.M1</springsecurity.version>-->
+        <!--3.1.3.RELEASE -> ?? 3.2.0.M1-->
 
         <!-- WEB -->
         <springwebflow.version>2.3.1.RELEASE</springwebflow.version>
 
         <springwebflow.faces.version>2.3.1.RELEASE</springwebflow.faces.version>
-        <!-- nok <springwebflow.faces.version>2.3.1.RELEASE -> 2.4.0.M1</springwebflow.faces.version>-->
+        <!-- 2.3.1.RELEASE -> nok 2.4.0.M1-->
 
-        <commons-fileupload.version>1.2.2</commons-fileupload.version>
+        <commons-fileupload.version>1.3</commons-fileupload.version>
+        <!-- 1.2.2 -> 1.3 -->
 
-        <!-- JSF & Co. -->
+        <!-- JSF & CO -->
         <primefaces.version>3.5</primefaces.version>
-        <!-- nok: <primefaces.version>3.5.RC1 -> 3.5</primefaces.version>-->
+        <!-- 3.5.RC1 -> 3.5-->
 
         <jsf.version>2.1.7</jsf.version>
-        <!-- nok: <jsf.version>2.1.7 -> 2.2.0</jsf.version>-->
+        <!--2.1.7 -> nok 2.2.0-->
 
         <!-- PERSISTENZ -->
-        <springdata.version>1.2.0.RC1</springdata.version>
+        <springdata.version>1.3.2.RELEASE</springdata.version>
+        <!-- 1.2.0.RC1 -> 1.3.2.RELEASE-->
 
-        <hibernate.version>4.2.0.CR1</hibernate.version>
-        <!-- ok: <hibernate.version>4.1.7.Final -> 4.2.0.CR1</hibernate.version>-->
+        <hibernate.version>4.3.0.Beta3</hibernate.version>
+        <!-- 4.1.7.Final -> 4.2.0.CR1 -> 4.3.0.Beta3-->
 
         <hibernatejpa2api.version>1.0.1.Final</hibernatejpa2api.version>
 
         <hsqldb.version>2.2.9</hsqldb.version>
 
         <!-- VALIDATION -->
-        <hibernate-validator.version>5.0.0.Alpha1</hibernate-validator.version>
-        <!-- ??: <hibernate.validator.version>5.0.0.Beta1</hibernate.validator.version>-->
+        <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
+        <!-- 5.0.0.Beta1 -> 5.0.1.Final-->
 
-        <validation-api.version>1.1.0.Alpha1</validation-api.version>
-        <!-- ??: <javaxvalidation.version>1.1.0.Beta4</javaxvalidation.version>-->
+        <validation-api.version>1.1.0.Final</validation-api.version>
+        <!-- 1.1.0.Alpha1 -> 1.1.0.Final -->
 
         <!-- WEITERE -->
-        <slf4j.version>1.7.2</slf4j.version>
+        <slf4j.version>1.7.5</slf4j.version>
+        <!-- 1.7.2 -> 1.7.5-->
 
-        <jodatime.version>2.1</jodatime.version>
+        <jodatime.version>2.2</jodatime.version>
         <!-- 2.1 -> 2.2-->
 
         <xstream.version>1.4.4</xstream.version>
@@ -86,14 +90,14 @@
 
         <!-- VERSIONEN -->
         <opencsv.version>2.3</opencsv.version>
-        <!-- <opencsv.version>2.0-2.3</opencsv.version>-->
+        <!--2.0 -> 2.3-->
 
-        <guava.version>14.0</guava.version>
-        <!-- <guava.version>r05-14.0-rc3-14.0</guava.version>-->
+        <guava.version>14.0.1</guava.version>
+        <!-- 14.0 -> 14.0.1-->
 
         <!-- WEITERE:test -->
         <mockftp.version>2.0.2</mockftp.version>
-        <!-- nok <mockftp.version>2.4</mockftp.version>-->
+        <!-- 2.0.2 -> nok 2.4 -->
 
         <commons-email.version>1.3.1</commons-email.version>
         <!-- 1.3 -> 1.3.1-->
@@ -101,9 +105,21 @@
         <selenium.version>2.33.0</selenium.version>
         <!-- 2.32.0 -> 2.33.0-->
 
-        <htmlunit.version>2.11</htmlunit.version>
+        <htmlunit.version>2.12</htmlunit.version>
         <!-- 2.11 -> 2.12-->
 
+       <commons-net.version>3.3</commons-net.version>
+        <!-- 3.2 -> 3.3-->
+
+        <batik-ext.version>1.7</batik-ext.version>
+
+        <jsr250-api.version>1.0</jsr250-api.version>
+
+        <log4j.version>1.2.17</log4j.version>
+
+        <commons-io.version>2.4</commons-io.version>
+
+        <junit.version>4.11</junit.version>
     </properties>
 
     <prerequisites>
@@ -146,7 +162,7 @@
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
             <artifactId>batik-ext</artifactId>
-            <version>1.7</version>
+            <version>${batik-ext.version}</version>
         </dependency>
 
         <dependency>
@@ -222,14 +238,14 @@
             <dependency>
                 <groupId>commons-net</groupId>
                 <artifactId>commons-net</artifactId>
-                <version>3.2</version>
+                <version>${commons-net.version}</version>
             </dependency>
 
             <!-- weitere -->
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.4</version>
+                <version>${commons-io.version}</version>
             </dependency>
 
             <dependency>
@@ -267,14 +283,14 @@
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
-                <version>1.2.17</version>
+                <version>${log4j.version}</version>
             </dependency>
 
             <!-- fuer @PostConstruct in Springbeans -->
             <dependency>
                 <groupId>javax.annotation</groupId>
                 <artifactId>jsr250-api</artifactId>
-                <version>1.0</version>
+                <version>${jsr250-api.version}</version>
             </dependency>
 
             <!-- spring -->
@@ -452,7 +468,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.11</version>
+                <version>${junit.version}</version>
                 <scope>test</scope>
                 <exclusions>
                     <exclusion>
