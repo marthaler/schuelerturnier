@@ -9,7 +9,7 @@ import java.awt.image.ColorConvertOp;
 import java.io.File;
 
 public class ImageUtils {
- 
+
     /**
      * @param args
      */
@@ -18,7 +18,7 @@ public class ImageUtils {
         BufferedImage rotatedImage = rotateImage(image, 210.0);
         ImageIO.write(rotatedImage, "png", new File("/res/m7.png"));
     }
- 
+
     static BufferedImage rotateImage(BufferedImage src, double degrees) {
         AffineTransform affineTransform = AffineTransform.getRotateInstance(
                 Math.toRadians(degrees),
@@ -35,11 +35,9 @@ public class ImageUtils {
 
     static BufferedImage toBandW(BufferedImage src) {
 
-        ColorConvertOp op =new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);
+        ColorConvertOp op = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null);
         return op.filter(src, src);
     }
-
-
 
 
 }

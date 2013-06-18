@@ -157,12 +157,12 @@ public class Business implements IBusiness {
      */
     public SpielEinstellungen getSpielEinstellungen() {
 
-        if(this.einstellungen != null){
+        if (this.einstellungen != null) {
 
-            if(verarbeiter.isFertig()){
+            if (verarbeiter.isFertig()) {
                 einstellungen.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
             }
-             return einstellungen;
+            return einstellungen;
         }
 
         if (this.spielEinstellungenRepo.count() > 1) {
@@ -171,7 +171,7 @@ public class Business implements IBusiness {
             SpielEinstellungen einstellungen = new SpielEinstellungen();
             einstellungen = this.spielEinstellungenRepo.save(einstellungen);
         }
-        einstellungen =  this.spielEinstellungenRepo.findAll().iterator().next();
+        einstellungen = this.spielEinstellungenRepo.findAll().iterator().next();
         return einstellungen;
     }
 
@@ -182,12 +182,12 @@ public class Business implements IBusiness {
      */
     public SpielEinstellungen saveEinstellungen(SpielEinstellungen einstellungenNeu) {
 
-        if(verarbeiter.isFertig()){
+        if (verarbeiter.isFertig()) {
             einstellungen.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
         }
 
         // falls keine aenderung wird einstellung zurueckgegeben
-        if(this.einstellungen != null && einstellungenNeu.equals(this.einstellungen)){
+        if (this.einstellungen != null && einstellungenNeu.equals(this.einstellungen)) {
             return einstellungenNeu;
         }
 
@@ -196,7 +196,7 @@ public class Business implements IBusiness {
         final int millis = time.getMillisOfDay();
         time = time.minusMillis(millis);
         einstellungenNeu.setStarttag(new Date(time.getMillis()));
-        this.einstellungen =  this.spielEinstellungenRepo.save(einstellungenNeu);
+        this.einstellungen = this.spielEinstellungenRepo.save(einstellungenNeu);
         return this.einstellungen;
     }
 
@@ -462,7 +462,7 @@ public class Business implements IBusiness {
         int rest = sekunden % 60;
         int minuten = sekunden / 60;
 
-        DecimalFormat df2 = new DecimalFormat( "00" );
+        DecimalFormat df2 = new DecimalFormat("00");
 
         return df2.format(minuten) + ":" + df2.format(rest);
     }

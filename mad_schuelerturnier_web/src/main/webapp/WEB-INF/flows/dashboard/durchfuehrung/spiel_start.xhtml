@@ -4,266 +4,264 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:sec="http://www.springframework.org/security/tags"
                 template="../../../layouts/100.xhtml">
 
-    <ui:define name="heading">
-        <h:outputText value="Mannschaft bearbeiten"/>
-    </ui:define>
-
-    <ui:define name="caption">
-        <p>CAPTION</p>
-    </ui:define>
-
-    <ui:define name="main">
-        <div id="main">
-            <div class="page_margins">
-                <div class="page">
-                    <div class="inset">
-                        <h:form id="form1">
-                            <h:inputHidden id="txt2" value="#{spieleinstellungen.aufholzeitInSekunden}"/>
-                            <p:fieldset legend="Spielsteuerung">
-                                <p:messages/>
-
-                                <p:separator id="customSeparator3"/>
-                                    <h:outputText value="Eigene Adresse: #{loginPrepareAction.getIp()}"/>
-                                <p:separator id="customSeparator33"/>
-
-                                <h:panelGrid columns="2" id="grid01" style="margin-bottom:10px" cellpadding="5">
-
-
-                                    <h:outputText value="Spielabbruch durch Speaker erlauben"/>
-                                    <p:selectBooleanCheckbox
-                                            id="abbrechenZulassen" value="#{spieleinstellungen.abbrechenZulassen}"
-                                            ajax="true">
-                                    </p:selectBooleanCheckbox>
-
-                                    <h:outputText value="Gong bei Spielende abspielen"/>
-                                    <p:selectBooleanCheckbox
-                                            id="gongEinschalten" value="#{spieleinstellungen.gongEinschalten}"
-                                            ajax="true">
-                                    </p:selectBooleanCheckbox>
-
-                                    <h:outputText value="Automatisch Plätze ansagen"/>
-                                    <p:selectBooleanCheckbox
-                                            id="automatischesAnsagen" value="#{spieleinstellungen.automatischesAnsagen}"
-                                            ajax="true">
-                                    </p:selectBooleanCheckbox>
-
-                                    <h:outputText value="Automatisch in den Vorbereitet Status wechseln"/>
-
-                                    <p:selectBooleanCheckbox
-                                            id="automatischesVorbereiten"
-                                            value="#{spieleinstellungen.automatischesVorbereiten}"
-                                            ajax="true">
-                                    </p:selectBooleanCheckbox>
-
-                                    <h:outputText id="output3"
-                                                  value="Anzahl wartende Spiele beim Speaker: #{spielDurchfuehrung.wartendSize}"/>
-
-                                    <p:slider for="wartendSize" display="output3"
-                                              displayTemplate="Anzahl wartende Spiele beim Speaker: {value}" ajax="true"
-                                              minValue="1" maxValue="10" style="width:200px"/>
-
-                                    <h:outputText id="output4"
-                                                  value="Minuten fuer Vorbereitungsansage: #{spielDurchfuehrung.minutenZumVorbereiten} "/>
-
-                                    <p:slider for="minutenZumVorbereiten" display="output4"
-                                              displayTemplate="Minuten fuer Vorbereitungsansage: {value}" ajax="true"
-                                              minValue="1" maxValue="10" style="width:200px"/>
-
-
-                                    <h:outputText id="_1Active"
-                                                  value="Wartende Spiele ausblenden"/>
-                                    <p:selectBooleanCheckbox
-                                            id="_1Activec"
-                                            value="#{speakerTabModel._1Active}"
-                                            ajax="true">
-                                    </p:selectBooleanCheckbox>
-
-                                    <h:outputText id="_2Active" value="Zum Vorbereiten ausblenden"/>
-                                    <p:selectBooleanCheckbox
-                                            id="_2Activec"
-                                            value="#{speakerTabModel._2Active}"
-                                            ajax="true">
-                                    </p:selectBooleanCheckbox>
-
-                                    <h:outputText id="_3Active" value="Wartet auf Start ausblenden"/>
-                                    <p:selectBooleanCheckbox
-                                            id="_3Activec"
-                                            value="#{speakerTabModel._3Active}"
-                                            ajax="true">
-                                    </p:selectBooleanCheckbox>
-
-                                    <h:outputText id="_4Active"
-                                                  value="Am Spielen ausblenden"/>
-                                    <p:selectBooleanCheckbox
-                                            id="_4Activec"
-                                            value="#{speakerTabModel._4Active}"
-                                            ajax="true">
-                                    </p:selectBooleanCheckbox>
-
-                                    <h:outputText id="_5Active"
-                                                  value="Beendet ausblenden"/>
-                                    <p:selectBooleanCheckbox
-                                            id="_5Activec"
-                                            value="#{speakerTabModel._5Active}"
-                                            ajax="true">
-                                    </p:selectBooleanCheckbox>
+<ui:define name="heading">
+    <h:outputText value="Mannschaft bearbeiten"/>
+</ui:define>
+
+<ui:define name="caption">
+    <p>CAPTION</p>
+</ui:define>
+
+<ui:define name="main">
+<div id="main">
+<div class="page_margins">
+<div class="page">
+<div class="inset">
+<h:form id="form1">
+<h:inputHidden id="txt2" value="#{spieleinstellungen.aufholzeitInSekunden}"/>
+<p:fieldset legend="Spielsteuerung">
+<p:messages/>
+
+<p:separator id="customSeparator3"/>
+<h:outputText value="Eigene Adresse: #{loginPrepareAction.getIp()}"/>
+<p:separator id="customSeparator33"/>
+
+<h:panelGrid columns="2" id="grid01" style="margin-bottom:10px" cellpadding="5">
+
+
+    <h:outputText value="Spielabbruch durch Speaker erlauben"/>
+    <p:selectBooleanCheckbox
+            id="abbrechenZulassen" value="#{spieleinstellungen.abbrechenZulassen}"
+            ajax="true">
+    </p:selectBooleanCheckbox>
+
+    <h:outputText value="Gong bei Spielende abspielen"/>
+    <p:selectBooleanCheckbox
+            id="gongEinschalten" value="#{spieleinstellungen.gongEinschalten}"
+            ajax="true">
+    </p:selectBooleanCheckbox>
+
+    <h:outputText value="Automatisch Plätze ansagen"/>
+    <p:selectBooleanCheckbox
+            id="automatischesAnsagen" value="#{spieleinstellungen.automatischesAnsagen}"
+            ajax="true">
+    </p:selectBooleanCheckbox>
+
+    <h:outputText value="Automatisch in den Vorbereitet Status wechseln"/>
+
+    <p:selectBooleanCheckbox
+            id="automatischesVorbereiten"
+            value="#{spieleinstellungen.automatischesVorbereiten}"
+            ajax="true">
+    </p:selectBooleanCheckbox>
+
+    <h:outputText id="output3"
+                  value="Anzahl wartende Spiele beim Speaker: #{spielDurchfuehrung.wartendSize}"/>
+
+    <p:slider for="wartendSize" display="output3"
+              displayTemplate="Anzahl wartende Spiele beim Speaker: {value}" ajax="true"
+              minValue="1" maxValue="10" style="width:200px"/>
+
+    <h:outputText id="output4"
+                  value="Minuten fuer Vorbereitungsansage: #{spielDurchfuehrung.minutenZumVorbereiten} "/>
+
+    <p:slider for="minutenZumVorbereiten" display="output4"
+              displayTemplate="Minuten fuer Vorbereitungsansage: {value}" ajax="true"
+              minValue="1" maxValue="10" style="width:200px"/>
+
+
+    <h:outputText id="_1Active"
+                  value="Wartende Spiele ausblenden"/>
+    <p:selectBooleanCheckbox
+            id="_1Activec"
+            value="#{speakerTabModel._1Active}"
+            ajax="true">
+    </p:selectBooleanCheckbox>
+
+    <h:outputText id="_2Active" value="Zum Vorbereiten ausblenden"/>
+    <p:selectBooleanCheckbox
+            id="_2Activec"
+            value="#{speakerTabModel._2Active}"
+            ajax="true">
+    </p:selectBooleanCheckbox>
+
+    <h:outputText id="_3Active" value="Wartet auf Start ausblenden"/>
+    <p:selectBooleanCheckbox
+            id="_3Activec"
+            value="#{speakerTabModel._3Active}"
+            ajax="true">
+    </p:selectBooleanCheckbox>
+
+    <h:outputText id="_4Active"
+                  value="Am Spielen ausblenden"/>
+    <p:selectBooleanCheckbox
+            id="_4Activec"
+            value="#{speakerTabModel._4Active}"
+            ajax="true">
+    </p:selectBooleanCheckbox>
+
+    <h:outputText id="_5Active"
+                  value="Beendet ausblenden"/>
+    <p:selectBooleanCheckbox
+            id="_5Activec"
+            value="#{speakerTabModel._5Active}"
+            ajax="true">
+    </p:selectBooleanCheckbox>
 
 
-                                </h:panelGrid>
+</h:panelGrid>
 
-                                <h:inputHidden id="wartendSize" value="#{spielDurchfuehrung.wartendSize}"/>
-                                <h:inputHidden id="minutenZumVorbereiten"
-                                               value="#{spielDurchfuehrung.minutenZumVorbereiten}"/>
+<h:inputHidden id="wartendSize" value="#{spielDurchfuehrung.wartendSize}"/>
+<h:inputHidden id="minutenZumVorbereiten"
+               value="#{spielDurchfuehrung.minutenZumVorbereiten}"/>
 
 
-                                <br/>
+<br/>
 
-                                <p:separator id="customSeparator4"/>
+<p:separator id="customSeparator4"/>
 
-                                <h:outputText id="zeit2" value="Echte Zeit #{spielUhr.richtigeZeit}"/>
-                                -
-                                <h:outputText id="zeit3" value="Spiel Zeit: #{spielUhr.spielZeit}"/>
-                                -
-                                <h:outputText id="versp" value="Verspätung: #{business.spielzeitVerspaetung()}"/>
-                                <p:poll interval="1" listener="#{spielUhr.getRichtigeZeit}"
-                                        update="zeit2,zeit3, versp"/>
-                                <p:separator id="customSeparator25"/>
+<h:outputText id="zeit2" value="Echte Zeit #{spielUhr.richtigeZeit}"/>
+-
+<h:outputText id="zeit3" value="Spiel Zeit: #{spielUhr.spielZeit}"/>
+-
+<h:outputText id="versp" value="Verspätung: #{business.spielzeitVerspaetung()}"/>
+<p:poll interval="1" listener="#{spielUhr.getRichtigeZeit}"
+        update="zeit2,zeit3, versp"/>
+<p:separator id="customSeparator25"/>
 
 
+Phase: #{spieleinstellungen.phase}
 
-                                Phase: #{spieleinstellungen.phase}
 
+<br/>
+<p:separator id="customSeparator15"/>
+<h:outputText id="queue" value="Jobs in der Hintergrundverarbeitung: #{resultateVerarbeiter.getQueueSize()}"/>
+<p:poll interval="1" listener="#{resultateVerarbeiter.getQueueSize()}"
+        update="queue"/>
 
-                                <br/>
-                                <p:separator id="customSeparator15"/>
-                                <h:outputText id="queue" value="Jobs in der Hintergrundverarbeitung: #{resultateVerarbeiter.getQueueSize()}"/>
-                                <p:poll interval="1" listener="#{resultateVerarbeiter.getQueueSize()}"
-                                        update="queue"/>
+<br/>
+<p:separator id="customSeparator05"/>
+<br/>
+<h:panelGrid columns="2" id="inputelements"
+             style="margin-bottom:10px" cellpadding="5">
 
-                                <br/>
-                                <p:separator id="customSeparator05"/>
-                                <br/>
-                                <h:panelGrid columns="2" id="inputelements"
-                                             style="margin-bottom:10px" cellpadding="5">
+    <h:outputText value="Automatisch Zeit aufholen"/>
+    <p:selectBooleanCheckbox id="autoaufholen"
+                             value="#{spieleinstellungen.automatischesAufholen}"
+                             ajax="true">
+    </p:selectBooleanCheckbox>
 
-                                    <h:outputText value="Automatisch Zeit aufholen"/>
-                                    <p:selectBooleanCheckbox id="autoaufholen"
-                                                             value="#{spieleinstellungen.automatischesAufholen}"
-                                                             ajax="true">
-                                    </p:selectBooleanCheckbox>
 
+    <h:outputText id="output2"
+                  value="Aufholzeit in Sekunden: #{spieleinstellungen.aufholzeitInSekunden}"/>
 
-                                    <h:outputText id="output2"
-                                                  value="Aufholzeit in Sekunden: #{spieleinstellungen.aufholzeitInSekunden}"/>
+    <p:slider for="txt2" display="output2"
+              displayTemplate="Aufholzeit in Sekunden: {value}" minValue="1"
+              maxValue="180"/>
 
-                                    <p:slider for="txt2" display="output2"
-                                              displayTemplate="Aufholzeit in Sekunden: {value}" minValue="1"
-                                              maxValue="180"/>
+    <h:outputText value="Mit aktueller Zeit starten"/>
 
-                                    <h:outputText value="Mit aktueller Zeit starten"/>
+    <p:selectBooleanCheckbox
+            id="aktuellezeit" value="#{spieleinstellungen.startJetzt}" update="start"
+            ajax="true" disabled="#{sec:areNotGranted('ROLE_ROOT')}">
+        <p:ajax update="start,output"/>
+    </p:selectBooleanCheckbox>
 
-                                    <p:selectBooleanCheckbox
-                                            id="aktuellezeit" value="#{spieleinstellungen.startJetzt}" update="start"
-                                            ajax="true" disabled="#{sec:areNotGranted('ROLE_ROOT')}">
-                                        <p:ajax update="start,output"/>
-                                    </p:selectBooleanCheckbox>
+    <h:outputText value="Zeit einstellen"/>
 
-                                    <h:outputText value="Zeit einstellen"/>
+    <p:calendar id="start" value="#{spieleinstellungen.start}"
+                pattern="dd.MM.yyyy H:mm:ss"
+                disabled="#{spieleinstellungen.startJetzt}">
+    </p:calendar>
 
-                                    <p:calendar id="start" value="#{spieleinstellungen.start}"
-                                                pattern="dd.MM.yyyy H:mm:ss"
-                                                disabled="#{spieleinstellungen.startJetzt}">
-                                    </p:calendar>
+    <h:outputText value="Zeitverschnellerungsfaktor für Testläufe"/>
 
-                                    <h:outputText value="Zeitverschnellerungsfaktor für Testläufe"/>
+    <p:selectOneMenu id="output" value="#{spieleinstellungen.verschnellerungsFaktor}"
+                     disabled="#{spieleinstellungen.startJetzt}">
+        <f:selectItem itemLabel="1" itemValue="1"/>
+        <f:selectItem itemLabel="2" itemValue="2"/>
+        <f:selectItem itemLabel="3" itemValue="3"/>
+        <f:selectItem itemLabel="4" itemValue="4"/>
+        <f:selectItem itemLabel="5" itemValue="5"/>
+        <f:selectItem itemLabel="10" itemValue="10"/>
+        <f:selectItem itemLabel="15" itemValue="15"/>
+    </p:selectOneMenu>
 
-                                    <p:selectOneMenu id="output" value="#{spieleinstellungen.verschnellerungsFaktor}"
-                                                     disabled="#{spieleinstellungen.startJetzt}">
-                                        <f:selectItem itemLabel="1" itemValue="1"/>
-                                        <f:selectItem itemLabel="2" itemValue="2"/>
-                                        <f:selectItem itemLabel="3" itemValue="3"/>
-                                        <f:selectItem itemLabel="4" itemValue="4"/>
-                                        <f:selectItem itemLabel="5" itemValue="5"/>
-                                        <f:selectItem itemLabel="10" itemValue="10"/>
-                                        <f:selectItem itemLabel="15" itemValue="15"/>
-                                    </p:selectOneMenu>
+    <p:commandButton id="start_zeit" value="Start" action="start"
+                     disabled="#{sec:areNotGranted('ROLE_ROOT') or zeitgeber.isClockStarted()}"/>
+    <p:commandButton id="stop_zeit" value="Stop" action="stop"
+                     disabled="#{sec:areNotGranted('ROLE_ROOT') or !zeitgeber.isClockStarted()}"/>
 
-                                    <p:commandButton id="start_zeit" value="Start" action="start"
-                                                     disabled="#{sec:areNotGranted('ROLE_ROOT') or zeitgeber.isClockStarted()}"/>
-                                    <p:commandButton id="stop_zeit" value="Stop" action="stop"
-                                                     disabled="#{sec:areNotGranted('ROLE_ROOT') or !zeitgeber.isClockStarted()}"/>
+</h:panelGrid>
+<p:separator id="customSeparator"/>
 
-                                </h:panelGrid>
-                                <p:separator id="customSeparator"/>
+<p:commandButton action="#{resultateVerarbeiter.uploadAllKat()}"
+                 value="Upload auf Webseite anstossen" ajax="false"/>
+<br/><br/>
+<p:separator id="customSeparator2"/>
 
-                                <p:commandButton action="#{resultateVerarbeiter.uploadAllKat()}"
-                                                 value="Upload auf Webseite anstossen" ajax="false"/>
-                                <br/><br/>
-                                <p:separator id="customSeparator2"/>
+<p:commandButton action="#{business.spielzeitEinholen(60)}" value="60 Sekunden aufholen"
+                 ajax="false"/>
+<br/><br/>
+<p:separator id="customSeparator23"/>
 
-                                <p:commandButton action="#{business.spielzeitEinholen(60)}" value="60 Sekunden aufholen"
-                                                 ajax="false"/>
-                                <br/><br/>
-                                <p:separator id="customSeparator23"/>
+<p:commandButton action="#{printAgent.printTestpage()}" value="Testseite drucken"
+                 ajax="true"/>
 
-                                <p:commandButton action="#{printAgent.printTestpage()}" value="Testseite drucken"
-                                                 ajax="true"/>
+<p:commandButton action="#{spielPrintManager.printPage()}"
+                 value="Restliche Resultate der Rangliste drucken" ajax="true"/>
 
-                                <p:commandButton action="#{spielPrintManager.printPage()}"
-                                                 value="Restliche Resultate der Rangliste drucken" ajax="true"/>
 
+<p:commandButton action="#{printAgent.printSchiriAnleitung()}" value="Schirianleitung Drucken"
+                 ajax="true"/>
 
-                                <p:commandButton action="#{printAgent.printSchiriAnleitung()}" value="Schirianleitung Drucken"
-                                                 ajax="true"/>
+<h:outputText value=" Druckdienst: "/>
 
-                                <h:outputText value=" Druckdienst: "/>
+<p:selectBooleanCheckbox
+        id="print2" value="#{printAgent.running}"
+        ajax="true">
+</p:selectBooleanCheckbox>
+<br/><br/>
+<p:separator id="customSeparator234"/>
 
-                                <p:selectBooleanCheckbox
-                                        id="print2" value="#{printAgent.running}"
-                                        ajax="true">
-                                </p:selectBooleanCheckbox>
-                                <br/><br/>
-                                <p:separator id="customSeparator234"/>
 
+<p:separator id="customSeparatordd"/>
 
-                                <p:separator id="customSeparatordd"/>
+<h:outputText value="Kamera IP: "/>
+<h:inputText value="#{scannerAgent.imageUrl}" ajax="true"/>
+<br/>
 
-                                <h:outputText value="Kamera IP: "/>
-                                <h:inputText value="#{scannerAgent.imageUrl}" ajax="true"/>
-                                 <br/>
+<h:outputText value="Scanne on/off: "/>
+<p:selectBooleanCheckbox value="#{scannerAgent.running}" ajax="true"/>
+<br/>
+<h:outputText value="Scanne Abfall löschen: "/>
+<p:selectBooleanCheckbox value="#{scannerAgent.deleteGarbage}" ajax="true"/>
+<br/>
 
-                                <h:outputText value="Scanne on/off: "/>
-                                <p:selectBooleanCheckbox   value="#{scannerAgent.running}"  ajax="true" />
-                                <br/>
-                                <h:outputText value="Scanne Abfall löschen: "/>
-                                <p:selectBooleanCheckbox   value="#{scannerAgent.deleteGarbage}"  ajax="true" />
-                                <br/>
+<h:outputText value="Wartesekunden: "/>
+<h:inputText value="#{scannerAgent.wartefaktor}" ajax="true"/>
+<br/>
 
-                                <h:outputText value="Wartesekunden: "/>
-                                <h:inputText value="#{scannerAgent.wartefaktor}" ajax="true"/>
-                                <br/>
+<p:commandButton action="#{scannerAgent.scann()}" value="Scannen" ajax="true"/>
+<br/>
+<p:commandButton action="#{scannerAgent.reset()}" value="Reset" ajax="true"/>
+<br/>
 
-                                <p:commandButton action="#{scannerAgent.scann()}" value="Scannen" ajax="true"/>
-                                <br/>
-                                <p:commandButton action="#{scannerAgent.reset()}" value="Reset" ajax="true"/>
-                                <br/>
+<p:commandButton action="#{scannerAgent.doNow()}" value="verarbeiten" ajax="true"/>
+<br/>
 
-                                <p:commandButton action="#{scannerAgent.doNow()}" value="verarbeiten" ajax="true"/>
-                                <br/>
 
+</p:fieldset>
 
-                            </p:fieldset>
+</h:form>
 
-                        </h:form>
-
-                    </div>
-                    <br/>
-                </div>
-            </div>
-        </div>
-    </ui:define>
+</div>
+<br/>
+</div>
+</div>
+</div>
+</ui:define>
 
 </ui:composition>

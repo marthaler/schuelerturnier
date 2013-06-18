@@ -5,9 +5,6 @@ package com.googlecode.mad_schuelerturnier.business.generator;
 
 import com.googlecode.mad_schuelerturnier.business.picture.BarcodeUtil;
 import com.googlecode.mad_schuelerturnier.model.helper.IDGeneratorContainer;
-import net.sourceforge.barbecue.Barcode;
-import net.sourceforge.barbecue.BarcodeFactory;
-import net.sourceforge.barbecue.BarcodeImageHandler;
 import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
@@ -55,8 +52,7 @@ public class BarcodeGenerator {
             BufferedImage image = BarcodeUtil.encode(text);
             File f = new File(folder + text + ".png");
 
-            ImageIO.write(image,"png",f);
-
+            ImageIO.write(image, "png", f);
 
 
         } catch (Exception e) {

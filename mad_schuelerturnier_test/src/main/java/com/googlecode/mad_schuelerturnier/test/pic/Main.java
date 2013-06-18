@@ -8,8 +8,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
 
-
-
         BufferedImage image = ImageIO.read(new File("/res/a.png"));
         image = CornerUtil.setCorners(image);
         ImageIO.write(image, "png", new File("/res/b.png"));
@@ -27,12 +25,12 @@ public class Main {
         image = ImageUtils.rotateImage(image, 10);
         ImageIO.write(image, "png", new File("/res/b4.png"));
         //image = BarcodeUtil.encode("4");
-       // image = CornerUtil.setCorners(image);
+        // image = CornerUtil.setCorners(image);
 
-       // image = ImageUtils.rotateImage(image, 210.0);
+        // image = ImageUtils.rotateImage(image, 210.0);
 
 
-       // image = ImageUtils.toBandW(image);
+        // image = ImageUtils.toBandW(image);
 
 
         //image = ImageUtils.rotateImage(image, 45);

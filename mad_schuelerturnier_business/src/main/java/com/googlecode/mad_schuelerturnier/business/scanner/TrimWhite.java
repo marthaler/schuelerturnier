@@ -28,18 +28,18 @@ public class TrimWhite {
 
             img = toBinaryImage(img);
         } catch (IOException e) {
-            throw new RuntimeException( "Problem reading image", e );
+            throw new RuntimeException("Problem reading image", e);
         }
     }
 
     public void trim() {
-        int width  = getTrimmedWidth();
+        int width = getTrimmedWidth();
         int height = getTrimmedHeight();
 
         BufferedImage newImg = new BufferedImage(width, height,
                 BufferedImage.TYPE_INT_RGB);
         Graphics g = newImg.createGraphics();
-        g.drawImage( img, 0, 0, null );
+        g.drawImage(img, 0, 0, null);
         img = newImg;
     }
 
@@ -47,18 +47,18 @@ public class TrimWhite {
         try {
             ImageIO.write(img, "png", f);
         } catch (IOException e) {
-            throw new RuntimeException( "Problem writing image", e );
+            throw new RuntimeException("Problem writing image", e);
         }
     }
 
     private int getTrimmedWidth() {
-        int height       = this.img.getHeight();
-        int width        = this.img.getWidth();
+        int height = this.img.getHeight();
+        int width = this.img.getWidth();
         int trimmedWidth = 0;
 
-        for(int i = 0; i < height; i++) {
-            for(int j = width - 1; j >= 0; j--) {
-                if(img.getRGB(j, i) != Color.WHITE.getRGB() &&
+        for (int i = 0; i < height; i++) {
+            for (int j = width - 1; j >= 0; j--) {
+                if (img.getRGB(j, i) != Color.WHITE.getRGB() &&
                         j > trimmedWidth) {
                     trimmedWidth = j;
                     break;
@@ -70,13 +70,13 @@ public class TrimWhite {
     }
 
     private int getTrimmedHeight() {
-        int width         = this.img.getWidth();
-        int height        = this.img.getHeight();
+        int width = this.img.getWidth();
+        int height = this.img.getHeight();
         int trimmedHeight = 0;
 
-        for(int i = 0; i < width; i++) {
-            for(int j = height - 1; j >= 0; j--) {
-                if(img.getRGB(i, j) != Color.WHITE.getRGB() &&
+        for (int i = 0; i < width; i++) {
+            for (int j = height - 1; j >= 0; j--) {
+                if (img.getRGB(i, j) != Color.WHITE.getRGB() &&
                         j > trimmedHeight) {
                     trimmedHeight = j;
                     break;

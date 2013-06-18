@@ -179,7 +179,8 @@
 
     </view-state>
 
-    <view-state id="spiel_start" view="durchfuehrung/spiel_start.xhtml" redirect="true"  model="flowScope.spieleinstellungen">
+    <view-state id="spiel_start" view="durchfuehrung/spiel_start.xhtml" redirect="true"
+                model="flowScope.spieleinstellungen">
 
         <on-render>
             <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"/>

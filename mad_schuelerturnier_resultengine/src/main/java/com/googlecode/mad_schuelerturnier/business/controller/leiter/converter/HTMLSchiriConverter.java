@@ -262,11 +262,11 @@ public class HTMLSchiriConverter {
             // zeilenumbruch
 
             final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            String ret = getTemplate2().replace("[zeit]",sdf.format(spiel.getStart()));
-            ret = ret.replace("[idstring]",spiel.getIdString().toUpperCase());
-            ret = ret.replace("[platz]",spiel.getPlatz().toString());
-            ret = ret.replace("[a]",nameA);
-            ret = ret.replace("[b]",nameB);
+            String ret = getTemplate2().replace("[zeit]", sdf.format(spiel.getStart()));
+            ret = ret.replace("[idstring]", spiel.getIdString().toUpperCase());
+            ret = ret.replace("[platz]", spiel.getPlatz().toString());
+            ret = ret.replace("[a]", nameA);
+            ret = ret.replace("[b]", nameB);
 
 
             listT.add(ret);
@@ -303,9 +303,7 @@ public class HTMLSchiriConverter {
     }
 
 
-
-
-    private String getTemplate2(){
+    private String getTemplate2() {
 
         final StringBuilder b = new StringBuilder();
 
@@ -355,7 +353,7 @@ public class HTMLSchiriConverter {
         b.append("</tr>");
         b.append("</tbody>");
         b.append("</table>");
-        return b.toString() ;
+        return b.toString();
     }
 
 

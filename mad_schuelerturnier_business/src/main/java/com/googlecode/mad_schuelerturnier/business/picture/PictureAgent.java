@@ -1,34 +1,17 @@
 package com.googlecode.mad_schuelerturnier.business.picture;
 
 import com.googlecode.mad_schuelerturnier.business.scanner.BarcodeDecoder;
-import com.googlecode.mad_schuelerturnier.business.scanner.Cropper;
-import com.googlecode.mad_schuelerturnier.business.scanner.GryscaleConverter;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
-import com.lowagie.text.Document;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.html.simpleparser.HTMLWorker;
-import com.lowagie.text.pdf.PdfWriter;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.htmlcleaner.CleanerProperties;
-import org.htmlcleaner.HtmlCleaner;
-import org.htmlcleaner.PrettyXmlSerializer;
-import org.htmlcleaner.TagNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.print.*;
-import javax.print.attribute.AttributeSet;
-import javax.print.attribute.HashAttributeSet;
-import javax.print.attribute.standard.Copies;
-import javax.print.attribute.standard.PrinterName;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -72,22 +55,22 @@ public class PictureAgent {
 
     }
 
-    public boolean existiert(String id){
-        return new File(schirizettel + id +".png").exists();
+    public boolean existiert(String id) {
+        return new File(schirizettel + id + ".png").exists();
     }
 
-    public void delPicToCheck(){
-        if(this.hasPicToCheck()){
+    public void delPicToCheck() {
+        if (this.hasPicToCheck()) {
             FileUtils.deleteQuietly(new File(getPicToCheck()));
         }
     }
 
-    public void zuweisen(){
+    public void zuweisen() {
         try {
 
-            if(this.selected != null){
+            if (this.selected != null) {
                 this.selected = this.selected.toLowerCase();
-            } else{
+            } else {
                 LOG.error("keine auswahl bei der schirizettelzuweisung");
             }
 
@@ -97,34 +80,34 @@ public class PictureAgent {
             FileUtils.deleteQuietly(source);
 
         } catch (IOException e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
         this.picToCheck = null;
     }
 
-    public boolean hasPicToCheck(){
-        if(getPicToCheck() == null){
-             return false;
+    public boolean hasPicToCheck() {
+        if (getPicToCheck() == null) {
+            return false;
         }
         return true;
     }
 
-    public String getPicToCheck(){
+    public String getPicToCheck() {
         String ret = "";
-        if(picToCheck == null){
+        if (picToCheck == null) {
             Collection<File> files = FileUtils.listFiles(new File(tempPath), null, false);
             for (File f : files) {
-                if(f.getName().contains("Bildschirmfoto")){
-                picToCheck =  f.getName();
+                if (f.getName().contains("Bildschirmfoto")) {
+                    picToCheck = f.getName();
                 }
             }
         }
 
-        if(picToCheck == null){
+        if (picToCheck == null) {
             return null;
         }
 
-        ret = "resources/static/schirizetteltemp/" +  picToCheck;
+        ret = "resources/static/schirizetteltemp/" + picToCheck;
         return ret;
     }
 
@@ -140,22 +123,22 @@ public class PictureAgent {
             if (f.getName().contains("Bildschirmfoto")) {
                 try {
 
-                    String neu =  this.tempPath + f.getName().replace(" ","");
+                    String neu = this.tempPath + f.getName().replace(" ", "");
                     File fneu = new File(neu);
 
                     FileUtils.copyFile(f, fneu);
 
-                        String res = BarcodeDecoder.decode(neu);
-                    if(res.length() == 2){
-                    Spiel sp = this.spielRepository.findSpielByIdString(res);
+                    String res = BarcodeDecoder.decode(neu);
+                    if (res.length() == 2) {
+                        Spiel sp = this.spielRepository.findSpielByIdString(res);
 
 
-                            try {
-                                FileUtils.moveFile(fneu, new File(schirizettel + System.getProperty("file.separator") + sp.getId() + ".png"));
-                            } catch (IOException e) {
-                                LOG.error(e.getMessage(), e);
-                            }
+                        try {
+                            FileUtils.moveFile(fneu, new File(schirizettel + System.getProperty("file.separator") + sp.getId() + ".png"));
+                        } catch (IOException e) {
+                            LOG.error(e.getMessage(), e);
                         }
+                    }
 
                     FileUtils.deleteQuietly(f);
                 } catch (Exception e) {

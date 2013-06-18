@@ -24,12 +24,12 @@
 <h:form id="form2">
 
     <sec:authorize ifAnyGranted="ROLE_SPEAKER">
-     <!--
-        <p:commandButton value="refresh" id="refresh" action="refresh" icon="ui-icon-check" disabled="false"
-                         ajax="false">
-        </p:commandButton>
-        w: #{wait}
-         -->
+        <!--
+           <p:commandButton value="refresh" id="refresh" action="refresh" icon="ui-icon-check" disabled="false"
+                            ajax="false">
+           </p:commandButton>
+           w: #{wait}
+            -->
         <p:media value="#{speak}" width="200" height="20" player="quicktime" rendered="#{speak != null}">
             <f:param name="autoPlay" value="true"/>
         </p:media>
@@ -42,7 +42,8 @@
 <p:fieldset legend="Spieldurchfuehrung">
 <p:messages/>
 <b>
-<h:outputText id="uhr"  value="Echte Zeit #{spielUhr.richtigeZeit} - Spiel Zeit: #{spielUhr.spielZeit} - Verspätung: #{business.spielzeitVerspaetung()}"/>
+    <h:outputText id="uhr"
+                  value="Echte Zeit #{spielUhr.richtigeZeit} - Spiel Zeit: #{spielUhr.spielZeit} - Verspätung: #{business.spielzeitVerspaetung()}"/>
 </b>
 <p:poll interval="1" listener="#{spielUhr.getRichtigeZeit}" update="uhr"/>
 <br/>

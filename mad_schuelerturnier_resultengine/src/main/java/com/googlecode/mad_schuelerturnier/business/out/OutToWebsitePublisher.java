@@ -143,16 +143,16 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
     public void addPage(final String file, final String content) {
         this.map.put(file.replace("..", ".").toLowerCase(), content);
 
-        if(this.ftpEin){
-        try {
-            FileUtils.writeStringToFile(new File(this.ftpPath + file.toLowerCase()),content);
-        } catch (IOException e) {
-            LOG.error(e.getMessage(),e);
-        }
+        if (this.ftpEin) {
+            try {
+                FileUtils.writeStringToFile(new File(this.ftpPath + file.toLowerCase()), content);
+            } catch (IOException e) {
+                LOG.error(e.getMessage(), e);
+            }
         }
     }
 
-    public void reconnect(){
+    public void reconnect() {
         OutToWebsiteSender.DOWN = false;
     }
 
