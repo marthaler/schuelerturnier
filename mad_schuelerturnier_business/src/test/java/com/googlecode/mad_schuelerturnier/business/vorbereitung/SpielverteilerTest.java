@@ -10,9 +10,11 @@ import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepos
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,6 +23,8 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-business-context.xml"})
+@DirtiesContext
+@Ignore
 public class SpielverteilerTest {
 
     @Autowired
