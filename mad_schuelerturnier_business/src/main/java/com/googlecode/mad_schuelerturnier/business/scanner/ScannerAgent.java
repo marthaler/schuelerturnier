@@ -177,13 +177,19 @@ public class ScannerAgent {
     }
 
     public void openConnection(String imageUrl) throws IOException {
+        InputStream is=null;
+        try{
         URL url = new URL(imageUrl);
         URLConnection uc = url.openConnection();
         String userpass = "admin" + ":" + "";
         String basicAuth = "Basic " + new String(new Base64().encode(userpass.getBytes()));
         uc.setRequestProperty("Authorization", basicAuth);
-        InputStream is = uc.getInputStream();
-        is.close();
+        is = uc.getInputStream();
+        } catch (Exception e){
+            LOG.debug("kameraverbindung nicht moeglich");
+        } finally {
+            is.close();
+        }
 
     }
 
