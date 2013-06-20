@@ -206,6 +206,8 @@
 
         <on-render>
             <evaluate expression="business.anstehendePenalty()" result="flowScope.penaltyAnstehend"/>
+            <evaluate expression="spielRepositoryDelegate.findAllEinzutragende()"
+                      result="flowScope.einzutragende"/>
         </on-render>
 
         <transition on="zuweisen" to="eintrager">
@@ -245,6 +247,15 @@
 
 
     <view-state id="kontrollierer" view="durchfuehrung/kontrollierer.xhtml" redirect="true">
+
+
+         <on-render>
+             <evaluate expression="spielRepositoryDelegate.findAllZuBestaetigen()"
+                       result="flowScope.bestaetigen"/>
+         </on-render>
+
+
+
         <transition on="save" to="kontrollierer">
             <evaluate
                     expression="spielRepositoryDelegate.bestaetigen(flowScope.bestaetigen,requestParameters.id,requestParameters.ok)"/>
@@ -267,6 +278,19 @@
     </view-state>
 
 
+    <view-state id="liste_spiel" view="root/liste_spiel.xhtml" redirect="true">
+        <transition on="show" to="edit_spiel" >
+            <evaluate expression="spielServiceImpl.findSpiel(requestParameters.id)" result="flowScope.spiel"/>
+        </transition>
+    </view-state>
+
+    <view-state id="edit_spiel" view="root/edit_spiel.xhtml" redirect="true" model="spiel">
+        <transition on="save" to="liste_spiel" bind="true">
+            <evaluate expression="spielServiceImpl.doKorrektur(spiel)"/>
+        </transition>
+    </view-state>
+
+
     <global-transitions>
         <transition on="dashboard" to="dashboard"/>
         <transition on="newmannschaft" to="newmannschaft"/>
@@ -280,7 +304,9 @@
         <transition on="gt_schiri" to="v_schiri"/>
         <transition on="gt_rangliste" to="v_rangliste"/>
 
-        <transition on="gt_resultatekorrekturen" to="v_resultatekorrekturen"/>
+        <transition on="gt_resultatekorrekturen" to="liste_spiel">
+            <evaluate expression="spielServiceImpl.readAllSpiele()" result="flowScope.spiele"/>
+        </transition>
 
         <transition on="spielListeExport" to="spielListeExport"/>
         <transition on="spielListeImport" to="spielListeImport"/>

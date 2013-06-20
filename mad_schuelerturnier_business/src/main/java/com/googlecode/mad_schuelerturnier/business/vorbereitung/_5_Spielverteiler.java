@@ -101,7 +101,7 @@ public class _5_Spielverteiler {
                 if (tempSpiel == null) {
                     break;
                 }
-                //Spiel sp = spielRepo.findOne(tempSpiel.getId());
+                //spielkorrektur sp = spielRepo.findOne(tempSpiel.getId());
 
 
                 //try {
@@ -141,7 +141,7 @@ public class _5_Spielverteiler {
                 if (tempSpiel == null) {
                     break;
                 }
-                //Spiel sp = spielRepo.findOne(gr.getId());
+                //spielkorrektur sp = spielRepo.findOne(gr.getId());
                 //tempSpiel.setStart(zeilen.getStart());
                 //gr = spielRepo.save(sp);
                 tempSpiel.setPlatz(PlatzEnum.B);
@@ -183,7 +183,7 @@ public class _5_Spielverteiler {
                     break;
                 }
                 //    if (tempSpiele != null) {
-                //Spiel sp = spielRepo.findOne(tempSpiele.getId());
+                //spielkorrektur sp = spielRepo.findOne(tempSpiele.getId());
                 //tempSpiele.setStart(zeilen.getStart());
                 //gr = spielRepo.save(sp);
                 //spielRepo.save(gr);

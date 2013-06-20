@@ -102,9 +102,9 @@ public class HTMLOutConverter {
             buffer.append("<tr>");
             buffer.append("<td colspan='8'>");
             if (spiel != null) {
-                buffer.append("Spiel: " + historie.getSpiel().getMannschaftA().getName() + "-" + historie.getSpiel().getMannschaftB().getName() + " " + historie.getSpiel().getToreABestaetigt() + ":" + historie.getSpiel().getToreBBestaetigt() + "");
+                buffer.append("spielkorrektur: " + historie.getSpiel().getMannschaftA().getName() + "-" + historie.getSpiel().getMannschaftB().getName() + " " + historie.getSpiel().getToreABestaetigt() + ":" + historie.getSpiel().getToreBBestaetigt() + "");
             } else {
-                buffer.append("Spiel: Penalty");
+                buffer.append("spielkorrektur: Penalty");
             }
             buffer.append("</td>");
             buffer.append("</tr>");

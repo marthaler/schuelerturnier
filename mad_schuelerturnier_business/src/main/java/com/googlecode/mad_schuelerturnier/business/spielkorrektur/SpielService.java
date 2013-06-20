@@ -1,4 +1,4 @@
-package com.googlecode.mad_schuelerturnier.business.Spiel;
+package com.googlecode.mad_schuelerturnier.business.spielkorrektur;
 
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 
@@ -15,5 +15,7 @@ public interface SpielService {
 
     public List<Spiel> readAllSpiele();
 
-    public void saveKorrigiertesSpiel(Spiel spiel);
+    public Spiel findSpiel(String id);
+
+    public void doKorrektur(Spiel Spiel);
 }

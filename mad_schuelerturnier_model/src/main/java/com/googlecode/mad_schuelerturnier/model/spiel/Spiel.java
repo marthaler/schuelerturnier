@@ -6,10 +6,12 @@ package com.googlecode.mad_schuelerturnier.model.spiel;
 import com.googlecode.mad_schuelerturnier.model.Gruppe;
 import com.googlecode.mad_schuelerturnier.model.Mannschaft;
 import com.googlecode.mad_schuelerturnier.model.Paarung;
+import com.googlecode.mad_schuelerturnier.model.Text;
 import com.googlecode.mad_schuelerturnier.model.enums.PlatzEnum;
 import com.googlecode.mad_schuelerturnier.model.enums.SpielEnum;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import java.util.Date;
@@ -33,11 +35,11 @@ public class Spiel extends AbstractPersistable<Long> {
     private PlatzEnum platz = null;
     private Date start = null;
 
-    private Integer toreA = NOT_INIT_FLAG;
-    private Integer toreB = NOT_INIT_FLAG;
+    private int toreA = NOT_INIT_FLAG;
+    private int toreB = NOT_INIT_FLAG;
 
-    private Integer toreABestaetigt = NOT_INIT_FLAG;
-    private Integer toreBBestaetigt = NOT_INIT_FLAG;
+    private int toreABestaetigt = NOT_INIT_FLAG;
+    private int toreBBestaetigt = NOT_INIT_FLAG;
 
     private String idString = null;
 
@@ -50,6 +52,10 @@ public class Spiel extends AbstractPersistable<Long> {
 
     // hilfsfeld zum ausgeben der finale, falls noch keine mannschaft bestimmt wurde
     private String kategorieName;
+
+    @OneToOne (cascade = {CascadeType.ALL})
+    private Text notizen = new Text();
+
 
 
     @OneToOne
@@ -248,19 +254,19 @@ public class Spiel extends AbstractPersistable<Long> {
         this.start = start;
     }
 
-    public Integer getToreA() {
+    public int getToreA() {
         return this.toreA;
     }
 
-    public void setToreA(final Integer toreA) {
+    public void setToreA(final int toreA) {
         this.toreA = toreA;
     }
 
-    public Integer getToreB() {
+    public int getToreB() {
         return this.toreB;
     }
 
-    public void setToreB(final Integer toreB) {
+    public void setToreB(final int toreB) {
         this.toreB = toreB;
     }
 
@@ -268,7 +274,7 @@ public class Spiel extends AbstractPersistable<Long> {
         return this.toreABestaetigt;
     }
 
-    public void setToreABestaetigt(final Integer toreABestaetigt) {
+    public void setToreABestaetigt(final int toreABestaetigt) {
         this.toreABestaetigt = toreABestaetigt;
     }
 
@@ -365,6 +371,14 @@ public class Spiel extends AbstractPersistable<Long> {
 
     public void setKategorieName(String kategorieName) {
         this.kategorieName = kategorieName;
+    }
+
+    public Text getNotizen() {
+        return notizen;
+    }
+
+    public void setNotizen(Text notitzen) {
+        this.notizen = notitzen;
     }
 
 }

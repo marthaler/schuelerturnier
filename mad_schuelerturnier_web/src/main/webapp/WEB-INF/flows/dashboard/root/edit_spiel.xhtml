@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="../../../layouts/100.xhtml">
+
+    <ui:define name="heading">
+        <h:outputText value="Mannschaft bearbeiten"/>
+    </ui:define>
+
+    <ui:define name="caption">
+        <p>annschaft bearbeiten</p>
+    </ui:define>
+
+    <ui:define name="main">
+        <div id="main">
+            <div class="page_margins">
+                <div class="page">
+                    <div class="inset">
+
+                        <h:form id="form1">
+
+                            <p:fieldset legend="Spiel Korrigieren">
+                                <p:messages/>
+
+                                <h:panelGrid columns="2" id="inputelements">
+
+
+                                    <h:outputLabel for="id" value="Id "/>
+                                    <p:inputText id="id" label="Id"
+                                                 value="#{spiel.idString}" size="5" disabled="true"/>
+
+                                    <h:outputLabel for="a" value="Tore  #{spiel.mannschaftA.name}"/>
+                                    <p:inputText id="a" label="a" value="#{spiel.toreABestaetigt}" size="2">
+                                        <f:validateLength minimum="1" maximum="2"/>
+                                    </p:inputText>
+
+                                    <h:outputLabel for="b" value="Tore  #{spiel.mannschaftB.name}"/>
+                                    <p:inputText id="b" label="b" value="#{spiel.toreBBestaetigt}" size="2">
+                                        <f:validateLength minimum="1" maximum="2"/>
+                                    </p:inputText>
+
+                                    <h:outputLabel for="notizen" value="Log"/>
+                                    <p:inputTextarea id="notizen" rows="5" cols="30" value="#{spiel.notizen.value}"  autoResize="false"/>
+
+                                    <h:panelGroup id="button" layout="block">
+                                        <p:commandButton id="submit" value="Speichern" action="save" ajax="false"/>
+                                    </h:panelGroup>
+
+                                </h:panelGrid>
+                            </p:fieldset>
+                        </h:form>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

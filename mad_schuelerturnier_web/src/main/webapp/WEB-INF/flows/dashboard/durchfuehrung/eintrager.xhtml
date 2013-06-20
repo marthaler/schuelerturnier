@@ -4,6 +4,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:sec="http://www.springframework.org/security/tags"
                 template="../../../layouts/100.xhtml">
 
 
@@ -37,12 +38,6 @@
                                     <p:tab title="Einzutragende">
 
 
-                                        <h:outputText id="zeit2" value="Echte Zeit #{spielUhr.richtigeZeit}"/>
-                                        -
-                                        <h:outputText id="zeit3" value="Spiel Zeit: #{spielUhr.spielZeit}"/>
-                                        <p:poll interval="1" listener="#{spielUhr.getRichtigeZeit}"
-                                                update="zeit2,zeit3"/>
-                                        <br/>
 
                                         <h:graphicImage value="#{pictureAgent.getPicToCheck()}"/>
 

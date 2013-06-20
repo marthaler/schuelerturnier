@@ -44,7 +44,7 @@ public class HTMLSchiriConverter {
 
 
             if (spiel.getPlatz() == null) {
-                HTMLSchiriConverter.LOG.warn("Spiel gefunden ohne Platz... werde dieses überspringen... " + spiel.toString());
+                HTMLSchiriConverter.LOG.warn("spielkorrektur gefunden ohne Platz... werde dieses überspringen... " + spiel.toString());
                 continue;
             }
 
@@ -232,7 +232,7 @@ public class HTMLSchiriConverter {
 
 
             if (spiel.getPlatz() == null) {
-                HTMLSchiriConverter.LOG.warn("Spiel gefunden ohne Platz... werde dieses überspringen... " + spiel.toString());
+                HTMLSchiriConverter.LOG.warn("spielkorrektur gefunden ohne Platz... werde dieses überspringen... " + spiel.toString());
                 continue;
             }
 
