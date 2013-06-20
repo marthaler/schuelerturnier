@@ -65,6 +65,10 @@
                 <p:menuitem id="mm_schiri" rendered="#{sec:areAnyGranted('ROLE_OPERATOR')}" value="Schirizettel"
                             icon="ui-icon-print" action="gt_schiri"/>
 
+                <!-- spielen: korrekturen -->
+                <p:menuitem id="mm_resultatekorrekturen" rendered="#{sec:areAnyGranted('ROLE_ROOT')}" value="Spielkorrekturen"
+                            icon="ui-ui-icon-alert" action="gt_resultatekorrekturen"/>
+
                 <!-- stammdaten -->
                 <p:submenu id="m_stammdaten" rendered="#{sec:areAnyGranted('ROLE_ADMIN')}" label="Stammdaten"
                            icon="ui-icon-contact">

@@ -260,6 +260,12 @@
         </transition>
     </view-state>
 
+    <view-state id="resultatekorrekturen" view="mannschaft/korrekturen.xhtml" redirect="true" model="korrekturen">
+        <transition on="save" to="korrekturen" bind="true">
+            <evaluate expression="business.saveEinstellungen(flowScope.korrekturen)"/>
+        </transition>
+    </view-state>
+
 
     <global-transitions>
         <transition on="dashboard" to="dashboard"/>
@@ -273,6 +279,8 @@
         <transition on="gt_matrix" to="v_matrix"/>
         <transition on="gt_schiri" to="v_schiri"/>
         <transition on="gt_rangliste" to="v_rangliste"/>
+
+        <transition on="gt_resultatekorrekturen" to="v_resultatekorrekturen"/>
 
         <transition on="spielListeExport" to="spielListeExport"/>
         <transition on="spielListeImport" to="spielListeImport"/>
