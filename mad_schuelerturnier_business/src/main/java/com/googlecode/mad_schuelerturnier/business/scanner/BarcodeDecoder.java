@@ -33,7 +33,7 @@ public class BarcodeDecoder {
     }
 
     public static void main(String[] args) {
-        System.out.println(BarcodeDecoder.decode("/l.png"));
+        System.out.println(BarcodeDecoder.decode("/res/ee.png"));
     }
 
 

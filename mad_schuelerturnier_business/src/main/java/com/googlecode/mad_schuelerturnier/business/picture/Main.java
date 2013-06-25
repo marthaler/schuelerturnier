@@ -31,7 +31,7 @@ public class Main {
          */
         public static void main(String[] args) {
             try {
-                new Main("/res/b3.png");
+                new Main("/res/rrr.png");
             } catch (IOException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
@@ -98,6 +98,9 @@ public class Main {
 
                 ImageIO.write(getOutputImage(), extension.toUpperCase().trim(),
                                 new File("/res/" + filename));
+
+
+            System.out.println(BarcodeUtil.decode(getOutputImage()));
 
         }
 

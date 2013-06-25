@@ -322,14 +322,14 @@ public class HTMLSchiriConverter {
         b.append("<tr align=\"center\">");
         b.append("<td colspan=\"1\" rowspan=\"1\">" +
 
-                "1 <input name=\"1\" value=\"1\" type=\"radio\">" +
-                "2 <input name=\"1\" value=\"1\" type=\"radio\">" +
-                "3 <input name=\"1\" value=\"1\" type=\"radio\">" +
-                "4 <input name=\"1\" value=\"1\" type=\"radio\">" +
-                "5 <input name=\"1\" value=\"1\" type=\"radio\">" +
-                "6 <input name=\"1\" value=\"1\" type=\"radio\">" +
-                "7 <input name=\"1\" value=\"1\" type=\"radio\">" +
-                "8 <input name=\"1\" value=\"1\" type=\"radio\">" +
+                "1 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
+                "2 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
+                "3 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
+                "4 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
+                "5 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
+                "6 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
+                "7 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
+                "8 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
 
                 "</td>");
         b.append("</tr>");
@@ -340,14 +340,14 @@ public class HTMLSchiriConverter {
         b.append("<tr align=\"center\">");
         b.append("<td colspan=\"1\" rowspan=\"1\">" +
 
-                "1 <input name=\"1\" value=\"1\" type=\"radio\">" +
-                "2 <input name=\"1\" value=\"1\" type=\"radio\">" +
-                "3 <input name=\"1\" value=\"1\" type=\"radio\">" +
-                "4 <input name=\"1\" value=\"1\" type=\"radio\">" +
-                "5 <input name=\"1\" value=\"1\" type=\"radio\">" +
-                "6 <input name=\"1\" value=\"1\" type=\"radio\">" +
-                "7 <input name=\"1\" value=\"1\" type=\"radio\">" +
-                "8 <input name=\"1\" value=\"1\" type=\"radio\">" +
+                "1 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
+                "2 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
+                "3 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
+                "4 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
+                "5 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
+                "6 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
+                "7 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
+                "8 <input name=\"1\" value=\"1\" type=\"checkbox\">" +
 
                 "</td>");
         b.append("</tr>");
