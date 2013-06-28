@@ -125,54 +125,54 @@
     </properties>
 
 
-   <!--
-   [INFO]   org.mockftpserver:MockFtpServer ......................... 2.0.2 -> 2.4
-   [INFO]   org.springframework.security:spring-security-config ...
-   [INFO]                                                3.1.3.RELEASE -> 3.2.0.M1
-   [INFO]   org.springframework.security:spring-security-core ...
-   [INFO]                                                3.1.3.RELEASE -> 3.2.0.M1
-   [INFO]   org.springframework.security:spring-security-web ...
-   [INFO]                                                3.1.3.RELEASE -> 3.2.0.M1
-   [INFO]   org.springframework.webflow:spring-faces ... 2.3.1.RELEASE -> 2.4.0.M1
-   -->
+    <!--
+    [INFO]   org.mockftpserver:MockFtpServer ......................... 2.0.2 -> 2.4
+    [INFO]   org.springframework.security:spring-security-config ...
+    [INFO]                                                3.1.3.RELEASE -> 3.2.0.M1
+    [INFO]   org.springframework.security:spring-security-core ...
+    [INFO]                                                3.1.3.RELEASE -> 3.2.0.M1
+    [INFO]   org.springframework.security:spring-security-web ...
+    [INFO]                                                3.1.3.RELEASE -> 3.2.0.M1
+    [INFO]   org.springframework.webflow:spring-faces ... 2.3.1.RELEASE -> 2.4.0.M1
+    -->
 
-   <prerequisites>
-       <maven>3.0.2</maven>
-   </prerequisites>
+    <prerequisites>
+        <maven>3.0.2</maven>
+    </prerequisites>
 
-   <modules>
-       <module>mad_schuelerturnier_business</module>
-       <module>mad_schuelerturnier_persistence</module>
-       <module>mad_schuelerturnier_model</module>
-       <module>mad_schuelerturnier_web</module>
-       <module>mad_schuelerturnier_resultengine</module>
-       <module>mad_schuelerturnier_dataloader</module>
-   </modules>
+    <modules>
+        <module>mad_schuelerturnier_business</module>
+        <module>mad_schuelerturnier_persistence</module>
+        <module>mad_schuelerturnier_model</module>
+        <module>mad_schuelerturnier_web</module>
+        <module>mad_schuelerturnier_resultengine</module>
+        <module>mad_schuelerturnier_dataloader</module>
+    </modules>
 
-   <licenses>
-       <license>
-           <name>The Apache Software License, Version 2.0</name>
-           <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-           <distribution>repo</distribution>
-       </license>
-   </licenses>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
-   <developers>
-       <developer>
-           <id>menzi</id>
-           <name>daniel marthaler</name>
-           <email>marthaler.worb@gmail.com</email>
-       </developer>
-   </developers>
+    <developers>
+        <developer>
+            <id>menzi</id>
+            <name>daniel marthaler</name>
+            <email>marthaler.worb@gmail.com</email>
+        </developer>
+    </developers>
 
-   <issueManagement>
-       <system>googlecode</system>
-       <url>https://mad-schuelerturnier.googlecode.com/issues/entry</url>
-   </issueManagement>
+    <issueManagement>
+        <system>googlecode</system>
+        <url>https://mad-schuelerturnier.googlecode.com/issues/entry</url>
+    </issueManagement>
 
-   <dependencies>
+    <dependencies>
 
-       <!-- wurde noetig, weil mit einer abhaengigkeitsaenderung ploetzlich classnotfound beim tomcatstart: org/w3c/dom/ElementTraversal-->
+        <!-- wurde noetig, weil mit einer abhaengigkeitsaenderung ploetzlich classnotfound beim tomcatstart: org/w3c/dom/ElementTraversal-->
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
             <artifactId>batik-ext</artifactId>
@@ -808,7 +808,7 @@
                 <plugin>
                     <groupId>org.apache.tomcat.maven</groupId>
                     <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>2.0</version>
+                    <version>2.1</version>
                     <configuration>
                         <path>/</path>
                     </configuration>

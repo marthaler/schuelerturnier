@@ -158,13 +158,27 @@
                             <fork>true</fork>
                         </configuration>
                         <executions>
+
                             <execution>
-                                <id>run-tomcat</id>
-                                <phase>pre-integration-test</phase>
+                                <id>tomcat-run</id>
                                 <goals>
-                                    <goal>run</goal>
+                                    <goal>run-war-only</goal>
                                 </goals>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+
+                                    <fork>true</fork>
+
+                                </configuration>
                             </execution>
+                            <execution>
+                                <id>tomcat-shutdown</id>
+                                <goals>
+                                    <goal>shutdown</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                            </execution>
+
                         </executions>
                     </plugin>
 
@@ -190,6 +204,35 @@
                                         <include>**/integration/**</include>
                                     </includes>
                                 </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>exec-war-only</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <configuration>
+                            <fork>true</fork>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>createexecjar</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec-war-only</goal>
+                                </goals>
                             </execution>
                         </executions>
                     </plugin>
