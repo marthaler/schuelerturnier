@@ -555,7 +555,7 @@ public class RanglisteneintragHistorie {
 
         for (RanglisteneintragZeile ze : su) {
             if (ze.getSpieleAnstehend() > 0) {
-                LOG.debug("penaltyBestimmenSub(): wird nicht mehr weiterverfolgt, weil noch nicht das letzte Spiel gespielt wurde");
+                LOG.debug("penaltyBestimmenSub(): wird nicht mehr weiterverfolgt, weil noch nicht das letzte spielkorrektur gespielt wurde");
                 return;
             }
         }

@@ -206,10 +206,10 @@ public class BeobachterWebService {
             b.append("<tr>");
             b.append("<td colspan='8'>");
             if (!penalty) {
-//                b.append("Spiel: " + str.getSpiel().getA().getName() + "-" + str.getSpiel().getB().getName() + " " + str.getSpiel().getToreABestaetigt() + ":" + str.getSpiel().getToreBBestaetigt()
+//                b.append("spielkorrektur: " + str.getSpiel().getA().getName() + "-" + str.getSpiel().getB().getName() + " " + str.getSpiel().getToreABestaetigt() + ":" + str.getSpiel().getToreBBestaetigt()
 //                        + "");
             } else {
-                b.append("Spiel: Penalty");
+                b.append("spielkorrektur: Penalty");
             }
             b.append("</td>");
             b.append("</tr>");

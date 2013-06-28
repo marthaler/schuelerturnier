@@ -4,8 +4,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:sec="http://www.springframework.org/security/tags"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:sec="http://www.springframework.org/security/tags">
 
     <div id="mainnav">
         <h:form id="form_m">
@@ -65,6 +65,10 @@
                 <!-- spielen: schirizettel -->
                 <p:menuitem id="mm_schiri" rendered="#{sec:areAnyGranted('ROLE_OPERATOR')}" value="Schirizettel"
                             icon="ui-icon-print" action="gt_schiri"/>
+
+                <!-- spielen: korrekturen -->
+                <p:menuitem id="mm_resultatekorrekturen" rendered="#{sec:areAnyGranted('ROLE_ROOT')}" value="Spielkorrekturen"
+                            icon="ui-ui-icon-alert" action="gt_resultatekorrekturen"/>
 
                 <!-- stammdaten -->
                 <p:submenu id="m_stammdaten" rendered="#{sec:areAnyGranted('ROLE_ADMIN')}" label="Stammdaten"

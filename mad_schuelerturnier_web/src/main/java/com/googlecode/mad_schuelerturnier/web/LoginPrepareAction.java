@@ -79,13 +79,13 @@ public class LoginPrepareAction {
         ip = httpServletRequest.getServerName();
 
 
-        InetAddress IP= null;
+        InetAddress IP = null;
         try {
             IP = InetAddress.getLocalHost();
         } catch (UnknownHostException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        System.out.println("IP of my system is := "+IP.getHostAddress());
+        System.out.println("IP of my system is := " + IP.getHostAddress());
 
         ip = "http://" + IP.getHostAddress() + ":" + httpServletRequest.getServerPort();
 
