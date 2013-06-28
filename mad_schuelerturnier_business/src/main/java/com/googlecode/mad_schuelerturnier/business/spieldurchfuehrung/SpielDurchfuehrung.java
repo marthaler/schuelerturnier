@@ -11,7 +11,6 @@ import com.googlecode.mad_schuelerturnier.business.zeit.Zeitgeber;
 import com.googlecode.mad_schuelerturnier.model.enums.SpielEnum;
 import com.googlecode.mad_schuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.mad_schuelerturnier.model.enums.SpielZeilenPhaseEnum;
-import com.googlecode.mad_schuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import com.googlecode.mad_schuelerturnier.model.spiel.tabelle.SpielZeile;
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
@@ -118,7 +117,6 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
             checkSpielende();
 
         }
-
 
 
     }
@@ -253,18 +251,18 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
     private void checkSpielende() {
         LOG.debug("checkSpielende: start");
-            if (!endranglistegedruckt && business.getSpielEinstellungen().getPhase() == SpielPhasenEnum.G_ABGESCHLOSSEN) {
+        if (!endranglistegedruckt && business.getSpielEinstellungen().getPhase() == SpielPhasenEnum.G_ABGESCHLOSSEN) {
 
-                agent.saveFileToPrint("rangliste", verarbeiter.getRangliste());
+            agent.saveFileToPrint("rangliste", verarbeiter.getRangliste());
 
-                publisher.addPage("rangliste", verarbeiter.getRangliste());
+            publisher.addPage("rangliste", verarbeiter.getRangliste());
 
-                // letzte resultate drucken
-                spielPrinter.printPage();
+            // letzte resultate drucken
+            spielPrinter.printPage();
 
-                endranglistegedruckt = true;
-                LOG.debug("checkSpielende: spiel abgeschlossen");
-            }
+            endranglistegedruckt = true;
+            LOG.debug("checkSpielende: spiel abgeschlossen");
+        }
 
     }
 

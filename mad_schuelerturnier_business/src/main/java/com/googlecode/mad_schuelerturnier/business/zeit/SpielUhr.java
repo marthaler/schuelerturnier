@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.mad_schuelerturnier.business.zeit;
 
 import org.springframework.context.ApplicationListener;
@@ -5,23 +8,26 @@ import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 
+/**
+ * Uhr fuer die Darstellung der Zeit und Verspaetung im GUI
+ *
+ * @author $Author: marthaler.worb@gmail.com $
+ */
 @Component
 public class SpielUhr implements ApplicationListener<ZeitPuls> {
+
+    public static String NOT_INIT = "noch_nicht_gesetzt";
 
     public SpielUhr() {
     }
 
-    private String richtigeZeit = "hallo";
-    private String spielZeit = "hallo";
+    private String richtigeZeit = NOT_INIT;
+    private String spielZeit = NOT_INIT;
 
     public void onApplicationEvent(final ZeitPuls event) {
-
-        final ZeitPuls p = event;
-
         final SimpleDateFormat fmt = new SimpleDateFormat("HH:mm:ss");
-        this.richtigeZeit = fmt.format(p.getEchteZeit().toDate());
-        this.spielZeit = fmt.format(p.getSpielZeit().toDate());
-
+        this.richtigeZeit = fmt.format(event.getEchteZeit().toDate());
+        this.spielZeit = fmt.format(event.getSpielZeit().toDate());
     }
 
     public String getRichtigeZeit() {
@@ -32,8 +38,12 @@ public class SpielUhr implements ApplicationListener<ZeitPuls> {
         return this.spielZeit;
     }
 
-    public void touch() {
-
+    @Override
+    public String toString() {
+        return "SpielUhr{" +
+                "richtigeZeit='" + richtigeZeit + '\'' +
+                ", spielZeit='" + spielZeit + '\'' +
+                '}';
     }
 
 }

@@ -21,42 +21,9 @@
     </appender>
 
 
-    <logger name="org.springframework.webflow">
-        <level value="ERROR"/>
+    <logger name="com">
+        <level value="INFO"/>
     </logger>
-
-    <logger name="org.springframework.web">
-        <level value="ERROR"/>
-    </logger>
-
-    <logger name="org.springframework.core">
-        <level value="ERROR"/>
-    </logger>
-
-    <logger name="org.springframework.beans">
-        <level value="ERROR"/>
-    </logger>
-
-    <logger name="org.springframework.context">
-        <level value="ERROR"/>
-    </logger>
-
-    <logger name="org.springframework.http">
-        <level value="ERROR"/>
-    </logger>
-
-    <logger name="org.springframework.binding">
-        <level value="ERROR"/>
-    </logger>
-
-    <logger name="org.primefaces">
-        <level value="ERROR"/>
-    </logger>
-
-    <logger name="org.springframework.core.type.classreading.AnnotationAttributesReadingVisitor">
-        <level value="ERROR"/>
-    </logger>
-
 
     <logger name="org.hibernate">
         <level value="ERROR"/>
@@ -64,9 +31,8 @@
 
     <!-- Root Logger -->
     <root>
-        <priority value="INFO"/>
+        <priority value="FATAL"/>
         <appender-ref ref="console"/>
-        <appender-ref ref="file"/>
     </root>
 
 </log4j:configuration>

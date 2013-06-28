@@ -57,7 +57,7 @@ public class XHTMLOutputUtil {
 
         try {
             ret = serializer.getAsString(tag);
-        } catch (IOException e) {
+        } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
 

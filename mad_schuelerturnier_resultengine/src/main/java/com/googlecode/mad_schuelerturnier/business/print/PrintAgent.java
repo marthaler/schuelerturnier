@@ -157,10 +157,10 @@ public class PrintAgent {
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
-        FileUtils.deleteQuietly(new File(pathprinter+"out.xml"));
+        FileUtils.deleteQuietly(new File(pathprinter + "out.xml"));
     }
 
-    public void printSchiriAnleitung(){
+    public void printSchiriAnleitung() {
         try {
             FileUtils.copyFile(new File(this.printtemplates + "schirizettel.pdf"), new File(this.pathprinter + "schirizettel.pdf"));
         } catch (IOException e) {
