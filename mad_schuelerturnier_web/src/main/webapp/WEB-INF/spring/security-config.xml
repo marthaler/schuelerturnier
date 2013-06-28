@@ -20,7 +20,7 @@
 
     </sec:http>
 
-    <!-- Users to suthorise -->
+    <!-- Users to authorise -->
     <sec:authentication-manager>
         <sec:authentication-provider>
             <sec:user-service>

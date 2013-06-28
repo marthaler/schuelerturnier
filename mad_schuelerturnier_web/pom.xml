@@ -1,10 +1,11 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.googlecode.mad_schuelerturnier</groupId>
         <artifactId>mad_schuelerturnier_parent</artifactId>
         <version>1.2.2-SNAPSHOT</version>
-        <relativePath>../mad_schuelerturnier_parent</relativePath>
+
     </parent>
 
     <artifactId>mad_schuelerturnier_web</artifactId>
@@ -122,14 +123,115 @@
                                 <configuration>
 
                                     <target>
-                                        <copy file="./target/${project.artifactId}-${project.version}.war" tofile="/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/server/webapps/ROOT.war" overwrite="true" />
-                                        <copy file="./target/${project.artifactId}-${project.version}.war" tofile="/app/server/webapps/ROOT.war" overwrite="true" />
-                                        <delete dir="/app/server/webapps/ROOT" quiet="true" />
+                                        <copy file="./target/${project.artifactId}-${project.version}.war"
+                                              tofile="/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/server/webapps/ROOT.war"
+                                              overwrite="true"/>
+                                        <copy file="./target/${project.artifactId}-${project.version}.war"
+                                              tofile="/app/server/webapps/ROOT.war" overwrite="true"/>
+                                        <delete dir="/app/server/webapps/ROOT" quiet="true"/>
                                     </target>
 
                                 </configuration>
                                 <goals>
                                     <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>integration</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <configuration>
+                            <fork>true</fork>
+                        </configuration>
+                        <executions>
+
+                            <execution>
+                                <id>tomcat-run</id>
+                                <goals>
+                                    <goal>run-war-only</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+
+                                    <fork>true</fork>
+
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>tomcat-shutdown</id>
+                                <goals>
+                                    <goal>shutdown</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                            </execution>
+
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/integration/**</exclude>
+                            </excludes>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>integration-test</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration>
+                                    <excludes>
+                                        <exclude>none</exclude>
+                                    </excludes>
+                                    <includes>
+                                        <include>**/integration/**</include>
+                                    </includes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>exec-war-only</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <configuration>
+                            <fork>true</fork>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>createexecjar</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec-war-only</goal>
                                 </goals>
                             </execution>
                         </executions>

@@ -1,16 +1,15 @@
 package com.googlecode.mad_schuelerturnier.business.scanner;
- 
+
+import javax.imageio.ImageIO;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorConvertOp;
 import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
- 
 public class GryscaleConverter {
 
-    public static void convertToGray(String filesource, String filedest){
+    public static void convertToGray(String filesource, String filedest) {
         BufferedImage src = null;
         try {
             src = ImageIO.read(new File(filesource));
@@ -29,5 +28,5 @@ public class GryscaleConverter {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
- 
+
 }
