@@ -8,9 +8,9 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
 
-        BufferedImage image = ImageIO.read(new File("/res/a.png"));
+        BufferedImage image = ImageIO.read(new File("/res/555.png"));
         image = CornerUtil.setCorners(image);
-        ImageIO.write(image, "png", new File("/res/b.png"));
+        ImageIO.write(image, "png", new File("/res/666.png"));
 
         image = ImageUtils.rotateImage(image, 10);
         image = CornerUtil.setCorners(image);
