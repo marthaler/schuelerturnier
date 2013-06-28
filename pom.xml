@@ -171,7 +171,7 @@
     </issueManagement>
 
     <scm>
-        <developerConnection>scm:https://github.com/marthaler/schuelerturnier.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/marthaler/schuelerturnier.git</developerConnection>
         <connection>scm:git:https://github.com/marthaler/schuelerturnier.git</connection>
         <url>http://marthaler.github.io/schuelerturnier/</url>
     </scm>
