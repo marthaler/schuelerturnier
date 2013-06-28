@@ -170,6 +170,12 @@
         <url>https://mad-schuelerturnier.googlecode.com/issues/entry</url>
     </issueManagement>
 
+    <scm>
+        <developerConnection>scm:https://github.com/marthaler/schuelerturnier.git</developerConnection>
+        <connection>scm:git:https://github.com/marthaler/schuelerturnier.git</connection>
+        <url>http://marthaler.github.io/schuelerturnier/</url>
+    </scm>
+
     <dependencies>
 
         <!-- wurde noetig, weil mit einer abhaengigkeitsaenderung ploetzlich classnotfound beim tomcatstart: org/w3c/dom/ElementTraversal-->
