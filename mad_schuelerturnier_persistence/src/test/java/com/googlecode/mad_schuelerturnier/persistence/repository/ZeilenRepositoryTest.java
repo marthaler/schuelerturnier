@@ -18,6 +18,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-persistence-context.xml")
 @Transactional
+@Ignored
 public class ZeilenRepositoryTest {
 
     @Autowired
