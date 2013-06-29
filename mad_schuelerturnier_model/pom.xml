@@ -3,8 +3,8 @@
     <parent>
         <groupId>com.googlecode.mad_schuelerturnier</groupId>
         <artifactId>mad_schuelerturnier_parent</artifactId>
-        <version>1.2.2-SNAPSHOT</version>
-        <relativePath>../mad_schuelerturnier_parent</relativePath>
+        <version>1.2.2</version>
+
     </parent>
 
     <artifactId>mad_schuelerturnier_model</artifactId>

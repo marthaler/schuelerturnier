@@ -5,12 +5,10 @@ package com.googlecode.mad_schuelerturnier.business.out;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.log4j.Logger;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 
 
 /**
@@ -102,7 +100,7 @@ public class OutToWebsiteSender extends Thread {
 
         FTPClient client = null;
 
-            OutToWebsiteSender.LOG.info("upload start: " + this.name);
+        OutToWebsiteSender.LOG.info("upload start: " + this.name);
         try {
             client = connect();
         } catch (final Exception e) {
@@ -111,7 +109,7 @@ public class OutToWebsiteSender extends Thread {
             return false;
         }
         try {
-        if (isTest) {
+            if (isTest) {
                 client.makeDirectory("testdurchfuehrungen");
                 client.changeWorkingDirectory("testdurchfuehrungen");
                 client.makeDirectory(this.folder);

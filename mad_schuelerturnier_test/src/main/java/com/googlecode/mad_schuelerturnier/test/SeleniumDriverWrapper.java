@@ -12,6 +12,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -39,12 +40,14 @@ public class SeleniumDriverWrapper {
         return driver;
     }
 
-    private WebDriver driver = null;
+    private HtmlUnitDriver driver = null;
 
     private boolean upAndRunning = true;
 
     public SeleniumDriverWrapper() {
-        driver = new FirefoxDriver();
+
+        driver = new HtmlUnitDriver();
+        driver.setJavascriptEnabled(true);
         driver.manage().timeouts().implicitlyWait(TIME_OUT_IN_SECONDS, TimeUnit.SECONDS);
     }
 
@@ -59,7 +62,7 @@ public class SeleniumDriverWrapper {
     }
 
     public void getBaseURL() {
-        driver.get(baseURL + "/app/dashboard");
+        driver.get(baseURL + "/app/login");
     }
 
     public void sendById(String selector, String keys) {

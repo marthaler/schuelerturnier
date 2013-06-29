@@ -57,78 +57,73 @@ public class ResultateVerarbeiter {
 
     boolean uploadAllKat = false;
 
-    private Map<String,Boolean> beendet = new HashMap<String,Boolean>();
+    private Map<String, Boolean> beendet = new HashMap<String, Boolean>();
 
-    private  Queue<Long> spielQueue = new ConcurrentLinkedQueue<Long>();
+    private Queue<Long> spielQueue = new ConcurrentLinkedQueue<Long>();
 
-    private  Queue<Penalty> penaltyQueue = new ConcurrentLinkedQueue<Penalty>();
+    private Queue<Penalty> penaltyQueue = new ConcurrentLinkedQueue<Penalty>();
 
     private static final Logger LOG = Logger.getLogger(ResultateVerarbeiter.class);
 
     private Map<String, RanglisteneintragHistorie> map = new HashMap<String, RanglisteneintragHistorie>();
 
     public void signalPenalty(Penalty p) {
-        penaltyQueue.offer(p) ;
+        penaltyQueue.offer(p);
     }
 
     public void verarbeitePenalty() {
         Penalty p = null;
-        try{
-        p = penaltyQueue.remove();
-        } catch (Exception e){
+        try {
 
+            if (penaltyQueue.size() > 0) {
+                p = penaltyQueue.remove();
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
         }
 
-        if(p == null){
+        if (p == null) {
             return;
         }
 
-        //nachladen num sichergehen, dass die penaltys aktuelle sind
-        String katName = p.getKategorie().getKategorie().getName();
-
         LOG.info("verarbeite penalty: " + p);
 
-        map.remove(katName);
-        map.remove(katName + "_A");
-        map.remove(katName + "_B");
-        // todo fix: p.getKategorie().getKategorie()
         this.neuberechnenDerKategorie(p.getKategorie().getKategorie());
     }
 
 
+    public boolean isFertig() {
 
-    public boolean isFertig(){
-
-        if(this.spielQueue.size() > 0){
-           return false;
+        if (this.spielQueue.size() > 0) {
+            return false;
         }
 
-        if(this.penaltyQueue.size() > 0){
+        if (this.penaltyQueue.size() > 0) {
             return false;
         }
 
         beendet.remove("invalide");
-        if(beendet.size() < 1){
-             return false;
+        if (beendet.size() < 1) {
+            return false;
         }
 
-        for(boolean ok : beendet.values()){
-            if(!ok){
-               return false;
+        for (boolean ok : beendet.values()) {
+            if (!ok) {
+                return false;
             }
         }
 
         return true;
     }
 
-    public void initFertigMap(){
-        if(beendet.size() > 0){
+    public void initFertigMap() {
+        if (beendet.size() > 0) {
             return;
         }
         List<Kategorie> katList = this.katRepo.findAll();
 
-        for(Kategorie kat : katList){
-           this.beendet.put(kat.getName(), false);
+        for (Kategorie kat : katList) {
+            this.beendet.put(kat.getName(), false);
         }
     }
 
@@ -138,31 +133,31 @@ public class ResultateVerarbeiter {
         LOG.info("spiel signalisiert: " + id + " queuesize: " + spielQueue.size());
     }
 
-    public int getQueueSize(){
+    public int getQueueSize() {
         int count = spielQueue.size();
         count = count + penaltyQueue.size();
-        if(uploadAllKat){
-            count = count +1;
+        if (uploadAllKat) {
+            count = count + 1;
         }
         return count;
     }
 
     @Scheduled(fixedRate = 1000 * 15)
-    private void verarbeiten(){
+    private void verarbeiten() {
 
-         if(!init){
+        if (!init) {
             initialisieren();
-             init = true;
-         }
+            init = true;
+        }
 
         Long id = null;
-        try{
-        id = spielQueue.remove();
-         } catch(NoSuchElementException e){
+        try {
+            id = spielQueue.remove();
+        } catch (NoSuchElementException e) {
 
-         }
+        }
 
-        while (id != null){
+        while (id != null) {
 
 
             // map mit den fertig flags initialisieren
@@ -174,11 +169,11 @@ public class ResultateVerarbeiter {
 
 
             verarbeiteSpiel(id);
-            try{
-            id =  spielQueue.remove();
-        } catch(NoSuchElementException e){
-           id = null;
-        }
+            try {
+                id = spielQueue.remove();
+            } catch (NoSuchElementException e) {
+                id = null;
+            }
         }
 
     }
@@ -272,16 +267,16 @@ public class ResultateVerarbeiter {
 
 
         // pruefe ob rangliste kategorie fertig
-        if(rangListe.isFertigGespielt()){
+        if (rangListe.isFertigGespielt()) {
             boolean fertig = false;
-            if(kat.getGrosserFinal() != null && kat.getGrosserFinal().isFertigBestaetigt()){
-                 fertig = true;
+            if (kat.getGrosserFinal() != null && kat.getGrosserFinal().isFertigBestaetigt()) {
+                fertig = true;
             }
 
-            if(kat.getKleineFinal() != null && !kat.getKleineFinal().isFertigBestaetigt()){
+            if (kat.getKleineFinal() != null && !kat.getKleineFinal().isFertigBestaetigt()) {
                 fertig = false;
             }
-            this.beendet.put(kat.getName(),fertig);
+            this.beendet.put(kat.getName(), fertig);
         }
 
     }
@@ -290,10 +285,11 @@ public class ResultateVerarbeiter {
         // pruefen ob gruppenspiel fertig und gruppenspiel fertig, dann finalmannschaften eintragen
         if (rangListe.isFertigGespielt() && spiel.getTyp() == SpielEnum.GRUPPE) {
 
-            if (spiel.getGruppe().getKategorie().getGrosserFinal().getMannschaftA() != null) {
-                LOG.info("achtung grosser finale, mannschaft wurde bereits zugeordnet");
-                return;
-            }
+            // 18.06.13 auskommentiert, soll immer gesetzt werden wegen korrekturen
+            //if (spiel.getGruppe().getKategorie().getGrosserFinal().getMannschaftA() != null) {
+            //    LOG.info("achtung grosser finale, mannschaft wurde bereits zugeordnet");
+            //    return;
+            //}
 
             List<Mannschaft> gross = new ArrayList<Mannschaft>();
             List<Mannschaft> klein = new ArrayList<Mannschaft>();
@@ -348,9 +344,9 @@ public class ResultateVerarbeiter {
         uploadAllKat = true;
     }
 
-    private void verarbeiteUploadAllKat(){
+    private void verarbeiteUploadAllKat() {
 
-        if(!uploadAllKat){
+        if (!uploadAllKat) {
             return;
         }
 
@@ -395,6 +391,12 @@ public class ResultateVerarbeiter {
     }
 
     public void neuberechnenDerKategorie(Kategorie kat) {
+
+        String katName = kat.getName();
+
+        map.remove(katName);
+        map.remove(katName + "_A");
+        map.remove(katName + "_B");
 
         List<Spiel> spiele = this.repo.findGruppenSpielAsc();
 

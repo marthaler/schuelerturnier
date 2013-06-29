@@ -14,40 +14,40 @@ public class SpeakerTabModel {
     private boolean _4Active = true;
     private boolean _5Active = true;
 
-    public String getOpen(){
+    public String getOpen() {
         prepareOpen();
         return open;
     }
 
-    public void setOpen(String str){
+    public void setOpen(String str) {
         prepareOpen();
     }
 
-    public void prepareOpen(){
+    public void prepareOpen() {
 
-       String ret = "";
+        String ret = "";
 
-        if(_1Active){
+        if (_1Active) {
             ret = ret + "0,";
         }
 
-        if(_2Active){
+        if (_2Active) {
             ret = ret + "1,";
         }
 
-        if(_3Active){
+        if (_3Active) {
             ret = ret + "2,";
         }
 
-        if(_4Active){
+        if (_4Active) {
             ret = ret + "3,";
         }
 
-        if(_5Active){
+        if (_5Active) {
             ret = ret + "4,";
         }
-        if(ret.length()> 0){
-        ret = ret.substring(0,ret.length() -1);
+        if (ret.length() > 0) {
+            ret = ret.substring(0, ret.length() - 1);
         }
         open = ret;
     }

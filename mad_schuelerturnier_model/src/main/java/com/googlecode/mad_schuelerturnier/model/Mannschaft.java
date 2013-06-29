@@ -57,6 +57,7 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
     private String spielWunschHint = null;
 
     @Lob
+    @Column(length = Integer.MAX_VALUE)
     private String notizen = null;
 
     @Transient
@@ -64,7 +65,6 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
 
     @OneToOne(fetch = FetchType.EAGER)
     private Gruppe gruppeA = null;
-
 
     @OneToOne(fetch = FetchType.EAGER)
     private Gruppe gruppeB = null;
