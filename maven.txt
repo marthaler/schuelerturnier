@@ -17,4 +17,7 @@ git config credential.helper 'cache --timeout=36000'
 release
 *******
 mvn release:prepare release:perform  -B -Pimac -DreleaseVersion=1.2.0 -DdevelopmentVersion=1.2.1-SNAPSHOT -Dresume=false -Darguments="-DskipTests"
-        .
+
+
+mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha8:release-start -DreleaseVersion=1.2.2
+mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha8:release-finish -DdevelopmentVersion=1.2.3-SNAPSHOT -Duser=marthaler.worb@gmail.com -Dpassword=bla
