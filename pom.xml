@@ -4,7 +4,7 @@
 
     <groupId>com.googlecode.mad_schuelerturnier</groupId>
     <artifactId>mad_schuelerturnier_parent</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
 
     <packaging>pom</packaging>
 
@@ -173,8 +173,8 @@
         <developerConnection>scm:git:https://github.com/marthaler/schuelerturnier.git</developerConnection>
         <connection>scm:git:https://github.com/marthaler/schuelerturnier.git</connection>
         <url>http://marthaler.github.io/schuelerturnier/</url>
-        <tag>1.2.2</tag>
-  </scm>
+        <tag>1.2.3</tag>
+    </scm>
 
     <dependencies>
 
