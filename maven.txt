@@ -20,4 +20,4 @@ mvn release:prepare release:perform  -B -Pimac -DreleaseVersion=1.2.0 -Ddevelopm
 
 
 mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha8:release-start -DreleaseVersion=1.2.2
-mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha8:release-finish -DdevelopmentVersion=1.2.3-SNAPSHOT -Duser=marthaler.worb@gmail.com -Dpassword=bla
+mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha8:release-finish -DdevelopmentVersion=1.2.3-SNAPSHOT -DpushChanges=false -Duser=marthaler.worb@gmail.com -Dpassword=bla
