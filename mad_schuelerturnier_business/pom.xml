@@ -9,8 +9,32 @@
 
     <artifactId>mad_schuelerturnier_business</artifactId>
 
+    <properties>
+        <timestamp>?</timestamp>
+    </properties>
+
     <build>
+
         <plugins>
+
+            <plugin>
+                <groupId>com.keyboardsamurais.maven</groupId>
+                <artifactId>maven-timestamp-plugin</artifactId>
+                <version>1.0</version>
+                <configuration>
+                    <propertyName>timestamp</propertyName>
+                    <timestampPattern>dd.MM.yyyy HH:mm</timestampPattern>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
 
