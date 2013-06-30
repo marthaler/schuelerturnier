@@ -19,13 +19,19 @@
                     <div class="inset">
 
                         <p:messages/>
-                        <h:form id="form1">
+                        <h:form id="form1" enctype="multipart/form-data">
 
+
+                            <p:growl id="msg" showDetail="true" for="feedback"/>
 
                             <p:fieldset id="leg" legend="CSV Import der Spiele">
 
                                 <h:panelGrid columns="2" id="inputelements">
 
+                                    <p:fileUpload fileUploadListener="#{fileUploadHandler.handleFileUpload}"
+                                                  multiple="false" auto="true" update="msg" ajax="false"
+                                                  mode="advanced"/>
+                                    <br/>
                                     <p:inputTextarea name="text" id="text" rows="20" cols="90"
                                                      value="#{spielImportExportDelegate.text}" autoResize="false"
                                                      disabled="#{spielImportExportDelegate.isBlockField()}"/>
@@ -49,11 +55,13 @@
 
                             </p:fieldset>
 
+
                             <p:blockUI id="blocker" block="leg" trigger="submit">
                                 <p:graphicImage value="/app/resources/static/images/ajax-loader.gif"/>
                             </p:blockUI>
 
                         </h:form>
+
                     </div>
                     <br/>
                 </div>
