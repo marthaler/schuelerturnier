@@ -32,6 +32,33 @@
                                                   multiple="false" auto="true" update="msg" ajax="false"
                                                   mode="advanced"/>
                                     <br/>
+
+
+                                    <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false"
+                                              closable="false" resizable="false">
+                                        <p:graphicImage value="/app/resources/static/images/ajaxloadingbar.gif"/>
+                                    </p:dialog>
+
+                                    <h:form id="form">
+
+                                        <p:commandButton id="downloadLink" value="Download" ajax="false"
+                                                         onclick="PrimeFaces.monitorDownload(start, stop)"
+                                                         icon="ui-icon-arrowthichk-s">
+                                            <p:fileDownload value="#{fileDownloadController.file}"/>
+                                        </p:commandButton>
+
+                                    </h:form>
+
+                                    <script type="text/javascript">
+                                        function start() {
+                                            statusDialog.show();
+                                        }
+
+                                        function stop() {
+                                            statusDialog.hide();
+                                        }
+                                    </script>
+                                    <br/> <br/> <br/>
                                     <p:inputTextarea name="text" id="text" rows="20" cols="90"
                                                      value="#{spielImportExportDelegate.text}" autoResize="false"
                                                      disabled="#{spielImportExportDelegate.isBlockField()}"/>
