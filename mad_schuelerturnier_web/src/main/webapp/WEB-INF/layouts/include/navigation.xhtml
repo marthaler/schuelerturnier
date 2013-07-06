@@ -5,7 +5,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:sec="http://www.springframework.org/security/tags">
+        >
 
     <div id="mainnav">
         <h:form id="form_m">
@@ -67,7 +67,8 @@
                             icon="ui-icon-print" action="gt_schiri"/>
 
                 <!-- spielen: korrekturen -->
-                <p:menuitem id="mm_resultatekorrekturen" rendered="#{sec:areAnyGranted('ROLE_ROOT')}" value="Spielkorrekturen"
+                <p:menuitem id="mm_resultatekorrekturen" rendered="#{sec:areAnyGranted('ROLE_ROOT')}"
+                            value="Spielkorrekturen"
                             icon="ui-ui-icon-alert" action="gt_resultatekorrekturen"/>
 
                 <!-- stammdaten -->
@@ -81,11 +82,8 @@
                                 action="mannschaftslisteImport"/>
                     <p:menuitem rendered="#{spielstatusWebBean.spielphase}" value="Spieleinstellungen"
                                 icon="ui-icon-carat-2-n-s" action="spieleinstellungen"/>
-
-                    <p:menuitem id="mm_spiele_export" value="Spiele export" icon="ui-icon-carat-2-n-s"
-                                action="spielListeExport"/>
-                    <p:menuitem id="mm_spiele_import" value="Spiele import" icon="ui-icon-carat-2-n-s"
-                                action="spielListeImport"/>
+                    <p:menuitem id="mm_import-export" value="Import / Export" icon="ui-icon-carat-2-n-s"
+                                action="import-export"/>
                     <p:menuitem id="mm_spiele_vertauschungen" value="Manuelle Korrekturen" icon="ui-icon-carat-2-n-s"
                                 action="korrekturen"/>
                     <p:menuitem id="mm_einstelung3" value="Spieleinstellungen" icon="ui-icon-carat-2-n-s"

@@ -32,35 +32,32 @@ public class ToXLS {
 
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
 
-    public byte[] dumpMannschaftenFromDB() {
-        return convert(repo.findAll());
+    public byte[] mannschaftenFromDBtoXLS() {
+        return convertMannschaftenToXLS(repo.findAll());
     }
 
 
-    public void dumpMannschaften(List<Mannschaft> mannschaften, String file) {
+    public void dumpMannschaftenToXLSFile(List<Mannschaft> mannschaften, String file) {
 
         try {
-            byte[] wb = convert(mannschaften);
-
+            byte[] wb = convertMannschaftenToXLS(mannschaften);
             FileOutputStream out = new FileOutputStream(file);
             out.write(wb);
             out.close();
 
         } catch (IOException e) {
             LOG.error(e.getMessage(), e);
-
         }
     }
 
-    private byte[] convert(List<Mannschaft> mannschaften) {
+    private byte[] convertMannschaftenToXLS(List<Mannschaft> mannschaften) {
 
         Map beans = new HashMap();
         beans.put("mannschaften", mannschaften);
         XLSTransformer transformer = new XLSTransformer();
         byte[] arr = null;
         try {
-
-            URL url = Resources.getResource("template-mannschaften.xls");
+            URL url = Resources.getResource("jxls-template.xls");
             try {
                 arr = Resources.toByteArray(url);
             } catch (IOException e) {
@@ -71,7 +68,6 @@ public class ToXLS {
             Workbook wb = WorkbookFactory.create(is);
 
             transformer.transformWorkbook(wb, beans);
-
 
             ByteArrayOutputStream out = new ByteArrayOutputStream();
 
@@ -86,4 +82,5 @@ public class ToXLS {
         }
         return null;
     }
+
 }

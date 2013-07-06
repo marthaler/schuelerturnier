@@ -22,7 +22,7 @@ public class FileDownloadController {
     public StreamedContent getFile() {
 
 
-        ByteArrayInputStream stream = new ByteArrayInputStream(xml.dumpMannschaftenFromDB());
+        ByteArrayInputStream stream = new ByteArrayInputStream(xml.mannschaftenFromDBtoXLS());
 
 
         return new DefaultStreamedContent(stream, "application/msexcel", "schuetu.xls");

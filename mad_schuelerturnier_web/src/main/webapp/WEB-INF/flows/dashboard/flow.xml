@@ -241,19 +241,16 @@
 
     </view-state>
 
-    <view-state id="spielListeImport" view="mannschaft/spiele_import.xhtml" redirect="true"/>
-
-    <view-state id="spielListeExport" view="mannschaft/spiele_export.xhtml" redirect="true"/>
+    <view-state id="import-export" view="mannschaft/import-export.xhtml" redirect="true"/>
 
 
     <view-state id="kontrollierer" view="durchfuehrung/kontrollierer.xhtml" redirect="true">
 
 
-         <on-render>
-             <evaluate expression="spielRepositoryDelegate.findAllZuBestaetigen()"
-                       result="flowScope.bestaetigen"/>
-         </on-render>
-
+        <on-render>
+            <evaluate expression="spielRepositoryDelegate.findAllZuBestaetigen()"
+                      result="flowScope.bestaetigen"/>
+        </on-render>
 
 
         <transition on="save" to="kontrollierer">
@@ -279,7 +276,7 @@
 
 
     <view-state id="liste_spiel" view="root/liste_spiel.xhtml" redirect="true">
-        <transition on="show" to="edit_spiel" >
+        <transition on="show" to="edit_spiel">
             <evaluate expression="spielServiceImpl.findSpiel(requestParameters.id)" result="flowScope.spiel"/>
         </transition>
     </view-state>
@@ -308,8 +305,8 @@
             <evaluate expression="spielServiceImpl.readAllSpiele()" result="flowScope.spiele"/>
         </transition>
 
-        <transition on="spielListeExport" to="spielListeExport"/>
-        <transition on="spielListeImport" to="spielListeImport"/>
+
+        <transition on="import-export" to="import-export"/>
 
         <transition on="korrekturen" to="korrekturen">
             <evaluate expression="business.getSpielEinstellungen()"

@@ -5,11 +5,6 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="../../../layouts/100.xhtml">
 
-
-    <ui:define name="caption">
-        <p>Mannschaftsliste</p>
-    </ui:define>
-
     <ui:define name="main">
 
         <div id="main">
@@ -21,12 +16,11 @@
                         <p:messages/>
                         <h:form id="form1" enctype="multipart/form-data">
 
-
                             <p:growl id="msg" showDetail="true" for="feedback"/>
 
-                            <p:fieldset id="leg" legend="CSV Import der Spiele">
+                            <p:fieldset id="leg" legend="Exel Imort und Export">
 
-                                <h:panelGrid columns="2" id="inputelements">
+                                <h:panelGrid columns="1" id="inputelements">
 
                                     <p:fileUpload fileUploadListener="#{fileUploadHandler.handleFileUpload}"
                                                   multiple="false" auto="true" update="msg" ajax="false"
@@ -58,34 +52,12 @@
                                             statusDialog.hide();
                                         }
                                     </script>
-                                    <br/> <br/> <br/>
-                                    <p:inputTextarea name="text" id="text" rows="20" cols="90"
-                                                     value="#{spielImportExportDelegate.text}" autoResize="false"
-                                                     disabled="#{spielImportExportDelegate.isBlockField()}"/>
-
                                     <br/>
-
-                                    <p:commandButton widgetVar="submit" id="submit" value="Eintragen Beide"
-                                                     action="#{spielImportExportDelegate.eintragenBeide()}" ajax="true"
-                                                     execute="@form" update="@form"
-                                                     disabled="#{spielImportExportDelegate.isBlockField()}"/>
-                                    <p:commandButton widgetVar="submita" id="submita" value="Eintragen Bestaetigt"
-                                                     action="#{spielImportExportDelegate.eintragenBestaetigt()}"
-                                                     ajax="true" execute="@form" update="@form"
-                                                     disabled="#{spielImportExportDelegate.isBlockField()}"/>
-                                    <p:commandButton widgetVar="submits" id="submitd" value="Eintragen Eingetragen"
-                                                     action="#{spielImportExportDelegate.eintragen()}" ajax="true"
-                                                     execute="@form" update="@form"
-                                                     disabled="#{spielImportExportDelegate.isBlockField()}"/>
 
                                 </h:panelGrid>
 
                             </p:fieldset>
 
-
-                            <p:blockUI id="blocker" block="leg" trigger="submit">
-                                <p:graphicImage value="/app/resources/static/images/ajax-loader.gif"/>
-                            </p:blockUI>
 
                         </h:form>
 

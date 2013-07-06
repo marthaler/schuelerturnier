@@ -42,7 +42,7 @@ public class ToXLSTest {
     @Test
     public void testParseLine() {
         List<Mannschaft> mannschaften = parser.parseFileContent(parser.loadCSVFile("2013"));
-        xls.dumpMannschaften(mannschaften, FILE);
+        xls.dumpMannschaftenToXLSFile(mannschaften, FILE);
         Assert.assertTrue(new File(FILE).exists());
     }
 

@@ -20,7 +20,7 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
 
     private static final long serialVersionUID = 1L;
 
-    private int teamNummer = 0;
+    private int teamNummer = -1;
 
     private int klasse = 0;
 
@@ -28,7 +28,7 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
 
     private int anzahlSpieler = 0;
 
-    private Integer spielJahr = null;
+    private Integer spielJahr = 2000;
 
     private String schulhaus = null;
 
@@ -414,5 +414,35 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
 
     public void setSpielWunschHint(String spielWunschHint) {
         this.spielWunschHint = spielWunschHint;
+    }
+
+    // getter und setter fuer xls export und import
+    public void setId(Long id) {
+        super.setId(id);
+    }
+
+    public int getTeamNummer() {
+        return this.teamNummer;
+    }
+
+
+    public void setGeschlechtString(String geschlecht) {
+        geschlecht = geschlecht.toLowerCase();
+        if (geschlecht.equals("k")) {
+            this.geschlecht = GeschlechtEnum.K;
+        }
+        if (geschlecht.equals("m")) {
+            this.geschlecht = GeschlechtEnum.M;
+        }
+    }
+
+    public String getGeschlechtString() {
+        if (this.geschlecht == GeschlechtEnum.M) {
+            return "m";
+        }
+        if (this.geschlecht == GeschlechtEnum.K) {
+            return "k";
+        }
+        return "";
     }
 }
