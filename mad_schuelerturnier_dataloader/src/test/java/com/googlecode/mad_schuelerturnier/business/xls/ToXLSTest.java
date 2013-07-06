@@ -4,10 +4,7 @@ import com.googlecode.mad_schuelerturnier.business.dataloader.CVSMannschaftParse
 import com.googlecode.mad_schuelerturnier.model.Mannschaft;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.io.File;
 import java.util.List;
@@ -19,6 +16,7 @@ import java.util.List;
  * Time: 13:11
  * To change this template use File | Settings | File Templates.
  */
+@Ignore
 public class ToXLSTest {
 
     private static final Logger LOG = Logger.getLogger(ToXLSTest.class);
