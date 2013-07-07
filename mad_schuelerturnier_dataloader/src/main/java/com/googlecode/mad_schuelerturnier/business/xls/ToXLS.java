@@ -5,7 +5,6 @@ import com.googlecode.mad_schuelerturnier.model.Mannschaft;
 import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepository;
 import net.sf.jxls.transformer.XLSTransformer;
 import org.apache.log4j.Logger;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +31,12 @@ public class ToXLS {
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
 
     public byte[] mannschaftenFromDBtoXLS() {
-        return convertMannschaftenToXLS(repo.findAll());
+        return convertMannschaftenToXLS(repo.findAll(), null);
     }
 
     public void dumpMannschaftenToXLSFile(List<Mannschaft> mannschaften, File file) {
         try {
-            byte[] wb = convertMannschaftenToXLS(mannschaften);
+            byte[] wb = convertMannschaftenToXLS(mannschaften, null);
             FileOutputStream out = new FileOutputStream(file);
             out.write(wb);
             out.close();
@@ -46,19 +45,13 @@ public class ToXLS {
         }
     }
 
-    private byte[] convertMannschaftenToXLS(List<Mannschaft> mannschaften) {
+    private byte[] convertMannschaftenToXLS(List<Mannschaft> mannschaften, byte[] template) {
 
         Map beans = new HashMap();
         beans.put("mannschaften", mannschaften);
         XLSTransformer transformer = new XLSTransformer();
-        byte[] arr = null;
+        byte[] arr = readFreshTemplate(template);
         try {
-            URL url = Resources.getResource("jxls-template.xls");
-            try {
-                arr = Resources.toByteArray(url);
-            } catch (IOException e) {
-                LOG.error(e.getMessage(), e);
-            }
 
             InputStream is = new ByteArrayInputStream(arr);
             Workbook wb = WorkbookFactory.create(is);
@@ -71,12 +64,26 @@ public class ToXLS {
 
             return out.toByteArray();
 
-        } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
-        } catch (InvalidFormatException e) {
+        } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
         return null;
+    }
+
+    /*
+    * Template neu lesen, falls nicht schon bereits ein Template uebergeben wurde (= nicht null ist)
+    */
+    private byte[] readFreshTemplate(byte[] in) {
+        if (in != null) {
+            return in;
+        }
+        URL url = Resources.getResource("jxls-template.xls");
+        try {
+            in = Resources.toByteArray(url);
+        } catch (IOException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return in;
     }
 
 }
