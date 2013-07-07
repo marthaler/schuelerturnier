@@ -18,11 +18,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dama
- * Date: 04.07.13
- * Time: 21:43
- * To change this template use File | Settings | File Templates.
+ * Generiert einen XLS Export aus der Datenbank
+ *
+ * @author marthaler.worb@gmail.com
+ * @since 1.2.5
  */
 @Component
 public class ToXLS {
@@ -36,15 +35,12 @@ public class ToXLS {
         return convertMannschaftenToXLS(repo.findAll());
     }
 
-
-    public void dumpMannschaftenToXLSFile(List<Mannschaft> mannschaften, String file) {
-
+    public void dumpMannschaftenToXLSFile(List<Mannschaft> mannschaften, File file) {
         try {
             byte[] wb = convertMannschaftenToXLS(mannschaften);
             FileOutputStream out = new FileOutputStream(file);
             out.write(wb);
             out.close();
-
         } catch (IOException e) {
             LOG.error(e.getMessage(), e);
         }

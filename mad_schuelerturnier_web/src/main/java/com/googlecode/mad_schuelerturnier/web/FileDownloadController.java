@@ -21,7 +21,6 @@ public class FileDownloadController {
 
     public StreamedContent getFile() {
 
-
         ByteArrayInputStream stream = new ByteArrayInputStream(xml.mannschaftenFromDBtoXLS());
 
 

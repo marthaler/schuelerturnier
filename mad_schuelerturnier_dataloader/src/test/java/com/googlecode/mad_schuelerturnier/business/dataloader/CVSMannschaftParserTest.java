@@ -9,11 +9,10 @@ import org.junit.Test;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dama
- * Date: 12.01.13
- * Time: 13:11
- * To change this template use File | Settings | File Templates.
+ * CVSMannschaftParserTest
+ *
+ * @author marthaler.worb@gmail.com
+ * @since 1.2.5
  */
 public class CVSMannschaftParserTest {
 
