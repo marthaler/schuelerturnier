@@ -4,10 +4,7 @@ import com.googlecode.mad_schuelerturnier.business.dataloader.CVSMannschaftParse
 import com.googlecode.mad_schuelerturnier.model.Mannschaft;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +16,7 @@ import java.util.List;
  * @author marthaler.worb@gmail.com
  * @since 1.2.5
  */
+@Ignore
 public class ToXLSTest {
 
     private static final Logger LOG = Logger.getLogger(ToXLSTest.class);
