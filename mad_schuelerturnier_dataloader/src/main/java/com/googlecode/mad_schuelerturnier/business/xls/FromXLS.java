@@ -56,6 +56,7 @@ public class FromXLS {
             return (List<Mannschaft>) beans.get("mannschaften");
 
         } catch (Exception e) {
+            e.printStackTrace();
             LOG.error(e.getMessage(), e);
         }
 

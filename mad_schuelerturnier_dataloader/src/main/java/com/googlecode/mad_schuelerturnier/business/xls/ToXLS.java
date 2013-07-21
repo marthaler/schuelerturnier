@@ -1,9 +1,13 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.mad_schuelerturnier.business.xls;
 
 import com.google.common.io.Resources;
 import com.googlecode.mad_schuelerturnier.model.Mannschaft;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepository;
+import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
 import net.sf.jxls.transformer.XLSTransformer;
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -30,15 +34,18 @@ public class ToXLS {
     @Autowired
     private MannschaftRepository repo;
 
+    @Autowired
+    private SpielRepository srepo;
+
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
 
     public byte[] mannschaftenFromDBtoXLS() {
-        return convertModelToXLS(repo.findAll(), null, null);
+        return convertModelToXLS(repo.findAll(), srepo.findAll());
     }
 
     public void dumpMOdelToXLSFile(List<Mannschaft> mannschaften, File file) {
         try {
-            byte[] wb = convertModelToXLS(mannschaften, null, readFreshTemplate(null));
+            byte[] wb = convertModelToXLS(mannschaften, null);
             FileOutputStream out = new FileOutputStream(file);
             out.write(wb);
             out.close();
@@ -47,7 +54,7 @@ public class ToXLS {
         }
     }
 
-    private byte[] convertModelToXLS(List<Mannschaft> mannschaften, List<Spiel> spiele, byte[] template) {
+    private byte[] convertModelToXLS(List<Mannschaft> mannschaften, List<Spiel> spiele) {
 
         if (spiele == null) {
             spiele = new ArrayList();
@@ -59,7 +66,7 @@ public class ToXLS {
         beans.put("mannschaften", mannschaften);
         beans.put("spiele", spiele);
         XLSTransformer transformer = new XLSTransformer();
-        byte[] arr = readFreshTemplate(template);
+        byte[] arr = readFreshTemplate();
         try {
 
             InputStream is = new ByteArrayInputStream(arr);
@@ -82,10 +89,8 @@ public class ToXLS {
     /*
     * Template neu lesen, falls nicht schon bereits ein Template uebergeben wurde (= nicht null ist)
     */
-    private byte[] readFreshTemplate(byte[] in) {
-        if (in != null) {
-            return in;
-        }
+    private byte[] readFreshTemplate() {
+        byte[] in = null;
         URL url = Resources.getResource("jxls-template.xls");
         try {
             in = Resources.toByteArray(url);
