@@ -2,7 +2,6 @@ package com.googlecode.mad_schuelerturnier.business.xls;
 
 import com.googlecode.mad_schuelerturnier.business.dataloader.CVSMannschaftParser;
 import com.googlecode.mad_schuelerturnier.model.Mannschaft;
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.junit.*;
 
@@ -41,14 +40,14 @@ public class ToXLSTest {
 
     @After
     public void after() {
-        FileUtils.deleteQuietly(file);
+        //FileUtils.deleteQuietly(file);
     }
 
     @Test
     public void testParseLine() {
         Assert.assertTrue(file.length() < 500);
         List<Mannschaft> mannschaften = parser.parseFileContent(parser.loadCSVFile("2013"));
-        xls.dumpMannschaftenToXLSFile(mannschaften, file);
+        xls.dumpMOdelToXLSFile(mannschaften, file);
         Assert.assertTrue(file.length() > 500);
     }
 

@@ -2,6 +2,7 @@ package com.googlecode.mad_schuelerturnier.business.xls;
 
 import com.google.common.io.Resources;
 import com.googlecode.mad_schuelerturnier.model.Mannschaft;
+import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepository;
 import net.sf.jxls.transformer.XLSTransformer;
 import org.apache.log4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,12 +33,12 @@ public class ToXLS {
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
 
     public byte[] mannschaftenFromDBtoXLS() {
-        return convertMannschaftenToXLS(repo.findAll(), null);
+        return convertModelToXLS(repo.findAll(), null, null);
     }
 
-    public void dumpMannschaftenToXLSFile(List<Mannschaft> mannschaften, File file) {
+    public void dumpMOdelToXLSFile(List<Mannschaft> mannschaften, File file) {
         try {
-            byte[] wb = convertMannschaftenToXLS(mannschaften, null);
+            byte[] wb = convertModelToXLS(mannschaften, null, readFreshTemplate(null));
             FileOutputStream out = new FileOutputStream(file);
             out.write(wb);
             out.close();
@@ -45,10 +47,17 @@ public class ToXLS {
         }
     }
 
-    private byte[] convertMannschaftenToXLS(List<Mannschaft> mannschaften, byte[] template) {
+    private byte[] convertModelToXLS(List<Mannschaft> mannschaften, List<Spiel> spiele, byte[] template) {
 
+        if (spiele == null) {
+            spiele = new ArrayList();
+        }
+        if (mannschaften == null) {
+            mannschaften = new ArrayList();
+        }
         Map beans = new HashMap();
         beans.put("mannschaften", mannschaften);
+        beans.put("spiele", spiele);
         XLSTransformer transformer = new XLSTransformer();
         byte[] arr = readFreshTemplate(template);
         try {
