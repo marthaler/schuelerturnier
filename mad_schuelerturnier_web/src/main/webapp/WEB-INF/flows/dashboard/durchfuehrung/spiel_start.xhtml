@@ -254,6 +254,18 @@ Phase: #{spieleinstellungen.phase}
 <br/>
 
 
+
+<br/>
+
+<p:commandButton action="#{databaseDumpAndImport.fullDatabaseExportToRoot()}" value="dumpdb" ajax="true"/>
+<br/>
+
+<br/>
+
+<p:commandButton action="#{databaseDumpAndImport.fullDatabaseImportToRoot()}" value="loaddb" ajax="true"/>
+<br/>
+
+
 </p:fieldset>
 
 </h:form>

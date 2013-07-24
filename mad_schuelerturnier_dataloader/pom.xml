@@ -48,7 +48,61 @@
             <version>1.0.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>2.4.9</version>
+        </dependency>
+
+
 
     </dependencies>
+      <!--
+     <build>
 
+
+         <plugins>
+             <plugin>
+                 <groupId>org.codehaus.mojo</groupId>
+                 <artifactId>dbunit-maven-plugin</artifactId>
+                 <version>1.0-beta-3</version>
+
+
+                 <dependencies>
+                     <dependency>
+                         <groupId>your.vendor.group</groupId>
+                         <artifactId>your.vendor.artifactId</artifactId>
+                         <version>x.y</version>
+                     </dependency>
+                 </dependencies>
+
+
+                 <configuration>
+                     <driver>com.vendor.jdbc.Driver</driver>
+                     <url>jdbc:vendor:mydatabase</url>
+                     <username>a.username</username>
+                     <password>a.password<password>
+
+                 </configuration>
+
+             <executions>
+             <execution>
+                 <phase>test-compile</phase>
+                 <goals>
+                     <goal>operation</goal>
+                 </goals>
+
+                 <configuration>
+                     <type>CLEAN_INSERT</type>
+                     <src>src/test/data/insert.xml</src>
+                 </configuration>
+             </execution>
+         </executions>
+         </plugin>
+     </plugins>
+
+
+
+     </build>
+     -->
 </project>
