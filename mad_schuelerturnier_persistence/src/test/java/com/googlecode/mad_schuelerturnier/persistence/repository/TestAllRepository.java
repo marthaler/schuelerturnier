@@ -3,7 +3,6 @@ package com.googlecode.mad_schuelerturnier.persistence.repository;
 import com.googlecode.mad_schuelerturnier.model.Mannschaft;
 import com.googlecode.mad_schuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.mad_schuelerturnier.model.helper.SpielEinstellungen;
-import com.googlecode.mad_schuelerturnier.model.korrekturen.MannschftsZuordnungsKorrektur;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +25,6 @@ public class TestAllRepository {
 
     @Autowired
     MannschaftRepository mRepo;
-
-    @Autowired
-    MannschaftsZuordnungsKorrekturRepository mzRepo;
 
     @Autowired
     SpielEinstellungenRepository sRepo;
@@ -55,17 +51,6 @@ public class TestAllRepository {
         m = sRepo.save(m);
 
         assertEquals(m, sRepo.findOne(m.getId()));
-    }
-
-    @Test
-    public void MannschaftsZuordnungsKorrekturRepository() {
-        mzRepo.deleteAll();
-        MannschftsZuordnungsKorrektur m = new MannschftsZuordnungsKorrektur();
-        m.setZielKategorie("AA");
-
-        m = mzRepo.save(m);
-
-        assertEquals(m, mzRepo.findOne(m.getId()));
     }
 
 

@@ -131,15 +131,12 @@ public class PictureAgent {
                     String res = BarcodeDecoder.decode(neu);
                     if (res.length() == 2) {
                         Spiel sp = this.spielRepository.findSpielByIdString(res);
-
-
                         try {
                             FileUtils.moveFile(fneu, new File(schirizettel + System.getProperty("file.separator") + sp.getId() + ".png"));
                         } catch (IOException e) {
                             LOG.error(e.getMessage(), e);
                         }
                     }
-
                     FileUtils.deleteQuietly(f);
                 } catch (Exception e) {
                     LOG.error(e.getMessage(), e);

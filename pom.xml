@@ -17,7 +17,6 @@
 
         <java.version>1.7</java.version>
 
-        <timestamp>???</timestamp>
 
         <!-- ============= -->
         <!-- LIB-VERSIONEN -->
@@ -47,7 +46,7 @@
         <!-- 3.5.RC1 -> 3.5-->
 
         <jsf.version>2.1.7</jsf.version>
-        <!--2.1.7 -> nok 2.2.0-->
+        <!--ok 2.1.7 -> nok 2.2.0 -> nok 2.2.1 -->
 
         <!-- PERSISTENZ -->
         <springdata.version>1.3.2.RELEASE</springdata.version>
@@ -532,22 +531,6 @@
 
             </plugin>
 
-            <plugin>
-                <groupId>com.keyboardsamurais.maven</groupId>
-                <artifactId>maven-timestamp-plugin</artifactId>
-                <version>1.0</version>
-                <configuration>
-                    <propertyName>timestamp</propertyName>
-                    <timestampPattern>dd.MM.yyyy HH:mm</timestampPattern>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

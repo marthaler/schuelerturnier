@@ -17,7 +17,9 @@ import javax.persistence.OneToOne;
 import java.util.Date;
 
 /**
- * @author $Author: marthaler.worb@gmail.com $
+ * Ein Spiel, es wird mittels Enum unterschieden ob es sich um ein Gruppen- oder Finalspiel handelt
+ *
+ * @author marthaler.worb@gmail.com
  * @since 0.7
  */
 @Entity
@@ -53,10 +55,8 @@ public class Spiel extends AbstractPersistable<Long> {
     // hilfsfeld zum ausgeben der finale, falls noch keine mannschaft bestimmt wurde
     private String kategorieName;
 
-    @OneToOne (cascade = {CascadeType.ALL})
+    @OneToOne(cascade = {CascadeType.ALL})
     private Text notizen = new Text();
-
-
 
     @OneToOne
     @Deprecated

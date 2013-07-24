@@ -245,8 +245,6 @@ public class _1_KategorienZuordner {
 
                 gruppeRepo.save(tempGrB);
 
-            } else {
-                //tempKategorie = this.kategorieRepo.findOne(tempKategorie.getId());
             }
 
             // zuordnung

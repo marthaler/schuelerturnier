@@ -7,6 +7,7 @@ import com.google.zxing.common.GlobalHistogramBinarizer;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.multi.GenericMultipleBarcodeReader;
 import com.google.zxing.multi.MultipleBarcodeReader;
+import org.apache.log4j.Logger;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -15,6 +16,7 @@ import java.util.*;
 
 public class BarcodeDecoder {
 
+    private static final Logger LOG = Logger.getLogger(BarcodeDecoder.class);
 
     // No real reason to let people upload more than a 2MB image
     private static final long MAX_IMAGE_SIZE = 2000000L;
@@ -32,26 +34,19 @@ public class BarcodeDecoder {
         HINTS_PURE.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
     }
 
-    public static void main(String[] args) {
-        System.out.println(BarcodeDecoder.decode("/res/ee.png"));
-    }
-
-
     public static String decode(String file) {
 
         BufferedImage image = null;
         try {
             image = ImageReader.readImage(new File(file));
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
-
 
         Reader reader = new MultiFormatReader();
         LuminanceSource source = new BufferedImageLuminanceSource(image);
         BinaryBitmap bitmap = new BinaryBitmap(new GlobalHistogramBinarizer(source));
         Collection<Result> results = new ArrayList<Result>(1);
-        ReaderException savedException = null;
 
         try {
 
@@ -62,8 +57,8 @@ public class BarcodeDecoder {
                 if (theResults != null) {
                     results.addAll(Arrays.asList(theResults));
                 }
-            } catch (ReaderException re) {
-                savedException = re;
+            } catch (ReaderException e) {
+                LOG.error(e.getMessage(), e);
             }
 
             if (results.isEmpty()) {
@@ -73,8 +68,8 @@ public class BarcodeDecoder {
                     if (theResult != null) {
                         results.add(theResult);
                     }
-                } catch (ReaderException re) {
-                    savedException = re;
+                } catch (ReaderException e) {
+                    LOG.error(e.getMessage(), e);
                 }
             }
 
@@ -85,8 +80,8 @@ public class BarcodeDecoder {
                     if (theResult != null) {
                         results.add(theResult);
                     }
-                } catch (ReaderException re) {
-                    savedException = re;
+                } catch (ReaderException e) {
+                    LOG.error(e.getMessage(), e);
                 }
             }
 
@@ -98,32 +93,18 @@ public class BarcodeDecoder {
                     if (theResult != null) {
                         results.add(theResult);
                     }
-                } catch (ReaderException re) {
-                    savedException = re;
+                } catch (ReaderException e) {
+                    LOG.error(e.getMessage(), e);
                 }
             }
 
-            if (results.isEmpty()) {
-                //System.out.println("LEER");
-            }
-
-        } catch (RuntimeException re) {
-            re.printStackTrace();
+        } catch (RuntimeException e) {
+            LOG.error(e.getMessage(), e);
         }
 
-
-        try {
-            for (Result result : results) {
-
-                return result.getText();
-
-            }
-        } finally {
-            // out.close();
+        for (Result result : results) {
+            return result.getText();
         }
-
-
         return "";
     }
 }
-
