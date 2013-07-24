@@ -22,7 +22,7 @@ fuer nachher
 [ok]     dump knopf und logik weg in den ranglisten
 [  ]     refactoring paarung weg
 [  ]     beim vorbereiten funktioniert das loeschen einer leeren kategorie nicht
-[  ]     beobachter bean dumpout weg
+[ok]     beobachter bean dumpout weg
 
 [rj]     countdown ueber eine stunde springt (stunden einbeziehen)
 
