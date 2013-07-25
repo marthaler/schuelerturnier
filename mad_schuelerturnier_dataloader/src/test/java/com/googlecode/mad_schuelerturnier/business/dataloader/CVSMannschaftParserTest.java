@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.mad_schuelerturnier.business.dataloader;
 
 import com.googlecode.mad_schuelerturnier.model.Mannschaft;

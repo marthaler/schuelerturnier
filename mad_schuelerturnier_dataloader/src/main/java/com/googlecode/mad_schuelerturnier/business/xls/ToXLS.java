@@ -43,9 +43,9 @@ public class ToXLS {
         return convertModelToXLS(repo.findAll(), srepo.findAll());
     }
 
-    public void dumpMOdelToXLSFile(List<Mannschaft> mannschaften, File file) {
+    public void dumpMOdelToXLSFile(List<Mannschaft> mannschaften, List<Spiel> spiele, File file) {
         try {
-            byte[] wb = convertModelToXLS(mannschaften, null);
+            byte[] wb = convertModelToXLS(mannschaften, spiele);
             FileOutputStream out = new FileOutputStream(file);
             out.write(wb);
             out.close();

@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.mad_schuelerturnier.business.xls;
 
 import com.google.common.io.Resources;
