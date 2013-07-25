@@ -7,7 +7,6 @@
                 xmlns:sec="http://www.springframework.org/security/tags"
                 template="../../../layouts/100.xhtml">
 
-
     <ui:define name="heading">
         <h:outputText value="Mannschaft bearbeiten"/>
     </ui:define>
@@ -16,6 +15,8 @@
         <p>CAPTION</p>
     </ui:define>
 
+    <!--@elvariable id="pictureAgent" type="com.googlecode.mad_schuelerturnier.business.picture.PictureAgent"-->
+    <!--@elvariable id="penaltyAnstehend" type="java.util.List"-->
     <ui:define name="main">
         <div id="main">
             <div class="page_margins">
@@ -36,7 +37,6 @@
                                     </script>
 
                                     <p:tab title="Einzutragende">
-
 
 
                                         <h:graphicImage value="#{pictureAgent.getPicToCheck()}"/>
@@ -60,7 +60,6 @@
                                             </p:commandButton>
 
                                         </h:panelGrid>
-
 
                                         <p:dataTable emptyMessage="leer" id="dataTablePen" var="penalty"
                                                      value="#{penaltyAnstehend}"
@@ -86,6 +85,7 @@
                                         </p:dataTable>
                                         <br/>
 
+                                        <!--@elvariable id="einzutragende" type="java.util.List"-->
                                         <p:dataTable id="dataTable1" var="spiel" value="#{einzutragende}"
                                                      emptyMessage="leer">
 
@@ -102,6 +102,7 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Schirizettel"/>
                                                 </f:facet>
+
                                                 <p:commandButton id="carBtn" icon="ui-icon-image"
                                                                  onclick="dlg#{spiel.id}.show();" type="button"
                                                                  rendered="#{pictureAgent.existiert(spiel.id)}"/>
@@ -148,7 +149,7 @@
                                                 </f:facet>
                                                 <h:outputText value="#{spiel.mannschaftAName}:  "/>
                                                 <p:inputText id="toreA" size="3" value="#{spiel.toreA}"
-                                                             disabled="#{sec:areNotGranted('ROLE_EINTRAGER')}"></p:inputText>
+                                                             disabled="#{sec:areNotGranted('ROLE_EINTRAGER')}"/>
 
                                             </p:column>
 
@@ -158,7 +159,7 @@
                                                 </f:facet>
                                                 <h:outputText value="#{spiel.mannschaftBName}:  "/>
                                                 <p:inputText id="toreB" size="3" value="#{spiel.toreB}"
-                                                             disabled="#{sec:areNotGranted('ROLE_EINTRAGER')}"></p:inputText>
+                                                             disabled="#{sec:areNotGranted('ROLE_EINTRAGER')}"/>
 
                                             </p:column>
 
