@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.googlecode.mad_schuelerturnier</groupId>
     <artifactId>mad_schuelerturnier_parent</artifactId>
-     <version>1.2.5-SNAPSHOT</version>
+    <version>1.2.5-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
@@ -30,13 +31,13 @@
         <!--3.2.0.RC2 -> 3.2.3.RELEASE-->
 
         <springsecurity.version>3.1.3.RELEASE</springsecurity.version>
-        <!--3.1.3.RELEASE -> nok 3.2.0.M1-->
+        <!--3.1.3.RELEASE -> nok 3.2.0.M1 -> ?? 3.2.0.M2-->
 
         <!-- WEB -->
         <springwebflow.version>2.3.1.RELEASE</springwebflow.version>
 
         <springwebflow.faces.version>2.3.1.RELEASE</springwebflow.faces.version>
-        <!-- 2.3.1.RELEASE -> nok 2.4.0.M1-->
+        <!-- 2.3.1.RELEASE -> nok 2.4.0.M1 -->
 
         <commons-fileupload.version>1.3</commons-fileupload.version>
         <!-- 1.2.2 -> 1.3 -->
@@ -49,15 +50,16 @@
         <!--ok 2.1.7 -> nok 2.2.0 -> nok 2.2.1 -->
 
         <!-- PERSISTENZ -->
-        <springdata.version>1.3.2.RELEASE</springdata.version>
-        <!-- 1.2.0.RC1 -> 1.3.2.RELEASE-->
+        <springdata.version>1.3.4.RELEASE</springdata.version>
+        <!-- 1.2.0.RC1 -> ok 1.3.2.RELEASE -> ?? 1.3.4.RELEASE-->
 
         <hibernate.version>4.3.0.Beta3</hibernate.version>
         <!-- 4.1.7.Final -> 4.2.0.CR1 -> 4.3.0.Beta3-->
 
         <hibernatejpa2api.version>1.0.1.Final</hibernatejpa2api.version>
 
-        <hsqldb.version>2.2.9</hsqldb.version>
+        <hsqldb.version>2.3.0</hsqldb.version>
+        <!-- 2.2.9 -> ??:2.3.0-->
 
         <!-- VALIDATION -->
         <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
@@ -75,9 +77,12 @@
 
         <xstream.version>1.4.4</xstream.version>
 
-        <poi.version>3.9</poi.version>
+        <poi.version>3.10-beta1</poi.version>
+        <!--ok:3.9 -> ??3.10-beta1-->
 
         <itext.version>4.2.0</itext.version>
+        <!--ok:4.2.0 -> ??4.2.1-->
+
 
         <htmlcleaner.version>2.5</htmlcleaner.version>
         <!--2.2.1 -> 2.5-->
@@ -761,7 +766,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -774,7 +779,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>

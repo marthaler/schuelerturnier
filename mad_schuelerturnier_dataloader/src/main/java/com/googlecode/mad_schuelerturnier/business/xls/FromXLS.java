@@ -6,7 +6,6 @@ import net.sf.jxls.reader.ReaderBuilder;
 import net.sf.jxls.reader.XLSReadStatus;
 import net.sf.jxls.reader.XLSReader;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedInputStream;
@@ -18,17 +17,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dama
- * Date: 04.07.13
- * Time: 21:43
- * To change this template use File | Settings | File Templates.
+ * Generiert die Daten aus einem XLS
+ *
+ * @author marthaler.worb@gmail.com
+ * @since 1.2.5
  */
 @Component
 public class FromXLS {
-
-    @Autowired
-    private MannschaftRepository repo;
 
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
 
@@ -37,9 +32,7 @@ public class FromXLS {
         try {
 
             InputStream inputXML = new BufferedInputStream(getClass().getResourceAsStream("/jxls-mannschaft-mapping.xml"));
-            XLSReader mainReader = null;
-
-            mainReader = ReaderBuilder.buildFromXML(inputXML);
+            XLSReader mainReader = ReaderBuilder.buildFromXML(inputXML);
 
             InputStream inputXLS = new ByteArrayInputStream(arr);
             Mannschaft mannschaft = new Mannschaft();

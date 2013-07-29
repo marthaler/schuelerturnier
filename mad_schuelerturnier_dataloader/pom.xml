@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>mad_schuelerturnier_parent</artifactId>
         <groupId>com.googlecode.mad_schuelerturnier</groupId>
-         <version>1.2.5-SNAPSHOT</version>
+        <version>1.2.5-SNAPSHOT</version>
 
     </parent>
 
@@ -49,53 +50,60 @@
         </dependency>
 
 
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.4</version>
+        </dependency>
+
+
     </dependencies>
-      <!--
-     <build>
+    <!--
+   <build>
 
 
-         <plugins>
-             <plugin>
-                 <groupId>org.codehaus.mojo</groupId>
-                 <artifactId>dbunit-maven-plugin</artifactId>
-                 <version>1.0-beta-3</version>
+       <plugins>
+           <plugin>
+               <groupId>org.codehaus.mojo</groupId>
+               <artifactId>dbunit-maven-plugin</artifactId>
+               <version>1.0-beta-3</version>
 
 
-                 <dependencies>
-                     <dependency>
-                         <groupId>your.vendor.group</groupId>
-                         <artifactId>your.vendor.artifactId</artifactId>
-                         <version>x.y</version>
-                     </dependency>
-                 </dependencies>
+               <dependencies>
+                   <dependency>
+                       <groupId>your.vendor.group</groupId>
+                       <artifactId>your.vendor.artifactId</artifactId>
+                       <version>x.y</version>
+                   </dependency>
+               </dependencies>
 
 
-                 <configuration>
-                     <driver>com.vendor.jdbc.Driver</driver>
-                     <url>jdbc:vendor:mydatabase</url>
-                     <username>a.username</username>
-                     <password>a.password<password>
+               <configuration>
+                   <driver>com.vendor.jdbc.Driver</driver>
+                   <url>jdbc:vendor:mydatabase</url>
+                   <username>a.username</username>
+                   <password>a.password<password>
 
-                 </configuration>
+               </configuration>
 
-             <executions>
-             <execution>
-                 <phase>test-compile</phase>
-                 <goals>
-                     <goal>operation</goal>
-                 </goals>
+           <executions>
+           <execution>
+               <phase>test-compile</phase>
+               <goals>
+                   <goal>operation</goal>
+               </goals>
 
-                 <configuration>
-                     <type>CLEAN_INSERT</type>
-                     <src>src/test/data/insert.xml</src>
-                 </configuration>
-             </execution>
-         </executions>
-         </plugin>
-     </plugins>
+               <configuration>
+                   <type>CLEAN_INSERT</type>
+                   <src>src/test/data/insert.xml</src>
+               </configuration>
+           </execution>
+       </executions>
+       </plugin>
+   </plugins>
 
 
 
-     </build>
-     -->
+   </build>
+   -->
 </project>
