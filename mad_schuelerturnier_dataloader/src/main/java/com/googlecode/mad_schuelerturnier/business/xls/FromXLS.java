@@ -1,6 +1,8 @@
 package com.googlecode.mad_schuelerturnier.business.xls;
 
 import com.googlecode.mad_schuelerturnier.model.Mannschaft;
+import com.googlecode.mad_schuelerturnier.model.helper.SpielEinstellungen;
+import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepository;
 import net.sf.jxls.reader.ReaderBuilder;
 import net.sf.jxls.reader.XLSReadStatus;
@@ -35,9 +37,10 @@ public class FromXLS {
             XLSReader mainReader = ReaderBuilder.buildFromXML(inputXML);
 
             InputStream inputXLS = new ByteArrayInputStream(arr);
-            Mannschaft mannschaft = new Mannschaft();
 
             List mannschaften = new ArrayList();
+            Mannschaft mannschaft = new Mannschaft();
+
             Map beans = new HashMap();
             beans.put("mannschaften", mannschaften);
             beans.put("mannschaft", mannschaft);
@@ -47,6 +50,68 @@ public class FromXLS {
             LOG.info("jxls lesestatus: " + readStatus.isStatusOK());
 
             return (List<Mannschaft>) beans.get("mannschaften");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
+        }
+
+        return null;
+    }
+
+    public List<Spiel> convertXLSToSpiele(byte[] arr) {
+
+        try {
+
+            InputStream inputXML = new BufferedInputStream(getClass().getResourceAsStream("/jxls-spiel-mapping.xml"));
+            XLSReader mainReader = ReaderBuilder.buildFromXML(inputXML);
+
+            InputStream inputXLS = new ByteArrayInputStream(arr);
+
+            List spiele = new ArrayList();
+            Spiel spiel = new Spiel();
+
+            Map beans = new HashMap();
+            beans.put("spiele", spiele);
+            beans.put("spiel", spiel);
+
+            XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
+
+            LOG.info("jxls lesestatus: " + readStatus.isStatusOK());
+
+            return (List<Spiel>) beans.get("spiele");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
+        }
+
+        return null;
+    }
+
+    public SpielEinstellungen convertXLSToEinstellung(byte[] arr) {
+
+        try {
+
+            InputStream inputXML = new BufferedInputStream(getClass().getResourceAsStream("/jxls-einstellungen-mapping.xml"));
+            XLSReader mainReader = ReaderBuilder.buildFromXML(inputXML);
+
+            InputStream inputXLS = new ByteArrayInputStream(arr);
+
+            List einstellungen = new ArrayList();
+            SpielEinstellungen einstellung = new SpielEinstellungen();
+
+            Map beans = new HashMap();
+            beans.put("einstellungen", einstellungen);
+            beans.put("einstellunge", einstellung);
+
+            XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
+
+            LOG.info("jxls lesestatus: " + readStatus.isStatusOK());
+
+            List<SpielEinstellungen> einst = (List<SpielEinstellungen>) beans.get("einstellungen");
+
+            return einst.get(0);
 
         } catch (Exception e) {
             e.printStackTrace();

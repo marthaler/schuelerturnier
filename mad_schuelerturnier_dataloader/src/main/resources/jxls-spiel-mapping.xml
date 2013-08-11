@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<workbook>
+
+    <worksheet idx="1">
+        <section startRow="0" endRow="0">
+        </section>
+        <loop startRow="1" endRow="1" items="spiele" var="spiel"
+              varType="com.googlecode.mad_schuelerturnier.model.spiel.Spiel">
+            <section startRow="1" endRow="1">
+                <mapping row="1" col="0">spiel.id</mapping>
+                <mapping row="1" col="1">spiel.idString</mapping>
+                <mapping row="1" col="2">spiel.typString</mapping>
+                <mapping row="1" col="3">spiel.platzString</mapping>
+                <mapping row="1" col="4">spiel.start</mapping>
+                <mapping row="1" col="5">spiel.toreA</mapping>
+                <mapping row="1" col="6">spiel.toreB</mapping>
+                <mapping row="1" col="7">spiel.toreABestaetigt</mapping>
+                <mapping row="1" col="8">spiel.toreBBestaetigt</mapping>
+                <!--private String idString = null;  -->
+                <mapping row="1" col="9">spiel.fertigGespielt</mapping>
+                <mapping row="1" col="10">spiel.amSpielen</mapping>
+                <mapping row="1" col="11">spiel.fertigEingetragen</mapping>
+                <mapping row="1" col="12">spiel.fertigBestaetigt</mapping>
+                <mapping row="1" col="13">spiel.zurueckgewiesen</mapping>
+                <mapping row="1" col="14">spiel.kategorieName</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="1">
+                    <cellcheck offset="1"></cellcheck>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+
+</workbook>

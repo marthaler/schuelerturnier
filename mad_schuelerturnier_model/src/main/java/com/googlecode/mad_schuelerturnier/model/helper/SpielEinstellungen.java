@@ -62,6 +62,40 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
         starttag = date.toDate();
     }
 
+
+    public void setSpielPhaseString(String phase) {
+        phase = phase.toLowerCase();
+
+        if (phase.startsWith("a")) {
+            this.setPhase(SpielPhasenEnum.A_ANMELDEPHASE);
+        }
+
+        if (phase.startsWith("b")) {
+            this.setPhase(SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG);
+        }
+
+        if (phase.startsWith("c")) {
+            this.setPhase(SpielPhasenEnum.C_SPIELTAGE_DEFINIEREN);
+        }
+
+        if (phase.startsWith("d")) {
+            this.setPhase(SpielPhasenEnum.D_SPIELE_ZUORDNUNG);
+        }
+
+        if (phase.startsWith("e")) {
+            this.setPhase(SpielPhasenEnum.E_SPIELBEREIT);
+        }
+
+        if (phase.startsWith("f")) {
+            this.setPhase(SpielPhasenEnum.F_SPIELEN);
+        }
+
+        if (phase.startsWith("g")) {
+            this.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
+        }
+
+    }
+
     public void placeMannschaftsTageskorrekturen(MannschaftTageskorrektur korr) {
         XStream xStream = new XStream(new DomDriver());
         xStream.alias("korrekturen", MannschaftTageskorrektur.class);
@@ -99,6 +133,7 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
     public void setPhase(final SpielPhasenEnum phase) {
         this.phase = phase;
     }
+
 
     public Date getStarttag() {
         return this.starttag;

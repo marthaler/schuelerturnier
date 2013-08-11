@@ -72,6 +72,37 @@ public class Spiel extends AbstractPersistable<Long> {
 
     }
 
+    // getter und setter fuer xls export und import
+    public void setId(Long id) {
+        super.setId(id);
+    }
+
+    public void setTypString(String typ) {
+        typ = typ.toLowerCase();
+        if (typ.equals("gfinal")) {
+            this.typ = SpielEnum.GFINAL;
+        }
+        if (typ.equals("kfinal")) {
+            this.typ = SpielEnum.KFINAL;
+        }
+        if (typ.equals("gruppe")) {
+            this.typ = SpielEnum.GRUPPE;
+        }
+    }
+
+    public void setPlatzString(String platz) {
+        platz = platz.toLowerCase();
+        if (platz.equals("a")) {
+            this.platz = PlatzEnum.A;
+        }
+        if (platz.equals("b")) {
+            this.platz = PlatzEnum.B;
+        }
+        if (platz.equals("c")) {
+            this.platz = PlatzEnum.C;
+        }
+    }
+
     public String getMannschaftAName() {
         if (mannschaftA != null) {
             return mannschaftA.getName();

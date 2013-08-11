@@ -5,6 +5,8 @@ package com.googlecode.mad_schuelerturnier.business.xls;
 
 import com.google.common.io.Resources;
 import com.googlecode.mad_schuelerturnier.model.Mannschaft;
+import com.googlecode.mad_schuelerturnier.model.helper.SpielEinstellungen;
+import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
@@ -49,9 +51,21 @@ public class ExcelWithDatabaseIntegrationTest {
     }
 
     @Test
-    public void testParseLine() {
+    public void testParseMannschaften() {
         List<Mannschaft> m = xls.convertXLSToMannschaften(readFile("schuetu-test.xls"));
         Assert.assertTrue(m.size() > 10);
+    }
+
+    @Test
+    public void testParseSpiele() {
+        List<Spiel> s = xls.convertXLSToSpiele(readFile("schuetu-test.xls"));
+        Assert.assertTrue(s.size() > 10);
+    }
+
+    @Test
+    public void testParseEinstellungen() {
+        SpielEinstellungen einst = xls.convertXLSToEinstellung(readFile("schuetu-test.xls"));
+        Assert.assertNotNull(einst);
     }
 
 
