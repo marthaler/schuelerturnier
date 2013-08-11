@@ -14,6 +14,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import java.util.Date;
 
 /**
@@ -58,6 +59,13 @@ public class Spiel extends AbstractPersistable<Long> {
     @OneToOne(cascade = {CascadeType.ALL})
     private Text notizen = new Text();
 
+    // fuer jxl import
+    @Transient
+    private int mannschaftAId;
+
+    @Transient
+    private int mannschaftBId;
+
     @OneToOne
     @Deprecated
     private Paarung paarung;
@@ -75,6 +83,13 @@ public class Spiel extends AbstractPersistable<Long> {
     // getter und setter fuer xls export und import
     public void setId(Long id) {
         super.setId(id);
+    }
+
+    public void setNotes(String notes) {
+        if (this.notizen == null) {
+            this.notizen = new Text();
+        }
+        this.notizen.setValue(notes);
     }
 
     public void setTypString(String typ) {
@@ -412,4 +427,19 @@ public class Spiel extends AbstractPersistable<Long> {
         this.notizen = notitzen;
     }
 
+    public int getMannschaftAId() {
+        return mannschaftAId;
+    }
+
+    public void setMannschaftAId(int mannschaftAId) {
+        this.mannschaftAId = mannschaftAId;
+    }
+
+    public int getMannschaftBId() {
+        return mannschaftBId;
+    }
+
+    public void setMannschaftBId(int mannschaftBId) {
+        this.mannschaftBId = mannschaftBId;
+    }
 }

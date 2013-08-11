@@ -23,6 +23,12 @@
                 <mapping row="1" col="12">spiel.fertigBestaetigt</mapping>
                 <mapping row="1" col="13">spiel.zurueckgewiesen</mapping>
                 <mapping row="1" col="14">spiel.kategorieName</mapping>
+
+                <mapping row="1" col="15">spiel.notes</mapping>
+                <mapping row="1" col="16">spiel.mannschaftAId</mapping>
+                <mapping row="1" col="17">spiel.mannschaftBId</mapping>
+
+
             </section>
             <loopbreakcondition>
                 <rowcheck offset="1">
