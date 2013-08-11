@@ -1,5 +1,7 @@
 package com.googlecode.mad_schuelerturnier.web;
 
+import com.googlecode.mad_schuelerturnier.business.impl.Business;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -10,10 +12,16 @@ import java.util.Collection;
 @Component
 public class StartAction {
 
+    @Autowired
+    private Business business;
+
     public Event start(UsernamePasswordAuthenticationToken user) {
 
         Collection<GrantedAuthority> authorities = user.getAuthorities();
 
+        if (!business.isInitialized()) {
+            return new Event(this, "initialisieren");
+        }
 
         if (contains(authorities, "ROLE_OPERATOR")) {
             return new Event(this, "spiel_start");

@@ -5,8 +5,10 @@ package com.googlecode.mad_schuelerturnier.business.xls;
 
 import com.google.common.io.Resources;
 import com.googlecode.mad_schuelerturnier.model.Mannschaft;
+import com.googlecode.mad_schuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepository;
+import com.googlecode.mad_schuelerturnier.persistence.repository.SpielEinstellungenRepository;
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
 import net.sf.jxls.transformer.XLSTransformer;
 import org.apache.log4j.Logger;
@@ -37,15 +39,18 @@ public class ToXLS {
     @Autowired
     private SpielRepository srepo;
 
+    @Autowired
+    private SpielEinstellungenRepository seinst;
+
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
 
     public byte[] mannschaftenFromDBtoXLS() {
-        return convertModelToXLS(repo.findAll(), srepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), seinst.findAll());
     }
 
     public void dumpMOdelToXLSFile(List<Mannschaft> mannschaften, List<Spiel> spiele, File file) {
         try {
-            byte[] wb = convertModelToXLS(mannschaften, spiele);
+            byte[] wb = convertModelToXLS(mannschaften, spiele, null);
             FileOutputStream out = new FileOutputStream(file);
             out.write(wb);
             out.close();
@@ -54,17 +59,27 @@ public class ToXLS {
         }
     }
 
-    private byte[] convertModelToXLS(List<Mannschaft> mannschaften, List<Spiel> spiele) {
+    private byte[] convertModelToXLS(List<Mannschaft> mannschaften, List<Spiel> spiele, List<SpielEinstellungen> einstellungen) {
+
+        // SpielEinstellungen aufbereiten
+        if (einstellungen == null) {
+            einstellungen = new ArrayList();
+        }
 
         if (spiele == null) {
             spiele = new ArrayList();
         }
+
         if (mannschaften == null) {
             mannschaften = new ArrayList();
         }
+
         Map beans = new HashMap();
+
         beans.put("mannschaften", mannschaften);
         beans.put("spiele", spiele);
+        beans.put("einstellungen", einstellungen);
+
         XLSTransformer transformer = new XLSTransformer();
         byte[] arr = readFreshTemplate();
         try {

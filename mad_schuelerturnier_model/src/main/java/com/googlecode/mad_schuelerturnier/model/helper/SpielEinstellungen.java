@@ -53,6 +53,8 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
 
     private boolean gongEinschalten = false;
 
+    // private boolean init = false;
+
 
     public SpielEinstellungen() {
         DateTime date = new DateTime();
@@ -244,4 +246,12 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
         result = 31 * result + (gongEinschalten ? 1 : 0);
         return result;
     }
+
+//    public boolean isInit() {
+//        return init;
+//    }
+
+//    public void setInit(boolean init) {
+//        this.init = init;
+//    }
 }

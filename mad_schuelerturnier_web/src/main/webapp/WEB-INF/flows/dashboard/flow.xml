@@ -3,7 +3,7 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <action-state id="start">
+    <action-state id="initialisieren">
         <evaluate expression="loginPrepareAction.execute()"/>
         <evaluate expression="startAction.start(currentUser)"/>
     </action-state>
@@ -28,6 +28,12 @@
         <transition on="save" to="mannschaftsliste" bind="true">
             <evaluate expression="mannschaftRepository.save(mannschaftBean)"/>
         </transition>
+    </view-state>
+
+
+    <view-state id="initialisieren_view" view="initialisieren.xhtml" model="spieleinstellungen">
+        <transition on="save" to="start" bind="true"/>
+
     </view-state>
 
     <view-state id="mannschaftsliste" view="mannschaft/liste.xhtml" redirect="true">
@@ -289,6 +295,12 @@
 
 
     <global-transitions>
+
+        <transition on="initialisieren" to="initialisieren_view">
+            <evaluate expression="business.getSpielEinstellungen()"
+                      result="flowScope.spieleinstellungen"/>
+        </transition>
+
         <transition on="dashboard" to="dashboard"/>
         <transition on="newmannschaft" to="newmannschaft"/>
         <transition on="user" to="user"/>
