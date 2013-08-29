@@ -16,19 +16,15 @@
                 <mapping row="1" col="6">spiel.toreB</mapping>
                 <mapping row="1" col="7">spiel.toreABestaetigt</mapping>
                 <mapping row="1" col="8">spiel.toreBBestaetigt</mapping>
-                <!--private String idString = null;  -->
                 <mapping row="1" col="9">spiel.fertigGespielt</mapping>
                 <mapping row="1" col="10">spiel.amSpielen</mapping>
                 <mapping row="1" col="11">spiel.fertigEingetragen</mapping>
                 <mapping row="1" col="12">spiel.fertigBestaetigt</mapping>
                 <mapping row="1" col="13">spiel.zurueckgewiesen</mapping>
                 <mapping row="1" col="14">spiel.kategorieName</mapping>
-
-                <mapping row="1" col="15">spiel.notes</mapping>
-                <mapping row="1" col="16">spiel.mannschaftAId</mapping>
-                <mapping row="1" col="17">spiel.mannschaftBId</mapping>
-
-
+                <mapping row="1" col="15">spiel.mannschaftAId</mapping>
+                <mapping row="1" col="16">spiel.mannschaftBId</mapping>
+                <mapping row="1" col="17">spiel.notes</mapping>
             </section>
             <loopbreakcondition>
                 <rowcheck offset="1">

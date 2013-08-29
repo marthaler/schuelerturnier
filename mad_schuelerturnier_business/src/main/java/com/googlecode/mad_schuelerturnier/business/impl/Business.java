@@ -68,7 +68,7 @@ public class Business implements IBusiness {
     @PostConstruct
     private void init() {
         einstellungen = getSpielEinstellungen();
-        if (einstellungen.isStartJetzt()) {
+        if (einstellungen != null && einstellungen.isStartJetzt()) {
             this.startClock();
         }
     }
@@ -158,6 +158,7 @@ public class Business implements IBusiness {
      */
     public SpielEinstellungen getSpielEinstellungen() {
 
+        // einstellungen bereits im cache
         if (this.einstellungen != null) {
 
             if (verarbeiter.isFertig()) {
@@ -166,14 +167,15 @@ public class Business implements IBusiness {
             return einstellungen;
         }
 
+        // noch nicht aus der db geladen, laden
         if (this.spielEinstellungenRepo.count() > 1) {
-            Business.LOG.fatal("achtung in der einstellungstabelle hat es: " + this.spielEinstellungenRepo.count() + " eintraege");
-        } else if (this.spielEinstellungenRepo.count() < 1) {
-            SpielEinstellungen einstellungen = new SpielEinstellungen();
-            einstellungen = this.spielEinstellungenRepo.save(einstellungen);
+            einstellungen = this.spielEinstellungenRepo.findAll().iterator().next();
+            return einstellungen;
         }
-        einstellungen = this.spielEinstellungenRepo.findAll().iterator().next();
-        return einstellungen;
+
+        // noch nicht initialisiert
+        return null;
+
     }
 
     /*
@@ -535,5 +537,24 @@ public class Business implements IBusiness {
             }
         }
         return result;
+    }
+
+    @Override
+    public boolean isDBInitialized() {
+        if (this.getSpielEinstellungen() == null) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void initializeDB() {
+        if (this.spielEinstellungenRepo.count() > 0) {
+            Business.LOG.fatal("achtung versuch spiel einstellungen zu initialisieren obwohl bereits in der db vorhanden ");
+        } else {
+            SpielEinstellungen einstellungen = new SpielEinstellungen();
+            this.einstellungen = this.spielEinstellungenRepo.save(einstellungen);
+        }
+
     }
 }

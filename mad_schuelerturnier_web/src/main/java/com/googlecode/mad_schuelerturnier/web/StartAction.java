@@ -1,8 +1,6 @@
 package com.googlecode.mad_schuelerturnier.web;
 
 import com.googlecode.mad_schuelerturnier.business.impl.Business;
-import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepository;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,20 +12,15 @@ import java.util.Collection;
 @Component
 public class StartAction {
 
-    private static final Logger LOG = Logger.getLogger(FileDownloadController.class);
-
     @Autowired
     private Business business;
 
-    @Autowired
-    private MannschaftRepository repository;
 
     public Event start(UsernamePasswordAuthenticationToken user) {
 
         Collection<GrantedAuthority> authorities = user.getAuthorities();
 
-        // indikator dafuer, dass
-        if (repository.count() == 0) {
+        if (!business.isDBInitialized()) {
             return new Event(this, "initialisieren");
         }
 

@@ -40,10 +40,12 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
 
     @PostConstruct
     private void init() {
-        sendPuls();
+        if (this.business.isDBInitialized()) {
+            sendPuls();
+        }
+        LOG.info("sende keinen puls, da db noch nicht initialisiert ist [01]");
     }
 
-    //
     @Scheduled(fixedRate = 1000)
     public void run() {
 

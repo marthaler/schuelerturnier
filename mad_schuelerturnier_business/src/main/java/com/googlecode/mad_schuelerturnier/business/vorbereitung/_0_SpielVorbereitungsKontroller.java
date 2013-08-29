@@ -74,6 +74,13 @@ public class _0_SpielVorbereitungsKontroller implements ISpielKontroller {
 
     @PostConstruct
     public void init() {
+
+        this.isInitialized = true;
+
+        if (!this.business.isDBInitialized()) {
+            LOG.info("spielvorbereitungscontroller, initialisiere nicht weil db noch nicht initialisiert wurde: [01]");
+            return;
+        }
         if (this.isInitialized) {
             _0_SpielVorbereitungsKontroller.LOG
                     .info("spielphasen sind bereits initialisiert, mache nichts");
@@ -86,7 +93,7 @@ public class _0_SpielVorbereitungsKontroller implements ISpielKontroller {
                 changeSpielPhase(phase);
             }
         }
-        this.isInitialized = true;
+
     }
 
     /**

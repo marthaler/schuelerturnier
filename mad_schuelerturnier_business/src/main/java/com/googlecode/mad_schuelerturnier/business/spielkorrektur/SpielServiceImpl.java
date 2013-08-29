@@ -19,7 +19,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Component
-public class SpielServiceImpl implements  SpielService {
+public class SpielServiceImpl implements SpielService {
 
     @Autowired
     private SpielRepository repo;
@@ -30,20 +30,20 @@ public class SpielServiceImpl implements  SpielService {
     @Override
     public List<Spiel> readAllSpiele() {
         List<Spiel> spiele = repo.findAll();
-        Collections.sort(spiele,new SpielZeitComperator());
+        Collections.sort(spiele, new SpielZeitComperator());
         return spiele;
     }
 
 
     @Override
     public Spiel findSpiel(String id) {
-       Spiel sp =  repo.findOne(Long.parseLong(id));
+        Spiel sp = repo.findOne(Long.parseLong(id));
 
-        if(sp.getNotizen() == null){
+        if (sp.getNotizen() == null) {
             sp.setNotizen(new Text());
             sp = repo.save(sp);
         }
-       return sp;
+        return sp;
     }
 
     @Override

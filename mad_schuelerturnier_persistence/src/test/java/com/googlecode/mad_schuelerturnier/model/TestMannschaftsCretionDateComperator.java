@@ -1,7 +1,7 @@
 package com.googlecode.mad_schuelerturnier.model;
 
 import com.googlecode.mad_schuelerturnier.model.comperators.MannschaftsCretionDateComperator;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 

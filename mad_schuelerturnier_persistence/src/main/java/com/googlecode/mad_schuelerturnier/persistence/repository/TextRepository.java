@@ -4,8 +4,6 @@
 package com.googlecode.mad_schuelerturnier.persistence.repository;
 
 import com.googlecode.mad_schuelerturnier.model.Text;
-import com.googlecode.mad_schuelerturnier.model.spiel.Penalty;
-import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

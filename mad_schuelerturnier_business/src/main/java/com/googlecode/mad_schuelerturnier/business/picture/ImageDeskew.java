@@ -58,7 +58,7 @@ public class ImageDeskew {
         // top 20 of the detected lines in the image
         hl = getTop(20);
 
-        if ( hl.length >= 20 ) {
+        if (hl.length >= 20) {
 
             // average angle of the lines
             for (int i = 0; i < 19; i++) {
@@ -108,7 +108,7 @@ public class ImageDeskew {
 
         for (int i = 0; i < (count - 1); i++) {
             dIndex = hl[i].index / this.cSteps; // integer division, no
-                                                // remainder
+            // remainder
             alphaIndex = hl[i].index - dIndex * this.cSteps;
             hl[i].alpha = getAlpha(alphaIndex);
             hl[i].d = dIndex + this.cDMin;

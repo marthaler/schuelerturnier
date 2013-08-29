@@ -3,10 +3,6 @@
  */
 package com.googlecode.mad_schuelerturnier.model;
 
-import com.googlecode.mad_schuelerturnier.model.enums.GeschlechtEnum;
-import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
-import com.googlecode.mad_schuelerturnier.persistence.repository.KategorieRepository;
-import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
 import com.googlecode.mad_schuelerturnier.persistence.repository.TextRepository;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -31,12 +27,12 @@ public class TextRepositoryIntegrationTest {
     @Autowired
     private TextRepository repo;
 
-    @Test (expected = org.springframework.dao.DataIntegrityViolationException.class)
+    @Test(expected = org.springframework.dao.DataIntegrityViolationException.class)
     public void textTest() {
 
         StringBuilder b = new StringBuilder();
-        for (int i = 0;i<5000; i++){
-           b.append("A");
+        for (int i = 0; i < 5000; i++) {
+            b.append("A");
         }
 
         Text t = new Text();

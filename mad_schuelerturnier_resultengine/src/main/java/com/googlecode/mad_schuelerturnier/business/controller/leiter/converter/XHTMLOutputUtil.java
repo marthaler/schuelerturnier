@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.mad_schuelerturnier.business.controller.leiter.converter;
 
 import org.apache.log4j.Logger;
@@ -5,14 +8,11 @@ import org.htmlcleaner.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
 /**
- * Created with IntelliJ IDEA.
- * User: dama
- * Date: 21.01.13
- * Time: 23:17
- * To change this template use File | Settings | File Templates.
+ * Erstellt XHTML Output
+ *
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 1.2.5
  */
 @Component
 public class XHTMLOutputUtil {

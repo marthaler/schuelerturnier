@@ -21,16 +21,13 @@
 
                         <h:form id="form1">
 
-                            <p:fieldset legend="Entweder neues, leeres Spiel initialisieren">
+                            <p:fieldset legend="Entweder: Neues, leeres Spiel initialisieren ...">
                                 <p:messages/>
 
                                 <p:growl id="msg" showDetail="true" for="feedback"/>
 
                                 <h:panelGrid columns="2" id="inputelements">
 
-                                    <h:outputLabel for="name" value="Name "/>
-                                    <p:inputText id="name" label="Name"
-                                                 value="#{spieleinstellungen.starttagstr}" size="5" disabled="false"/>
                                     <h:panelGroup id="button" layout="block">
                                         <p:commandButton id="submit" value="Initialisieren" action="save"
                                                          execute="@form" update="@form"/>
@@ -39,7 +36,7 @@
                                 </h:panelGrid>
                             </p:fieldset>
                             <br/>
-                            <p:fieldset legend="Oder Spiel aus XLS importieren">
+                            <p:fieldset legend="... Oder Spiel aus XLS importieren">
                                 <p:messages/>
 
                                 <p:fileUpload fileUploadListener="#{fileUploadHandler.handleFileUpload}"

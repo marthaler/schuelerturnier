@@ -126,7 +126,7 @@ public class BarcodeUtil {
             hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
             hints.put(EncodeHintType.MARGIN, 1); /* default = 4 */
 
-            matrix = writer.encode(text, BarcodeFormat.QR_CODE, 256, 256,hints);
+            matrix = writer.encode(text, BarcodeFormat.QR_CODE, 256, 256, hints);
             return MatrixToImageWriter.toBufferedImage(matrix);
         } catch (WriterException e) {
             e.printStackTrace();

@@ -3,13 +3,11 @@
  */
 package com.googlecode.mad_schuelerturnier.model;
 
-import com.googlecode.mad_schuelerturnier.model.enums.GeschlechtEnum;
-import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
-import org.joda.time.DateTime;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.*;
-import java.util.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
 
 /**
  * @author $Author: marthaler.worb@gmail.com $
@@ -24,7 +22,7 @@ public class Text extends AbstractPersistable<Long> {
     @Lob
     private String value = null;
 
-    @Column(unique=true)
+    @Column(unique = true)
     private String key = null;
 
     public String getValue() {

@@ -57,5 +57,9 @@ public interface IBusiness {
 
     public List<Penalty> eingetragenePenalty();
 
+    public boolean isDBInitialized();
+
+    public void initializeDB();
+
 
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL -->
 <flow xmlns="http://www.springframework.org/schema/webflow"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
@@ -31,8 +32,13 @@
     </view-state>
 
 
-    <view-state id="initialisieren_view" view="initialisieren.xhtml" model="spieleinstellungen">
-        <transition on="save" to="start" bind="true"/>
+    <view-state id="initialisieren_view" view="initialisieren.xhtml">
+        <transition on="save" to="initialisieren">
+
+            <evaluate expression="business.initializeDB()"/>
+
+
+        </transition>
 
     </view-state>
 
@@ -297,8 +303,7 @@
     <global-transitions>
 
         <transition on="initialisieren" to="initialisieren_view">
-            <evaluate expression="business.getSpielEinstellungen()"
-                      result="flowScope.spieleinstellungen"/>
+
         </transition>
 
         <transition on="dashboard" to="dashboard"/>

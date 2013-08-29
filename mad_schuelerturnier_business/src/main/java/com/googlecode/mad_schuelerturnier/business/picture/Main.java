@@ -1,12 +1,9 @@
 package com.googlecode.mad_schuelerturnier.business.picture;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
-
-import javax.imageio.ImageIO;
 
 /*
  * JDeskew 1.0
@@ -24,92 +21,92 @@ import javax.imageio.ImageIO;
 
 public class Main {
 
-        private static final double MINIMUM_DESKEW_THRESHOLD = 0.6d;
+    private static final double MINIMUM_DESKEW_THRESHOLD = 0.6d;
 
-        /**
-         * @param args
-         */
-        public static void main(String[] args) {
-            try {
-                new Main("/res/rrr.png");
-            } catch (IOException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        try {
+            new Main("/res/rrr.png");
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
+
+    private String infilename;
+
+    private BufferedImage outputImage;
+
+    public Main(String inputFilename) throws IOException {
+        setCommandLineArgs(inputFilename);
+        performDeskew();
+        saveOutput();
+    }
+
+    public String getCommandLineArgs() {
+        return infilename;
+    }
+
+    public BufferedImage getOutputImage() {
+        return outputImage;
+    }
+
+    private BufferedImage getSourceImage() throws IOException {
+        return ImageUtil.readImageFile(new File(getCommandLineArgs()));
+    }
+
+    private void performDeskew() throws IOException {
+
+        BufferedImage sourceImage = getSourceImage();
+        BufferedImage outputImage = null;
+
+        ImageDeskew deskew = new ImageDeskew(sourceImage);
+        double imageSkewAngle = deskew.getSkewAngle();
+
+        if ((imageSkewAngle > Main.MINIMUM_DESKEW_THRESHOLD || imageSkewAngle < -(Main.MINIMUM_DESKEW_THRESHOLD))) {
+            outputImage = ImageUtil.rotate(sourceImage, -imageSkewAngle,
+                    sourceImage.getWidth() / 2, sourceImage.getHeight() / 2);
+        } else {
+            outputImage = sourceImage;
         }
 
-        private String infilename;
+        setOutputImage(outputImage);
 
-        private BufferedImage outputImage;
+    }
 
-        public Main(String inputFilename) throws IOException {
-                setCommandLineArgs(inputFilename);
-                performDeskew();
-                saveOutput();
+    private void saveOutput() throws IOException {
+
+        // File outputFileName = new File(getCommandLineArgs()[1]);
+        // String[] nameParts = outputFileName.getName().split("\\.");
+        // String extension = nameParts[(nameParts.length - 1)];
+
+        File outputFileName = new File(getCommandLineArgs());
+        String[] nameParts = outputFileName.getName().split("\\.");
+        String extension = nameParts[(nameParts.length - 1)];
+        String filename = "";
+
+        for (int i = 0; i < nameParts.length - 1; i++) {
+            filename = nameParts[i];
+            if (i != nameParts.length - 2)
+                filename += ".";
         }
+        filename += "deskewed." + extension;
 
-        public String getCommandLineArgs() {
-                return infilename;
-        }
-
-        public BufferedImage getOutputImage() {
-                return outputImage;
-        }
-
-        private BufferedImage getSourceImage() throws IOException {
-                return ImageUtil.readImageFile(new File(getCommandLineArgs()));
-        }
-
-        private void performDeskew() throws IOException {
-
-                BufferedImage sourceImage = getSourceImage();
-                BufferedImage outputImage = null;
-
-                ImageDeskew deskew = new ImageDeskew(sourceImage);
-                double imageSkewAngle = deskew.getSkewAngle();
-
-                if ((imageSkewAngle > Main.MINIMUM_DESKEW_THRESHOLD || imageSkewAngle < -(Main.MINIMUM_DESKEW_THRESHOLD))) {
-                        outputImage = ImageUtil.rotate(sourceImage, -imageSkewAngle,
-                                        sourceImage.getWidth() / 2, sourceImage.getHeight() / 2);
-                } else {
-                        outputImage = sourceImage;
-                }
-
-                setOutputImage(outputImage);
-
-        }
-
-        private void saveOutput() throws IOException {
-
-                // File outputFileName = new File(getCommandLineArgs()[1]);
-                // String[] nameParts = outputFileName.getName().split("\\.");
-                // String extension = nameParts[(nameParts.length - 1)];
-
-                File outputFileName = new File(getCommandLineArgs());
-                String[] nameParts = outputFileName.getName().split("\\.");
-                String extension = nameParts[(nameParts.length - 1)];
-                String filename = "";
-
-                for (int i = 0; i < nameParts.length - 1; i++) {
-                        filename = nameParts[i];
-                        if (i != nameParts.length - 2)
-                                filename += ".";
-                }
-                filename += "deskewed." + extension;
-
-                ImageIO.write(getOutputImage(), extension.toUpperCase().trim(),
-                                new File("/res/" + filename));
+        ImageIO.write(getOutputImage(), extension.toUpperCase().trim(),
+                new File("/res/" + filename));
 
 
-            System.out.println(BarcodeUtil.decode(getOutputImage()));
+        System.out.println(BarcodeUtil.decode(getOutputImage()));
 
-        }
+    }
 
-        public void setCommandLineArgs(String inputFilename) {
-                this.infilename = inputFilename;
-        }
+    public void setCommandLineArgs(String inputFilename) {
+        this.infilename = inputFilename;
+    }
 
-        public void setOutputImage(BufferedImage outputImage) {
-                this.outputImage = outputImage;
-        }
+    public void setOutputImage(BufferedImage outputImage) {
+        this.outputImage = outputImage;
+    }
 
 }
