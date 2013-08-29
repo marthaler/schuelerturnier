@@ -150,10 +150,6 @@ public class Business implements IBusiness {
         return liste;
     }
 
-    public boolean isInitialized() {
-        return true;
-        //return getSpielEinstellungen().isInit();
-    }
 
     /*
      * (non-Javadoc)

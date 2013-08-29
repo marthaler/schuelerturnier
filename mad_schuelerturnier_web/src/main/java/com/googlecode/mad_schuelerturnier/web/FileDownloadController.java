@@ -4,7 +4,6 @@
 package com.googlecode.mad_schuelerturnier.web;
 
 import com.googlecode.mad_schuelerturnier.business.xls.ToXLS;
-import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepository;
 import org.apache.log4j.Logger;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -22,7 +21,7 @@ import java.io.ByteArrayInputStream;
 @Component
 public class FileDownloadController {
 
-    private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
+    private static final Logger LOG = Logger.getLogger(FileDownloadController.class);
     @Autowired
     private ToXLS xml;
 

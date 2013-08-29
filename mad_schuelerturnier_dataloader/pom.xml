@@ -40,20 +40,20 @@
         <dependency>
             <groupId>net.sf.jxls</groupId>
             <artifactId>jxls-core</artifactId>
-            <version>1.0.2</version>
+            <version>${jxls.version}</version>
         </dependency>
 
         <dependency>
             <groupId>net.sf.jxls</groupId>
             <artifactId>jxls-reader</artifactId>
-            <version>1.0.2</version>
+            <version>${jxls.version}</version>
         </dependency>
 
 
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-            <version>1.4.4</version>
+            <version>${xstream.version}</version>
         </dependency>
 
 

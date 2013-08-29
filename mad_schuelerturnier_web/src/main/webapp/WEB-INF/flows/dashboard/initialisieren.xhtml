@@ -3,7 +3,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                template="../../../layouts/100.xhtml">
+                template="../../layouts/100.xhtml">
 
     <ui:define name="heading">
         <h:outputText value="Mannschaft bearbeiten"/>
@@ -21,32 +21,33 @@
 
                         <h:form id="form1">
 
-                            <p:fieldset legend="Mannschaft bearbeiten">
+                            <p:fieldset legend="Entweder neues, leeres Spiel initialisieren">
                                 <p:messages/>
 
-                                <h:panelGrid columns="2" id="inputelements">
+                                <p:growl id="msg" showDetail="true" for="feedback"/>
 
+                                <h:panelGrid columns="2" id="inputelements">
 
                                     <h:outputLabel for="name" value="Name "/>
                                     <p:inputText id="name" label="Name"
                                                  value="#{spieleinstellungen.starttagstr}" size="5" disabled="false"/>
-
-
-                                    <p:selectBooleanCheckbox
-                                            id="_3Activec"
-                                            value="#{spieleinstellungen.init}"
-                                            ajax="true">
-                                    </p:selectBooleanCheckbox>
-
-
                                     <h:panelGroup id="button" layout="block">
-                                        <p:commandButton id="submit" value="Speichern" action="save"
+                                        <p:commandButton id="submit" value="Initialisieren" action="save"
                                                          execute="@form" update="@form"/>
                                     </h:panelGroup>
 
-
                                 </h:panelGrid>
                             </p:fieldset>
+                            <br/>
+                            <p:fieldset legend="Oder Spiel aus XLS importieren">
+                                <p:messages/>
+
+                                <p:fileUpload fileUploadListener="#{fileUploadHandler.handleFileUpload}"
+                                              multiple="false" auto="true" update="msg" ajax="false"
+                                              mode="advanced"/>
+                                <br/>
+                            </p:fieldset>
+
                         </h:form>
                     </div>
                     <br/>
