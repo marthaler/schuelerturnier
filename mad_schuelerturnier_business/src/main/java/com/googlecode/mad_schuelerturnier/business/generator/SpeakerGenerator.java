@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.mad_schuelerturnier.business.generator;
 
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
@@ -18,11 +21,8 @@ import java.net.URLEncoder;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dama
- * Date: 28.12.12
- * Time: 13:11
- * To change this template use File | Settings | File Templates.
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
  */
 @Controller
 public class SpeakerGenerator {
