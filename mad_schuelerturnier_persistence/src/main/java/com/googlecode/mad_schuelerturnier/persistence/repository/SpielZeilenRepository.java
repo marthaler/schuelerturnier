@@ -4,7 +4,6 @@
 package com.googlecode.mad_schuelerturnier.persistence.repository;
 
 import com.googlecode.mad_schuelerturnier.model.spiel.tabelle.SpielZeile;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -35,12 +34,12 @@ public interface SpielZeilenRepository extends PagingAndSortingRepository<SpielZ
     List<SpielZeile> findNextZeile();
 
     @Query("select o from SpielZeile o where o.phase = 1 order by o.start asc")
-    List<SpielZeile> find_B_ZurVorbereitung();
+    List<SpielZeile> findBZurVorbereitung();
 
     @Query("select o from SpielZeile o where o.phase = 2 order by o.start asc")
-    List<SpielZeile> find_C_Vorbereitet();
+    List<SpielZeile> findCVorbereitet();
 
     @Query("select o from SpielZeile o where o.phase = 3 order by o.start asc")
-    List<SpielZeile> find_D_Spielend();
+    List<SpielZeile> findDSpielend();
 
 }

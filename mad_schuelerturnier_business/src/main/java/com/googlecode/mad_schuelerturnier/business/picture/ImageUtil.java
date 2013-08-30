@@ -10,6 +10,10 @@ import java.io.IOException;
 
 public class ImageUtil {
 
+    public ImageUtil() {
+
+    }
+
     public static BufferedImage readImageFile(File imageFile)
             throws IOException {
         return ImageIO.read(imageFile);
@@ -64,8 +68,10 @@ public class ImageUtil {
         int width = image.getWidth(null);
         int height = image.getHeight(null);
 
-        int minX, minY, maxX, maxY;
-        minX = minY = maxX = maxY = 0;
+        int minX = 0;
+        int minY = 0;
+        int maxX = 0;
+        int maxY = 0;
 
         int[] corners = {0, 0, width, 0, width, height, 0, height};
 

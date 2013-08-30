@@ -14,14 +14,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 /**
- * mad letzte aenderung: $Date: 2012-01-09 21:02:56 +0100 (Mo, 09 Jan 2012) $
- *
  * @author $Author: marthaler.worb@gmail.com $
- * @version $Revision: 155 $
- * @headurl $HeadURL:
- * https://mad-schuelerturnier.googlecode.com/svn/trunk/mad_schuelereturnier
- * /src/main/java/com/googlecode/mad_schuelerturnier/business/
- * controller/leiter/HTMLSchiriConverter.java $
+ * @since 0.7
  */
 @Controller
 public class BarcodeGenerator {

@@ -63,27 +63,23 @@ public class Main {
     private void performDeskew() throws IOException {
 
         BufferedImage sourceImage = getSourceImage();
-        BufferedImage outputImage = null;
+        BufferedImage outputImageL = null;
 
         ImageDeskew deskew = new ImageDeskew(sourceImage);
         double imageSkewAngle = deskew.getSkewAngle();
 
         if ((imageSkewAngle > Main.MINIMUM_DESKEW_THRESHOLD || imageSkewAngle < -(Main.MINIMUM_DESKEW_THRESHOLD))) {
-            outputImage = ImageUtil.rotate(sourceImage, -imageSkewAngle,
+            outputImageL = ImageUtil.rotate(sourceImage, -imageSkewAngle,
                     sourceImage.getWidth() / 2, sourceImage.getHeight() / 2);
         } else {
-            outputImage = sourceImage;
+            outputImageL = sourceImage;
         }
 
-        setOutputImage(outputImage);
+        setOutputImage(outputImageL);
 
     }
 
     private void saveOutput() throws IOException {
-
-        // File outputFileName = new File(getCommandLineArgs()[1]);
-        // String[] nameParts = outputFileName.getName().split("\\.");
-        // String extension = nameParts[(nameParts.length - 1)];
 
         File outputFileName = new File(getCommandLineArgs());
         String[] nameParts = outputFileName.getName().split("\\.");

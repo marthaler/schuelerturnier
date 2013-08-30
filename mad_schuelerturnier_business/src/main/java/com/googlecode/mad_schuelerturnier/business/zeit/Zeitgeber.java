@@ -14,6 +14,10 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
+ */
 @Component
 public class Zeitgeber implements ApplicationEventPublisherAware {
 
@@ -39,7 +43,7 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
     }
 
     @PostConstruct
-    private void init() {
+    private void init() {  //NOSONAR
         if (this.business.isDBInitialized()) {
             sendPuls();
         }

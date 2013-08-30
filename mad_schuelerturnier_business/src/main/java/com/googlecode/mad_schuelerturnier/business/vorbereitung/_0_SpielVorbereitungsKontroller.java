@@ -12,7 +12,6 @@ import com.googlecode.mad_schuelerturnier.model.Mannschaft;
 import com.googlecode.mad_schuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.mad_schuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepository;
-import com.googlecode.mad_schuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -59,9 +58,6 @@ public class _0_SpielVorbereitungsKontroller implements ISpielKontroller {
 
     @Autowired
     private MannschaftRepository mannschaftRepo;
-
-    @Autowired
-    private SpielZeilenRepository spielzeilenRepo;
 
     public SpielPhasenEnum readSpielPhase() {
         SpielEinstellungen einstellung = this.business.getSpielEinstellungen();

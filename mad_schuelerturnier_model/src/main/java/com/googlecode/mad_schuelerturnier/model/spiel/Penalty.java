@@ -109,7 +109,7 @@ public class Penalty extends AbstractPersistable<Long> {
 
             for (String str : re) {
                 for (Mannschaft m : this.finalList) {
-                    if (str.toLowerCase().equalsIgnoreCase(m.getName())) {
+                    if (str.equalsIgnoreCase(m.getName())) {
                         result.add(m);
                     }
                 }
@@ -130,13 +130,13 @@ public class Penalty extends AbstractPersistable<Long> {
             return "penalty ohne mannschaften " + this.idString;
         }
 
-        StringBuffer b = new StringBuffer();
+        StringBuilder stringBuilder = new StringBuilder();
         Mannschaft latest = null;
         for (Mannschaft m : finalList) {
-            b.append(m.getName().toLowerCase() + ",");
+            stringBuilder.append(m.getName().toLowerCase() + ",");
             latest = m;
         }
-        String ret = b.toString();
+        String ret = stringBuilder.toString();
         return ret.replace(latest.getName().toLowerCase() + ",", latest.getName().toLowerCase());
     }
 

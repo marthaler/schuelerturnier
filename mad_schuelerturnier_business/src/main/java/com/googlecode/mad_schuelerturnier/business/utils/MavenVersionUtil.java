@@ -12,7 +12,7 @@ import java.util.Properties;
 @Controller
 public class MavenVersionUtil {
 
-    private static transient final Logger LOG = Logger.getLogger(SpielInformationExpert.class);
+    private static final Logger LOG = Logger.getLogger(SpielInformationExpert.class);
 
     public String version = "-";
     public String time = "-";
@@ -21,7 +21,7 @@ public class MavenVersionUtil {
         init();
     }
 
-    public void init() {
+    public final void init() {
 
         try {
             final Properties p = new Properties();

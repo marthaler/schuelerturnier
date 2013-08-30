@@ -12,11 +12,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dama
- * Date: 20.06.13
- * Time: 13:18
- * To change this template use File | Settings | File Templates.
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
  */
 @Component
 public class SpielServiceImpl implements SpielService {

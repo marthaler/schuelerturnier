@@ -17,4 +17,9 @@ public class TurnierException extends Exception {
     public TurnierException(String text) {
         super(text);
     }
+
+    public TurnierException(Exception e) {
+        super(e);
+    }
+
 }

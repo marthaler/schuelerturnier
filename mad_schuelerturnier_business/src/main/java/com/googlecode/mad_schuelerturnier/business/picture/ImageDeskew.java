@@ -22,7 +22,6 @@ public class ImageDeskew {
     // range of d
     private double cDMin;
     private double cDStep = 1.0;
-    private int cDCount;
 
     // count of points that fit in a line
     private int[] cHMatrix;
@@ -86,7 +85,7 @@ public class ImageDeskew {
         }
 
         ImageDeskew.HoughLine tmp;
-        int j = 0;
+        int j;
         int alphaIndex;
         int dIndex;
 
@@ -175,9 +174,9 @@ public class ImageDeskew {
 
         // range of d
         this.cDMin = -this.cImage.getWidth();
-        this.cDCount = (int) (2.0 * ((this.cImage.getWidth() + this.cImage
+        int cDCount = (int) (2.0 * ((this.cImage.getWidth() + this.cImage
                 .getHeight())) / this.cDStep);
-        this.cHMatrix = new int[this.cDCount * this.cSteps];
+        this.cHMatrix = new int[cDCount * this.cSteps];
 
     }
 

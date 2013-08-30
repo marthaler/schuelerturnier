@@ -8,11 +8,8 @@ public class Countdown {
 
     private DateTime ablauf;
     private DateTime letzte;
-    int dauer;
-
-
-    int sekundenToGo = 0;
-
+    private int dauer;
+    private int sekundenToGo = 0;
 
     public Countdown(final DateTime jetzt, final int dauerInSeconds) {
         super();

@@ -40,7 +40,7 @@ public class HTMLSpielMatrixConverter {
 
     public String generateSpieleTable(final List<Kategorie> list) {
 
-        final StringBuffer stringBuffer = new StringBuffer();
+        final StringBuilder stringBuffer = new StringBuilder();
 
         stringBuffer.append("<table border='1' cellspacing='0' cellpadding='3' width='700'>");
 
@@ -129,24 +129,24 @@ public class HTMLSpielMatrixConverter {
 
 
     /**
-     * @param b
+     * @param stringBuilder
      * @param str
      */
-    private void printMannschaften2(final StringBuffer b, final List<Mannschaft> str, final Boolean vorrunde) {
+    private void printMannschaften2(final StringBuilder stringBuilder, final List<Mannschaft> str, final Boolean vorrunde) {
 
-        b.append("<td>");
-        b.append("<style type='text/css'>table.inner {border-spacing: 0px; border-padding:0px;width:100%;border:0px; vertical-align:top; overflow:hidden; font-size:10pt; font-family:Arial,sans-serif }td { border:1px solid #000; vertical-align:top; overflow:hidden; }</style>");
-        b.append("<table class = 'inner'>");
-        b.append("<tr><td>&nbsp;</td>");
+        stringBuilder.append("<td>");
+        stringBuilder.append("<style type='text/css'>table.inner {border-spacing: 0px; border-padding:0px;width:100%;border:0px; vertical-align:top; overflow:hidden; font-size:10pt; font-family:Arial,sans-serif }td { border:1px solid #000; vertical-align:top; overflow:hidden; }</style>");
+        stringBuilder.append("<table class = 'inner'>");
+        stringBuilder.append("<tr><td>&nbsp;</td>");
 
         for (final Mannschaft m1 : str) {
-            b.append("<td><b>" + m1.getName() + "</b></td>");
+            stringBuilder.append("<td><b>" + m1.getName() + "</b></td>");
         }
         int iZeile = 0;
         for (final Mannschaft mannschaft : str) {
 
-            b.append("<tr><td>");
-            b.append("<b>" + mannschaft.getName() + "</b>");
+            stringBuilder.append("<tr><td>");
+            stringBuilder.append("<b>" + mannschaft.getName() + "</b>");
 
             final List<Spiel> tempSpiele = new ArrayList<Spiel>();
 
@@ -170,46 +170,46 @@ public class HTMLSpielMatrixConverter {
             for (final Spiel spiel : tempSpiele) {
 
                 if ((iZeile == iSpalte) || linefin) {
-                    b.append("<td bgcolor='white'>&nbsp;</td>");
+                    stringBuilder.append("<td bgcolor='white'>&nbsp;</td>");
                     linefin = true;
                     continue;
                 }
 
                 if (spiel == null) {
-                    b.append("<td  bgcolor='blue'>");
+                    stringBuilder.append("<td  bgcolor='blue'>");
                 } else if (spiel.getToreABestaetigt() > -1) {
-                    b.append("<td  bgcolor='green'>");
+                    stringBuilder.append("<td  bgcolor='green'>");
                 } else if (spiel.isAmSpielen()) {
-                    b.append("<td  bgcolor='yellow'>");
+                    stringBuilder.append("<td  bgcolor='yellow'>");
                 } else {
-                    b.append("<td>");
+                    stringBuilder.append("<td>");
                 }
 
                 if (spiel == null) {
-                    b.append("!!!");
+                    stringBuilder.append("!!!");
                 } else {
-                    printSpiel(b, spiel);
+                    printSpiel(stringBuilder, spiel);
                 }
 
-                b.append("</td>");
+                stringBuilder.append("</td>");
 
                 iSpalte++;
             }
 
-            b.append("<td bgcolor='white'>&nbsp;</td>");
+            stringBuilder.append("<td bgcolor='white'>&nbsp;</td>");
 
-            b.append("</tr>");
+            stringBuilder.append("</tr>");
             iZeile++;
         }
 
-        b.append("</table>");
-        b.append("</td>");
+        stringBuilder.append("</table>");
+        stringBuilder.append("</td>");
     }
 
-    private void printSpiel(StringBuffer b, Spiel spiel) {
-        b.append(spiel.getPlatz() + ";" + spiel.getIdString() + ";");
+    private void printSpiel(StringBuilder stringBuilder, Spiel spiel) {
+        stringBuilder.append(spiel.getPlatz() + ";" + spiel.getIdString() + ";");
         if (spiel.getStart() != null) {
-            b.append(this.sdf.format(spiel.getStart()));
+            stringBuilder.append(this.sdf.format(spiel.getStart()));
         }
     }
 }

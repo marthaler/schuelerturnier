@@ -8,7 +8,7 @@ import org.springframework.webflow.execution.RequestContext;
 @Component
 public class SpeakerReloadAction implements Action {
 
-    public Event execute(RequestContext context) throws Exception {
+    public Event execute(RequestContext context) {
         return new Event(this, "speaker_view");
     }
 }

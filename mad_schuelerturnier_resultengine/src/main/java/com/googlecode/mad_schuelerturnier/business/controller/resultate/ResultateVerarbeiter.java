@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.mad_schuelerturnier.business.controller.resultate;
 
 import com.googlecode.mad_schuelerturnier.business.controller.leiter.converter.HTMLConverterRangliste;
@@ -23,14 +26,13 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dama
- * Date: 04.01.13
- * Time: 23:57
- * To change this template use File | Settings | File Templates.
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
  */
 @Component
 public class ResultateVerarbeiter {
+
+    private static final int WAITTIME = 1000 * 15;
 
     @Autowired
     private HTMLSpielMatrixConverter matrix;
@@ -55,7 +57,7 @@ public class ResultateVerarbeiter {
 
     private boolean init = false;
 
-    boolean uploadAllKat = false;
+    private boolean uploadAllKat = false;
 
     private Map<String, Boolean> beendet = new HashMap<String, Boolean>();
 
@@ -142,8 +144,8 @@ public class ResultateVerarbeiter {
         return count;
     }
 
-    @Scheduled(fixedRate = 1000 * 15)
-    private void verarbeiten() {
+    @Scheduled(fixedRate = WAITTIME)
+    private void verarbeiten() { //NOSONAR
 
         if (!init) {
             initialisieren();
@@ -159,14 +161,12 @@ public class ResultateVerarbeiter {
 
         while (id != null) {
 
-
             // map mit den fertig flags initialisieren
             initFertigMap();
 
             verarbeitePenalty();
 
             verarbeiteUploadAllKat();
-
 
             verarbeiteSpiel(id);
             try {
@@ -175,7 +175,6 @@ public class ResultateVerarbeiter {
                 id = null;
             }
         }
-
     }
 
     private void verarbeiteSpiel(Long id) {
@@ -205,7 +204,6 @@ public class ResultateVerarbeiter {
                 }
 
                 map.put(katName + "_A", rangListe);
-
             }
 
             // mannschaft a des spiels ist in gruppe b
@@ -222,9 +220,7 @@ public class ResultateVerarbeiter {
                     rangListe = new RanglisteneintragHistorie(null, rangListe, Boolean.FALSE);
                 }
 
-
                 map.put(katName + "_B", rangListe);
-
             }
         }
 
@@ -252,6 +248,7 @@ public class ResultateVerarbeiter {
         if (spiel.getGruppe().getKategorie().getPenaltyA() == null && penA != null) {
             spiel.getGruppe().getKategorie().setPenaltyA(penA);
         }
+
         if (spiel.getGruppe().getKategorie().getPenaltyB() == null && penB != null) {
             spiel.getGruppe().getKategorie().setPenaltyA(penB);
         }
@@ -264,7 +261,6 @@ public class ResultateVerarbeiter {
         uploadKat(kat);
 
         printer.saveSpiel(spiel);
-
 
         // pruefe ob rangliste kategorie fertig
         if (rangListe.isFertigGespielt()) {

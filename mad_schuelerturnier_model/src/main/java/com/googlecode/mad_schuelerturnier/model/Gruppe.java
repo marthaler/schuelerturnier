@@ -33,7 +33,6 @@ public class Gruppe extends AbstractPersistable<Long> {
     @OneToOne(cascade = CascadeType.ALL)
     private Kategorie kategorie = null;
 
-
     private GeschlechtEnum geschlecht = null;
 
     private Date letztesGruppenspiel = null;
@@ -51,7 +50,7 @@ public class Gruppe extends AbstractPersistable<Long> {
      * getGeschlecht Aufruf
      */
     @PrePersist
-    private void geschlechtFeldAusfuellen() {
+    private void geschlechtFeldAusfuellen() { //NOSONAR
         getGeschlecht();
     }
 

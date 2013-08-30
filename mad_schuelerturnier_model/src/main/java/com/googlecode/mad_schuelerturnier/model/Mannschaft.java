@@ -420,8 +420,7 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
     }
 
     // getter und setter fuer xls export und import
-    // NOSONAR
-    public void setId(Long id) {
+    public void setId(Long id) {      // NOSONAR
         super.setId(id);
     }
 

@@ -55,7 +55,7 @@ public class HTMLOutConverter {
             return "";
         }
 
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder stringBuilder = new StringBuilder();
 
         Kategorie kategorie = historie.getKategorie();
 
@@ -69,127 +69,127 @@ public class HTMLOutConverter {
 
             first = false;
 
-            buffer.append(BR);
-            buffer.append("<table border='1' cellspacing='0' cellpadding='3' width='700'>");
+            stringBuilder.append(BR);
+            stringBuilder.append("<table border='1' cellspacing='0' cellpadding='3' width='700'>");
 
-            buffer.append(TR);
-            buffer.append("<td colspan='8'>");
+            stringBuilder.append(TR);
+            stringBuilder.append("<td colspan='8'>");
             final SimpleDateFormat sdf = new SimpleDateFormat("EEE HH:mm:ss");
 
             if (spiel != null) {
-                buffer.append(P);
+                stringBuilder.append(P);
                 if (spiel.getTyp() == SpielEnum.GFINAL) {
-                    buffer.append(kategorie.getName() + " - " + sdf.format(historie.getSpiel().getStart()) + " - Finale </p>");
+                    stringBuilder.append(kategorie.getName() + " - " + sdf.format(historie.getSpiel().getStart()) + " - Finale </p>");
                 } else if (spiel.getTyp() == SpielEnum.KFINAL) {
-                    buffer.append(kategorie.getName() + " - " + sdf.format(historie.getSpiel().getStart()) + " - kleiner Finale</p>");
+                    stringBuilder.append(kategorie.getName() + " - " + sdf.format(historie.getSpiel().getStart()) + " - kleiner Finale</p>");
                 } else {
                     // TODO weg
                     if (kategorie.getGruppeB() != null) {
-                        buffer.append(kategorie.getGruppeA().getName() + /*kategorie.getGruppeB()*/  " - " + sdf.format(historie.getSpiel().getStart()) + ""  /*historie.countGruppenspieleGespielt() + "/" + historie.countGruppenspiele() + "</p>   *** eine Teilgruppe ist grau hinterlegt, die andere weiss"*/);
+                        stringBuilder.append(kategorie.getGruppeA().getName() + /*kategorie.getGruppeB()*/  " - " + sdf.format(historie.getSpiel().getStart()) + ""  /*historie.countGruppenspieleGespielt() + "/" + historie.countGruppenspiele() + "</p>   *** eine Teilgruppe ist grau hinterlegt, die andere weiss"*/);
                     } else {
-                        buffer.append(kategorie.getName() + " - " + sdf.format(historie.getSpiel().getStart()) + " - Spiele: " + /*historie.countGruppenspieleGespielt() + "/" + historie.countGruppenspiele() +*/ "</p>");
+                        stringBuilder.append(kategorie.getName() + " - " + sdf.format(historie.getSpiel().getStart()) + " - Spiele: " + /*historie.countGruppenspieleGespielt() + "/" + historie.countGruppenspiele() +*/ "</p>");
                     }
                 }
             } else {
-                buffer.append("<p>" + kategorie.getName().replace(".", "") + " - Penalty: " + P_E);
+                stringBuilder.append("<p>" + kategorie.getName().replace(".", "") + " - Penalty: " + P_E);
             }
 
-            buffer.append(TD_E);
-            buffer.append(TR_E);
+            stringBuilder.append(TD_E);
+            stringBuilder.append(TR_E);
 
-            buffer.append(TR);
-            buffer.append("<td colspan='8'>");
+            stringBuilder.append(TR);
+            stringBuilder.append("<td colspan='8'>");
             if (spiel != null) {
-                buffer.append("spielkorrektur: " + historie.getSpiel().getMannschaftA().getName() + "-" + historie.getSpiel().getMannschaftB().getName() + " " + historie.getSpiel().getToreABestaetigt() + ":" + historie.getSpiel().getToreBBestaetigt() + "");
+                stringBuilder.append("spielkorrektur: " + historie.getSpiel().getMannschaftA().getName() + "-" + historie.getSpiel().getMannschaftB().getName() + " " + historie.getSpiel().getToreABestaetigt() + ":" + historie.getSpiel().getToreBBestaetigt() + "");
             } else {
-                buffer.append("spielkorrektur: Penalty");
+                stringBuilder.append("spielkorrektur: Penalty");
             }
-            buffer.append(TD_E);
-            buffer.append("</tr>");
+            stringBuilder.append(TD_E);
+            stringBuilder.append("</tr>");
 
-            buffer.append("<tr>");
-            buffer.append("<td colspan='1'>");
-            buffer.append("<p>Mannschaft</p>");
-            buffer.append(TD_E);
+            stringBuilder.append("<tr>");
+            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append("<p>Mannschaft</p>");
+            stringBuilder.append(TD_E);
 
-            buffer.append("<td colspan='1'>");
-            buffer.append("<p>Sp. gespielt</p>");
-            buffer.append(TD_E);
+            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append("<p>Sp. gespielt</p>");
+            stringBuilder.append(TD_E);
 
-            buffer.append("<td colspan='1'>");
-            buffer.append("<p>Sp. anstehend</p>");
-            buffer.append(TD_E);
+            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append("<p>Sp. anstehend</p>");
+            stringBuilder.append(TD_E);
 
-            buffer.append("<td colspan='1'>");
-            buffer.append("<p>Punkte</p>");
-            buffer.append(TD_E);
+            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append("<p>Punkte</p>");
+            stringBuilder.append(TD_E);
 
-            buffer.append("<td colspan='1'>");
-            buffer.append("<p>Tordifferenz (Tore erz. - erh.)</p>");
-            buffer.append(TD_E);
+            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append("<p>Tordifferenz (Tore erz. - erh.)</p>");
+            stringBuilder.append(TD_E);
 
-            buffer.append("<td colspan='1'>");
-            buffer.append("<p>Rangierungsgrund</p>");
-            buffer.append(TD_E);
+            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append("<p>Rangierungsgrund</p>");
+            stringBuilder.append(TD_E);
 
             // zeilen pro hystorieneintrag
-            generateZeilen(historie, buffer);
+            generateZeilen(historie, stringBuilder);
 
         } while (historie.getVorherigerEintrag() != null);
 
-        return buffer.toString();
+        return stringBuilder.toString();
     }
 
-    private void generateZeilen(RanglisteneintragHistorie gr, StringBuffer buffer) {
+    private void generateZeilen(RanglisteneintragHistorie gr, StringBuilder stringBuilder) {
 
         final List<RanglisteneintragZeile> zeilen = gr.getZeilen();
 
         for (final RanglisteneintragZeile ranglisteneintragZeile : zeilen) {
-            buffer.append("<tr>");
+            stringBuilder.append("<tr>");
 
             if (ranglisteneintragZeile.getMannschaft().isMemberofGroupA()) {
-                buffer.append("<td colspan='1'>");
+                stringBuilder.append("<td colspan='1'>");
             } else {
-                buffer.append("<td colspan='1' bgcolor='gray'>");
+                stringBuilder.append("<td colspan='1' bgcolor='gray'>");
             }
 
-            buffer.append("" + ranglisteneintragZeile.getMannschaft().getName() + "");
-            buffer.append(TD_E);
+            stringBuilder.append("" + ranglisteneintragZeile.getMannschaft().getName() + "");
+            stringBuilder.append(TD_E);
 
-            buffer.append("<td colspan='1'>");
-            buffer.append("" + ranglisteneintragZeile.getSpieleVorbei() + "");
-            buffer.append(TD_E);
+            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append("" + ranglisteneintragZeile.getSpieleVorbei() + "");
+            stringBuilder.append(TD_E);
 
-            buffer.append("<td colspan='1'>");
-            buffer.append("" + ranglisteneintragZeile.getSpieleAnstehend() + "");
-            buffer.append(TD_E);
+            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append("" + ranglisteneintragZeile.getSpieleAnstehend() + "");
+            stringBuilder.append(TD_E);
 
-            buffer.append("<td colspan='1'>");
-            buffer.append("" + ranglisteneintragZeile.getPunkte() + "");
-            buffer.append(TD_E);
+            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append("" + ranglisteneintragZeile.getPunkte() + "");
+            stringBuilder.append(TD_E);
 
-            buffer.append("<td colspan='1'>");
-            buffer.append("" + ranglisteneintragZeile.getToreErziehlt() + "-" + ranglisteneintragZeile.getToreKassiert() + "=" + ranglisteneintragZeile.getTordifferenz());
-            buffer.append(TD_E);
+            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append("" + ranglisteneintragZeile.getToreErziehlt() + "-" + ranglisteneintragZeile.getToreKassiert() + "=" + ranglisteneintragZeile.getTordifferenz());
+            stringBuilder.append(TD_E);
 
             final int diferenz = gr.compareWithLast(ranglisteneintragZeile);
 
             if (diferenz < 0) {
-                buffer.append("<td colspan='1' bgcolor='red'>");
+                stringBuilder.append("<td colspan='1' bgcolor='red'>");
             } else if (diferenz > 0) {
-                buffer.append("<td colspan='1' bgcolor='green'>");
+                stringBuilder.append("<td colspan='1' bgcolor='green'>");
             } else {
-                buffer.append("<td colspan='1'>");
+                stringBuilder.append("<td colspan='1'>");
             }
 
-            buffer.append("" + ranglisteneintragZeile.getRangierungsgrund().toString() /*.substring(0, 2) + ""*/);
+            stringBuilder.append("" + ranglisteneintragZeile.getRangierungsgrund().toString() /*.substring(0, 2) + ""*/);
 
-            buffer.append(TD_E);
+            stringBuilder.append(TD_E);
 
-            buffer.append("</tr>");
+            stringBuilder.append("</tr>");
 
         }
-        buffer.append("</table>");
+        stringBuilder.append("</table>");
     }
 
 

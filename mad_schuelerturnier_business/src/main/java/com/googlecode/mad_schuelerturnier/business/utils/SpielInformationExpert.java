@@ -20,7 +20,7 @@ import java.util.List;
 @Component
 public class SpielInformationExpert {
 
-    private static transient final Logger LOG = Logger.getLogger(SpielInformationExpert.class);
+    private static final Logger LOG = Logger.getLogger(SpielInformationExpert.class);
 
 
     @Autowired

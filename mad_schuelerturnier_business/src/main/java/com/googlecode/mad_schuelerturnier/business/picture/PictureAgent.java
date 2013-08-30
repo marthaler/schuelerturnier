@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.mad_schuelerturnier.business.picture;
 
 import com.googlecode.mad_schuelerturnier.business.scanner.BarcodeDecoder;
@@ -14,31 +17,28 @@ import java.io.IOException;
 import java.util.Collection;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dama
- * Date: 21.04.13
- * Time: 19:20
- * To change this template use File | Settings | File Templates.
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
  */
-
 @Component
 public class PictureAgent {
+
+    private static final Logger LOG = Logger.getLogger(PictureAgent.class);
+
+    private static final int DELAY = 1000;
 
     public String picToCheck;
 
     private String selected;
 
-    @Autowired
-    private SpielRepository spielRepository;
-
-    private static final Logger LOG = Logger.getLogger(PictureAgent.class);
-
-    private boolean running = false;
-
     private boolean init = false;
 
     private String tempPath = "";
+
     private String schirizettel = "";
+
+    @Autowired
+    private SpielRepository spielRepository;
 
     public void init(String path) {
         this.tempPath = path + "schirizetteltemp" + System.getProperty("file.separator");
@@ -50,7 +50,6 @@ public class PictureAgent {
         LOG.info("tempPath erstellt: " + tempPath);
         LOG.info("schirizettel erstellt: " + schirizettel);
 
-        this.running = true;
         this.init = true;
 
     }
@@ -111,8 +110,8 @@ public class PictureAgent {
         return ret;
     }
 
-    @Scheduled(fixedDelay = 10000)
-    private void check() {
+    @Scheduled(fixedDelay = DELAY)
+    private void check() { //NOSONAR
 
         if (!init) {
             return;

@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.mad_schuelerturnier.business.spieldurchfuehrung;
 
 import com.googlecode.mad_schuelerturnier.business.controller.resultate.ResultateVerarbeiter;
@@ -24,6 +27,10 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
+ */
 @Component
 public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
@@ -69,14 +76,14 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
     private List<String> text = new ArrayList<String>();
 
-    private List<SpielZeile> _1_wartend = new ArrayList<SpielZeile>();
-    private List<SpielZeile> _2_zum_vorbereiten = new ArrayList<SpielZeile>();
+    private List<SpielZeile> list1Wartend = new ArrayList<SpielZeile>();
+    private List<SpielZeile> list2ZumVorbereiten = new ArrayList<SpielZeile>();
 
-    private List<SpielZeile> _3_vorbereitet = new ArrayList<SpielZeile>();
-    private List<SpielZeile> _4_spielend = new ArrayList<SpielZeile>();
-    private List<SpielZeile> _5_beendet = new ArrayList<SpielZeile>();
+    private List<SpielZeile> list3Vorbereitet = new ArrayList<SpielZeile>();
+    private List<SpielZeile> list4Spielend = new ArrayList<SpielZeile>();
+    private List<SpielZeile> list5Beendet = new ArrayList<SpielZeile>();
 
-    private List<SpielZeile> _6_eingetragen = new ArrayList<SpielZeile>();
+    private List<SpielZeile> list6Eingetragen = new ArrayList<SpielZeile>();
 
     private boolean init = false;
 
@@ -100,13 +107,13 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
         if (this.business.getSpielEinstellungen().getPhase().equals(SpielPhasenEnum.F_SPIELEN)) {
 
-            prepare_1_wartend();
+            prepare1Wartend();
 
-            prepare_2_zum_vorbereiten();
+            prepare2ZumVorbereiten();
 
-            prepare_3_warten_auf_start();
+            prepare3WartenAufStart();
 
-            prepare_4_spielend();
+            prepare4Spielend();
 
             checkSpielende();
 
@@ -125,14 +132,14 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
      * dient dazu beim ersten aufruf die liste zu fuellen mit den zeilen aus der db
      */
     private synchronized void init() {
-        _2_zum_vorbereiten.addAll(spielzeilenRepo.find_B_ZurVorbereitung());
-        _3_vorbereitet.addAll(spielzeilenRepo.find_C_Vorbereitet());
-        _4_spielend.addAll(spielzeilenRepo.find_D_Spielend());
+        list2ZumVorbereiten.addAll(spielzeilenRepo.findBZurVorbereitung());
+        list3Vorbereitet.addAll(spielzeilenRepo.findCVorbereitet());
+        list4Spielend.addAll(spielzeilenRepo.findDSpielend());
     }
 
-    private synchronized void prepare_1_wartend() {
+    private synchronized void prepare1Wartend() {
         // wartende auffuellen
-        if (this._1_wartend.size() < wartendSize) {
+        if (this.list1Wartend.size() < wartendSize) {
             final List<SpielZeile> list = this.spielzeilenRepo.findNextZeile();
 
             if (!list.isEmpty()) {
@@ -157,11 +164,11 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
                     }
 
-                    if (!this._1_wartend.contains(spielZeile)) {
+                    if (!this.list1Wartend.contains(spielZeile)) {
                         if (!spielZeile.checkEmty()) {
-                            this._1_wartend.add(0, spielZeile);
+                            this.list1Wartend.add(0, spielZeile);
                             SpielDurchfuehrung.LOG.info("neue zeile geholt: " + spielZeile);
-                            if (this._1_wartend.size() == wartendSize) {
+                            if (this.list1Wartend.size() == wartendSize) {
                                 break;
                             }
                         }
@@ -171,21 +178,21 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
         }
     }
 
-    private void prepare_2_zum_vorbereiten() {
+    private void prepare2ZumVorbereiten() {
 
-        if (!this._1_wartend.isEmpty()) {
+        if (!this.list1Wartend.isEmpty()) {
             // zum vorbereiten einstellen
-            if ((this._2_zum_vorbereiten.isEmpty())) {
+            if ((this.list2ZumVorbereiten.isEmpty())) {
 
                 // pruefung ob nachste zeile bereits zur vorbereitung
-                long naechste = this._1_wartend.get(this._1_wartend.size() - 1).getStart().getTime() - (60 * minutenZumVorbereiten * 1000);
+                long naechste = this.list1Wartend.get(this.list1Wartend.size() - 1).getStart().getTime() - (60 * minutenZumVorbereiten * 1000);
                 long now = jetzt.getSpielZeit().getMillis();
 
                 if (naechste < now) {
-                    SpielZeile temp = this._1_wartend.remove(this._1_wartend.size() - 1);
+                    SpielZeile temp = this.list1Wartend.remove(this.list1Wartend.size() - 1);
                     temp.setPhase(SpielZeilenPhaseEnum.B_ZUR_VORBEREITUNG);
                     temp = this.spielzeilenRepo.save(temp);
-                    this._2_zum_vorbereiten.add(temp);
+                    this.list2ZumVorbereiten.add(temp);
 
                     // automatisches vorbereiten
                     if (this.business.getSpielEinstellungen().isAutomatischesVorbereiten()) {
@@ -197,48 +204,46 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
         }
 
         // zeit anhalten, falls die spielzeit des zum vorbereitenden abgelaufen ist
-        if (stopBecause_zumVorbereiten() && this.zeitgeber.isGameStarted()) {
+        if (stopBecauseZumVorbereiten() && this.zeitgeber.isGameStarted()) {
             this.zeitgeber.stopGame("spielzeit des zu_vorbereitenden ist abgelaufen");
         }
 
         // zeit wieder starten, falls zum vorbereiten leer ist oder eine zeile mit start in der zukunft hat, falls evnet auf pause ist
-        if (jetzt.isUnterbruch() && !stopBecause_wartenAufStart()) {
-            if (this._2_zum_vorbereiten.isEmpty() || jetzt.getSpielZeit().isBefore(new DateTime(_2_zum_vorbereiten.get(0).getStart()))) {
+        if (jetzt.isUnterbruch() && !stopBecauseWartenAufStart()) {
+            if (this.list2ZumVorbereiten.isEmpty() || jetzt.getSpielZeit().isBefore(new DateTime(list2ZumVorbereiten.get(0).getStart()))) {
                 this.zeitgeber.startGame(0, "liste mit zu_vorbereiteten ist wieder leer");
             }
         }
 
     }
 
-    private boolean stopBecause_zumVorbereiten() {
-        boolean result = !this._2_zum_vorbereiten.isEmpty() && jetzt.getSpielZeit().isAfter(new DateTime(_2_zum_vorbereiten.get(0).getStart()));
-        return result;
+    private boolean stopBecauseZumVorbereiten() {
+        return !this.list2ZumVorbereiten.isEmpty() && jetzt.getSpielZeit().isAfter(new DateTime(list2ZumVorbereiten.get(0).getStart()));
     }
 
-    private boolean stopBecause_wartenAufStart() {
-        boolean result = !this._3_vorbereitet.isEmpty() && jetzt.getSpielZeit().isAfter(new DateTime(_3_vorbereitet.get(0).getStart()));
-        return result;
+    private boolean stopBecauseWartenAufStart() {
+        return !this.list3Vorbereitet.isEmpty() && jetzt.getSpielZeit().isAfter(new DateTime(list3Vorbereitet.get(0).getStart()));
     }
 
-    private void prepare_3_warten_auf_start() {
+    private void prepare3WartenAufStart() {
 
         // zeit anhalten, falls die spielzeit des zum vorbereiten abgelaufen ist
-        if (stopBecause_wartenAufStart()) {
+        if (stopBecauseWartenAufStart()) {
             this.zeitgeber.stopGame("spielzeit des vorbereitenden ist abgelaufen");
         }
 
         // zeit wieder starten, falls vorbereiten leer ist oder eine zeile mit start in der zukunft hat, falls evnet auf pause ist
-        if (jetzt.isUnterbruch() && !stopBecause_zumVorbereiten()) {
-            if (this._3_vorbereitet.isEmpty() || jetzt.getSpielZeit().isBefore(new DateTime(_3_vorbereitet.get(0).getStart()))) {
+        if (jetzt.isUnterbruch() && !stopBecauseZumVorbereiten()) {
+            if (this.list3Vorbereitet.isEmpty() || jetzt.getSpielZeit().isBefore(new DateTime(list3Vorbereitet.get(0).getStart()))) {
                 this.zeitgeber.startGame(0, "liste mit vorbereiteten ist wieder leer");
             }
         }
     }
 
-    private void prepare_4_spielend() {
+    private void prepare4Spielend() {
 
         // keine spielenden
-        if (this.get_4_spielend().isEmpty()) {
+        if (this.getList4Spielend().isEmpty()) {
             return;
         }
 
@@ -267,12 +272,12 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     }
 
     public void vorbereitet() {
-        SpielZeile temp = this._2_zum_vorbereiten.remove(0);
+        SpielZeile temp = this.list2ZumVorbereiten.remove(0);
         this.countdownToStart = new Countdown(this.jetzt.getSpielZeit(), new DateTime(temp.getStart()));
         temp.setPhase(SpielZeilenPhaseEnum.C_VORBEREITET);
         temp = this.spielzeilenRepo.save(temp);
-        this._3_vorbereitet.add(temp);
-        // tts                   get
+        this.list3Vorbereitet.add(temp);
+        // tts get
         generateText(temp);
     }
 
@@ -281,7 +286,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
         gong();
 
         this.countdown = new Countdown(this.jetzt.getSpielZeit(), 10 * 60);
-        SpielZeile temp = this._3_vorbereitet.remove(0);
+        SpielZeile temp = this.list3Vorbereitet.remove(0);
         temp.setPhase(SpielZeilenPhaseEnum.D_SPIELEND);
         if (temp.getA() != null) {
             temp.getA().setAmSpielen(true);
@@ -293,7 +298,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
             temp.getC().setAmSpielen(true);
         }
         temp = this.spielzeilenRepo.save(temp);
-        this._4_spielend.add(temp);
+        this.list4Spielend.add(temp);
 
         // zeit aufholen, falls eingestellt auf automatisch
         if (this.business.getSpielEinstellungen().isAutomatischesAufholen()) {
@@ -302,10 +307,10 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     }
 
     public synchronized void beenden() {
-        SpielZeile temp = this._4_spielend.remove(0);
+        SpielZeile temp = this.list4Spielend.remove(0);
         temp.setPhase(SpielZeilenPhaseEnum.E_BEENDET);
         temp = this.spielzeilenRepo.save(temp);
-        this._5_beendet.add(temp);
+        this.list5Beendet.add(temp);
 
         // einzutragende spiele vorbereiten
         if (temp.getA() != null) {
@@ -330,8 +335,8 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
         gong();
     }
 
-    public synchronized List<SpielZeile> get_1_wartend() {
-        return this._1_wartend;
+    public synchronized List<SpielZeile> getList1Wartend() {
+        return this.list1Wartend;
     }
 
     public String getText() {
@@ -409,35 +414,35 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     // getter & setter
 
     public boolean getReadyToVorbereiten() {
-        return this._3_vorbereitet.isEmpty();
+        return this.list3Vorbereitet.isEmpty();
     }
 
     public boolean getReadyToSpielen() {
-        return this._4_spielend.isEmpty();
+        return this.list4Spielend.isEmpty();
     }
 
-    public List<SpielZeile> get_2_zum_vorbereiten() {
-        return this._2_zum_vorbereiten;
+    public List<SpielZeile> getList2ZumVorbereiten() {
+        return this.list2ZumVorbereiten;
     }
 
-    public List<SpielZeile> get_3_vorbereitet() {
-        return this._3_vorbereitet;
+    public List<SpielZeile> getList3Vorbereitet() {
+        return this.list3Vorbereitet;
     }
 
-    public List<SpielZeile> get_4_spielend() {
-        return this._4_spielend;
+    public List<SpielZeile> getList4Spielend() {
+        return this.list4Spielend;
     }
 
-    public List<SpielZeile> get_5_beendet() {
-        return this._5_beendet;
+    public List<SpielZeile> getList5Beendet() {
+        return this.list5Beendet;
     }
 
-    public List<SpielZeile> get_6_eingetragen() {
-        return this._6_eingetragen;
+    public List<SpielZeile> getList6Eingetragen() {
+        return this.list6Eingetragen;
     }
 
-    public void set_6_eingetragen(final List<SpielZeile> _6_eingetragen) {
-        this._6_eingetragen = _6_eingetragen;
+    public void setList6Eingetragen(final List<SpielZeile> eingetragen) {
+        this.list6Eingetragen = eingetragen;
     }
 
     public Countdown getCountdown() {
@@ -467,6 +472,5 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     public void setMinutenZumVorbereiten(int minutenZumVorbereiten) {
         this.minutenZumVorbereiten = minutenZumVorbereiten;
     }
-
 
 }

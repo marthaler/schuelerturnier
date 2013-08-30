@@ -4,7 +4,6 @@
 package com.googlecode.mad_schuelerturnier.persistence.repository;
 
 import com.googlecode.mad_schuelerturnier.model.Kategorie;
-import com.googlecode.mad_schuelerturnier.model.Mannschaft;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -19,12 +18,10 @@ import java.util.List;
  */
 public interface KategorieRepository extends JpaRepository<Kategorie, Long> {
 
-
     @Query("select o from Kategorie o where o.gruppeA.geschlecht = 0")
     List<Kategorie> getKategorienMList();
 
     @Query("select o from Kategorie o where o.gruppeA.geschlecht = 1")
     List<Kategorie> getKategorienKList();
-
 
 }

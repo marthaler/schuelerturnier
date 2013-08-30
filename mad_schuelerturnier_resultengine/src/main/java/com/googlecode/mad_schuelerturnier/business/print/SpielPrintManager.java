@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.mad_schuelerturnier.business.print;
 
 import com.googlecode.mad_schuelerturnier.business.controller.leiter.converter.XHTMLOutputUtil;
@@ -10,11 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dama
- * Date: 04.01.13
- * Time: 23:57
- * To change this template use File | Settings | File Templates.
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
  */
 @Component
 public class SpielPrintManager {
@@ -52,47 +52,47 @@ public class SpielPrintManager {
     }
 
     public void printPage() {
-        StringBuffer buff = new StringBuffer();
-        buff.append("<table padding=\"4\" style=\"font-size: 16px\" border=\"1\">");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("<table padding=\"4\" style=\"font-size: 16px\" border=\"1\">");
 
-        buff.append("<tr>");
-        buff.append("<td>");
-        buff.append("<b>Start</b>");
-        buff.append("</td><td>");
-        buff.append("<b>Platz</b>");
-        buff.append("</td><td colspan=\"2\">");
-        buff.append("<b>Mannschaften</b>");
-        buff.append("</td><td>");
-        buff.append("<b>Tore</b>");
-        buff.append("</td></tr>");
+        stringBuilder.append("<tr>");
+        stringBuilder.append("<td>");
+        stringBuilder.append("<b>Start</b>");
+        stringBuilder.append("</td><td>");
+        stringBuilder.append("<b>Platz</b>");
+        stringBuilder.append("</td><td colspan=\"2\">");
+        stringBuilder.append("<b>Mannschaften</b>");
+        stringBuilder.append("</td><td>");
+        stringBuilder.append("<b>Tore</b>");
+        stringBuilder.append("</td></tr>");
 
         for (Spiel spiel : aktuelleSpiele) {
-            buff.append("<tr><td>");
+            stringBuilder.append("<tr><td>");
             SimpleDateFormat form = new SimpleDateFormat("E HH:mm");
-            buff.append(form.format(spiel.getStart()));
-            buff.append("</td><td>");
-            buff.append("" + spiel.getPlatz());
-            buff.append("</td><td>");
-            buff.append("" + spiel.getMannschaftAName());
-            buff.append("</td><td>");
-            buff.append("" + spiel.getMannschaftBName());
-            buff.append("</td><td>");
-            buff.append("" + spiel.getToreABestaetigt() + " : " + spiel.getToreBBestaetigt());
-            buff.append("</td></tr>");
+            stringBuilder.append(form.format(spiel.getStart()));
+            stringBuilder.append("</td><td>");
+            stringBuilder.append("" + spiel.getPlatz());
+            stringBuilder.append("</td><td>");
+            stringBuilder.append("" + spiel.getMannschaftAName());
+            stringBuilder.append("</td><td>");
+            stringBuilder.append("" + spiel.getMannschaftBName());
+            stringBuilder.append("</td><td>");
+            stringBuilder.append("" + spiel.getToreABestaetigt() + " : " + spiel.getToreBBestaetigt());
+            stringBuilder.append("</td></tr>");
         }
 
-        buff.append("<tr><td align=\"right\" colspan=\"5\">");
+        stringBuilder.append("<tr><td align=\"right\" colspan=\"5\">");
 
         int pageN = savedPages.size();
         pageN = pageN + 1;
 
-        buff.append("Seite: " + pageN);
+        stringBuilder.append("Seite: " + pageN);
 
-        buff.append("</td></tr>");
+        stringBuilder.append("</td></tr>");
 
-        buff.append("<table>");
+        stringBuilder.append("<table>");
 
-        String page = this.cleaner.cleanup(buff.toString(), false);
+        String page = this.cleaner.cleanup(stringBuilder.toString(), false);
 
 
         this.savedPages.put(pageN, page);

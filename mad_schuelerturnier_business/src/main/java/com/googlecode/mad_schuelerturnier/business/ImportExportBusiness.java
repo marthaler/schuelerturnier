@@ -13,7 +13,6 @@ import java.util.List;
  */
 public interface ImportExportBusiness {
 
-
     List<Spiel> loadAllSpiele();
 
     void updateSpiele(String spiele, boolean bestaetigt, boolean eingetraegen);

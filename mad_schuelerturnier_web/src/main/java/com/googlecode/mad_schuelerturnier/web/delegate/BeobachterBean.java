@@ -86,8 +86,7 @@ public class BeobachterBean {
             return "keine Finale";
 
         }
-        String result = this.schiri.getTable(this.spielRepo.findGruppenSpielAsc());
-        return result;
+        return this.schiri.getTable(this.spielRepo.findGruppenSpielAsc());
 
     }
 

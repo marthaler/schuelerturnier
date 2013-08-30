@@ -11,10 +11,8 @@ import com.googlecode.mad_schuelerturnier.model.enums.SpielPhasenEnum;
 public class SpielPhasenException extends Exception {
 
     private static final long serialVersionUID = 1L;
-    private SpielPhasenEnum enu;
 
     public SpielPhasenException(final SpielPhasenEnum enu) {
         super("achtung aufruf nur zulaessig in der phase: " + enu);
-        this.enu = enu;
     }
 }

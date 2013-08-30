@@ -74,15 +74,15 @@ public class LoginPrepareAction {
         ip = httpServletRequest.getServerName();
 
 
-        InetAddress ip = null;
+        InetAddress ipA = null;
         try {
-            ip = InetAddress.getLocalHost();
+            ipA = InetAddress.getLocalHost();
         } catch (UnknownHostException e) {
             LOG.error(e.getMessage(), e);
         }
-        LOG.info("" + "ip of my system is := " + ip.getHostAddress());
+        LOG.info("" + "ip of my system is := " + ipA.getHostAddress());
 
-        this.ip = "http://" + ip.getHostAddress() + ":" + httpServletRequest.getServerPort();
+        this.ip = "http://" + ipA.getHostAddress() + ":" + httpServletRequest.getServerPort();
 
         speakerGenerator.init(path + "static" + delim);
 

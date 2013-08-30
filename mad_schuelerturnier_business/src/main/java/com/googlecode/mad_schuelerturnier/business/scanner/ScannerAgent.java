@@ -19,21 +19,19 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * mad letzte aenderung: $Date: 2012-01-11 22:50:30 +0100 (Mi, 11 Jan 2012) $
- *
  * @author $Author: marthaler.worb@gmail.com $
- * @version $Revision: 158 $
- * @headurl $HeadURL: https://mad-schuelerturnier.googlecode.com/svn/trunk/mad_schuelereturnier/src/main/java/com/googlecode/mad_schuelerturnier/business/controller/out/OutToWebsitePublisher.java $
+ * @since 0.7
  */
 @Component
 public class ScannerAgent {
 
+    private static final int DEFALUTWERTEFAKTOR = 7;
+
+    private static final int TRIGGERDELAY = 6 * 1000;
+
     private static final Logger LOG = Logger.getLogger(ScannerAgent.class);
 
-    @Autowired
-    private SpielRepository spielRepository;
 
     private boolean geradeamGehen = false;
 
@@ -45,10 +43,14 @@ public class ScannerAgent {
 
     private boolean deleteGarbage = false;
 
-    private int wartefaktor = 7;
+    private int wartefaktor = DEFALUTWERTEFAKTOR;
 
     private String path = "/";
+
     private String schirizettel = "/";
+
+    @Autowired
+    private SpielRepository spielRepository;
 
     public void init(String path) {
         this.schirizettel = path + "schirizettel";
@@ -69,16 +71,15 @@ public class ScannerAgent {
         }
     }
 
-    @Scheduled(fixedDelay = 60000)
-    private void trigger() {
+    @Scheduled(fixedDelay = TRIGGERDELAY)
+    private void trigger() {  //NOSONAR
         if (!init || !running) {
             return;
         }
         scann();
     }
 
-
-    public void doNow() {
+    public void doNow() {  //NOSONAR - jsf!
         String image = null;
         try {
             image = saveImage();

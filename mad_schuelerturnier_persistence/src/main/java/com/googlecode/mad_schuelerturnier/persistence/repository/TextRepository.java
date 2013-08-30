@@ -18,6 +18,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface TextRepository extends JpaRepository<Text, Long> {
 
     @Query("select o from Text o where o.key = ?1")
-    public Text findTextByKey(String key);
+    Text findTextByKey(String key);
 
 }

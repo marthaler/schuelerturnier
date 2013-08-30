@@ -35,6 +35,9 @@ public class Business implements IBusiness {
 
     private static final Logger LOG = Logger.getLogger(Business.class);
 
+    private static final int MITTAG = 12;
+    private static final int SEC_PRO_MINUTE = 60;
+
     @Autowired
     private MannschaftRepository mannschaftRepo;
 
@@ -66,7 +69,7 @@ public class Business implements IBusiness {
     }
 
     @PostConstruct
-    private void init() {
+    private void init() { //NOSONAR
         einstellungen = getSpielEinstellungen();
         if (einstellungen != null && einstellungen.isStartJetzt()) {
             this.startClock();
@@ -371,7 +374,7 @@ public class Business implements IBusiness {
                 zeile.setPause(true);
             }
 
-            if (start.getHourOfDay() == 12) {
+            if (start.getHourOfDay() == MITTAG) {
                 zeile.setPause(true);
             }
 
@@ -383,18 +386,18 @@ public class Business implements IBusiness {
                 zeile.setPause(true);
             }
             */
-            if ((start.getHourOfDay() > 12) && sonntag) {
+            if ((start.getHourOfDay() > MITTAG) && sonntag) {
                 zeile.setFinale(true);
             }
 
             // wunsch enum wird gesetzt um spaeter die kategorie gegenpruefen zu koennen
-            if (sonntag && (start.getHourOfDay() <= 12)) {
+            if (sonntag && (start.getHourOfDay() <= MITTAG)) {
                 zeile.setSpieltageszeit(SpielTageszeit.SONNTAGMORGEN);
             }
-            if (!sonntag && (start.getHourOfDay() < 12)) {
+            if (!sonntag && (start.getHourOfDay() < MITTAG)) {
                 zeile.setSpieltageszeit(SpielTageszeit.SAMSTAGMORGEN);
             }
-            if (!sonntag && (start.getHourOfDay() > 12)) {
+            if (!sonntag && (start.getHourOfDay() > MITTAG)) {
                 zeile.setSpieltageszeit(SpielTageszeit.SAMMSTAGNACHMITTAG);
             }
 
@@ -462,8 +465,8 @@ public class Business implements IBusiness {
     public String spielzeitVerspaetung() {
         int sekunden = Math.abs(this.zeitgeber.getVerspaetung());
 
-        int rest = sekunden % 60;
-        int minuten = sekunden / 60;
+        int rest = sekunden % SEC_PRO_MINUTE;
+        int minuten = sekunden / SEC_PRO_MINUTE;
 
         DecimalFormat df2 = new DecimalFormat("00");
 
@@ -552,8 +555,8 @@ public class Business implements IBusiness {
         if (this.spielEinstellungenRepo.count() > 0) {
             Business.LOG.fatal("achtung versuch spiel einstellungen zu initialisieren obwohl bereits in der db vorhanden ");
         } else {
-            SpielEinstellungen einstellungen = new SpielEinstellungen();
-            this.einstellungen = this.spielEinstellungenRepo.save(einstellungen);
+            SpielEinstellungen eins = new SpielEinstellungen();
+            this.einstellungen = this.spielEinstellungenRepo.save(eins);
         }
 
     }
