@@ -12,6 +12,7 @@ import com.googlecode.mad_schuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepository;
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -30,6 +31,8 @@ import java.util.List;
 @ContextConfiguration(locations = {"classpath:spring-business-context.xml"})
 public class ResultengineIntegrationTest {
 
+    private static final Logger LOG = Logger.getLogger(ResultengineIntegrationTest.class);
+
     @Autowired
     protected CVSMannschaftParser mannschaftGenerator;
 
@@ -37,16 +40,16 @@ public class ResultengineIntegrationTest {
     protected ResultateVerarbeiter resultate;
 
     @Autowired
-    _0_SpielVorbereitungsKontroller kontroller;
+    private _0_SpielVorbereitungsKontroller kontroller;
 
     @Autowired
-    MannschaftRepository mannschaftRepo;
+    private MannschaftRepository mannschaftRepo;
 
     @Autowired
-    SpielRepository spielRepo;
+    private SpielRepository spielRepo;
 
     @Autowired
-    Business business;
+    private Business business;
 
     @Before
     public void before() {
@@ -66,8 +69,6 @@ public class ResultengineIntegrationTest {
                 liste2.add(mannschaft);
             }
         }
-
-        // liste2 = liste;
 
         this.mannschaftRepo.save(liste2);
 
@@ -116,24 +117,22 @@ public class ResultengineIntegrationTest {
 
         }
 
-        // String str = resultate.getSpieleMatrix();
-        //
         final Collection<RanglisteneintragHistorie> hList = this.resultate.getAllHystorien();
         String str = "";
         for (final RanglisteneintragHistorie ranglisteneintragHistorie : hList) {
             str = this.resultate.generateRanglistenHistorie(ranglisteneintragHistorie);
 
-            System.out.println("********");
-            System.out.println(str);
+            LOG.info("" + "********");
+            LOG.info("" + str);
 
-            System.out.println("********");
+            LOG.info("" + "********");
 
         }
 
-        System.out.println("********");
-        System.out.println(str);
+        LOG.info("" + "********");
+        LOG.info("" + str);
 
-        System.out.println("********");
+        LOG.info("" + "********");
         Assert.assertTrue(str.length() > 10);
 
     }

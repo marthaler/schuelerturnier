@@ -7,6 +7,7 @@ package com.googlecode.mad_schuelerturnier.exceptions;
  * @since 0.7
  */
 public class MixtGroupException extends Exception {
+
     private static final long serialVersionUID = 1L;
 
     public MixtGroupException() {

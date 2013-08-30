@@ -22,16 +22,16 @@ public class FileUploadHandler {
     private static final Logger LOG = Logger.getLogger(FileUploadHandler.class);
 
     @Autowired
-    FromXLS xls;
+    private FromXLS xls;
 
     @Autowired
-    MannschaftRepository repo;
+    private MannschaftRepository repo;
 
     @Autowired
-    SpielRepository srepo;
+    private SpielRepository srepo;
 
     @Autowired
-    Business erepo;
+    private Business erepo;
 
     public void handleFileUpload(FileUploadEvent event) {
 
@@ -56,7 +56,5 @@ public class FileUploadHandler {
             srepo.save(s);
             LOG.info("spiel gespeicher: " + s);
         }
-
-
     }
 }

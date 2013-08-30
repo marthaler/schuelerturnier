@@ -32,8 +32,10 @@ import java.util.List;
 @DirtiesContext
 public class SpielZuweiserIntegrationTest {
 
+    private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SpielZuweiserIntegrationTest.class);
+
     @Autowired
-    _0_SpielVorbereitungsKontroller kontroller;
+    private _0_SpielVorbereitungsKontroller kontroller;
 
     @Autowired
     MannschaftRepository mannschaftRepo;
@@ -49,6 +51,7 @@ public class SpielZuweiserIntegrationTest {
 
     @Autowired
     CVSMannschaftParser cvsMannschaften;
+
 
     @Test
     @Ignore
@@ -75,7 +78,7 @@ public class SpielZuweiserIntegrationTest {
         final SpielEinstellungen einstellungen = this.business.getSpielEinstellungen();
         einstellungen.setPause(2);
         einstellungen.setSpiellaenge(10);
-        System.out.println(System.currentTimeMillis());
+        LOG.info("" + System.currentTimeMillis());
         einstellungen.setStarttag(new Date(1349809440304L));
 
         this.business.saveEinstellungen(einstellungen);
@@ -90,15 +93,15 @@ public class SpielZuweiserIntegrationTest {
 
         final List<SpielZeile> samstag = this.business.getSpielzeilen(false);
         for (final SpielZeile spielZeile : samstag) {
-            System.out.println(spielZeile);
-            System.out.println("ZZ:" + spielZeile.getId());
+            LOG.info("" + spielZeile);
+            LOG.info("" + "ZZ:" + spielZeile.getId());
         }
 
-        System.out.println("***********");
+        LOG.info("" + "***********");
         final List<SpielZeile> sonntag = this.business.getSpielzeilen(true);
         for (final SpielZeile spielZeile : sonntag) {
-            System.out.println(spielZeile);
-            System.out.println("ZZ:" + spielZeile.getId());
+            LOG.info("" + spielZeile);
+            LOG.info("" + "ZZ:" + spielZeile.getId());
         }
 
         final List<SpielZeile> list = this.spielzeilenRepo.findNextZeile();

@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.mad_schuelerturnier.business.vorbereitung;
 
 import com.googlecode.mad_schuelerturnier.business.controller.resultate.ResultateVerarbeiter;
@@ -9,6 +12,7 @@ import com.googlecode.mad_schuelerturnier.model.spiel.tabelle.SpielZeile;
 import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepository;
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielZeilenRepository;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -21,11 +25,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-business-context.xml"})
 @DirtiesContext
 @Ignore
 public class SpielverteilerTest {
+
+    private static final Logger LOG = Logger.getLogger(SpielverteilerTest.class);
 
     @Autowired
     protected CVSMannschaftParser mannschaftGenerator;
@@ -34,19 +44,19 @@ public class SpielverteilerTest {
     protected ResultateVerarbeiter resultate;
 
     @Autowired
-    _0_SpielVorbereitungsKontroller kontroller;
+    private _0_SpielVorbereitungsKontroller kontroller;
 
     @Autowired
-    MannschaftRepository mannschaftRepo;
+    private MannschaftRepository mannschaftRepo;
 
     @Autowired
-    SpielRepository spielRepo;
+    private SpielRepository spielRepo;
 
     @Autowired
-    SpielZeilenRepository repo;
+    private SpielZeilenRepository repo;
 
     @Autowired
-    Business business;
+    private Business business;
 
     @Before
     public void before() {
@@ -78,12 +88,8 @@ public class SpielverteilerTest {
         Iterable<SpielZeile> liste = repo.findAll();
 
         for (SpielZeile spielZeile : liste) {
-            System.out.println(spielZeile);
+            LOG.info("" + spielZeile);
         }
-
-
-        // ;
-        // this.kontroller.shiftSpielPhase();
 
     }
 

@@ -7,6 +7,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
+ */
 public class StringToDateTime extends StringToObject {
 
     public StringToDateTime() {
@@ -19,13 +23,12 @@ public class StringToDateTime extends StringToObject {
             SimpleDateFormat fm = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
             return fm.parse(string);
         } catch (ParseException ex) {
-            throw new ConversionExecutionException(string, String.class, Date.class, "fehler beim konvertieren");
+            throw new ConversionExecutionException(ex, String.class, Date.class, "fehler beim konvertieren");
         }
     }
 
     @Override
     protected String toString(Object object) {
-        Date d = (Date) object;
         SimpleDateFormat fm = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
         return fm.format(object);
     }

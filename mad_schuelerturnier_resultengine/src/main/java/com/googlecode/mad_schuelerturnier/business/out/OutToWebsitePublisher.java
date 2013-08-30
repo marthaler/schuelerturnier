@@ -26,10 +26,9 @@ import java.util.*;
 @Component
 public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
 
-    private final static Logger LOG = Logger.getLogger(OutToWebsitePublisher.class);
+    private static final Logger LOG = Logger.getLogger(OutToWebsitePublisher.class);
 
-    private static final String marker = "[ranglisten]";
-    private static final String dateMarker = "[dateTime]";
+    private static final String DATE_MARKER = "[dateTime]";
 
     private boolean ftpEin = false;
     private boolean isTest = false;
@@ -43,13 +42,10 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
 
     private String ftpPath = null;
 
-
     private final Map<String, String> map = new HashMap<String, String>();
     private final Map<String, String> mapPublished = new HashMap<String, String>();
 
     ZeitPuls zeit = null;
-
-    boolean folderhere = false;
 
     public OutToWebsitePublisher() {
         OutToWebsitePublisher.LOG.info("OutToWebsitePublisher: start");
@@ -89,7 +85,7 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
 
                         SimpleDateFormat sdf = new SimpleDateFormat(ftpDateFormat);
                         String content = this.map.get(file);
-                        content = content.replace(OutToWebsitePublisher.dateMarker, sdf.format(new Date()));
+                        content = content.replace(OutToWebsitePublisher.DATE_MARKER, sdf.format(new Date()));
 
                         final OutToWebsiteSender p = new OutToWebsiteSender(file, content, ftpUnterordner, ftpServer, ftpPort, ftpUser, ftpPassword, isTest);
                         try {
@@ -115,7 +111,7 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
 
                     SimpleDateFormat sdf = new SimpleDateFormat(ftpDateFormat);
                     String content = this.map.get(file);
-                    content = content.replace(OutToWebsitePublisher.dateMarker, sdf.format(new Date()));
+                    content = content.replace(OutToWebsitePublisher.DATE_MARKER, sdf.format(new Date()));
 
                     final OutToWebsiteSender p = new OutToWebsiteSender(file, content, ftpUnterordner, ftpServer, ftpPort, ftpUser, ftpPassword, isTest);
                     try {
@@ -123,7 +119,7 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
                     } catch (final InterruptedException e) {
                         OutToWebsitePublisher.LOG.error(e.getMessage(), e);
                     }
-                    boolean ok = false;
+                    boolean ok;
 
                     ok = p.isOk();
 

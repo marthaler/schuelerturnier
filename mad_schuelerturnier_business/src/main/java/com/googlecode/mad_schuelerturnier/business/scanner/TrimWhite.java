@@ -1,5 +1,8 @@
 package com.googlecode.mad_schuelerturnier.business.scanner;
 
+import com.googlecode.mad_schuelerturnier.exceptions.TurnierException;
+import org.apache.log4j.Logger;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -8,8 +11,9 @@ import java.io.IOException;
 
 public class TrimWhite {
 
-    private BufferedImage img;
+    private static final Logger LOG = Logger.getLogger(TrimWhite.class);
 
+    private BufferedImage img;
 
     public static BufferedImage toBinaryImage(final BufferedImage image) {
         final BufferedImage blackAndWhiteImage = new BufferedImage(
@@ -22,13 +26,13 @@ public class TrimWhite {
         return blackAndWhiteImage;
     }
 
-    public TrimWhite(File input) {
+    public TrimWhite(File input) throws TurnierException {
         try {
             img = ImageIO.read(input);
 
             img = toBinaryImage(img);
         } catch (IOException e) {
-            throw new RuntimeException("Problem reading image", e);
+            throw new TurnierException("Problem reading image", e);
         }
     }
 
@@ -43,11 +47,11 @@ public class TrimWhite {
         img = newImg;
     }
 
-    public void write(File f) {
+    public void write(File f) throws TurnierException {
         try {
             ImageIO.write(img, "png", f);
         } catch (IOException e) {
-            throw new RuntimeException("Problem writing image", e);
+            throw new TurnierException("Problem reading image", e);
         }
     }
 
@@ -89,9 +93,18 @@ public class TrimWhite {
 
     public static void main(String[] args) {
 
-        TrimWhite trim = new TrimWhite(new File("/a.jpg"));
+        TrimWhite trim = null;
+        try {
+            trim = new TrimWhite(new File("/a.jpg"));
+        } catch (TurnierException e) {
+            e.printStackTrace();
+        }
         trim.trim();
-        trim.write(new File("/bmp2.bmp"));
+        try {
+            trim.write(new File("/bmp2.bmp"));
+        } catch (TurnierException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
     }
 
 }

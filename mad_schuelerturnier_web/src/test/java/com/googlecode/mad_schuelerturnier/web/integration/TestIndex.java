@@ -2,13 +2,20 @@ package com.googlecode.mad_schuelerturnier.web.integration;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 
+/**
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
+ */
 public class TestIndex {
+
+    private static final Logger LOG = Logger.getLogger(TestIndex.class);
     private WebClient client;
 
     @Before
@@ -20,7 +27,6 @@ public class TestIndex {
     public void simpleCheck() throws IOException {
 
         HtmlPage page = client.getPage("http://localhost:8080");
-        System.out.println();
         Assert.assertTrue(page.getBody().asText().contains("Benutzername:"));
     }
 

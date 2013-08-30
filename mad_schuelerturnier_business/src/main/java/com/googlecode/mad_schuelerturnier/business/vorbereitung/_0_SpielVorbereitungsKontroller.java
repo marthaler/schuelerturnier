@@ -138,9 +138,9 @@ public class _0_SpielVorbereitungsKontroller implements ISpielKontroller {
             Map<String, Kategorie> kategorien = this.automatischeZuordnung
                     .automatischeZuordnung();
 
-            System.out.println("**********");
+            LOG.info("" + "**********");
             SysoutHelper.printKategorieMap(kategorien);
-            System.out.println("**********");
+            LOG.info("" + "**********");
 
         }
 

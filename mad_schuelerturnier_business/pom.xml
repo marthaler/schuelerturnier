@@ -114,15 +114,18 @@
             <artifactId>jsr250-api</artifactId>
         </dependency>
 
-        <!-- ftp -->
+        <!-- ftp test -->
         <dependency>
             <groupId>org.mockftpserver</groupId>
             <artifactId>MockFtpServer</artifactId>
+            <version>${mockftp.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
+            <version>${commons-net.version}</version>
         </dependency>
 
     </dependencies>

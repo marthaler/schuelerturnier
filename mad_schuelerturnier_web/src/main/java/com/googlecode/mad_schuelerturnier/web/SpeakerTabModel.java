@@ -53,7 +53,7 @@ public class SpeakerTabModel {
     }
 
     public void onTabChange(final TabChangeEvent event) {
-        //System.out.println(event.getTab().getChildCount());
+        //LOG.info(""+event.getTab().getChildCount());
     }
 
     public boolean is_4Active() {

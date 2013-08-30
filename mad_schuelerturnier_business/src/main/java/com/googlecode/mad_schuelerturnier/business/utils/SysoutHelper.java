@@ -4,6 +4,7 @@
 package com.googlecode.mad_schuelerturnier.business.utils;
 
 import com.googlecode.mad_schuelerturnier.model.Kategorie;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
@@ -14,9 +15,11 @@ import java.util.*;
  */
 public class SysoutHelper {
 
+    private static final Logger LOG = Logger.getLogger(SysoutHelper.class);
+
     public static void printKategorieMap(Map<String, Kategorie> map) {
-        System.out.println("");
-        System.out.println("*************************************");
+        LOG.info("" + "");
+        LOG.info("" + "*************************************");
         Set<String> keys = map.keySet();
         List<String> str = new ArrayList<String>();
         for (String string : keys) {
@@ -26,27 +29,27 @@ public class SysoutHelper {
 
         for (String key : str) {
 
-            System.out.print(key + " ");
+            LOG.info("" + key + " ");
             String name = (map.get(key).getName() + "                           ").substring(0, 10);
 
-            System.out.println(" " + name + "--> " + map.get(key).getGruppeA().getMannschaften());
+            LOG.info("" + " " + name + "--> " + map.get(key).getGruppeA().getMannschaften());
             if (map.get(key).getGruppeB() != null) {
-                System.out.println("              --> " + map.get(key).getGruppeB().getMannschaften());
+                LOG.info("" + "              --> " + map.get(key).getGruppeB().getMannschaften());
             } else {
-                System.out.println("              --> ");
+                LOG.info("" + "              --> ");
             }
 
-            System.out.println("              --> spiele: " + map.get(key).getSpiele().size());
+            LOG.info("" + "              --> spiele: " + map.get(key).getSpiele().size());
 
-            System.out.println("");
+            LOG.info("" + "");
         }
-        System.out.println("*************************************");
-        System.out.println("");
+        LOG.info("" + "*************************************");
+        LOG.info("" + "");
     }
 
     public static void printKategorieList(List<Kategorie> map) {
-        System.out.println("");
-        System.out.println("*************************************");
+        LOG.info("" + "");
+        LOG.info("" + "*************************************");
 
 
         for (Kategorie key : map) {
@@ -54,20 +57,20 @@ public class SysoutHelper {
             if (key.getGruppeA() == null) {
                 continue;
             }
-            System.out.println(" " + name + "   --> " + key.getGruppeA().getMannschaftenSorted());
+            LOG.info("" + " " + name + "   --> " + key.getGruppeA().getMannschaftenSorted());
             if (key.getGruppeB() != null) {
-                System.out.println("              --> " + key.getGruppeB().getMannschaftenSorted());
+                LOG.info("" + "              --> " + key.getGruppeB().getMannschaftenSorted());
             } else {
-                System.out.println("              --> ");
+                LOG.info("" + "              --> ");
             }
 
-            System.out.println("              -->       spiele: " + key.getSpiele().size());
-            System.out.println("              --> mannschaften: " + key.getMannschaften().size());
+            LOG.info("" + "              -->       spiele: " + key.getSpiele().size());
+            LOG.info("" + "              --> mannschaften: " + key.getMannschaften().size());
 
-            System.out.println("");
+            LOG.info("" + "");
         }
-        System.out.println("*************************************");
-        System.out.println("");
+        LOG.info("" + "*************************************");
+        LOG.info("" + "");
     }
 
 }

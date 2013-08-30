@@ -1,5 +1,7 @@
 package com.googlecode.mad_schuelerturnier.test.pic;
 
+import org.apache.log4j.Logger;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,7 +12,7 @@ import java.io.IOException;
 
 public class GetPixelColor {
 
-    //int y, x, tofind, col;
+    private static final Logger LOG = Logger.getLogger(GetPixelColor.class);
 
     /**
      * @param args the command line arguments
@@ -53,7 +55,7 @@ public class GetPixelColor {
                 //if (cyan.equals(image1.getRGB(x, y)){
 
                 if (color.getRed() > 200 && color.getGreen() < 20 && color.getBlue() < 20) {
-                    System.out.println("von oben red found at=" + x + "," + y);
+                    LOG.info("" + "von oben red found at=" + x + "," + y);
                     return;
 
                 }
@@ -70,9 +72,9 @@ public class GetPixelColor {
 
 
                 //if (cyan.equals(image1.getRGB(x, y)){
-                //  System.out.println(red + " " +c3);
+                //  LOG.info(""+red + " " +c3);
                 if (color.getRed() > 200 && color.getGreen() < 20 && color.getBlue() < 20) {
-                    System.out.println("von rechts red found at=" + x + "," + y);
+                    LOG.info("" + "von rechts red found at=" + x + "," + y);
                     return;
 
                 }
@@ -83,7 +85,7 @@ public class GetPixelColor {
     private static void findcyanpixelsVonUnten(BufferedImage image1) {
         for (int y = image1.getHeight() - 1; y > 0; y--) {
             for (int x = 0; x < image1.getWidth() - 1; x++) {
-                //System.out.println(x + " " +y);
+                //LOG.info(""+x + " " +y);
                 int c3 = image1.getRGB(x, y);
                 Color color = new Color(c3);
 
@@ -91,7 +93,7 @@ public class GetPixelColor {
                 //if (cyan.equals(image1.getRGB(x, y)){
 
                 if (color.getRed() > 200 && color.getGreen() < 20 && color.getBlue() < 20) {
-                    System.out.println("von unten red found at=" + x + "," + y);
+                    LOG.info("" + "von unten red found at=" + x + "," + y);
                     return;
 
                 }
@@ -108,9 +110,9 @@ public class GetPixelColor {
 
 
                 //if (cyan.equals(image1.getRGB(x, y)){
-                //  System.out.println(red + " " +c3);
+                //  LOG.info(""+red + " " +c3);
                 if (color.getRed() > 200 && color.getGreen() < 20 && color.getBlue() < 20) {
-                    System.out.println("von rechts red found at=" + x + "," + y);
+                    LOG.info("" + "von rechts red found at=" + x + "," + y);
                     return;
 
                 }

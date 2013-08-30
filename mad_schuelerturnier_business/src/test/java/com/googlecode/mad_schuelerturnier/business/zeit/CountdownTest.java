@@ -3,23 +3,20 @@
  */
 package com.googlecode.mad_schuelerturnier.business.zeit;
 
-
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dama
- * Date: 29.12.12
- * Time: 21:53
- * To change this template use File | Settings | File Templates.
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
  */
-
 public class CountdownTest {
 
+    private static final Logger LOG = Logger.getLogger(CountdownTest.class);
 
-    Countdown countdown;
+    private Countdown countdown;
 
 
     @Test
@@ -44,7 +41,7 @@ public class CountdownTest {
 
         Assert.assertEquals("00:10", countdown.getZeit());
 
-        System.out.println(countdown.getZeit());
+        LOG.info("" + countdown.getZeit());
         Assert.assertFalse(countdown.isFertig());
 
 
@@ -52,7 +49,7 @@ public class CountdownTest {
 
         Assert.assertEquals("00:05", countdown.getZeit());
 
-        System.out.println(countdown.getZeit());
+        LOG.info("" + countdown.getZeit());
         Assert.assertFalse(countdown.isFertig());
 
 
@@ -60,7 +57,7 @@ public class CountdownTest {
 
         Assert.assertEquals("00:01", countdown.getZeit());
 
-        System.out.println(countdown.getZeit());
+        LOG.info("" + countdown.getZeit());
         Assert.assertFalse(countdown.isFertig());
 
 
@@ -68,7 +65,7 @@ public class CountdownTest {
 
         Assert.assertEquals("00:00", countdown.getZeit());
 
-        System.out.println(countdown.getZeit());
+        LOG.info("" + countdown.getZeit());
         Assert.assertTrue(countdown.isFertig());
 
 
@@ -76,7 +73,7 @@ public class CountdownTest {
 
         Assert.assertEquals("00:00", countdown.getZeit());
 
-        System.out.println(countdown.getZeit());
+        LOG.info("" + countdown.getZeit());
         Assert.assertTrue(countdown.isFertig());
     }
 

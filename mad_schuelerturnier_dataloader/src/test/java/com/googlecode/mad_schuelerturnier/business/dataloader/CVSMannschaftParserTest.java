@@ -34,14 +34,14 @@ public class CVSMannschaftParserTest {
         List<Mannschaft> liste11 = parser.parseFileContent(parser.loadCSVFile("2011"));
 
         for (Mannschaft mannschaft : liste11) {
-            System.out.println(mannschaft.toString2());
+            LOG.info("" + mannschaft.toString2());
         }
         Assert.assertEquals(87, liste11.size());
 
         List<Mannschaft> liste12 = parser.parseFileContent(parser.loadCSVFile("2012"));
 
         for (Mannschaft mannschaft : liste12) {
-            System.out.println(mannschaft.toString2());
+            LOG.info("" + mannschaft.toString2());
         }
         Assert.assertEquals(88, liste12.size());
 

@@ -26,12 +26,10 @@ import java.util.List;
 public class HTMLConverterRangliste {
 
     @Autowired
-    HTMLMenu menu;
+    private HTMLMenu menu;
 
     @Autowired
-    XHTMLOutputUtil util;
-
-    // todo fix !!!
+    private XHTMLOutputUtil util;
 
     final SimpleDateFormat sdf = new SimpleDateFormat("E/HH:mm");
     final String[] kategorien = {"M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "K1", "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9"};
@@ -82,7 +80,6 @@ public class HTMLConverterRangliste {
                     buffer.append("  <td>  </td>");
                 }
             }
-
 
             buffer.append("</tr>");
 
@@ -148,9 +145,7 @@ public class HTMLConverterRangliste {
             for (int g = 0; g < 4; g++) {
                 buffer.append("  <td>  </td>");
             }
-
             buffer.append("</tr>");
-
         }
         buffer.append("</table>");
         return util.cleanup(buffer.toString(), false);

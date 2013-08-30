@@ -1,10 +1,12 @@
 package com.googlecode.mad_schuelerturnier.business.picture;
 
 
+import org.apache.log4j.Logger;
+
 import java.awt.image.BufferedImage;
 
 public class ImageDeskew {
-
+    private static final Logger LOG = Logger.getLogger(ImageDeskew.class);
     // the source image
     private BufferedImage cImage;
 
@@ -152,7 +154,7 @@ public class ImageDeskew {
             try {
                 this.cHMatrix[index] += 1;
             } catch (Exception ex) {
-                System.out.println(ex.toString());
+                LOG.info("" + ex.toString());
             }
         }
     }

@@ -32,7 +32,6 @@ public class BarcodeUtil {
         HINTS_PURE.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
     }
 
-
     public static String decode(BufferedImage image) {
 
         Reader reader = new MultiFormatReader();
@@ -91,23 +90,15 @@ public class BarcodeUtil {
                 }
             }
 
-            if (results.isEmpty()) {
-                //System.out.println("LEER");
-            }
-
         } catch (RuntimeException re) {
             re.printStackTrace();
         }
 
 
-        try {
-            for (Result result : results) {
+        for (Result result : results) {
 
-                return result.getText();
+            return result.getText();
 
-            }
-        } finally {
-            // out.close();
         }
 
 

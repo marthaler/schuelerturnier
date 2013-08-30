@@ -166,7 +166,7 @@ public class SpeakerGenerator {
     public static void source(String urlSite, String file) {
         HttpClient client = new HttpClient();
         client.getParams().setParameter("http.useragent", "Test Client");
-        client.getParams().setParameter("http.connection.timeout", new Integer(5000));
+        client.getParams().setParameter("http.connection.timeout", Integer.valueOf(5000));
 
         GetMethod method = new GetMethod();
         FileOutputStream fos = null;
@@ -186,7 +186,7 @@ public class SpeakerGenerator {
             fos.write(imageData);
 
         } catch (Exception he) {
-            System.err.println(he);
+            LOG.error(he.getMessage(), he);
 
         } finally {
             method.releaseConnection();

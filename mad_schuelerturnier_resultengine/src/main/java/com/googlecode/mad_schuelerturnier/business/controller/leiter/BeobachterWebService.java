@@ -59,12 +59,7 @@ public class BeobachterWebService {
 
             String responseString = this.html_start.replace("aaa", this.name);
 
-//            responseString = responseString + FileUtil.readFileAsString(BeobachterWebService.HTML_MENUJUMP);
-
-
             final String gruppensuche = httpQueryString;
-
-            //           responseString = HTMLMenu.generateMenu(responseString, gruppensuche);
 
             String unterGr = "";
 
@@ -80,18 +75,13 @@ public class BeobachterWebService {
 
             if (httpQueryString.contains("gruppe=")) {
                 final String[] str = httpQueryString.split("=");
-//                    responseString = this.getTable(responseString, SpielAblauf.getInstance().getMan().getGruppen().get(str[1]), unterGr);
                 responseString = responseString + "<b>";
                 responseString = responseString + BeobachterWebService.HTML_END;
 
             }
 
             if (httpQueryString.contains("_r")) {
-
-                // HTMLOutConverter con = new HTMLOutConverter();
-                // responseString = con.generateMenu(responseString, gruppensuche, false);
-                //                   responseString = responseString + new HTMLConverterRangliste().generateOutWebsiteForKategorie(SpielAblauf.getInstance().getMan().getGruppen().values());
-
+                LOG.info("_r gefunden");
             }
 
 
@@ -101,35 +91,22 @@ public class BeobachterWebService {
                 String query = s[1];
 
                 String[] q = query.split(",");
-
-//                    SpielAblauf.getInstance().generalmurks(q);
             }
 
             if (httpQueryString.contains("_g")) {
-
-                HTMLOutConverter con = new HTMLOutConverter();
-                //     responseString = con.generateMenu(responseString, gruppensuche, false);
-                //                   responseString = responseString + new HTMLConverterRangliste().printOutGere(SpielAblauf.getInstance().getMan().getGruppen().values());
+                LOG.info("_g gefunden");
 
             }
 
             if (httpQueryString.contains("display1")) {
-                //responseString = this.con.gestSpileMatrix(responseString);
+                LOG.info("display1 gefunden");
             }
 
 
             if (httpQueryString.contains("_s")) {
-
-                final String gruppe = httpQueryString.replace("/_s_", "");
-
-                //               responseString = this.con.generatePageKategorie(responseString, gruppe, false);
-
                 responseString = responseString + "<b>";
                 responseString = responseString + BeobachterWebService.HTML_END;
-
             }
-
-            System.out.println(responseString);
 
         } catch (final Exception e) {
             BeobachterWebService.LOG.error(e.getMessage(), e);
@@ -148,16 +125,7 @@ public class BeobachterWebService {
         final LinkedList<Long> list = new LinkedList<Long>();
 
         Map<Long, RanglisteneintragHistorie> historien = null;
- /*
-        if ("A".equals(untergruppe)) {
-            historien = gr.getRanglistenverlaufA();
-        } else if ("B".equals(untergruppe)) {
-            historien = gr.getRanglistenverlaufB();
-        } else {
-            historien = gr.getRanglistenverlauf();
 
-        }
-        */
         final Set<Long> v = historien.keySet();
 
         for (final Long long1 : v) {
@@ -192,12 +160,8 @@ public class BeobachterWebService {
                     b.append("<b>" + gr.getName().replace(".", "") + " - " + sdf.format(str.getSpiel().getStart()) + " - Finale </b>");
                 } else if (sp.getTyp() == SpielEnum.KFINAL) {
                     b.append("<b>" + gr.getName().replace(".", "") + " - " + sdf.format(str.getSpiel().getStart()) + " - kleiner Finale</b>");
-                } else {
-                    //            b.append("<b>" + gr.getName().replace(".", "") + " - " + sdf.format(str.getSpiel().getStart()) + " - Spiele: " + i + "/" + gr.countGruppenspiele() + "</b>");
                 }
 
-            } else {
-                //        b.append("<b>" + gr.getName().replace(".", "") + " - Penalty: " + (i - gr.countGruppenspiele()) + "</b>");
             }
 
             b.append("</td>");
@@ -206,8 +170,7 @@ public class BeobachterWebService {
             b.append("<tr>");
             b.append("<td colspan='8'>");
             if (!penalty) {
-//                b.append("spielkorrektur: " + str.getSpiel().getA().getName() + "-" + str.getSpiel().getB().getName() + " " + str.getSpiel().getToreABestaetigt() + ":" + str.getSpiel().getToreBBestaetigt()
-//                        + "");
+                LOG.info("!penalty");
             } else {
                 b.append("spielkorrektur: Penalty");
             }
@@ -242,12 +205,6 @@ public class BeobachterWebService {
             for (final RanglisteneintragZeile ranglisteneintragZeile : zeilen) {
                 b.append("<tr>");
 
-//                if (ranglisteneintragZeile.getMannschaft().isMemberofGrupA()) {
-//                    b.append("<td colspan='1'>");
-//                } else {
-//                    b.append("<td colspan='1' bgcolor='gray'>");
-//                }
-
                 b.append("" + ranglisteneintragZeile.getMannschaft().getName() + "");
                 b.append("</td>");
 
@@ -255,16 +212,13 @@ public class BeobachterWebService {
                 b.append("" + ranglisteneintragZeile.getSpieleVorbei() + "/" + ranglisteneintragZeile.getSpieleAnstehend());
                 b.append("</td>");
 
-
                 b.append("<td colspan='1'>");
                 b.append("" + ranglisteneintragZeile.getPunkte() + "");
                 b.append("</td>");
 
-
                 b.append("<td colspan='1'>");
                 b.append("" + ranglisteneintragZeile.getToreErziehlt() + " - " + ranglisteneintragZeile.getToreKassiert() + " = " + ranglisteneintragZeile.getTordifferenz());
                 b.append("</td>");
-
 
                 final int diferenz = str.compareWithLast(ranglisteneintragZeile);
 
@@ -291,6 +245,5 @@ public class BeobachterWebService {
 
         return responseString + b.toString();
     }
-
 
 }

@@ -27,31 +27,32 @@ public class LoginPrepareAction {
     private static final Logger LOG = Logger.getLogger(LoginPrepareAction.class);
 
     @Autowired
-    SpeakerGenerator speakerGenerator;
+    private SpeakerGenerator speakerGenerator;
 
     @Autowired
-    PrintAgent printAgent;
+    private PrintAgent printAgent;
 
     @Autowired
-    BarcodeGenerator barcodeGenerator;
+    private BarcodeGenerator barcodeGenerator;
 
     @Autowired
-    OutToWebsitePublisher outToWebsite;
+    private OutToWebsitePublisher outToWebsite;
 
     @Autowired
-    IBusiness business;
+    private IBusiness business;
 
     @Autowired
-    ScannerAgent scannerAgent;
+    private ScannerAgent scannerAgent;
 
     @Autowired
-    PictureAgent pictureAgent;
+    private PictureAgent pictureAgent;
+
+    @Autowired
+    private HTMLOutConverter converter;
+
 
     private String ip;
 
-    @Autowired
-
-    private HTMLOutConverter converter;
 
     private String delim = System.getProperty("file.separator");
 
@@ -61,11 +62,6 @@ public class LoginPrepareAction {
             LOG.info("LoginPrepareAction: bereits aufgerufen, nicht mehr noetig");
             return;
         }
-
-        // if (business.getSpielEinstellungen().getPhase() != SpielPhasenEnum.E_SPIELBEREIT && business.getSpielEinstellungen().getPhase() != SpielPhasenEnum.F_SPIELEN && business.getSpielEinstellungen().getPhase() != SpielPhasenEnum.G_ABGESCHLOSSEN) {
-        //     LOG.info("LoginPrepareAction: falsche spiel pahase aufruf nicht moeglich: " + business.getSpielEinstellungen().getPhase());
-        //     return;
-        // }
 
         LOG.info("LoginPrepareAction: wird aufgerufen");
 
@@ -78,15 +74,15 @@ public class LoginPrepareAction {
         ip = httpServletRequest.getServerName();
 
 
-        InetAddress IP = null;
+        InetAddress ip = null;
         try {
-            IP = InetAddress.getLocalHost();
+            ip = InetAddress.getLocalHost();
         } catch (UnknownHostException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            LOG.error(e.getMessage(), e);
         }
-        System.out.println("IP of my system is := " + IP.getHostAddress());
+        LOG.info("" + "ip of my system is := " + ip.getHostAddress());
 
-        ip = "http://" + IP.getHostAddress() + ":" + httpServletRequest.getServerPort();
+        this.ip = "http://" + ip.getHostAddress() + ":" + httpServletRequest.getServerPort();
 
         speakerGenerator.init(path + "static" + delim);
 

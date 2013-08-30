@@ -5,6 +5,7 @@ package com.googlecode.mad_schuelerturnier.model;
 
 import com.googlecode.mad_schuelerturnier.model.enums.GeschlechtEnum;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -17,6 +18,8 @@ import java.util.*;
  */
 @Entity
 public class Mannschaft extends AbstractPersistable<Long> implements IPersistent {
+
+    private static final Logger LOG = Logger.getLogger(Mannschaft.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -385,7 +388,7 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
             return "" + super.getId();
         }
 
-        System.out.println("FAKE !!! MUSS WEG ");
+        LOG.info("" + "FAKE !!! MUSS WEG ");
         return UUID.randomUUID().toString();
     }
 
@@ -417,6 +420,7 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
     }
 
     // getter und setter fuer xls export und import
+    // NOSONAR
     public void setId(Long id) {
         super.setId(id);
     }

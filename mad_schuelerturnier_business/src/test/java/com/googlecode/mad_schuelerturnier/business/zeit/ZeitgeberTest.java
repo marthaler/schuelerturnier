@@ -3,7 +3,7 @@
  */
 package com.googlecode.mad_schuelerturnier.business.zeit;
 
-
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,19 +12,16 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dama
- * Date: 29.12.12
- * Time: 21:53
- * To change this template use File | Settings | File Templates.
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
  */
-
 public class ZeitgeberTest {
 
+    private static final Logger LOG = Logger.getLogger(ZeitgeberTest.class);
 
-    ApplicationEventPublisher applicationEventPublisher;
-    ZeitPuls last;
-    Zeitgeber zeitgeber = new Zeitgeber();
+    private ApplicationEventPublisher applicationEventPublisher;
+    private ZeitPuls last;
+    private Zeitgeber zeitgeber = new Zeitgeber();
 
     @Before
     public void before() {
@@ -32,7 +29,7 @@ public class ZeitgeberTest {
 
             public void publishEvent(ApplicationEvent eventn) {
                 last = (ZeitPuls) eventn;
-                System.out.println(eventn);
+                LOG.info("" + eventn);
             }
         };
 

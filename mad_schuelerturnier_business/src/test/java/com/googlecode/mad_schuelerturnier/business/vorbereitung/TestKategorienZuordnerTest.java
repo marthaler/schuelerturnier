@@ -8,7 +8,7 @@ import com.googlecode.mad_schuelerturnier.model.Mannschaft;
 import com.googlecode.mad_schuelerturnier.model.comperators.MannschaftsNamenComperator;
 import com.googlecode.mad_schuelerturnier.model.enums.GeschlechtEnum;
 import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepository;
-import org.junit.After;
+import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,40 +18,36 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.*;
 
+/**
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-business-context.xml"})
 public class TestKategorienZuordnerTest {
 
-    @Autowired
-    Business business;
+    private static final Logger LOG = Logger.getLogger(TestKategorienZuordnerTest.class);
 
     @Autowired
-    MannschaftRepository mannschaftRepo;
-
-
-    @Autowired
-    _3_MannschaftenAufteiler aufteiler;
+    private Business business;
 
     @Autowired
-    _4_GeneratePaarungenAndSpiele spiele;
+    private MannschaftRepository mannschaftRepo;
 
     @Autowired
-    _5_Spielverteiler spieleVerteiler;
+    private _3_MannschaftenAufteiler aufteiler;
 
-    @After
-    public void cleanup() {
+    @Autowired
+    private _4_GeneratePaarungenAndSpiele spiele;
 
-    }
+    @Autowired
+    private _5_Spielverteiler spieleVerteiler;
 
-
-    @SuppressWarnings("unchecked")
     @Test
     @Ignore
     public void mannschaftenZuordnen2012Test() throws SpielPhasenException {
 
-
         List<Mannschaft> result2 = business.getMannschaften();
-        //Assert.assertTrue(result2.size() > 0);
 
         generateMannschaften(5, GeschlechtEnum.K, 1);
         generateMannschaften(6, GeschlechtEnum.K, 2);
@@ -78,52 +74,8 @@ public class TestKategorienZuordnerTest {
 
         MannschaftenNummerierer num = new MannschaftenNummerierer();
         num.mannschaftenNummerieren(result);
-        //Collections.shuffle(result);
+
         Collections.sort((List) result, new MannschaftsNamenComperator());
-
-//		Map<String, Kategorie> map = zuordner.getKategorien();
-//		
-//		SysoutHelper.printKategorieMap(map);
-//		
-//		Assert.assertNull(map.get("M1"));
-//		Assert.assertNull(map.get("M9"));
-//		
-//		Assert.assertNotNull(map.get("M5"));
-//		Assert.assertNotNull(map.get("M5").getGruppeA());
-//		Assert.assertNotNull(map.get("M5").getGruppeA().getMannschaften());
-//		
-//		Assert.assertTrue(map.get("M5").getGruppeA().getMannschaften().size() == 4);
-//		
-//		// Korrektur testen
-//		manuelleZuordnungskorrektur.manuelleZuordnungHinzufuegen("K701", "K8");
-//		manuelleZuordnungskorrektur.manuelleZuordnungHinzufuegen("K702", "K8");
-//		manuelleZuordnungskorrektur.manuelleZuordnungHinzufuegen("K703", "K8");
-//		manuelleZuordnungskorrektur.manuelleZuordnungHinzufuegen( "K704", "K8");
-//		manuelleZuordnungskorrektur.manuelleZuordnungHinzufuegen( "K706", "K8");
-//		manuelleZuordnungskorrektur.manuelleZuordnungHinzufuegen( "M704", "M8");
-//		
-//		
-//		
-//		manuelleZuordnungskorrektur.manuelleZuordnungDurchziehen(map);
-//		
-//		SysoutHelper.printKategorieMap(map);
-//		
-//		aufteiler.mannschaftenVerteilen(map);
-//		
-//		SysoutHelper.printKategorieMap(map);
-//		
-//		List<Paarung> paarungen = spiele.generatPaarungenAndSpiele(map);
-//		
-//		SysoutHelper.printKategorieMap(map);
-//		
-//		System.out.println(paarungen.size());
-//		
-//		for (Paarung paarung : paarungen) {
-//			System.out.println(paarung.getSpiel());
-//		}
-//		
-
-//		spieleVerteiler.spieleAutomatischVerteilen(map, paarungen.size());
 
     }
 
@@ -137,12 +89,12 @@ public class TestKategorienZuordnerTest {
         Collections.sort(str);
 
         for (String key : str) {
-            System.out.println(key);
-            System.out.println("   " + map.get(key).getName() + " --> " + map.get(key).getGruppeA().getMannschaften());
+            LOG.info("" + key);
+            LOG.info("" + "   " + map.get(key).getName() + " --> " + map.get(key).getGruppeA().getMannschaften());
             if (map.get(key).getGruppeB() != null) {
-                System.out.println("           --> " + map.get(key).getGruppeB().getMannschaften());
+                LOG.info("" + "           --> " + map.get(key).getGruppeB().getMannschaften());
             } else {
-                System.out.println("        --> ");
+                LOG.info("" + "        --> ");
             }
         }
     }

@@ -30,7 +30,7 @@ import java.util.List;
 @Component
 public class ScannerAgent {
 
-    private final static Logger LOG = Logger.getLogger(ScannerAgent.class);
+    private static final Logger LOG = Logger.getLogger(ScannerAgent.class);
 
     @Autowired
     private SpielRepository spielRepository;

@@ -1,6 +1,8 @@
 package com.googlecode.mad_schuelerturnier.test.pic;
 
 
+import org.apache.log4j.Logger;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,6 +12,7 @@ import java.io.IOException;
 
 public class Skew {
 
+    private static final Logger LOG = Logger.getLogger(Skew.class);
 
     public static void main(String args[]) throws IOException {
         try {
@@ -33,7 +36,7 @@ public class Skew {
         g.dispose();
 
         skewRadians = findSkew(black);
-        System.out.println(-57.295779513082320876798154814105 * skewRadians);
+        LOG.info("" + -57.295779513082320876798154814105 * skewRadians);
         return skewRadians;
     }
 

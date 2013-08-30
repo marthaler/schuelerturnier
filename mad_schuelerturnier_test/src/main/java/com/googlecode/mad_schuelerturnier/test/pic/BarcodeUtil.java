@@ -92,7 +92,7 @@ public class BarcodeUtil {
             }
 
             if (results.isEmpty()) {
-                //System.out.println("LEER");
+                //LOG.info(""+"LEER");
             }
 
         } catch (RuntimeException re) {

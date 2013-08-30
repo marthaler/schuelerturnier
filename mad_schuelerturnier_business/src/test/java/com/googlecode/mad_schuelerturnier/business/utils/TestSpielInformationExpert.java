@@ -1,7 +1,9 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.mad_schuelerturnier.business.utils;
 
 import com.googlecode.mad_schuelerturnier.business.dataloader.CVSMannschaftParser;
-import com.googlecode.mad_schuelerturnier.business.impl.Business;
 import com.googlecode.mad_schuelerturnier.business.vorbereitung._1_KategorienZuordner;
 import com.googlecode.mad_schuelerturnier.business.vorbereitung._3_MannschaftenAufteiler;
 import com.googlecode.mad_schuelerturnier.business.vorbereitung._4_GeneratePaarungenAndSpiele;
@@ -10,6 +12,7 @@ import com.googlecode.mad_schuelerturnier.model.Mannschaft;
 import com.googlecode.mad_schuelerturnier.model.comperators.MannschaftsNamenComperator;
 import com.googlecode.mad_schuelerturnier.persistence.repository.KategorieRepository;
 import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepository;
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.junit.Ignore;
@@ -25,34 +28,31 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-business-context.xml"})
 @DirtiesContext
 public class TestSpielInformationExpert {
 
+    private static final Logger LOG = Logger.getLogger(TestSpielInformationExpert.class);
+
     @Autowired
     private _4_GeneratePaarungenAndSpiele spiele;
 
     @Autowired
-    CVSMannschaftParser generator;
+    private CVSMannschaftParser generator;
 
     @Autowired
-    Business business;
+    private _1_KategorienZuordner zuord;
 
     @Autowired
-    _1_KategorienZuordner zuord;
-
-    @Autowired
-    _3_MannschaftenAufteiler aufteiler;
+    private _3_MannschaftenAufteiler aufteiler;
 
     @Autowired
     private _1_KategorienZuordner automatischeZuordnung;
-
-    @Autowired
-    _3_MannschaftenAufteiler mannschaftenAufteilen;
-
-    @Autowired
-    _4_GeneratePaarungenAndSpiele spielGenerator;
 
     @Autowired
     private MannschaftenNummerierer mannschaftsNummerierer;
@@ -64,7 +64,7 @@ public class TestSpielInformationExpert {
     private KategorieRepository kategorieRepo;
 
     @Autowired
-    SpielInformationExpert expert;
+    private SpielInformationExpert expert;
 
     @Test
     @Ignore
@@ -105,7 +105,7 @@ public class TestSpielInformationExpert {
 
         for (final Kategorie kategorie : te) {
 
-            System.out.println(kategorie.getName() + kategorie.getMannschaften().size() + " " + kategorie.getSpiele().size());
+            LOG.info("" + kategorie.getName() + kategorie.getMannschaften().size() + " " + kategorie.getSpiele().size());
         }
 
         final int anzahl = this.expert.getAnzahlSpiele();
@@ -114,7 +114,7 @@ public class TestSpielInformationExpert {
         // Assert.assertEquals(72, expert.getAnzahlNoetigeDurchfuehrungen(anzahl, 3));
         // Assert.assertEquals(54, expert.getAnzahlNoetigeDurchfuehrungen(anzahl, 4));
 
-        System.out.println(anzahl);
+        LOG.info("" + anzahl);
     }
 
     @Test

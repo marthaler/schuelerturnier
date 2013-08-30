@@ -14,6 +14,7 @@ import com.googlecode.mad_schuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepository;
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Async;
@@ -35,6 +36,8 @@ import java.util.List;
 @Profile("dev")
 public class ResultengineStarter {
 
+    private static final Logger LOG = Logger.getLogger(ResultengineStarter.class);
+
     @Autowired
     protected CVSMannschaftParser mannschaftGenerator;
 
@@ -42,16 +45,16 @@ public class ResultengineStarter {
     protected ResultateVerarbeiter resultate;
 
     @Autowired
-    _0_SpielVorbereitungsKontroller kontroller;
+    private _0_SpielVorbereitungsKontroller kontroller;
 
     @Autowired
-    MannschaftRepository mannschaftRepo;
+    private MannschaftRepository mannschaftRepo;
 
     @Autowired
-    SpielRepository spielRepo;
+    private SpielRepository spielRepo;
 
     @Autowired
-    Business business;
+    private Business business;
 
     @PostConstruct
     public void init() {
@@ -61,15 +64,12 @@ public class ResultengineStarter {
     @Async
     public void generateMannschaften() {
 
-
         List<Mannschaft> liste = new ArrayList<Mannschaft>();
         List<Mannschaft> listePrimaer = this.mannschaftGenerator.loadMannschaften4Jahr("2013", null, null);
-
 
         for (final Mannschaft mannschaft : listePrimaer) {
             // liste.add(mannschaft);
         }
-
 
         for (final Mannschaft mannschaft : listePrimaer) {
 
@@ -144,7 +144,7 @@ public class ResultengineStarter {
                 try {
                     Thread.sleep(20);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    LOG.error(e.getMessage(), e);
                 }
             }
 
@@ -153,7 +153,7 @@ public class ResultengineStarter {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            LOG.error(e.getMessage(), e);
         }
 
         for (final Spiel spiel : spielRepo.findFinalSpielAsc()) {

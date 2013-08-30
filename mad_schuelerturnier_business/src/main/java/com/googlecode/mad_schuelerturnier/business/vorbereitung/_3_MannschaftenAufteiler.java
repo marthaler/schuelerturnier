@@ -9,9 +9,7 @@ import com.googlecode.mad_schuelerturnier.model.comperators.MannschaftsNamenComp
 import com.googlecode.mad_schuelerturnier.model.enums.SpielEnum;
 import com.googlecode.mad_schuelerturnier.model.helper.IDGeneratorContainer;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
-import com.googlecode.mad_schuelerturnier.persistence.repository.GruppeRepository;
 import com.googlecode.mad_schuelerturnier.persistence.repository.KategorieRepository;
-import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepository;
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,18 +32,11 @@ public class _3_MannschaftenAufteiler {
     private KategorieRepository kategorieRepo;
 
     @Autowired
-    private GruppeRepository gruppeRepo;
-
-    @Autowired
-    private MannschaftRepository mannschaftenRepo;
-
-    @Autowired
     private SpielRepository spielRepo;
 
     public void mannschaftenVerteilen() {
 
         // leere kategorien loeschen
-
         Iterable<Kategorie> all = kategorieRepo.findAll();
         for (Kategorie kategorie : all) {
             if (kategorie.getGruppeA() == null) {
@@ -56,7 +47,6 @@ public class _3_MannschaftenAufteiler {
 
         // falls die gruppe a genau 3 mannschaften hat gibt es eine vor- und eine rueckrunde
         // bei mehr als 7 werden die gruppen geteilt
-
         List<Kategorie> kategorienList = new ArrayList<Kategorie>();
         Iterable<Kategorie> kat = kategorieRepo.findAll();
 

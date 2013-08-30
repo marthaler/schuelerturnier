@@ -1,10 +1,15 @@
 package com.googlecode.mad_schuelerturnier.test.pic;
 
+import org.apache.log4j.Logger;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class Main {
+
+    private static final Logger LOG = Logger.getLogger(Main.class);
+
     public static void main(String[] args) throws Exception {
 
 
@@ -36,7 +41,7 @@ public class Main {
         //image = ImageUtils.rotateImage(image, 45);
         String str = BarcodeUtil.decode(image);
 
-        System.out.println("str: " + str);
+        LOG.info("" + "str: " + str);
 
 
         //image = BarcodeUtil.encode("ich bin ein test");

@@ -21,20 +21,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * mad letzte aenderung: $Date: 2012-01-08 15:40:58 +0100 (So, 08 Jan 2012) $
- *
  * @author $Author: marthaler.worb@gmail.com $
- * @version $Revision: 124 $
- * @headurl $HeadURL: https://mad-schuelerturnier.googlecode.com/svn/trunk/mad_schuelereturnier /src/main/java/com/googlecode/mad_schuelerturnier/business/
- * controller/leiter/converter/HTMLOutConverter.java $
+ * @since 0.7
  */
 @Component
 public class HTMLOutConverter {
 
     private static final Logger LOG = Logger.getLogger(HTMLOutConverter.class);
+    public static final String BR = "<br/>";
+    public static final String TR = "<tr>";
+    public static final String P = "<p>";
+    public static final String P_E = "</p>";
+    public static final String TD_E = "</td>";
+    public static final String TR_E = "</tr>";
 
     private static String TABLE = "<style type='text/css'>table.normal {border-spacing: 0px; border-padding:0px;width:600px;border:1px solid #000; vertical-align:top; overflow:hidden; font-size:10pt; font-family:Arial,sans-serif }td { border:1px solid #000; vertical-align:top; overflow:hidden; }</style><table class='normal'>";
-
 
     @Autowired
     private XHTMLOutputUtil util;
@@ -56,8 +57,6 @@ public class HTMLOutConverter {
 
         final StringBuffer buffer = new StringBuffer();
 
-        boolean penalty = false;
-
         Kategorie kategorie = historie.getKategorie();
 
         boolean first = true;
@@ -70,21 +69,20 @@ public class HTMLOutConverter {
 
             first = false;
 
-            buffer.append("<br/>");
+            buffer.append(BR);
             buffer.append("<table border='1' cellspacing='0' cellpadding='3' width='700'>");
 
-            buffer.append("<tr>");
+            buffer.append(TR);
             buffer.append("<td colspan='8'>");
             final SimpleDateFormat sdf = new SimpleDateFormat("EEE HH:mm:ss");
 
             if (spiel != null) {
-                buffer.append("<p>");
+                buffer.append(P);
                 if (spiel.getTyp() == SpielEnum.GFINAL) {
                     buffer.append(kategorie.getName() + " - " + sdf.format(historie.getSpiel().getStart()) + " - Finale </p>");
                 } else if (spiel.getTyp() == SpielEnum.KFINAL) {
                     buffer.append(kategorie.getName() + " - " + sdf.format(historie.getSpiel().getStart()) + " - kleiner Finale</p>");
                 } else {
-
                     // TODO weg
                     if (kategorie.getGruppeB() != null) {
                         buffer.append(kategorie.getGruppeA().getName() + /*kategorie.getGruppeB()*/  " - " + sdf.format(historie.getSpiel().getStart()) + ""  /*historie.countGruppenspieleGespielt() + "/" + historie.countGruppenspiele() + "</p>   *** eine Teilgruppe ist grau hinterlegt, die andere weiss"*/);
@@ -93,46 +91,46 @@ public class HTMLOutConverter {
                     }
                 }
             } else {
-                buffer.append("<p>" + kategorie.getName().replace(".", "") + " - Penalty: " + "</p>");
+                buffer.append("<p>" + kategorie.getName().replace(".", "") + " - Penalty: " + P_E);
             }
 
-            buffer.append("</td>");
-            buffer.append("</tr>");
+            buffer.append(TD_E);
+            buffer.append(TR_E);
 
-            buffer.append("<tr>");
+            buffer.append(TR);
             buffer.append("<td colspan='8'>");
             if (spiel != null) {
                 buffer.append("spielkorrektur: " + historie.getSpiel().getMannschaftA().getName() + "-" + historie.getSpiel().getMannschaftB().getName() + " " + historie.getSpiel().getToreABestaetigt() + ":" + historie.getSpiel().getToreBBestaetigt() + "");
             } else {
                 buffer.append("spielkorrektur: Penalty");
             }
-            buffer.append("</td>");
+            buffer.append(TD_E);
             buffer.append("</tr>");
 
             buffer.append("<tr>");
             buffer.append("<td colspan='1'>");
             buffer.append("<p>Mannschaft</p>");
-            buffer.append("</td>");
+            buffer.append(TD_E);
 
             buffer.append("<td colspan='1'>");
             buffer.append("<p>Sp. gespielt</p>");
-            buffer.append("</td>");
+            buffer.append(TD_E);
 
             buffer.append("<td colspan='1'>");
             buffer.append("<p>Sp. anstehend</p>");
-            buffer.append("</td>");
+            buffer.append(TD_E);
 
             buffer.append("<td colspan='1'>");
             buffer.append("<p>Punkte</p>");
-            buffer.append("</td>");
+            buffer.append(TD_E);
 
             buffer.append("<td colspan='1'>");
             buffer.append("<p>Tordifferenz (Tore erz. - erh.)</p>");
-            buffer.append("</td>");
+            buffer.append(TD_E);
 
             buffer.append("<td colspan='1'>");
             buffer.append("<p>Rangierungsgrund</p>");
-            buffer.append("</td>");
+            buffer.append(TD_E);
 
             // zeilen pro hystorieneintrag
             generateZeilen(historie, buffer);
@@ -156,23 +154,23 @@ public class HTMLOutConverter {
             }
 
             buffer.append("" + ranglisteneintragZeile.getMannschaft().getName() + "");
-            buffer.append("</td>");
+            buffer.append(TD_E);
 
             buffer.append("<td colspan='1'>");
             buffer.append("" + ranglisteneintragZeile.getSpieleVorbei() + "");
-            buffer.append("</td>");
+            buffer.append(TD_E);
 
             buffer.append("<td colspan='1'>");
             buffer.append("" + ranglisteneintragZeile.getSpieleAnstehend() + "");
-            buffer.append("</td>");
+            buffer.append(TD_E);
 
             buffer.append("<td colspan='1'>");
             buffer.append("" + ranglisteneintragZeile.getPunkte() + "");
-            buffer.append("</td>");
+            buffer.append(TD_E);
 
             buffer.append("<td colspan='1'>");
             buffer.append("" + ranglisteneintragZeile.getToreErziehlt() + "-" + ranglisteneintragZeile.getToreKassiert() + "=" + ranglisteneintragZeile.getTordifferenz());
-            buffer.append("</td>");
+            buffer.append(TD_E);
 
             final int diferenz = gr.compareWithLast(ranglisteneintragZeile);
 
@@ -186,7 +184,7 @@ public class HTMLOutConverter {
 
             buffer.append("" + ranglisteneintragZeile.getRangierungsgrund().toString() /*.substring(0, 2) + ""*/);
 
-            buffer.append("</td>");
+            buffer.append(TD_E);
 
             buffer.append("</tr>");
 
@@ -220,36 +218,36 @@ public class HTMLOutConverter {
         b.append("<tr>");
         b.append("<td colspan='7'>");
         b.append("<b>" + name + "</b>");
-        b.append("</td>");
+        b.append(TD_E);
         b.append("</tr>");
 
         b.append("<td>");
         b.append("<b>Nr.</b>");
-        b.append("</td>");
+        b.append(TD_E);
 
         b.append("<td>");
         b.append("<b>Startzeit</b>");
-        b.append("</td>");
+        b.append(TD_E);
 
         b.append("<td>");
         b.append("<b>Platz</b>");
-        b.append("</td>");
+        b.append(TD_E);
 
         b.append("<td>");
         b.append("<b>Mannschaft A</b>");
-        b.append("</td>");
+        b.append(TD_E);
 
         b.append("<td>");
         b.append("");
-        b.append("</td>");
+        b.append(TD_E);
 
         b.append("<td>");
         b.append("<b>Mannschaft B</b>");
-        b.append("</td>");
+        b.append(TD_E);
 
         b.append("<td>");
         b.append("");
-        b.append("</td>");
+        b.append(TD_E);
 
         b.append("</tr>");
 
@@ -269,18 +267,18 @@ public class HTMLOutConverter {
             builder.append("<td>");
             builder.append(i);
             i++;
-            builder.append("</td>");
+            builder.append(TD_E);
 
             builder.append("<td>");
 
             final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM HH:mm");
 
             builder.append(sdf.format(spiel.getStart()));
-            builder.append("</td>");
+            builder.append(TD_E);
 
             builder.append("<td>");
             builder.append(spiel.getPlatz());
-            builder.append("</td>");
+            builder.append(TD_E);
 
             builder.append("<td>");
             if (spiel.getMannschaftA() != null) {
@@ -294,7 +292,7 @@ public class HTMLOutConverter {
                 }
 
             }
-            builder.append("</td>");
+            builder.append(TD_E);
 
             if (spiel.getToreABestaetigt() < 0) {
                 builder.append("<td bgcolor='red'>");
@@ -303,7 +301,7 @@ public class HTMLOutConverter {
                 builder.append(spiel.getToreABestaetigt());
             }
 
-            builder.append("</td>");
+            builder.append(TD_E);
 
             builder.append("<td>");
             if (spiel.getMannschaftB() != null) {
@@ -316,7 +314,7 @@ public class HTMLOutConverter {
                 }
             }
 
-            builder.append("</td>");
+            builder.append(TD_E);
 
             if (spiel.getToreBBestaetigt() < 0) {
                 builder.append("<td bgcolor='red'>");

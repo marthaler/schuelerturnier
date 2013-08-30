@@ -3,6 +3,7 @@
  */
 package com.googlecode.mad_schuelerturnier.model.spiel;
 
+import com.googlecode.mad_schuelerturnier.exceptions.TurnierException;
 import com.googlecode.mad_schuelerturnier.model.Gruppe;
 import com.googlecode.mad_schuelerturnier.model.Mannschaft;
 import org.apache.log4j.Logger;
@@ -23,10 +24,12 @@ import java.util.List;
 @Entity
 public class Penalty extends AbstractPersistable<Long> {
 
+    private static final Logger LOG = Logger.getLogger(Penalty.class);
+
     public static final String LEER = "bitte_reihenfolge_angeben";
 
     private static final long serialVersionUID = 1L;
-    private static final Logger LOG = Logger.getLogger(Penalty.class);
+
 
     private String reihenfolge = LEER;
 
@@ -55,10 +58,10 @@ public class Penalty extends AbstractPersistable<Long> {
         return false;
     }
 
-    public int getRang(final Mannschaft m) throws Exception {
+    public int getRang(final Mannschaft m) throws TurnierException {
         if (!this.gespielt) {
             Penalty.LOG.warn("penalty noch nicht gespielt");
-            throw new Exception("penalty noch nicht gespielt");
+            throw new TurnierException("penalty noch nicht gespielt");
         }
         int i = 1;
         for (final Mannschaft m2 : this.getFinallist()) {
@@ -106,7 +109,7 @@ public class Penalty extends AbstractPersistable<Long> {
 
             for (String str : re) {
                 for (Mannschaft m : this.finalList) {
-                    if (str.toLowerCase().equals(m.getName().toLowerCase())) {
+                    if (str.toLowerCase().equalsIgnoreCase(m.getName())) {
                         result.add(m);
                     }
                 }

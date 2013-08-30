@@ -81,6 +81,7 @@ public class Spiel extends AbstractPersistable<Long> {
     }
 
     // getter und setter fuer xls export und import
+    // NOSONAR
     public void setId(Long id) {
         super.setId(id);
     }

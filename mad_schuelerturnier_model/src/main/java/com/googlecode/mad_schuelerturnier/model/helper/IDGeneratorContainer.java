@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
  * @since 0.7
  */
 
-public class IDGeneratorContainer {
+public final class IDGeneratorContainer {
 
     private static final Logger LOG = Logger.getLogger(IDGeneratorContainer.class);
 

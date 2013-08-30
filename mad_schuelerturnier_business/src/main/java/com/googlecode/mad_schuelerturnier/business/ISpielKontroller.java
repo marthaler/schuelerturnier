@@ -13,6 +13,6 @@ public interface ISpielKontroller {
 
     SpielPhasenEnum readSpielPhase();
 
-    public SpielPhasenEnum shiftSpielPhase();
+    SpielPhasenEnum shiftSpielPhase();
 
 }

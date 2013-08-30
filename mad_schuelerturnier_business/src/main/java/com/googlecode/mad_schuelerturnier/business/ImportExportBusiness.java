@@ -14,8 +14,8 @@ import java.util.List;
 public interface ImportExportBusiness {
 
 
-    public List<Spiel> loadAllSpiele();
+    List<Spiel> loadAllSpiele();
 
-    public void updateSpiele(String spiele, boolean bestaetigt, boolean eingetraegen);
+    void updateSpiele(String spiele, boolean bestaetigt, boolean eingetraegen);
 
 }

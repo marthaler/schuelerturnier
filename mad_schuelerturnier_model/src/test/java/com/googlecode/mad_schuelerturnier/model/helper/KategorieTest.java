@@ -1,5 +1,6 @@
 package com.googlecode.mad_schuelerturnier.model.helper;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -11,8 +12,9 @@ import java.util.Map;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
-
 public class KategorieTest {
+
+    private static final Logger LOG = Logger.getLogger(KategorieTest.class);
 
     @Test
     public void TestSpielKontroller() {
@@ -26,7 +28,7 @@ public class KategorieTest {
 
         korr.setVertauschungen(map);
         einst.placeMannschaftsTageskorrekturen(korr);
-        System.out.println(einst.getSpielVertauschungen());
+        LOG.info("" + einst.getSpielVertauschungen());
 
 
     }

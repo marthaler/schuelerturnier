@@ -11,8 +11,8 @@ import org.joda.time.DateTime;
  */
 public interface IPersistent {
 
-    public abstract String getIdString();
+    String getIdString();
 
-    public DateTime getCreationdate();
+    DateTime getCreationdate();
 
 }

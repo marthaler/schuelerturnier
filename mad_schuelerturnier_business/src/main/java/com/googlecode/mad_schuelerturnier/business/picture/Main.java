@@ -1,5 +1,7 @@
 package com.googlecode.mad_schuelerturnier.business.picture;
 
+import org.apache.log4j.Logger;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,6 +24,8 @@ import java.io.IOException;
 public class Main {
 
     private static final double MINIMUM_DESKEW_THRESHOLD = 0.6d;
+
+    private static final Logger LOG = Logger.getLogger(Main.class);
 
     /**
      * @param args
@@ -97,7 +101,7 @@ public class Main {
                 new File("/res/" + filename));
 
 
-        System.out.println(BarcodeUtil.decode(getOutputImage()));
+        LOG.info("" + BarcodeUtil.decode(getOutputImage()));
 
     }
 

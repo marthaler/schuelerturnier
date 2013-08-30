@@ -20,7 +20,7 @@ import java.io.InputStream;
  */
 public class OutToWebsiteSender extends Thread {
 
-    private final static Logger LOG = Logger.getLogger(OutToWebsiteSender.class);
+    private static final Logger LOG = Logger.getLogger(OutToWebsiteSender.class);
     private int MAX_RETRY = 5;
     private String folder = "";
     private String name = "";

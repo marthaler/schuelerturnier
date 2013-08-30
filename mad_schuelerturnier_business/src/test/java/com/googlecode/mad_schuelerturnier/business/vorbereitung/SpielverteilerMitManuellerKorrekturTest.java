@@ -9,6 +9,7 @@ import com.googlecode.mad_schuelerturnier.model.spiel.tabelle.SpielZeile;
 import com.googlecode.mad_schuelerturnier.persistence.repository.MannschaftRepository;
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielRepository;
 import com.googlecode.mad_schuelerturnier.persistence.repository.SpielZeilenRepository;
+import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -21,9 +22,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-business-context.xml"})
 public class SpielverteilerMitManuellerKorrekturTest {
+
+    private static final Logger LOG = Logger.getLogger(SpielverteilerMitManuellerKorrekturTest.class);
 
     @Autowired
     protected CVSMannschaftParser mannschaftGenerator;
@@ -89,7 +96,7 @@ public class SpielverteilerMitManuellerKorrekturTest {
         for (SpielZeile spielZeile : liste) {
 
             if (!spielZeile.isEmty()) {
-                System.out.println(spielZeile);
+                LOG.info("" + spielZeile);
             }
         }
 
@@ -110,7 +117,7 @@ public class SpielverteilerMitManuellerKorrekturTest {
         for (SpielZeile spielZeile : liste2) {
 
             if (!spielZeile.isEmty()) {
-                System.out.println(spielZeile);
+                LOG.info("" + spielZeile);
             }
         }
 

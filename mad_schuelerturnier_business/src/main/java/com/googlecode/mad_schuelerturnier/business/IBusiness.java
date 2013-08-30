@@ -16,50 +16,50 @@ import java.util.List;
  */
 public interface IBusiness {
 
-    public abstract List<String> getSchulhausListe(String query);
+    List<String> getSchulhausListe(String query);
 
-    public abstract List<String> getPersonenListe(String query);
+    List<String> getPersonenListe(String query);
 
-    public abstract List<Mannschaft> getMannschaften();
+    List<Mannschaft> getMannschaften();
 
-    public abstract List<Kategorie> getKategorien();
+    List<Kategorie> getKategorien();
 
-    public abstract SpielEinstellungen getSpielEinstellungen();
+    SpielEinstellungen getSpielEinstellungen();
 
-    public abstract SpielEinstellungen saveEinstellungen(SpielEinstellungen einstellungen);
+    SpielEinstellungen saveEinstellungen(SpielEinstellungen einstellungen);
 
-    public abstract void saveVertauschungen(String vertauschungen);
+    void saveVertauschungen(String vertauschungen);
 
-    public abstract List<Kategorie> getKategorienMList();
+    List<Kategorie> getKategorienMList();
 
-    public abstract List<Kategorie> getKategorienKList();
+    List<Kategorie> getKategorienKList();
 
-    public abstract void toggleSpielwunschOnKategorie(Long id);
+    void toggleSpielwunschOnKategorie(Long id);
 
-    public void startClock();
+    void startClock();
 
-    public void stopClock();
+    void stopClock();
 
     /**
      * funktioniert nur, wenn eine effektive verspaetung vorhanden ist
      */
-    public void spielzeitEinholen(int seconds);
+    void spielzeitEinholen(int seconds);
 
-    public String spielzeitVerspaetung();
+    String spielzeitVerspaetung();
 
-    public void resumeSpiel();
+    void resumeSpiel();
 
-    public List<Penalty> anstehendePenalty();
+    List<Penalty> anstehendePenalty();
 
-    public void penaltyEintragen(List<Penalty> list);
+    void penaltyEintragen(List<Penalty> list);
 
-    public List<Penalty> gespieltePenalty();
+    List<Penalty> gespieltePenalty();
 
-    public List<Penalty> eingetragenePenalty();
+    List<Penalty> eingetragenePenalty();
 
-    public boolean isDBInitialized();
+    boolean isDBInitialized();
 
-    public void initializeDB();
+    void initializeDB();
 
 
 }

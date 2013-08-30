@@ -21,8 +21,8 @@ import java.util.Map;
 @Component
 public class SpielverteilerHelper {
 
-    private final static String CONSUMED_KEY = "consumed";
-    private final static String AVAILABLE_KEY = "available";
+    private static final String CONSUMED_KEY = "consumed";
+    private static final String AVAILABLE_KEY = "available";
 
     private static final Logger LOG = Logger.getLogger(SpielverteilerHelper.class);
 

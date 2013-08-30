@@ -25,24 +25,16 @@ public class SpielBusiness {
     @Autowired
     private Business business;
 
-
-
-	/*
+    /*
      * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.googlecode.mad_schuelerturnier.business.sdfdf#getSchulhausListe(java
-	 * .lang.String)
-	 */
-
+     *
+     * @see
+     * com.googlecode.mad_schuelerturnier.business.sdfdf#getSchulhausListe(java
+     * .lang.String)
+     */
     public SpieleContainer getSpielzeilen(boolean sonntag) {
 
-
         DateTime start = new DateTime(business.getSpielEinstellungen().getStarttag());
-
-        if (sonntag) {
-            //start = start.plusDays(1);
-        }
 
         start = start.plusHours(7);
         DateTime end = start.plusHours(12);
