@@ -21,6 +21,7 @@ public class TestBusiness {
     @Autowired
     private Business business;
 
+
     @Test
     public void TestSpielKontroller() {
         Assert.assertNull(business.getSpielEinstellungen());
