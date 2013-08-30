@@ -24,7 +24,7 @@
 
         <!-- SPRING -->
         <springframework.version>3.2.4.RELEASE</springframework.version>
-        <!--3.2.1.RELEASE -> 3.2.3.RELEASE -> ok:3.2.4.RELEASE-->
+        <!--3.2.1.RELEASE -> 3.2.3.RELEASE -> ok:3.2.4.RELEASE -->
 
         <springaop.version>3.2.3.RELEASE</springaop.version>
         <!--3.2.0.RC2 -> 3.2.3.RELEASE -> ?? 3.2.4.RELEASE-->
