@@ -8,10 +8,7 @@ import com.googlecode.mad_schuelerturnier.model.Mannschaft;
 import com.googlecode.mad_schuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.mad_schuelerturnier.model.spiel.Spiel;
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,6 +55,8 @@ public class ExcelWithDatabaseIntegrationTest {
 
     @Test
     public void testParseSpiele() {
+        // lokale ausfuehrung auf imac
+        Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
         List<Spiel> s = xls.convertXLSToSpiele(readFile("schuetu-test.xls"));
         Assert.assertTrue(s.size() > 10);
     }
