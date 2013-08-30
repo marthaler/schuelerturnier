@@ -56,6 +56,7 @@ public class ExcelWithDatabaseIntegrationTest {
     @Test
     public void testParseSpiele() {
         // lokale ausfuehrung auf imac
+
         Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
         List<Spiel> s = xls.convertXLSToSpiele(readFile("schuetu-test.xls"));
         Assert.assertTrue(s.size() > 10);
