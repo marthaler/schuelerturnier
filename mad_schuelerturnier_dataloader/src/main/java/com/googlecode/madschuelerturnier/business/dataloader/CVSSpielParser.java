@@ -14,11 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dama
- * Date: 12.01.13
- * Time: 13:11
- * To change this template use File | Settings | File Templates.
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
  */
 @Component
 public class CVSSpielParser {
@@ -62,7 +59,7 @@ public class CVSSpielParser {
     }
 
     public Spiel parseLine(String[] myEntry) {
-        Long id = null;
+
         Spiel spiel = new Spiel();
 
         // 1  id string

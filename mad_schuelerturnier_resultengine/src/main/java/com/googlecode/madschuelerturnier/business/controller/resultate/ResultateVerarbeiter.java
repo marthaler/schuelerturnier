@@ -156,7 +156,7 @@ public class ResultateVerarbeiter {
         try {
             id = spielQueue.remove();
         } catch (NoSuchElementException e) {
-
+            id = null;
         }
 
         while (id != null) {

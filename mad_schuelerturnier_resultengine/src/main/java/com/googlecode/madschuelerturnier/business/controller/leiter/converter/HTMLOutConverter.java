@@ -35,7 +35,7 @@ public class HTMLOutConverter {
     public static final String TD_E = "</td>";
     public static final String TR_E = "</tr>";
 
-    private static String TABLE = "<style type='text/css'>table.normal {border-spacing: 0px; border-padding:0px;width:600px;border:1px solid #000; vertical-align:top; overflow:hidden; font-size:10pt; font-family:Arial,sans-serif }td { border:1px solid #000; vertical-align:top; overflow:hidden; }</style><table class='normal'>";
+    private static final String TABLE = "<style type='text/css'>table.normal {border-spacing: 0px; border-padding:0px;width:600px;border:1px solid #000; vertical-align:top; overflow:hidden; font-size:10pt; font-family:Arial,sans-serif }td { border:1px solid #000; vertical-align:top; overflow:hidden; }</style><table class='normal'>";
 
     @Autowired
     private XHTMLOutputUtil util;
@@ -203,9 +203,9 @@ public class HTMLOutConverter {
 
         HTMLOutConverter.getTitelzeile(builder, "Gruppenspiele");
 
-        builder.append(HTMLOutConverter.getSpielRow(gruppen, gruppe, true));
+        builder.append(HTMLOutConverter.getSpielRow(gruppen));
         HTMLOutConverter.getTitelzeile(builder, "Finalspiele");
-        builder.append(HTMLOutConverter.getSpielRow(finale, gruppe, false));
+        builder.append(HTMLOutConverter.getSpielRow(finale));
 
         builder.append("</table>");
         return builder.toString();
@@ -253,7 +253,7 @@ public class HTMLOutConverter {
 
     }
 
-    private static String getSpielRow(final List<Spiel> gruppen, final String gruppe, final boolean gruppenspiele) {
+    private static String getSpielRow(final List<Spiel> gruppen) {
         final StringBuilder builder = new StringBuilder();
         int i = 1;
         for (final Spiel spiel : gruppen) {

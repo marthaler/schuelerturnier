@@ -9,12 +9,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dama
- * Date: 01.01.13
- * Time: 14:31
- * To change this template use File | Settings | File Templates.
- */   //
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 1.2.6
+ */
 @Component
 public class SpielRepositoryDelegate {
 

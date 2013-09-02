@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 @Component
 public class SpielUhr implements ApplicationListener<ZeitPuls> {
 
-    public static String NOT_INIT = "noch_nicht_gesetzt";
+    public static final String NOT_INIT = "noch_nicht_gesetzt";
 
     public SpielUhr() {
     }

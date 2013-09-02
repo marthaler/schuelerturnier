@@ -13,14 +13,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * mad letzte aenderung: $Date: 2012-01-08 15:40:58 +0100 (So, 08 Jan 2012) $
- *
  * @author $Author: marthaler.worb@gmail.com $
- * @version $Revision: 124 $
- * @headurl $HeadURL:
- * https://mad-schuelerturnier.googlecode.com/svn/trunk/mad_schuelereturnier
- * /src/main/java/com/googlecode/madschuelerturnier/business/
- * controller/leiter/converter/HTMLMenu.java $
+ * @since 0.7
  */
 @Component
 public class HTMLMenu {
@@ -28,11 +22,9 @@ public class HTMLMenu {
     @Autowired
     private KategorieRepository repo;
 
-    private static String TABLE = "<style type='text/css'>table.normal {border-spacing: 0px; border-padding:0px;width:600px;border:1px solid #000; vertical-align:top; overflow:hidden; font-size:10pt; font-family:Arial,sans-serif }td { border:1px solid #000; vertical-align:top; overflow:hidden; }</style><table class='normal'>";
+    private static final String DOCTYPE = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"> <html xmlns=\"http://www.w3.org/1999/xhtml\">";
 
-    private static String DOCTYPE = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"> <html xmlns=\"http://www.w3.org/1999/xhtml\">";
-
-    private static String TABLE_WEBSITE = "<meta http-equiv=\"expires\" content=\"0\"><style type='text/css'>table.normal {border-spacing: 0px; border-padding:0px;width:700px;border:1px solid #000; vertical-align:top; overflow:hidden; font-size:10pt; font-family:Arial,sans-serif }td { border:1px solid #000; vertical-align:top; overflow:hidden; }</style><table class='normal'>";
+    private static final String TABLE_WEBSITE = "<meta http-equiv=\"expires\" content=\"0\"><style type='text/css'>table.normal {border-spacing: 0px; border-padding:0px;width:700px;border:1px solid #000; vertical-align:top; overflow:hidden; font-size:10pt; font-family:Arial,sans-serif }td { border:1px solid #000; vertical-align:top; overflow:hidden; }</style><table class='normal'>";
 
     private List<String> generateKategorienamenListe() {
         List<Kategorie> kategorie = this.repo.findAll();
@@ -45,7 +37,6 @@ public class HTMLMenu {
         }
         return result;
     }
-
 
     private String getCombobox(List<String> grl, final String sel) {
 
@@ -66,7 +57,7 @@ public class HTMLMenu {
         buffer.append("<label valign='top' for='url'>Kategorie waehlen</label>");
 
         buffer.append("<select valign='top' name='url' onChange='JumpToIt(this.form)'>");
-        buffer.append("<option value=''>-</option>	");
+        buffer.append("<option value=''>-</option> ");
 
         for (final String key : grl) {
 
@@ -91,9 +82,9 @@ public class HTMLMenu {
             }
 
             if (key.equals(sel)) {
-                buffer.append("	<option value='" + lab + ".html' selected=\"selected\" >" + lab + "</option>");
+                buffer.append(" <option value='" + lab + ".html' selected=\"selected\" >" + lab + "</option>");
             } else {
-                buffer.append("	<option value='" + lab + ".html'>" + lab + "</option>");
+                buffer.append(" <option value='" + lab + ".html'>" + lab + "</option>");
             }
         }
         buffer.append("</select>");

@@ -149,7 +149,7 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
     }
 
     public void reconnect() {
-        OutToWebsiteSender.DOWN = false;
+        OutToWebsiteSender.down = false;
     }
 
 

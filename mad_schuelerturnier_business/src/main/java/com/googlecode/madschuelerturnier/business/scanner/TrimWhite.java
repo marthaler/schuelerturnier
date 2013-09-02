@@ -103,7 +103,7 @@ public class TrimWhite {
         try {
             trim.write(new File("/bmp2.bmp"));
         } catch (TurnierException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            LOG.error(e.getMessage(), e);
         }
     }
 

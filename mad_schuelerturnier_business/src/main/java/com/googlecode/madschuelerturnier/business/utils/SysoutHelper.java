@@ -15,11 +15,12 @@ import java.util.*;
  */
 public class SysoutHelper {
 
+    public static final String BEGRENZER = "*************************************";
     private static final Logger LOG = Logger.getLogger(SysoutHelper.class);
 
     public static void printKategorieMap(Map<String, Kategorie> map) {
         LOG.info("" + "");
-        LOG.info("" + "*************************************");
+        LOG.info("" + BEGRENZER);
         Set<String> keys = map.keySet();
         List<String> str = new ArrayList<String>();
         for (String string : keys) {
@@ -43,13 +44,13 @@ public class SysoutHelper {
 
             LOG.info("" + "");
         }
-        LOG.info("" + "*************************************");
+        LOG.info("" + BEGRENZER);
         LOG.info("" + "");
     }
 
     public static void printKategorieList(List<Kategorie> map) {
         LOG.info("" + "");
-        LOG.info("" + "*************************************");
+        LOG.info("" + BEGRENZER);
 
 
         for (Kategorie key : map) {
@@ -69,8 +70,8 @@ public class SysoutHelper {
 
             LOG.info("" + "");
         }
-        LOG.info("" + "*************************************");
-        LOG.info("" + "");
+        LOG.info("" + BEGRENZER);
+        LOG.info("");
     }
 
 }

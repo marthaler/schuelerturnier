@@ -26,9 +26,9 @@ public class OutToWebsiteSender extends Thread {
     private boolean ok = false;
     private boolean isTest = false;
 
-    public static boolean DOWN = false;
+    public static boolean down = false;
 
-    private final long start = System.currentTimeMillis();
+    private static final long START = System.currentTimeMillis();
 
     private String ftpServer;
     private int ftpPort;
@@ -56,7 +56,7 @@ public class OutToWebsiteSender extends Thread {
         this.ok = false;
         while (!this.ok) {
 
-            if (this.DOWN) {
+            if (this.down) {
                 LOG.info("senden nicht moeglich, keine verbindung zum host: " + this.ftpServer);
                 return;
             }
@@ -84,7 +84,7 @@ public class OutToWebsiteSender extends Thread {
     }
 
     public boolean isTimeUp() {
-        if (10 * 1000 > (System.currentTimeMillis() - this.start)) {
+        if (10 * 1000 > (System.currentTimeMillis() - this.START)) {
             return true;
         }
         return false;
@@ -98,12 +98,12 @@ public class OutToWebsiteSender extends Thread {
 
         FTPClient client = null;
 
-        OutToWebsiteSender.LOG.info("upload start: " + this.name);
+        OutToWebsiteSender.LOG.info("upload START: " + this.name);
         try {
             client = connect();
         } catch (final Exception e) {
             OutToWebsiteSender.LOG.error(e.getMessage(), e);
-            DOWN = true;
+            down = true;
             return false;
         }
         try {

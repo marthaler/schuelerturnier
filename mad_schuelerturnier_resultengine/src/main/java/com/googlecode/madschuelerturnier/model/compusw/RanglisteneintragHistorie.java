@@ -29,12 +29,8 @@ public class RanglisteneintragHistorie {
     private Spiel spiel = null;
     private Gruppe gruppe = null;
 
-    //private Penalty penaltyA = null;
-    //private Penalty penaltyB = null;
-
     private List<Mannschaft> mannschaften = null;
     private final List<RangierungsgrundEnum> rangierungsGrund = new ArrayList<RangierungsgrundEnum>();
-    //private final List<Integer> punkte = new ArrayList<Integer>();
 
     private List<RanglisteneintragZeile> zeilen = new ArrayList<RanglisteneintragZeile>();
 
@@ -50,17 +46,11 @@ public class RanglisteneintragHistorie {
             this.gruppe = vorherigerEintrag.getGruppe();
             this.cloneZeilen();
             this.kat = this.vorherigerEintrag.getKategorie();
-            //this.setPenaltyA(vorherigerEintrag.getPenaltyA());
-            //this.setPenaltyB(vorherigerEintrag.getPenaltyB());
         } else {
 
             this.kat = spiel.getGruppe().getMannschaften().get(0).getKategorie();
             this.gruppe = spiel.getGruppe();
             this.spiel = spiel;
-
-            //this.penaltyA = spiel.getGruppe().getKategorie().getPenaltyA();
-            //this.penaltyB = spiel.getGruppe().getKategorie().getPenaltyB();
-
 
             if (a == null) {
                 this.mannschaften = gruppe.getKategorie().getMannschaftenSorted();
@@ -80,11 +70,10 @@ public class RanglisteneintragHistorie {
             this.sortNachTorverhaeltnis();
             this.sortNachMehrToren();
             this.sortNachDirektbegegnung();
-            this.penaltyBestimmen(true);
-            this.penaltyBestimmen(true);
+            this.penaltyBestimmen();
+            this.penaltyBestimmen();
             this.sortNachFinal();
         }
-
 
     }
 
@@ -141,7 +130,6 @@ public class RanglisteneintragHistorie {
     private void addNewZeilen() {
 
         // ist erster eintrag, also werden alle zeilen neu erstellt
-
         if (this.vorherigerEintrag == null) {
             for (Mannschaft mannschaft : mannschaften) {
                 RanglisteneintragZeile zeile = new RanglisteneintragZeile();
@@ -295,12 +283,11 @@ public class RanglisteneintragHistorie {
         this.subSortTorverhaeltnis(su, startindex);
     }
 
-    /**
-     * @param su
-     * @param startindex
-     * @return
-     */
-    private void subSortTorverhaeltnis(final List<RanglisteneintragZeile> su, int startindex) {
+
+    private void subSortTorverhaeltnis(final List<RanglisteneintragZeile> su, int startindexin) {
+
+        int startindex = startindexin;
+
         if (su.size() > 1) {
 
             Collections.sort(su, new TorverhaeltnisComperator());
@@ -356,11 +343,7 @@ public class RanglisteneintragHistorie {
 
     }
 
-    /**
-     * @param su
-     * @param startindex
-     * @return
-     */
+
     private void subSortNachMehrToren(final List<RanglisteneintragZeile> su, int startindex) {
         if (su.size() > 1) {
 
@@ -416,11 +399,6 @@ public class RanglisteneintragHistorie {
         this.subSortNachDirektbegegnung(su, startindex);
     }
 
-    /**
-     * @param su
-     * @param startindex
-     * @return
-     */
     private void subSortNachDirektbegegnung(final List<RanglisteneintragZeile> su, int startindex) {
         if (su.size() > 1) {
 
@@ -476,7 +454,7 @@ public class RanglisteneintragHistorie {
         }
     }
 
-    private void penaltyBestimmen(final boolean generate) {
+    private void penaltyBestimmen() {
 
         if (this.isGroupWith2Untergruppen() && (this.zeilen.size() > this.gruppe.getMannschaften().size())) {
             RanglisteneintragHistorie.LOG.warn("gruppe mit 2 untergruppen, hauptrangliste wird nicht nach penalty gesucht !!!");
@@ -496,9 +474,8 @@ public class RanglisteneintragHistorie {
             final RanglisteneintragZeile temp = this.zeilen.get(i);
 
             if ((temp.getRangierungsgrund().equals(RangierungsgrundEnum.PENALTY) || temp.getRangierungsgrund().equals(RangierungsgrundEnum.WEITERSUCHEN))) {
-                //  if (( temp.getRangierungsgrund().equals(RangierungsgrundEnum.WEITERSUCHEN))) {
                 if ((last != null) && (temp.getToreErziehlt() != last.getToreErziehlt())) {
-                    this.penaltyBestimmenSub(su, generate);
+                    this.penaltyBestimmenSub(su);
 
                     if (this.isGroupWith2Untergruppen()) {
                         if (i > 1) {
@@ -519,7 +496,7 @@ public class RanglisteneintragHistorie {
 
                 if (su.size() > 1) {
 
-                    this.penaltyBestimmenSub(su, generate);
+                    this.penaltyBestimmenSub(su);
                     last = null;
                     if (this.isGroupWith2Untergruppen()) {
                         if (i > 1) {
@@ -544,14 +521,14 @@ public class RanglisteneintragHistorie {
 
         if (su.size() > 1) {
 
-            this.penaltyBestimmenSub(su, generate);
+            this.penaltyBestimmenSub(su);
 
             su.clear();
         }
 
     }
 
-    private void penaltyBestimmenSub(final List<RanglisteneintragZeile> su, final boolean generate) {
+    private void penaltyBestimmenSub(final List<RanglisteneintragZeile> su) {
 
         for (RanglisteneintragZeile ze : su) {
             if (ze.getSpieleAnstehend() > 0) {
@@ -571,9 +548,7 @@ public class RanglisteneintragHistorie {
         }
 
         // penalty bereits gesetzt
-
         final Penalty penalty = new Penalty();
-
 
         for (RanglisteneintragZeile ranglisteneintragZeile : pList) {
             penalty.addMannschaft(ranglisteneintragZeile.getMannschaft());
@@ -594,7 +569,6 @@ public class RanglisteneintragHistorie {
         LOG.info("neuer penalty: " + penalty);
 
         penalty.setGr(this.gruppe);
-
 
         if ((this.kat.getPenaltyA() == null)) {
             LOG.info("neuer penalty st to A: " + penalty);
@@ -644,12 +618,10 @@ public class RanglisteneintragHistorie {
         }
     }
 
-    /**
-     * @param su
-     * @param startindex
-     * @return
-     */
-    private void subSortNachPenalty(final List<RanglisteneintragZeile> su, int startindex) {
+    private void subSortNachPenalty(final List<RanglisteneintragZeile> su, int startindexin) {
+
+        int startindex = startindexin;
+
         if (su.size() > 1) {
             Penalty p = null;
 

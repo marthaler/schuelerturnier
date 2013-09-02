@@ -101,23 +101,12 @@ public class _5_Spielverteiler {
                 if (tempSpiel == null) {
                     break;
                 }
-                //spielkorrektur sp = spielRepo.findOne(tempSpiel.getId());
 
-
-                //try {
                 tempSpiel.setPlatz(PlatzEnum.A);
                 zeilen.setA(tempSpiel);
                 tempSpiel.setStart(zeilen.getStart());
                 zeilen.setKonfliktText(null);
                 zeilen.setPause(false);
-                // spielRepo.save(tempSpiel);
-
-                //   } catch (IndexOutOfBoundsException e) {
-                //       LOG.info("index wurde ueberschritten A");
-                //       zeilen.setA(null);
-                //       break;
-                //   }
-
 
                 String ret = val.validateSpielZeilen(vorher, zeilen);
                 if (ret == null || ret.equals("")) {
@@ -141,25 +130,13 @@ public class _5_Spielverteiler {
                 if (tempSpiel == null) {
                     break;
                 }
-                //spielkorrektur sp = spielRepo.findOne(gr.getId());
-                //tempSpiel.setStart(zeilen.getStart());
-                //gr = spielRepo.save(sp);
+
                 tempSpiel.setPlatz(PlatzEnum.B);
                 zeilen.setB(tempSpiel);
                 tempSpiel.setStart(zeilen.getStart());
                 zeilen.setKonfliktText(null);
                 zeilen.setPause(false);
-                //  try {
-                // zeilen.setB(tempSpiel);
-                // tempSpiel.setPlatz(PlatzEnum.B);
-                // spielRepo.save(gr);
-                //  } catch (IndexOutOfBoundsException e) {
-                //      LOG.info("index wurde ueberschritten B");
-                //      zeilen.setB(null);
-                //      break;
-                //  }
 
-                //zeilen.setKonfliktText(null);
                 String ret = val.validateSpielZeilen(vorher, zeilen);
                 if (ret == null || ret.equals("")) {
 
@@ -182,31 +159,14 @@ public class _5_Spielverteiler {
                 if (tempSpiel == null) {
                     break;
                 }
-                //    if (tempSpiele != null) {
-                //spielkorrektur sp = spielRepo.findOne(tempSpiele.getId());
-                //tempSpiele.setStart(zeilen.getStart());
-                //gr = spielRepo.save(sp);
-                //spielRepo.save(gr);
-                //    } else {
-                //        break;
-                //    }
+
                 tempSpiel.setPlatz(PlatzEnum.C);
                 zeilen.setC(tempSpiel);
 
                 tempSpiel.setStart(zeilen.getStart());
                 zeilen.setKonfliktText(null);
                 zeilen.setPause(false);
-                //       try {
-                // zeilen.setC(tempSpiele);
-                // tempSpiele.setPlatz(PlatzEnum.C);
-                //spielRepo.save(gr);
-                //       } catch (IndexOutOfBoundsException e) {
-                //           LOG.info("index wurde ueberschritten C");
-                //           zeilen.setC(null);
-                //           break;
-                //       }
 
-                // zeilen.setKonfliktText(null);
                 String ret = val.validateSpielZeilen(vorher, zeilen);
                 if (ret == null || ret.equals("")) {
                     helper.consumeSpiel(tempSpiel);

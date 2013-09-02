@@ -88,7 +88,6 @@ public class _3_MannschaftenAufteiler {
 
                 kategorie = kategorieRepo.findOne(kategorie.getId());
 
-                List<Mannschaft> mannschaftenA = kategorie.getGruppeA().getMannschaften();
                 Float f = (float) (Float.valueOf(mannschaftenSize) / 2);
                 int ersteHaelfte = Math.round(f);
 
@@ -98,15 +97,12 @@ public class _3_MannschaftenAufteiler {
                 for (int i = mannschaftenSize - 1; i > ersteHaelfte - 1; i--) {
 
                     Mannschaft mtemp = kategorie.getGruppeA().getMannschaften().remove(i);
-
                     mtemp.setGruppe(kategorie.getGruppeB());
-
                     kategorie.getGruppeB().getMannschaften().add(mtemp);
 
                 }
 
                 Collections.sort(kategorie.getGruppeB().getMannschaften(), new MannschaftsNamenComperator());
-
                 Collections.sort(kategorie.getGruppeA().getMannschaften(), new MannschaftsNamenComperator());
 
                 Spiel gf = new Spiel();
