@@ -41,25 +41,22 @@ import java.util.List;
 @Transactional
 public class RealDBTest2013 {
 
-    private Date now = new Date();
-
     private static final Logger LOG = Logger.getLogger(RealDBTest2013.class);
 
     @Autowired
-    MannschaftRepository mRepo;
+    private MannschaftRepository mRepo;
 
     @Autowired
-    SpielEinstellungenRepository eRepo;
+    private SpielEinstellungenRepository eRepo;
 
     @Autowired
-    SpielRepository sRepo;
+    private SpielRepository sRepo;
 
     @Autowired
     private ToXLS toXls = null;
 
     @Autowired
     private FromXLS fromXls = null;
-
 
     @BeforeClass
     public static void dbInit() {
@@ -89,7 +86,6 @@ public class RealDBTest2013 {
 
     @Test
     public void xlsTest() {
-
 
         LOG.info("-->" + System.getProperty("java.io.tmpdir"));
 
@@ -130,10 +126,10 @@ public class RealDBTest2013 {
             LOG.error(e.getMessage(), e);
         }
 
-        String str2 = xstream.toXML(deleteChangedate(listeAusXLS2));
+        String xstreamText = xstream.toXML(deleteChangedate(listeAusXLS2));
 
         try {
-            FileUtils.writeStringToFile(new File(System.getProperty("java.io.tmpdir") + "nachher.xml"), str2);
+            FileUtils.writeStringToFile(new File(System.getProperty("java.io.tmpdir") + "nachher.xml"), xstreamText);
         } catch (IOException e) {
             LOG.error(e.getMessage(), e);
         }
@@ -151,6 +147,7 @@ public class RealDBTest2013 {
 
         try {
             Process p = pb.start();
+            LOG.info("prozess beendet: " + p.exitValue());
         } catch (IOException e) {
             LOG.error(e.getMessage(), e);
         }
@@ -163,12 +160,11 @@ public class RealDBTest2013 {
         List<Mannschaft> liste = new ArrayList<Mannschaft>();
 
         for (Mannschaft m : mannschaften) {
-            m.setCreationDate(now);
+            m.setCreationDate(new Date());
             if (m.getCaptainName() != null && !m.getCaptainName().equals("")) {
                 liste.add(m);
             }
         }
-
         return liste;
     }
 

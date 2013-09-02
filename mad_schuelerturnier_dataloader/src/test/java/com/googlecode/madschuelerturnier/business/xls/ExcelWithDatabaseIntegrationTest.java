@@ -7,6 +7,7 @@ import com.google.common.io.Resources;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.model.spiel.Spiel;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.junit.*;
 
@@ -44,7 +45,7 @@ public class ExcelWithDatabaseIntegrationTest {
 
     @After
     public void after() {
-        //FileUtils.deleteQuietly(file);
+        FileUtils.deleteQuietly(file);
     }
 
     @Test
