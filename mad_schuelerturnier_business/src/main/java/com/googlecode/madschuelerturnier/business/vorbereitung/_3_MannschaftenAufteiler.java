@@ -72,12 +72,7 @@ public class _3_MannschaftenAufteiler {
             } else if (mannschaftenSize == 3) {
                 LOG.debug("vor und rueckrunge stehen an: " + kategorie.getName());
 
-                Spiel gf = new Spiel();
-                gf.setTyp(SpielEnum.GFINAL);
-                gf.setIdString(IDGeneratorContainer.getNext());
-                gf.setKategorieName(kategorie.getName());
-                gf = spielRepo.save(gf);
-                kategorie.setGrosserFinal(gf);
+                assignGrosserFinalToKategorie(kategorie);
 
 
                 kategorie = kategorieRepo.save(kategorie);
@@ -88,11 +83,9 @@ public class _3_MannschaftenAufteiler {
 
                 kategorie = kategorieRepo.findOne(kategorie.getId());
 
-                Float f = (float) (Float.valueOf(mannschaftenSize) / 2);
+                Float f = (Float.valueOf(mannschaftenSize) / 2);
                 int ersteHaelfte = Math.round(f);
 
-                // neue Gruppe B erstellen
-                kategorie = createGruppeB(kategorie);
 
                 for (int i = mannschaftenSize - 1; i > ersteHaelfte - 1; i--) {
 
@@ -105,13 +98,7 @@ public class _3_MannschaftenAufteiler {
                 Collections.sort(kategorie.getGruppeB().getMannschaften(), new MannschaftsNamenComperator());
                 Collections.sort(kategorie.getGruppeA().getMannschaften(), new MannschaftsNamenComperator());
 
-                Spiel gf = new Spiel();
-                gf.setTyp(SpielEnum.GFINAL);
-
-                gf.setIdString(IDGeneratorContainer.getNext());
-                gf.setKategorieName(kategorie.getName());
-                gf = spielRepo.save(gf);
-                kategorie.setGrosserFinal(gf);
+                assignGrosserFinalToKategorie(kategorie);
 
 
                 Spiel kf = new Spiel();
@@ -125,12 +112,7 @@ public class _3_MannschaftenAufteiler {
 
             } else {
 
-                Spiel gf = new Spiel();
-                gf.setTyp(SpielEnum.GFINAL);
-                gf.setIdString(IDGeneratorContainer.getNext());
-                gf.setKategorieName(kategorie.getName());
-                gf = spielRepo.save(gf);
-                kategorie.setGrosserFinal(gf);
+                assignGrosserFinalToKategorie(kategorie);
 
                 Spiel kf = new Spiel();
                 kf.setTyp(SpielEnum.KFINAL);
@@ -145,9 +127,13 @@ public class _3_MannschaftenAufteiler {
         }
     }
 
-    private Kategorie createGruppeB(Kategorie kategorie) {
-
-        return kategorie;
-
+    private void assignGrosserFinalToKategorie(Kategorie kategorie) {
+        Spiel gf = new Spiel();
+        gf.setTyp(SpielEnum.GFINAL);
+        gf.setIdString(IDGeneratorContainer.getNext());
+        gf.setKategorieName(kategorie.getName());
+        gf = spielRepo.save(gf);
+        kategorie.setGrosserFinal(gf);
     }
+
 }
