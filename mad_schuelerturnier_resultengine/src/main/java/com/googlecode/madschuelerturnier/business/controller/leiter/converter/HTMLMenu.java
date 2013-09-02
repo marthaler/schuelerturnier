@@ -19,6 +19,13 @@ import java.util.List;
 @Component
 public class HTMLMenu {
 
+    public static final String BR = "<br/>";
+    public static final String TR = "<tr>";
+    public static final String P = "<p>";
+    public static final String P_E = "</p>";
+    public static final String TD_E = "</td>";
+    public static final String TR_E = "</tr>";
+
     @Autowired
     private KategorieRepository repo;
 
@@ -108,21 +115,21 @@ public class HTMLMenu {
         final StringBuilder builder = new StringBuilder();
         builder.append(DOCTYPE);
         builder.append(HTMLMenu.TABLE_WEBSITE);
-        builder.append("<tr>");
+        builder.append(TR_E);
 
         builder.append("<td>");
 
         builder.append(getCombobox(ll, selected));
 
-        builder.append("</td>");
+        builder.append(TD_E);
 
         builder.append("<td>");
         builder.append("<a href='rangliste.html'>rangliste</a>");
-        builder.append("</td>");
+        builder.append(TD_E);
 
         builder.append("<td valign='top'>");
         builder.append("Stand vom: [dateTime]");
-        builder.append("</td>");
+        builder.append(TD_E);
         builder.append("</tr>");
         builder.append("</table>");
 

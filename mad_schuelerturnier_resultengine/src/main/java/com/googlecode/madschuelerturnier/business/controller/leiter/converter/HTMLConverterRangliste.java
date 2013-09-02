@@ -10,7 +10,6 @@ import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -31,7 +30,11 @@ public class HTMLConverterRangliste {
     @Autowired
     private XHTMLOutputUtil util;
 
-    final SimpleDateFormat sdf = new SimpleDateFormat("E/HH:mm");
+    public static final String TR = "<tr>";
+
+    public static final String TD_E = "</td>";
+    public static final String TR_E = "</tr>";
+
     final String[] kategorien = {"M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "K1", "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9"};
 
 
@@ -47,12 +50,12 @@ public class HTMLConverterRangliste {
 
         buffer.append("<style type='text/css'>table {   border-spacing: 0px; border-padding:0px;width:700px;border:1px solid #000; vertical-align:top; overflow:hidden; font-size:10pt; font-family:Arial,sans-serif }td { border:1px solid #000; vertical-align:top; overflow:hidden; }</style><table>");
         buffer.append("<table style=\"font-size: 9px\" border=\"1\">");
-        buffer.append("<tr>");
+        buffer.append(TR_E);
         buffer.append("<td>Kategorie</td><td>1. Rang</td><td>2. Rang</td><td>3. Rang</td><td>4. Rang</td>");
         buffer.append("</tr>");
 
         for (final String k : this.kategorien) {
-            buffer.append("<tr>");
+            buffer.append(TR_E);
             String klassenLable = "";
             GeschlechtEnum geschlecht = null;
             if (k.contains("K")) {
@@ -77,7 +80,7 @@ public class HTMLConverterRangliste {
 
                 if ((ma != null && ma.getGruppe().getKategorie().isFertigGespielt())) {
 
-                    buffer.append("<td>" + ma.getName() + "</td>");
+                    buffer.append("<td>" + ma.getName() + TD_E);
                 } else {
                     buffer.append("  <td>  </td>");
                 }
@@ -85,7 +88,7 @@ public class HTMLConverterRangliste {
 
             buffer.append("</tr>");
 
-            buffer.append("<tr>");
+            buffer.append(TR_E);
             buffer.append("<td>Schulhaus</td>");
             for (int i = 0; i < 4; i++) {
                 Mannschaft ma = null;
@@ -96,7 +99,7 @@ public class HTMLConverterRangliste {
 
                 if ((ma != null && ma.getGruppe().getKategorie().isFertigGespielt())) {
 
-                    buffer.append("<td>" + ma.getSchulhaus() + "</td>");
+                    buffer.append("<td>" + ma.getSchulhaus() + TD_E);
                 } else {
                     buffer.append("  <td>  </td>");
                 }
@@ -104,7 +107,7 @@ public class HTMLConverterRangliste {
 
             buffer.append("</tr>");
 
-            buffer.append("<tr>");
+            buffer.append(TR_E);
             buffer.append("<td>Capitain</td>");
 
             for (int i = 0; i < 4; i++) {
@@ -116,7 +119,7 @@ public class HTMLConverterRangliste {
 
                 if ((ma != null && ma.getGruppe().getKategorie().isFertigGespielt())) {
 
-                    buffer.append("<td>" + ma.getCaptainName() + "</td>");
+                    buffer.append("<td>" + ma.getCaptainName() + TD_E);
                 } else {
                     buffer.append("  <td>  </td>");
                 }
@@ -124,7 +127,7 @@ public class HTMLConverterRangliste {
             }
             buffer.append("</tr>");
 
-            buffer.append("<tr>");
+            buffer.append(TR_E);
             buffer.append("<td>Begleitperson</td>");
             for (int i = 0; i < 4; i++) {
 
@@ -134,7 +137,7 @@ public class HTMLConverterRangliste {
                 }
                 if ((ma != null && ma.getGruppe().getKategorie().isFertigGespielt())) {
 
-                    buffer.append("<td>" + ma.getBegleitpersonName() + "</td>");
+                    buffer.append("<td>" + ma.getBegleitpersonName() + TD_E);
                 } else {
                     buffer.append("  <td>  </td>");
                 }
@@ -142,7 +145,7 @@ public class HTMLConverterRangliste {
 
             buffer.append("</tr>");
 
-            buffer.append("<tr>");
+            buffer.append(TR_E);
             buffer.append("  <td>  </td>");
             for (int g = 0; g < 4; g++) {
                 buffer.append("  <td>  </td>");

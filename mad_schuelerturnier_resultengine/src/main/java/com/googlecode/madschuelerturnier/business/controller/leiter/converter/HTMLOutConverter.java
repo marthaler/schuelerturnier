@@ -28,14 +28,9 @@ import java.util.List;
 public class HTMLOutConverter {
 
     private static final Logger LOG = Logger.getLogger(HTMLOutConverter.class);
-    public static final String BR = "<br/>";
-    public static final String TR = "<tr>";
-    public static final String P = "<p>";
-    public static final String P_E = "</p>";
-    public static final String TD_E = "</td>";
-    public static final String TR_E = "</tr>";
 
-    private static final String TABLE = "<style type='text/css'>table.normal {border-spacing: 0px; border-padding:0px;width:600px;border:1px solid #000; vertical-align:top; overflow:hidden; font-size:10pt; font-family:Arial,sans-serif }td { border:1px solid #000; vertical-align:top; overflow:hidden; }</style><table class='normal'>";
+    public static final String TABLE = "<style type='text/css'>table.normal {border-spacing: 0px; border-padding:0px;width:600px;border:1px solid #000; vertical-align:top; overflow:hidden; font-size:10pt; font-family:Arial,sans-serif }td { border:1px solid #000; vertical-align:top; overflow:hidden; }</style><table class='normal'>";
+
 
     @Autowired
     private XHTMLOutputUtil util;
@@ -69,15 +64,15 @@ public class HTMLOutConverter {
 
             first = false;
 
-            stringBuilder.append(BR);
+            stringBuilder.append(HTMLTags.BR);
             stringBuilder.append("<table border='1' cellspacing='0' cellpadding='3' width='700'>");
 
-            stringBuilder.append(TR);
+            stringBuilder.append(HTMLTags.TR);
             stringBuilder.append("<td colspan='8'>");
             final SimpleDateFormat sdf = new SimpleDateFormat("EEE HH:mm:ss");
 
             if (spiel != null) {
-                stringBuilder.append(P);
+                stringBuilder.append(HTMLTags.P);
                 if (spiel.getTyp() == SpielEnum.GFINAL) {
                     stringBuilder.append(kategorie.getName() + " - " + sdf.format(historie.getSpiel().getStart()) + " - Finale </p>");
                 } else if (spiel.getTyp() == SpielEnum.KFINAL) {
@@ -91,46 +86,46 @@ public class HTMLOutConverter {
                     }
                 }
             } else {
-                stringBuilder.append("<p>" + kategorie.getName().replace(".", "") + " - Penalty: " + P_E);
+                stringBuilder.append("<p>" + kategorie.getName().replace(".", "") + " - Penalty: " + HTMLTags.P_E);
             }
 
-            stringBuilder.append(TD_E);
-            stringBuilder.append(TR_E);
+            stringBuilder.append(HTMLTags.TD_E);
+            stringBuilder.append(HTMLTags.TR_E);
 
-            stringBuilder.append(TR);
+            stringBuilder.append(HTMLTags.TR);
             stringBuilder.append("<td colspan='8'>");
             if (spiel != null) {
                 stringBuilder.append("spielkorrektur: " + historie.getSpiel().getMannschaftA().getName() + "-" + historie.getSpiel().getMannschaftB().getName() + " " + historie.getSpiel().getToreABestaetigt() + ":" + historie.getSpiel().getToreBBestaetigt() + "");
             } else {
                 stringBuilder.append("spielkorrektur: Penalty");
             }
-            stringBuilder.append(TD_E);
-            stringBuilder.append("</tr>");
+            stringBuilder.append(HTMLTags.TD_E);
+            stringBuilder.append(HTMLTags.TR_E);
 
-            stringBuilder.append("<tr>");
+            stringBuilder.append(HTMLTags.TR);
             stringBuilder.append("<td colspan='1'>");
             stringBuilder.append("<p>Mannschaft</p>");
-            stringBuilder.append(TD_E);
+            stringBuilder.append(HTMLTags.TD_E);
 
             stringBuilder.append("<td colspan='1'>");
             stringBuilder.append("<p>Sp. gespielt</p>");
-            stringBuilder.append(TD_E);
+            stringBuilder.append(HTMLTags.TD_E);
 
             stringBuilder.append("<td colspan='1'>");
             stringBuilder.append("<p>Sp. anstehend</p>");
-            stringBuilder.append(TD_E);
+            stringBuilder.append(HTMLTags.TD_E);
 
             stringBuilder.append("<td colspan='1'>");
             stringBuilder.append("<p>Punkte</p>");
-            stringBuilder.append(TD_E);
+            stringBuilder.append(HTMLTags.TD_E);
 
             stringBuilder.append("<td colspan='1'>");
             stringBuilder.append("<p>Tordifferenz (Tore erz. - erh.)</p>");
-            stringBuilder.append(TD_E);
+            stringBuilder.append(HTMLTags.TD_E);
 
             stringBuilder.append("<td colspan='1'>");
             stringBuilder.append("<p>Rangierungsgrund</p>");
-            stringBuilder.append(TD_E);
+            stringBuilder.append(HTMLTags.TD_E);
 
             // zeilen pro hystorieneintrag
             generateZeilen(historie, stringBuilder);
@@ -145,7 +140,7 @@ public class HTMLOutConverter {
         final List<RanglisteneintragZeile> zeilen = gr.getZeilen();
 
         for (final RanglisteneintragZeile ranglisteneintragZeile : zeilen) {
-            stringBuilder.append("<tr>");
+            stringBuilder.append(HTMLTags.TR);
 
             if (ranglisteneintragZeile.getMannschaft().isMemberofGroupA()) {
                 stringBuilder.append("<td colspan='1'>");
@@ -154,23 +149,23 @@ public class HTMLOutConverter {
             }
 
             stringBuilder.append("" + ranglisteneintragZeile.getMannschaft().getName() + "");
-            stringBuilder.append(TD_E);
+            stringBuilder.append(HTMLTags.TD_E);
 
             stringBuilder.append("<td colspan='1'>");
             stringBuilder.append("" + ranglisteneintragZeile.getSpieleVorbei() + "");
-            stringBuilder.append(TD_E);
+            stringBuilder.append(HTMLTags.TD_E);
 
             stringBuilder.append("<td colspan='1'>");
             stringBuilder.append("" + ranglisteneintragZeile.getSpieleAnstehend() + "");
-            stringBuilder.append(TD_E);
+            stringBuilder.append(HTMLTags.TD_E);
 
             stringBuilder.append("<td colspan='1'>");
             stringBuilder.append("" + ranglisteneintragZeile.getPunkte() + "");
-            stringBuilder.append(TD_E);
+            stringBuilder.append(HTMLTags.TD_E);
 
             stringBuilder.append("<td colspan='1'>");
             stringBuilder.append("" + ranglisteneintragZeile.getToreErziehlt() + "-" + ranglisteneintragZeile.getToreKassiert() + "=" + ranglisteneintragZeile.getTordifferenz());
-            stringBuilder.append(TD_E);
+            stringBuilder.append(HTMLTags.TD_E);
 
             final int diferenz = gr.compareWithLast(ranglisteneintragZeile);
 
@@ -182,24 +177,24 @@ public class HTMLOutConverter {
                 stringBuilder.append("<td colspan='1'>");
             }
 
-            stringBuilder.append("" + ranglisteneintragZeile.getRangierungsgrund().toString() /*.substring(0, 2) + ""*/);
+            stringBuilder.append(ranglisteneintragZeile.getRangierungsgrund().toString());
 
-            stringBuilder.append(TD_E);
+            stringBuilder.append(HTMLTags.TD_E);
 
-            stringBuilder.append("</tr>");
+            stringBuilder.append(HTMLTags.TR_E);
 
         }
         stringBuilder.append("</table>");
     }
 
 
-    public String convertSpiele(final List<Spiel> gruppen, final List<Spiel> finale, final String gruppe) {
+    public String convertSpiele(final List<Spiel> gruppen, final List<Spiel> finale) {
 
         final StringBuilder builder = new StringBuilder();
 
-        builder.append("<br/>");
+        builder.append(HTMLTags.BR);
 
-        builder.append(HTMLOutConverter.TABLE);
+        builder.append(TABLE);
 
         HTMLOutConverter.getTitelzeile(builder, "Gruppenspiele");
 
@@ -213,43 +208,41 @@ public class HTMLOutConverter {
     }
 
     private static void getTitelzeile(final StringBuilder b, final String name) {
-        b.append("<tr>");
+        b.append(HTMLTags.TR);
 
-        b.append("<tr>");
+        b.append(HTMLTags.TR);
         b.append("<td colspan='7'>");
         b.append("<b>" + name + "</b>");
-        b.append(TD_E);
-        b.append("</tr>");
+        b.append(HTMLTags.TD_E);
+        b.append(HTMLTags.TR_E);
 
-        b.append("<td>");
+        b.append(HTMLTags.TD);
         b.append("<b>Nr.</b>");
-        b.append(TD_E);
+        b.append(HTMLTags.TD_E);
 
-        b.append("<td>");
+        b.append(HTMLTags.TD);
         b.append("<b>Startzeit</b>");
-        b.append(TD_E);
+        b.append(HTMLTags.TD_E);
 
-        b.append("<td>");
+        b.append(HTMLTags.TD);
         b.append("<b>Platz</b>");
-        b.append(TD_E);
+        b.append(HTMLTags.TD_E);
 
-        b.append("<td>");
+        b.append(HTMLTags.TD);
         b.append("<b>Mannschaft A</b>");
-        b.append(TD_E);
+        b.append(HTMLTags.TD_E);
 
-        b.append("<td>");
-        b.append("");
-        b.append(TD_E);
+        b.append(HTMLTags.TD);
+        b.append(HTMLTags.TD_E);
 
-        b.append("<td>");
+        b.append(HTMLTags.TD);
         b.append("<b>Mannschaft B</b>");
-        b.append(TD_E);
+        b.append(HTMLTags.TD_E);
 
-        b.append("<td>");
-        b.append("");
-        b.append(TD_E);
+        b.append(HTMLTags.TD);
+        b.append(HTMLTags.TD_E);
 
-        b.append("</tr>");
+        b.append(HTMLTags.TR_E);
 
     }
 
@@ -262,23 +255,23 @@ public class HTMLOutConverter {
                 continue;
             }
 
-            builder.append("<tr>");
+            builder.append(HTMLTags.TR);
 
             builder.append("<td>");
             builder.append(i);
             i++;
-            builder.append(TD_E);
+            builder.append(HTMLTags.TD_E);
 
             builder.append("<td>");
 
             final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM HH:mm");
 
             builder.append(sdf.format(spiel.getStart()));
-            builder.append(TD_E);
+            builder.append(HTMLTags.TD_E);
 
             builder.append("<td>");
             builder.append(spiel.getPlatz());
-            builder.append(TD_E);
+            builder.append(HTMLTags.TD_E);
 
             builder.append("<td>");
             if (spiel.getMannschaftA() != null) {
@@ -292,7 +285,7 @@ public class HTMLOutConverter {
                 }
 
             }
-            builder.append(TD_E);
+            builder.append(HTMLTags.TD_E);
 
             if (spiel.getToreABestaetigt() < 0) {
                 builder.append("<td bgcolor='red'>");
@@ -301,7 +294,7 @@ public class HTMLOutConverter {
                 builder.append(spiel.getToreABestaetigt());
             }
 
-            builder.append(TD_E);
+            builder.append(HTMLTags.TD_E);
 
             builder.append("<td>");
             if (spiel.getMannschaftB() != null) {
@@ -314,7 +307,7 @@ public class HTMLOutConverter {
                 }
             }
 
-            builder.append(TD_E);
+            builder.append(HTMLTags.TD_E);
 
             if (spiel.getToreBBestaetigt() < 0) {
                 builder.append("<td bgcolor='red'>");
@@ -323,7 +316,7 @@ public class HTMLOutConverter {
                 builder.append(spiel.getToreBBestaetigt());
             }
 
-            builder.append("</tr>");
+            builder.append(HTMLTags.TR_E);
 
         }
         return builder.toString();
@@ -361,7 +354,7 @@ public class HTMLOutConverter {
         finale.add(kategorie.getGrosserFinal());
         finale.add(kategorie.getKleineFinal());
 
-        builder.append(this.convertSpiele(gruppen, finale, kategorie.getName()));
+        builder.append(this.convertSpiele(gruppen, finale));
 
         return this.util.cleanup(builder.toString(), false);
 
