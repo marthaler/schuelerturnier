@@ -91,7 +91,7 @@ public class CVSMannschaftParser {
         return result;
     }
 
-    public Mannschaft parseLine(String[] myEntry) {
+    private Mannschaft parseLine(String[] myEntry) {
         Long id = null;
         Mannschaft mann = new Mannschaft();
 
