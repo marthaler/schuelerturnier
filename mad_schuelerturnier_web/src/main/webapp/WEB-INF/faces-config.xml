@@ -9,13 +9,13 @@
     </application>
     <!--  <managed-bean>
           <managed-bean-name>fileUploadController</managed-bean-name>
-          <managed-bean-class>com.googlecode.mad_schuelerturnier.web.controller.FileUploadController</managed-bean-class>
+          <managed-bean-class>com.googlecode.madschuelerturnierweb.controller.FileUploadController</managed-bean-class>
           <managed-bean-scope>session</managed-bean-scope>
       </managed-bean>
       -->
 
     <lifecycle>
-        <phase-listener>com.googlecode.mad_schuelerturnier.web.primefaces.Primefaces35PhaseListener</phase-listener>
+        <phase-listener>com.googlecode.madschuelerturnier.web.primefaces.Primefaces35PhaseListener</phase-listener>
     </lifecycle>
 
 </faces-config>

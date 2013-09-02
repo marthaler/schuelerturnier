@@ -18,7 +18,7 @@
 
     <action-state id="newmannschaft">
         <on-entry>
-            <evaluate expression="modelFactory.getInstance('com.googlecode.mad_schuelerturnier.model.Mannschaft')"
+            <evaluate expression="modelFactory.getInstance('com.googlecode.madschuelerturnier.model.Mannschaft')"
                       result="flowScope.mannschaftBean"/>
         </on-entry>
         <evaluate expression="modelFactory.ok()"/>

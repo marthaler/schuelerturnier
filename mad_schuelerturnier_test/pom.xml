@@ -23,10 +23,6 @@
             <version>${commons-cli.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -96,8 +92,8 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <!--<mainClass>com.googlecode.mad_schuelerturnier.test.StartUp</mainClass> -->
-                            <mainClass>com.googlecode.mad_schuelerturnier.test.matchonly.MatchOnly</mainClass>
+                            <!--<mainClass>com.googlecode.madschuelerturniertest.StartUp</mainClass> -->
+                            <mainClass>com.googlecode.madschuelerturnier.test.matchonly.MatchOnly</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
