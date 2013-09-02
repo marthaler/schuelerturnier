@@ -190,9 +190,12 @@ public class SpeakerGenerator {
 
         } finally {
             method.releaseConnection();
-            if (fos != null) try {
-                fos.close();
-            } catch (Exception fe) {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (Exception fe) {
+                    // nichts tun
+                }
             }
         }
 

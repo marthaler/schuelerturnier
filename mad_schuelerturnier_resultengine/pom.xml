@@ -67,11 +67,6 @@
         </dependency>
 
         <dependency>
-            <groupId>commons-net</groupId>
-            <artifactId>commons-net</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
         </dependency>
@@ -79,14 +74,6 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-        </dependency>
-
-        <!-- test -->
-        <dependency>
-            <groupId>org.mockftpserver</groupId>
-            <artifactId>MockFtpServer</artifactId>
-            <version>${mockftp.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>

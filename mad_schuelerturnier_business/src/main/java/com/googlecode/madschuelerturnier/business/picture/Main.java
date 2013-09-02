@@ -89,8 +89,9 @@ public class Main {
 
         for (int i = 0; i < nameParts.length - 1; i++) {
             filename = nameParts[i];
-            if (i != nameParts.length - 2)
+            if (i != nameParts.length - 2) {
                 filename += ".";
+            }
         }
         filename += "deskewed." + extension;
 

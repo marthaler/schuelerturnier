@@ -201,12 +201,15 @@
                             <fork>true</fork>
                         </configuration>
                         <executions>
+
                             <execution>
+
                                 <id>createexecjar</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>exec-war-only</goal>
                                 </goals>
+
                             </execution>
                         </executions>
                     </plugin>

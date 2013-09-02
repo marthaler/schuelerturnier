@@ -159,7 +159,7 @@
     }
 
     .yform div.type-button {
-        padding: 3px 0em;
+        padding: 3em 0em;
     }
 
     /* styling standard form elements with 'almost' equal flexible width | Gestaltung der einzelnen Formularelemente mit annähend gleicher Breite */
@@ -341,7 +341,7 @@
 
     /* all IE */
     .yform {
-        padding-top: 0          \9;
+        padding-top: 0             \9;
     }
 
     .yform fieldset {
@@ -352,7 +352,7 @@
     .yform legend {
         position: absolute\9;
         top: -.5 em\9;
-        *left: 0          \9;
+        *left: 0             \9;
     }
 
     .yform fieldset {

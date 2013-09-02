@@ -233,29 +233,66 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
 
         SpielEinstellungen that = (SpielEinstellungen) o;
 
-        if (abbrechenZulassen != that.abbrechenZulassen) return false;
-        if (aufholzeitInSekunden != that.aufholzeitInSekunden) return false;
-        if (automatischesAnsagen != that.automatischesAnsagen) return false;
-        if (automatischesAufholen != that.automatischesAufholen) return false;
-        if (automatischesVorbereiten != that.automatischesVorbereiten) return false;
-        if (gongEinschalten != that.gongEinschalten) return false;
-        if (pause != that.pause) return false;
-        if (spiellaenge != that.spiellaenge) return false;
-        if (startJetzt != that.startJetzt) return false;
-        if (verschnellerungsFaktor != that.verschnellerungsFaktor) return false;
-        if (phase != that.phase) return false;
-        if (spielVertauschungen != null ? !spielVertauschungen.equals(that.spielVertauschungen) : that.spielVertauschungen != null)
+        if (abbrechenZulassen != that.abbrechenZulassen) {
             return false;
-        if (start != null ? !start.equals(that.start) : that.start != null) return false;
-        if (starttag != null ? !starttag.equals(that.starttag) : that.starttag != null) return false;
-        if (starttagstr != null ? !starttagstr.equals(that.starttagstr) : that.starttagstr != null) return false;
-        if (test != null ? !test.equals(that.test) : that.test != null) return false;
+        }
+        if (aufholzeitInSekunden != that.aufholzeitInSekunden) {
+            return false;
+        }
+        if (automatischesAnsagen != that.automatischesAnsagen) {
+            return false;
+        }
+        if (automatischesAufholen != that.automatischesAufholen) {
+            return false;
+        }
+        if (automatischesVorbereiten != that.automatischesVorbereiten) {
+            return false;
+        }
+        if (gongEinschalten != that.gongEinschalten) {
+            return false;
+        }
+        if (pause != that.pause) {
+            return false;
+        }
+        if (spiellaenge != that.spiellaenge) {
+            return false;
+        }
+        if (startJetzt != that.startJetzt) {
+            return false;
+        }
+        if (verschnellerungsFaktor != that.verschnellerungsFaktor) {
+            return false;
+        }
+        if (phase != that.phase) {
+            return false;
+        }
+        if (spielVertauschungen != null ? !spielVertauschungen.equals(that.spielVertauschungen) : that.spielVertauschungen != null) {
+            return false;
+        }
+        if (start != null ? !start.equals(that.start) : that.start != null) {
+            return false;
+        }
+        if (starttag != null ? !starttag.equals(that.starttag) : that.starttag != null) {
+            return false;
+        }
+        if (starttagstr != null ? !starttagstr.equals(that.starttagstr) : that.starttagstr != null) {
+            return false;
+        }
+        if (test != null ? !test.equals(that.test) : that.test != null) {
+            return false;
+        }
 
         return true;
     }
