@@ -1,10 +1,8 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.business.dataloader;
+package com.googlecode.madschuelerturnier.business.xls;
 
-import com.googlecode.madschuelerturnier.business.xls.FromXLS;
-import com.googlecode.madschuelerturnier.business.xls.ToXLS;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielEinstellungenRepository;
@@ -41,6 +39,9 @@ import java.util.List;
 @Transactional
 public class RealDBTest2013 {
 
+    // wird hier benoetigt um immer das gleiche date zu setzen
+    private Date date = new Date();
+
     private static final Logger LOG = Logger.getLogger(RealDBTest2013.class);
 
     @Autowired
@@ -53,10 +54,10 @@ public class RealDBTest2013 {
     private SpielRepository sRepo;
 
     @Autowired
-    private ToXLS toXls = null;
+    private ToXLSDumper toXlsDumper = null;
 
     @Autowired
-    private FromXLS fromXls = null;
+    private FromXLSLoader fromXlsLoader = null;
 
     @BeforeClass
     public static void dbInit() {
@@ -96,12 +97,18 @@ public class RealDBTest2013 {
 
         Assert.assertTrue(sRepo.findAll().size() > 10);
 
-        toXls.dumpMOdelToXLSFile(deleteChangedate(deleteChangedate(mRepo.findAll())), sRepo.findAll(), new File(System.getProperty("java.io.tmpdir") + "out.xls"));
+        // letztes herausnehemen wegen fehler nach
+        List<Mannschaft> mannschaften = mRepo.findAll();
+        //mannschaften.remove(mannschaften.size()-1);
 
+        LOG.info("geschrieben aus db to xls: " + mannschaften.size());
+
+        toXlsDumper.dumpMOdelToXLSFile(deleteChangedate(deleteChangedate(mannschaften)), sRepo.findAll(), new File(System.getProperty("java.io.tmpdir") + "out.xls"));
 
         List<Mannschaft> listeAusXLS = null;
         try {
-            listeAusXLS = fromXls.convertXLSToMannschaften(FileUtils.readFileToByteArray(new File(System.getProperty("java.io.tmpdir") + "out.xls")));
+            listeAusXLS = fromXlsLoader.convertXLSToMannschaften(FileUtils.readFileToByteArray(new File(System.getProperty("java.io.tmpdir") + "out.xls")));
+            LOG.info("gelesen aus xls 1: " + listeAusXLS.size());
         } catch (IOException e) {
             LOG.error(e.getMessage(), e);
         }
@@ -115,13 +122,12 @@ public class RealDBTest2013 {
             LOG.error(e.getMessage(), e);
         }
 
-
-        toXls.dumpMOdelToXLSFile(deleteChangedate(listeAusXLS), null, new File(System.getProperty("java.io.tmpdir") + "out2.xls"));
-
+        toXlsDumper.dumpMOdelToXLSFile(deleteChangedate(listeAusXLS), null, new File(System.getProperty("java.io.tmpdir") + "out2.xls"));
 
         List<Mannschaft> listeAusXLS2 = null;
         try {
-            listeAusXLS2 = fromXls.convertXLSToMannschaften(FileUtils.readFileToByteArray(new File(System.getProperty("java.io.tmpdir") + "out2.xls")));
+            listeAusXLS2 = fromXlsLoader.convertXLSToMannschaften(FileUtils.readFileToByteArray(new File(System.getProperty("java.io.tmpdir") + "out2.xls")));
+            LOG.info("gelesen aus xls 2: " + listeAusXLS2.size());
         } catch (IOException e) {
             LOG.error(e.getMessage(), e);
         }
@@ -147,20 +153,19 @@ public class RealDBTest2013 {
 
         try {
             Process p = pb.start();
-            LOG.info("prozess beendet: " + p.exitValue());
-        } catch (IOException e) {
+            LOG.info("prozess beendet: " + p);
+        } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
-
     }
 
-
-    public List<Mannschaft> deleteChangedate(List<Mannschaft> mannschaften) {
+    private List<Mannschaft> deleteChangedate(List<Mannschaft> mannschaften) {
 
         List<Mannschaft> liste = new ArrayList<Mannschaft>();
 
         for (Mannschaft m : mannschaften) {
-            m.setCreationDate(new Date());
+            m.setCreationDate(date);
+
             if (m.getCaptainName() != null && !m.getCaptainName().equals("")) {
                 liste.add(m);
             }

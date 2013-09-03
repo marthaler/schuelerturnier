@@ -3,8 +3,9 @@
  */
 package com.googlecode.madschuelerturnier.business.testdata;
 
+import com.googlecode.madschuelerturnier.business.DataLoader;
+import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
-import com.googlecode.madschuelerturnier.business.dataloader.CVSMannschaftParser;
 import com.googlecode.madschuelerturnier.business.impl.Business;
 import com.googlecode.madschuelerturnier.business.vorbereitung._0_SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
@@ -38,8 +39,7 @@ public class ResultengineStarter {
 
     private static final Logger LOG = Logger.getLogger(ResultengineStarter.class);
 
-    @Autowired
-    protected CVSMannschaftParser mannschaftGenerator;
+    private DataLoader mannschaftGenerator = DataLoaderImpl.getDataLoader();
 
     @Autowired
     protected ResultateVerarbeiter resultate;
@@ -65,7 +65,7 @@ public class ResultengineStarter {
     public void generateMannschaften() {
 
         List<Mannschaft> liste = new ArrayList<Mannschaft>();
-        List<Mannschaft> listePrimaer = this.mannschaftGenerator.loadMannschaften4Jahr("2013", null, null);
+        List<Mannschaft> listePrimaer = this.mannschaftGenerator.loadMannschaften();
 
         for (final Mannschaft mannschaft : listePrimaer) {
             // liste.add(mannschaft);

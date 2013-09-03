@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.business.xls;
 
 import com.googlecode.madschuelerturnier.model.Mannschaft;
@@ -25,7 +28,7 @@ import java.util.Map;
  * @since 1.2.5
  */
 @Component
-public class FromXLS {
+public class FromXLSLoader {
 
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
 

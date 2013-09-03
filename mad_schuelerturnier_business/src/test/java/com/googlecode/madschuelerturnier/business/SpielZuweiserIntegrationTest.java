@@ -1,6 +1,5 @@
 package com.googlecode.madschuelerturnier.business;
 
-import com.googlecode.madschuelerturnier.business.dataloader.CVSMannschaftParser;
 import com.googlecode.madschuelerturnier.business.impl.Business;
 import com.googlecode.madschuelerturnier.business.vorbereitung._0_SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
@@ -49,8 +48,7 @@ public class SpielZuweiserIntegrationTest {
     @Autowired
     Business business;
 
-    @Autowired
-    CVSMannschaftParser cvsMannschaften;
+    private DataLoader mannschaftGenerator = DataLoaderImpl.getDataLoader();
 
 
     @Test
@@ -58,7 +56,7 @@ public class SpielZuweiserIntegrationTest {
     @DirtiesContext
     public void TestSpielKontroller() {
 
-        this.mannschaftRepo.save(this.cvsMannschaften.loadMannschaften4Jahr("2011", null, null));
+        this.mannschaftRepo.save(this.mannschaftGenerator.loadMannschaften());
 
         SpielPhasenEnum phase = this.kontroller.readSpielPhase();
         Assert.assertNotNull(phase);

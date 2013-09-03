@@ -31,7 +31,7 @@ import java.util.Map;
  * @since 1.2.5
  */
 @Component
-public class ToXLS {
+public class ToXLSDumper {
 
     @Autowired
     private MannschaftRepository repo;

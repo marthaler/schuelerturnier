@@ -1,7 +1,7 @@
 package com.googlecode.madschuelerturnier.web;
 
 import com.googlecode.madschuelerturnier.business.impl.Business;
-import com.googlecode.madschuelerturnier.business.xls.FromXLS;
+import com.googlecode.madschuelerturnier.business.xls.FromXLSLoader;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.model.spiel.Spiel;
@@ -17,12 +17,12 @@ import javax.faces.context.FacesContext;
 import java.util.List;
 
 @Component
-public class FileUploadHandler {
+public class FileUploadController {
 
-    private static final Logger LOG = Logger.getLogger(FileUploadHandler.class);
+    private static final Logger LOG = Logger.getLogger(FileUploadController.class);
 
     @Autowired
-    private FromXLS xls;
+    private FromXLSLoader xls;
 
     @Autowired
     private MannschaftRepository repo;

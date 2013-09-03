@@ -1,7 +1,8 @@
 package com.googlecode.madschuelerturnier.business.resultengine;
 
+import com.googlecode.madschuelerturnier.business.DataLoader;
+import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
-import com.googlecode.madschuelerturnier.business.dataloader.CVSMannschaftParser;
 import com.googlecode.madschuelerturnier.business.impl.Business;
 import com.googlecode.madschuelerturnier.business.vorbereitung._0_SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
@@ -33,8 +34,7 @@ public class ResultengineIntegrationTest {
 
     private static final Logger LOG = Logger.getLogger(ResultengineIntegrationTest.class);
 
-    @Autowired
-    protected CVSMannschaftParser mannschaftGenerator;
+    private DataLoader mannschaftGenerator = DataLoaderImpl.getDataLoader();
 
     @Autowired
     protected ResultateVerarbeiter resultate;
@@ -54,7 +54,7 @@ public class ResultengineIntegrationTest {
     @Before
     public void before() {
         final List<Mannschaft> liste2 = new ArrayList<Mannschaft>();
-        final List<Mannschaft> liste = this.mannschaftGenerator.loadMannschaften4Jahr("2011", null, null);
+        final List<Mannschaft> liste = this.mannschaftGenerator.loadMannschaften();
 
         for (final Mannschaft mannschaft : liste) {
             if ((mannschaft.getKlasse() == 7) && (mannschaft.getGeschlecht() == GeschlechtEnum.K)) {

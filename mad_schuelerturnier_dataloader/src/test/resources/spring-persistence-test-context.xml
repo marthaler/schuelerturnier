@@ -35,8 +35,6 @@
                 <property name="showSql" value="false"/>
             </bean>
         </property>
-        <!-- nicht mehr noetig, weil kein persistence.xml mehr vorhanden-->
-        <!-- <property name="persistenceUnitName" value="jpa.sample" /> -->
     </bean>
 
     <jpa:repositories base-package="com.googlecode.*"/>

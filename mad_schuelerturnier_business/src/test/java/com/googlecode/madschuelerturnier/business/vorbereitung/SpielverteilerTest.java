@@ -3,14 +3,14 @@
  */
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
+import com.googlecode.madschuelerturnier.business.DataLoader;
+import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
-import com.googlecode.madschuelerturnier.business.dataloader.CVSMannschaftParser;
 import com.googlecode.madschuelerturnier.business.impl.Business;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
-import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.apache.log4j.Logger;
 import org.junit.Before;
@@ -37,8 +37,7 @@ public class SpielverteilerTest {
 
     private static final Logger LOG = Logger.getLogger(SpielverteilerTest.class);
 
-    @Autowired
-    protected CVSMannschaftParser mannschaftGenerator;
+    private DataLoader mannschaftGenerator = DataLoaderImpl.getDataLoader();
 
     @Autowired
     protected ResultateVerarbeiter resultate;
@@ -50,9 +49,6 @@ public class SpielverteilerTest {
     private MannschaftRepository mannschaftRepo;
 
     @Autowired
-    private SpielRepository spielRepo;
-
-    @Autowired
     private SpielZeilenRepository repo;
 
     @Autowired
@@ -61,10 +57,10 @@ public class SpielverteilerTest {
     @Before
     public void before() {
 
-        final List<Mannschaft> liste2 = this.mannschaftGenerator.loadMannschaften4Jahr("2012", null, null);
+        final List<Mannschaft> liste2 = this.mannschaftGenerator.loadMannschaften();
 
         this.mannschaftRepo.save(liste2);
-
+        business.initializeDB();
         this.kontroller.shiftSpielPhase();
 
         this.kontroller.shiftSpielPhase();

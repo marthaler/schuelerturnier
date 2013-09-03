@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.web.primefaces;
 
 import org.primefaces.context.DefaultRequestContext;
@@ -8,7 +11,12 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
+/**
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 1.2.6
+ */
 public class Primefaces35PhaseListener implements PhaseListener {
+
     @Override
     public void afterPhase(PhaseEvent phaseEvent) {
         // NOP

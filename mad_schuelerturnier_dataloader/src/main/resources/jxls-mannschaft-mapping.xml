@@ -24,7 +24,7 @@
                 <mapping row="1" col="15">mannschaft.spielWunschHint</mapping>
             </section>
             <loopbreakcondition>
-                <rowcheck offset="1">
+                <rowcheck offset="0">
                     <cellcheck offset="10"/>
                 </rowcheck>
             </loopbreakcondition>

@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.web;
 
-import com.googlecode.madschuelerturnier.business.xls.ToXLS;
+import com.googlecode.madschuelerturnier.business.xls.ToXLSDumper;
 import org.apache.log4j.Logger;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -22,14 +22,13 @@ import java.io.ByteArrayInputStream;
 public class FileDownloadController {
 
     private static final Logger LOG = Logger.getLogger(FileDownloadController.class);
+
     @Autowired
-    private ToXLS xml;
+    private ToXLSDumper xml;
 
     public StreamedContent getFile() {
-
         ByteArrayInputStream stream = new ByteArrayInputStream(xml.mannschaftenFromDBtoXLS());
         return new DefaultStreamedContent(stream, "application/msexcel", "schuetu.xls");
-
     }
 }
                     

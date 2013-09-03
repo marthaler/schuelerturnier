@@ -3,7 +3,8 @@
  */
 package com.googlecode.madschuelerturnier.business.utils;
 
-import com.googlecode.madschuelerturnier.business.dataloader.CVSMannschaftParser;
+import com.googlecode.madschuelerturnier.business.DataLoader;
+import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.business.vorbereitung._1_KategorienZuordner;
 import com.googlecode.madschuelerturnier.business.vorbereitung._3_MannschaftenAufteiler;
 import com.googlecode.madschuelerturnier.business.vorbereitung._4_GeneratePaarungenAndSpiele;
@@ -42,8 +43,7 @@ public class TestSpielInformationExpert {
     @Autowired
     private _4_GeneratePaarungenAndSpiele spiele;
 
-    @Autowired
-    private CVSMannschaftParser generator;
+    private DataLoader mannschaftGenerator = DataLoaderImpl.getDataLoader();
 
     @Autowired
     private _1_KategorienZuordner zuord;
@@ -72,7 +72,7 @@ public class TestSpielInformationExpert {
 
         this.kategorieRepo.deleteAll();
 
-        final List<Mannschaft> list = this.generator.loadMannschaften4Jahr("2011", null, null);
+        final List<Mannschaft> list = this.mannschaftGenerator.loadMannschaften();
 
         Collections.sort(list, new MannschaftsNamenComperator());
 

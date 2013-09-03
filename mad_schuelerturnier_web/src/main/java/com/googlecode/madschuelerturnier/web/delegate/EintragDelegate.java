@@ -1,14 +1,14 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.web.delegate;
 
-import com.googlecode.madschuelerturnier.business.dataloader.CVSMannschaftParser;
-import com.googlecode.madschuelerturnier.model.Mannschaft;
-import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
+
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.faces.bean.SessionScoped;
-import java.util.List;
+
 
 /**
  * @author $Author: marthaler.worb@gmail.com $
@@ -16,22 +16,15 @@ import java.util.List;
  */
 @Component
 @SessionScoped
+@Deprecated
 public class EintragDelegate {
 
-    @Autowired
-    private CVSMannschaftParser inporter;
-
-    @Autowired
-    private MannschaftRepository repo;
-
-    private String text = "";
+    private String text = "todo remove";
 
     private static final Logger LOG = Logger.getLogger(EintragDelegate.class);
 
     public void eintragen() {
-        List<Mannschaft> liste = inporter.parseFileContent(this.text);
-        repo.save(liste);
-        text = "Mannschaften erfolgreich importiert";
+        LOG.warn("todo remove");
     }
 
     public String getText() {
@@ -43,9 +36,7 @@ public class EintragDelegate {
     }
 
     public boolean isBlockField() {
-        if (text.contains("erfolgreich einge")) {
-            return true;
-        }
+        LOG.warn("todo remove");
         return false;
     }
 

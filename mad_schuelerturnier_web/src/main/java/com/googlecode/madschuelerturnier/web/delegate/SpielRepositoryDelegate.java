@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.web.delegate;
 
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;

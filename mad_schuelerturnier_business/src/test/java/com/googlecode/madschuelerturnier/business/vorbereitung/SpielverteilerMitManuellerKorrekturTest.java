@@ -1,7 +1,8 @@
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
+import com.googlecode.madschuelerturnier.business.DataLoader;
+import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
-import com.googlecode.madschuelerturnier.business.dataloader.CVSMannschaftParser;
 import com.googlecode.madschuelerturnier.business.impl.Business;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
@@ -32,8 +33,7 @@ public class SpielverteilerMitManuellerKorrekturTest {
 
     private static final Logger LOG = Logger.getLogger(SpielverteilerMitManuellerKorrekturTest.class);
 
-    @Autowired
-    protected CVSMannschaftParser mannschaftGenerator;
+    private DataLoader mannschaftGenerator = DataLoaderImpl.getDataLoader();
 
     @Autowired
     protected ResultateVerarbeiter resultate;
@@ -59,7 +59,7 @@ public class SpielverteilerMitManuellerKorrekturTest {
     @Before
     public void before() {
 
-        final List<Mannschaft> liste1 = this.mannschaftGenerator.loadMannschaften4Jahr("2012", null, null);
+        final List<Mannschaft> liste1 = this.mannschaftGenerator.loadMannschaften();
         final List<Mannschaft> liste2 = new ArrayList<Mannschaft>();
 
         for (Mannschaft mannschaft : liste1) {
@@ -69,7 +69,7 @@ public class SpielverteilerMitManuellerKorrekturTest {
         }
 
         this.mannschaftRepo.save(liste2);
-
+        this.business.initializeDB();
         this.kontroller.shiftSpielPhase();
 
         this.kontroller.shiftSpielPhase();

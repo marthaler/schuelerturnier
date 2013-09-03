@@ -11,6 +11,8 @@ import java.util.Date;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
+// todo pruefen ob noch noetig
+@Deprecated
 public class StringToDateTime extends StringToObject {
 
     public StringToDateTime() {
