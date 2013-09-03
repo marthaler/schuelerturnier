@@ -33,7 +33,7 @@ public class DataLoaderImplTest {
     @Test
     public void testLoad2013MannschaftenMaedchen() {
         List<Mannschaft> mannschaften = DataLoaderImpl.getDataLoader(2013).loadMannschaften(false, true, null);
-        Assert.assertEquals(55, mannschaften.size());
+        Assert.assertEquals(31, mannschaften.size());
     }
 
     @Test
