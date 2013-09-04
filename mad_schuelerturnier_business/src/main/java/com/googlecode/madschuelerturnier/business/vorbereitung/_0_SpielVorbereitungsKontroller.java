@@ -11,12 +11,14 @@ import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
+import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +60,9 @@ public class _0_SpielVorbereitungsKontroller implements ISpielKontroller {
 
     @Autowired
     private MannschaftRepository mannschaftRepo;
+
+    @Autowired
+    private KategorieRepository kategorieRepo;
 
     public SpielPhasenEnum readSpielPhase() {
         SpielEinstellungen einstellung = this.business.getSpielEinstellungen();
@@ -133,10 +138,13 @@ public class _0_SpielVorbereitungsKontroller implements ISpielKontroller {
 
             Map<String, Kategorie> kategorien = this.automatischeZuordnung
                     .automatischeZuordnung();
+            Map<String, Kategorie> kategorienNeu = new HashMap<String, Kategorie>();
 
-            LOG.info("" + "**********");
-            SysoutHelper.printKategorieMap(kategorien);
-            LOG.info("" + "**********");
+            // nachladen aus der db, sonst werden Spiele nicht angezeigt
+            for (String key : kategorien.keySet()) {
+                Long id = kategorien.get(key).getId();
+                kategorienNeu.put(key, kategorieRepo.findOne(id));
+            }
 
         }
 
@@ -149,6 +157,7 @@ public class _0_SpielVorbereitungsKontroller implements ISpielKontroller {
 
             // spiele zuordnen
             spielGenerator.generatPaarungenAndSpiele();
+
 
             SysoutHelper.printKategorieList(business.getKategorien());
         }
@@ -163,6 +172,11 @@ public class _0_SpielVorbereitungsKontroller implements ISpielKontroller {
 
             // Manuelle Korrekturen vornehmen, falls welche vorhanden sind
             this.korrekturen.korrekturenVornehmen();
+
+            LOG.info("" + "**********");
+            SysoutHelper.printKategorieMap(kategorieRepo.findAll());
+            LOG.info("" + "**********");
+
 
         }
 

@@ -14,7 +14,6 @@ import com.googlecode.madschuelerturnier.persistence.repository.MannschaftReposi
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.apache.log4j.Logger;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,6 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-business-context.xml"})
 @DirtiesContext
-@Ignore
 public class SpielverteilerTest {
 
     private static final Logger LOG = Logger.getLogger(SpielverteilerTest.class);

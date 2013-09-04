@@ -30,7 +30,6 @@ public class Paarung extends AbstractPersistable<Long> {
     @OneToOne
     private Gruppe gruppe;
 
-    private String spielId = null;
 
     // getter & setter
 
@@ -66,13 +65,6 @@ public class Paarung extends AbstractPersistable<Long> {
         this.gruppe = gruppe;
     }
 
-    public String getSpielId() {
-        return spielId;
-    }
-
-    public void setSpielId(String spielId) {
-        this.spielId = spielId;
-    }
 
     @Override
     public String toString() {

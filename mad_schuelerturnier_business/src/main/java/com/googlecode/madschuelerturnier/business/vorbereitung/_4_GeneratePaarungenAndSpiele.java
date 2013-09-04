@@ -46,16 +46,13 @@ public class _4_GeneratePaarungenAndSpiele {
     @Autowired
     private Business business;
 
-
     public void generatPaarungenAndSpiele() {
 
         int spieleCount = 0;
 
-
         List<Kategorie> list = business.getKategorien();
 
         Collections.sort(list, new KategorieNameComperator());
-
 
         for (Kategorie kategorie : list) {
 
@@ -72,13 +69,11 @@ public class _4_GeneratePaarungenAndSpiele {
             } else if
                 //b vorhanden
                     (!b.isEmpty()) {
-
                 assign(b, false);
             }
 
             // alle immer
             assign(a, false);
-
 
             kategorie = kategorieRepo.findOne(kategorie.getId());
 
@@ -87,7 +82,6 @@ public class _4_GeneratePaarungenAndSpiele {
 
         }
         LOG.info(" zugeordnet total: " + spieleCount);
-
     }
 
 
@@ -99,20 +93,15 @@ public class _4_GeneratePaarungenAndSpiele {
 
             for (int k = i + 1; k < mannschaften.size(); k++) {
 
+                //parung
                 Paarung paarung = new Paarung();
                 paarung = paarungRepo.save(paarung);
                 paarung.setMannschaftA(kandidat);
+
                 // gruppe zu paarung
                 paarung.setGruppe(gruppeKandidat);
                 paarung.setMannschaftB(mannschaften.get(k));
-                //kandidat.getPaarungen().add(paarung);
-
-
-                // todo gegenseitiges aufloesen
-                //Mannschaft gegner = paarung.getMannschaftB();
-                //gegner.getPaarungen().add(paarung);
-
-                //mannschaftRepo.save(gegner);
+                //-parung
 
                 Spiel spiel = new Spiel();
                 spiel.setIdString(IDGeneratorContainer.getNext());
@@ -120,22 +109,36 @@ public class _4_GeneratePaarungenAndSpiele {
 
                 spiel.setPaarung(paarung);
 
-
                 spiel.setMannschaftA(kandidat);
                 spiel.setMannschaftB(mannschaften.get(k));
 
-
                 spiel = spielRepo.save(spiel);
-                paarung.setSpielId(spiel.getIdString());
-                paarung.setSpiel(spiel);
 
-                if (toBGruppe) {
-                    gruppeKandidat.getKategorie().getGruppeB().getSpiele().add(spiel);
-                } else {
-                    gruppeKandidat.getSpiele().add(spiel);
-                }
-                this.gruppeRepo.save(gruppeKandidat);
+                //paarung
+                //paarung.setSpielId(spiel.getIdString());
+                paarung.setSpiel(spiel);
                 paarungRepo.save(paarung);
+                //-paarung
+
+                // gruppe b holen falls gewuenscht
+                if (toBGruppe) {
+                    gruppeKandidat = gruppeKandidat.getKategorie().getGruppeB();
+                }
+
+                // scheint mit aktuellem jpa noetig zu sein um die zwischentabelle GRUPPE_SPIELE aufzuraeumen
+                // Spiele wegnehmen und neu hinzufuegen
+                List<Spiel> spiele = gruppeKandidat.getSpiele();
+                gruppeKandidat.getSpiele().clear();
+                gruppeKandidat = this.gruppeRepo.save(gruppeKandidat);
+
+                for (Spiel sp : spiele) {
+                    gruppeKandidat.getSpiele().add(sp);
+                }
+
+                // eigentliches Spiel hinzufuegen
+                gruppeKandidat.getSpiele().add(spiel);
+
+                this.gruppeRepo.save(gruppeKandidat);
             }
         }
         mannschaftRepo.save(mannschaften);

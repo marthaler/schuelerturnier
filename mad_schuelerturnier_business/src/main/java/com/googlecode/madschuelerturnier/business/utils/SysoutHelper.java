@@ -6,7 +6,9 @@ package com.googlecode.madschuelerturnier.business.utils;
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import org.apache.log4j.Logger;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
 /**
@@ -18,29 +20,27 @@ public class SysoutHelper {
     public static final String BEGRENZER = "*************************************";
     private static final Logger LOG = Logger.getLogger(SysoutHelper.class);
 
-    public static void printKategorieMap(Map<String, Kategorie> map) {
+    public static void printKategorieMap(List<Kategorie> list) {
         LOG.info("" + "");
         LOG.info("" + BEGRENZER);
-        Set<String> keys = map.keySet();
+
         List<String> str = new ArrayList<String>();
-        for (String string : keys) {
-            str.add(string);
+        for (Kategorie kat : list) {
+            str.add(kat.getName());
         }
         Collections.sort(str);
 
-        for (String key : str) {
+        for (Kategorie kat : list) {
 
-            LOG.info("" + key + " ");
-            String name = (map.get(key).getName() + "                           ").substring(0, 10);
 
-            LOG.info("" + " " + name + "--> " + map.get(key).getGruppeA().getMannschaften());
-            if (map.get(key).getGruppeB() != null) {
-                LOG.info("" + "              --> " + map.get(key).getGruppeB().getMannschaften());
+            LOG.info(kat.getName() + " --> " + kat.getGruppeA().getMannschaften());
+            if (kat.getGruppeB() != null) {
+                LOG.info("" + "              --> " + kat.getGruppeB().getMannschaften());
             } else {
                 LOG.info("" + "              --> ");
             }
 
-            LOG.info("" + "              --> spiele: " + map.get(key).getSpiele().size());
+            LOG.info("" + "              --> spiele: " + kat.getSpiele().size());
 
             LOG.info("" + "");
         }
@@ -51,7 +51,6 @@ public class SysoutHelper {
     public static void printKategorieList(List<Kategorie> map) {
         LOG.info("" + "");
         LOG.info("" + BEGRENZER);
-
 
         for (Kategorie key : map) {
             String name = (key.getName() + "                           ").substring(0, 10);
@@ -67,8 +66,6 @@ public class SysoutHelper {
 
             LOG.info("" + "              -->       spiele: " + key.getSpiele().size());
             LOG.info("" + "              --> mannschaften: " + key.getMannschaften().size());
-
-            LOG.info("" + "");
         }
         LOG.info("" + BEGRENZER);
         LOG.info("");

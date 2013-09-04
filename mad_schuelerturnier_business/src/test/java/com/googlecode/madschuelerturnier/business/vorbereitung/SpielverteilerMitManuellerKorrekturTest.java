@@ -12,7 +12,6 @@ import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.apache.log4j.Logger;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +83,6 @@ public class SpielverteilerMitManuellerKorrekturTest {
     }
 
     @Test
-    @Ignore
     public void generateMannschaften() {
 
         this.business.initZeilen(true);
