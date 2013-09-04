@@ -57,15 +57,16 @@ public class SysoutHelper {
             if (key.getGruppeA() == null) {
                 continue;
             }
-            LOG.info("" + " " + name + "   --> " + key.getGruppeA().getMannschaftenSorted());
+            LOG.info("" + " " + name + "   a --> " + key.getGruppeA().getMannschaftenSorted());
             if (key.getGruppeB() != null) {
-                LOG.info("" + "              --> " + key.getGruppeB().getMannschaftenSorted());
+                LOG.info("" + "              b --> " + key.getGruppeB().getMannschaftenSorted());
             } else {
                 LOG.info("" + "              --> ");
             }
 
             LOG.info("" + "              -->       spiele: " + key.getSpiele().size());
             LOG.info("" + "              --> mannschaften: " + key.getMannschaften().size());
+            LOG.info("");
         }
         LOG.info("" + BEGRENZER);
         LOG.info("");

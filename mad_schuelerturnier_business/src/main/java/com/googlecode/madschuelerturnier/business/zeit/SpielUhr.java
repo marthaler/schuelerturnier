@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
  * Uhr fuer die Darstellung der Zeit und Verspaetung im GUI
  *
  * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
  */
 @Component
 public class SpielUhr implements ApplicationListener<ZeitPuls> {

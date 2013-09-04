@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 /**
+ * Gibt die Zeit in Sekundenpulsen vor und uebermittelt diese als Application Event
+ *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */

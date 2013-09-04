@@ -1,9 +1,18 @@
 package com.googlecode.madschuelerturnier.business.zeit;
+/**
+ * Apache License 2.0
+ */
 
 import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
 
+/**
+ * Zaehlt rueckwaerts bis zu einem bestimmen Zeitpunkt
+ *
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
+ */
 public class Countdown {
 
     private DateTime ablauf;
@@ -55,9 +64,6 @@ public class Countdown {
     }
 
     public boolean isFertig() {
-        if (getZeit().equals("00:00")) {
-            return true;
-        }
-        return false;
+        return getZeit().equals("00:00");
     }
 }

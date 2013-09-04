@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-business-context.xml"})
-public class Test_3_MannschaftAufteiler {
+public class Test_3_MannschaftenAufteiler {
 
     @Autowired
     _3_MannschaftenAufteiler aufteiler;
@@ -20,11 +20,10 @@ public class Test_3_MannschaftAufteiler {
 
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void durchrechnenTest() {
 
-        Float f = (float) (5f / 2);
+        Float f = (5f / 2);
 
         Assert.assertEquals(Float.valueOf((float) 2.5), f);
 
@@ -33,8 +32,6 @@ public class Test_3_MannschaftAufteiler {
 
     }
 
-
-    @SuppressWarnings("unchecked")
     @Test
     public void durchrechnenTest2() {
 
@@ -42,6 +39,5 @@ public class Test_3_MannschaftAufteiler {
         Assert.assertEquals(2, i);
 
     }
-
 
 }

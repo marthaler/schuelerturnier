@@ -3,13 +3,11 @@
  */
 package com.googlecode.madschuelerturnier.business.testdata;
 
-import com.googlecode.madschuelerturnier.business.DataLoader;
 import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
 import com.googlecode.madschuelerturnier.business.impl.Business;
 import com.googlecode.madschuelerturnier.business.vorbereitung._0_SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
-import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielEnum;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.model.spiel.Spiel;
@@ -28,7 +26,7 @@ import java.util.List;
 
 /**
  * Diese Klasse dient dazu einen bereits fertig konfigurierten Matsch zu laden
- * Kann mittels -Dspring.profiles.active="dev" eingeschaltet werden
+ * Kann mittels -Dspring.profiles.active="dev" / spring.profiles.active dev eingeschaltet werden
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
@@ -38,8 +36,6 @@ import java.util.List;
 public class ResultengineStarter {
 
     private static final Logger LOG = Logger.getLogger(ResultengineStarter.class);
-
-    private DataLoader mannschaftGenerator = DataLoaderImpl.getDataLoader();
 
     @Autowired
     protected ResultateVerarbeiter resultate;
@@ -65,39 +61,26 @@ public class ResultengineStarter {
     public void generateMannschaften() {
 
         List<Mannschaft> liste = new ArrayList<Mannschaft>();
-        List<Mannschaft> listePrimaer = this.mannschaftGenerator.loadMannschaften();
 
-        for (final Mannschaft mannschaft : listePrimaer) {
-            // liste.add(mannschaft);
+        // Knaben
+        liste.addAll(DataLoaderImpl.getDataLoader().loadMannschaften(false, true, 1));
+        liste.addAll(DataLoaderImpl.getDataLoader().loadMannschaften(false, true, 2));
+        liste.addAll(DataLoaderImpl.getDataLoader().loadMannschaften(false, true, 7));
+        liste.addAll(DataLoaderImpl.getDataLoader().loadMannschaften(false, true, 8));
+        liste.addAll(DataLoaderImpl.getDataLoader().loadMannschaften(false, true, 9));
+        // Maedchen
+        liste.addAll(DataLoaderImpl.getDataLoader().loadMannschaften(true, false, 8));
+        liste.addAll(DataLoaderImpl.getDataLoader().loadMannschaften(true, false, 9));
+
+        // einstellungen setzen
+        SpielEinstellungen einstellungen = this.business.getSpielEinstellungen();
+        if (einstellungen == null) {
+            einstellungen = new SpielEinstellungen();
         }
-
-        for (final Mannschaft mannschaft : listePrimaer) {
-
-
-            if ((mannschaft.getKlasse() == 1) && (mannschaft.getGeschlecht() == GeschlechtEnum.M)) {
-                liste.add(mannschaft);
-            }
-
-            if ((mannschaft.getKlasse() == 2) && (mannschaft.getGeschlecht() == GeschlechtEnum.M)) {
-                liste.add(mannschaft);
-            }
-
-            if ((mannschaft.getKlasse() == 7) && (mannschaft.getGeschlecht() == GeschlechtEnum.M)) {
-                liste.add(mannschaft);
-            }
-            if ((mannschaft.getKlasse() == 8) && (mannschaft.getGeschlecht() == GeschlechtEnum.M)) {
-                liste.add(mannschaft);
-            }
-            if ((mannschaft.getKlasse() == 9) && (mannschaft.getGeschlecht() == GeschlechtEnum.M)) {
-                liste.add(mannschaft);
-            }
-            if ((mannschaft.getKlasse() == 8) && (mannschaft.getGeschlecht() == GeschlechtEnum.K)) {
-                liste.add(mannschaft);
-            }
-            if ((mannschaft.getKlasse() == 9) && (mannschaft.getGeschlecht() == GeschlechtEnum.K)) {
-                liste.add(mannschaft);
-            }
-        }
+        einstellungen.setPause(1);
+        einstellungen.setSpiellaenge(5);
+        einstellungen.setStarttag(new Date(1349809440304L));
+        this.business.saveEinstellungen(einstellungen);
 
 
         this.mannschaftRepo.save(liste);
@@ -105,13 +88,6 @@ public class ResultengineStarter {
         this.kontroller.shiftSpielPhase();
 
         this.kontroller.shiftSpielPhase();
-
-        final SpielEinstellungen einstellungen = this.business.getSpielEinstellungen();
-        einstellungen.setPause(1);
-        einstellungen.setSpiellaenge(5);
-        einstellungen.setStarttag(new Date(1349809440304L));
-
-        this.business.saveEinstellungen(einstellungen);
 
         this.business.initZeilen(true);
 
@@ -123,7 +99,6 @@ public class ResultengineStarter {
         final List<Spiel> spiele = this.spielRepo.findAll();
 
         for (final Spiel spiel : spiele) {
-
 
             spiel.setFertigEingetragen(true);
             spiel.setFertigGespielt(true);
@@ -147,7 +122,6 @@ public class ResultengineStarter {
                     LOG.error(e.getMessage(), e);
                 }
             }
-
         }
 
         try {
@@ -157,7 +131,6 @@ public class ResultengineStarter {
         }
 
         for (final Spiel spiel : spielRepo.findFinalSpielAsc()) {
-
 
             spiel.setFertigEingetragen(true);
             spiel.setFertigGespielt(true);
@@ -176,12 +149,9 @@ public class ResultengineStarter {
             spiel.setToreA(Integer.parseInt(a));
             spiel.setToreB(Integer.parseInt(b));
 
-
             final Spiel s = this.spielRepo.save(spiel);
             this.resultate.signalFertigesSpiel(s.getId());
 
         }
-
     }
-
 }

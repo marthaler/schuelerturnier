@@ -46,18 +46,149 @@ public class _5_Spielverteiler {
 
     public void spieleAutomatischVerteilen() {
 
+        behandleFinalspielzeilen();
 
-        List<SpielZeile> finalspieleZeilen = spielzeilenRepo
-                .findFinalSpielZeilen();
-        List<SpielZeile> gruppenSpieleZeilen = spielzeilenRepo
-                .findGruppenSpielZeilen();
+        SpielZeile vorher = null;
 
-        List<Spiel> finalSpiele = spielRepo.findFinalSpiel();
+        List<SpielZeile> gruppenSpieleZeilen = spielzeilenRepo.findGruppenSpielZeilen();
+
         List<Spiel> gruppenSpiele = spielRepo.findGruppenSpiel();
 
         helper.init(gruppenSpiele);
 
+        for (SpielZeile zeilen : gruppenSpieleZeilen) {
+
+            if (zeilen.isPause() && !isSammstagNachNeuekategoriesperre(zeilen)) {
+                vorher = zeilen;
+                continue;
+            }
+
+            stopA(vorher, gruppenSpiele, zeilen);
+
+            stopB(vorher, gruppenSpiele, zeilen);
+
+            stopC(vorher, gruppenSpiele, zeilen);
+
+            vorher = spielzeilenRepo.save(zeilen);
+
+        }
+
+
+        LOG.info("spiele verteilt ");
+        if (gruppenSpiele.size() > 0) {
+            LOG.fatal("NICHT ZUGEORDNETE SPIELE !!! " + gruppenSpiele.size());
+            LOG.fatal("NICHT ZUGEORDNETE SPIELE --> " + gruppenSpiele);
+        }
+
+        LOG.info("werde jetzt ueberzaehlige pausen loeschen");
+        // sichern und Anfang und Schluss Pausen entfernen
+        List<SpielZeile> zeilenSo = business.getSpielzeilen(true);
+        List<SpielZeile> zeilenSa = business.getSpielzeilen(false);
+        removeUeberschuss(zeilenSo);
+        removeUeberschuss(zeilenSa);
+
+    }
+
+    private void stopA(SpielZeile vorher, List<Spiel> gruppenSpiele, SpielZeile zeilen) {
+        boolean stopA = false;
+
+        int iA = 0;
+        while (!stopA) {
+
+            Spiel tempSpiel = this.getNextSpiel(zeilen, gruppenSpiele, iA);
+
+            if (tempSpiel == null) {
+                break;
+            }
+
+            tempSpiel.setPlatz(PlatzEnum.A);
+            zeilen.setA(tempSpiel);
+            tempSpiel.setStart(zeilen.getStart());
+            zeilen.setKonfliktText(null);
+            zeilen.setPause(false);
+
+            String ret = val.validateSpielZeilen(vorher, zeilen);
+            if (ret == null || ret.equals("")) {
+                gruppenSpiele.remove(tempSpiel);
+                helper.consumeSpiel(tempSpiel);
+                spielRepo.save(tempSpiel);
+                stopA = true;
+            } else {
+                zeilen.setA(null);
+            }
+            iA++;
+        }
+    }
+
+    private void stopC(SpielZeile vorher, List<Spiel> gruppenSpiele, SpielZeile zeilen) {
+        boolean stopC = false;
+
+        int iC = 0;
+        while (!stopC) {
+
+            Spiel tempSpiel = this.getNextSpiel(zeilen, gruppenSpiele, iC);
+            if (tempSpiel == null) {
+                break;
+            }
+
+            tempSpiel.setPlatz(PlatzEnum.C);
+            zeilen.setC(tempSpiel);
+
+            tempSpiel.setStart(zeilen.getStart());
+            zeilen.setKonfliktText(null);
+            zeilen.setPause(false);
+
+            String ret = val.validateSpielZeilen(vorher, zeilen);
+            if (ret == null || ret.equals("")) {
+                helper.consumeSpiel(tempSpiel);
+                gruppenSpiele.remove(tempSpiel);
+                spielRepo.save(tempSpiel);
+                stopC = true;
+            } else {
+                zeilen.setC(null);
+            }
+            iC++;
+        }
+    }
+
+    private void stopB(SpielZeile vorher, List<Spiel> gruppenSpiele, SpielZeile zeilen) {
+        boolean stopB = false;
+
+        int iB = 0;
+        while (!stopB) {
+
+            Spiel tempSpiel = this.getNextSpiel(zeilen, gruppenSpiele, iB);
+
+            if (tempSpiel == null) {
+                break;
+            }
+
+            tempSpiel.setPlatz(PlatzEnum.B);
+            zeilen.setB(tempSpiel);
+            tempSpiel.setStart(zeilen.getStart());
+            zeilen.setKonfliktText(null);
+            zeilen.setPause(false);
+
+            String ret = val.validateSpielZeilen(vorher, zeilen);
+            if (ret == null || ret.equals("")) {
+
+                helper.consumeSpiel(tempSpiel);
+                gruppenSpiele.remove(tempSpiel);
+                spielRepo.save(tempSpiel);
+                stopB = true;
+            } else {
+                zeilen.setB(null);
+            }
+            iB++;
+        }
+    }
+
+    private void behandleFinalspielzeilen() {
         int i = 0;
+        List<Spiel> finalSpiele = spielRepo.findFinalSpiel();
+
+        List<SpielZeile> finalspieleZeilen = spielzeilenRepo
+                .findFinalSpielZeilen();
 
         for (SpielZeile zeilen : finalspieleZeilen) {
             if (zeilen.isPause()) {
@@ -81,124 +212,9 @@ public class _5_Spielverteiler {
                 LOG.info("index wurde ueberschritten Finalspiel");
             }
         }
-
-        SpielZeile vorher = null;
-
-        for (SpielZeile zeilen : gruppenSpieleZeilen) {
-
-            if (zeilen.isPause() && !isSammstagNachNeuekategoriesperre(zeilen)) {
-                vorher = zeilen;
-                continue;
-            }
-
-            boolean stopA = false;
-
-            int iA = 0;
-            while (!stopA) {
-
-                Spiel tempSpiel = this.getNextSpiel(zeilen, gruppenSpiele, iA);
-
-                if (tempSpiel == null) {
-                    break;
-                }
-
-                tempSpiel.setPlatz(PlatzEnum.A);
-                zeilen.setA(tempSpiel);
-                tempSpiel.setStart(zeilen.getStart());
-                zeilen.setKonfliktText(null);
-                zeilen.setPause(false);
-
-                String ret = val.validateSpielZeilen(vorher, zeilen);
-                if (ret == null || ret.equals("")) {
-                    gruppenSpiele.remove(tempSpiel);
-                    helper.consumeSpiel(tempSpiel);
-                    spielRepo.save(tempSpiel);
-                    stopA = true;
-                } else {
-                    zeilen.setA(null);
-                }
-                iA++;
-            }
-
-            boolean stopB = false;
-
-            int iB = 0;
-            while (!stopB) {
-
-                Spiel tempSpiel = this.getNextSpiel(zeilen, gruppenSpiele, iB);
-
-                if (tempSpiel == null) {
-                    break;
-                }
-
-                tempSpiel.setPlatz(PlatzEnum.B);
-                zeilen.setB(tempSpiel);
-                tempSpiel.setStart(zeilen.getStart());
-                zeilen.setKonfliktText(null);
-                zeilen.setPause(false);
-
-                String ret = val.validateSpielZeilen(vorher, zeilen);
-                if (ret == null || ret.equals("")) {
-
-                    helper.consumeSpiel(tempSpiel);
-                    gruppenSpiele.remove(tempSpiel);
-                    spielRepo.save(tempSpiel);
-                    stopB = true;
-                } else {
-                    zeilen.setB(null);
-                }
-                iB++;
-            }
-
-            boolean stopC = false;
-
-            int iC = 0;
-            while (!stopC) {
-
-                Spiel tempSpiel = this.getNextSpiel(zeilen, gruppenSpiele, iC);
-                if (tempSpiel == null) {
-                    break;
-                }
-
-                tempSpiel.setPlatz(PlatzEnum.C);
-                zeilen.setC(tempSpiel);
-
-                tempSpiel.setStart(zeilen.getStart());
-                zeilen.setKonfliktText(null);
-                zeilen.setPause(false);
-
-                String ret = val.validateSpielZeilen(vorher, zeilen);
-                if (ret == null || ret.equals("")) {
-                    helper.consumeSpiel(tempSpiel);
-                    gruppenSpiele.remove(tempSpiel);
-                    spielRepo.save(tempSpiel);
-                    stopC = true;
-                } else {
-                    zeilen.setC(null);
-                }
-                iC++;
-            }
-
-            vorher = spielzeilenRepo.save(zeilen);
-
-        }
-        LOG.info("spiele verteilt ");
-        if (gruppenSpiele.size() > 0) {
-            LOG.fatal("NICHT ZUGEORDNETE SPIELE !!! " + gruppenSpiele.size());
-            LOG.fatal("NICHT ZUGEORDNETE SPIELE --> " + gruppenSpiele);
-        }
-
-        LOG.info("werde jetzt ueberzaehlige pausen loeschen");
-        // sichern und Anfang und Schluss Pausen entfernen
-        List<SpielZeile> zeilenSo = business.getSpielzeilen(true);
-        List<SpielZeile> zeilenSa = business.getSpielzeilen(false);
-        removeUeberschuss(zeilenSo);
-        removeUeberschuss(zeilenSa);
-
     }
 
     private Spiel getNextSpiel(SpielZeile zeile, List<Spiel> gruppenSpiele, int iB) {
-
 
         Spiel firstEgal = null;
         int ieg = 0;
@@ -219,7 +235,6 @@ public class _5_Spielverteiler {
                     }
                 }
                 ieg++;
-
             }
 
             if (zeile.getSpieltageszeit() == spiel.getMannschaftA().getKategorie().getSpielwunsch()) {
@@ -233,8 +248,6 @@ public class _5_Spielverteiler {
                     } else {
                         firstEgal = spiel;
                     }
-
-
                 }
                 ineg++;
             }
@@ -245,10 +258,7 @@ public class _5_Spielverteiler {
 
     private boolean isSammstagNachNeuekategoriesperre(SpielZeile zeile) {
         DateTime start = new DateTime(zeile.getStart());
-        if (zeile.getSpieltageszeit() == SpielTageszeit.SAMMSTAGNACHMITTAG && start.getHourOfDay() > 17) {
-            return true;
-        }
-        return false;
+        return zeile.getSpieltageszeit() == SpielTageszeit.SAMMSTAGNACHMITTAG && start.getHourOfDay() > 17;
     }
 
     private void removeUeberschuss(List<SpielZeile> zeilen) {

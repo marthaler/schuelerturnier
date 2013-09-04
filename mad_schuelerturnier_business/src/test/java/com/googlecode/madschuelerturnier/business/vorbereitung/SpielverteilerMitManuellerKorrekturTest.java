@@ -1,10 +1,8 @@
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
-import com.googlecode.madschuelerturnier.business.DataLoader;
 import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
 import com.googlecode.madschuelerturnier.business.impl.Business;
-import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
@@ -18,9 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author $Author: marthaler.worb@gmail.com $
@@ -31,8 +27,6 @@ import java.util.List;
 public class SpielverteilerMitManuellerKorrekturTest {
 
     private static final Logger LOG = Logger.getLogger(SpielverteilerMitManuellerKorrekturTest.class);
-
-    private DataLoader mannschaftGenerator = DataLoaderImpl.getDataLoader();
 
     @Autowired
     protected ResultateVerarbeiter resultate;
@@ -58,16 +52,8 @@ public class SpielverteilerMitManuellerKorrekturTest {
     @Before
     public void before() {
 
-        final List<Mannschaft> liste1 = this.mannschaftGenerator.loadMannschaften();
-        final List<Mannschaft> liste2 = new ArrayList<Mannschaft>();
+        this.mannschaftRepo.save(DataLoaderImpl.getDataLoader().loadMannschaften(true, true, 6, 7));
 
-        for (Mannschaft mannschaft : liste1) {
-            if (mannschaft.getKlasse() == 6) {
-                liste2.add(mannschaft);
-            }
-        }
-
-        this.mannschaftRepo.save(liste2);
         this.business.initializeDB();
         this.kontroller.shiftSpielPhase();
 
@@ -98,15 +84,12 @@ public class SpielverteilerMitManuellerKorrekturTest {
             }
         }
 
-
         String vertauschungen = "sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;sa,09:00,a-sa,09:00,b;";
-
 
         final SpielEinstellungen einstellungen = this.business.getSpielEinstellungen();
         einstellungen.setSpielVertauschungen(vertauschungen);
 
         this.business.saveEinstellungen(einstellungen);
-
 
         korr.korrekturenVornehmen();
 

@@ -40,14 +40,13 @@ public class _3_MannschaftenAufteiler {
         Iterable<Kategorie> all = kategorieRepo.findAll();
         for (Kategorie kategorie : all) {
             if (kategorie.getGruppeA() == null) {
-                LOG.info("_1_KategorieZuordner hat Kategorie ohne Gruppe A: löschen");
-                //   kategorieRepo.delete(kategorie);
+                LOG.info("_1_KategorieZuordner hat Kategorie ohne Gruppe A: loeschen");
+                kategorieRepo.delete(kategorie);
             }
         }
 
         // falls die gruppe a genau 3 mannschaften hat gibt es eine vor- und eine rueckrunde
         // bei mehr als 7 werden die gruppen geteilt
-        List<Kategorie> kategorienList = new ArrayList<Kategorie>();
         Iterable<Kategorie> kat = kategorieRepo.findAll();
 
         List<Long> kategorieIDs = new ArrayList<Long>();
@@ -83,7 +82,7 @@ public class _3_MannschaftenAufteiler {
 
                 kategorie = kategorieRepo.findOne(kategorie.getId());
 
-                Float f = (Float.valueOf(mannschaftenSize) / 2);
+                Float f = ((float) mannschaftenSize / 2);
                 int ersteHaelfte = Math.round(f);
 
 
