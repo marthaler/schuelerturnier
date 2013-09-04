@@ -1,7 +1,7 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.business.testdata;
+package com.googlecode.madschuelerturnier.business.turnierimport;
 
 import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
@@ -33,9 +33,9 @@ import java.util.List;
  */
 @Component
 @Profile("dev")
-public class ResultengineStarter {
+public class DevContentStarter {
 
-    private static final Logger LOG = Logger.getLogger(ResultengineStarter.class);
+    private static final Logger LOG = Logger.getLogger(DevContentStarter.class);
 
     @Autowired
     protected ResultateVerarbeiter resultate;
@@ -57,9 +57,7 @@ public class ResultengineStarter {
         generateMannschaften();
     }
 
-    @Async
-    public void generateMannschaften() {
-
+    private List<Mannschaft> datenbankBefuellen() {
         List<Mannschaft> liste = new ArrayList<Mannschaft>();
 
         // Knaben
@@ -81,7 +79,13 @@ public class ResultengineStarter {
         einstellungen.setSpiellaenge(5);
         einstellungen.setStarttag(new Date(1349809440304L));
         this.business.saveEinstellungen(einstellungen);
+        return liste;
+    }
 
+    @Async
+    public void generateMannschaften() {
+
+        List<Mannschaft> liste = datenbankBefuellen();
 
         this.mannschaftRepo.save(liste);
 
@@ -96,6 +100,44 @@ public class ResultengineStarter {
         this.kontroller.shiftSpielPhase();
         this.kontroller.shiftSpielPhase();
 
+        spielResultateEintragen();
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            LOG.error(e.getMessage(), e);
+        }
+
+        finalResultateEintragen();
+    }
+
+    private void finalResultateEintragen() {
+        for (final Spiel spiel : spielRepo.findFinalSpielAsc()) {
+
+            spiel.setFertigEingetragen(true);
+            spiel.setFertigGespielt(true);
+            spiel.setFertigBestaetigt(true);
+
+            if (spiel.getMannschaftA() == null) {
+                continue;
+            }
+
+            final String a = spiel.getMannschaftA().getName().substring(3, 4);
+            final String b = spiel.getMannschaftB().getName().substring(3, 4);
+
+            spiel.setToreABestaetigt(Integer.parseInt(a));
+            spiel.setToreBBestaetigt(Integer.parseInt(b));
+
+            spiel.setToreA(Integer.parseInt(a));
+            spiel.setToreB(Integer.parseInt(b));
+
+            final Spiel s = this.spielRepo.save(spiel);
+            this.resultate.signalFertigesSpiel(s.getId());
+
+        }
+    }
+
+    private void spielResultateEintragen() {
         final List<Spiel> spiele = this.spielRepo.findAll();
 
         for (final Spiel spiel : spiele) {
@@ -122,36 +164,6 @@ public class ResultengineStarter {
                     LOG.error(e.getMessage(), e);
                 }
             }
-        }
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            LOG.error(e.getMessage(), e);
-        }
-
-        for (final Spiel spiel : spielRepo.findFinalSpielAsc()) {
-
-            spiel.setFertigEingetragen(true);
-            spiel.setFertigGespielt(true);
-            spiel.setFertigBestaetigt(true);
-
-            if (spiel.getMannschaftA() == null) {
-                continue;
-            }
-
-            final String a = spiel.getMannschaftA().getName().substring(3, 4);
-            final String b = spiel.getMannschaftB().getName().substring(3, 4);
-
-            spiel.setToreABestaetigt(Integer.parseInt(a));
-            spiel.setToreBBestaetigt(Integer.parseInt(b));
-
-            spiel.setToreA(Integer.parseInt(a));
-            spiel.setToreB(Integer.parseInt(b));
-
-            final Spiel s = this.spielRepo.save(spiel);
-            this.resultate.signalFertigesSpiel(s.getId());
-
         }
     }
 }
