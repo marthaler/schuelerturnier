@@ -39,10 +39,6 @@ public class ZeitPuls extends ApplicationEvent implements Serializable {
         return new DateTime(this.zeit.getMillis() + this.abweichungDerSpielzeit);
     }
 
-    public int getVerschnellerungsFaktor() {
-        return this.verschnellerungsFaktor;
-    }
-
     public boolean isUnterbruch() {
         return this.unterbruch;
     }
@@ -52,10 +48,7 @@ public class ZeitPuls extends ApplicationEvent implements Serializable {
     }
 
     public boolean habenWirVerspaetung() {
-        if (this.abweichungDerSpielzeit < 0) {
-            return true;
-        }
-        return false;
+        return this.abweichungDerSpielzeit < 0;
     }
 
     @Override

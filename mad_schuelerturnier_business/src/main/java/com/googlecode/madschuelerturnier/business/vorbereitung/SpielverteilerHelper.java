@@ -4,7 +4,6 @@
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
 import com.googlecode.madschuelerturnier.model.spiel.Spiel;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -23,8 +22,6 @@ public class SpielverteilerHelper {
 
     private static final String CONSUMED_KEY = "consumed";
     private static final String AVAILABLE_KEY = "available";
-
-    private static final Logger LOG = Logger.getLogger(SpielverteilerHelper.class);
 
     private Map<String, Map<String, Integer>> map = new HashMap<String, Map<String, Integer>>();
 
@@ -51,10 +48,7 @@ public class SpielverteilerHelper {
     public boolean isFirstSpielInGruppe(Spiel spiel) {
         String katname = spiel.getMannschaftA().getKategorie().getName();
         Integer res = map.get(katname).get(CONSUMED_KEY);
-        if (res == 0) {
-            return true;
-        }
-        return false;
+        return res == 0;
     }
 
     public void consumeSpiel(Spiel spiel) {

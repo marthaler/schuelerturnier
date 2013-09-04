@@ -38,6 +38,10 @@ public class SpielPrintManager {
     @Autowired
     private PrintAgent printAgent;
 
+    public SpielPrintManager() {
+        LOG.info("instanziert: SpielPrintManager");
+    }
+
     public void saveSpiel(Spiel spiel) {
 
         if (!spielSet.contains(spiel)) {
@@ -71,13 +75,15 @@ public class SpielPrintManager {
             SimpleDateFormat form = new SimpleDateFormat("E HH:mm");
             stringBuilder.append(form.format(spiel.getStart()));
             stringBuilder.append("</td><td>");
-            stringBuilder.append("" + spiel.getPlatz());
+            stringBuilder.append(spiel.getPlatz());
             stringBuilder.append("</td><td>");
-            stringBuilder.append("" + spiel.getMannschaftAName());
+            stringBuilder.append(spiel.getMannschaftAName());
             stringBuilder.append("</td><td>");
-            stringBuilder.append("" + spiel.getMannschaftBName());
+            stringBuilder.append(spiel.getMannschaftBName());
             stringBuilder.append("</td><td>");
-            stringBuilder.append("" + spiel.getToreABestaetigt() + " : " + spiel.getToreBBestaetigt());
+            stringBuilder.append(spiel.getToreABestaetigt());
+            stringBuilder.append(stringBuilder.append(" : "));
+            stringBuilder.append(spiel.getToreBBestaetigt());
             stringBuilder.append("</td></tr>");
         }
 
@@ -93,7 +99,6 @@ public class SpielPrintManager {
         stringBuilder.append("<table>");
 
         String page = this.cleaner.cleanup(stringBuilder.toString(), false);
-
 
         this.savedPages.put(pageN, page);
 

@@ -15,7 +15,6 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,8 +33,6 @@ public class Gruppe extends AbstractPersistable<Long> {
     private Kategorie kategorie = null;
 
     private GeschlechtEnum geschlecht = null;
-
-    private Date letztesGruppenspiel = null;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @LazyCollection(LazyCollectionOption.FALSE)

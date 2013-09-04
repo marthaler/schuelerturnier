@@ -22,6 +22,10 @@ public class MannschaftenNummerierer {
 
     private static final Logger LOG = Logger.getLogger(MannschaftenNummerierer.class);
 
+    public MannschaftenNummerierer() {
+        LOG.info("instanziert: MannschaftenNummerierer");
+    }
+
     public List<Mannschaft> mannschaftenNummerieren(List<Mannschaft> list) {
 
         // sortieren
@@ -34,7 +38,7 @@ public class MannschaftenNummerierer {
                     + mannschaft.getKlasse();
             Integer nummer = map.get(key);
             if (nummer == null) {
-                nummer = Integer.valueOf(1);
+                nummer = 1;
             } else {
                 nummer = nummer + 1;
             }

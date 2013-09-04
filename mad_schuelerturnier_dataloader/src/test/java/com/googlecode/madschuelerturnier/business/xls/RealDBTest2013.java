@@ -4,10 +4,10 @@
 package com.googlecode.madschuelerturnier.business.xls;
 
 import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.util.XstreamUtil;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielEinstellungenRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
-import com.thoughtworks.xstream.XStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -113,8 +113,7 @@ public class RealDBTest2013 {
             LOG.error(e.getMessage(), e);
         }
 
-        XStream xstream = new XStream();
-        String str = xstream.toXML(deleteChangedate(listeAusXLS));
+        String str = XstreamUtil.serializeToString(deleteChangedate(listeAusXLS));
 
         try {
             FileUtils.writeStringToFile(new File(System.getProperty("java.io.tmpdir") + "vorher.xml"), str);
@@ -132,7 +131,7 @@ public class RealDBTest2013 {
             LOG.error(e.getMessage(), e);
         }
 
-        String xstreamText = xstream.toXML(deleteChangedate(listeAusXLS2));
+        String xstreamText = XstreamUtil.serializeToString(deleteChangedate(listeAusXLS2));
 
         try {
             FileUtils.writeStringToFile(new File(System.getProperty("java.io.tmpdir") + "nachher.xml"), xstreamText);

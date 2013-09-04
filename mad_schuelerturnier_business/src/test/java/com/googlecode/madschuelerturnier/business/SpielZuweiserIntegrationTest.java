@@ -9,7 +9,6 @@ import com.googlecode.madschuelerturnier.persistence.repository.MannschaftReposi
 import com.googlecode.madschuelerturnier.persistence.repository.SpielEinstellungenRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +27,7 @@ import java.util.List;
  * @since 0.7
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring-business-context.xml"})
-@Ignore // laeuft nicht in Maven
+@ContextConfiguration(locations = {"classpath:spring-business-context-test1.xml"})
 public class SpielZuweiserIntegrationTest {
 
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SpielZuweiserIntegrationTest.class);

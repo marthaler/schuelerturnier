@@ -5,7 +5,6 @@ package com.googlecode.madschuelerturnier.business.controller.leiter.converter;
 
 import org.apache.log4j.Logger;
 import org.htmlcleaner.*;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,8 +18,8 @@ public class XHTMLOutputUtil {
 
     private static final Logger LOG = Logger.getLogger(HTMLSchiriConverter.class);
 
-    @Value("print_folder")
-    private String printfolderPath = "/print";
+    //@Value("print_folder")
+    //private String printfolderPath = "/print";
 
     public String cleanup(String input, boolean justbody) {
 

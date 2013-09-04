@@ -4,7 +4,6 @@
 package com.googlecode.madschuelerturnier.business.utils;
 
 import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
-import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.apache.log4j.Logger;
@@ -22,16 +21,15 @@ public class SpielInformationExpert {
 
     private static final Logger LOG = Logger.getLogger(SpielInformationExpert.class);
 
-
-    @Autowired
-    public transient KategorieRepository kategorieRepo;
-
-
     @Autowired
     private SpielRepository spielRepo;
 
     @Autowired
     private SpielZeilenRepository spielZeilenRepo;
+
+    public SpielInformationExpert() {
+        LOG.info("instanziert: SpielInformationExpert");
+    }
 
     public int getAnzahlSpiele() {
         return spielRepo.findGruppenSpiel().size();

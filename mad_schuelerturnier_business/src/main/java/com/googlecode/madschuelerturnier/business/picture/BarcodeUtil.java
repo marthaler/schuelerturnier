@@ -32,59 +32,51 @@ public class BarcodeUtil {
         LuminanceSource source = new BufferedImageLuminanceSource(image);
         BinaryBitmap bitmap = new BinaryBitmap(new GlobalHistogramBinarizer(source));
         Collection<Result> results = new ArrayList<Result>(1);
-        ReaderException savedException = null;
+
 
         try {
 
-            try {
-                // Look for multiple barcodes
-                MultipleBarcodeReader multiReader = new GenericMultipleBarcodeReader(reader);
-                Result[] theResults = multiReader.decodeMultiple(bitmap, HINTS);
-                if (theResults != null) {
-                    results.addAll(Arrays.asList(theResults));
+
+            // Look for multiple barcodes
+            MultipleBarcodeReader multiReader = new GenericMultipleBarcodeReader(reader);
+            Result[] theResults = multiReader.decodeMultiple(bitmap, HINTS);
+            if (theResults != null) {
+                results.addAll(Arrays.asList(theResults));
+            }
+
+
+            if (results.isEmpty()) {
+
+                // Look for pure barcode
+                Result theResult = reader.decode(bitmap, HINTS_PURE);
+                if (theResult != null) {
+                    results.add(theResult);
                 }
-            } catch (ReaderException re) {
-                savedException = re;
+
             }
 
             if (results.isEmpty()) {
-                try {
-                    // Look for pure barcode
-                    Result theResult = reader.decode(bitmap, HINTS_PURE);
-                    if (theResult != null) {
-                        results.add(theResult);
-                    }
-                } catch (ReaderException re) {
-                    savedException = re;
+
+                // Look for normal barcode in photo
+                Result theResult = reader.decode(bitmap, HINTS);
+                if (theResult != null) {
+                    results.add(theResult);
                 }
+
             }
 
             if (results.isEmpty()) {
-                try {
-                    // Look for normal barcode in photo
-                    Result theResult = reader.decode(bitmap, HINTS);
-                    if (theResult != null) {
-                        results.add(theResult);
-                    }
-                } catch (ReaderException re) {
-                    savedException = re;
+
+                // Try again with other binarizer
+                BinaryBitmap hybridBitmap = new BinaryBitmap(new HybridBinarizer(source));
+                Result theResult = reader.decode(hybridBitmap, HINTS);
+                if (theResult != null) {
+                    results.add(theResult);
                 }
+
             }
 
-            if (results.isEmpty()) {
-                try {
-                    // Try again with other binarizer
-                    BinaryBitmap hybridBitmap = new BinaryBitmap(new HybridBinarizer(source));
-                    Result theResult = reader.decode(hybridBitmap, HINTS);
-                    if (theResult != null) {
-                        results.add(theResult);
-                    }
-                } catch (ReaderException re) {
-                    savedException = re;
-                }
-            }
-
-        } catch (RuntimeException re) {
+        } catch (Exception re) {
             re.printStackTrace();
         }
 

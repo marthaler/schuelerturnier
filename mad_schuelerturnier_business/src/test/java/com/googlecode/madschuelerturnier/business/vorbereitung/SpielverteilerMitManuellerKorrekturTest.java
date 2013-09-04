@@ -1,16 +1,13 @@
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
 import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
-import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
 import com.googlecode.madschuelerturnier.business.impl.Business;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
-import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.apache.log4j.Logger;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,32 +23,25 @@ import java.util.Date;
  * @since 0.7
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring-business-context.xml"})
-@Ignore // laeuft nicht in Maven
+@ContextConfiguration(locations = {"classpath:spring-business-context-test2.xml"})
 public class SpielverteilerMitManuellerKorrekturTest {
 
     private static final Logger LOG = Logger.getLogger(SpielverteilerMitManuellerKorrekturTest.class);
 
     @Autowired
-    protected ResultateVerarbeiter resultate;
+    private _0_SpielVorbereitungsKontroller kontroller;
 
     @Autowired
-    _0_SpielVorbereitungsKontroller kontroller;
+    private MannschaftRepository mannschaftRepo;
 
     @Autowired
-    MannschaftRepository mannschaftRepo;
+    private SpielZeilenRepository repo;
 
     @Autowired
-    SpielRepository spielRepo;
+    private Business business;
 
     @Autowired
-    SpielZeilenRepository repo;
-
-    @Autowired
-    Business business;
-
-    @Autowired
-    _6_SpielverteilerManuelleKorrekturen korr;
+    private _6_SpielverteilerManuelleKorrekturen korr;
 
     @Before
     public void before() {

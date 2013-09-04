@@ -1,6 +1,7 @@
 package com.googlecode.madschuelerturnier.web;
 
 import com.googlecode.madschuelerturnier.business.impl.Business;
+import com.googlecode.madschuelerturnier.business.turnierimport.ImportHandler;
 import com.googlecode.madschuelerturnier.business.xls.FromXLSLoader;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
@@ -25,13 +26,16 @@ public class FileUploadController {
     private FromXLSLoader xls;
 
     @Autowired
-    private MannschaftRepository repo;
+    private MannschaftRepository mannschaftsRepo;
 
     @Autowired
-    private SpielRepository srepo;
+    private SpielRepository spielRepo;
 
     @Autowired
-    private Business erepo;
+    private Business busniess;
+
+    @Autowired
+    private ImportHandler importHandler;
 
     public void handleFileUpload(FileUploadEvent event) {
 
@@ -40,21 +44,23 @@ public class FileUploadController {
 
         // Einstellungen sichern
         SpielEinstellungen einstellungen = xls.convertXLSToEinstellung(event.getFile().getContents());
-        erepo.saveEinstellungen(einstellungen);
+        busniess.saveEinstellungen(einstellungen);
         LOG.info("einstellungen gespeicher: " + einstellungen);
 
         // Mannschaften laden und updaten
         List<Mannschaft> mannschaftsliste = xls.convertXLSToMannschaften(event.getFile().getContents());
         for (Mannschaft m : mannschaftsliste) {
-            repo.save(m);
+            mannschaftsRepo.save(m);
             LOG.info("mannschaft gespeicher: " + m);
         }
 
         // Spiele laden und updaten
         List<Spiel> spiele = xls.convertXLSToSpiele(event.getFile().getContents());
         for (Spiel s : spiele) {
-            srepo.save(s);
+            spielRepo.save(s);
             LOG.info("spiel gespeicher: " + s);
         }
+
+        importHandler.turnierHerstellen();
     }
 }

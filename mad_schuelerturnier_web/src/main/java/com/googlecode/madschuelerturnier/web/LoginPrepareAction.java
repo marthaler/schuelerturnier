@@ -1,6 +1,5 @@
 package com.googlecode.madschuelerturnier.web;
 
-import com.googlecode.madschuelerturnier.business.IBusiness;
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLOutConverter;
 import com.googlecode.madschuelerturnier.business.generator.BarcodeGenerator;
 import com.googlecode.madschuelerturnier.business.generator.SpeakerGenerator;
@@ -39,9 +38,6 @@ public class LoginPrepareAction {
     private OutToWebsitePublisher outToWebsite;
 
     @Autowired
-    private IBusiness business;
-
-    @Autowired
     private ScannerAgent scannerAgent;
 
     @Autowired
@@ -50,9 +46,7 @@ public class LoginPrepareAction {
     @Autowired
     private HTMLOutConverter converter;
 
-
     private String ip;
-
 
     private String delim = System.getProperty("file.separator");
 
@@ -80,10 +74,11 @@ public class LoginPrepareAction {
         } catch (UnknownHostException e) {
             LOG.error(e.getMessage(), e);
         }
-        LOG.info("" + "ip of my system is := " + ipA.getHostAddress());
+        if (ipA != null) {
+            LOG.info("" + "ip of my system is := " + ipA.getHostAddress());
 
-        this.ip = "http://" + ipA.getHostAddress() + ":" + httpServletRequest.getServerPort();
-
+            this.ip = "http://" + ipA.getHostAddress() + ":" + httpServletRequest.getServerPort();
+        }
         speakerGenerator.init(path + "static" + delim);
 
         printAgent.init(path + "static" + delim);

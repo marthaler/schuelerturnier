@@ -22,6 +22,10 @@ public class SpielBusiness {
 
     private static final Logger LOG = Logger.getLogger(SpielBusiness.class);
 
+    public SpielBusiness() {
+        LOG.info("Instanziert: SpielBusiness");
+    }
+
     @Autowired
     private Business business;
 
@@ -32,7 +36,7 @@ public class SpielBusiness {
      * com.googlecode.madschuelerturnier.business.sdfdf#getSchulhausListe(java
      * .lang.String)
      */
-    public SpieleContainer getSpielzeilen(boolean sonntag) {
+    public SpieleContainer getSpielzeilen() {
 
         DateTime start = new DateTime(business.getSpielEinstellungen().getStarttag());
 

@@ -17,7 +17,6 @@ public class SpieleContainer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private List<SpielZeile> zeilen = new ArrayList<SpielZeile>();
-    private SpielZeile[] selectedZeilen;
 
     private SpielZeilenWrapper dataModel;
 

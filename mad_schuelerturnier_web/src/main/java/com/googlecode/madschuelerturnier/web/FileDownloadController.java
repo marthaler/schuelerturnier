@@ -23,6 +23,10 @@ public class FileDownloadController {
 
     private static final Logger LOG = Logger.getLogger(FileDownloadController.class);
 
+    public FileDownloadController() {
+        LOG.info("Instanziert: FileDownloadController");
+    }
+
     @Autowired
     private ToXLSDumper xml;
 
