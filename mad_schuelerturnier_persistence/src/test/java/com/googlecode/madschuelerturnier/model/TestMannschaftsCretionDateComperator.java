@@ -2,7 +2,6 @@ package com.googlecode.madschuelerturnier.model;
 
 import com.googlecode.madschuelerturnier.model.comperators.MannschaftsCretionDateComperator;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -10,8 +9,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class TestMannschaftsCretionDateComperator {
+
     @Test
-    @Ignore
     public void TestCreationDateComperator() throws InterruptedException {
 
         List<Mannschaft> list = new ArrayList<Mannschaft>();

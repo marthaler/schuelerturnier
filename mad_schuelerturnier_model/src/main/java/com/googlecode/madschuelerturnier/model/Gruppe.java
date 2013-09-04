@@ -71,6 +71,11 @@ public class Gruppe extends AbstractPersistable<Long> {
             geschlecht = this.kategorie.getMannschaften().get(0).getGeschlecht();
         }
 
+        // fall, dass kategorie noch nicht gesetzt ist aber bereits mannschaften in der gruppe sind
+        if (this.mannschaften != null && this.mannschaften.size() > 0) {
+            geschlecht = this.mannschaften.get(0).getGeschlecht();
+        }
+
         return geschlecht;
     }
 
@@ -83,7 +88,7 @@ public class Gruppe extends AbstractPersistable<Long> {
      * @param mannschaft die Mannschaft zum adden
      */
     public void addMannschaft(final Mannschaft mannschaft) throws MixtGroupException {
-        GeschlechtEnum basis = null;
+        GeschlechtEnum basis;
         if (this.mannschaften.size() > 1) {
             basis = this.mannschaften.get(0).getGeschlecht();
         } else {
@@ -147,9 +152,9 @@ public class Gruppe extends AbstractPersistable<Long> {
     }
 
     public void setMannschaften(final List<Mannschaft> mannschaften) {
+        this.mannschaften = mannschaften;
         // initialisiere Geschlecht
         this.getGeschlecht();
-        this.mannschaften = mannschaften;
     }
 
     public Kategorie getKategorie() {
@@ -158,14 +163,6 @@ public class Gruppe extends AbstractPersistable<Long> {
 
     public void setKategorie(final Kategorie kategorie) {
         this.kategorie = kategorie;
-    }
-
-    public Date getLetztesGruppenspiel() {
-        return letztesGruppenspiel;
-    }
-
-    public void setLetztesGruppenspiel(Date letztesGruppenspiel) {
-        this.letztesGruppenspiel = letztesGruppenspiel;
     }
 
     public List<Spiel> getSpiele() {

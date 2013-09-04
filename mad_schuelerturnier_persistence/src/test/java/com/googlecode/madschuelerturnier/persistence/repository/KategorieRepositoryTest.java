@@ -5,7 +5,6 @@ import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +33,6 @@ public class KategorieRepositoryTest {
     MannschaftRepository mRepo;
 
     @Test
-    @Ignore
     public void testKategorie() {
         //kRepo.deleteAll();
         Mannschaft m = new Mannschaft();

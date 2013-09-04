@@ -53,7 +53,7 @@ public class ImageUtil {
             b = (pixelRGBValue >> 0) & 0xff;
             luminance = (r * 0.299) + (g * 0.587) + (b * 0.114);
         } catch (Exception e) {
-            // ignore.
+            // ign
         }
 
         return (luminance < luminanceCutOff);

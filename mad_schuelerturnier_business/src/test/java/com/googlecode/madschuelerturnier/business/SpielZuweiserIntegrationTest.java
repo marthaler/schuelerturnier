@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -28,7 +29,7 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-business-context.xml"})
-@DirtiesContext
+@Ignore // laeuft nicht in Maven
 public class SpielZuweiserIntegrationTest {
 
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SpielZuweiserIntegrationTest.class);
@@ -50,14 +51,13 @@ public class SpielZuweiserIntegrationTest {
 
     private DataLoader mannschaftGenerator = DataLoaderImpl.getDataLoader();
 
-
     @Test
-    @Ignore
     @DirtiesContext
+    @Rollback(true)
     public void TestSpielKontroller() {
 
         this.mannschaftRepo.save(this.mannschaftGenerator.loadMannschaften());
-
+        business.initializeDB();
         SpielPhasenEnum phase = this.kontroller.readSpielPhase();
         Assert.assertNotNull(phase);
 

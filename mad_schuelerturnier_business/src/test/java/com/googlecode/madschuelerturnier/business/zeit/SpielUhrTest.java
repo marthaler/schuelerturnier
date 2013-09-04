@@ -33,9 +33,7 @@ public class SpielUhrTest {
     public void testOnApplicationEvent() throws Exception {
         DateTime time = DateTime.now();
         ZeitPuls puls = new ZeitPuls(this, time, 2, true, 0);
-
         uhr.onApplicationEvent(puls);
-
         Assert.assertFalse(puls.toString().contains(SpielUhr.NOT_INIT));
     }
 

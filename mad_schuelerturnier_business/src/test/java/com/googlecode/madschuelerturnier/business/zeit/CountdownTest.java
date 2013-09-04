@@ -18,7 +18,6 @@ public class CountdownTest {
 
     private Countdown countdown;
 
-
     @Test
     public void testRun() throws Exception {
 
@@ -28,11 +27,9 @@ public class CountdownTest {
         countdown = new Countdown(time, 15);
         testreiheDurchfuehren(time);
 
-
         // auf 15 mit 2 * Zeit im Konstruktor
         countdown = new Countdown(time, time.plusSeconds(15));
         testreiheDurchfuehren(time);
-
 
     }
 
@@ -44,14 +41,12 @@ public class CountdownTest {
         LOG.info("" + countdown.getZeit());
         Assert.assertFalse(countdown.isFertig());
 
-
         countdown.signalTime(time.plusSeconds(10));
 
         Assert.assertEquals("00:05", countdown.getZeit());
 
         LOG.info("" + countdown.getZeit());
         Assert.assertFalse(countdown.isFertig());
-
 
         countdown.signalTime(time.plusSeconds(14));
 
@@ -60,14 +55,12 @@ public class CountdownTest {
         LOG.info("" + countdown.getZeit());
         Assert.assertFalse(countdown.isFertig());
 
-
         countdown.signalTime(time.plusSeconds(50));
 
         Assert.assertEquals("00:00", countdown.getZeit());
 
         LOG.info("" + countdown.getZeit());
         Assert.assertTrue(countdown.isFertig());
-
 
         countdown.signalTime(time.plusSeconds(5000));
 
@@ -76,6 +69,4 @@ public class CountdownTest {
         LOG.info("" + countdown.getZeit());
         Assert.assertTrue(countdown.isFertig());
     }
-
-
 }

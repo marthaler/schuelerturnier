@@ -299,7 +299,7 @@ public class Business implements IBusiness {
         }
 
         quelle = this.kategorieRepo.save(quelle);
-        ziel = this.kategorieRepo.save(ziel);
+        this.kategorieRepo.save(ziel);
 
         if ((quelle.getGruppeA().getMannschaften() == null) || (quelle.getGruppeA().getMannschaften().size() < 1)) {
             quelle.getGruppeA().setKategorie(null);
@@ -544,16 +544,14 @@ public class Business implements IBusiness {
 
     @Override
     public boolean isDBInitialized() {
-        if (this.getSpielEinstellungen() == null) {
-            return false;
-        }
-        return true;
+        return this.getSpielEinstellungen() != null;
     }
 
     @Override
     public void initializeDB() {
         if (this.spielEinstellungenRepo.count() > 0) {
             Business.LOG.fatal("achtung versuch spiel einstellungen zu initialisieren obwohl bereits in der db vorhanden ");
+            this.einstellungen = spielEinstellungenRepo.findAll().get(0);
         } else {
             SpielEinstellungen eins = new SpielEinstellungen();
             this.einstellungen = this.spielEinstellungenRepo.save(eins);

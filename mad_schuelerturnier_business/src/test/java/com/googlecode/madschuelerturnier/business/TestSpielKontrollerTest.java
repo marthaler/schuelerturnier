@@ -1,16 +1,17 @@
 package com.googlecode.madschuelerturnier.business;
 
+import com.googlecode.madschuelerturnier.business.impl.Business;
 import com.googlecode.madschuelerturnier.business.vorbereitung._0_SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielEinstellungenRepository;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -23,32 +24,32 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-business-context.xml"})
-@Ignore
+@DirtiesContext
 public class TestSpielKontrollerTest {
 
     @Autowired
-    _0_SpielVorbereitungsKontroller kontroller;
+    private _0_SpielVorbereitungsKontroller kontroller;
 
     @Autowired
-    MannschaftRepository mannschaftRepo;
+    private MannschaftRepository mannschaftRepo;
 
     @Autowired
-    SpielEinstellungenRepository einstellungen;
-
+    private SpielEinstellungenRepository einstellungen;
 
     @Autowired
-    SpielEinstellungenRepository spielEinstellungenRepository;
+    private Business business;
 
     private DataLoader mannschaftGenerator = DataLoaderImpl.getDataLoader();
 
     @Test
-    @DirtiesContext
+    @Rollback(true)
     public void TestSpielKontroller() {
 
         for (SpielEinstellungen o : einstellungen.findAll()) {
             einstellungen.delete(o);
         }
 
+        business.initializeDB();
 
         mannschaftRepo.save(mannschaftGenerator.loadMannschaften());
 

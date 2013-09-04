@@ -180,7 +180,7 @@ public class _1_KategorienZuordner {
 
                 if (!moved) {
 
-                    String keyMinusOne = "";
+                    String keyMinusOne;
                     try {
                         keyMinusOne = kKeys.get(i - 1);
                     } catch (IndexOutOfBoundsException e) {
@@ -252,7 +252,7 @@ public class _1_KategorienZuordner {
             tempKategorie.getGruppeA().getMannschaften().add(mannschaftRepo.findOne(mannschaft.getId()));
             LOG.info(mannschaft);
             //gruppeRepo.save(tempKategorie.getGruppeA());
-            tempKategorie = this.kategorieRepo.saveAndFlush(tempKategorie);
+            tempKategorie = this.kategorieRepo.save(tempKategorie);
 
             map.put(key, tempKategorie);
         }
