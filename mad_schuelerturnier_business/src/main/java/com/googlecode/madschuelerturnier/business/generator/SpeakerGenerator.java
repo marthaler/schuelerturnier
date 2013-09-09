@@ -78,42 +78,42 @@ public class SpeakerGenerator {
 
 
             if (ahere && bhere) {
-                mergeFile(folder + "a" + MP3, folder + "b\" + MP3", folder + "d\" + MP3");
+                mergeFile(folder + "a" + MP3, folder + "b" + MP3, folder + "d" + MP3);
                 if (chere) {
-                    mergeFile(folder + "d" + MP3, folder + "c.mp3", folder + "e\" + MP3");
+                    mergeFile(folder + "d" + MP3, folder + "c.mp3", folder + "e" + MP3);
                 }
             } else if (ahere && chere) {
-                mergeFile(folder + "a.mp3", folder + "c.mp3", folder + "e.mp3");
+                mergeFile(folder + "a" + MP3, folder + "c" + MP3, folder + "e" + MP3);
             } else if (bhere && chere) {
-                mergeFile(folder + "b.mp3", folder + "c.mp3", folder + "e.mp3");
+                mergeFile(folder + "b" + MP3, folder + "c" + MP3, folder + "e" + MP3);
             } else if (ahere) {
                 try {
-                    FileUtils.moveFile(new File(folder + "a.mp3"), new File(folder + "e.mp3"));
+                    FileUtils.moveFile(new File(folder + "a" + MP3), new File(folder + "e" + MP3));
                 } catch (IOException e) {
                     LOG.error(e.getMessage(), e);
                 }
             } else if (bhere) {
                 try {
-                    FileUtils.moveFile(new File(folder + "b.mp3"), new File(folder + "e.mp3"));
+                    FileUtils.moveFile(new File(folder + "b" + MP3), new File(folder + "e" + MP3));
                 } catch (IOException e) {
                     LOG.error(e.getMessage(), e);
                 }
             } else if (chere) {
                 try {
-                    FileUtils.moveFile(new File(folder + "c.mp3"), new File(folder + "e.mp3"));
+                    FileUtils.moveFile(new File(folder + "c" + MP3), new File(folder + "e" + MP3));
                 } catch (IOException e) {
                     LOG.error(e.getMessage(), e);
                 }
             }
 
             try {
-                if (new File(folder + "e.mp3").exists()) {
-                    FileUtils.moveFile(new File(folder + "e.mp3"), new File(folder + "" + spielZeile.getId() + MP3));
-                    FileUtils.deleteQuietly(new File(folder + "a.mp3"));
-                    FileUtils.deleteQuietly(new File(folder + "b.mp3"));
-                    FileUtils.deleteQuietly(new File(folder + "c.mp3"));
-                    FileUtils.deleteQuietly(new File(folder + "d.mp3"));
-                    FileUtils.deleteQuietly(new File(folder + "e.mp3"));
+                if (new File(folder + "e" + MP3).exists()) {
+                    FileUtils.moveFile(new File(folder + "e" + MP3), new File(folder + "" + spielZeile.getId() + MP3));
+                    FileUtils.deleteQuietly(new File(folder + "a" + MP3));
+                    FileUtils.deleteQuietly(new File(folder + "b" + MP3));
+                    FileUtils.deleteQuietly(new File(folder + "c" + MP3));
+                    FileUtils.deleteQuietly(new File(folder + "d" + MP3));
+                    FileUtils.deleteQuietly(new File(folder + "e" + MP3));
                 }
             } catch (IOException e) {
                 LOG.error(e.getMessage(), e);
