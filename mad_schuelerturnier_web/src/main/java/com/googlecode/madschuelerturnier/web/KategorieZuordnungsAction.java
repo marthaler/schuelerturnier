@@ -11,11 +11,15 @@ import org.springframework.webflow.execution.RequestContext;
 
 import java.util.List;
 
+/**
+ * @author marthaler.worb@gmail.com
+ * @since 1.2.5
+ */
 @Component
 public class KategorieZuordnungsAction implements Action {
 
     @Autowired
-    Business business;
+    private Business business;
 
     public Event execute(RequestContext context) {
 

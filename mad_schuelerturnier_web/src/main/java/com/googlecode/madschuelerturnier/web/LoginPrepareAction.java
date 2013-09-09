@@ -18,6 +18,10 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/**
+ * @author marthaler.worb@gmail.com
+ * @since 1.2.5
+ */
 @Component
 public class LoginPrepareAction {
 

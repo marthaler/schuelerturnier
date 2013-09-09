@@ -34,21 +34,16 @@ public class BarcodeGenerator {
 
     }
 
-    private void barcode(String text) {
-
+    private void barcode(String textIn) {
+        String text = textIn;
         if (text == null || "".equals(text)) {
             text = "00";
         }
 
         try {
-
-
             BufferedImage image = BarcodeUtil.encode(text);
             File f = new File(folder + text + ".png");
-
             ImageIO.write(image, "png", f);
-
-
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }

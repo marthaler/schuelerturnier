@@ -59,7 +59,11 @@ public class ToXLSDumper {
         }
     }
 
-    private byte[] convertModelToXLS(List<Mannschaft> mannschaften, List<Spiel> spiele, List<SpielEinstellungen> einstellungen) {
+    private byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<SpielEinstellungen> einstellungenIn) {
+
+        List<SpielEinstellungen> einstellungen = einstellungenIn;
+        List<Spiel> spiele = spieleIn;
+        List<Mannschaft> mannschaften = mannschaftenIn;
 
         // SpielEinstellungen aufbereiten
         if (einstellungen == null) {

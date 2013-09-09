@@ -17,6 +17,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.util.List;
 
+/**
+ * @author marthaler.worb@gmail.com
+ * @since 1.2.5
+ */
 @Component
 public class FileUploadController {
 

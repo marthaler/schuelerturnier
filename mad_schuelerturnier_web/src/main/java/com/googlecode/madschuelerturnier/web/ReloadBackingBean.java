@@ -4,6 +4,10 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
+/**
+ * @author marthaler.worb@gmail.com
+ * @since 1.2.5
+ */
 @Component
 public class ReloadBackingBean implements Serializable {
 

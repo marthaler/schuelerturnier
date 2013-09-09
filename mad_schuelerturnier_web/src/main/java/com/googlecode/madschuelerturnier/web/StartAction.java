@@ -9,6 +9,10 @@ import org.springframework.webflow.execution.Event;
 
 import java.util.Collection;
 
+/**
+ * @author marthaler.worb@gmail.com
+ * @since 1.2.5
+ */
 @Component
 public class StartAction {
 

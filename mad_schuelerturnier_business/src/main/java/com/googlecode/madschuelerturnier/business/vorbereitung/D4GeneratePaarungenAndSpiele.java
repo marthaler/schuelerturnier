@@ -115,7 +115,6 @@ public class D4GeneratePaarungenAndSpiele {
                 spiel = spielRepo.save(spiel);
 
                 //paarung
-                //paarung.setSpielId(spiel.getIdString());
                 paarung.setSpiel(spiel);
                 paarungRepo.save(paarung);
                 //-paarung

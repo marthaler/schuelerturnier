@@ -28,7 +28,7 @@ public class HTMLSpielMatrixConverter {
     @Autowired
     private XHTMLOutputUtil xhtml;
 
-    final SimpleDateFormat sdf = new SimpleDateFormat("E HH:mm");
+    private final SimpleDateFormat sdf = new SimpleDateFormat("E HH:mm");
 
     private static final Logger LOG = Logger.getLogger(HTMLSpielMatrixConverter.class);
 

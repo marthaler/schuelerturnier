@@ -258,7 +258,6 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
 
             p.setSpiel(spiel);
             p.setGruppe(this.getGruppe());
-            // p.setMannschaftA(this.getSpiele());
             paarung.add(p);
         }
 
@@ -373,7 +372,6 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
         this.spielJahr = spielJahr;
     }
 
-
     public String getNotizen() {
         return this.notizen;
     }
@@ -420,7 +418,7 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
     }
 
     // getter und setter fuer xls export und import
-    public void setId(Long id) {      // NOSONAR
+    public void setId(Long id) {  // NOSONAR
         super.setId(id);
     }
 

@@ -125,7 +125,7 @@ public class OutToWebsiteSender extends Thread {
     private FTPClient connect() throws TurnierException {
         try {
             final FTPClient client = new FTPClient();
-            // client.setTrustManager(TrustManagerUtils.getAcceptAllTrustManager());
+            // client . setTrustManager (TrustManagerUtils . getAcceptAllTrustManager ( ) )
             client.setConnectTimeout(10000);
             client.connect(ftpServer, ftpPort);
             client.login(ftpUser, ftpPassword);

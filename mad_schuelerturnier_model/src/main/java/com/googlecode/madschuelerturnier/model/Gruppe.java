@@ -134,7 +134,6 @@ public class Gruppe extends AbstractPersistable<Long> {
     // getter & setter normal
 
     public List<Mannschaft> getMannschaften() {
-        //this.getGeschlecht();
 
         if (this.kategorie == null || this.kategorie.getGruppeB() == null || this.kategorie.getGruppeA() == null) {
             return this.mannschaften;
@@ -174,12 +173,9 @@ public class Gruppe extends AbstractPersistable<Long> {
         this.geschlecht = geschlecht;
     }
 
-
     @Override
     public String toString() {
-
         return "Gruppe [geschlecht=" + geschlecht + ", mannschaften=" + mannschaften + "]";
     }
-
 
 }
