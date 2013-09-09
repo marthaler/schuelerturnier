@@ -31,9 +31,9 @@ import java.util.Map;
  * @since 0.7
  */
 @Component
-public class A0_SpielVorbereitungsKontroller implements ISpielKontroller {
+public class A0SpielVorbereitungsKontroller implements ISpielKontroller {
 
-    private static final Logger LOG = Logger.getLogger(A0_SpielVorbereitungsKontroller.class);
+    private static final Logger LOG = Logger.getLogger(A0SpielVorbereitungsKontroller.class);
 
     private boolean isInitialized = false;
 
@@ -41,19 +41,19 @@ public class A0_SpielVorbereitungsKontroller implements ISpielKontroller {
     private Business business;
 
     @Autowired
-    private B1_KategorienZuordner automatischeZuordnung;
+    private B1KategorienZuordner automatischeZuordnung;
 
     @Autowired
-    private C3_MannschaftenAufteiler mannschaftenAufteilen;
+    private C3MannschaftenAufteiler mannschaftenAufteilen;
 
     @Autowired
-    private D4_GeneratePaarungenAndSpiele spielGenerator;
+    private D4GeneratePaarungenAndSpiele spielGenerator;
 
     @Autowired
-    private E5_Spielverteiler spielVerteiler;
+    private E5Spielverteiler spielVerteiler;
 
     @Autowired
-    private F6_SpielverteilerManuelleKorrekturen korrekturen;
+    private F6SpielverteilerManuelleKorrekturen korrekturen;
 
     @Autowired
     private MannschaftenNummerierer mannschaftsNummerierer;
@@ -69,7 +69,7 @@ public class A0_SpielVorbereitungsKontroller implements ISpielKontroller {
         return einstellung.getPhase();
     }
 
-    public A0_SpielVorbereitungsKontroller() {
+    public A0SpielVorbereitungsKontroller() {
 
     }
 
@@ -83,12 +83,12 @@ public class A0_SpielVorbereitungsKontroller implements ISpielKontroller {
             return;
         }
         if (this.isInitialized) {
-            A0_SpielVorbereitungsKontroller.LOG
+            A0SpielVorbereitungsKontroller.LOG
                     .info("spielphasen sind bereits initialisiert, mache nichts");
             return;
         }
         for (final SpielPhasenEnum phase : SpielPhasenEnum.values()) {
-            A0_SpielVorbereitungsKontroller.LOG.info("initialisierung spielphase: " + phase
+            A0SpielVorbereitungsKontroller.LOG.info("initialisierung spielphase: " + phase
                     + " " + phase.ordinal());
             if (phase.ordinal() <= readSpielPhase().ordinal()) {
                 changeSpielPhase(phase);
@@ -121,14 +121,14 @@ public class A0_SpielVorbereitungsKontroller implements ISpielKontroller {
         final SpielPhasenEnum vorher = readSpielPhase();
 
         if (vorher.ordinal() >= phase.ordinal()) {
-            A0_SpielVorbereitungsKontroller.LOG
+            A0SpielVorbereitungsKontroller.LOG
                     .info("ungueltiger spielphasenwechsel: keine aenderung -> "
                             + vorher + " zu " + phase);
             return;
         }
 
         if (phase == SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG) {
-            A0_SpielVorbereitungsKontroller.LOG
+            A0SpielVorbereitungsKontroller.LOG
                     .info("spielphasenwechsel in: B_KATEGORIE_ZUORDNUNG");
 
             // mannschaften Nummerieren und speichern
@@ -149,7 +149,7 @@ public class A0_SpielVorbereitungsKontroller implements ISpielKontroller {
         }
 
         if (phase == SpielPhasenEnum.C_SPIELTAGE_DEFINIEREN) {
-            A0_SpielVorbereitungsKontroller.LOG
+            A0SpielVorbereitungsKontroller.LOG
                     .info("spielphasenwechsel in: C_SPIELTAGE_DEFINIEREN");
 
             // mannschaften aufteilen auf untergruppen
@@ -164,7 +164,7 @@ public class A0_SpielVorbereitungsKontroller implements ISpielKontroller {
 
         if (phase == SpielPhasenEnum.D_SPIELE_ZUORDNUNG) {
 
-            A0_SpielVorbereitungsKontroller.LOG
+            A0SpielVorbereitungsKontroller.LOG
                     .info("spielphasenwechsel in: D_SPIELE_ZUORDNUNG");
 
             // Verteilen
@@ -181,15 +181,15 @@ public class A0_SpielVorbereitungsKontroller implements ISpielKontroller {
         }
 
         if (phase == SpielPhasenEnum.E_SPIELBEREIT) {
-            A0_SpielVorbereitungsKontroller.LOG.info("spielphasenwechsel in: E_SPIELBEREIT");
+            A0SpielVorbereitungsKontroller.LOG.info("spielphasenwechsel in: E_SPIELBEREIT");
         }
 
         if (phase == SpielPhasenEnum.F_SPIELEN) {
-            A0_SpielVorbereitungsKontroller.LOG.info("spielphasenwechsel in: F_SPIELEN");
+            A0SpielVorbereitungsKontroller.LOG.info("spielphasenwechsel in: F_SPIELEN");
         }
 
         if (phase == SpielPhasenEnum.G_ABGESCHLOSSEN) {
-            A0_SpielVorbereitungsKontroller.LOG.info("spielphasenwechsel in: G_ABGESCHLOSSEN");
+            A0SpielVorbereitungsKontroller.LOG.info("spielphasenwechsel in: G_ABGESCHLOSSEN");
         }
 
         if (this.isInitialized) {

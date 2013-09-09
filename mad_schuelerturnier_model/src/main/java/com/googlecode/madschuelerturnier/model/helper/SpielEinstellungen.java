@@ -53,15 +53,11 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
 
     private boolean gongEinschalten = false;
 
-    // private boolean init = false;
-
-
     public SpielEinstellungen() {
         DateTime date = new DateTime();
         date.withDate(2013, 6, 8);
         starttag = date.toDate();
     }
-
 
     public void setSpielPhaseString(String phase) {
         phase = phase.toLowerCase();
@@ -290,11 +286,8 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
         if (starttagstr != null ? !starttagstr.equals(that.starttagstr) : that.starttagstr != null) {
             return false;
         }
-        if (test != null ? !test.equals(that.test) : that.test != null) {
-            return false;
-        }
+        return !(test != null ? !test.equals(that.test) : that.test != null);
 
-        return true;
     }
 
     @Override

@@ -29,7 +29,7 @@ public class SpielverteilerMitManuellerKorrekturTest {
     private static final Logger LOG = Logger.getLogger(SpielverteilerMitManuellerKorrekturTest.class);
 
     @Autowired
-    private A0_SpielVorbereitungsKontroller kontroller;
+    private A0SpielVorbereitungsKontroller kontroller;
 
     @Autowired
     private MannschaftRepository mannschaftRepo;
@@ -41,7 +41,7 @@ public class SpielverteilerMitManuellerKorrekturTest {
     private Business business;
 
     @Autowired
-    private F6_SpielverteilerManuelleKorrekturen korr;
+    private F6SpielverteilerManuelleKorrekturen korr;
 
     @Before
     public void before() {

@@ -6,6 +6,7 @@ package com.googlecode.madschuelerturnier.business.utils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -14,18 +15,18 @@ public class MavenVersionUtil {
 
     private static final Logger LOG = Logger.getLogger(SpielInformationExpert.class);
 
-    public String version = "-";
-    public String time = "-";
+    private String version = "-";
+    private String time = "-";
 
     public MavenVersionUtil() {
         init();
     }
 
     public final void init() {
-
+        InputStream is = null;
         try {
             final Properties p = new Properties();
-            final InputStream is = getClass().getResourceAsStream("/version.properties");
+            is = getClass().getResourceAsStream("/version.properties");
             if (is != null) {
                 p.load(is);
 
@@ -34,9 +35,17 @@ public class MavenVersionUtil {
                 this.time = p.getProperty("timestamp", "--");
                 this.version = p.getProperty("version", "--");
             }
-            is.close();
+
         } catch (final Exception e) {
             MavenVersionUtil.LOG.error("fehler mit maven version: " + e.getMessage());
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    LOG.error(e.getMessage(), e);
+                }
+            }
         }
     }
 

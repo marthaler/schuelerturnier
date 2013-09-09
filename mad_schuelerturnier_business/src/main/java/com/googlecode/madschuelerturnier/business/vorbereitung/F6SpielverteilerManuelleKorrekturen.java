@@ -21,9 +21,9 @@ import java.util.Map;
  * @since 0.7
  */
 @Component
-public class F6_SpielverteilerManuelleKorrekturen {
+public class F6SpielverteilerManuelleKorrekturen {
 
-    private static final Logger LOG = Logger.getLogger(F6_SpielverteilerManuelleKorrekturen.class);
+    private static final Logger LOG = Logger.getLogger(F6SpielverteilerManuelleKorrekturen.class);
 
     @Autowired
     private SpielZeilenRepository spielzeilenRepo;
@@ -91,10 +91,7 @@ public class F6_SpielverteilerManuelleKorrekturen {
     }
 
     private boolean convertSonntag(String in) {
-        if (in.contains("so")) {
-            return true;
-        }
-        return false;
+        return in.contains("so");
     }
 
     private String convertTime(String in) {

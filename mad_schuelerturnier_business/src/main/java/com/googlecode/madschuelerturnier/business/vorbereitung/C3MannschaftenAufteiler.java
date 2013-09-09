@@ -24,9 +24,9 @@ import java.util.List;
  * @since 0.7
  */
 @Component
-public class C3_MannschaftenAufteiler {
+public class C3MannschaftenAufteiler {
 
-    private static final Logger LOG = Logger.getLogger(C3_MannschaftenAufteiler.class);
+    private static final Logger LOG = Logger.getLogger(C3MannschaftenAufteiler.class);
 
     @Autowired
     private KategorieRepository kategorieRepo;

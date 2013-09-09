@@ -1,7 +1,7 @@
 package com.googlecode.madschuelerturnier.business;
 
 import com.googlecode.madschuelerturnier.business.impl.Business;
-import com.googlecode.madschuelerturnier.business.vorbereitung.A0_SpielVorbereitungsKontroller;
+import com.googlecode.madschuelerturnier.business.vorbereitung.A0SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
@@ -28,7 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class TestSpielKontrollerTest {
 
     @Autowired
-    private A0_SpielVorbereitungsKontroller kontroller;
+    private A0SpielVorbereitungsKontroller kontroller;
 
     @Autowired
     private MannschaftRepository mannschaftRepo;

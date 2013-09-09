@@ -23,9 +23,9 @@ import java.util.*;
  * @since 0.7
  */
 @Component
-public class B1_KategorienZuordner {
+public class B1KategorienZuordner {
 
-    private static final Logger LOG = Logger.getLogger(B1_KategorienZuordner.class);
+    private static final Logger LOG = Logger.getLogger(B1KategorienZuordner.class);
 
     @Autowired
     private MannschaftRepository mannschaftRepo;
@@ -172,9 +172,6 @@ public class B1_KategorienZuordner {
                     gruppeRepo.delete(a.getId());
                     gruppeRepo.delete(b.getId());
 
-
-                    //kategorieRepo.delete(temp.getId());
-
                     kategorieRepo.save(kategoriePlusOne);
                 }
 
@@ -197,7 +194,6 @@ public class B1_KategorienZuordner {
                             mannschaft.setGruppe(kategorieMinusOne.getGruppeA());
                             kategorieMinusOne.getGruppeA().getMannschaften().add(mannschaft);
                         }
-
 
                         Collections.sort(kategorieMinusOne.getGruppeA().getMannschaften(), new MannschaftsNamenComperator());
                         map.remove(keyActual);
@@ -248,10 +244,8 @@ public class B1_KategorienZuordner {
             }
 
             // zuordnung
-
             tempKategorie.getGruppeA().getMannschaften().add(mannschaftRepo.findOne(mannschaft.getId()));
             LOG.info(mannschaft);
-            //gruppeRepo.save(tempKategorie.getGruppeA());
             tempKategorie = this.kategorieRepo.save(tempKategorie);
 
             map.put(key, tempKategorie);
