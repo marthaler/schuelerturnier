@@ -16,7 +16,7 @@ public class PenaltyComperator implements Comparator<RanglisteneintragZeile> {
 
     private static final Logger LOG = Logger.getLogger(PenaltyComperator.class);
 
-    Penalty p = null;
+    private Penalty p = null;
 
     PenaltyComperator(final Penalty p) {
         this.p = p;

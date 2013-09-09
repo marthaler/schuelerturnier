@@ -144,8 +144,8 @@ public class ResultateVerarbeiter {
         return count;
     }
 
-    @Scheduled(fixedRate = WAITTIME)
-    private void verarbeiten() { //NOSONAR
+    @Scheduled(fixedRate = WAITTIME) //NOSONAR
+    private void verarbeiten() {
 
         if (!init) {
             initialisieren();

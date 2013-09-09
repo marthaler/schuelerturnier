@@ -5,6 +5,7 @@ package com.googlecode.madschuelerturnier.model.comperators;
 
 import com.googlecode.madschuelerturnier.model.Kategorie;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
-public class KategorieComperator implements Comparator<Kategorie> {
+public class KategorieComperator implements Comparator<Kategorie>, Serializable {
 
     public int compare(Kategorie arg0, Kategorie arg1) {
         int geschlecht = arg0.getGruppeA().getGeschlecht().compareTo(arg1.getGruppeA().getGeschlecht());

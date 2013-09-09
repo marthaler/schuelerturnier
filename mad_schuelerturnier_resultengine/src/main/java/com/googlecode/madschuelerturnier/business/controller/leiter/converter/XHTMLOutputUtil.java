@@ -18,9 +18,6 @@ public class XHTMLOutputUtil {
 
     private static final Logger LOG = Logger.getLogger(HTMLSchiriConverter.class);
 
-    //@Value("print_folder")
-    //private String printfolderPath = "/print";
-
     public String cleanup(String input, boolean justbody) {
 
         CleanerProperties props = new CleanerProperties();
@@ -45,7 +42,6 @@ public class XHTMLOutputUtil {
                 o[0] = tagNode;
             }
         } catch (XPatherException e) {
-            e.printStackTrace();
             LOG.error(e.getMessage(), e);
         }
 

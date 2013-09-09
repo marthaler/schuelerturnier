@@ -19,12 +19,7 @@ import java.util.List;
 @Component
 public class HTMLMenu {
 
-    public static final String BR = "<br/>";
     public static final String TR = "<tr>";
-    public static final String P = "<p>";
-    public static final String P_E = "</p>";
-    public static final String TD_E = "</td>";
-    public static final String TR_E = "</tr>";
 
     @Autowired
     private KategorieRepository repo;
@@ -37,7 +32,7 @@ public class HTMLMenu {
         List<Kategorie> kategorie = this.repo.findAll();
         List<String> result = new ArrayList<String>();
         for (Kategorie kategorie1 : kategorie) {
-            // todo weg, wenn leerre kategorien wieder geloescht werden koennen
+            // todo weg, wenn leere kategorien wieder geloescht werden koennen
             if (!kategorie1.getName().contains("invalide")) {
                 result.add(kategorie1.getName());
             }
@@ -115,22 +110,22 @@ public class HTMLMenu {
         final StringBuilder builder = new StringBuilder();
         builder.append(DOCTYPE);
         builder.append(HTMLMenu.TABLE_WEBSITE);
-        builder.append(TR_E);
+        builder.append(HTMLTags.TR_E);
 
-        builder.append("<td>");
+        builder.append(HTMLTags.TD);
 
         builder.append(getCombobox(ll, selected));
 
-        builder.append(TD_E);
+        builder.append(HTMLTags.TD_E);
 
-        builder.append("<td>");
+        builder.append(HTMLTags.TD);
         builder.append("<a href='rangliste.html'>rangliste</a>");
-        builder.append(TD_E);
+        builder.append(HTMLTags.TD_E);
 
         builder.append("<td valign='top'>");
         builder.append("Stand vom: [dateTime]");
-        builder.append(TD_E);
-        builder.append("</tr>");
+        builder.append(HTMLTags.TD_E);
+        builder.append(HTMLTags.TR_E);
         builder.append("</table>");
 
         return builder.toString();

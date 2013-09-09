@@ -68,8 +68,8 @@ public class Business implements IBusiness {
 
     }
 
-    @PostConstruct
-    private void init() { //NOSONAR
+    @PostConstruct //NOSONAR
+    private void init() {
         einstellungen = getSpielEinstellungen();
         if (einstellungen != null && einstellungen.isStartJetzt()) {
             this.startClock();
@@ -378,14 +378,6 @@ public class Business implements IBusiness {
                 zeile.setPause(true);
             }
 
-          /*  if (start.getHourOfDay() == 17) {
-                zeile.setPause(true);
-            }
-
-            if (start.getHourOfDay() == 18) {
-                zeile.setPause(true);
-            }
-            */
             if ((start.getHourOfDay() > MITTAG) && sonntag) {
                 zeile.setFinale(true);
             }

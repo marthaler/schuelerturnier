@@ -7,7 +7,7 @@ import com.googlecode.madschuelerturnier.model.Gruppe;
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Paarung;
-import com.googlecode.madschuelerturnier.model.comperators.SpielMannschaftsnamenKompertator;
+import com.googlecode.madschuelerturnier.model.comperators.SpielMannschaftsnamenComperator;
 import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +19,14 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * mad letzte aenderung: $Date: 2012-01-08 15:40:58 +0100 (So, 08 Jan 2012) $
- *
  * @author $Author: marthaler.worb@gmail.com $
- * @version $Revision: 124 $
- * @headurl $HeadURL:
- * https://mad-schuelerturnier.googlecode.com/svn/trunk/mad_schuelereturnier
- * /src/main/java/com/googlecode/madschuelerturnier/business/
- * controller/leiter/converter/HTMLConverter.java $
+ * @since 0.7
  */
 @Component
 public class HTMLSpielMatrixConverter {
 
     @Autowired
-    XHTMLOutputUtil xhtml;
+    private XHTMLOutputUtil xhtml;
 
     final SimpleDateFormat sdf = new SimpleDateFormat("E HH:mm");
 
@@ -165,7 +159,7 @@ public class HTMLSpielMatrixConverter {
             int iSpalte = 0;
             boolean linefin = false;
 
-            Collections.sort(tempSpiele, new SpielMannschaftsnamenKompertator());
+            Collections.sort(tempSpiele, new SpielMannschaftsnamenComperator());
 
             for (final Spiel spiel : tempSpiele) {
 

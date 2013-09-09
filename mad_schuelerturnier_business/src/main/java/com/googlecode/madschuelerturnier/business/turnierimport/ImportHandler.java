@@ -4,7 +4,7 @@
 package com.googlecode.madschuelerturnier.business.turnierimport;
 
 import com.googlecode.madschuelerturnier.business.impl.Business;
-import com.googlecode.madschuelerturnier.business.vorbereitung._0_SpielVorbereitungsKontroller;
+import com.googlecode.madschuelerturnier.business.vorbereitung.A0_SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
 import org.apache.log4j.Logger;
@@ -23,7 +23,7 @@ public class ImportHandler {
     private static final Logger LOG = Logger.getLogger(ImportHandler.class);
 
     @Autowired
-    private _0_SpielVorbereitungsKontroller kontroller;
+    private A0_SpielVorbereitungsKontroller kontroller;
     @Autowired
     private Business business;
 

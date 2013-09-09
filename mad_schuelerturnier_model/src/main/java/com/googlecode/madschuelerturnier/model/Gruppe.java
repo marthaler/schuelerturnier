@@ -46,8 +46,8 @@ public class Gruppe extends AbstractPersistable<Long> {
      * Dient dem ausfuellen des Geschlecht Feldes vor dem Speichern, uber den
      * getGeschlecht Aufruf
      */
-    @PrePersist
-    private void geschlechtFeldAusfuellen() { //NOSONAR
+    @PrePersist //NOSONAR
+    private void geschlechtFeldAusfuellen() {
         getGeschlecht();
     }
 

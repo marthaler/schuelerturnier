@@ -31,7 +31,7 @@ public class HTMLSchiriConverter {
     private static final String TBODY_E = "</tbody>";
 
     @Autowired
-    XHTMLOutputUtil xhtml;
+    private XHTMLOutputUtil xhtml;
 
     public String getTable(final List<Spiel> list) {
         String responseString = "";

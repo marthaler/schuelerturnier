@@ -44,8 +44,8 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
 
     }
 
-    @PostConstruct
-    private void init() {  //NOSONAR
+    @PostConstruct //NOSONAR
+    private void init() {
         if (this.business.isDBInitialized()) {
             sendPuls();
         }

@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class TrimWhite {
+public final class TrimWhite {
 
     private static final Logger LOG = Logger.getLogger(TrimWhite.class);
 
@@ -97,7 +97,7 @@ public class TrimWhite {
         try {
             trim = new TrimWhite(new File("/a.jpg"));
         } catch (TurnierException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
         trim.trim();
         try {

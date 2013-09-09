@@ -24,9 +24,9 @@ import java.util.List;
  * @since 0.7
  */
 @Component
-public class _4_GeneratePaarungenAndSpiele {
+public class D4_GeneratePaarungenAndSpiele {
 
-    private static final Logger LOG = Logger.getLogger(_4_GeneratePaarungenAndSpiele.class);
+    private static final Logger LOG = Logger.getLogger(D4_GeneratePaarungenAndSpiele.class);
 
     @Autowired
     private KategorieRepository kategorieRepo;

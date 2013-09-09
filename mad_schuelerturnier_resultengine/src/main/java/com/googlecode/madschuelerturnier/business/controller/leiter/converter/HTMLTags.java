@@ -1,6 +1,10 @@
 package com.googlecode.madschuelerturnier.business.controller.leiter.converter;
 
-public class HTMLTags {
+public final class HTMLTags {
+
+    private HTMLTags() {
+
+    }
 
     public static final String BR = "<br/>";
     public static final String TR = "<tr>";

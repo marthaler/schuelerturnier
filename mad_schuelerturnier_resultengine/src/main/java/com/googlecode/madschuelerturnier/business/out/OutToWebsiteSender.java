@@ -24,7 +24,6 @@ public class OutToWebsiteSender extends Thread {
     private String name = "";
     private String content = "";
     private boolean ok = false;
-    private boolean isTest = false;
 
     public static boolean down = false;
 
@@ -35,7 +34,7 @@ public class OutToWebsiteSender extends Thread {
     private String ftpUser;
     private String ftpPassword;
 
-    public OutToWebsiteSender(final String file, final String content, final String folder, String ftpServer, int ftpPort, String ftpUser, String ftpPassword, boolean isTest) {
+    public OutToWebsiteSender(final String file, final String content, final String folder, String ftpServer, int ftpPort, String ftpUser, String ftpPassword) {
 
         this.name = file;
         this.content = content;
@@ -44,7 +43,6 @@ public class OutToWebsiteSender extends Thread {
         this.ftpPort = ftpPort;
         this.ftpUser = ftpUser;
         this.ftpPassword = ftpPassword;
-        this.isTest = isTest;
 
         this.start();
     }
@@ -84,10 +82,7 @@ public class OutToWebsiteSender extends Thread {
     }
 
     public boolean isTimeUp() {
-        if (10 * 1000 > (System.currentTimeMillis() - this.START)) {
-            return true;
-        }
-        return false;
+        return 10 * 1000 > (System.currentTimeMillis() - OutToWebsiteSender.START);
     }
 
     public boolean isOk() {
@@ -96,7 +91,7 @@ public class OutToWebsiteSender extends Thread {
 
     private boolean sendFile() {
 
-        FTPClient client = null;
+        FTPClient client;
 
         OutToWebsiteSender.LOG.info("upload START: " + this.name);
         try {
@@ -107,15 +102,10 @@ public class OutToWebsiteSender extends Thread {
             return false;
         }
         try {
-            if (isTest) {
-                client.makeDirectory("testdurchfuehrungen");
-                client.changeWorkingDirectory("testdurchfuehrungen");
-                client.makeDirectory(this.folder);
-            } else {
-                client.makeDirectory(this.folder);
-            }
 
-            InputStream fis = null;
+            client.makeDirectory(this.folder);
+
+            InputStream fis;
 
             fis = new ByteArrayInputStream(this.content.getBytes());
             client.storeFile(this.folder + "/" + this.name, fis);

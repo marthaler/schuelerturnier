@@ -1,6 +1,5 @@
 package com.googlecode.madschuelerturnier.web;
 
-import com.googlecode.madschuelerturnier.business.impl.Business;
 import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,6 @@ import org.springframework.webflow.execution.RequestContext;
 
 @Component
 public class TagToggleAction implements Action {
-
-    @Autowired
-    Business business;
 
     @Autowired
     private SpielZeilenRepository spielzeilenRepo;

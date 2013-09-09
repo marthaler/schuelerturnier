@@ -34,7 +34,7 @@ public class Main {
         try {
             new Main("/res/rrr.png");
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
     }
 

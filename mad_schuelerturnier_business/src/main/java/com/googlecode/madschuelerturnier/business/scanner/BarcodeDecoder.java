@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class BarcodeDecoder {
+public final class BarcodeDecoder {
 
     private static final Logger LOG = Logger.getLogger(BarcodeDecoder.class);
 
@@ -27,6 +27,10 @@ public class BarcodeDecoder {
         HINTS.put(DecodeHintType.POSSIBLE_FORMATS, EnumSet.allOf(BarcodeFormat.class));
         HINTS_PURE = new EnumMap<DecodeHintType, Object>(HINTS);
         HINTS_PURE.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
+    }
+
+    private BarcodeDecoder() {
+
     }
 
     public static String decode(String file) {

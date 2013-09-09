@@ -9,11 +9,14 @@ import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.multi.GenericMultipleBarcodeReader;
 import com.google.zxing.multi.MultipleBarcodeReader;
 import com.google.zxing.qrcode.QRCodeWriter;
+import org.apache.log4j.Logger;
 
 import java.awt.image.BufferedImage;
 import java.util.*;
 
-public class BarcodeUtil {
+public final class BarcodeUtil {
+
+    private static final Logger LOG = Logger.getLogger(BarcodeUtil.class);
 
     private static final Map<DecodeHintType, Object> HINTS;
     private static final Map<DecodeHintType, Object> HINTS_PURE;
@@ -24,6 +27,10 @@ public class BarcodeUtil {
         HINTS.put(DecodeHintType.POSSIBLE_FORMATS, EnumSet.allOf(BarcodeFormat.class));
         HINTS_PURE = new EnumMap<DecodeHintType, Object>(HINTS);
         HINTS_PURE.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
+    }
+
+    private BarcodeUtil() {
+
     }
 
     public static String decode(BufferedImage image) {
@@ -76,8 +83,8 @@ public class BarcodeUtil {
 
             }
 
-        } catch (Exception re) {
-            re.printStackTrace();
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
         }
 
 
@@ -95,7 +102,7 @@ public class BarcodeUtil {
     public static BufferedImage encode(String text) {
 
         QRCodeWriter writer = new QRCodeWriter();
-        BitMatrix matrix = null;
+        BitMatrix matrix;
         try {
 
 
@@ -106,7 +113,7 @@ public class BarcodeUtil {
             matrix = writer.encode(text, BarcodeFormat.QR_CODE, 256, 256, hints);
             return MatrixToImageWriter.toBufferedImage(matrix);
         } catch (WriterException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
 
         return null;

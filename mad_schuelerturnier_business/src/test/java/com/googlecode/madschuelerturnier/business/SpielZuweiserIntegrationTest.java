@@ -1,7 +1,7 @@
 package com.googlecode.madschuelerturnier.business;
 
 import com.googlecode.madschuelerturnier.business.impl.Business;
-import com.googlecode.madschuelerturnier.business.vorbereitung._0_SpielVorbereitungsKontroller;
+import com.googlecode.madschuelerturnier.business.vorbereitung.A0_SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
@@ -33,7 +33,7 @@ public class SpielZuweiserIntegrationTest {
     private static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SpielZuweiserIntegrationTest.class);
 
     @Autowired
-    private _0_SpielVorbereitungsKontroller kontroller;
+    private A0_SpielVorbereitungsKontroller kontroller;
 
     @Autowired
     MannschaftRepository mannschaftRepo;

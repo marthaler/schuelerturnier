@@ -21,6 +21,7 @@ import java.net.UnknownHostException;
 @Component
 public class LoginPrepareAction {
 
+    public static final String STATIC = "static";
     private boolean init = false;
 
     private static final Logger LOG = Logger.getLogger(LoginPrepareAction.class);
@@ -79,19 +80,19 @@ public class LoginPrepareAction {
 
             this.ip = "http://" + ipA.getHostAddress() + ":" + httpServletRequest.getServerPort();
         }
-        speakerGenerator.init(path + "static" + delim);
+        speakerGenerator.init(path + STATIC + delim);
 
-        printAgent.init(path + "static" + delim);
+        printAgent.init(path + STATIC + delim);
 
-        converter.setPath(path + "static" + delim);
+        converter.setPath(path + STATIC + delim);
 
-        barcodeGenerator.init(path + "static" + delim);
+        barcodeGenerator.init(path + STATIC + delim);
 
-        outToWebsite.init(path + "static" + delim);
+        outToWebsite.init(path + STATIC + delim);
 
-        pictureAgent.init(path + "static" + delim);
+        pictureAgent.init(path + STATIC + delim);
 
-        scannerAgent.init(path + "static" + delim);
+        scannerAgent.init(path + STATIC + delim);
 
         init = true;
 

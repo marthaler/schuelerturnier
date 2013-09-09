@@ -23,6 +23,10 @@ public class XstreamUtil {
 
     private static final Logger LOG = Logger.getLogger(XstreamUtil.class);
 
+    private XstreamUtil() {
+
+    }
+
     public static void saveObjectToFile(Object obj, String file) {
         try {
             FileUtils.writeStringToFile(new File(file), xStream.toXML(obj));

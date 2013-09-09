@@ -24,9 +24,9 @@ import java.util.List;
  * @since 0.7
  */
 @Component
-public class _5_Spielverteiler {
+public class E5_Spielverteiler {
 
-    private static final Logger LOG = Logger.getLogger(_5_Spielverteiler.class);
+    private static final Logger LOG = Logger.getLogger(E5_Spielverteiler.class);
 
     @Autowired
     private SpielZeilenRepository spielzeilenRepo;

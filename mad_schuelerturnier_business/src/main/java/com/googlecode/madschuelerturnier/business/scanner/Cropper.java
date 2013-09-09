@@ -1,11 +1,19 @@
 package com.googlecode.madschuelerturnier.business.scanner;
 
+import org.apache.log4j.Logger;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Cropper {
+public final class Cropper {
+
+    private Cropper() {
+
+    }
+
+    private static final Logger LOG = Logger.getLogger(Cropper.class);
 
     public static void crop(String filesource, String filedest, int a, int b, int c, int d) {
         try {
@@ -16,8 +24,7 @@ public class Cropper {
             ImageIO.write(partImg, "png", new File(filedest));
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
     }
 

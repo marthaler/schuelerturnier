@@ -5,6 +5,7 @@ package com.googlecode.madschuelerturnier.model.comperators;
 
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Comparator;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
-public class MannschaftsCretionDateComperator implements Comparator<Mannschaft> {
+public class MannschaftsCretionDateComperator implements Comparator<Mannschaft>, Serializable {
 
     public int compare(Mannschaft arg0, Mannschaft arg1) {
 

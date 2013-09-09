@@ -22,7 +22,7 @@ import java.util.List;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
-public class DataLoaderImpl implements DataLoader {
+public final class DataLoaderImpl implements DataLoader {
 
     private static final Logger LOG = Logger.getLogger(DataLoaderImpl.class);
 
@@ -82,10 +82,7 @@ public class DataLoaderImpl implements DataLoader {
     }
 
     private boolean containsKlasse(Mannschaft mannschaft, List<Integer> klassen) {
-        if (klassen == null || klassen.contains(mannschaft.getKlasse())) {
-            return true;
-        }
-        return false;
+        return klassen == null || klassen.contains(mannschaft.getKlasse());
     }
 
     public static byte[] readFile(String file) {

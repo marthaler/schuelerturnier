@@ -23,9 +23,9 @@ import java.util.*;
  * @since 0.7
  */
 @Component
-public class _1_KategorienZuordner {
+public class B1_KategorienZuordner {
 
-    private static final Logger LOG = Logger.getLogger(_1_KategorienZuordner.class);
+    private static final Logger LOG = Logger.getLogger(B1_KategorienZuordner.class);
 
     @Autowired
     private MannschaftRepository mannschaftRepo;

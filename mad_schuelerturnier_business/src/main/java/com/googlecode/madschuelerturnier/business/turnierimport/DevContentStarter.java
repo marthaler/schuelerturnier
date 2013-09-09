@@ -6,7 +6,7 @@ package com.googlecode.madschuelerturnier.business.turnierimport;
 import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
 import com.googlecode.madschuelerturnier.business.impl.Business;
-import com.googlecode.madschuelerturnier.business.vorbereitung._0_SpielVorbereitungsKontroller;
+import com.googlecode.madschuelerturnier.business.vorbereitung.A0_SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.enums.SpielEnum;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
@@ -41,7 +41,7 @@ public class DevContentStarter {
     protected ResultateVerarbeiter resultate;
 
     @Autowired
-    private _0_SpielVorbereitungsKontroller kontroller;
+    private A0_SpielVorbereitungsKontroller kontroller;
 
     @Autowired
     private MannschaftRepository mannschaftRepo;

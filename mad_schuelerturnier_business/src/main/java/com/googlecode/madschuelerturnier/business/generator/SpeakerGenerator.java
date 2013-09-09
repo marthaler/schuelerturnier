@@ -29,8 +29,10 @@ public class SpeakerGenerator {
 
     private static final Logger LOG = Logger.getLogger(SpeakerGenerator.class);
 
+    public static final String MP3 = ".mp3";
+
     @Autowired
-    SpielZeilenRepository repo;
+    private SpielZeilenRepository repo;
 
     private static String folder;
 
@@ -44,7 +46,7 @@ public class SpeakerGenerator {
         List<SpielZeile> zeilen = repo.findGruppenSpielZeilen();
         for (SpielZeile spielZeile : zeilen) {
 
-            if (new File(folder + "" + spielZeile.getId() + ".mp3").exists()) {
+            if (new File(folder + "" + spielZeile.getId() + MP3).exists()) {
                 continue;
             }
 
@@ -56,29 +58,29 @@ public class SpeakerGenerator {
 
             if (spielZeile.getA() != null) {
                 String urlA = generateString(spielZeile.getA(), "A");
-                source(urlA, "a.mp3".replace("/", "-"));
+                source(urlA, "a" + MP3.replace("/", "-"));
                 ahere = true;
             }
 
             if (spielZeile.getB() != null) {
                 String urlB = generateString(spielZeile.getB(), "B");
-                source(urlB, "b.mp3".replace("/", "-"));
+                source(urlB, "b" + MP3.replace("/", "-"));
                 bhere = true;
             }
 
             if (spielZeile.getC() != null) {
                 String urlC = generateString(spielZeile.getC(), "C");
-                source(urlC, "c.mp3".replace("/", "-"));
+                source(urlC, "c" + MP3.replace("/", "-"));
                 chere = true;
             }
 
-            FileUtils.deleteQuietly(new File(folder + "" + spielZeile.getId() + ".mp3"));
+            FileUtils.deleteQuietly(new File(folder + "" + spielZeile.getId() + MP3));
 
 
             if (ahere && bhere) {
-                mergeFile(folder + "a.mp3", folder + "b.mp3", folder + "d.mp3");
+                mergeFile(folder + "a" + MP3, folder + "b\" + MP3", folder + "d\" + MP3");
                 if (chere) {
-                    mergeFile(folder + "d.mp3", folder + "c.mp3", folder + "e.mp3");
+                    mergeFile(folder + "d" + MP3, folder + "c.mp3", folder + "e\" + MP3");
                 }
             } else if (ahere && chere) {
                 mergeFile(folder + "a.mp3", folder + "c.mp3", folder + "e.mp3");
@@ -106,7 +108,7 @@ public class SpeakerGenerator {
 
             try {
                 if (new File(folder + "e.mp3").exists()) {
-                    FileUtils.moveFile(new File(folder + "e.mp3"), new File(folder + "" + spielZeile.getId() + ".mp3"));
+                    FileUtils.moveFile(new File(folder + "e.mp3"), new File(folder + "" + spielZeile.getId() + MP3));
                     FileUtils.deleteQuietly(new File(folder + "a.mp3"));
                     FileUtils.deleteQuietly(new File(folder + "b.mp3"));
                     FileUtils.deleteQuietly(new File(folder + "c.mp3"));

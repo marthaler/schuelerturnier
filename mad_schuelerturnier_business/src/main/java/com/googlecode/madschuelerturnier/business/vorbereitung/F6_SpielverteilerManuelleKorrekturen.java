@@ -21,9 +21,9 @@ import java.util.Map;
  * @since 0.7
  */
 @Component
-public class _6_SpielverteilerManuelleKorrekturen {
+public class F6_SpielverteilerManuelleKorrekturen {
 
-    private static final Logger LOG = Logger.getLogger(_6_SpielverteilerManuelleKorrekturen.class);
+    private static final Logger LOG = Logger.getLogger(F6_SpielverteilerManuelleKorrekturen.class);
 
     @Autowired
     private SpielZeilenRepository spielzeilenRepo;

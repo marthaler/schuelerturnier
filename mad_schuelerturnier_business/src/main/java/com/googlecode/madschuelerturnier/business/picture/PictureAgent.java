@@ -44,11 +44,11 @@ public class PictureAgent {
         this.tempPath = path + "schirizetteltemp" + System.getProperty("file.separator");
         this.schirizettel = path + "schirizettel" + System.getProperty("file.separator");
 
-        new File(tempPath).mkdirs();
-        new File(schirizettel).mkdirs();
+        boolean erstelltTempPath = new File(tempPath).mkdirs();
+        boolean erstelltSchirizettel = new File(schirizettel).mkdirs();
 
-        LOG.info("tempPath erstellt: " + tempPath);
-        LOG.info("schirizettel erstellt: " + schirizettel);
+        LOG.info("tempPath erstellt: " + tempPath + " ->" + erstelltTempPath);
+        LOG.info("schirizettel erstellt: " + schirizettel + " ->" + erstelltSchirizettel);
 
         this.init = true;
 
@@ -85,10 +85,7 @@ public class PictureAgent {
     }
 
     public boolean hasPicToCheck() {
-        if (getPicToCheck() == null) {
-            return false;
-        }
-        return true;
+        return getPicToCheck() != null;
     }
 
     public String getPicToCheck() {
@@ -110,8 +107,8 @@ public class PictureAgent {
         return ret;
     }
 
-    @Scheduled(fixedDelay = DELAY)
-    private void check() { //NOSONAR
+    @Scheduled(fixedDelay = DELAY) //NOSONAR
+    private void check() {
 
         if (!init) {
             return;

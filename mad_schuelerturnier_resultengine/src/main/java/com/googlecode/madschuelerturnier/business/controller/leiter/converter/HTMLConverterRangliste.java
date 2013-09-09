@@ -15,11 +15,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * mad letzte aenderung: $Date: 2011-12-23 00:38:28 +0100 (Fr, 23 Dez 2011) $
- *
  * @author $Author: marthaler.worb@gmail.com $
- * @version $Revision: 66 $
- * @headurl $HeadURL: $
+ * @since 0.7
  */
 @Component
 public class HTMLConverterRangliste {
@@ -35,7 +32,7 @@ public class HTMLConverterRangliste {
     public static final String TD_E = "</td>";
     public static final String TR_E = "</tr>";
 
-    final String[] kategorien = {"M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "K1", "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9"};
+    private final String[] kategorien = {"M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "K1", "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9"};
 
 
     public String printOutGere(final Collection<RanglisteneintragHistorie> kat, boolean menuon) {

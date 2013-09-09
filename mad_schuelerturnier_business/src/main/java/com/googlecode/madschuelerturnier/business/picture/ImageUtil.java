@@ -8,9 +8,9 @@ import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 
-public class ImageUtil {
+public final class ImageUtil {
 
-    public ImageUtil() {
+    private ImageUtil() {
 
     }
 

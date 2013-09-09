@@ -114,6 +114,7 @@ public class PrintAgent {
     }
 
     public void saveFileToPrint(String name, String htmlContent) {
+        OutputStream os = null;
         try {
 
             if (!this.init) {
@@ -142,7 +143,7 @@ public class PrintAgent {
             );
 
             String outputFile = pathprinter + name + ".pdf";
-            OutputStream os = new FileOutputStream(outputFile);
+            os = new FileOutputStream(outputFile);
 
             Document doc = new Document(PageSize.A4);
             PdfWriter.getInstance(doc, os);
@@ -152,10 +153,17 @@ public class PrintAgent {
             hw.parse(new FileReader(pathprinter + "out.xml"));
             doc.close();
 
-            os.close();
 
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
+        } finally {
+            if (os != null) {
+                try {
+                    os.close();
+                } catch (IOException e) {
+                    LOG.error(e.getMessage(), e);
+                }
+            }
         }
         FileUtils.deleteQuietly(new File(pathprinter + "out.xml"));
     }

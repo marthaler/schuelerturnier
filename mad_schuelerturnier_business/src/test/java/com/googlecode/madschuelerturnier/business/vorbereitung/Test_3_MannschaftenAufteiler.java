@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class Test_3_MannschaftenAufteiler {
 
     @Autowired
-    _3_MannschaftenAufteiler aufteiler;
+    C3_MannschaftenAufteiler aufteiler;
 
     @After
     public void cleanup() {

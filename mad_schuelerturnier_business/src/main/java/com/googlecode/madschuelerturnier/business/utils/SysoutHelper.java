@@ -15,10 +15,14 @@ import java.util.List;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
-public class SysoutHelper {
+public final class SysoutHelper {
 
     public static final String BEGRENZER = "*************************************";
     private static final Logger LOG = Logger.getLogger(SysoutHelper.class);
+
+    private SysoutHelper() {
+
+    }
 
     public static void printKategorieMap(List<Kategorie> list) {
         LOG.info("" + "");

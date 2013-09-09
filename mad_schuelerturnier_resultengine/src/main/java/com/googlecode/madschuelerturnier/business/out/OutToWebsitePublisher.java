@@ -17,11 +17,8 @@ import java.util.*;
 
 
 /**
- * mad letzte aenderung: $Date: 2012-01-11 22:50:30 +0100 (Mi, 11 Jan 2012) $
- *
  * @author $Author: marthaler.worb@gmail.com $
- * @version $Revision: 158 $
- * @headurl $HeadURL: https://mad-schuelerturnier.googlecode.com/svn/trunk/mad_schuelereturnier/src/main/java/com/googlecode/madschuelerturnier/business/controller/out/OutToWebsitePublisher.java $
+ * @since 0.7
  */
 @Component
 public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
@@ -31,7 +28,6 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
     private static final String DATE_MARKER = "[dateTime]";
 
     private boolean ftpEin = false;
-    private boolean isTest = false;
 
     private String ftpServer = "ftp.schuelerturnier-scworb.ch";
     private int ftpPort = 21;
@@ -45,7 +41,7 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
     private final Map<String, String> map = new HashMap<String, String>();
     private final Map<String, String> mapPublished = new HashMap<String, String>();
 
-    ZeitPuls zeit = null;
+    private ZeitPuls zeit = null;
 
     public OutToWebsitePublisher() {
         OutToWebsitePublisher.LOG.info("OutToWebsitePublisher: start");
@@ -55,9 +51,9 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
     public void init(String path) {
         this.ftpPath = path + "ftp" + System.getProperty("file.separator");
 
-        new File(ftpPath).mkdirs();
+        boolean created = new File(ftpPath).mkdirs();
 
-        LOG.info("ftpPath erstellt: " + ftpPath);
+        LOG.info("ftpPath erstellt: " + ftpPath + " ->" + created);
 
         this.ftpEin = true;
 
@@ -87,7 +83,7 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
                         String content = this.map.get(file);
                         content = content.replace(OutToWebsitePublisher.DATE_MARKER, sdf.format(new Date()));
 
-                        final OutToWebsiteSender p = new OutToWebsiteSender(file, content, ftpUnterordner, ftpServer, ftpPort, ftpUser, ftpPassword, isTest);
+                        final OutToWebsiteSender p = new OutToWebsiteSender(file, content, ftpUnterordner, ftpServer, ftpPort, ftpUser, ftpPassword);
                         try {
                             p.join(15000);
                         } catch (final InterruptedException e) {
@@ -113,7 +109,7 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
                     String content = this.map.get(file);
                     content = content.replace(OutToWebsitePublisher.DATE_MARKER, sdf.format(new Date()));
 
-                    final OutToWebsiteSender p = new OutToWebsiteSender(file, content, ftpUnterordner, ftpServer, ftpPort, ftpUser, ftpPassword, isTest);
+                    final OutToWebsiteSender p = new OutToWebsiteSender(file, content, ftpUnterordner, ftpServer, ftpPort, ftpUser, ftpPassword);
                     try {
                         p.join(15000);
                     } catch (final InterruptedException e) {
@@ -159,7 +155,6 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
             // < 2012, also ist es eine testdurchfuehrung, somit wird immer ein neuer unterordner erstellt
             if (zeit.getSpielZeit().getYear() < 2012) {
                 this.ftpUnterordner = "" + zeit.getEchteZeit().toDate().toString().replace(" ", "_").toLowerCase().replace(":", "-");
-                this.isTest = true;
             }
         }
     }

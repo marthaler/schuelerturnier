@@ -31,6 +31,7 @@ public class ScannerAgent {
     private static final int TRIGGERDELAY = 6 * 1000;
 
     private static final Logger LOG = Logger.getLogger(ScannerAgent.class);
+    public static final String PROTOCOLL = "http://";
 
 
     private boolean geradeamGehen = false;
@@ -55,15 +56,15 @@ public class ScannerAgent {
     public void init(String path) {
         this.schirizettel = path + "schirizettel";
         this.path = path + "scannbilder";
-        new File(this.path).mkdirs();
-        LOG.info("scannbilder erstellt: " + path);
+        boolean erstellt = new File(this.path).mkdirs();
+        LOG.info("scannbilder erstellt: " + path + " -> " + erstellt);
         this.init = true;
     }
 
     public void reset() {
         try {
             this.geradeamGehen = true;
-            openConnection("http://" + imageUrl + "/decoder_control.cgi?command=31");
+            openConnection(PROTOCOLL + imageUrl + "/decoder_control.cgi?command=31");
             Thread.sleep(wartefaktor * 1000 * 2);
             this.geradeamGehen = false;
         } catch (Exception e) {
@@ -71,15 +72,15 @@ public class ScannerAgent {
         }
     }
 
-    @Scheduled(fixedDelay = TRIGGERDELAY)
-    private void trigger() {  //NOSONAR
+    @Scheduled(fixedDelay = TRIGGERDELAY) //NOSONAR
+    private void trigger() {
         if (!init || !running) {
             return;
         }
         scann();
     }
 
-    public void doNow() {  //NOSONAR - jsf!
+    public void doNow() { //NOSONAR
         String image = null;
         try {
             image = saveImage();
@@ -102,20 +103,20 @@ public class ScannerAgent {
 
         try {
 
-            openConnection("http://" + imageUrl + "/decoder_control.cgi?command=33");
+            openConnection(PROTOCOLL + imageUrl + "/decoder_control.cgi?command=33");
 
             Thread.sleep(wartefaktor * 1000);
             files.add(saveImage());
-            openConnection("http://" + imageUrl + "/decoder_control.cgi?command=35");
+            openConnection(PROTOCOLL + imageUrl + "/decoder_control.cgi?command=35");
             Thread.sleep(wartefaktor * 1000);
             files.add(saveImage());
-            openConnection("http://" + imageUrl + "/decoder_control.cgi?command=37");
+            openConnection(PROTOCOLL + imageUrl + "/decoder_control.cgi?command=37");
             Thread.sleep(wartefaktor * 1000);
             files.add(saveImage());
-            openConnection("http://" + imageUrl + "/decoder_control.cgi?command=39");
+            openConnection(PROTOCOLL + imageUrl + "/decoder_control.cgi?command=39");
             Thread.sleep(wartefaktor * 1000);
 
-            openConnection("http://" + imageUrl + "/decoder_control.cgi?command=31");
+            openConnection(PROTOCOLL + imageUrl + "/decoder_control.cgi?command=31");
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
@@ -150,7 +151,7 @@ public class ScannerAgent {
 
     public String saveImage() throws IOException {
 
-        String imageUrlN = "http://" + imageUrl + "/snapshot.cgi";
+        String imageUrlN = PROTOCOLL + imageUrl + "/snapshot.cgi";
 
         String destinationFile = path + System.getProperty("file.separator") + System.currentTimeMillis() + ".png";
 
@@ -189,7 +190,9 @@ public class ScannerAgent {
         } catch (Exception e) {
             LOG.debug("kameraverbindung nicht moeglich");
         } finally {
-            is.close();
+            if (is != null) {
+                is.close();
+            }
         }
 
     }
