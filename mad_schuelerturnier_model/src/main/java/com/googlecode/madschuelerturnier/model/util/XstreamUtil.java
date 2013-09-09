@@ -17,7 +17,7 @@ import java.io.IOException;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.6
  */
-public class XstreamUtil {
+public final class XstreamUtil {
 
     private static XStream xStream = new XStream(new DomDriver());
 
