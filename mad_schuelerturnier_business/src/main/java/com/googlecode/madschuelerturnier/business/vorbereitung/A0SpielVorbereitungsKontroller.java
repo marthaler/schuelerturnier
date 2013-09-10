@@ -128,54 +128,16 @@ public class A0SpielVorbereitungsKontroller implements ISpielKontroller {
         }
 
         if (phase == SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG) {
-            A0SpielVorbereitungsKontroller.LOG
-                    .info("spielphasenwechsel in: B_KATEGORIE_ZUORDNUNG");
-
-            // mannschaften Nummerieren und speichern
-            List<Mannschaft> mannschaft = mannschaftsNummerierer
-                    .mannschaftenNummerieren(business.getMannschaften());
-            mannschaftRepo.save(mannschaft);
-
-            Map<String, Kategorie> kategorien = this.automatischeZuordnung
-                    .automatischeZuordnung();
-            Map<String, Kategorie> kategorienNeu = new HashMap<String, Kategorie>();
-
-            // nachladen aus der db, sonst werden Spiele nicht angezeigt
-            for (String key : kategorien.keySet()) {
-                Long id = kategorien.get(key).getId();
-                kategorienNeu.put(key, kategorieRepo.findOne(id));
-            }
-
+            kategorieZuordnung();
         }
 
         if (phase == SpielPhasenEnum.C_SPIELTAGE_DEFINIEREN) {
-            A0SpielVorbereitungsKontroller.LOG
-                    .info("spielphasenwechsel in: C_SPIELTAGE_DEFINIEREN");
-
-            // mannschaften aufteilen auf untergruppen
-            mannschaftenAufteilen.mannschaftenVerteilen();
-
-            // spiele zuordnen
-            spielGenerator.generatPaarungenAndSpiele();
-
-
-            SysoutHelper.printKategorieList(business.getKategorien());
+            spieltageDefinieren();
         }
 
         if (phase == SpielPhasenEnum.D_SPIELE_ZUORDNUNG) {
 
-            A0SpielVorbereitungsKontroller.LOG
-                    .info("spielphasenwechsel in: D_SPIELE_ZUORDNUNG");
-
-            // Verteilen
-            this.spielVerteiler.spieleAutomatischVerteilen();
-
-            // Manuelle Korrekturen vornehmen, falls welche vorhanden sind
-            this.korrekturen.korrekturenVornehmen();
-
-            LOG.info("" + "**********");
-            SysoutHelper.printKategorieMap(kategorieRepo.findAll());
-            LOG.info("" + "**********");
+            spieleZuordnen();
 
 
         }
@@ -195,6 +157,55 @@ public class A0SpielVorbereitungsKontroller implements ISpielKontroller {
         if (this.isInitialized) {
             einstellung.setPhase(phase);
             this.business.saveEinstellungen(einstellung);
+        }
+    }
+
+    private void spieleZuordnen() {
+        A0SpielVorbereitungsKontroller.LOG
+                .info("spielphasenwechsel in: D_SPIELE_ZUORDNUNG");
+
+        // Verteilen
+        this.spielVerteiler.spieleAutomatischVerteilen();
+
+        // Manuelle Korrekturen vornehmen, falls welche vorhanden sind
+        this.korrekturen.korrekturenVornehmen();
+
+        LOG.info("" + "**********");
+        SysoutHelper.printKategorieMap(kategorieRepo.findAll());
+        LOG.info("" + "**********");
+    }
+
+    private void spieltageDefinieren() {
+        A0SpielVorbereitungsKontroller.LOG
+                .info("spielphasenwechsel in: C_SPIELTAGE_DEFINIEREN");
+
+        // mannschaften aufteilen auf untergruppen
+        mannschaftenAufteilen.mannschaftenVerteilen();
+
+        // spiele zuordnen
+        spielGenerator.generatPaarungenAndSpiele();
+
+
+        SysoutHelper.printKategorieList(business.getKategorien());
+    }
+
+    private void kategorieZuordnung() {
+        A0SpielVorbereitungsKontroller.LOG
+                .info("spielphasenwechsel in: B_KATEGORIE_ZUORDNUNG");
+
+        // mannschaften Nummerieren und speichern
+        List<Mannschaft> mannschaft = mannschaftsNummerierer
+                .mannschaftenNummerieren(business.getMannschaften());
+        mannschaftRepo.save(mannschaft);
+
+        Map<String, Kategorie> kategorien = this.automatischeZuordnung
+                .automatischeZuordnung();
+        Map<String, Kategorie> kategorienNeu = new HashMap<String, Kategorie>();
+
+        // nachladen aus der db, sonst werden Spiele nicht angezeigt
+        for (String key : kategorien.keySet()) {
+            Long id = kategorien.get(key).getId();
+            kategorienNeu.put(key, kategorieRepo.findOne(id));
         }
     }
 

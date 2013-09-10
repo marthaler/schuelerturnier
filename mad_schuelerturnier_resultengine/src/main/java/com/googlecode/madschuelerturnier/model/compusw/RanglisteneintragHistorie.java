@@ -68,7 +68,7 @@ public class RanglisteneintragHistorie {
             this.sortNachPunkten();
             this.sortNachTorverhaeltnis();
             MehrToreSortierer.sortNachMehrToren(this);
-            this.sortNachDirektbegegnung();
+            DirektbegegnungSortierer.sortNachDirektbegegnung(this);
             this.penaltyBestimmen();
             this.penaltyBestimmen();
             this.sortNachFinal();
@@ -312,93 +312,6 @@ public class RanglisteneintragHistorie {
         }
     }
 
-
-    private void sortNachDirektbegegnung() {
-
-        final List<RanglisteneintragZeile> su = new ArrayList<RanglisteneintragZeile>();
-        int startindex = -1;
-        RanglisteneintragZeile last = null;
-        for (int i = 0; i < this.zeilen.size(); i++) {
-            final RanglisteneintragZeile temp = this.zeilen.get(i);
-
-            if ((last != null) && (last.getTordifferenz() != temp.getTordifferenz())) {
-                this.subSortNachDirektbegegnung(su, startindex);
-                startindex = -1;
-                su.clear();
-            }
-
-            if ((temp.getRangierungsgrund().equals(RangierungsgrundEnum.WEITERSUCHEN))) {
-
-                temp.setRangierungsgrund(RangierungsgrundEnum.DIREKTBEGEGNUNG);
-
-                su.add(temp);
-
-                if (su.size() == 1) {
-                    startindex = i;
-                }
-            }
-            last = temp;
-        }
-        this.subSortNachDirektbegegnung(su, startindex);
-    }
-
-    private void subSortNachDirektbegegnung(final List<RanglisteneintragZeile> su, int startindexIn) {
-
-        int startindex = startindexIn;
-
-        if (su.size() > 1) {
-
-            if (su.size() != 2) {
-                RanglisteneintragHistorie.LOG.warn("ACHTUNG, ES WIRD VERSUCHT DIE DIREKTBEGEGNUNG VON " + su.size() + " HERAUSZUFINDEN! FEHLER");
-                for (final RanglisteneintragZeile ranglisteneintragZeile : su) {
-                    ranglisteneintragZeile.setRangierungsgrund(RangierungsgrundEnum.WEITERSUCHEN);
-                }
-                return;
-            }
-
-            Collections.sort(su, new MehrToreComperator());
-            final RanglisteneintragZeile mA = su.get(0);
-            final RanglisteneintragZeile mB = su.get(1);
-
-            final List<Spiel> s = this.spiel.getMannschaftA().getKategorie().getDirektbegegnungen(mA.getMannschaft(), mB.getMannschaft());
-
-            // TODO achtung, hier ev fuer solche mit vor-und rueckrunde suche nach 2 direktbegegnungen !!!
-
-            RanglisteneintragHistorie.LOG.debug("DIREKTBEGEGNUNGEN: " + s.size());
-
-            int a = -1;
-            if (s.size() == 1) {
-                a = s.get(0).getPunkteVonMannschaft(mA.getMannschaft());
-            }
-
-            int b = -1;
-            if (s.size() == 1) {
-                b = s.get(0).getPunkteVonMannschaft(mB.getMannschaft());
-            }
-
-            if ((a > -1) && (b > -1)) {
-
-                if (a < b) {
-                    mA.setRangierungsgrund(RangierungsgrundEnum.DIREKTBEGEGNUNG);
-                    mB.setRangierungsgrund(RangierungsgrundEnum.DIREKTBEGEGNUNG);
-                    su.set(0, mB);
-                    su.set(1, mA);
-                }
-            }
-
-            if (a == b) {
-                mA.setRangierungsgrund(RangierungsgrundEnum.WEITERSUCHEN);
-                mB.setRangierungsgrund(RangierungsgrundEnum.WEITERSUCHEN);
-            }
-
-            for (final RanglisteneintragZeile ranglisteneintragZeile : su) {
-                this.zeilen.set(startindex, ranglisteneintragZeile);
-                startindex = startindex + 1;
-            }
-
-            su.clear();
-        }
-    }
 
     private void penaltyBestimmen() {
 
@@ -650,6 +563,34 @@ public class RanglisteneintragHistorie {
                 grFinalList.add(z);
             }
         }
+
+        if (behandleGrosserFinal(grFinalList, restList)) {
+            return;
+        }
+
+        restList.removeAll(grFinalList);
+
+        for (final RanglisteneintragZeile z : this.zeilen) {
+            if (z.getRangierungsgrund() == RangierungsgrundEnum.FINAL_KL) {
+                klFinalList.add(z);
+            }
+        }
+
+        if (behandleKleinerFinal(klFinalList, restList)) {
+            return;
+        }
+
+        restList.removeAll(klFinalList);
+
+        this.zeilen.clear();
+
+        this.zeilen.addAll(grFinalList);
+        this.zeilen.addAll(klFinalList);
+        this.zeilen.addAll(restList);
+
+    }
+
+    private boolean behandleGrosserFinal(List<RanglisteneintragZeile> grFinalList, List<RanglisteneintragZeile> restList) {
         Spiel sp = this.gruppe.getKategorie().getGrosserFinal();
 
         if (sp.isFertiggespielt()) {
@@ -667,7 +608,7 @@ public class RanglisteneintragHistorie {
 
             if (bZ == null || aZ == null) {
                 LOG.debug("resultat mit mannschaft, die nicht in der liste ist bei grossem finale: return");
-                return;
+                return true;
             }
 
             final int a = sp.getToreABestaetigt();
@@ -684,13 +625,10 @@ public class RanglisteneintragHistorie {
                 grFinalList.add(bZ);
             }
         }
-        restList.removeAll(grFinalList);
+        return false;
+    }
 
-        for (final RanglisteneintragZeile z : this.zeilen) {
-            if (z.getRangierungsgrund() == RangierungsgrundEnum.FINAL_KL) {
-                klFinalList.add(z);
-            }
-        }
+    private boolean behandleKleinerFinal(List<RanglisteneintragZeile> klFinalList, List<RanglisteneintragZeile> restList) {
         Spiel sp2 = this.gruppe.getKategorie().getKleineFinal();
         if (sp2 != null) {
             if (sp2.isFertiggespielt()) {
@@ -711,7 +649,7 @@ public class RanglisteneintragHistorie {
 
                 if (bZ == null || aZ == null) {
                     LOG.debug("resultat mit mannschaft, die nicht in der liste ist bei kleinem finale: return");
-                    return;
+                    return true;
                 }
 
                 if (a < b) {
@@ -727,15 +665,7 @@ public class RanglisteneintragHistorie {
                 }
             }
         }
-
-        restList.removeAll(klFinalList);
-
-        this.zeilen.clear();
-
-        this.zeilen.addAll(grFinalList);
-        this.zeilen.addAll(klFinalList);
-        this.zeilen.addAll(restList);
-
+        return false;
     }
 
     public Penalty getPenaltyA() {

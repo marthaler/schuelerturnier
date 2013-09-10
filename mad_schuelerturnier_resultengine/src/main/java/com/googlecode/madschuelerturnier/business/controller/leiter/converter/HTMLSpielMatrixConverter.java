@@ -28,7 +28,7 @@ public class HTMLSpielMatrixConverter {
 
     private static final Logger LOG = Logger.getLogger(HTMLSpielMatrixConverter.class);
 
-    public String generateSpieleTable(final List<Kategorie> list) {
+    public String generateSpieleTable(final List<Kategorie> list) {   // NOSONAR
 
         final StringBuilder stringBuffer = new StringBuilder();
 
@@ -122,7 +122,7 @@ public class HTMLSpielMatrixConverter {
      * @param stringBuilder
      * @param str
      */
-    private void printMannschaften2(final StringBuilder stringBuilder, final List<Mannschaft> str, final Boolean vorrunde) {
+    private void printMannschaften2(final StringBuilder stringBuilder, final List<Mannschaft> str, final Boolean vorrunde) { // NOSONAR
 
         stringBuilder.append("<td>");
         stringBuilder.append("<style type='text/css'>table.inner {border-spacing: 0px; border-padding:0px;width:100%;border:0px; vertical-align:top; overflow:hidden; font-size:10pt; font-family:Arial,sans-serif }td { border:1px solid #000; vertical-align:top; overflow:hidden; }</style>");

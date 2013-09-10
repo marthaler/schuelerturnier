@@ -142,37 +142,7 @@ public class B1KategorienZuordner {
                 }
                 if (kategoriePlusOne != null && kategoriePlusOne.getGruppeA().getMannschaften().size() > 0) {
 
-                    List<Mannschaft> manns = temp.getGruppeA().getMannschaften();
-                    for (Mannschaft mannschaft : manns) {
-                        mannschaft.setGruppe(kategoriePlusOne.getGruppeA());
-                        kategoriePlusOne.getGruppeA().getMannschaften().add(mannschaft);
-                    }
-
-                    Collections.sort(kategoriePlusOne.getGruppeA().getMannschaften(), new MannschaftsNamenComperator());
-                    map.remove(keyActual);
-                    moved = true;
-
-                    Gruppe a = temp.getGruppeA();
-                    Gruppe b = temp.getGruppeB();
-
-                    a.setKategorie(null);
-                    b.setKategorie(null);
-
-                    a = gruppeRepo.save(a);
-                    b = gruppeRepo.save(b);
-
-                    temp.setGruppeA(null);
-                    temp.setGruppeB(null);
-
-                    gruppeRepo.save(a);
-                    gruppeRepo.save(b);
-
-                    kategorieRepo.save(temp);
-
-                    gruppeRepo.delete(a.getId());
-                    gruppeRepo.delete(b.getId());
-
-                    kategorieRepo.save(kategoriePlusOne);
+                    moved = plusOneBigger(map, keyActual, temp, kategoriePlusOne);
                 }
 
                 if (!moved) {
@@ -203,6 +173,42 @@ public class B1KategorienZuordner {
                 }
             }
         }
+    }
+
+    private boolean plusOneBigger(Map<String, Kategorie> map, String keyActual, Kategorie temp, Kategorie kategoriePlusOne) {
+        boolean moved;
+        List<Mannschaft> manns = temp.getGruppeA().getMannschaften();
+        for (Mannschaft mannschaft : manns) {
+            mannschaft.setGruppe(kategoriePlusOne.getGruppeA());
+            kategoriePlusOne.getGruppeA().getMannschaften().add(mannschaft);
+        }
+
+        Collections.sort(kategoriePlusOne.getGruppeA().getMannschaften(), new MannschaftsNamenComperator());
+        map.remove(keyActual);
+        moved = true;
+
+        Gruppe a = temp.getGruppeA();
+        Gruppe b = temp.getGruppeB();
+
+        a.setKategorie(null);
+        b.setKategorie(null);
+
+        a = gruppeRepo.save(a);
+        b = gruppeRepo.save(b);
+
+        temp.setGruppeA(null);
+        temp.setGruppeB(null);
+
+        gruppeRepo.save(a);
+        gruppeRepo.save(b);
+
+        kategorieRepo.save(temp);
+
+        gruppeRepo.delete(a.getId());
+        gruppeRepo.delete(b.getId());
+
+        kategorieRepo.save(kategoriePlusOne);
+        return moved;
     }
 
     private Map<String, Kategorie> zuordnungVornehmen(List<Mannschaft> mannschaften) {

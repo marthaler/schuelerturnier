@@ -144,24 +144,9 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
             if (!list.isEmpty()) {
                 for (final SpielZeile spielZeile : list) {
-                    // pruefung ob breits Mannschaften eingetragen sind bei den Finalen
-                    if (spielZeile.getA() != null && spielZeile.getA().getTyp() != SpielEnum.GRUPPE) {
-                        if (spielZeile.getA() != null) {
-                            if (spielZeile.getA().getMannschaftA() == null) {
-                                continue;
-                            }
-                        }
-                        if (spielZeile.getB() != null) {
-                            if (spielZeile.getB().getMannschaftA() == null) {
-                                continue;
-                            }
-                        }
-                        if (spielZeile.getC() != null) {
-                            if (spielZeile.getC().getMannschaftA() == null) {
-                                continue;
-                            }
-                        }
 
+                    if (pruefeObMannschaftenBeiFinalenSind(spielZeile)) {
+                        continue;
                     }
 
                     if (!this.list1Wartend.contains(spielZeile)) {
@@ -176,6 +161,29 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
                 }
             }
         }
+    }
+
+    private boolean pruefeObMannschaftenBeiFinalenSind(SpielZeile spielZeile) {
+        // pruefung ob breits Mannschaften eingetragen sind bei den Finalen
+        if (spielZeile.getA() != null && spielZeile.getA().getTyp() != SpielEnum.GRUPPE) {
+            if (spielZeile.getA() != null) {
+                if (spielZeile.getA().getMannschaftA() == null) {
+                    return true;
+                }
+            }
+            if (spielZeile.getB() != null) {
+                if (spielZeile.getB().getMannschaftA() == null) {
+                    return true;
+                }
+            }
+            if (spielZeile.getC() != null) {
+                if (spielZeile.getC().getMannschaftA() == null) {
+                    return true;
+                }
+            }
+
+        }
+        return false;
     }
 
     private void prepare2ZumVorbereiten() {

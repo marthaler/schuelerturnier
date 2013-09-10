@@ -90,11 +90,12 @@ public class C3MannschaftenAufteiler {
         kategorie.setKleineFinal(kf);
     }
 
-    private Kategorie genau3Mannschaften(Kategorie kategorie) {
+    private Kategorie genau3Mannschaften(Kategorie kategorieIn) {
+
+        Kategorie kategorie = kategorieIn;
         LOG.debug("vor und rueckrunge stehen an: " + kategorie.getName());
 
         assignGrosserFinalToKategorie(kategorie);
-
 
         kategorie = kategorieRepo.save(kategorie);
         return kategorie;
@@ -111,7 +112,10 @@ public class C3MannschaftenAufteiler {
         }
     }
 
-    private Kategorie groesserAls7Mannschaften(Kategorie kategorie, int mannschaftenSize) {
+    private Kategorie groesserAls7Mannschaften(Kategorie kategorieIn, int mannschaftenSize) {
+
+        Kategorie kategorie = kategorieIn;
+
         LOG.debug("aufteilen einer gruppe von: " + kategorie.getName() + " anzahl mannschaften: " + mannschaftenSize);
 
         kategorie = kategorieRepo.findOne(kategorie.getId());
@@ -134,6 +138,7 @@ public class C3MannschaftenAufteiler {
         dreiBis7Mannschaften(kategorie);
 
         kategorie = kategorieRepo.save(kategorie);
+
         return kategorie;
     }
 

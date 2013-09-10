@@ -189,42 +189,68 @@ public class ResultateVerarbeiter {
         // hat a und b  = mehr als 7 mannschaften
         if (!spiel.getGruppe().getKategorie().hasVorUndRueckrunde() && spiel.getGruppe().getKategorie().getGruppeB().getMannschaften().size() > 0) {
 
-            // mannschaft a des spiels ist in gruppe a
-            if (spiel.getGruppe().getKategorie().getGruppeA().getMannschaften().contains(spiel.getMannschaftA()) && spiel.getTyp() == SpielEnum.GRUPPE) {
-                rangListe = map.get(katName + "_A");
+            aIstInGruppeA(spiel, katName);
 
-                if (rangListe == null) {
-                    rangListe = new RanglisteneintragHistorie(spiel, null, Boolean.TRUE);
-                } else {
-                    rangListe = new RanglisteneintragHistorie(spiel, rangListe, Boolean.TRUE);
-                }
+            aIstInGruppeB(spiel, katName);
 
-                if (rangListe.isPenaltyAuswertungNoetig()) {
-                    rangListe = new RanglisteneintragHistorie(null, rangListe, Boolean.TRUE);
-                }
-
-                map.put(katName + "_A", rangListe);
-            }
-
-            // mannschaft a des spiels ist in gruppe b
-            if (spiel.getGruppe().getKategorie().getGruppeB().getMannschaften().contains(spiel.getMannschaftA()) && spiel.getTyp() == SpielEnum.GRUPPE) {
-
-                rangListe = map.get(katName + "_B");
-
-                if (rangListe == null) {
-                    rangListe = new RanglisteneintragHistorie(spiel, null, Boolean.FALSE);
-                } else {
-                    rangListe = new RanglisteneintragHistorie(spiel, rangListe, Boolean.FALSE);
-                }
-                if (rangListe.isPenaltyAuswertungNoetig()) {
-                    rangListe = new RanglisteneintragHistorie(null, rangListe, Boolean.FALSE);
-                }
-
-                map.put(katName + "_B", rangListe);
-            }
         }
 
+        rangListe = normalerEintrag(spiel, katName);
+
+        kat = pruefePenalty(spiel, rangListe);
+
+
+        spiel = repo.findOne(id);
+
+        pruefeUndSetzeFinale(spiel, kat, katName, rangListe);
+
+        uploadKat(kat);
+
+        printer.saveSpiel(spiel);
+
+        pruefeEnde(kat, rangListe);
+
+
+    }
+
+    private Kategorie pruefePenalty(Spiel spiel, RanglisteneintragHistorie rangListe) {
+        // pruefen ob penalty noetig !!!
+        Kategorie kat;
+
+        Penalty penA = rangListe.getPenaltyA();
+        Penalty penB = rangListe.getPenaltyB();
+
+        // in kategorie setzen, falls neue penalty
+        if (spiel.getGruppe().getKategorie().getPenaltyA() == null && penA != null) {
+            spiel.getGruppe().getKategorie().setPenaltyA(penA);
+        }
+
+        if (spiel.getGruppe().getKategorie().getPenaltyB() == null && penB != null) {
+            spiel.getGruppe().getKategorie().setPenaltyA(penB);
+        }
+
+        kat = katRepo.save(spiel.getGruppe().getKategorie());
+        return kat;
+    }
+
+    private void pruefeEnde(Kategorie kat, RanglisteneintragHistorie rangListe) {
+        // pruefe ob rangliste kategorie fertig
+        if (rangListe.isFertigGespielt()) {
+            boolean fertig = false;
+            if (kat.getGrosserFinal() != null && kat.getGrosserFinal().isFertigBestaetigt()) {
+                fertig = true;
+            }
+
+            if (kat.getKleineFinal() != null && !kat.getKleineFinal().isFertigBestaetigt()) {
+                fertig = false;
+            }
+            this.beendet.put(kat.getName(), fertig);
+        }
+    }
+
+    private RanglisteneintragHistorie normalerEintrag(Spiel spiel, String katName) {
         // normalen eintrag
+        RanglisteneintragHistorie rangListe;
 
         rangListe = map.get(katName);
 
@@ -239,42 +265,47 @@ public class ResultateVerarbeiter {
         }
 
         map.put(katName, rangListe);
+        return rangListe;
+    }
 
-        // pruefen ob penalty noetig !!!
-        Penalty penA = rangListe.getPenaltyA();
-        Penalty penB = rangListe.getPenaltyB();
+    private void aIstInGruppeA(Spiel spiel, String katName) {
+        // mannschaft a des spiels ist in gruppe a
+        RanglisteneintragHistorie rangListe;
+        if (spiel.getGruppe().getKategorie().getGruppeA().getMannschaften().contains(spiel.getMannschaftA()) && spiel.getTyp() == SpielEnum.GRUPPE) {
+            rangListe = map.get(katName + "_A");
 
-        // in kategorie setzen, falls neue penalty
-        if (spiel.getGruppe().getKategorie().getPenaltyA() == null && penA != null) {
-            spiel.getGruppe().getKategorie().setPenaltyA(penA);
-        }
-
-        if (spiel.getGruppe().getKategorie().getPenaltyB() == null && penB != null) {
-            spiel.getGruppe().getKategorie().setPenaltyA(penB);
-        }
-
-        kat = katRepo.save(spiel.getGruppe().getKategorie());
-        spiel = repo.findOne(id);
-
-        pruefeUndSetzeFinale(spiel, kat, katName, rangListe);
-
-        uploadKat(kat);
-
-        printer.saveSpiel(spiel);
-
-        // pruefe ob rangliste kategorie fertig
-        if (rangListe.isFertigGespielt()) {
-            boolean fertig = false;
-            if (kat.getGrosserFinal() != null && kat.getGrosserFinal().isFertigBestaetigt()) {
-                fertig = true;
+            if (rangListe == null) {
+                rangListe = new RanglisteneintragHistorie(spiel, null, Boolean.TRUE);
+            } else {
+                rangListe = new RanglisteneintragHistorie(spiel, rangListe, Boolean.TRUE);
             }
 
-            if (kat.getKleineFinal() != null && !kat.getKleineFinal().isFertigBestaetigt()) {
-                fertig = false;
+            if (rangListe.isPenaltyAuswertungNoetig()) {
+                rangListe = new RanglisteneintragHistorie(null, rangListe, Boolean.TRUE);
             }
-            this.beendet.put(kat.getName(), fertig);
-        }
 
+            map.put(katName + "_A", rangListe);
+        }
+    }
+
+    private void aIstInGruppeB(Spiel spiel, String katName) {
+        // mannschaft a des spiels ist in gruppe b
+        RanglisteneintragHistorie rangListe;
+        if (spiel.getGruppe().getKategorie().getGruppeB().getMannschaften().contains(spiel.getMannschaftA()) && spiel.getTyp() == SpielEnum.GRUPPE) {
+
+            rangListe = map.get(katName + "_B");
+
+            if (rangListe == null) {
+                rangListe = new RanglisteneintragHistorie(spiel, null, Boolean.FALSE);
+            } else {
+                rangListe = new RanglisteneintragHistorie(spiel, rangListe, Boolean.FALSE);
+            }
+            if (rangListe.isPenaltyAuswertungNoetig()) {
+                rangListe = new RanglisteneintragHistorie(null, rangListe, Boolean.FALSE);
+            }
+
+            map.put(katName + "_B", rangListe);
+        }
     }
 
     private void pruefeUndSetzeFinale(Spiel spiel, Kategorie kat, String katName, RanglisteneintragHistorie rangListe) {
