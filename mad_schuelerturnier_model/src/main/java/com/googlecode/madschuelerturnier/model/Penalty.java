@@ -1,11 +1,9 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.model.spiel;
+package com.googlecode.madschuelerturnier.model;
 
 import com.googlecode.madschuelerturnier.exceptions.TurnierException;
-import com.googlecode.madschuelerturnier.model.Gruppe;
-import com.googlecode.madschuelerturnier.model.Mannschaft;
 import org.apache.log4j.Logger;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;

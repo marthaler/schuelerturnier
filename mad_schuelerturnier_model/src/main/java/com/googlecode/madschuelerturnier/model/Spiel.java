@@ -1,12 +1,8 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.model.spiel;
+package com.googlecode.madschuelerturnier.model;
 
-import com.googlecode.madschuelerturnier.model.Gruppe;
-import com.googlecode.madschuelerturnier.model.Mannschaft;
-import com.googlecode.madschuelerturnier.model.Paarung;
-import com.googlecode.madschuelerturnier.model.Text;
 import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielEnum;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -93,28 +89,31 @@ public class Spiel extends AbstractPersistable<Long> {
         this.notizen.setValue(notes);
     }
 
-    public void setTypString(String typ) {
-        typ = typ.toLowerCase();
-        if (typ.equals("gfinal")) {
+    public void setTypString(String typIn) {
+
+        String typS = typIn.toLowerCase();
+
+        if (typS.equals("gfinal")) {
             this.typ = SpielEnum.GFINAL;
         }
-        if (typ.equals("kfinal")) {
+        if (typS.equals("kfinal")) {
             this.typ = SpielEnum.KFINAL;
         }
-        if (typ.equals("gruppe")) {
+        if (typS.equals("gruppe")) {
             this.typ = SpielEnum.GRUPPE;
         }
     }
 
-    public void setPlatzString(String platz) {
-        platz = platz.toLowerCase();
-        if (platz.equals("a")) {
+    public void setPlatzString(String platzIn) {
+        String platzS = platzIn.toLowerCase();
+
+        if (platzS.equals("a")) {
             this.platz = PlatzEnum.A;
         }
-        if (platz.equals("b")) {
+        if (platzS.equals("b")) {
             this.platz = PlatzEnum.B;
         }
-        if (platz.equals("c")) {
+        if (platzS.equals("c")) {
             this.platz = PlatzEnum.C;
         }
     }

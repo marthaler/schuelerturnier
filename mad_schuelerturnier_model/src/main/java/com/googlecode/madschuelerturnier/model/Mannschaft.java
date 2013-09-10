@@ -4,7 +4,6 @@
 package com.googlecode.madschuelerturnier.model;
 
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -427,12 +426,12 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
     }
 
 
-    public void setGeschlechtString(String geschlecht) {
-        geschlecht = geschlecht.toLowerCase();
-        if (geschlecht.equals("k")) {
+    public void setGeschlechtString(String geschlechtIn) {
+        String geschlechtS = geschlechtIn.toLowerCase();
+        if (geschlechtS.equals("k")) {
             this.geschlecht = GeschlechtEnum.K;
         }
-        if (geschlecht.equals("m")) {
+        if (geschlechtS.equals("m")) {
             this.geschlecht = GeschlechtEnum.M;
         }
     }

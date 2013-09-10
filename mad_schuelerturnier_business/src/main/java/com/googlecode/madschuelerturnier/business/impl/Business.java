@@ -9,11 +9,11 @@ import com.googlecode.madschuelerturnier.business.controller.resultate.Resultate
 import com.googlecode.madschuelerturnier.business.zeit.Zeitgeber;
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.Penalty;
 import com.googlecode.madschuelerturnier.model.comperators.KategorieNameComperator;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
-import com.googlecode.madschuelerturnier.model.spiel.Penalty;
 import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
 import com.googlecode.madschuelerturnier.persistence.repository.*;
 import org.apache.log4j.Logger;
@@ -73,6 +73,14 @@ public class Business implements IBusiness {
         einstellungen = getSpielEinstellungen();
         if (einstellungen != null && einstellungen.isStartJetzt()) {
             this.startClock();
+        }
+
+        // Zeitgeber initialisieren
+
+        if (isDBInitialized()) {
+            zeitgeber.sendPuls();
+        } else {
+            LOG.info("sende keinen puls, da db noch nicht initialisiert ist [01]");
         }
     }
 
@@ -207,11 +215,6 @@ public class Business implements IBusiness {
     }
 
 
-    public void saveVertauschungen(String vertauschungen) {
-        SpielEinstellungen einst = getSpielEinstellungen();
-        einst.setSpielVertauschungen(vertauschungen);
-    }
-
     public List<Kategorie> getKategorienMList() {
         final List<Kategorie> list = this.kategorieRepo.getKategorienMList();
         Collections.sort(list, new KategorieNameComperator());
@@ -309,10 +312,7 @@ public class Business implements IBusiness {
     }
 
     public List<SpielZeile> getSpielzeilen(final boolean sonntag) {
-        /**
-         * if (this.startSonntag == null) { DateTime time = new DateTime(this.getSpielEinstellungen().getStarttag()); time = time.plusHours(7);
-         * this.startSonntag = new Date(time.getMillis()); time = time.plusDays(1); this.startSonntag = new Date(time.getMillis()); }
-         **/
+
         List<SpielZeile> ret;
         if (!sonntag) {
             ret = this.spielzeilenRepo.findSpieleSammstag();
@@ -357,7 +357,9 @@ public class Business implements IBusiness {
 
     }
 
-    private List<SpielZeile> createZeilen(DateTime start, final boolean sonntag) {
+    private List<SpielZeile> createZeilen(DateTime startIn, final boolean sonntag) {
+        DateTime start = startIn;
+
         final int millis = start.getMillisOfDay();
 
         start = start.minusMillis(millis);

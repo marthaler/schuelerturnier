@@ -21,6 +21,8 @@ import java.util.List;
 @Component
 public class HTMLConverterRangliste {
 
+    public static final String TD = "<td>";
+    public static final String TD_TD = "<td>  </td>";
     @Autowired
     private HTMLMenu menu;
 
@@ -35,7 +37,7 @@ public class HTMLConverterRangliste {
     private final String[] kategorien = {"M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "K1", "K2", "K3", "K4", "K5", "K6", "K7", "K8", "K9"};
 
 
-    public String printOutGere(final Collection<RanglisteneintragHistorie> kat, boolean menuon) {
+    public String printOutGere(final Collection<RanglisteneintragHistorie> kat, boolean menuon) {  // NOSONAR
         final StringBuffer buffer = new StringBuffer();
 
         if (menuon) {
@@ -49,7 +51,7 @@ public class HTMLConverterRangliste {
         buffer.append("<table style=\"font-size: 9px\" border=\"1\">");
         buffer.append(TR_E);
         buffer.append("<td>Kategorie</td><td>1. Rang</td><td>2. Rang</td><td>3. Rang</td><td>4. Rang</td>");
-        buffer.append("</tr>");
+        buffer.append(TR_E);
 
         for (final String k : this.kategorien) {
             buffer.append(TR_E);
@@ -77,13 +79,12 @@ public class HTMLConverterRangliste {
 
                 if ((ma != null && ma.getGruppe().getKategorie().isFertigGespielt())) {
 
-                    buffer.append("<td>" + ma.getName() + TD_E);
+                    buffer.append(TD + ma.getName() + TD_E);
                 } else {
-                    buffer.append("  <td>  </td>");
+                    buffer.append("  " + TD_TD);
                 }
             }
 
-            buffer.append("</tr>");
 
             buffer.append(TR_E);
             buffer.append("<td>Schulhaus</td>");
@@ -96,13 +97,12 @@ public class HTMLConverterRangliste {
 
                 if ((ma != null && ma.getGruppe().getKategorie().isFertigGespielt())) {
 
-                    buffer.append("<td>" + ma.getSchulhaus() + TD_E);
+                    buffer.append(TD + ma.getSchulhaus() + TD_E);
                 } else {
-                    buffer.append("  <td>  </td>");
+                    buffer.append("  " + TD_TD);
                 }
             }
 
-            buffer.append("</tr>");
 
             buffer.append(TR_E);
             buffer.append("<td>Capitain</td>");
@@ -116,13 +116,13 @@ public class HTMLConverterRangliste {
 
                 if ((ma != null && ma.getGruppe().getKategorie().isFertigGespielt())) {
 
-                    buffer.append("<td>" + ma.getCaptainName() + TD_E);
+                    buffer.append(TD + ma.getCaptainName() + TD_E);
                 } else {
-                    buffer.append("  <td>  </td>");
+                    buffer.append("  " + TD_TD);
                 }
 
             }
-            buffer.append("</tr>");
+
 
             buffer.append(TR_E);
             buffer.append("<td>Begleitperson</td>");
@@ -134,20 +134,19 @@ public class HTMLConverterRangliste {
                 }
                 if ((ma != null && ma.getGruppe().getKategorie().isFertigGespielt())) {
 
-                    buffer.append("<td>" + ma.getBegleitpersonName() + TD_E);
+                    buffer.append(TD + ma.getBegleitpersonName() + TD_E);
                 } else {
-                    buffer.append("  <td>  </td>");
+                    buffer.append("  " + TD_TD);
                 }
             }
 
-            buffer.append("</tr>");
 
             buffer.append(TR_E);
-            buffer.append("  <td>  </td>");
+            buffer.append("  " + TD_TD);
             for (int g = 0; g < 4; g++) {
-                buffer.append("  <td>  </td>");
+                buffer.append("  " + TD_TD);
             }
-            buffer.append("</tr>");
+            buffer.append(TR_E);
         }
         buffer.append("</table>");
         return util.cleanup(buffer.toString(), false);

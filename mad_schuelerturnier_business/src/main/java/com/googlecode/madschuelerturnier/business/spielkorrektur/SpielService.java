@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business.spielkorrektur;
 
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
+import com.googlecode.madschuelerturnier.model.Spiel;
 
 import java.util.List;
 

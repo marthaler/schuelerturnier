@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business.generator;
 
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.apache.commons.httpclient.HttpClient;
@@ -76,35 +76,7 @@ public class SpeakerGenerator {
 
             FileUtils.deleteQuietly(new File(folder + "" + spielZeile.getId() + MP3));
 
-
-            if (ahere && bhere) {
-                mergeFile(folder + "a" + MP3, folder + "b" + MP3, folder + "d" + MP3);
-                if (chere) {
-                    mergeFile(folder + "d" + MP3, folder + "c.mp3", folder + "e" + MP3);
-                }
-            } else if (ahere && chere) {
-                mergeFile(folder + "a" + MP3, folder + "c" + MP3, folder + "e" + MP3);
-            } else if (bhere && chere) {
-                mergeFile(folder + "b" + MP3, folder + "c" + MP3, folder + "e" + MP3);
-            } else if (ahere) {
-                try {
-                    FileUtils.moveFile(new File(folder + "a" + MP3), new File(folder + "e" + MP3));
-                } catch (IOException e) {
-                    LOG.error(e.getMessage(), e);
-                }
-            } else if (bhere) {
-                try {
-                    FileUtils.moveFile(new File(folder + "b" + MP3), new File(folder + "e" + MP3));
-                } catch (IOException e) {
-                    LOG.error(e.getMessage(), e);
-                }
-            } else if (chere) {
-                try {
-                    FileUtils.moveFile(new File(folder + "c" + MP3), new File(folder + "e" + MP3));
-                } catch (IOException e) {
-                    LOG.error(e.getMessage(), e);
-                }
-            }
+            mergeAndMove(ahere, bhere, chere);
 
             try {
                 if (new File(folder + "e" + MP3).exists()) {
@@ -119,6 +91,37 @@ public class SpeakerGenerator {
                 LOG.error(e.getMessage(), e);
             }
 
+        }
+    }
+
+    private void mergeAndMove(boolean ahere, boolean bhere, boolean chere) {
+        if (ahere && bhere) {
+            mergeFile(folder + "a" + MP3, folder + "b" + MP3, folder + "d" + MP3);
+            if (chere) {
+                mergeFile(folder + "d" + MP3, folder + "c.mp3", folder + "e" + MP3);
+            }
+        } else if (ahere && chere) {
+            mergeFile(folder + "a" + MP3, folder + "c" + MP3, folder + "e" + MP3);
+        } else if (bhere && chere) {
+            mergeFile(folder + "b" + MP3, folder + "c" + MP3, folder + "e" + MP3);
+        } else if (ahere) {
+            try {
+                FileUtils.moveFile(new File(folder + "a" + MP3), new File(folder + "e" + MP3));
+            } catch (IOException e) {
+                LOG.error(e.getMessage(), e);
+            }
+        } else if (bhere) {
+            try {
+                FileUtils.moveFile(new File(folder + "b" + MP3), new File(folder + "e" + MP3));
+            } catch (IOException e) {
+                LOG.error(e.getMessage(), e);
+            }
+        } else if (chere) {
+            try {
+                FileUtils.moveFile(new File(folder + "c" + MP3), new File(folder + "e" + MP3));
+            } catch (IOException e) {
+                LOG.error(e.getMessage(), e);
+            }
         }
     }
 

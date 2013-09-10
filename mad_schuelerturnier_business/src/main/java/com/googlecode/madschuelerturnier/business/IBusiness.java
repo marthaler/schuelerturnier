@@ -5,8 +5,8 @@ package com.googlecode.madschuelerturnier.business;
 
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.Penalty;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
-import com.googlecode.madschuelerturnier.model.spiel.Penalty;
 
 import java.util.List;
 
@@ -27,8 +27,6 @@ public interface IBusiness {
     SpielEinstellungen getSpielEinstellungen();
 
     SpielEinstellungen saveEinstellungen(SpielEinstellungen einstellungen);
-
-    void saveVertauschungen(String vertauschungen);
 
     List<Kategorie> getKategorienMList();
 

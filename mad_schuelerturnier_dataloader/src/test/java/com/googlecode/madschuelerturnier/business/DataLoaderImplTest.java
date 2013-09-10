@@ -4,7 +4,7 @@
 package com.googlecode.madschuelerturnier.business;
 
 import com.googlecode.madschuelerturnier.model.Mannschaft;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import org.junit.Assert;
 import org.junit.Test;
 

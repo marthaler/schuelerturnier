@@ -4,10 +4,10 @@
 package com.googlecode.madschuelerturnier.business.controller.leiter.converter;
 
 import com.googlecode.madschuelerturnier.model.Kategorie;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.compusw.RanglisteneintragHistorie;
 import com.googlecode.madschuelerturnier.model.compusw.RanglisteneintragZeile;
 import com.googlecode.madschuelerturnier.model.enums.SpielEnum;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -30,6 +30,10 @@ public class HTMLOutConverter {
     private static final Logger LOG = Logger.getLogger(HTMLOutConverter.class);
 
     public static final String TABLE = "<style type='text/css'>table.normal {border-spacing: 0px; border-padding:0px;width:600px;border:1px solid #000; vertical-align:top; overflow:hidden; font-size:10pt; font-family:Arial,sans-serif }td { border:1px solid #000; vertical-align:top; overflow:hidden; }</style><table class='normal'>";
+    public static final String TD_COLSPAN_1 = "<td colspan='1'>";
+    public static final String TD = "<td>";
+    public static final String STRICH = " -";
+    public static final String STRICH2 = " - ";
 
 
     @Autowired
@@ -44,7 +48,9 @@ public class HTMLOutConverter {
     private String path = "";
 
     // hystorie fuer die webapp (mit den historien)
-    public String getRangliste(RanglisteneintragHistorie historie) {
+    public String getRangliste(RanglisteneintragHistorie historieIn) {  // NOSONAR
+
+        RanglisteneintragHistorie historie = historieIn;
 
         if (historie == null) {
             return "";
@@ -74,15 +80,15 @@ public class HTMLOutConverter {
             if (spiel != null) {
                 stringBuilder.append(HTMLTags.P);
                 if (spiel.getTyp() == SpielEnum.GFINAL) {
-                    stringBuilder.append(kategorie.getName() + " - " + sdf.format(historie.getSpiel().getStart()) + " - Finale </p>");
+                    stringBuilder.append(kategorie.getName() + STRICH2 + sdf.format(historie.getSpiel().getStart()) + " - Finale </p>");
                 } else if (spiel.getTyp() == SpielEnum.KFINAL) {
-                    stringBuilder.append(kategorie.getName() + " - " + sdf.format(historie.getSpiel().getStart()) + " - kleiner Finale</p>");
+                    stringBuilder.append(kategorie.getName() + STRICH2 + sdf.format(historie.getSpiel().getStart()) + " - kleiner Finale</p>");
                 } else {
                     // TODO weg
                     if (kategorie.getGruppeB() != null) {
-                        stringBuilder.append(kategorie.getGruppeA().getName() + /*kategorie.getGruppeB()*/  " - " + sdf.format(historie.getSpiel().getStart()) + ""  /*historie.countGruppenspieleGespielt() + "/" + historie.countGruppenspiele() + "</p>   *** eine Teilgruppe ist grau hinterlegt, die andere weiss"*/);
+                        stringBuilder.append(kategorie.getGruppeA().getName() + /*kategorie.getGruppeB()*/  STRICH2 + sdf.format(historie.getSpiel().getStart()) + ""  /*historie.countGruppenspieleGespielt() + "/" + historie.countGruppenspiele() + "</p>   *** eine Teilgruppe ist grau hinterlegt, die andere weiss"*/);
                     } else {
-                        stringBuilder.append(kategorie.getName() + " - " + sdf.format(historie.getSpiel().getStart()) + " - Spiele: " + /*historie.countGruppenspieleGespielt() + "/" + historie.countGruppenspiele() +*/ "</p>");
+                        stringBuilder.append(kategorie.getName() + STRICH2 + sdf.format(historie.getSpiel().getStart()) + " - Spiele: " + /*historie.countGruppenspieleGespielt() + "/" + historie.countGruppenspiele() +*/ "</p>");
                     }
                 }
             } else {
@@ -103,27 +109,27 @@ public class HTMLOutConverter {
             stringBuilder.append(HTMLTags.TR_E);
 
             stringBuilder.append(HTMLTags.TR);
-            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append(TD_COLSPAN_1);
             stringBuilder.append("<p>Mannschaft</p>");
             stringBuilder.append(HTMLTags.TD_E);
 
-            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append(TD_COLSPAN_1);
             stringBuilder.append("<p>Sp. gespielt</p>");
             stringBuilder.append(HTMLTags.TD_E);
 
-            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append(TD_COLSPAN_1);
             stringBuilder.append("<p>Sp. anstehend</p>");
             stringBuilder.append(HTMLTags.TD_E);
 
-            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append(TD_COLSPAN_1);
             stringBuilder.append("<p>Punkte</p>");
             stringBuilder.append(HTMLTags.TD_E);
 
-            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append(TD_COLSPAN_1);
             stringBuilder.append("<p>Tordifferenz (Tore erz. - erh.)</p>");
             stringBuilder.append(HTMLTags.TD_E);
 
-            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append(TD_COLSPAN_1);
             stringBuilder.append("<p>Rangierungsgrund</p>");
             stringBuilder.append(HTMLTags.TD_E);
 
@@ -143,7 +149,7 @@ public class HTMLOutConverter {
             stringBuilder.append(HTMLTags.TR);
 
             if (ranglisteneintragZeile.getMannschaft().isMemberofGroupA()) {
-                stringBuilder.append("<td colspan='1'>");
+                stringBuilder.append(TD_COLSPAN_1);
             } else {
                 stringBuilder.append("<td colspan='1' bgcolor='gray'>");
             }
@@ -151,19 +157,19 @@ public class HTMLOutConverter {
             stringBuilder.append("" + ranglisteneintragZeile.getMannschaft().getName() + "");
             stringBuilder.append(HTMLTags.TD_E);
 
-            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append(TD_COLSPAN_1);
             stringBuilder.append("" + ranglisteneintragZeile.getSpieleVorbei() + "");
             stringBuilder.append(HTMLTags.TD_E);
 
-            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append(TD_COLSPAN_1);
             stringBuilder.append("" + ranglisteneintragZeile.getSpieleAnstehend() + "");
             stringBuilder.append(HTMLTags.TD_E);
 
-            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append(TD_COLSPAN_1);
             stringBuilder.append("" + ranglisteneintragZeile.getPunkte() + "");
             stringBuilder.append(HTMLTags.TD_E);
 
-            stringBuilder.append("<td colspan='1'>");
+            stringBuilder.append(TD_COLSPAN_1);
             stringBuilder.append("" + ranglisteneintragZeile.getToreErziehlt() + "-" + ranglisteneintragZeile.getToreKassiert() + "=" + ranglisteneintragZeile.getTordifferenz());
             stringBuilder.append(HTMLTags.TD_E);
 
@@ -174,7 +180,7 @@ public class HTMLOutConverter {
             } else if (diferenz > 0) {
                 stringBuilder.append("<td colspan='1' bgcolor='green'>");
             } else {
-                stringBuilder.append("<td colspan='1'>");
+                stringBuilder.append(TD_COLSPAN_1);
             }
 
             stringBuilder.append(ranglisteneintragZeile.getRangierungsgrund().toString());
@@ -257,23 +263,23 @@ public class HTMLOutConverter {
 
             builder.append(HTMLTags.TR);
 
-            builder.append("<td>");
+            builder.append(TD);
             builder.append(i);
             i++;
             builder.append(HTMLTags.TD_E);
 
-            builder.append("<td>");
+            builder.append(TD);
 
             final SimpleDateFormat sdf = new SimpleDateFormat("dd.MM HH:mm");
 
             builder.append(sdf.format(spiel.getStart()));
             builder.append(HTMLTags.TD_E);
 
-            builder.append("<td>");
+            builder.append(TD);
             builder.append(spiel.getPlatz());
             builder.append(HTMLTags.TD_E);
 
-            builder.append("<td>");
+            builder.append(TD);
             if (spiel.getMannschaftA() != null) {
                 builder.append(spiel.getMannschaftA().getName());
             } else {
@@ -281,7 +287,7 @@ public class HTMLOutConverter {
                 if (spiel.getGruppe() != null) {
                     builder.append(spiel.getTyp() + " " + spiel.getGruppe().getName());
                 } else {
-                    builder.append(spiel.getTyp() + " -");
+                    builder.append(spiel.getTyp() + STRICH);
                 }
 
             }
@@ -290,20 +296,20 @@ public class HTMLOutConverter {
             if (spiel.getToreABestaetigt() < 0) {
                 builder.append("<td bgcolor='red'>");
             } else {
-                builder.append("<td>");
+                builder.append(TD);
                 builder.append(spiel.getToreABestaetigt());
             }
 
             builder.append(HTMLTags.TD_E);
 
-            builder.append("<td>");
+            builder.append(TD);
             if (spiel.getMannschaftB() != null) {
                 builder.append(spiel.getMannschaftB().getName());
             } else {
                 if (spiel.getGruppe() != null) {
                     builder.append(spiel.getTyp() + " " + spiel.getGruppe().getName());
                 } else {
-                    builder.append(spiel.getTyp() + " -");
+                    builder.append(spiel.getTyp() + STRICH);
                 }
             }
 
@@ -312,7 +318,7 @@ public class HTMLOutConverter {
             if (spiel.getToreBBestaetigt() < 0) {
                 builder.append("<td bgcolor='red'>");
             } else {
-                builder.append("<td>");
+                builder.append(TD);
                 builder.append(spiel.getToreBBestaetigt());
             }
 

@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.model.comperators;
 
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
+import com.googlecode.madschuelerturnier.model.Spiel;
 
 import java.io.Serializable;
 import java.util.Comparator;

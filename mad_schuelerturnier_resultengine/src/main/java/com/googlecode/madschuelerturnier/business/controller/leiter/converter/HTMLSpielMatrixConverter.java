@@ -3,12 +3,8 @@
  */
 package com.googlecode.madschuelerturnier.business.controller.leiter.converter;
 
-import com.googlecode.madschuelerturnier.model.Gruppe;
-import com.googlecode.madschuelerturnier.model.Kategorie;
-import com.googlecode.madschuelerturnier.model.Mannschaft;
-import com.googlecode.madschuelerturnier.model.Paarung;
+import com.googlecode.madschuelerturnier.model.*;
 import com.googlecode.madschuelerturnier.model.comperators.SpielMannschaftsnamenComperator;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -145,16 +141,17 @@ public class HTMLSpielMatrixConverter {
             final List<Spiel> tempSpiele = new ArrayList<Spiel>();
 
             // todo schauen warum paarungen 0
-            if ((vorrunde != null) && (vorrunde == true) && mannschaft.getSpiele().size() > 0) {
+            if ((vorrunde != null && vorrunde) && mannschaft.getSpiele().size() > 0) {
                 tempSpiele.add(mannschaft.getSpiele().get(0));
                 tempSpiele.add(mannschaft.getSpiele().get(1));
                 // todo schauen warum paarungen nur 2
-            } else if ((vorrunde != null) && (vorrunde == false) && mannschaft.getSpiele().size() > 2) {
+            } else if ((vorrunde != null && !vorrunde) && mannschaft.getSpiele().size() > 2) {
                 tempSpiele.add(mannschaft.getSpiele().get(2));
                 tempSpiele.add(mannschaft.getSpiele().get(3));
             } else {
                 tempSpiele.addAll(mannschaft.getSpiele());
             }
+
 
             int iSpalte = 0;
             boolean linefin = false;

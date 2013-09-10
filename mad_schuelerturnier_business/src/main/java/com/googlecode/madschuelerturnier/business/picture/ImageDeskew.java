@@ -30,15 +30,15 @@ public class ImageDeskew {
     public class HoughLine {
 
         // count of points in the line
-        public int count = 0;
+        public int count = 0;   // NOSONAR
 
         // index in matrix.
-        public int index = 0;
+        public int index = 0;    // NOSONAR
 
         // the line is represented as all x, y that solve y * cos(alpha) - x *
         // sin(alpha) = d
-        public double alpha;
-        public double d;
+        public double alpha;   // NOSONAR
+        public double d;     // NOSONAR
 
     }
 

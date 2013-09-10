@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

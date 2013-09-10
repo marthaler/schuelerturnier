@@ -25,7 +25,7 @@ public class OutToWebsiteSender extends Thread {
     private String content = "";
     private boolean ok = false;
 
-    public static boolean down = false;
+    public static boolean down = false; // NOSONAR
 
     private static final long START = System.currentTimeMillis();
 

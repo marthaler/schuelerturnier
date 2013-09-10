@@ -43,67 +43,86 @@ public class SpielstatusWebBean implements Serializable {
         final SpielPhasenEnum en = this.kontroller.readSpielPhase();
 
         if (en == SpielPhasenEnum.A_ANMELDEPHASE) {
-            this.anmeldephase = true;
-            this.kategoriezuordnungsphase = false;
-            this.spieltagezuordnungsphase = false;
-            this.spielzuordnungsphase = false;
-            this.spielphase = false;
-            this.spielend = false;
+            setAnmeldephase();
         }
 
         if (en == SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG) {
-            this.anmeldephase = false;
-            this.kategoriezuordnungsphase = true;
-            this.spieltagezuordnungsphase = false;
-            this.spielzuordnungsphase = false;
-            this.spielphase = false;
-            this.spielend = false;
+            setKategorieZuordnung();
         }
 
         if (en == SpielPhasenEnum.C_SPIELTAGE_DEFINIEREN) {
-            this.anmeldephase = false;
-            this.kategoriezuordnungsphase = false;
-            this.spieltagezuordnungsphase = true;
-            this.spielzuordnungsphase = false;
-            this.spielphase = false;
-            this.spielend = false;
+            setSpieltageDefinieren();
         }
 
         if (en == SpielPhasenEnum.D_SPIELE_ZUORDNUNG) {
-            this.anmeldephase = false;
-            this.kategoriezuordnungsphase = false;
-            this.spieltagezuordnungsphase = false;
-            this.spielzuordnungsphase = true;
-            this.spielphase = false;
-            this.spielend = false;
+            setSpieleZuordnung();
         }
 
         if (en == SpielPhasenEnum.E_SPIELBEREIT) {
-            this.anmeldephase = false;
-            this.kategoriezuordnungsphase = false;
-            this.spieltagezuordnungsphase = false;
-            this.spielzuordnungsphase = false;
-            this.spielphase = true;
-            this.spielend = true;
+            setSpielBereit();
         }
 
         if (en == SpielPhasenEnum.F_SPIELEN) {
-            this.anmeldephase = false;
-            this.kategoriezuordnungsphase = false;
-            this.spieltagezuordnungsphase = false;
-            this.spielzuordnungsphase = false;
-            this.spielphase = true;
-            this.spielend = true;
+            setSpielBereit();
         }
         if (en == SpielPhasenEnum.G_ABGESCHLOSSEN) {
-            this.anmeldephase = false;
-            this.kategoriezuordnungsphase = false;
-            this.spieltagezuordnungsphase = false;
-            this.spielzuordnungsphase = false;
-            this.spielphase = false;
-            this.spielend = true;
+            setAbgeschlossen();
         }
 
+    }
+
+    private void setAbgeschlossen() {
+        this.anmeldephase = false;
+        this.kategoriezuordnungsphase = false;
+        this.spieltagezuordnungsphase = false;
+        this.spielzuordnungsphase = false;
+        this.spielphase = false;
+        this.spielend = true;
+    }
+
+    private void setSpielBereit() {
+        this.anmeldephase = false;
+        this.kategoriezuordnungsphase = false;
+        this.spieltagezuordnungsphase = false;
+        this.spielzuordnungsphase = false;
+        this.spielphase = true;
+        this.spielend = true;
+    }
+
+    private void setSpieleZuordnung() {
+        this.anmeldephase = false;
+        this.kategoriezuordnungsphase = false;
+        this.spieltagezuordnungsphase = false;
+        this.spielzuordnungsphase = true;
+        this.spielphase = false;
+        this.spielend = false;
+    }
+
+    private void setSpieltageDefinieren() {
+        this.anmeldephase = false;
+        this.kategoriezuordnungsphase = false;
+        this.spieltagezuordnungsphase = true;
+        this.spielzuordnungsphase = false;
+        this.spielphase = false;
+        this.spielend = false;
+    }
+
+    private void setKategorieZuordnung() {
+        this.anmeldephase = false;
+        this.kategoriezuordnungsphase = true;
+        this.spieltagezuordnungsphase = false;
+        this.spielzuordnungsphase = false;
+        this.spielphase = false;
+        this.spielend = false;
+    }
+
+    private void setAnmeldephase() {
+        this.anmeldephase = true;
+        this.kategoriezuordnungsphase = false;
+        this.spieltagezuordnungsphase = false;
+        this.spielzuordnungsphase = false;
+        this.spielphase = false;
+        this.spielend = false;
     }
 
     public SpielstatusWebBean() {

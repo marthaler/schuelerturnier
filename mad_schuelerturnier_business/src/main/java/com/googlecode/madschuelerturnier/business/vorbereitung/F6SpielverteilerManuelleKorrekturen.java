@@ -4,8 +4,8 @@
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
 import com.googlecode.madschuelerturnier.business.IBusiness;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
@@ -105,9 +105,9 @@ public class F6SpielverteilerManuelleKorrekturen {
     }
 
 
-    private Spiel getSpielFromZeile(SpielZeile zeile, String key) {
+    private Spiel getSpielFromZeile(SpielZeile zeileIn, String key) {
 
-        zeile = this.spielzeilenRepo.findOne(zeile.getId());
+        SpielZeile zeile = this.spielzeilenRepo.findOne(zeileIn.getId());
 
         String platz = convertPlatz(key);
         Spiel ret = null;
@@ -129,9 +129,9 @@ public class F6SpielverteilerManuelleKorrekturen {
         return ret;
     }
 
-    private void setSpielToZeile(SpielZeile zeile, String key, Spiel spiel) {
+    private void setSpielToZeile(SpielZeile zeileIn, String key, Spiel spiel) {
 
-        zeile = this.spielzeilenRepo.findOne(zeile.getId());
+        SpielZeile zeile = this.spielzeilenRepo.findOne(zeileIn.getId());
 
         String platz = convertPlatz(key);
 
@@ -156,8 +156,6 @@ public class F6SpielverteilerManuelleKorrekturen {
 
         this.spielzeilenRepo.save(zeile);
 
-
     }
-
 
 }

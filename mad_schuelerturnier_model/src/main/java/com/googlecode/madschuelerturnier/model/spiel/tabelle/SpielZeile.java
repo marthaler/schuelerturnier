@@ -4,9 +4,9 @@
 package com.googlecode.madschuelerturnier.model.spiel.tabelle;
 
 import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
 import com.googlecode.madschuelerturnier.model.enums.SpielZeilenPhaseEnum;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.jpa.domain.AbstractPersistable;

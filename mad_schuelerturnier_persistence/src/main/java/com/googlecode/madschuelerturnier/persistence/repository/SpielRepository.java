@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.persistence.repository;
 
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -3,16 +3,12 @@
  */
 package com.googlecode.madschuelerturnier.business.zeit;
 
-import com.googlecode.madschuelerturnier.business.impl.Business;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 
 /**
  * Gibt die Zeit in Sekundenpulsen vor und uebermittelt diese als Application Event
@@ -37,24 +33,13 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
 
     private boolean gameRunning = false;
 
-    @Autowired
-    private Business business;
 
     public Zeitgeber() {
 
     }
 
-    @PostConstruct //NOSONAR
-    private void init() {
-        if (this.business.isDBInitialized()) {
-            sendPuls();
-        }
-        LOG.info("sende keinen puls, da db noch nicht initialisiert ist [01]");
-    }
-
     @Scheduled(fixedRate = 1000)
     public void run() {
-
         // falls nicht "started" weiter
 
         if (!clockRunning) {
@@ -70,7 +55,6 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
 
 
     public synchronized void stopGame(String grund) {
-
         if (!isGameStarted()) {
             Zeitgeber.LOG.info("zeitgeber: stopGame() -> ohne effekt, weil bereits gestoppt:" + grund);
         } else {
@@ -83,7 +67,6 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
         }
 
     }
-
 
     public synchronized void startGame(int seconds, String grund) {
         Zeitgeber.LOG.info("zeitgeber: startGame() -> aufholung:" + grund + " -> " + seconds);
@@ -119,7 +102,6 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
 
     }
 
-
     // start & stop game
     public boolean isGameStarted() {
         return gameRunning;
@@ -146,8 +128,7 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
         clockRunning = true;
     }
 
-
-    private void sendPuls() {
+    public void sendPuls() {
 
         this.zeitJetzt = this.zeitJetzt + (this.verschnellerungsfaktor * 1000);
 
@@ -160,15 +141,12 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
         }
     }
 
-
     public void setApplicationEventPublisher(final ApplicationEventPublisher applicationEventPublisher) {
         this.applicationEventPublisher = applicationEventPublisher;
     }
 
-
     public int getVerspaetung() {
         return (int) abweichungZuSpielzeit / 1000;
     }
-
 
 }

@@ -4,7 +4,6 @@
 package com.googlecode.madschuelerturnier.model;
 
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.log4j.Logger;

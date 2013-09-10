@@ -3,7 +3,6 @@
  */
 package com.googlecode.madschuelerturnier.model;
 
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;

@@ -26,25 +26,15 @@ public class StartAction {
 
         if (!business.isDBInitialized()) {
             return new Event(this, "initialisieren");
-        }
-
-        if (contains(authorities, "ROLE_OPERATOR")) {
+        } else if (contains(authorities, "ROLE_OPERATOR")) {
             return new Event(this, "spiel_start");
-        }
-
-        if (contains(authorities, "ROLE_SPEAKER")) {
+        } else if (contains(authorities, "ROLE_SPEAKER")) {
             return new Event(this, "speaker");
-        }
-
-        if (contains(authorities, "ROLE_KONTROLLIERER")) {
+        } else if (contains(authorities, "ROLE_KONTROLLIERER")) {
             return new Event(this, "kontrollierer");
-        }
-
-        if (contains(authorities, "ROLE_EINTRAGER")) {
+        } else if (contains(authorities, "ROLE_EINTRAGER")) {
             return new Event(this, "eintrager");
-        }
-
-        if (contains(authorities, "ROLE_BEOBACHTER")) {
+        } else if (contains(authorities, "ROLE_BEOBACHTER")) {
             return new Event(this, "gt_matrix");
         }
 

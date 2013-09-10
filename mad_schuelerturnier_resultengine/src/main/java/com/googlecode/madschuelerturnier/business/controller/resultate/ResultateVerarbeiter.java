@@ -10,11 +10,11 @@ import com.googlecode.madschuelerturnier.business.out.OutToWebsitePublisher;
 import com.googlecode.madschuelerturnier.business.print.SpielPrintManager;
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.Penalty;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.comperators.MannschaftsNamenComperator;
 import com.googlecode.madschuelerturnier.model.compusw.RanglisteneintragHistorie;
 import com.googlecode.madschuelerturnier.model.enums.SpielEnum;
-import com.googlecode.madschuelerturnier.model.spiel.Penalty;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.log4j.Logger;
@@ -280,12 +280,6 @@ public class ResultateVerarbeiter {
     private void pruefeUndSetzeFinale(Spiel spiel, Kategorie kat, String katName, RanglisteneintragHistorie rangListe) {
         // pruefen ob gruppenspiel fertig und gruppenspiel fertig, dann finalmannschaften eintragen
         if (rangListe.isFertigGespielt() && spiel.getTyp() == SpielEnum.GRUPPE) {
-
-            // 18.06.13 auskommentiert, soll immer gesetzt werden wegen korrekturen
-            //if (spiel.getGruppe().getKategorie().getGrosserFinal().getMannschaftA() != null) {
-            //    LOG.info("achtung grosser finale, mannschaft wurde bereits zugeordnet");
-            //    return;
-            //}
 
             List<Mannschaft> gross = new ArrayList<Mannschaft>();
             List<Mannschaft> klein = new ArrayList<Mannschaft>();

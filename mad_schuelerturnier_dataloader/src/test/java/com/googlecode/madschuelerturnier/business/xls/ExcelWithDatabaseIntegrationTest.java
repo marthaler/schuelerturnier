@@ -5,8 +5,8 @@ package com.googlecode.madschuelerturnier.business.xls;
 
 import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.junit.*;

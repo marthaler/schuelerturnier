@@ -4,6 +4,8 @@
 package com.googlecode.madschuelerturnier.business.utils;
 
 import com.googlecode.madschuelerturnier.model.Kategorie;
+import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.comperators.MannschaftsNamenComperator;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -61,9 +63,16 @@ public final class SysoutHelper {
             if (key.getGruppeA() == null) {
                 continue;
             }
-            LOG.info("" + " " + name + "   a --> " + key.getGruppeA().getMannschaftenSorted());
+
+            List<Mannschaft> listA = key.getGruppeA().getMannschaften();
+            Collections.sort(listA, new MannschaftsNamenComperator());
+
+            List<Mannschaft> listB = key.getGruppeB().getMannschaften();
+            Collections.sort(listB, new MannschaftsNamenComperator());
+
+            LOG.info("" + " " + name + "   a --> " + listA);
             if (key.getGruppeB() != null) {
-                LOG.info("" + "              b --> " + key.getGruppeB().getMannschaftenSorted());
+                LOG.info("" + "              b --> " + listB);
             } else {
                 LOG.info("" + "              --> ");
             }

@@ -4,7 +4,7 @@
 package com.googlecode.madschuelerturnier.business.scanner;
 
 
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;

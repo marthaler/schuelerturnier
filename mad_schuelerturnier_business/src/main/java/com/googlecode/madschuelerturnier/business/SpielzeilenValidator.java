@@ -28,24 +28,9 @@ public class SpielzeilenValidator {
 
         String ret = "";
         Set<Mannschaft> konflikte = new HashSet<Mannschaft>();
-        if (zeileVorher != null) {
-            List<Mannschaft> vorherList = zeileVorher.getAllMannschaften();
 
-            for (Mannschaft jetzt : zeileJetzt.getAllMannschaften()) {
-                if (vorherList.contains(jetzt)) {
-                    jetzt.setKonflikt(true);
-                    konflikte.add(jetzt);
-
-                }
-            }
-            if (konflikte.size() > 0) {
-                ret = ret + " Bereits in der voherigen Zeile vorhanden:";
-                for (Mannschaft mannschaft : konflikte) {
-                    ret = ret + " " + mannschaft.getName();
-                }
-                ret = ret + "!";
-            }
-        }
+        // pruefung durchfuehren
+        ret = pruefe(zeileVorher, zeileJetzt, ret, konflikte);
 
         Set<Mannschaft> doppelte = new HashSet<Mannschaft>();
         for (Mannschaft jetzt : zeileJetzt.getAllMannschaften()) {
@@ -72,6 +57,31 @@ public class SpielzeilenValidator {
             ret = ret + "!";
         }
         zeileJetzt.setKonfliktText(ret);
+        return ret;
+    }
+
+    private String pruefe(SpielZeile zeileVorher, SpielZeile zeileJetzt, String retIn, Set<Mannschaft> konflikte) {
+
+        String ret = retIn;
+
+        if (zeileVorher != null) {
+            List<Mannschaft> vorherList = zeileVorher.getAllMannschaften();
+
+            for (Mannschaft jetzt : zeileJetzt.getAllMannschaften()) {
+                if (vorherList.contains(jetzt)) {
+                    jetzt.setKonflikt(true);
+                    konflikte.add(jetzt);
+
+                }
+            }
+            if (konflikte.size() > 0) {
+                ret = ret + " Bereits in der voherigen Zeile vorhanden:";
+                for (Mannschaft mannschaft : konflikte) {
+                    ret = ret + " " + mannschaft.getName();
+                }
+                ret = ret + "!";
+            }
+        }
         return ret;
     }
 

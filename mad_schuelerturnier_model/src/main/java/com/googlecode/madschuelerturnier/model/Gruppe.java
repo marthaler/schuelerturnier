@@ -4,9 +4,7 @@
 package com.googlecode.madschuelerturnier.model;
 
 import com.googlecode.madschuelerturnier.exceptions.MixtGroupException;
-import com.googlecode.madschuelerturnier.model.comperators.MannschaftsNamenComperator;
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import org.apache.log4j.Logger;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -14,7 +12,6 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -121,13 +118,6 @@ public class Gruppe extends AbstractPersistable<Long> {
         }
 
         return retValue;
-    }
-
-
-    public List<Mannschaft> getMannschaftenSorted() {
-        List<Mannschaft> list = getMannschaften();
-        Collections.sort(list, new MannschaftsNamenComperator());
-        return list;
     }
 
 

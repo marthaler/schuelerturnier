@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.model.compusw;
 
-import com.googlecode.madschuelerturnier.model.spiel.Penalty;
+import com.googlecode.madschuelerturnier.model.Penalty;
 import org.apache.log4j.Logger;
 
 import java.util.Comparator;

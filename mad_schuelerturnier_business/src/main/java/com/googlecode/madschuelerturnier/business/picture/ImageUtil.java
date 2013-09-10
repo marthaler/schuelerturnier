@@ -96,8 +96,8 @@ public final class ImageUtil {
 
         }
 
-        cx = (cx - minX);
-        cy = (cy - minY);
+        cx = (cx - minX);      // NOSONAR
+        cy = (cy - minY);        // NOSONAR
 
         BufferedImage bi = new BufferedImage((maxX - minX), (maxY - minY),
                 image.getType());

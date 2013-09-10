@@ -27,9 +27,6 @@ public class Main {
 
     private static final Logger LOG = Logger.getLogger(Main.class);
 
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
         try {
             new Main("/res/rrr.png");
@@ -43,9 +40,9 @@ public class Main {
     private BufferedImage outputImage;
 
     public Main(String inputFilename) throws IOException {
-        setCommandLineArgs(inputFilename);
-        performDeskew();
-        saveOutput();
+        setCommandLineArgs(inputFilename);  // NOSONAR
+        performDeskew(); // NOSONAR
+        saveOutput();  // NOSONAR
     }
 
     public String getCommandLineArgs() {
@@ -63,7 +60,7 @@ public class Main {
     private void performDeskew() throws IOException {
 
         BufferedImage sourceImage = getSourceImage();
-        BufferedImage outputImageL = null;
+        BufferedImage outputImageL;
 
         ImageDeskew deskew = new ImageDeskew(sourceImage);
         double imageSkewAngle = deskew.getSkewAngle();

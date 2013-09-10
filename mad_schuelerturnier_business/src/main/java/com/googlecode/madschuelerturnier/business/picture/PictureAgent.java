@@ -4,7 +4,7 @@
 package com.googlecode.madschuelerturnier.business.picture;
 
 import com.googlecode.madschuelerturnier.business.scanner.BarcodeDecoder;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -27,7 +27,7 @@ public class PictureAgent {
 
     private static final int DELAY = 1000;
 
-    public String picToCheck;
+    public String picToCheck;  // NOSONAR todo fix
 
     private String selected;
 

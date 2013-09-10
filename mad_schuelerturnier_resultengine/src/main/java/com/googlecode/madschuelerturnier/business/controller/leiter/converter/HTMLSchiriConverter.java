@@ -3,8 +3,8 @@
  */
 package com.googlecode.madschuelerturnier.business.controller.leiter.converter;
 
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.enums.SpielEnum;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

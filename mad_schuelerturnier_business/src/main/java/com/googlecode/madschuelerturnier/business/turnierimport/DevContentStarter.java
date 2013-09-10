@@ -8,9 +8,9 @@ import com.googlecode.madschuelerturnier.business.controller.resultate.Resultate
 import com.googlecode.madschuelerturnier.business.impl.Business;
 import com.googlecode.madschuelerturnier.business.vorbereitung.A0SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.enums.SpielEnum;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.log4j.Logger;
@@ -38,7 +38,7 @@ public class DevContentStarter {
     private static final Logger LOG = Logger.getLogger(DevContentStarter.class);
 
     @Autowired
-    protected ResultateVerarbeiter resultate;
+    private ResultateVerarbeiter resultate;
 
     @Autowired
     private A0SpielVorbereitungsKontroller kontroller;

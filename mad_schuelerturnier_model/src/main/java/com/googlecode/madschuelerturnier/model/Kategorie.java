@@ -6,8 +6,6 @@ package com.googlecode.madschuelerturnier.model;
 import com.googlecode.madschuelerturnier.model.comperators.MannschaftsNamenComperator;
 import com.googlecode.madschuelerturnier.model.comperators.SpielZeitComperator;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
-import com.googlecode.madschuelerturnier.model.spiel.Penalty;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import org.apache.log4j.Logger;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -108,12 +106,6 @@ public class Kategorie extends AbstractPersistable<Long> {
         return resultList;
     }
 
-    public List<Mannschaft> getMannschaftenSorted() {
-        List<Mannschaft> list = getMannschaften();
-        Collections.sort(list, new MannschaftsNamenComperator());
-        return list;
-    }
-
     public List<Mannschaft> getMannschaften() {
 
         final Set<Mannschaft> result = new HashSet<Mannschaft>();
@@ -132,7 +124,7 @@ public class Kategorie extends AbstractPersistable<Long> {
 
         final List<Mannschaft> resultList = new ArrayList<Mannschaft>();
         resultList.addAll(result);
-        Collections.sort(resultList, new MannschaftsNamenComperator());
+        Collections.sort(resultList, new MannschaftsNamenComperator());  // NOSONAR
         return resultList;
     }
 
@@ -188,7 +180,7 @@ public class Kategorie extends AbstractPersistable<Long> {
     public List<Spiel> getSpieleSorted() {
         List<Spiel> spiele = new ArrayList<Spiel>();
         spiele.addAll(getSpiele());
-        Collections.sort(spiele, new SpielZeitComperator());
+        Collections.sort(spiele, new SpielZeitComperator());  // NOSONAR
         return spiele;
     }
 

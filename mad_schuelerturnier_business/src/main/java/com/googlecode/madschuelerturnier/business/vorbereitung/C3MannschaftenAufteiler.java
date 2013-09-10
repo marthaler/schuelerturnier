@@ -5,10 +5,10 @@ package com.googlecode.madschuelerturnier.business.vorbereitung;
 
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.comperators.MannschaftsNamenComperator;
 import com.googlecode.madschuelerturnier.model.enums.SpielEnum;
 import com.googlecode.madschuelerturnier.model.helper.IDGeneratorContainer;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.log4j.Logger;
@@ -36,14 +36,7 @@ public class C3MannschaftenAufteiler {
 
     public void mannschaftenVerteilen() {
 
-        // leere kategorien loeschen
-        Iterable<Kategorie> all = kategorieRepo.findAll();
-        for (Kategorie kategorie : all) {
-            if (kategorie.getGruppeA() == null) {
-                LOG.info("_1_KategorieZuordner hat Kategorie ohne Gruppe A: loeschen");
-                kategorieRepo.delete(kategorie);
-            }
-        }
+        leereKategorienLoeschen();
 
         // falls die gruppe a genau 3 mannschaften hat gibt es eine vor- und eine rueckrunde
         // bei mehr als 7 werden die gruppen geteilt
@@ -69,61 +62,79 @@ public class C3MannschaftenAufteiler {
             if (mannschaftenSize < 3) {
                 LOG.fatal("!!! achtung, es wurde versucht eine manschaftsverteilung vorzunehmen mit einer gruppe, die weniger als 3 mannschaften hat");
             } else if (mannschaftenSize == 3) {
-                LOG.debug("vor und rueckrunge stehen an: " + kategorie.getName());
 
-                assignGrosserFinalToKategorie(kategorie);
-
-
-                kategorie = kategorieRepo.save(kategorie);
-
+                kategorie = genau3Mannschaften(kategorie);
 
             } else if (mannschaftenSize > 7) {
-                LOG.debug("aufteilen einer gruppe von: " + kategorie.getName() + " anzahl mannschaften: " + mannschaftenSize);
 
-                kategorie = kategorieRepo.findOne(kategorie.getId());
-
-                Float f = ((float) mannschaftenSize / 2);
-                int ersteHaelfte = Math.round(f);
-
-
-                for (int i = mannschaftenSize - 1; i > ersteHaelfte - 1; i--) {
-
-                    Mannschaft mtemp = kategorie.getGruppeA().getMannschaften().remove(i);
-                    mtemp.setGruppe(kategorie.getGruppeB());
-                    kategorie.getGruppeB().getMannschaften().add(mtemp);
-
-                }
-
-                Collections.sort(kategorie.getGruppeB().getMannschaften(), new MannschaftsNamenComperator());
-                Collections.sort(kategorie.getGruppeA().getMannschaften(), new MannschaftsNamenComperator());
-
-                assignGrosserFinalToKategorie(kategorie);
-
-
-                Spiel kf = new Spiel();
-                kf.setTyp(SpielEnum.KFINAL);
-                kf.setIdString(IDGeneratorContainer.getNext());
-                kf.setKategorieName(kategorie.getName());
-                kf = spielRepo.save(kf);
-                kategorie.setKleineFinal(kf);
-
-                kategorie = kategorieRepo.save(kategorie);
+                kategorie = groesserAls7Mannschaften(kategorie, mannschaftenSize);
 
             } else {
 
-                assignGrosserFinalToKategorie(kategorie);
-
-                Spiel kf = new Spiel();
-                kf.setTyp(SpielEnum.KFINAL);
-                kf.setIdString(IDGeneratorContainer.getNext());
-                kf.setKategorieName(kategorie.getName());
-                kf = spielRepo.save(kf);
-                kategorie.setKleineFinal(kf);
+                dreiBis7Mannschaften(kategorie);
 
             }
 
             kategorieRepo.save(kategorie);
         }
+    }
+
+    private void dreiBis7Mannschaften(Kategorie kategorie) {
+        assignGrosserFinalToKategorie(kategorie);
+
+        Spiel kf = new Spiel();
+        kf.setTyp(SpielEnum.KFINAL);
+        kf.setIdString(IDGeneratorContainer.getNext());
+        kf.setKategorieName(kategorie.getName());
+        kf = spielRepo.save(kf);
+        kategorie.setKleineFinal(kf);
+    }
+
+    private Kategorie genau3Mannschaften(Kategorie kategorie) {
+        LOG.debug("vor und rueckrunge stehen an: " + kategorie.getName());
+
+        assignGrosserFinalToKategorie(kategorie);
+
+
+        kategorie = kategorieRepo.save(kategorie);
+        return kategorie;
+    }
+
+    private void leereKategorienLoeschen() {
+        // leere kategorien loeschen
+        Iterable<Kategorie> all = kategorieRepo.findAll();
+        for (Kategorie kategorie : all) {
+            if (kategorie.getGruppeA() == null) {
+                LOG.info("_1_KategorieZuordner hat Kategorie ohne Gruppe A: loeschen");
+                kategorieRepo.delete(kategorie);
+            }
+        }
+    }
+
+    private Kategorie groesserAls7Mannschaften(Kategorie kategorie, int mannschaftenSize) {
+        LOG.debug("aufteilen einer gruppe von: " + kategorie.getName() + " anzahl mannschaften: " + mannschaftenSize);
+
+        kategorie = kategorieRepo.findOne(kategorie.getId());
+
+        Float f = ((float) mannschaftenSize / 2);
+        int ersteHaelfte = Math.round(f);
+
+
+        for (int i = mannschaftenSize - 1; i > ersteHaelfte - 1; i--) {
+
+            Mannschaft mtemp = kategorie.getGruppeA().getMannschaften().remove(i);
+            mtemp.setGruppe(kategorie.getGruppeB());
+            kategorie.getGruppeB().getMannschaften().add(mtemp);
+
+        }
+
+        Collections.sort(kategorie.getGruppeB().getMannschaften(), new MannschaftsNamenComperator());
+        Collections.sort(kategorie.getGruppeA().getMannschaften(), new MannschaftsNamenComperator());
+
+        dreiBis7Mannschaften(kategorie);
+
+        kategorie = kategorieRepo.save(kategorie);
+        return kategorie;
     }
 
     private void assignGrosserFinalToKategorie(Kategorie kategorie) {

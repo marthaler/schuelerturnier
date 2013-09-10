@@ -7,7 +7,7 @@ import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HT
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLSchiriConverter;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
 import com.googlecode.madschuelerturnier.model.Kategorie;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.log4j.Logger;

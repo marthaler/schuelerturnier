@@ -20,7 +20,7 @@ public class Persistent extends AbstractPersistable<Long> implements Serializabl
     @Column(name = "ID2")
     private String id = UUID.randomUUID().toString();
 
-    protected DateTime creationdate = new DateTime();
+    private DateTime creationdate = new DateTime();
 
     /* (non-Javadoc)
      * @see com.googlecode.madschuelerturnier.model.IPersistent#getId()

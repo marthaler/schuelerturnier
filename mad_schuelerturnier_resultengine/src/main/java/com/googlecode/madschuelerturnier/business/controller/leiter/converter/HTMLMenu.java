@@ -95,7 +95,8 @@ public class HTMLMenu {
         return buffer.toString();
     }
 
-    private String enhance(String lab) {
+    private String enhance(String labIn) {
+        String lab = labIn;
         if (lab.length() == 2) {
             lab = lab.substring(0, 1) + "0" + lab.substring(1, 2);
         }

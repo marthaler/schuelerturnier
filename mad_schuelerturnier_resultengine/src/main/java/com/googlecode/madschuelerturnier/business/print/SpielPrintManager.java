@@ -4,7 +4,7 @@
 package com.googlecode.madschuelerturnier.business.print;
 
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.XHTMLOutputUtil;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -22,6 +22,7 @@ public class SpielPrintManager {
     private static final Logger LOG = Logger.getLogger(SpielPrintManager.class);
 
     private static final Integer SPIELE_PER_PAGE = 15;
+    public static final String TD_TD = "</td><td>";
 
     private List<Spiel> aktuelleSpiele = new ArrayList<Spiel>();
 
@@ -62,11 +63,11 @@ public class SpielPrintManager {
         stringBuilder.append("<tr>");
         stringBuilder.append("<td>");
         stringBuilder.append("<b>Start</b>");
-        stringBuilder.append("</td><td>");
+        stringBuilder.append(TD_TD);
         stringBuilder.append("<b>Platz</b>");
         stringBuilder.append("</td><td colspan=\"2\">");
         stringBuilder.append("<b>Mannschaften</b>");
-        stringBuilder.append("</td><td>");
+        stringBuilder.append(TD_TD);
         stringBuilder.append("<b>Tore</b>");
         stringBuilder.append("</td></tr>");
 
@@ -74,13 +75,13 @@ public class SpielPrintManager {
             stringBuilder.append("<tr><td>");
             SimpleDateFormat form = new SimpleDateFormat("E HH:mm");
             stringBuilder.append(form.format(spiel.getStart()));
-            stringBuilder.append("</td><td>");
+            stringBuilder.append(TD_TD);
             stringBuilder.append(spiel.getPlatz());
-            stringBuilder.append("</td><td>");
+            stringBuilder.append(TD_TD);
             stringBuilder.append(spiel.getMannschaftAName());
-            stringBuilder.append("</td><td>");
+            stringBuilder.append(TD_TD);
             stringBuilder.append(spiel.getMannschaftBName());
-            stringBuilder.append("</td><td>");
+            stringBuilder.append(TD_TD);
             stringBuilder.append(spiel.getToreABestaetigt());
             stringBuilder.append(stringBuilder.append(" : "));
             stringBuilder.append(spiel.getToreBBestaetigt());

@@ -3,14 +3,11 @@
  */
 package com.googlecode.madschuelerturnier.model.compusw;
 
-import com.googlecode.madschuelerturnier.model.Gruppe;
-import com.googlecode.madschuelerturnier.model.Kategorie;
-import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.*;
+import com.googlecode.madschuelerturnier.model.comperators.MannschaftsNamenComperator;
 import com.googlecode.madschuelerturnier.model.enums.RangierungsgrundEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielEnum;
 import com.googlecode.madschuelerturnier.model.helper.IDGeneratorContainer;
-import com.googlecode.madschuelerturnier.model.spiel.Penalty;
-import com.googlecode.madschuelerturnier.model.spiel.Spiel;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -53,7 +50,9 @@ public class RanglisteneintragHistorie {
             this.spiel = spiel;
 
             if (a == null) {
-                this.mannschaften = gruppe.getKategorie().getMannschaftenSorted();
+                List<Mannschaft> list = gruppe.getKategorie().getMannschaften();
+                Collections.sort(list, new MannschaftsNamenComperator());
+                this.mannschaften = list;
             } else if (a) {
                 this.mannschaften = gruppe.getKategorie().getGruppeA().getMannschaften();
             } else {
@@ -68,7 +67,7 @@ public class RanglisteneintragHistorie {
 
             this.sortNachPunkten();
             this.sortNachTorverhaeltnis();
-            this.sortNachMehrToren();
+            MehrToreSortierer.sortNachMehrToren(this);
             this.sortNachDirektbegegnung();
             this.penaltyBestimmen();
             this.penaltyBestimmen();
@@ -284,9 +283,9 @@ public class RanglisteneintragHistorie {
     }
 
 
-    private void subSortTorverhaeltnis(final List<RanglisteneintragZeile> su, int startindexin) {
+    private void subSortTorverhaeltnis(final List<RanglisteneintragZeile> su, int startindexIn) {
 
-        int startindex = startindexin;
+        int startindex = startindexIn;
 
         if (su.size() > 1) {
 
@@ -313,62 +312,6 @@ public class RanglisteneintragHistorie {
         }
     }
 
-    private void sortNachMehrToren() {
-
-        final List<RanglisteneintragZeile> su = new ArrayList<RanglisteneintragZeile>();
-        int startindex = -1;
-        RanglisteneintragZeile last = null;
-        for (int i = 0; i < this.zeilen.size(); i++) {
-            final RanglisteneintragZeile temp = this.zeilen.get(i);
-
-            if ((su.size() > 1) && (last != null) && ((last.getTordifferenz() != temp.getTordifferenz()) || (last.getPunkte() != temp.getPunkte()))) {
-                this.subSortNachMehrToren(su, startindex);
-                startindex = -1;
-                su.clear();
-            }
-
-            if (temp.getRangierungsgrund().equals(RangierungsgrundEnum.WEITERSUCHEN)) {
-
-                temp.setRangierungsgrund(RangierungsgrundEnum.MEHRTORE);
-
-                su.add(temp);
-
-                if (su.size() == 1) {
-                    startindex = i;
-                }
-            }
-            last = temp;
-        }
-        this.subSortNachMehrToren(su, startindex);
-
-    }
-
-
-    private void subSortNachMehrToren(final List<RanglisteneintragZeile> su, int startindex) {
-        if (su.size() > 1) {
-
-            Collections.sort(su, new MehrToreComperator());
-            RanglisteneintragZeile last = null;
-
-            for (final RanglisteneintragZeile ranglisteneintragZeile : su) {
-
-                if (last != null) {
-                    if (last.getToreErziehlt() == ranglisteneintragZeile.getToreErziehlt()) {
-                        ranglisteneintragZeile.setRangierungsgrund(RangierungsgrundEnum.WEITERSUCHEN);
-                        last.setRangierungsgrund(RangierungsgrundEnum.WEITERSUCHEN);
-                    }
-                }
-                last = ranglisteneintragZeile;
-            }
-
-            for (final RanglisteneintragZeile ranglisteneintragZeile : su) {
-                this.zeilen.set(startindex, ranglisteneintragZeile);
-                startindex = startindex + 1;
-            }
-
-            su.clear();
-        }
-    }
 
     private void sortNachDirektbegegnung() {
 
@@ -399,7 +342,10 @@ public class RanglisteneintragHistorie {
         this.subSortNachDirektbegegnung(su, startindex);
     }
 
-    private void subSortNachDirektbegegnung(final List<RanglisteneintragZeile> su, int startindex) {
+    private void subSortNachDirektbegegnung(final List<RanglisteneintragZeile> su, int startindexIn) {
+
+        int startindex = startindexIn;
+
         if (su.size() > 1) {
 
             if (su.size() != 2) {

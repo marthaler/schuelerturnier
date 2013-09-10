@@ -59,34 +59,34 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
         starttag = date.toDate();
     }
 
-    public void setSpielPhaseString(String phase) {
-        phase = phase.toLowerCase();
+    public void setSpielPhaseString(String phaseIn) {
+        String phaseS = phaseIn.toLowerCase();
 
-        if (phase.startsWith("a")) {
+        if (phaseS.startsWith("a")) {
             this.setPhase(SpielPhasenEnum.A_ANMELDEPHASE);
         }
 
-        if (phase.startsWith("b")) {
+        if (phaseS.startsWith("b")) {
             this.setPhase(SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG);
         }
 
-        if (phase.startsWith("c")) {
+        if (phaseS.startsWith("c")) {
             this.setPhase(SpielPhasenEnum.C_SPIELTAGE_DEFINIEREN);
         }
 
-        if (phase.startsWith("d")) {
+        if (phaseS.startsWith("d")) {
             this.setPhase(SpielPhasenEnum.D_SPIELE_ZUORDNUNG);
         }
 
-        if (phase.startsWith("e")) {
+        if (phaseS.startsWith("e")) {
             this.setPhase(SpielPhasenEnum.E_SPIELBEREIT);
         }
 
-        if (phase.startsWith("f")) {
+        if (phaseS.startsWith("f")) {
             this.setPhase(SpielPhasenEnum.F_SPIELEN);
         }
 
-        if (phase.startsWith("g")) {
+        if (phaseS.startsWith("g")) {
             this.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
         }
 
@@ -312,11 +312,4 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
         return result;
     }
 
-//    public boolean isInit() {
-//        return init;
-//    }
-
-//    public void setInit(boolean init) {
-//        this.init = init;
-//    }
 }
