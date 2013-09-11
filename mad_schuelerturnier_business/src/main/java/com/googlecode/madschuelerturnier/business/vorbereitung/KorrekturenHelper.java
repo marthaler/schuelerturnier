@@ -43,6 +43,7 @@ public class KorrekturenHelper {
         SpielZeile zeile = repo.findOne(Long.valueOf(id));
         zeile.setPause(!zeile.isPause());
         repo.save(zeile);
+        LOG.debug("zeile korrigiert mit id: " + id);
     }
 
     public void spielzeilenkorrekturAusDbAnwenden() {
@@ -50,7 +51,6 @@ public class KorrekturenHelper {
         for (String id : korrekturen) {
             zeileKorrigieren(id);
         }
+        LOG.debug("zeilen korrigiert und in db eingetragen");
     }
-
-
 }

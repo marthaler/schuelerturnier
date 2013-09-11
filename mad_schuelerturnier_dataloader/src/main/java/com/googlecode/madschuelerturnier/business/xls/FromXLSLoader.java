@@ -32,6 +32,7 @@ import java.util.Map;
 public class FromXLSLoader {
 
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
+    public static final String JXLS_LESESTATUS = "jxls lesestatus: ";
 
     public List<Mannschaft> convertXLSToMannschaften(byte[] arr) {
 
@@ -51,7 +52,7 @@ public class FromXLSLoader {
 
             XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
 
-            LOG.info("jxls lesestatus: " + readStatus.isStatusOK());
+            LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
 
             return (List<Mannschaft>) beans.get("mannschaften");
 
@@ -80,7 +81,7 @@ public class FromXLSLoader {
 
             XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
 
-            LOG.info("jxls lesestatus: " + readStatus.isStatusOK());
+            LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
 
             return (List<Spiel>) beans.get("spiele");
 
@@ -109,7 +110,7 @@ public class FromXLSLoader {
 
             XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
 
-            LOG.info("jxls lesestatus: " + readStatus.isStatusOK());
+            LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
 
             List<SpielEinstellungen> einst = (List<SpielEinstellungen>) beans.get("einstellungen");
 
@@ -140,7 +141,7 @@ public class FromXLSLoader {
 
             XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
 
-            LOG.info("jxls lesestatus: " + readStatus.isStatusOK());
+            LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
 
             return (List<Korrektur>) beans.get("korrekturen");
 
