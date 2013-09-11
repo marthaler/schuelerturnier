@@ -134,7 +134,7 @@
 
         <transition on="man" to="spieleinstellungen" bind="true">
             <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"/>
-            <evaluate expression="_6_SpielverteilerManuelleKorrekturen.korrekturenVornehmen()"/>
+            <evaluate expression="f6SpielverteilerManuelleKorrekturen.korrekturenVornehmen()"/>
         </transition>
 
         <transition on="toggleP" to="tagaktivieren" bind="true">

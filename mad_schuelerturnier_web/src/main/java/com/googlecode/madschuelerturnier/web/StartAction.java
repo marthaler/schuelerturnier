@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.web;
 
 import com.googlecode.madschuelerturnier.business.impl.Business;

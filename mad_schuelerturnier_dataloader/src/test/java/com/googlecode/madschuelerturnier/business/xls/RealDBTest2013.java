@@ -99,7 +99,6 @@ public class RealDBTest2013 {
 
         // letztes herausnehemen wegen fehler nach
         List<Mannschaft> mannschaften = mRepo.findAll();
-        //mannschaften.remove(mannschaften.size()-1);
 
         LOG.info("geschrieben aus db to xls: " + mannschaften.size());
 

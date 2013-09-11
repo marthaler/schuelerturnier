@@ -5,11 +5,15 @@ package com.googlecode.madschuelerturnier.business.turnierimport;
 
 import com.googlecode.madschuelerturnier.business.impl.Business;
 import com.googlecode.madschuelerturnier.business.vorbereitung.A0SpielVorbereitungsKontroller;
+import com.googlecode.madschuelerturnier.business.vorbereitung.KorrekturenHelper;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Dient dazu nach einem XLS-Import durchzufuehren und das Spiel wieder in die entsprechende Phase zu setzen
@@ -24,10 +28,15 @@ public class ImportHandler {
 
     @Autowired
     private A0SpielVorbereitungsKontroller kontroller;
+
     @Autowired
     private Business business;
 
-    public void turnierHerstellen() {
+    @Autowired
+    private KorrekturenHelper korrekturen;
+
+    public void turnierHerstellen(List<Spiel> spiele) {
+
         SpielEinstellungen einstellungenStart = business.getSpielEinstellungen();
         SpielPhasenEnum startPhase = einstellungenStart.getPhase();
 
@@ -35,28 +44,53 @@ public class ImportHandler {
         business.saveEinstellungen(einstellungenStart);
 
         LOG.info("SpielPhasenEnum.A_ANMELDEPHASE");
-        phasenCheck(startPhase);
+        if (isToDo(startPhase)) {
+            LOG.info("SpielPhasenEnum.A_ANMELDEPHASE: wird durchgefuehrt");
+            phasenCheck(startPhase);
+        }
 
         LOG.info("SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG");
-        phasenCheck(startPhase);
-
-        LOG.info("SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG");
-        phasenCheck(startPhase);
+        if (isToDo(startPhase)) {
+            LOG.info("SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG: wird durchgefuehrt");
+            phasenCheck(startPhase);
+        }
 
         LOG.info("SpielPhasenEnum.C_SPIELTAGE_DEFINIEREN");
-        phasenCheck(startPhase);
+        if (isToDo(startPhase)) {
+            business.initZeilen(false);
+            business.initZeilen(true);
+
+            korrekturen.spielzeilenkorrekturAusDbAnwenden();
+
+            LOG.info("SpielPhasenEnum.C_SPIELTAGE_DEFINIEREN: wird durchgefuehrt");
+            phasenCheck(startPhase);
+        }
 
         LOG.info("SpielPhasenEnum.D_SPIELE_ZUORDNUNG");
-        phasenCheck(startPhase);
+        if (isToDo(startPhase)) {
+            LOG.info("SpielPhasenEnum.D_SPIELE_ZUORDNUNG: wird durchgefuehrt");
+            // todo hier spiele ueberschreiben?
+            phasenCheck(startPhase);
+        }
 
         LOG.info("SpielPhasenEnum.E_SPIELBEREIT");
-        phasenCheck(startPhase);
+        if (isToDo(startPhase)) {
+            LOG.info("SpielPhasenEnum.E_SPIELBEREIT: wird durchgefuehrt");
+            phasenCheck(startPhase);
+        }
 
         LOG.info("SpielPhasenEnum.F_SPIELEN");
-        phasenCheck(startPhase);
+        if (isToDo(startPhase)) {
+            LOG.info("SpielPhasenEnum.F_SPIELEN: wird durchgefuehrt");
+            phasenCheck(startPhase);
+        }
 
         LOG.info("SpielPhasenEnum.G_ABGESCHLOSSEN");
-        phasenCheck(startPhase);
+        if (isToDo(startPhase)) {
+            LOG.info("SpielPhasenEnum.G_ABGESCHLOSSEN: wird durchgefuehrt");
+            phasenCheck(startPhase);
+        }
+
 
     }
 
@@ -64,5 +98,9 @@ public class ImportHandler {
         if (business.getSpielEinstellungen().getPhase() != startPhase) {
             kontroller.shiftSpielPhase();
         }
+    }
+
+    private boolean isToDo(SpielPhasenEnum startPhase) {
+        return business.getSpielEinstellungen().getPhase() != startPhase;
     }
 }

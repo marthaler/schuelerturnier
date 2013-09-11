@@ -3,11 +3,12 @@ package com.googlecode.madschuelerturnier.web;
 import com.googlecode.madschuelerturnier.business.impl.Business;
 import com.googlecode.madschuelerturnier.business.turnierimport.ImportHandler;
 import com.googlecode.madschuelerturnier.business.xls.FromXLSLoader;
+import com.googlecode.madschuelerturnier.model.Korrektur;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
+import com.googlecode.madschuelerturnier.persistence.repository.KorrekturRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
-import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.log4j.Logger;
 import org.primefaces.event.FileUploadEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class FileUploadController {
     private MannschaftRepository mannschaftsRepo;
 
     @Autowired
-    private SpielRepository spielRepo;
+    private KorrekturRepository korrekturRepository;
 
     @Autowired
     private Business busniess;
@@ -58,13 +59,17 @@ public class FileUploadController {
             LOG.info("mannschaft gespeicher: " + m);
         }
 
-        // Spiele laden und updaten
-        List<Spiel> spiele = xls.convertXLSToSpiele(event.getFile().getContents());
-        for (Spiel s : spiele) {
-            spielRepo.save(s);
-            LOG.info("spiel gespeicher: " + s);
+        // Korrekturen laden und updaten
+        List<Korrektur> korrekturen = xls.convertXLSToKorrektur(event.getFile().getContents());
+        for (Korrektur k : korrekturen) {
+            korrekturRepository.save(k);
+            LOG.info("korrektur gespeicher: " + k);
         }
 
-        importHandler.turnierHerstellen();
+        // Spiele laden und updaten
+        List<Spiel> spiele = xls.convertXLSToSpiele(event.getFile().getContents());
+        LOG.info("spiele geladen: " + spiele.size());
+
+        importHandler.turnierHerstellen(spiele);
     }
 }

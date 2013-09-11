@@ -92,6 +92,7 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
 
     }
 
+    @Deprecated
     public void placeMannschaftsTageskorrekturen(MannschaftTageskorrektur korr) {
         XStream xStream = new XStream(new DomDriver());
         xStream.alias("korrekturen", MannschaftTageskorrektur.class);

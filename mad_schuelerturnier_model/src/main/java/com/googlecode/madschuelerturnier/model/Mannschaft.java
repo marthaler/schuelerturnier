@@ -425,7 +425,6 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
         return this.teamNummer;
     }
 
-
     public void setGeschlechtString(String geschlechtIn) {
         String geschlechtS = geschlechtIn.toLowerCase();
         if (geschlechtS.equals("k")) {

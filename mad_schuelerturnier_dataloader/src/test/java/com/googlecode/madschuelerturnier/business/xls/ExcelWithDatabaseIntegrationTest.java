@@ -4,6 +4,7 @@
 package com.googlecode.madschuelerturnier.business.xls;
 
 import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
+import com.googlecode.madschuelerturnier.model.Korrektur;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
@@ -62,8 +63,21 @@ public class ExcelWithDatabaseIntegrationTest {
 
     @Test
     public void testParseEinstellungen() {
+        Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
         SpielEinstellungen einst = xls.convertXLSToEinstellung(DataLoaderImpl.readFile("schuetu-2013.xls"));
         Assert.assertNotNull(einst);
+    }
+
+    @Test
+    public void testParseKorrekturen() {
+        Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
+        List<Korrektur> korrektur = xls.convertXLSToKorrektur(DataLoaderImpl.readFile("schuetu-2013.xls"));
+        Assert.assertNotNull(korrektur);
+        Assert.assertEquals("nicht genau eine Korrektur", 15, korrektur.size());
+
+        Assert.assertEquals("Inhalt nicht richtig", "spielzeile", korrektur.get(0).getTyp());
+        Assert.assertEquals("Inhalt nicht richtig", "5", korrektur.get(0).getWert());
+        Assert.assertEquals("Inhalt nicht richtig", 2, korrektur.get(0).getReihenfolge());
     }
 
 }

@@ -3,6 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business.xls;
 
+import com.googlecode.madschuelerturnier.model.Korrektur;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
@@ -113,6 +114,36 @@ public class FromXLSLoader {
             List<SpielEinstellungen> einst = (List<SpielEinstellungen>) beans.get("einstellungen");
 
             return einst.get(0);
+
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+
+        return null;
+    }
+
+    public List<Korrektur> convertXLSToKorrektur(byte[] arr) {
+
+        try {
+
+            InputStream inputXML = new BufferedInputStream(getClass().getResourceAsStream("/jxls-korrektur-mapping.xml"));
+            XLSReader mainReader = ReaderBuilder.buildFromXML(inputXML);
+
+            InputStream inputXLS = new ByteArrayInputStream(arr);
+
+            List korrekturen = new ArrayList();
+            Korrektur korrektur = new Korrektur();
+
+            Map beans = new HashMap();
+            beans.put("korrekturen", korrekturen);
+            beans.put("korrektur", korrektur);
+
+            XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
+
+            LOG.info("jxls lesestatus: " + readStatus.isStatusOK());
+
+            return (List<Korrektur>) beans.get("korrekturen");
+
 
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
