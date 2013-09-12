@@ -3,8 +3,9 @@
  */
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
-import com.googlecode.madschuelerturnier.business.SpielzeilenValidator;
-import com.googlecode.madschuelerturnier.business.impl.Business;
+import com.googlecode.madschuelerturnier.business.Business;
+import com.googlecode.madschuelerturnier.business.vorbereitung.helper.SpielverteilerHelper;
+import com.googlecode.madschuelerturnier.business.vorbereitung.helper.SpielzeilenValidator;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;

@@ -3,16 +3,19 @@
  */
 package com.googlecode.madschuelerturnier.business.turnierimport;
 
-import com.googlecode.madschuelerturnier.business.impl.Business;
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.vorbereitung.A0SpielVorbereitungsKontroller;
-import com.googlecode.madschuelerturnier.business.vorbereitung.KorrekturenHelper;
+import com.googlecode.madschuelerturnier.business.vorbereitung.helper.KorrekturenHelper;
 import com.googlecode.madschuelerturnier.model.Spiel;
+import com.googlecode.madschuelerturnier.model.comperators.SpielZeitComperator;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
+import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,6 +34,9 @@ public class ImportHandler {
 
     @Autowired
     private Business business;
+
+    @Autowired
+    private SpielRepository sRepo;
 
     @Autowired
     private KorrekturenHelper korrekturen;
@@ -82,6 +88,10 @@ public class ImportHandler {
         LOG.info("SpielPhasenEnum.F_SPIELEN");
         if (isToDo(startPhase)) {
             LOG.info("SpielPhasenEnum.F_SPIELEN: wird durchgefuehrt");
+
+            // Spiele updaten
+            spieleUpdaten(spiele);
+
             phasenCheck(startPhase);
         }
 
@@ -91,6 +101,14 @@ public class ImportHandler {
             phasenCheck(startPhase);
         }
 
+
+    }
+
+    private void spieleUpdaten(List<Spiel> spiele) {
+        Collections.sort(spiele, new SpielZeitComperator());
+        for (Spiel s : spiele) {
+
+        }
 
     }
 

@@ -1,6 +1,5 @@
 package com.googlecode.madschuelerturnier.business;
 
-import com.googlecode.madschuelerturnier.business.impl.Business;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

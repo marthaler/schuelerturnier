@@ -1,7 +1,7 @@
 package com.googlecode.madschuelerturnier.web;
 
-import com.googlecode.madschuelerturnier.business.IBusiness;
-import com.googlecode.madschuelerturnier.business.ISpielKontroller;
+import com.googlecode.madschuelerturnier.business.Business;
+import com.googlecode.madschuelerturnier.business.vorbereitung.A0SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,10 +16,10 @@ import java.io.Serializable;
 public class SpielstatusWebBean implements Serializable {
 
     @Autowired
-    private IBusiness business;
+    private Business business;
 
     @Autowired
-    private ISpielKontroller kontroller;
+    private A0SpielVorbereitungsKontroller kontroller;
 
     private boolean init = false;
 

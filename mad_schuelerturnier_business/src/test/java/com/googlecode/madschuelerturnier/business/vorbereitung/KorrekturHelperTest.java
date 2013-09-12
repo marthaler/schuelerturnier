@@ -1,9 +1,9 @@
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
+import com.googlecode.madschuelerturnier.business.vorbereitung.helper.KorrekturenHelper;
 import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
 import com.googlecode.madschuelerturnier.persistence.KorrekturPersistence;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,8 +14,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 

@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
-import com.googlecode.madschuelerturnier.business.impl.Business;
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.model.Gruppe;
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;

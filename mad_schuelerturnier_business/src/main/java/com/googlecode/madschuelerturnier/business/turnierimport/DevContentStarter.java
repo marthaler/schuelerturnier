@@ -3,9 +3,9 @@
  */
 package com.googlecode.madschuelerturnier.business.turnierimport;
 
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
-import com.googlecode.madschuelerturnier.business.impl.Business;
 import com.googlecode.madschuelerturnier.business.vorbereitung.A0SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;

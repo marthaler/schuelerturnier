@@ -76,8 +76,8 @@ public class ExcelWithDatabaseIntegrationTest {
         Assert.assertEquals("nicht genau eine Korrektur", 15, korrektur.size());
 
         Assert.assertEquals("Inhalt nicht richtig", "spielzeile", korrektur.get(0).getTyp());
-        Assert.assertEquals("Inhalt nicht richtig", "5", korrektur.get(0).getWert());
-        Assert.assertEquals("Inhalt nicht richtig", 2, korrektur.get(0).getReihenfolge());
+        Assert.assertEquals("Inhalt nicht richtig", "4", korrektur.get(0).getWert());
+        Assert.assertEquals("Inhalt nicht richtig", 1, korrektur.get(0).getReihenfolge());
     }
 
 }

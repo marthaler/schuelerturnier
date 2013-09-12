@@ -1,7 +1,7 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.business.vorbereitung;
+package com.googlecode.madschuelerturnier.business.vorbereitung.helper;
 
 import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
 import com.googlecode.madschuelerturnier.persistence.KorrekturPersistence;
@@ -13,10 +13,11 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * Hilft die Korrekturen einerseits zu speichern und andererseits wieder vorzunehmen
+ * Hilft die Korrekturen einerseits zu speichern und andererseits wieder in der db vorzunehmen
+ * beim initialen Laden von einer XLS-Liste
  *
  * @author $Author: marthaler.worb@gmail.com $
- * @since 0.7
+ * @since 1.2.6
  */
 @Component
 public class KorrekturenHelper {

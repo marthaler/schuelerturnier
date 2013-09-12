@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
-import com.googlecode.madschuelerturnier.business.impl.Business;
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.model.*;
 import com.googlecode.madschuelerturnier.model.comperators.KategorieNameComperator;
 import com.googlecode.madschuelerturnier.model.helper.IDGeneratorContainer;

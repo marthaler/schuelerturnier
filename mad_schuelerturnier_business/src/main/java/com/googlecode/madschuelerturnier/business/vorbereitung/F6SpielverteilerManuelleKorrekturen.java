@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
-import com.googlecode.madschuelerturnier.business.IBusiness;
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
 import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
@@ -32,7 +32,7 @@ public class F6SpielverteilerManuelleKorrekturen {
     private SpielRepository spielRepo;
 
     @Autowired
-    private IBusiness business;
+    private Business business;
 
     public void korrekturenVornehmen() {
 

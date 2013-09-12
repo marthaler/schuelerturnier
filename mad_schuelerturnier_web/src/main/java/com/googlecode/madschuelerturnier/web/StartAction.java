@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.web;
 
-import com.googlecode.madschuelerturnier.business.impl.Business;
+import com.googlecode.madschuelerturnier.business.Business;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

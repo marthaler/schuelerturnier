@@ -3,8 +3,8 @@
  */
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
-import com.googlecode.madschuelerturnier.business.ISpielKontroller;
-import com.googlecode.madschuelerturnier.business.impl.Business;
+
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.utils.MannschaftenNummerierer;
 import com.googlecode.madschuelerturnier.business.utils.SysoutHelper;
 import com.googlecode.madschuelerturnier.model.Kategorie;
@@ -25,13 +25,13 @@ import java.util.Map;
 /**
  * speichert, verwaltet und steuert die spielphasen und deren veraenderungen
  * nach dem instanzieren wird jeweils init mittels @PostConstruct aufgerufen um
- * een spielzustand in die eingestellte phase zu "schieben"
+ * einen spielzustand in die eingestellte phase zu "schieben"
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
 @Component
-public class A0SpielVorbereitungsKontroller implements ISpielKontroller {
+public class A0SpielVorbereitungsKontroller {
 
     private static final Logger LOG = Logger.getLogger(A0SpielVorbereitungsKontroller.class);
 

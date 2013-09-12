@@ -1,6 +1,6 @@
 package com.googlecode.madschuelerturnier.web;
 
-import com.googlecode.madschuelerturnier.business.impl.Business;
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.turnierimport.ImportHandler;
 import com.googlecode.madschuelerturnier.business.xls.FromXLSLoader;
 import com.googlecode.madschuelerturnier.model.Korrektur;

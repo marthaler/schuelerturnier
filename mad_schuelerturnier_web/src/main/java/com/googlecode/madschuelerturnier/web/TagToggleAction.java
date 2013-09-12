@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.web;
 
-import com.googlecode.madschuelerturnier.business.vorbereitung.KorrekturenHelper;
+import com.googlecode.madschuelerturnier.business.vorbereitung.helper.KorrekturenHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.webflow.core.collection.ParameterMap;

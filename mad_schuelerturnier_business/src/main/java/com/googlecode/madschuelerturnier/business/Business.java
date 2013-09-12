@@ -7,6 +7,7 @@ import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Penalty;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
+import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
-public interface IBusiness {
+public interface Business {
 
     List<String> getSchulhausListe(String query);
 
@@ -59,5 +60,10 @@ public interface IBusiness {
 
     void initializeDB();
 
+    void initZeilen(boolean sonntag);
+
+    List<SpielZeile> getSpielzeilen(final boolean sonntag);
+
+    void manuelleZuordnungDurchziehen(final String mannschaftName, final String zielKategorieKey);
 
 }

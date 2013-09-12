@@ -3,8 +3,8 @@
  */
 package com.googlecode.madschuelerturnier.business.spieldurchfuehrung;
 
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
-import com.googlecode.madschuelerturnier.business.impl.Business;
 import com.googlecode.madschuelerturnier.business.out.OutToWebsitePublisher;
 import com.googlecode.madschuelerturnier.business.print.PrintAgent;
 import com.googlecode.madschuelerturnier.business.print.SpielPrintManager;

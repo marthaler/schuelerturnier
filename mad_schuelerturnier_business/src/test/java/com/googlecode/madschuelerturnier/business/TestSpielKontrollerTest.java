@@ -1,6 +1,5 @@
 package com.googlecode.madschuelerturnier.business;
 
-import com.googlecode.madschuelerturnier.business.impl.Business;
 import com.googlecode.madschuelerturnier.business.vorbereitung.A0SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;

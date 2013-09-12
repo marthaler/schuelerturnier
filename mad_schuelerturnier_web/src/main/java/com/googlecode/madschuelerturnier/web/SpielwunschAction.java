@@ -1,6 +1,6 @@
 package com.googlecode.madschuelerturnier.web;
 
-import com.googlecode.madschuelerturnier.business.impl.Business;
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

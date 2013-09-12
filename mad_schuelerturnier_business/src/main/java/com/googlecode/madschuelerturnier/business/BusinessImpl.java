@@ -1,11 +1,10 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.business.impl;
+package com.googlecode.madschuelerturnier.business;
 
-import com.googlecode.madschuelerturnier.business.IBusiness;
-import com.googlecode.madschuelerturnier.business.SpielzeilenValidator;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
+import com.googlecode.madschuelerturnier.business.vorbereitung.helper.SpielzeilenValidator;
 import com.googlecode.madschuelerturnier.business.zeit.Zeitgeber;
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
@@ -31,9 +30,9 @@ import java.util.*;
  * @since 0.7
  */
 @Component
-public class Business implements IBusiness {
+public class BusinessImpl implements Business {
 
-    private static final Logger LOG = Logger.getLogger(Business.class);
+    private static final Logger LOG = Logger.getLogger(BusinessImpl.class);
 
     private static final int MITTAG = 12;
     private static final int SEC_PRO_MINUTE = 60;
@@ -64,7 +63,7 @@ public class Business implements IBusiness {
 
     private SpielEinstellungen einstellungen;
 
-    public Business() {
+    public BusinessImpl() {
 
     }
 
@@ -289,7 +288,7 @@ public class Business implements IBusiness {
         }
 
         if (quelle == null) {
-            Business.LOG.fatal("!!! bei mannschaftszuordnungs korrektur quelle nicht gefunden: " + mannschaftName);
+            BusinessImpl.LOG.fatal("!!! bei mannschaftszuordnungs korrektur quelle nicht gefunden: " + mannschaftName);
         }
 
         quelle.getGruppeA().getMannschaften().remove(verschieben);
@@ -337,9 +336,9 @@ public class Business implements IBusiness {
 
         List<SpielZeile> zeilen;
 
-        Business.LOG.info("date: starttag -->" + this.getSpielEinstellungen().getStarttag());
+        BusinessImpl.LOG.info("date: starttag -->" + this.getSpielEinstellungen().getStarttag());
         final DateTime start2 = new DateTime(this.getSpielEinstellungen().getStarttag(), DateTimeZone.forID("Europe/Zurich"));
-        Business.LOG.info("date: starttag Europe/Zurich -->" + start2);
+        BusinessImpl.LOG.info("date: starttag Europe/Zurich -->" + start2);
 
         if (!sonntag) {
             start = new DateTime(start2);
@@ -351,7 +350,7 @@ public class Business implements IBusiness {
             zeilen = createZeilen(start, true);
         }
 
-        Business.LOG.info("-->" + zeilen);
+        BusinessImpl.LOG.info("-->" + zeilen);
 
         this.spielzeilenRepo.save(zeilen);
 
@@ -399,7 +398,7 @@ public class Business implements IBusiness {
             zeilen.add(zeile);
 
             final DateTimeZone zone = start.getZone();
-            Business.LOG.info("zone: " + zone + " date: " + start.toDate());
+            BusinessImpl.LOG.info("zone: " + zone + " date: " + start.toDate());
 
             zeile.setSonntag(sonntag);
 
@@ -421,7 +420,7 @@ public class Business implements IBusiness {
             this.saveEinstellungen(einst);
 
         } else {
-            Business.LOG.error("starten nicht moeglich, falsch phase: " + this.getSpielEinstellungen().getPhase());
+            BusinessImpl.LOG.error("starten nicht moeglich, falsch phase: " + this.getSpielEinstellungen().getPhase());
         }
 
         this.zeitgeber.startGame(0, "nach neustart der clock");
@@ -436,7 +435,7 @@ public class Business implements IBusiness {
         einst.setPhase(SpielPhasenEnum.E_SPIELBEREIT);
         this.zeitgeber.stopClock();
         this.saveEinstellungen(einst);
-        Business.LOG.info("spiel angehalten ");
+        BusinessImpl.LOG.info("spiel angehalten ");
 
     }
 
@@ -474,7 +473,7 @@ public class Business implements IBusiness {
         final SpielEinstellungen einst = this.getSpielEinstellungen();
         einst.setPhase(SpielPhasenEnum.F_SPIELEN);
         this.saveEinstellungen(einst);
-        Business.LOG.info("spiel resumed ");
+        BusinessImpl.LOG.info("spiel resumed ");
 
     }
 
@@ -544,7 +543,7 @@ public class Business implements IBusiness {
     @Override
     public void initializeDB() {
         if (this.spielEinstellungenRepo.count() > 0) {
-            Business.LOG.fatal("achtung versuch spiel einstellungen zu initialisieren obwohl bereits in der db vorhanden ");
+            BusinessImpl.LOG.fatal("achtung versuch spiel einstellungen zu initialisieren obwohl bereits in der db vorhanden ");
             this.einstellungen = spielEinstellungenRepo.findAll().get(0);
         } else {
             SpielEinstellungen eins = new SpielEinstellungen();

@@ -1,7 +1,7 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.business.vorbereitung;
+package com.googlecode.madschuelerturnier.business.vorbereitung.helper;
 
 import com.googlecode.madschuelerturnier.model.Spiel;
 import org.springframework.stereotype.Component;
