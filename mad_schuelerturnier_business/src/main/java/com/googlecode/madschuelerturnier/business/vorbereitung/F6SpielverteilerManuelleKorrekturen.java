@@ -7,6 +7,8 @@ import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
 import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
+import com.googlecode.madschuelerturnier.persistence.KorrekturPersistence;
+import com.googlecode.madschuelerturnier.persistence.repository.KorrekturRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.apache.log4j.Logger;
@@ -14,9 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
+ * Fuehrt die manuellen Korrekturen aus, welche Spiele in den Spiel Zeilen vertauschen
+ *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
@@ -32,30 +37,28 @@ public class F6SpielverteilerManuelleKorrekturen {
     private SpielRepository spielRepo;
 
     @Autowired
-    private Business business;
+    private KorrekturPersistence korrekturPersistence;
 
     public void korrekturenVornehmen() {
 
-
         // wenn keine korrektur in den einstellungen zu finden ist, mache nichts
-        String korr = business.getSpielEinstellungen().getSpielVertauschungen();
+        List<String> korr = korrekturPersistence.getKorrekturen("spielvertauschung");
         if (korr == null || korr.isEmpty()) {
-            LOG.info("starte manuelle nicht, keine werte vorhanden");
+            LOG.info("starte manuelle Korrektur nicht, keine werte vorhanden");
             return;
         }
 
         LOG.info("starte manuelle korrektur: " + korr);
 
-        String[] kos = korr.split(";");
         Map<String, String> vertauschungen = new HashMap<String, String>();
 
-        for (String ko : kos) {
+        for (String ko : korr) {
+            ko.replace(";", "");
             String[] sp = ko.split("-");
             vertauschungen.put(sp[0], sp[1]);
         }
 
         for (String key : vertauschungen.keySet()) {
-
 
             String value = vertauschungen.get(key);
 
@@ -69,7 +72,6 @@ public class F6SpielverteilerManuelleKorrekturen {
 
             setSpielToZeile(quelle, key, zielSpiel);
             setSpielToZeile(ziel, value, quelleSpiel);
-
 
         }
 

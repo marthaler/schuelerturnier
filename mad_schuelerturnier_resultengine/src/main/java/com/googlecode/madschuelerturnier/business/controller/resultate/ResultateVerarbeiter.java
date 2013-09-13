@@ -181,8 +181,16 @@ public class ResultateVerarbeiter {
 
         LOG.info("verarbeite fertiges spiel: " + id);
         Spiel spiel = repo.findOne(id);
-        Kategorie kat = spiel.getMannschaftA().getKategorie();
-        String katName = spiel.getMannschaftA().getKategorie().getName();
+
+        Kategorie kat;
+        String katName = "";
+
+        try {
+            kat = spiel.getMannschaftA().getKategorie();
+            katName = spiel.getMannschaftA().getKategorie().getName();
+        } catch (Exception e) {
+            LOG.fatal(e.getMessage(), e);
+        }
 
         RanglisteneintragHistorie rangListe = null;
 
@@ -209,7 +217,6 @@ public class ResultateVerarbeiter {
         printer.saveSpiel(spiel);
 
         pruefeEnde(kat, rangListe);
-
 
     }
 
