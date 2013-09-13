@@ -130,6 +130,7 @@ public class PrintAgent {
             props.setOmitComments(true);
 
             // do parsing
+            LOG.info("HtmlCleaner! Body wegnehmen");
             TagNode tagNode = new HtmlCleaner(props).clean(
                     htmlContent
             );

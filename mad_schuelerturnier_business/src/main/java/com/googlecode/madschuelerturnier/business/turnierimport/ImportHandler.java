@@ -4,6 +4,7 @@
 package com.googlecode.madschuelerturnier.business.turnierimport;
 
 import com.googlecode.madschuelerturnier.business.Business;
+import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
 import com.googlecode.madschuelerturnier.business.vorbereitung.A0SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.business.vorbereitung.helper.KorrekturenHelper;
 import com.googlecode.madschuelerturnier.model.Spiel;
@@ -11,10 +12,12 @@ import com.googlecode.madschuelerturnier.model.comperators.SpielZeitComperator;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,18 +31,16 @@ import java.util.List;
 public class ImportHandler {
 
     private static final Logger LOG = Logger.getLogger(ImportHandler.class);
-
     @Autowired
     private A0SpielVorbereitungsKontroller kontroller;
-
     @Autowired
     private Business business;
-
     @Autowired
     private SpielRepository sRepo;
-
     @Autowired
     private KorrekturenHelper korrekturen;
+    @Autowired
+    private ResultateVerarbeiter verarbeiter;
 
     public void turnierHerstellen(List<Spiel> spiele) {
 
@@ -101,15 +102,41 @@ public class ImportHandler {
             phasenCheck(startPhase);
         }
 
-
     }
 
     private void spieleUpdaten(List<Spiel> spiele) {
-        Collections.sort(spiele, new SpielZeitComperator());
-        for (Spiel s : spiele) {
+        try {
+            Collections.sort(spiele, new SpielZeitComperator());
+            for (Spiel s : spiele) {
+                Spiel temp = sRepo.findOne(s.getId());
+                // Objekte setzen welche sonst null wären vor dem Uebertragen
 
+                s.setMannschaftA(temp.getMannschaftA());
+                s.setMannschaftB(temp.getMannschaftB());
+
+                // notitzen uebertragen
+                if (s.getNotizen() != null && s.getNotizen().getValue() != null && s.getNotizen().getValue().length() > 0) {
+                    temp.getNotizen().setValue(s.getNotizen().getValue());
+                    temp.getNotizen().setKey(s.getNotizen().getKey());
+                }
+
+                try {
+                    BeanUtils.copyProperties(temp, s);
+                } catch (IllegalAccessException e) {
+                    LOG.error(e.getMessage(), e);
+                } catch (InvocationTargetException e) {
+                    LOG.error(e.getMessage(), e);
+                }
+
+                temp = sRepo.save(temp);
+                // signalisiere fertiges Spiel an Resultate Verabeiter
+                if (temp.isFertigGespielt()) {
+                    verarbeiter.signalFertigesSpiel(temp.getId());
+                }
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
         }
-
     }
 
     private void phasenCheck(SpielPhasenEnum startPhase) {
@@ -119,6 +146,6 @@ public class ImportHandler {
     }
 
     private boolean isToDo(SpielPhasenEnum startPhase) {
-        return business.getSpielEinstellungen().getPhase() != startPhase;
+        return business.getSpielEinstellungen().getPhase().ordinal() <= startPhase.ordinal();
     }
 }

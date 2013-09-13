@@ -29,7 +29,7 @@ import java.util.*;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
-@Component
+@Component(value = "business")
 public class BusinessImpl implements Business {
 
     private static final Logger LOG = Logger.getLogger(BusinessImpl.class);

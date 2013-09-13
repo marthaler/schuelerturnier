@@ -10,6 +10,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Zur Anzeige des Build Datums und der Version im GUI
+ *
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
+ */
 @Controller
 public class MavenVersionUtil {
 

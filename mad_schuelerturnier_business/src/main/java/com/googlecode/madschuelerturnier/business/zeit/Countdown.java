@@ -1,7 +1,7 @@
-package com.googlecode.madschuelerturnier.business.zeit;
 /**
  * Apache License 2.0
  */
+package com.googlecode.madschuelerturnier.business.zeit;
 
 import org.joda.time.DateTime;
 

@@ -1,12 +1,28 @@
 feautures:
 **********
 
+[rj]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
+
+[  ]     refactoring paarung weg
+
+[  ]     beim vorbereiten funktioniert das loeschen einer leeren kategorie nicht
+
+[rj]     out to website publisher schlau konfigurieren
+
+[rj]     countdown ueber eine stunde springt (stunden einbeziehen)
+
+[rj]     gong per hit space ausloesen
+
 ==============
 
 bugs:
 *****
 
-[ok]     Rangliste im web Sonderzeichen
+[  ]     HTML Cleaner Problem beheben
+
+[  ]     Sonar auf 0
+
+[  ]     schauen warum nicht alle spiele fertig werden mit 2013
 
 ==============
 
@@ -17,22 +33,21 @@ dokumentation
 
 fuer nachher
 ************
-[rj]     beobachter rangliste anwaehlbar machen
-[rj]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
-[ok]     dump knopf und logik weg in den ranglisten
-[  ]     refactoring paarung weg
-[  ]     beim vorbereiten funktioniert das loeschen einer leeren kategorie nicht
-[ok]     beobachter bean dumpout weg
 
-[rj]     countdown ueber eine stunde springt (stunden einbeziehen)
 
-[ok]     resultengine asynchron machen
-[rj]     out to website publisher schlau konfigurieren
-[rj]     countdown ueber eine stunde springt (stunden einbeziehen)
-[rj]     gong per hit space ausloesen
+dokumentation
+*************
+[ok]     merkkarten fuer schiris (tore nicht punkte)
+
+[ok]     plan fuer lan und material
 
 feautures ok:
 **********
+[ok]     beobachter bean dumpout weg
+
+[ok]     dump knopf und logik weg in den ranglisten
+
+[ok]     resultengine asynchron machen
 
 [ok]     wenn erster penalty erkannt wird wird 2. nicht mehr gesucht nur WEITERSUCHEN
 
@@ -121,8 +136,11 @@ feautures ok:
 [ok]     schlaue Startseite
 [ok]     wenn fertig dinge nicht ausblenden
 
-bugs gefixt:
-*****
+bugs ok:
+***************
+
+[ok]     Rangliste im web Sonderzeichen
+
 [ok]     Seiten werden zuerst nach bin gedruckt
 
 [ok]     automatische spieleverteilung reparieren nach neuem model

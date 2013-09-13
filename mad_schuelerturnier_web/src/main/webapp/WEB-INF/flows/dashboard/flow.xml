@@ -34,11 +34,10 @@
 
     <view-state id="initialisieren_view" view="initialisieren.xhtml">
         <transition on="save" to="initialisieren">
-
             <evaluate expression="business.initializeDB()"/>
-
-
         </transition>
+
+        <transition on="ok" to="initialisieren"/>
 
     </view-state>
 

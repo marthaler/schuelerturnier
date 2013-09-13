@@ -19,6 +19,11 @@ public class XHTMLOutputUtil {
     private static final Logger LOG = Logger.getLogger(HTMLSchiriConverter.class);
 
     public String cleanup(String input, boolean justbody) {
+        LOG.info("CLEANUP! justody: " + justbody);
+        //todo fix
+        if (true) {
+            return input;
+        }
 
         CleanerProperties props = new CleanerProperties();
 

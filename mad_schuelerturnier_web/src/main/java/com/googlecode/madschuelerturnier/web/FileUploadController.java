@@ -14,8 +14,6 @@ import org.primefaces.event.FileUploadEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import java.util.List;
 
 /**
@@ -44,9 +42,6 @@ public class FileUploadController {
 
     public void handleFileUpload(FileUploadEvent event) {
 
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage("feedback", new FacesMessage("Upload ok!", "->" + event.getFile().getFileName()));
-
         // Einstellungen sichern
         SpielEinstellungen einstellungen = xls.convertXLSToEinstellung(event.getFile().getContents());
         busniess.saveEinstellungen(einstellungen);
@@ -71,5 +66,7 @@ public class FileUploadController {
         LOG.info("spiele geladen: " + spiele.size());
 
         importHandler.turnierHerstellen(spiele);
+
     }
+
 }

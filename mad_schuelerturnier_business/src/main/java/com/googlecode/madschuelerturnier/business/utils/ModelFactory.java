@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Constructor;
 
-
 /**
  * dient der erstellung von model-bean per refelction
  *

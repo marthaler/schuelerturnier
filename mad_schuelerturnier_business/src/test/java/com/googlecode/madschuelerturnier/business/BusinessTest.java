@@ -19,7 +19,7 @@ import javax.transaction.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-business-context.xml"})
 @Transactional
-public class TestBusiness {
+public class BusinessTest {
 
     @Autowired
     private Business business;
