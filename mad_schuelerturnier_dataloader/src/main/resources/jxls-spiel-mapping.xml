@@ -27,7 +27,7 @@
                 <mapping row="1" col="17">spiel.notes</mapping>
             </section>
             <loopbreakcondition>
-                <rowcheck offset="1">
+                <rowcheck offset="0">
                     <cellcheck offset="1"/>
                 </rowcheck>
             </loopbreakcondition>

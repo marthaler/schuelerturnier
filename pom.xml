@@ -82,8 +82,8 @@
         <itext.version>4.2.1</itext.version>
         <!--ok:4.2.0 -> ??:4.2.1-->
 
-        <htmlcleaner.version>2.2.1</htmlcleaner.version>
-        <!--2.2.1 -> 2.5 -> ??:2.6 -> nok:2.6.1-->
+        <htmlcleaner.version>2.6.1</htmlcleaner.version>
+        <!--ok2.2.1 -> ok:2.5 -> ok:2.6 -> ok:2.6.1-->
 
         <commons-configuration.version>1.9</commons-configuration.version>
 

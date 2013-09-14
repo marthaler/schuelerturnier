@@ -83,7 +83,7 @@ public class SpielPrintManager {
             stringBuilder.append(spiel.getMannschaftBName());
             stringBuilder.append(TD_TD);
             stringBuilder.append(spiel.getToreABestaetigt());
-            stringBuilder.append(stringBuilder.append(" : "));
+            stringBuilder.append(" : ");
             stringBuilder.append(spiel.getToreBBestaetigt());
             stringBuilder.append("</td></tr>");
         }

@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:sec="http://www.springframework.org/security/tags">
 
-<!--@elvariable id="spielstatusWebBean" type="com.googlecode.madschuelerturnier.web.SpielstatusWebBean"-->
+    <!--@elvariable id="spielstatusWebBean" type="com.googlecode.madschuelerturnier.web.SpielstatusWebBean"-->
     <div id="mainnav">
         <h:form id="form_m">
             <p:menubar id="menubar" styleClass="menubar">
@@ -95,6 +95,12 @@
                 </p:submenu>
 
                 <!-- spielen: rollen -->
+                <!-- spielen: rollen : root-->
+                <p:menuitem id="m_resultatekorrekturen"
+                            rendered="#{sec:areAnyGranted('ROLE_ROOT') and spielstatusWebBean.spielend}"
+                            value="Spielkorrektur" icon="ui-icon-notice"
+                            action="gt_resultatekorrekturen"/>
+
                 <!-- spielen: rollen : eintrager-->
                 <p:menuitem id="m_eintrager"
                             rendered="#{sec:areAnyGranted('ROLE_ADMIN,ROLE_EINTRAGER') and spielstatusWebBean.spielend}"

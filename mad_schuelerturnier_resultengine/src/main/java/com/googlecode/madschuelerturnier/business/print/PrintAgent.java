@@ -47,17 +47,17 @@ public class PrintAgent {
 
     private String printer = "brother";
 
-    private Map<String, String> map = new HashMap();
+    private Map<String, String> map = new HashMap<String, String>();
 
     public void init(String path) {
         this.pathprinter = path + "printer" + System.getProperty("file.separator");
         this.pathdone = path + "printerdone" + System.getProperty("file.separator");
         this.printtemplates = path + "printtemplates" + System.getProperty("file.separator");
-        new File(pathprinter).mkdirs();
-        new File(pathdone).mkdirs();
+        boolean pathprinterB = new File(pathprinter).mkdirs();
+        boolean pathdoneB = new File(pathdone).mkdirs();
 
-        LOG.info("pathdone erstellt: " + pathdone);
-        LOG.info("pathprinter erstellt: " + pathprinter);
+        LOG.info("pathdone erstellt: " + pathdone + " " + pathprinterB);
+        LOG.info("pathprinter erstellt: " + pathprinter + " " + pathdoneB);
 
         this.running = true;
         this.init = true;
@@ -154,7 +154,6 @@ public class PrintAgent {
             hw.parse(new FileReader(pathprinter + "out.xml"));
             doc.close();
 
-
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         } finally {
@@ -224,7 +223,9 @@ public class PrintAgent {
         }
 
         try {
-            in.close();
+            if (in != null) {
+                in.close();
+            }
         } catch (IOException e) {
             LOG.error(e.getMessage(), e);
         }
