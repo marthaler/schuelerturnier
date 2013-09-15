@@ -10,6 +10,7 @@ vom ftp repo herunterladen:
 *******************
 mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoUrl=http://macart.ch/repo1 -Dartifact=com.googlecode.madschuelerturnier:mad_schuelerturnier_test:0.0.10-SNAPSHOT
 
+
 git konfigurieren
 ***
 git config --global credential.helper cache
