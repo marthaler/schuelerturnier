@@ -24,7 +24,6 @@
     *
     * @section content-global-settings
     */
-
     /* (en) reset font size for all elements to standard (16 Pixel) */
     /* (de) Alle Schriftgrößen auf Standardgröße (16 Pixel) zurücksetzen */
     html * {
@@ -37,7 +36,6 @@
     *
     * @see: http://webkit.org/blog/67/strange-medium/
     */
-
     textarea, pre, code, kbd, samp, var, tt {
         font-family: Consolas, "Lucida Console", "Andale Mono", "Bitstream Vera Sans Mono", "Courier New", Courier;
     }
@@ -51,7 +49,6 @@
     }
 
     /*--- Headings | Überschriften ------------------------------------------------------------------------*/
-
     h1, h2, h3, h4, h5, h6 {
         font-family: "Times New Roman", Times, serif;
         font-weight: normal;
@@ -89,9 +86,7 @@
     }
 
     /* 14px */
-
     /* --- Lists | Listen  -------------------------------------------------------------------------------- */
-
     ul, ol, dl {
         line-height: 1.5em;
         margin: 0 0 1em 1em;
@@ -129,7 +124,6 @@
     }
 
     /* --- general text formatting | Allgemeine Textauszeichnung ------------------------------------------ */
-
     p {
         line-height: 1.5em;
         margin: 0 0 1em 0;
@@ -210,7 +204,6 @@
     }
 
     /*--- Links ----------------------------------------------------------------------------------------- */
-
     a {
         color: #4D87C7;
         background: transparent;
@@ -238,7 +231,6 @@
     }
 
     /* --- images (with optional captions) | Bilder (mit optionaler Bildunterschrift) ------------------ */
-
     p.icaption_left {
         float: left;
         display: inline;
@@ -278,7 +270,6 @@
     *
     * @section content-generic-classes
     */
-
     .highlight {
         color: #c30;
     }
@@ -349,7 +340,6 @@
     *
     * @section content-tables
     */
-
     table {
         width: auto;
         border-collapse: collapse;
@@ -413,7 +403,6 @@
     *
     * @section content-misc
     */
-
     /**
     * (en) Emphasizing external Hyperlinks via CSS
     * (de) Hervorhebung externer Hyperlinks mit CSS
@@ -421,7 +410,6 @@
     * @section             content-external-links
     * @app-yaml-default    disabled
     */
-
     /*
     #main a[href^="http://www.my-domain.com"],
     #main a[href^="https://www.my-domain.com"]

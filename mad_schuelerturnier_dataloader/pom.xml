@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>mad_schuelerturnier_parent</artifactId>
         <groupId>com.googlecode.mad_schuelerturnier</groupId>
-         <version>1.2.5-SNAPSHOT</version>
-
+        <version>1.2.6</version>
     </parent>
 
     <artifactId>mad_schuelerturnier_dataloader</artifactId>
@@ -19,7 +19,13 @@
         </dependency>
 
         <dependency>
-            <groupId>net.sf.opencsv</groupId>
+            <groupId>com.googlecode.mad_schuelerturnier</groupId>
+            <artifactId>mad_schuelerturnier_persistence</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+        <groupId>net.sf.opencsv</groupId>
             <artifactId>opencsv</artifactId>
             <version>${opencsv.version}</version>
         </dependency>
@@ -30,6 +36,23 @@
             <version>${guava.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>net.sf.jxls</groupId>
+            <artifactId>jxls-core</artifactId>
+            <version>${jxls.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.jxls</groupId>
+            <artifactId>jxls-reader</artifactId>
+            <version>${jxls.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>${xstream.version}</version>
+        </dependency>
 
     </dependencies>
 

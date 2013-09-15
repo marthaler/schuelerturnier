@@ -8,7 +8,7 @@ http://maven.apache.org/guides/plugin/guide-ant-plugin-development.html
 
 vom ftp repo herunterladen:
 *******************
-mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoUrl=http://macart.ch/repo1 -Dartifact=com.googlecode.mad_schuelerturnier:mad_schuelerturnier_test:0.0.10-SNAPSHOT
+mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoUrl=http://macart.ch/repo1 -Dartifact=com.googlecode.madschuelerturnier:mad_schuelerturnier_test:0.0.10-SNAPSHOT
 
 git konfigurieren
 ***
@@ -21,5 +21,5 @@ mvn release:prepare release:perform  -B -Pimac -DreleaseVersion=1.2.0 -Ddevelopm
 
 release:maven-jgitflow-plugin
 *******
-mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha8:release-start -DreleaseVersion=1.2.5
-mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha8:release-finish -DdevelopmentVersion=1.2.6-SNAPSHOT -DpushChanges=true -Duser=marthaler.worb@gmail.com -Dpassword=***
+mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha20:release-start -DreleaseVersion=1.2.6
+mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha20:release-finish -DdevelopmentVersion=1.2.7-SNAPSHOT -DpushChanges=true -Duser=marthaler.worb@gmail.com -Dpassword=***

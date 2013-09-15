@@ -3,8 +3,7 @@
     <parent>
         <groupId>com.googlecode.mad_schuelerturnier</groupId>
         <artifactId>mad_schuelerturnier_parent</artifactId>
-         <version>1.2.5-SNAPSHOT</version>
-
+        <version>1.2.6</version>
     </parent>
 
     <artifactId>mad_schuelerturnier_web</artifactId>
@@ -150,32 +149,6 @@
                     <plugin>
                         <groupId>org.apache.tomcat.maven</groupId>
                         <artifactId>tomcat7-maven-plugin</artifactId>
-                        <configuration>
-                            <fork>true</fork>
-                        </configuration>
-                        <executions>
-
-                            <execution>
-                                <id>tomcat-run</id>
-                                <goals>
-                                    <goal>run-war-only</goal>
-                                </goals>
-                                <phase>pre-integration-test</phase>
-                                <configuration>
-
-                                    <fork>true</fork>
-
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>tomcat-shutdown</id>
-                                <goals>
-                                    <goal>shutdown</goal>
-                                </goals>
-                                <phase>post-integration-test</phase>
-                            </execution>
-
-                        </executions>
                     </plugin>
 
                     <plugin>
@@ -223,12 +196,15 @@
                             <fork>true</fork>
                         </configuration>
                         <executions>
+
                             <execution>
-                                <id>createexecjar</id>
+
+                            <id>createexecjar</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>exec-war-only</goal>
                                 </goals>
+
                             </execution>
                         </executions>
                     </plugin>

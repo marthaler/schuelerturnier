@@ -3,13 +3,15 @@
     <parent>
         <groupId>com.googlecode.mad_schuelerturnier</groupId>
         <artifactId>mad_schuelerturnier_parent</artifactId>
-         <version>1.2.5-SNAPSHOT</version>
+        <version>1.2.6</version>
     </parent>
 
     <artifactId>mad_schuelerturnier_business</artifactId>
 
     <build>
+
         <plugins>
+
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
 
@@ -19,9 +21,13 @@
                         <configuration>
                             <tasks>
 
+                                <tstamp>
+                                    <format property="current.time" pattern="dd.MM.yyyy HH:mm"/>
+                                </tstamp>
+
                                 <echo file="${project.build.outputDirectory}/version.properties" append="false">
                                     version=${project.version}
-                                    timestamp=${timestamp}
+                                    timestamp=${current.time}
                                 </echo>
 
                             </tasks>
@@ -89,15 +95,18 @@
             <artifactId>jsr250-api</artifactId>
         </dependency>
 
-        <!-- ftp -->
+        <!-- ftp test -->
         <dependency>
             <groupId>org.mockftpserver</groupId>
             <artifactId>MockFtpServer</artifactId>
+            <version>${mockftp.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
+            <version>${commons-net.version}</version>
         </dependency>
 
     </dependencies>

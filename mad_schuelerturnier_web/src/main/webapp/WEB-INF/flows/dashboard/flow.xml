@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL -->
 <flow xmlns="http://www.springframework.org/schema/webflow"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-    <action-state id="start">
+    <action-state id="initialisieren">
         <evaluate expression="loginPrepareAction.execute()"/>
         <evaluate expression="startAction.start(currentUser)"/>
     </action-state>
@@ -17,7 +18,7 @@
 
     <action-state id="newmannschaft">
         <on-entry>
-            <evaluate expression="modelFactory.getInstance('com.googlecode.mad_schuelerturnier.model.Mannschaft')"
+            <evaluate expression="modelFactory.getInstance('com.googlecode.madschuelerturnier.model.Mannschaft')"
                       result="flowScope.mannschaftBean"/>
         </on-entry>
         <evaluate expression="modelFactory.ok()"/>
@@ -28,6 +29,16 @@
         <transition on="save" to="mannschaftsliste" bind="true">
             <evaluate expression="mannschaftRepository.save(mannschaftBean)"/>
         </transition>
+    </view-state>
+
+
+    <view-state id="initialisieren_view" view="initialisieren.xhtml">
+        <transition on="save" to="initialisieren">
+            <evaluate expression="business.initializeDB()"/>
+        </transition>
+
+        <transition on="ok" to="initialisieren"/>
+
     </view-state>
 
     <view-state id="mannschaftsliste" view="mannschaft/liste.xhtml" redirect="true">
@@ -122,7 +133,7 @@
 
         <transition on="man" to="spieleinstellungen" bind="true">
             <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"/>
-            <evaluate expression="_6_SpielverteilerManuelleKorrekturen.korrekturenVornehmen()"/>
+            <evaluate expression="f6SpielverteilerManuelleKorrekturen.korrekturenVornehmen()"/>
         </transition>
 
         <transition on="toggleP" to="tagaktivieren" bind="true">
@@ -241,19 +252,16 @@
 
     </view-state>
 
-    <view-state id="spielListeImport" view="mannschaft/spiele_import.xhtml" redirect="true"/>
-
-    <view-state id="spielListeExport" view="mannschaft/spiele_export.xhtml" redirect="true"/>
+    <view-state id="import-export" view="mannschaft/import-export.xhtml" redirect="true"/>
 
 
     <view-state id="kontrollierer" view="durchfuehrung/kontrollierer.xhtml" redirect="true">
 
 
-         <on-render>
-             <evaluate expression="spielRepositoryDelegate.findAllZuBestaetigen()"
-                       result="flowScope.bestaetigen"/>
-         </on-render>
-
+        <on-render>
+            <evaluate expression="spielRepositoryDelegate.findAllZuBestaetigen()"
+                      result="flowScope.bestaetigen"/>
+        </on-render>
 
 
         <transition on="save" to="kontrollierer">
@@ -279,7 +287,7 @@
 
 
     <view-state id="liste_spiel" view="root/liste_spiel.xhtml" redirect="true">
-        <transition on="show" to="edit_spiel" >
+        <transition on="show" to="edit_spiel">
             <evaluate expression="spielServiceImpl.findSpiel(requestParameters.id)" result="flowScope.spiel"/>
         </transition>
     </view-state>
@@ -292,6 +300,11 @@
 
 
     <global-transitions>
+
+        <transition on="initialisieren" to="initialisieren_view">
+
+        </transition>
+
         <transition on="dashboard" to="dashboard"/>
         <transition on="newmannschaft" to="newmannschaft"/>
         <transition on="user" to="user"/>
@@ -308,8 +321,8 @@
             <evaluate expression="spielServiceImpl.readAllSpiele()" result="flowScope.spiele"/>
         </transition>
 
-        <transition on="spielListeExport" to="spielListeExport"/>
-        <transition on="spielListeImport" to="spielListeImport"/>
+
+        <transition on="import-export" to="import-export"/>
 
         <transition on="korrekturen" to="korrekturen">
             <evaluate expression="business.getSpielEinstellungen()"
