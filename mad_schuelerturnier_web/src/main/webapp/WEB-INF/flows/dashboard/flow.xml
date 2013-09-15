@@ -18,7 +18,7 @@
 
     <action-state id="newmannschaft">
         <on-entry>
-            <evaluate expression="modelFactory.getInstance('com.googlecode.mad_schuelerturnier.model.Mannschaft')"
+            <evaluate expression="modelFactory.getInstance('com.googlecode.madschuelerturnier.model.Mannschaft')"
                       result="flowScope.mannschaftBean"/>
         </on-entry>
         <evaluate expression="modelFactory.ok()"/>
@@ -34,11 +34,10 @@
 
     <view-state id="initialisieren_view" view="initialisieren.xhtml">
         <transition on="save" to="initialisieren">
-
             <evaluate expression="business.initializeDB()"/>
-
-
         </transition>
+
+        <transition on="ok" to="initialisieren"/>
 
     </view-state>
 
@@ -134,7 +133,7 @@
 
         <transition on="man" to="spieleinstellungen" bind="true">
             <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"/>
-            <evaluate expression="_6_SpielverteilerManuelleKorrekturen.korrekturenVornehmen()"/>
+            <evaluate expression="f6SpielverteilerManuelleKorrekturen.korrekturenVornehmen()"/>
         </transition>
 
         <transition on="toggleP" to="tagaktivieren" bind="true">
