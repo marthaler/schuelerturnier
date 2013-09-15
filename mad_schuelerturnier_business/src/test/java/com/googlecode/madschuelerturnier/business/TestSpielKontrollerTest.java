@@ -55,14 +55,14 @@ public class TestSpielKontrollerTest {
         SpielPhasenEnum phase = kontroller.readSpielPhase();
         Assert.assertNotNull(phase);
 
-        Assert.assertEquals(SpielPhasenEnum.A_ANMELDEPHASE, phase);
+        Assert.assertEquals("Phase ist nicht; A_ANMELDEPHASE", SpielPhasenEnum.A_ANMELDEPHASE, phase);
 
         kontroller.shiftSpielPhase();
 
         phase = kontroller.readSpielPhase();
         Assert.assertNotNull(phase);
 
-        Assert.assertEquals(SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG, phase);
+        Assert.assertEquals("Phase ist nicht; B_KATEGORIE_ZUORDNUNG", SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG, phase);
 
     }
 

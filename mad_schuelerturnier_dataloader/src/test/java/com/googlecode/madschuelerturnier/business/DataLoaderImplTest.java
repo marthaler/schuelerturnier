@@ -32,7 +32,7 @@ public class DataLoaderImplTest {
 
     @Test
     public void testLoad2013MannschaftenMaedchen() {
-        List<Mannschaft> mannschaften = DataLoaderImpl.getDataLoader(2013).loadMannschaften(false, true, null);
+        List<Mannschaft> mannschaften = DataLoaderImpl.getDataLoader(2013).loadMannschaften(false, true);
         Assert.assertEquals(31, mannschaften.size());
     }
 
@@ -45,7 +45,7 @@ public class DataLoaderImplTest {
     @Test
     public void testLoadDefaultAllSpiele() {
         List<Spiel> spiele = DataLoaderImpl.getDataLoader().loadSpiele();
-        Assert.assertEquals(220, spiele.size());
+        Assert.assertEquals(221, spiele.size());
     }
 
 }

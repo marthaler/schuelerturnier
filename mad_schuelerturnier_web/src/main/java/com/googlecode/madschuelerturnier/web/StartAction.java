@@ -22,8 +22,7 @@ public class StartAction {
     @Autowired
     private Business business;
 
-
-    public Event start(UsernamePasswordAuthenticationToken user) {
+    public Event start(UsernamePasswordAuthenticationToken user) {   // NOSONAR
 
         Collection<GrantedAuthority> authorities = user.getAuthorities();
 
@@ -41,13 +40,12 @@ public class StartAction {
             return new Event(this, "gt_matrix");
         }
 
-
         return new Event(this, "dashboard");
 
     }
 
 
-    public boolean contains(Collection<GrantedAuthority> authorities, String au) {
+    private boolean contains(Collection<GrantedAuthority> authorities, String au) {
         for (GrantedAuthority auth : authorities) {
 
             String authS = auth.getAuthority();
@@ -55,10 +53,7 @@ public class StartAction {
             if (authS.equals(au)) {
                 return true;
             }
-
-
         }
         return false;
     }
-
 }

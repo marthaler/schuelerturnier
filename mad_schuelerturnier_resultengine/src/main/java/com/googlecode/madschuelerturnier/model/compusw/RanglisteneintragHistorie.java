@@ -179,8 +179,12 @@ public class RanglisteneintragHistorie {
         }
 
         // anstehende Spiele
-        zeileA.setSpieleAnstehend(zeileA.getSpieleAnstehend() - 1);
-        zeileB.setSpieleAnstehend(zeileB.getSpieleAnstehend() - 1);
+        if (zeileA != null) {
+            zeileA.setSpieleAnstehend(zeileA.getSpieleAnstehend() - 1);
+        }
+        if (zeileB != null) {
+            zeileB.setSpieleAnstehend(zeileB.getSpieleAnstehend() - 1);
+        }
 
         // Spiele vorbei
         zeileA.setSpieleVorbei(zeileA.getSpieleVorbei() + 1);
@@ -216,7 +220,7 @@ public class RanglisteneintragHistorie {
 
     private void sortNachPunkten() {
 
-        RanglisteneintragZeile mA = null;
+        RanglisteneintragZeile mA;
 
         for (int i = 0; i < this.zeilen.size(); i++) {
 
@@ -243,8 +247,7 @@ public class RanglisteneintragHistorie {
         // markiere die mit gleicher punktzahl, welche aber nicht ohne spiel
         // sind
         RanglisteneintragZeile last = null;
-        for (int i = 0; i < this.zeilen.size(); i++) {
-            final RanglisteneintragZeile now = this.zeilen.get(i);
+        for (final RanglisteneintragZeile now : this.zeilen) {
             if ((last != null) && (now.getRangierungsgrund() != RangierungsgrundEnum.KEINSPIEL) && (now.getPunkte() == last.getPunkte())) {
                 now.setRangierungsgrund(RangierungsgrundEnum.WEITERSUCHEN);
                 last.setRangierungsgrund(RangierungsgrundEnum.WEITERSUCHEN);
@@ -313,7 +316,7 @@ public class RanglisteneintragHistorie {
     }
 
 
-    private void penaltyBestimmen() {
+    private void penaltyBestimmen() {  // NOSONAR
 
         if (this.isGroupWith2Untergruppen() && (this.zeilen.size() > this.gruppe.getMannschaften().size())) {
             RanglisteneintragHistorie.LOG.warn("gruppe mit 2 untergruppen, hauptrangliste wird nicht nach penalty gesucht !!!");
@@ -691,10 +694,7 @@ public class RanglisteneintragHistorie {
     }
 
     private boolean isGroupWith2Untergruppen() {
-        if (this.gruppe.getKategorie().getGruppeA() != null && this.gruppe.getKategorie().getGruppeB() != null) {
-            return true;
-        }
-        return false;
+        return this.gruppe.getKategorie().getGruppeA() != null && this.gruppe.getKategorie().getGruppeB() != null;
     }
 
 

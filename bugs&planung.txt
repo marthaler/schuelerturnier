@@ -3,6 +3,8 @@ feautures:
 
 [  ]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
 
+[  ]     stammdaten menu aufraeumen und ueberfluessigen code loeschen
+
 [  ]     refactoring paarung weg
 
 [??]     beim vorbereiten funktioniert das loeschen einer leeren kategorie nicht
