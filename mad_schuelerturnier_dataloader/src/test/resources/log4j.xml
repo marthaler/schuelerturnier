@@ -8,18 +8,18 @@
         </layout>
     </appender>
 
-    <logger name="com.googlecode.mad_schuelerturnier" additivity="false">
+    <logger name="com.googlecode.madschuelerturnier" additivity="false">
         <level value="WARN"/>
         <appender-ref ref="stdout"/>
     </logger>
 
-    <logger name="com.googlecode.mad_schuelerturnier.business" additivity="false">
+    <logger name="com.googlecode.madschuelerturnier.business" additivity="false">
         <level value="DEBUG"/>
         <appender-ref ref="stdout"/>
     </logger>
 
     <root>
-        <priority value="FATAL"></priority>
+        <priority value="FATAL"/>
         <appender-ref ref="stdout"/>
     </root>
 

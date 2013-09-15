@@ -23,7 +23,6 @@
     *  (en) visual form styling area
     *  (de) Festlegung des optischen Erscheinungsbildes
     */
-
     .yform {
         background: #f4f4f4;
         border: 1px #ddd solid;
@@ -75,7 +74,6 @@
     }
 
     /*------------------------------------------------------------------------------------------------------*/
-
     /**
     * Vertical-Forms - technical base (standard)
     *
@@ -93,7 +91,6 @@
     *
     * WARNING:This part contains several IE-stability-fixes. Don't edit this part if you are not sure, what you're doing!
     */
-
     /* General form styling  | Allgemeine Formatierung des Formulars */
     .yform {
         overflow: hidden;
@@ -159,7 +156,7 @@
     }
 
     .yform div.type-button {
-        padding: 3px 0em;
+        padding: 3em 0em;
     }
 
     /* styling standard form elements with 'almost' equal flexible width | Gestaltung der einzelnen Formularelemente mit annähend gleicher Breite */
@@ -223,9 +220,7 @@
     }
 
     /*------------------------------------------------------------------------------------------------------*/
-
     /* Indent Checkbox fields to match label-width | Checkboxen um den gleichen Wert einrücken, wie die Breite der labels */
-
     .full div.type-text input,
     .full div.type-text textarea {
         width: 95.5%;
@@ -248,7 +243,6 @@
     }
 
     /*------------------------------------------------------------------------------------------------------*/
-
     /**
     * Columnar forms display - technical base (optional)
     *
@@ -267,7 +261,6 @@
     *
     * WARNING:This part contains several IE-stability-fixes. Don't edit this part if you are not sure, what you're doing!
     */
-
     /* Columnar display | Spalten-Darstellung */
     .columnar .type-text label,
     .columnar .type-select label {
@@ -313,7 +306,6 @@
     }
 
     /*------------------------------------------------------------------------------------------------------*/
-
     /**
     * Global fixes for YAML's form construction set
     *
@@ -322,7 +314,6 @@
     * @css-for IE 5.x/Win, IE6, IE7
     * @valid no
     */
-
     .yform,
     .yform div,
     .yform div * {
@@ -338,10 +329,9 @@
     * @css-for IE 5.x/Win, IE6, IE7, IE8
     * @valid no
     */
-
     /* all IE */
     .yform {
-        padding-top: 0      \9;
+        padding-top: 0 \9;
     }
 
     .yform fieldset {
@@ -352,7 +342,7 @@
     .yform legend {
         position: absolute\9;
         top: -.5 em\9;
-        *left: 0      \9;
+        *left: 0 \9;
     }
 
     .yform fieldset {

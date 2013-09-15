@@ -19,7 +19,6 @@
     * @section basic layout preparation
     * @see     http://www.yaml.de/en/documentation/css-components/layout-for-print-media.html
     */
-
     /* (en) change font size unit to [pt] - avoiding problems with [px] unit in Gecko based browsers  */
     /* (de) Wechsel der der Schriftgrößen-Maßheinheit zu [pt] - Probleme mit Maßeinheit [px] in Gecko-basierten Browsern vermeiden */
     body {
@@ -33,7 +32,6 @@
     }
 
     /*------------------------------------------------------------------------------------------------------*/
-
     /* (en) Avoid page breaks right after headings */
     /* (de) Vermeidung von Seitenumbrüchen direkt nach einer Überschrift */
     h1, h2, h3, h4, h5, h6 {
@@ -41,17 +39,13 @@
     }
 
     /*------------------------------------------------------------------------------------------------------*/
-
     /* (en) optional output of acronyms and abbreviations*/
     /* (de) optionale Ausgabe von Auszeichnung von Abkürzungen */
-
     /*
       abbr[title]:after,
       acronym[title]:after { content:'(' attr(title) ')'; }
     */
-
     /*------------------------------------------------------------------------------------------------------*/
-
     /* (en) optional URL output of hyperlinks in print layout */
     /* (de) optionale Ausgabe der URLs von Hyperlinks */
     /*

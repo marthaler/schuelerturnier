@@ -24,18 +24,15 @@
     * @css-for all
     * @valid CSS3
     */
-
     body {
         overflow-y: scroll;
     }
 
     /*------------------------------------------------------------------------------------------------------*/
-
     /**
     * (en) Formatting YAML's  basic layout elements
     * (de) Gestaltung des YAML Basis-Layouts
     */
-
     /* (en) Marginal areas & page background */
     /* (de) Randbereiche & Seitenhintergrund */
     body {
@@ -216,7 +213,6 @@
     * (en) Modifying "shiny buttons" navigation
     * (en) Anpassung der "Shiny Buttons" Navigation
     */
-
     .hlist {
         /* (en) containing floats in IE */
         /* (de) Einfassen der Floats im IE */
@@ -294,7 +290,6 @@
     * (en) Styling of layout specific elements
     * (de) Gestaltung layoutabhängiger Elemente
     */
-
     #header h1 {
         font-weight: bold;
         font-size: 2.5em;
@@ -330,7 +325,6 @@
     *
     * @section content-skiplinks
     */
-
     #skiplinks a.skip:focus,
     #skiplinks a.skip:active {
         color: #fff;
@@ -344,7 +338,6 @@
      * (en) Vertical list navigation "vlist"
      * (de) Vertikale Navigationsliste "vlist"
      */
-
     .vlist {
         margin-bottom: 0;
         border-bottom: 0;

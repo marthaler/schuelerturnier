@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<workbook>
+    <worksheet idx="3">
+        <section startRow="0" endRow="0">
+        </section>
+        <loop startRow="1" endRow="1" items="korrekturen" var="korrektur"
+              varType="com.googlecode.madschuelerturnier.model.Korrektur">
+            <section startRow="1" endRow="1">
+                <mapping row="1" col="0">korrektur.id</mapping>
+                <mapping row="1" col="1">korrektur.typ</mapping>
+                <mapping row="1" col="2">korrektur.wert</mapping>
+                <mapping row="1" col="3">korrektur.reihenfolge</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="1">
+                    <cellcheck offset="2"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+</workbook>

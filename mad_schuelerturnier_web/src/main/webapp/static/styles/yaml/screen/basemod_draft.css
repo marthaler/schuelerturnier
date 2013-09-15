@@ -24,19 +24,16 @@
     * @css-for all
     * @valid CSS3
     */
-
     body {
         overflow-y: scroll;
     }
 
     /*------------------------------------------------------------------------------------------------------*/
-
     /**
     * Design of the Basic Layout | Gestaltung des YAML Basis-Layouts
     *
     * @section layout-basics
     */
-
     /* Page margins and background | Randbereiche & Seitenhintergrund */
     body {
     }
@@ -62,13 +59,11 @@
     }
 
     /*------------------------------------------------------------------------------------------------------*/
-
     /**
     * Formatting of the Content Area | Formatierung der Inhaltsbereichs
     *
     * @section layout-main
     */
-
     #col1 {
     }
 
@@ -88,15 +83,11 @@
     }
 
     /*------------------------------------------------------------------------------------------------------*/
-
     /**
     * Design of Additional Layout Elements | Gestaltung weiterer Layoutelemente
     *
     * @section layout-misc
     */
-
-
-
     /**
     * ------------------------------------------------------------------------------------------------- #
     *
@@ -107,7 +98,6 @@
     *
     * @section content-skiplinks
     */
-
     #skiplinks a.skip:focus,
     #skiplinks a.skip:active {
         color: #fff;

@@ -68,7 +68,7 @@
 
 <p:tab title="Wartende Spiele">
     <p:dataTable emptyMessage="leer" id="dataTable1" var="zeile"
-                 value="#{spielDurchfuehrung._1_wartend}">
+                 value="#{spielDurchfuehrung.list1Wartend}">
 
         <p:column headerText="Start">
             <h:outputText value="#{zeile.start}">
@@ -107,7 +107,7 @@
 <p:tab title="Zum vorbereiten">
 
 
-    <p:dataTable emptyMessage="leer" id="dataTable2" var="zeile" value="#{spielDurchfuehrung._2_zum_vorbereiten}">
+    <p:dataTable emptyMessage="leer" id="dataTable2" var="zeile" value="#{spielDurchfuehrung.list2ZumVorbereiten}">
 
         <p:column headerText="Start">
             <h:outputText value="#{zeile.start}">
@@ -146,7 +146,7 @@
 </p:tab>
 <p:tab title="Wartet auf Start">
     <p:dataTable emptyMessage="leer" id="play_table" var="zeile"
-                 value="#{spielDurchfuehrung._3_vorbereitet}">
+                 value="#{spielDurchfuehrung.list3Vorbereitet}">
 
         <p:column headerText="Start">
             <h:outputText value="#{zeile.start}">
@@ -196,7 +196,7 @@
 
 
 <p:tab title="Am Spielen">
-    <p:dataTable emptyMessage="leer" id="spielentabelle" var="zeile" value="#{spielDurchfuehrung._4_spielend}">
+    <p:dataTable emptyMessage="leer" id="spielentabelle" var="zeile" value="#{spielDurchfuehrung.list4Spielend}">
 
         <p:column headerText="Start">
             <h:outputText value="#{zeile.start}">
@@ -241,7 +241,7 @@
 
 <p:tab title="Beendet">
     <p:dataTable emptyMessage="leer" id="dataTable5" var="zeile"
-                 value="#{spielDurchfuehrung._5_beendet}">
+                 value="#{spielDurchfuehrung.list5Beendet}">
 
         <p:column headerText="Start">
             <h:outputText value="#{zeile.start}">

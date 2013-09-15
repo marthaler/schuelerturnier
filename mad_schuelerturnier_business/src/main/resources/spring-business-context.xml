@@ -13,7 +13,7 @@
 
     <context:property-placeholder location="classpath*:**.properties"/>
 
-    <context:component-scan base-package="com.googlecode.mad_schuelerturnier"/>
+    <context:component-scan base-package="com.googlecode.madschuelerturnier"/>
     <context:annotation-config/>
 
     <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>

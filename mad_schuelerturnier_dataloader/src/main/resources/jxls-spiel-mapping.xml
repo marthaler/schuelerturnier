@@ -5,7 +5,7 @@
         <section startRow="0" endRow="0">
         </section>
         <loop startRow="1" endRow="1" items="spiele" var="spiel"
-              varType="com.googlecode.mad_schuelerturnier.model.spiel.Spiel">
+              varType="com.googlecode.madschuelerturnier.model.Spiel">
             <section startRow="1" endRow="1">
                 <mapping row="1" col="0">spiel.id</mapping>
                 <mapping row="1" col="1">spiel.idString</mapping>
@@ -27,8 +27,8 @@
                 <mapping row="1" col="17">spiel.notes</mapping>
             </section>
             <loopbreakcondition>
-                <rowcheck offset="1">
-                    <cellcheck offset="1"></cellcheck>
+                <rowcheck offset="0">
+                    <cellcheck offset="1"/>
                 </rowcheck>
             </loopbreakcondition>
         </loop>
