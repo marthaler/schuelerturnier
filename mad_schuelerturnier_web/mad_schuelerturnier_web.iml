@@ -35,7 +35,7 @@
     <orderEntry type="library" name="Maven: com.thoughtworks.xstream:xstream:1.4.4" level="project" />
     <orderEntry type="library" name="Maven: xmlpull:xmlpull:1.1.3.1" level="project" />
     <orderEntry type="library" name="Maven: xpp3:xpp3_min:1.1.4c" level="project" />
-    <orderEntry type="library" name="Maven: joda-time:joda-time:2.2" level="project" />
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.3" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-jpa:1.3.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:1.5.2.RELEASE" level="project" />
@@ -48,18 +48,19 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:3.2.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:3.2.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:3.2.4.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-aop:3.2.3.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-aop:3.2.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:3.2.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.7.2" level="project" />
-    <orderEntry type="library" name="Maven: org.hibernate:hibernate-entitymanager:4.3.0.Beta3" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.1.1.GA" level="project" />
-    <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:4.3.0.Beta3" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate:hibernate-entitymanager:4.3.0.Beta4" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.1.3.GA" level="project" />
+    <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging-annotations:1.2.0.Beta1" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate:hibernate-core:4.3.0.Beta4" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.0.0.Alpha1" level="project" />
     <orderEntry type="library" name="Maven: dom4j:dom4j:1.6.1" level="project" />
     <orderEntry type="library" name="Maven: xml-apis:xml-apis:1.3.04" level="project" />
-    <orderEntry type="library" name="Maven: org.hibernate.common:hibernate-commons-annotations:4.0.2.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Draft-16" level="project" />
-    <orderEntry type="library" name="Maven: org.javassist:javassist:3.15.0-GA" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate.common:hibernate-commons-annotations:4.0.4.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.javassist:javassist:3.18.1-GA" level="project" />
     <orderEntry type="library" name="Maven: antlr:antlr:2.7.7" level="project" />
     <orderEntry type="library" name="Maven: org.jboss:jandex:1.1.0.Alpha1" level="project" />
     <orderEntry type="library" name="Maven: org.hsqldb:hsqldb:2.3.0" level="project" />
@@ -72,13 +73,13 @@
     <orderEntry type="module" module-name="mad_schuelerturnier_resultengine" />
     <orderEntry type="module" module-name="mad_schuelerturnier_dataloader" />
     <orderEntry type="library" name="Maven: net.sf.opencsv:opencsv:2.3" level="project" />
-    <orderEntry type="library" name="Maven: com.google.guava:guava:14.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:15.0" level="project" />
     <orderEntry type="library" name="Maven: net.sf.jxls:jxls-core:1.0.3" level="project" />
     <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.2" level="project" />
     <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.1" level="project" />
     <orderEntry type="library" name="Maven: commons-digester:commons-digester:2.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-jexl:2.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.poi:poi:3.10-beta1" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.poi:poi:3.10-beta2" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.poi:poi-ooxml:3.9" level="project" />
     <orderEntry type="library" name="Maven: org.apache.poi:poi-ooxml-schemas:3.9" level="project" />
@@ -105,28 +106,30 @@
     <orderEntry type="library" name="Maven: org.eclipse.jetty:jetty-http:8.1.9.v20130131" level="project" />
     <orderEntry type="library" name="Maven: net.sourceforge.barbecue:barbecue:1.5-beta1" level="project" />
     <orderEntry type="library" name="Maven: org.xhtmlrenderer:core-renderer:R8" level="project" />
-    <orderEntry type="library" name="Maven: com.lowagie:itext:4.2.0" level="project" />
-    <orderEntry type="library" name="Maven: net.sourceforge.htmlcleaner:htmlcleaner:2.5" level="project" />
-    <orderEntry type="library" name="Maven: org.jdom:jdom2:2.0.4" level="project" />
+    <orderEntry type="library" name="Maven: com.lowagie:itext:4.2.1" level="project" />
+    <orderEntry type="library" name="Maven: net.sourceforge.htmlcleaner:htmlcleaner:2.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.jdom:jdom2:2.0.5" level="project" />
     <orderEntry type="library" name="Maven: commons-net:commons-net:3.3" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.velocity:velocity:1.7-beta1" level="project" />
     <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-core:3.1.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:3.1.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: javax.annotation:jsr250-api:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:3.2.4.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:3.2.4.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.webflow:spring-faces:2.3.1.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.webflow:spring-binding:2.3.1.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.webflow:spring-js:2.3.1.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.webflow:spring-js-resources:2.3.1.RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework.webflow:spring-webflow:2.3.1.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.webflow:spring-faces:2.4.0.M1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.webflow:spring-binding:2.4.0.M1" level="project" />
+    <orderEntry type="library" name="Maven: opensymphony:ognl:2.6.11" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.webflow:spring-webflow:2.4.0.M1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.webflow:spring-js:2.4.0.M1" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.webflow:spring-js-resources:2.4.0.M1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:3.1.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:servlet-api:3.0-alpha-1" level="project" />
     <orderEntry type="library" name="Maven: com.sun.faces:jsf-api:2.1.7" level="project" />
     <orderEntry type="library" name="Maven: com.sun.faces:jsf-impl:2.1.7" level="project" />
     <orderEntry type="library" name="Maven: javax.validation:validation-api:1.1.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.hibernate:hibernate-validator:5.0.1.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.hibernate:hibernate-validator:5.1.0.Alpha1" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml:classmate:0.8.0" level="project" />
     <orderEntry type="library" name="Maven: org.primefaces:primefaces:3.5" level="project" />
     <orderEntry type="library" name="Maven: org.bouncycastle:bctsp-jdk14:1.38" level="project" />

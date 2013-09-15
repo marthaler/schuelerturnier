@@ -60,7 +60,7 @@ public final class DataLoaderImpl implements DataLoader {
         List<Mannschaft> temp = loadMannschaften();
         List<Integer> klassen = null;
 
-        if (klassenIn != null) {
+        if (klassenIn != null && klassenIn.length > 0) {
             klassen = Arrays.asList(klassenIn);
         }
 
