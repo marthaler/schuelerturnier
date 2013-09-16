@@ -20,7 +20,7 @@ import java.util.*;
  * @since 0.7
  */
 @Entity
-public class Kategorie extends AbstractPersistable<Long> {
+public class Kategorie extends Persistent {
 
     private static final long serialVersionUID = 1L;
     private static final String KATEGORIEKUERZEL = "Kl";

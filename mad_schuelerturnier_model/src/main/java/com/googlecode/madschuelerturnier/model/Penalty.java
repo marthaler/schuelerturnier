@@ -20,7 +20,7 @@ import java.util.List;
  * @since 0.7
  */
 @Entity
-public class Penalty extends AbstractPersistable<Long> {
+public class Penalty extends Persistent {
 
     private static final Logger LOG = Logger.getLogger(Penalty.class);
 

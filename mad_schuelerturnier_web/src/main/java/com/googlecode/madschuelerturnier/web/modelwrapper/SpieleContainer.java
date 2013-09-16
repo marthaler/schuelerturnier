@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.web.modelwrapper;
 
-import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
+import com.googlecode.madschuelerturnier.model.SpielZeile;
 
 import java.io.Serializable;
 import java.util.ArrayList;

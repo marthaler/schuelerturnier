@@ -4,7 +4,7 @@
 package com.googlecode.madschuelerturnier.web.modelwrapper;
 
 import com.googlecode.madschuelerturnier.business.Business;
-import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
+import com.googlecode.madschuelerturnier.model.SpielZeile;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;

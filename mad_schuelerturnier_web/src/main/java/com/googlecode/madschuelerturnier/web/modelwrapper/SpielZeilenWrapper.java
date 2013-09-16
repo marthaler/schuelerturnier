@@ -1,6 +1,6 @@
 package com.googlecode.madschuelerturnier.web.modelwrapper;
 
-import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
+import com.googlecode.madschuelerturnier.model.SpielZeile;
 import org.primefaces.model.SelectableDataModel;
 
 import javax.faces.model.ListDataModel;

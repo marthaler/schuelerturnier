@@ -132,6 +132,8 @@
         <openpojo.version>0.4.5</openpojo.version>
         <!-- ok:0.4.2 -> ok:0.4.5 -->
 
+        <privilegedaccessor.version>1.2.2</privilegedaccessor.version>
+
     </properties>
 
     <!--

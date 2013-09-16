@@ -29,11 +29,10 @@ import java.util.List;
  */
 public class PojoTest {
     // Configured for expectation, so we know when a class gets added or removed.
-    private static final int EXPECTED_CLASS_COUNT = 13;
+    private static final int EXPECTED_CLASS_COUNT = 11;
 
     // The package to test
     private static final String POJO_PACKAGE = "com.googlecode.madschuelerturnier.model";
-    private static final String POJO_PACKAGE2 = "com.googlecode.madschuelerturnier.model.spiel.tabelle";
 
     private List<PojoClass> pojoClasses = new ArrayList<PojoClass>();
 
@@ -42,7 +41,6 @@ public class PojoTest {
     @Before
     public void setup() {
        pojoClasses = PojoClassFactory.getPojoClasses(POJO_PACKAGE, new FilterPackageInfo());
-        pojoClasses.addAll(PojoClassFactory.getPojoClasses(POJO_PACKAGE2, new FilterPackageInfo()));
 
         pojoValidator = new PojoValidator();
 

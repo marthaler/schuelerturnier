@@ -15,7 +15,7 @@ import java.util.Date;
  * @since 0.7
  */
 @Entity
-public class SpielEinstellungen extends AbstractPersistable<Long> {
+public class SpielEinstellungen extends Persistent {
 
     private static final long serialVersionUID = 1L;
 

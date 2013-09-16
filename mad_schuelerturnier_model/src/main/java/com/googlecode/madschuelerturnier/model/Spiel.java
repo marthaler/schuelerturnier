@@ -20,7 +20,7 @@ import java.util.Date;
  * @since 0.7
  */
 @Entity
-public class Spiel extends AbstractPersistable<Long> {
+public class Spiel extends Persistent {
 
     private static final int NOT_INIT_FLAG = -1;
     private static final int PUNKTE_UNENTSCHIEDEN = 1;
@@ -61,10 +61,6 @@ public class Spiel extends AbstractPersistable<Long> {
 
     @Transient
     private int mannschaftBId;
-
-    @OneToOne
-    @Deprecated
-    private Paarung paarung;
 
     @OneToOne
     private Mannschaft mannschaftA;
@@ -119,19 +115,19 @@ public class Spiel extends AbstractPersistable<Long> {
     }
 
     public String getMannschaftAName() {
+
         if (mannschaftA != null) {
             return mannschaftA.getName();
-        }
+        } else
 
-        if ((paarung == null || paarung.getMannschaftA() == null) && typ == SpielEnum.GFINAL) {
+        if (typ == SpielEnum.GFINAL) {
             return "A, GF";
         }
 
-        if ((paarung == null || paarung.getMannschaftA() == null) && typ == SpielEnum.KFINAL) {
+        else   {
             return "A, KF ";
         }
 
-        return paarung.getMannschaftA().getName();
     }
 
     public String getMannschaftBName() {
@@ -139,16 +135,16 @@ public class Spiel extends AbstractPersistable<Long> {
         if (mannschaftB != null) {
             return mannschaftB.getName();
         }
-
-        if ((paarung == null || paarung.getMannschaftB() == null) && typ == SpielEnum.GFINAL) {
+          else
+        if ( typ == SpielEnum.GFINAL) {
             return "B, GF";
         }
 
-        if ((paarung == null || paarung.getMannschaftB() == null) && typ == SpielEnum.KFINAL) {
+         else {
             return "B, KF ";
         }
 
-        return paarung.getMannschaftB().getName();
+
     }
 
     public boolean isFertiggespielt() {
@@ -341,26 +337,13 @@ public class Spiel extends AbstractPersistable<Long> {
     }
 
     public Gruppe getGruppe() {
-
-
-        if (this.paarung == null) {
-            if (this.mannschaftA != null) {
-                return this.mannschaftA.getGruppe();
-            } else {
-                return null;
-            }
-        }
-        return this.paarung.getGruppe();
+         if(this.mannschaftA != null){
+             return this.mannschaftA.getGruppe();
+         }
+          return null;
     }
 
-    @Deprecated
-    public Paarung getPaarung() {
-        return paarung;
-    }
 
-    public void setPaarung(Paarung paarung) {
-        this.paarung = paarung;
-    }
 
     @Override
     public String toString() {
