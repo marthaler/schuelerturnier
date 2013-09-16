@@ -1,11 +1,9 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.model.helper;
+package com.googlecode.madschuelerturnier.model;
 
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 import org.joda.time.DateTime;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -92,12 +90,6 @@ public class SpielEinstellungen extends AbstractPersistable<Long> {
 
     }
 
-    @Deprecated
-    public void placeMannschaftsTageskorrekturen(MannschaftTageskorrektur korr) {
-        XStream xStream = new XStream(new DomDriver());
-        xStream.alias("korrekturen", MannschaftTageskorrektur.class);
-        spielVertauschungen = xStream.toXML(korr);
-    }
 
     public String getStarttagstr() {
         return this.starttagstr;

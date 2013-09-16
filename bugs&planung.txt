@@ -21,6 +21,8 @@ feautures:
 
 [  ]     Neuer Scanner implementieren
 
+[ok]     Embedded Tomcat version mit Parametern initialisierbar machen
+
 ==============
 
 bugs:

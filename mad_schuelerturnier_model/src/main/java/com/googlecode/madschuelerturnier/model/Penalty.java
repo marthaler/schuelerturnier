@@ -24,7 +24,8 @@ public class Penalty extends AbstractPersistable<Long> {
 
     private static final Logger LOG = Logger.getLogger(Penalty.class);
 
-    public static final String LEER = "bitte_reihenfolge_angeben";
+
+    private static final String LEER = "bitte_reihenfolge_angeben";
 
     private static final long serialVersionUID = 1L;
 
@@ -153,5 +154,10 @@ public class Penalty extends AbstractPersistable<Long> {
     public void setIdString(String idString) {
         this.idString = idString;
     }
+
+    public static String getLeer() {
+        return LEER;
+    }
+
 
 }

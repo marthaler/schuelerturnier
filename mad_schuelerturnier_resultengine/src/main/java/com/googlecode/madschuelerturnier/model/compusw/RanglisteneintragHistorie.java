@@ -179,11 +179,11 @@ public class RanglisteneintragHistorie {
         }
 
         // anstehende Spiele
-        if (zeileA != null) {
-            zeileA.setSpieleAnstehend(zeileA.getSpieleAnstehend() - 1);
+        if(zeileA != null){
+        zeileA.setSpieleAnstehend(zeileA.getSpieleAnstehend() - 1);
         }
-        if (zeileB != null) {
-            zeileB.setSpieleAnstehend(zeileB.getSpieleAnstehend() - 1);
+        if(zeileB != null){
+        zeileB.setSpieleAnstehend(zeileB.getSpieleAnstehend() - 1);
         }
 
         // Spiele vorbei

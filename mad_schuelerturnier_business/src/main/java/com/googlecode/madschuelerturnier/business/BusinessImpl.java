@@ -12,7 +12,7 @@ import com.googlecode.madschuelerturnier.model.Penalty;
 import com.googlecode.madschuelerturnier.model.comperators.KategorieNameComperator;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
-import com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen;
+import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
 import com.googlecode.madschuelerturnier.persistence.repository.*;
 import org.apache.log4j.Logger;
@@ -510,7 +510,7 @@ public class BusinessImpl implements Business {
                     continue;
                 }
 
-                if (p.getReihenfolge().equals(Penalty.LEER)) {
+                if (p.getReihenfolge().equals(Penalty.getLeer())) {
                     continue;
                 }
 

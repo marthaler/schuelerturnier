@@ -5,7 +5,7 @@
         <section startRow="0" endRow="0">
         </section>
         <loop startRow="1" endRow="18" items="einstellungen" var="einstellung"
-              varType="com.googlecode.madschuelerturnier.model.helper.SpielEinstellungen">
+              varType="com.googlecode.madschuelerturnier.model.SpielEinstellungen">
             <section startRow="1" endRow="18">
                 <mapping row="1" col="1">einstellung.spielPhaseString</mapping>
                 <mapping row="2" col="1">einstellung.starttag</mapping>

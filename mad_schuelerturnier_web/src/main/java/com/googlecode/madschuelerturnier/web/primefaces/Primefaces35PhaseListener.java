@@ -26,9 +26,9 @@ public class Primefaces35PhaseListener implements PhaseListener {
     public void beforePhase(PhaseEvent phaseEvent) {
         FacesContext context = phaseEvent.getFacesContext();
 
-        if (context.getAttributes().get(Constants.REQUEST_CONTEXT_ATTR) == null) {
-            context.getAttributes().put(Constants.REQUEST_CONTEXT_ATTR, new DefaultRequestContext());
-        }
+        //if (context.getAttributes().get(Constants.REQUEST_CONTEXT_ATTR) == null) {
+        //    context.getAttributes().put(Constants.REQUEST_CONTEXT_ATTR, new DefaultRequestContext());
+        //}
     }
 
     @Override

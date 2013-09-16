@@ -6,6 +6,7 @@ package com.googlecode.madschuelerturnier.business.out;
 import com.googlecode.madschuelerturnier.business.zeit.ZeitPuls;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -29,12 +30,18 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
 
     private boolean ftpEin = false;
 
-    private String ftpServer = "ftp.schuelerturnier-scworb.ch";
-    private int ftpPort = 21;
-    private String ftpUnterordner = "2014";
-    private String ftpUser = "turnier@schuelerturnier-scworb.ch";
-    private String ftpPassword = "turnier11";
-    private String ftpDateFormat = "dd.MM.yyyy HH:mm:ss";
+    @Value("${ftp.server}")
+    private String ftpServer = "";
+    @Value("${ftp.port}")
+    private int ftpPort;
+    @Value("${ftp.folder}")
+    private String ftpUnterordner = "";
+    @Value("${ftp.user}")
+    private String ftpUser = "";
+    @Value("${ftp.password}")
+    private String ftpPassword = "";
+    @Value("${ftp.dateformat}")
+    private String ftpDateFormat = "";
 
     private String ftpPath = null;
 
