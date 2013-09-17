@@ -3,11 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business;
 
-import com.googlecode.madschuelerturnier.model.Kategorie;
-import com.googlecode.madschuelerturnier.model.Mannschaft;
-import com.googlecode.madschuelerturnier.model.Penalty;
-import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
-import com.googlecode.madschuelerturnier.model.SpielZeile;
+import com.googlecode.madschuelerturnier.model.*;
 
 import java.util.List;
 

@@ -8,9 +8,9 @@ import com.googlecode.madschuelerturnier.business.controller.resultate.Resultate
 import com.googlecode.madschuelerturnier.business.vorbereitung.A0SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.business.vorbereitung.helper.KorrekturenHelper;
 import com.googlecode.madschuelerturnier.model.Spiel;
+import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.model.comperators.SpielZeitComperator;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
-import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;

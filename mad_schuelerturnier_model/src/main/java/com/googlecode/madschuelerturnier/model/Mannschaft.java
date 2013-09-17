@@ -5,11 +5,12 @@ package com.googlecode.madschuelerturnier.model;
 
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
 import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 /**
  * @author $Author: marthaler.worb@gmail.com $

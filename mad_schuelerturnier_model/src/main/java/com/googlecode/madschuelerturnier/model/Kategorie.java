@@ -7,7 +7,6 @@ import com.googlecode.madschuelerturnier.model.comperators.MannschaftsNamenCompe
 import com.googlecode.madschuelerturnier.model.comperators.SpielZeitComperator;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
 import org.apache.log4j.Logger;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

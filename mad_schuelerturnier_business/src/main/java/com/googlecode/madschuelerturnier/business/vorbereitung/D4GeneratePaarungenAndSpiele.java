@@ -4,10 +4,16 @@
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
 import com.googlecode.madschuelerturnier.business.Business;
-import com.googlecode.madschuelerturnier.model.*;
+import com.googlecode.madschuelerturnier.model.Gruppe;
+import com.googlecode.madschuelerturnier.model.Kategorie;
+import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.comperators.KategorieNameComperator;
 import com.googlecode.madschuelerturnier.model.helper.IDGeneratorContainer;
-import com.googlecode.madschuelerturnier.persistence.repository.*;
+import com.googlecode.madschuelerturnier.persistence.repository.GruppeRepository;
+import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
+import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
+import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -3,20 +3,15 @@
  */
 package com.googlecode.madschuelerturnier.model;
 
-import com.googlecode.madschuelerturnier.model.Mannschaft;
-import com.googlecode.madschuelerturnier.model.Persistent;
-import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
 import com.googlecode.madschuelerturnier.model.enums.SpielZeilenPhaseEnum;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;

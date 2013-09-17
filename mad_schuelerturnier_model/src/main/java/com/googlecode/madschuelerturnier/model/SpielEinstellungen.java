@@ -5,7 +5,6 @@ package com.googlecode.madschuelerturnier.model;
 
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import org.joda.time.DateTime;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
 import java.util.Date;

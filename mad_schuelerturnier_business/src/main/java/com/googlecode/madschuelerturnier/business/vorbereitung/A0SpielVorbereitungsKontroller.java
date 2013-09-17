@@ -9,8 +9,8 @@ import com.googlecode.madschuelerturnier.business.utils.MannschaftenNummerierer;
 import com.googlecode.madschuelerturnier.business.utils.SysoutHelper;
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
-import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
+import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import org.apache.log4j.Logger;
@@ -127,19 +127,14 @@ public class A0SpielVorbereitungsKontroller {
             return;
         }
 
-        if (phase == SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG) {
-            kategorieZuordnung();
-        }
+        kategorieZuordnung(phase);
 
         if (phase == SpielPhasenEnum.C_SPIELTAGE_DEFINIEREN) {
             spieltageDefinieren();
         }
 
         if (phase == SpielPhasenEnum.D_SPIELE_ZUORDNUNG) {
-
             spieleZuordnen();
-
-
         }
 
         if (phase == SpielPhasenEnum.E_SPIELBEREIT) {
@@ -189,7 +184,12 @@ public class A0SpielVorbereitungsKontroller {
         SysoutHelper.printKategorieList(business.getKategorien());
     }
 
-    private void kategorieZuordnung() {
+    private void kategorieZuordnung(SpielPhasenEnum phase) {
+
+        if(phase != SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG){
+            return;
+        }
+
         A0SpielVorbereitungsKontroller.LOG
                 .info("spielphasenwechsel in: B_KATEGORIE_ZUORDNUNG");
 

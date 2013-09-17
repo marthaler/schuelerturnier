@@ -8,14 +8,11 @@ import com.openpojo.reflection.filters.FilterPackageInfo;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.PojoValidator;
 import com.openpojo.validation.affirm.Affirm;
-import com.openpojo.validation.rule.impl.*;
+import com.openpojo.validation.rule.impl.NoNestedClassRule;
 import com.openpojo.validation.rule.impl.NoPublicFieldsRule;
-import com.openpojo.validation.test.impl.BusinessIdentityTester;
-import com.openpojo.validation.test.impl.DefaultValuesNullTester;
-import com.openpojo.validation.test.impl.GetterTester;
+import com.openpojo.validation.rule.impl.NoStaticExceptFinalRule;
 import com.openpojo.validation.test.impl.SetterTester;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;

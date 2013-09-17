@@ -5,7 +5,6 @@ package com.googlecode.madschuelerturnier.model;
 
 import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielEnum;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

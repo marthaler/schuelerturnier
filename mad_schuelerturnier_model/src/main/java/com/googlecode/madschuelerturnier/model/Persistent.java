@@ -1,14 +1,10 @@
 package com.googlecode.madschuelerturnier.model;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * @author $Author: marthaler.worb@gmail.com $

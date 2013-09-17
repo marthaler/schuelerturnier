@@ -49,53 +49,13 @@ public final class BarcodeDecoder {
 
         try {
 
-            try {
-                // Look for multiple barcodes
-                MultipleBarcodeReader multiReader = new GenericMultipleBarcodeReader(reader);
-                Result[] theResults = multiReader.decodeMultiple(bitmap, HINTS);
-                if (theResults != null) {
-                    results.addAll(Arrays.asList(theResults));
-                }
-            } catch (ReaderException e) {
-                LOG.error(e.getMessage(), e);
-            }
+            multipleBarcode(reader, bitmap, results);
 
-            if (results.isEmpty()) {
-                try {
-                    // Look for pure barcode
-                    Result theResult = reader.decode(bitmap, HINTS_PURE);
-                    if (theResult != null) {
-                        results.add(theResult);
-                    }
-                } catch (ReaderException e) {
-                    LOG.error(e.getMessage(), e);
-                }
-            }
+            pureBarcode(reader, bitmap, results);
 
-            if (results.isEmpty()) {
-                try {
-                    // Look for normal barcode in photo
-                    Result theResult = reader.decode(bitmap, HINTS);
-                    if (theResult != null) {
-                        results.add(theResult);
-                    }
-                } catch (ReaderException e) {
-                    LOG.error(e.getMessage(), e);
-                }
-            }
+            normalBarcode(reader, bitmap, results);
 
-            if (results.isEmpty()) {
-                try {
-                    // Try again with other binarizer
-                    BinaryBitmap hybridBitmap = new BinaryBitmap(new HybridBinarizer(source));
-                    Result theResult = reader.decode(hybridBitmap, HINTS);
-                    if (theResult != null) {
-                        results.add(theResult);
-                    }
-                } catch (ReaderException e) {
-                    LOG.error(e.getMessage(), e);
-                }
-            }
+            withAnotherBinarizer(reader, source, results);
 
         } catch (RuntimeException e) {
             LOG.error(e.getMessage(), e);
@@ -105,5 +65,61 @@ public final class BarcodeDecoder {
             return result.getText();
         }
         return "";
+    }
+
+    private static void withAnotherBinarizer(Reader reader, LuminanceSource source, Collection<Result> results) {
+        if (results.isEmpty()) {
+            try {
+                // Try again with other binarizer
+                BinaryBitmap hybridBitmap = new BinaryBitmap(new HybridBinarizer(source));
+                Result theResult = reader.decode(hybridBitmap, HINTS);
+                if (theResult != null) {
+                    results.add(theResult);
+                }
+            } catch (ReaderException e) {
+                LOG.error(e.getMessage(), e);
+            }
+        }
+    }
+
+    private static void multipleBarcode(Reader reader, BinaryBitmap bitmap, Collection<Result> results) {
+        try {
+            // Look for multiple barcodes
+            MultipleBarcodeReader multiReader = new GenericMultipleBarcodeReader(reader);
+            Result[] theResults = multiReader.decodeMultiple(bitmap, HINTS);
+            if (theResults != null) {
+                results.addAll(Arrays.asList(theResults));
+            }
+        } catch (ReaderException e) {
+            LOG.error(e.getMessage(), e);
+        }
+    }
+
+    private static void pureBarcode(Reader reader, BinaryBitmap bitmap, Collection<Result> results) {
+        if (results.isEmpty()) {
+            try {
+                // Look for pure barcode
+                Result theResult = reader.decode(bitmap, HINTS_PURE);
+                if (theResult != null) {
+                    results.add(theResult);
+                }
+            } catch (ReaderException e) {
+                LOG.error(e.getMessage(), e);
+            }
+        }
+    }
+
+    private static void normalBarcode(Reader reader, BinaryBitmap bitmap, Collection<Result> results) {
+        if (results.isEmpty()) {
+            try {
+                // Look for normal barcode in photo
+                Result theResult = reader.decode(bitmap, HINTS);
+                if (theResult != null) {
+                    results.add(theResult);
+                }
+            } catch (ReaderException e) {
+                LOG.error(e.getMessage(), e);
+            }
+        }
     }
 }

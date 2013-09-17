@@ -4,8 +4,8 @@
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
 import com.googlecode.madschuelerturnier.model.Spiel;
-import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
 import com.googlecode.madschuelerturnier.model.SpielZeile;
+import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
 import com.googlecode.madschuelerturnier.persistence.KorrekturPersistence;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;

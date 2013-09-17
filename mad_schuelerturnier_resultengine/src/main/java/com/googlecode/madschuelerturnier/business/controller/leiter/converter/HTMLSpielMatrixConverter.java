@@ -3,7 +3,10 @@
  */
 package com.googlecode.madschuelerturnier.business.controller.leiter.converter;
 
-import com.googlecode.madschuelerturnier.model.*;
+import com.googlecode.madschuelerturnier.model.Gruppe;
+import com.googlecode.madschuelerturnier.model.Kategorie;
+import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.comperators.SpielMannschaftsnamenComperator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

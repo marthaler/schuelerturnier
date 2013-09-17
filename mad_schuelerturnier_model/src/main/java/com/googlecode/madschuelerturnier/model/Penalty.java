@@ -7,7 +7,6 @@ import com.googlecode.madschuelerturnier.exceptions.TurnierException;
 import org.apache.log4j.Logger;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
