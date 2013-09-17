@@ -3,7 +3,7 @@ package com.googlecode.madschuelerturnier.business.vorbereitung;
 import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
-import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
+import com.googlecode.madschuelerturnier.model.SpielZeile;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.apache.log4j.Logger;

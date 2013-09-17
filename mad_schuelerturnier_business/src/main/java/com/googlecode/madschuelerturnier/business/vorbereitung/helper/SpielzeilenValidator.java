@@ -4,7 +4,7 @@
 package com.googlecode.madschuelerturnier.business.vorbereitung.helper;
 
 import com.googlecode.madschuelerturnier.model.Mannschaft;
-import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
+import com.googlecode.madschuelerturnier.model.SpielZeile;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;

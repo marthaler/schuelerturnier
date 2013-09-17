@@ -55,6 +55,13 @@
             <version>${xstream.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.e-movimento.tinytools</groupId>
+            <artifactId>privilegedaccessor</artifactId>
+            <version>${privilegedaccessor.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -16,7 +16,7 @@ import java.io.Serializable;
  */
 public class ZeitPuls extends ApplicationEvent implements Serializable {
 
-    private static final long serialVersionUID = 5743058377815147529L;
+    private static final long serialVersionUID = 1;
 
     private DateTime zeit = null;
     private int verschnellerungsFaktor = 1;

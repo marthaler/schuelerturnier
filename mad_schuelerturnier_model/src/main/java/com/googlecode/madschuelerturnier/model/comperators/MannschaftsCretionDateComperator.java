@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 /**
- * vergleicht mannschaften aufgrund deren namen und anschliessend aufgrund des erstellungsdatums (fuer nummerierung)
+ * Vergleicht Mannschaften aufgrund deren Namen und anschliessend aufgrund des Erstellungsdatums (fuer nummerierung)
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
@@ -23,13 +23,13 @@ public class MannschaftsCretionDateComperator implements Comparator<Mannschaft>,
         int res = comp.compare(arg0, arg1);
 
         if (res == 0) {
-            if (arg0.getCreationdate().isBefore(
-                    arg1.getCreationdate().getMillis())) {
+            if (arg0.getCreationdate().before(
+                    arg1.getCreationdate())) {
                 return -1;
             }
 
-            if (arg0.getCreationdate().isAfter(
-                    arg1.getCreationdate().getMillis())) {
+            if (arg0.getCreationdate().after(
+                    arg1.getCreationdate())) {
                 return 1;
             }
         }

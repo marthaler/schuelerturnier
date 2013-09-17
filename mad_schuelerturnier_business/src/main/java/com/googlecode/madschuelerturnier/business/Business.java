@@ -7,7 +7,7 @@ import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Penalty;
 import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
-import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
+import com.googlecode.madschuelerturnier.model.SpielZeile;
 
 import java.util.List;
 

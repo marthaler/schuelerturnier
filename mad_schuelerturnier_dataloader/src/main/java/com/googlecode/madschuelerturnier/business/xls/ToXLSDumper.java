@@ -53,19 +53,13 @@ public class ToXLSDumper {
         return convertModelToXLS(repo.findAll(), srepo.findAll(), seinst.findAll(), krepo.findAll());
     }
 
-    @Deprecated
-    public void dumpMOdelToXLSFile(List<Mannschaft> mannschaften, List<Spiel> spiele, File file) {
-        try {
-            byte[] wb = convertModelToXLS(mannschaften, spiele, null, null);
-            FileOutputStream out = new FileOutputStream(file);
-            out.write(wb);
-            out.close();
-        } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
-        }
+    public byte[] mannschaftenFromDBtoXLS(SpielEinstellungen einst) {
+        List<SpielEinstellungen> korrekturen = new ArrayList<SpielEinstellungen>();
+        korrekturen.add(einst);
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), korrekturen, krepo.findAll());
     }
 
-    private byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<SpielEinstellungen> einstellungenIn, List<Korrektur> korrekturenIn) {
+    protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<SpielEinstellungen> einstellungenIn, List<Korrektur> korrekturenIn) {
 
         List<SpielEinstellungen> einstellungen = einstellungenIn;
         List<Spiel> spiele = spieleIn;

@@ -1,7 +1,7 @@
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
 import com.googlecode.madschuelerturnier.business.vorbereitung.helper.KorrekturenHelper;
-import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
+import com.googlecode.madschuelerturnier.model.SpielZeile;
 import com.googlecode.madschuelerturnier.persistence.KorrekturPersistence;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.junit.Before;

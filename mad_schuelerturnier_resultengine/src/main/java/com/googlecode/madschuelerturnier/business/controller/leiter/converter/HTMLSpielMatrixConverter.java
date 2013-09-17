@@ -87,10 +87,7 @@ public class HTMLSpielMatrixConverter {
 
             for (final Mannschaft mannschaft : a.getMannschaften()) {
 
-                final List<Paarung> pa = mannschaft.getPaarungen();
-                for (final Paarung paarung : pa) {
-                    spiele.add(paarung.getSpiel());
-                }
+                spiele.addAll(mannschaft.getSpiele());
 
             }
 
@@ -98,10 +95,7 @@ public class HTMLSpielMatrixConverter {
 
                 for (final Mannschaft mannschaft : ub.getMannschaften()) {
 
-                    final List<Paarung> pb = mannschaft.getPaarungen();
-                    for (final Paarung paarung : pb) {
-                        spiele.add(paarung.getSpiel());
-                    }
+                    spiele.addAll(mannschaft.getSpiele());
                 }
             }
 

@@ -4,7 +4,7 @@
 package com.googlecode.madschuelerturnier.business.generator;
 
 import com.googlecode.madschuelerturnier.model.Spiel;
-import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
+import com.googlecode.madschuelerturnier.model.SpielZeile;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;

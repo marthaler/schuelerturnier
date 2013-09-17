@@ -5,7 +5,7 @@ feautures:
 
 [  ]     stammdaten menu aufraeumen und ueberfluessigen code loeschen
 
-[  ]     refactoring paarung weg
+[ok]     refactoring paarung weg
 
 [??]     beim vorbereiten funktioniert das loeschen einer leeren kategorie nicht
 
@@ -27,7 +27,7 @@ feautures:
 
 bugs:
 *****
-[  ]     Schauen warum beim Export 2013 in den Einstellungen nicht Fertiggespielt steht sondern spielen
+[ok]     Schauen warum beim Export 2013 in den Einstellungen nicht Fertiggespielt steht sondern spielen
 
 [  ]     Schauen warum beim Export 2013 in den bei einem korrigierten Spiel keine Notitzen stehen
 

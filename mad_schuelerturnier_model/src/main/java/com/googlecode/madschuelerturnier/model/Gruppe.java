@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.model;
 
-import com.googlecode.madschuelerturnier.exceptions.MixtGroupException;
+import com.googlecode.madschuelerturnier.exceptions.TurnierException;
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
 import org.apache.log4j.Logger;
 import org.hibernate.annotations.LazyCollection;
@@ -19,7 +19,7 @@ import java.util.List;
  * @since 0.7
  */
 @Entity
-public class Gruppe extends AbstractPersistable<Long> {
+public class Gruppe extends Persistent {
 
     private static final long serialVersionUID = 1L;
 
@@ -77,11 +77,11 @@ public class Gruppe extends AbstractPersistable<Long> {
     /**
      * fuegt eine mannschaft der Liste hinzu wenn versucht wird eine mannschaft
      * einzufuegen, die eine gemischte gruppe zur folge haette, fliegt eine
-     * MixtGroupException
+     * TurnierException
      *
      * @param mannschaft die Mannschaft zum adden
      */
-    public void addMannschaft(final Mannschaft mannschaft) throws MixtGroupException {
+    public void addMannschaft(final Mannschaft mannschaft) throws TurnierException {
         GeschlechtEnum basis;
         if (this.mannschaften.size() > 1) {
             basis = this.mannschaften.get(0).getGeschlecht();
@@ -92,7 +92,7 @@ public class Gruppe extends AbstractPersistable<Long> {
 
         for (final Mannschaft vergleich : this.mannschaften) {
             if (vergleich.getGeschlecht() != basis) {
-                throw new MixtGroupException();
+                throw new TurnierException("!!! achtung, gemischte gruppen sind nicht erlaubt");
             }
         }
         this.getGeschlecht();
@@ -122,7 +122,6 @@ public class Gruppe extends AbstractPersistable<Long> {
 
 
     // getter & setter normal
-
     public List<Mannschaft> getMannschaften() {
 
         if (this.kategorie == null || this.kategorie.getGruppeB() == null || this.kategorie.getGruppeA() == null) {
