@@ -18,13 +18,13 @@ public class CretionDateComperator implements Comparator<Persistent>, Serializab
 
     public int compare(Persistent arg0, Persistent arg1) {
 
-        if (arg0.getCreationdate().isBefore(
-                arg1.getCreationdate().getMillis())) {
+        if (arg0.getCreationdate().before(
+                arg1.getCreationdate())) {
             return -1;
         }
 
-        if (arg0.getCreationdate().isAfter(
-                arg1.getCreationdate().getMillis())) {
+        if (arg0.getCreationdate().after(
+                arg1.getCreationdate())) {
             return 1;
         }
 

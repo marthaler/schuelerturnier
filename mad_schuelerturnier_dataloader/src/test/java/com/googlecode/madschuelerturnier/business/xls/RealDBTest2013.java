@@ -4,10 +4,12 @@
 package com.googlecode.madschuelerturnier.business.xls;
 
 import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.util.XstreamUtil;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielEinstellungenRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
+import junit.extensions.PA;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -102,7 +104,7 @@ public class RealDBTest2013 {
 
         LOG.info("geschrieben aus db to xls: " + mannschaften.size());
 
-        toXlsDumper.dumpMOdelToXLSFile(deleteChangedate(deleteChangedate(mannschaften)), sRepo.findAll(), new File(System.getProperty("java.io.tmpdir") + "out.xls"));
+        dumpMOdelToXLSFile(deleteChangedate(deleteChangedate(mannschaften)), sRepo.findAll(), new File(System.getProperty("java.io.tmpdir") + "out.xls"));
 
         List<Mannschaft> listeAusXLS = null;
         try {
@@ -120,7 +122,7 @@ public class RealDBTest2013 {
             LOG.error(e.getMessage(), e);
         }
 
-        toXlsDumper.dumpMOdelToXLSFile(deleteChangedate(listeAusXLS), null, new File(System.getProperty("java.io.tmpdir") + "out2.xls"));
+        dumpMOdelToXLSFile(deleteChangedate(listeAusXLS), null, new File(System.getProperty("java.io.tmpdir") + "out2.xls"));
 
         List<Mannschaft> listeAusXLS2 = null;
         try {
@@ -157,12 +159,25 @@ public class RealDBTest2013 {
         }
     }
 
+    private void dumpMOdelToXLSFile(List<Mannschaft> mannschaften, List<Spiel> spiele, File file) {
+        try {
+            byte[] wb = toXlsDumper.convertModelToXLS(mannschaften, spiele, null, null);
+            FileOutputStream out = new FileOutputStream(file);
+            out.write(wb);
+            out.close();
+        } catch (IOException e) {
+            LOG.error(e.getMessage(), e);
+        }
+    }
+
     private List<Mannschaft> deleteChangedate(List<Mannschaft> mannschaften) {
 
         List<Mannschaft> liste = new ArrayList<Mannschaft>();
 
         for (Mannschaft m : mannschaften) {
-            m.setCreationDate(date);
+
+            // Privates Datum setzen
+            PA.setValue(m, "creationdate",this.date);
 
             if (m.getCaptainName() != null && !m.getCaptainName().equals("")) {
                 liste.add(m);

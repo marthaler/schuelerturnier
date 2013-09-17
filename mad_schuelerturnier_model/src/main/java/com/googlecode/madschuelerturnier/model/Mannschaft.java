@@ -16,7 +16,7 @@ import java.util.*;
  * @since 0.7
  */
 @Entity
-public class Mannschaft extends AbstractPersistable<Long> implements IPersistent {
+public class Mannschaft extends Persistent {
 
     private static final Logger LOG = Logger.getLogger(Mannschaft.class);
 
@@ -71,7 +71,6 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
     @OneToOne(fetch = FetchType.EAGER)
     private Gruppe gruppeB = null;
 
-    private Date creationDate = new Date();
 
     public String getName() {
 
@@ -241,28 +240,6 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
         this.gruppeA = gruppe;
     }
 
-    @Deprecated
-    public List<Paarung> getPaarungen() {
-
-        final List<Paarung> paarung = new ArrayList<Paarung>();
-
-        if (this.getGruppe() == null) {
-            return new ArrayList<Paarung>();
-        }
-
-        final List<Spiel> spiele = this.getGruppe().getSpiele();
-
-        for (final Spiel spiel : spiele) {
-            final Paarung p = new Paarung();
-
-            p.setSpiel(spiel);
-            p.setGruppe(this.getGruppe());
-            paarung.add(p);
-        }
-
-        return paarung;
-    }
-
     public void setSchulhaus(final String schulhaus) {
         this.schulhaus = schulhaus;
     }
@@ -355,14 +332,6 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
         this.captainEmail = captainEmail;
     }
 
-    public Date getCreationDate() {
-        return this.creationDate;
-    }
-
-    public void setCreationDate(final Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public Integer getSpielJahr() {
         return this.spielJahr;
     }
@@ -389,16 +358,12 @@ public class Mannschaft extends AbstractPersistable<Long> implements IPersistent
         return UUID.randomUUID().toString();
     }
 
-    public DateTime getCreationdate() {
-        return new DateTime(this.creationDate);
-    }
-
 
     public String toString2() {
         return "Mannschaft{" + "anzahlSpieler=" + this.anzahlSpieler + ", teamNummer=" + this.teamNummer + ", klasse=" + this.klasse + ", geschlecht=" + this.geschlecht + ", spielJahr=" + this.spielJahr + ", schulhaus='" + this.schulhaus + '\'' + ", klassenBezeichnung='" + this.klassenBezeichnung + '\'' + ", captainName='" + this.captainName + '\'' + ", captainStrasse='" + this.captainStrasse + '\'' + ", captainPLZOrt='" + this.captainPLZOrt + '\'' + ", captainTelefon='" + this.captainTelefon
                 + '\'' + ", captainEmail='" + this.captainEmail + '\'' + ", begleitpersonName='" + this.begleitpersonName + '\'' + ", begleitpersonStrasse='" + this.begleitpersonStrasse + '\'' + ", begleitpersonPLZOrt='" + this.begleitpersonPLZOrt + '\'' + ", begleitpersonTelefon='" + this.begleitpersonTelefon + '\'' + ", begleitpersonEmail='" + this.begleitpersonEmail + '\'' + ", notizen='" + this.notizen + '\'' + ", konflikt=" + this.konflikt +
                 // ", gruppe=" + gruppe +
-                ", creationDate=" + this.creationDate +
+                ", creationDate=" + super.getCreationdate() +
                 // ", paarungen=" + paarungen +
                 '}';
     }

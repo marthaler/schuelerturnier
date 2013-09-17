@@ -14,7 +14,7 @@ import javax.persistence.Lob;
  * @since 0.7
  */
 @Entity
-public class Text extends AbstractPersistable<Long> {
+public class Text extends Persistent {
 
     private static final long serialVersionUID = 1L;
 

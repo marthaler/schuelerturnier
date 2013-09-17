@@ -31,9 +31,6 @@ public class D4GeneratePaarungenAndSpiele {
     private SpielRepository spielRepo;
 
     @Autowired
-    private PaarungRepository paarungRepo;
-
-    @Autowired
     private GruppeRepository gruppeRepo;
 
     @Autowired
@@ -89,31 +86,15 @@ public class D4GeneratePaarungenAndSpiele {
 
             for (int k = i + 1; k < mannschaften.size(); k++) {
 
-                //parung
-                Paarung paarung = new Paarung();
-                paarung = paarungRepo.save(paarung);
-                paarung.setMannschaftA(kandidat);
-
-                // gruppe zu paarung
-                paarung.setGruppe(gruppeKandidat);
-                paarung.setMannschaftB(mannschaften.get(k));
-                //-parung
-
                 Spiel spiel = new Spiel();
                 spiel.setIdString(IDGeneratorContainer.getNext());
                 spiel = spielRepo.save(spiel);
-
-                spiel.setPaarung(paarung);
 
                 spiel.setMannschaftA(kandidat);
                 spiel.setMannschaftB(mannschaften.get(k));
 
                 spiel = spielRepo.save(spiel);
 
-                //paarung
-                paarung.setSpiel(spiel);
-                paarungRepo.save(paarung);
-                //-paarung
 
                 // gruppe b holen falls gewuenscht
                 if (toBGruppe) {

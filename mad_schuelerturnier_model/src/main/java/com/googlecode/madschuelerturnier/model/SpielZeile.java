@@ -1,9 +1,10 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.model.spiel.tabelle;
+package com.googlecode.madschuelerturnier.model;
 
 import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.Persistent;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
 import com.googlecode.madschuelerturnier.model.enums.SpielZeilenPhaseEnum;
@@ -26,7 +27,7 @@ import java.util.List;
  * @since 0.7
  */
 @Entity
-public class SpielZeile extends AbstractPersistable<Long> implements Serializable {
+public class SpielZeile extends Persistent {
 
     private static final long serialVersionUID = 1L;
 

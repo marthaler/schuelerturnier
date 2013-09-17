@@ -15,7 +15,7 @@ import javax.persistence.OrderColumn;
  * @since 1.2.6
  */
 @Entity
-public class Korrektur extends AbstractPersistable<Long> {
+public class Korrektur extends Persistent {
 
     private static final long serialVersionUID = 1L;
 

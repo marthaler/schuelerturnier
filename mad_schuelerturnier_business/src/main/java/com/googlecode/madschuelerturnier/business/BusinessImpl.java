@@ -13,7 +13,7 @@ import com.googlecode.madschuelerturnier.model.comperators.KategorieNameComperat
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
 import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
-import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
+import com.googlecode.madschuelerturnier.model.SpielZeile;
 import com.googlecode.madschuelerturnier.persistence.repository.*;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
@@ -173,6 +173,7 @@ public class BusinessImpl implements Business {
 
             if (verarbeiter.isFertig()) {
                 einstellungen.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
+                this.saveEinstellungen(einstellungen);
             }
             return einstellungen;
         }

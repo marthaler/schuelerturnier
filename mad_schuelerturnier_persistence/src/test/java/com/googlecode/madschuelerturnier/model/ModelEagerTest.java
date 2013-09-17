@@ -62,27 +62,18 @@ public class ModelEagerTest {
 
         final Mannschaft m = kategorie.getGruppeA().getMannschaften().get(0);
 
-        final Paarung p = new Paarung();
 
         final Spiel s = new Spiel();
         this.sRepo.save(s);
-        p.setSpiel(s);
 
-        s.setPaarung(p);
-
-        m.getPaarungen().add(p);
 
         final Kategorie kategorie2 = this.kRepo.save(kategorie);
-
-        // kategorie.getGruppeA().getMannschaften().get(0).getPaarungen().get(0);
 
         final Spiel sp = this.sRepo.findAll().iterator().next();
 
         final Kategorie kategorie3 = this.kRepo.findAll().iterator().next();
 
-        // final Paarung p2 = kategorie3.getGruppeA().getMannschaften().get(0).getPaarungen().get(0);
 
-        // Assert.assertNotNull(p2.getSpiel());
 
     }
 }

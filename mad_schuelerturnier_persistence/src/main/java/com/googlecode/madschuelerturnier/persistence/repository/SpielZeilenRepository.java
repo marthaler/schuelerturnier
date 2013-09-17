@@ -3,14 +3,14 @@
  */
 package com.googlecode.madschuelerturnier.persistence.repository;
 
-import com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile;
+import com.googlecode.madschuelerturnier.model.SpielZeile;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
 /**
- * Repository interface for {@link com.googlecode.madschuelerturnier.model.spiel.tabelle.SpielZeile} instances. Provides basic CRUD operations due to the extension of
+ * Repository interface for {@link com.googlecode.madschuelerturnier.model.SpielZeile} instances. Provides basic CRUD operations due to the extension of
  * {@link org.springframework.data.jpa.repository.JpaRepository}. Includes custom implemented functionality by extending {@link org.springframework.data.jpa.repository.JpaRepository}.
  *
  * @author $Author: marthaler.worb@gmail.com $

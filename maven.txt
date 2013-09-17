@@ -26,4 +26,4 @@ mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha20:release-finish
 
 starten:
 *******
-java -jar /Users/dama/Documents/schuelerturnier/mad_schuelerturnier_web/target/mad_schuelerturnier_web-1.2.7-SNAPSHOT-war-exec.jar -Ddb.url=jdbc:hsqldb:file:/db/db  -Dftp.folder=daniel
+java -jar /app/app.jar -Ddb.url=jdbc:hsqldb:file:/app/db/db  -Dftp.folder=daniel
