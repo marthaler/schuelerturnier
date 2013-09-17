@@ -9,7 +9,7 @@
     </application>
 
     <lifecycle>
-        <phase-listener>com.googlecode.madschuelerturnier.web.primefaces.Primefaces35PhaseListener</phase-listener>
+
     </lifecycle>
 
 </faces-config>
