@@ -1,7 +1,7 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.web.delegate;
+package com.googlecode.madschuelerturnier.business.spieldurchfuehrung;
 
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
 import com.googlecode.madschuelerturnier.model.Spiel;

@@ -1,19 +1,12 @@
 feautures:
 **********
-
-[  ]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
-
 [  ]     stammdaten menu aufraeumen und ueberfluessigen code loeschen
-
-[ok]     refactoring paarung weg
-
-[??]     beim vorbereiten funktioniert das loeschen einer leeren kategorie nicht
 
 [  ]     out to website publisher schlau konfigurieren
 
 [  ]     countdown ueber eine stunde springt (stunden einbeziehen)
 
-[  ]     gong per hit space ausloesen
+[ok]     gong per hit space ausloesen
 
 [  ]     Sonar auf 0
 
@@ -56,6 +49,12 @@ dokumentation
 
 feautures ok:
 **********
+[ok]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
+
+[ok]     refactoring paarung weg
+
+[ok]     beim vorbereiten funktioniert das loeschen einer leeren kategorie nicht
+
 [ok]     beobachter bean dumpout weg
 
 [ok]     dump knopf und logik weg in den ranglisten

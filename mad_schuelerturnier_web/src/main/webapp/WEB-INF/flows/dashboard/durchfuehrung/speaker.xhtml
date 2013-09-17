@@ -135,10 +135,16 @@
         <p:column>
             <f:facet name="header">
             </f:facet>
-            <p:commandButton icon="ui-icon-check"
+
+            <p:commandButton id="b11" icon="ui-icon-check"
                              disabled="#{sec:areNotGranted('ROLE_SPEAKER') or !spielDurchfuehrung.readyToVorbereiten}"
                              action="vorbereitet">
             </p:commandButton>
+
+
+
+
+
         </p:column>
 
 
@@ -276,6 +282,7 @@
 
 </h:panelGrid>
 </p:fieldset>
+    <p:hotkey bind="enter" handler="document.getElementById('formular:panel:dataTable2:0:b11').click();document.getElementById('formular:panel:play_table:0:play').click()" />
 </h:form>
 
 
