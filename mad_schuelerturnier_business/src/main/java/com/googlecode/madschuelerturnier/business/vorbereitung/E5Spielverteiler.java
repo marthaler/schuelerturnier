@@ -215,7 +215,7 @@ public class E5Spielverteiler {
         }
     }
 
-    private Spiel getNextSpiel(SpielZeile zeile, List<Spiel> gruppenSpiele, int iB) {
+    private Spiel getNextSpiel(SpielZeile zeile, List<Spiel> gruppenSpiele, int iB) {      // NOSONAR
 
         Spiel firstEgal = null;
         int ieg = 0;

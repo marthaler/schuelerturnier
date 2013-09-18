@@ -94,7 +94,7 @@ public class SpeakerGenerator {
         }
     }
 
-    private void mergeAndMove(boolean ahere, boolean bhere, boolean chere) {
+    private void mergeAndMove(boolean ahere, boolean bhere, boolean chere) {  // NOSONAR
         if (ahere && bhere) {
             mergeFile(folder + "a" + MP3, folder + "b" + MP3, folder + "d" + MP3);
             if (chere) {
