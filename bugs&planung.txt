@@ -8,13 +8,11 @@ feautures:
 
 [ok]     gong per hit space ausloesen
 
-[  ]     Sonar auf 0
+[ok]     Sonar auf 0
 
 [  ]     Neuer Scanner bauen
 
-[  ]     Neuer Scanner implementieren
-
-[ok]     Embedded Tomcat version mit Parametern initialisierbar machen
+[  ]     finalparungsregel konfigurierbar machen 2 gross finale
 
 ==============
 
@@ -49,6 +47,8 @@ dokumentation
 
 feautures ok:
 **********
+[ok]     Embedded Tomcat version mit Parametern initialisierbar machen
+
 [ok]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
 
 [ok]     refactoring paarung weg

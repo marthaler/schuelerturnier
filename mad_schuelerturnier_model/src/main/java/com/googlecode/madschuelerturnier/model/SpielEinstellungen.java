@@ -220,7 +220,7 @@ public class SpielEinstellungen extends Persistent {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o) {       // NOSONAR
         if (this == o) {
             return true;
         }
