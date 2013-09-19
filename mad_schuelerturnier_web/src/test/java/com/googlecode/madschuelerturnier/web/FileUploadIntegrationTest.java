@@ -8,6 +8,7 @@ import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.Before;
@@ -66,6 +67,7 @@ public class FileUploadIntegrationTest {
     @Rollback(true)
     public void  testHandleFileUpload() {
 
+        Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
 
         UploadedFile temp = event.getFile();
         byte[] doct = temp.getContents();
