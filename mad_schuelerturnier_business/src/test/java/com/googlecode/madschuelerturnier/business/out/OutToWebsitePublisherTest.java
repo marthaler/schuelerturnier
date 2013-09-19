@@ -1,5 +1,7 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.business.out;
-
 
 import org.junit.After;
 import org.junit.Assert;
@@ -16,7 +18,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
-
+/**
+ * OutToWebsitePublisherTest
+ *
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 0.7
+ */
 public class OutToWebsitePublisherTest {
 
     private FakeFtpServer fakeFtpServer;

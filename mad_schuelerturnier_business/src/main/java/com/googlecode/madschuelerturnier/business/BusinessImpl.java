@@ -90,7 +90,7 @@ public class BusinessImpl implements Business {
 
         final List<Mannschaft> mannschaften = getMannschaften();
         for (final Mannschaft mannschaft : mannschaften) {
-            if (mannschaft.getSchulhaus().contains(query)) {
+            if (query == null || query.isEmpty() || mannschaft.getSchulhaus().toLowerCase().contains(query.toLowerCase())) {
                 strings.add(mannschaft.getSchulhaus());
             }
         }
@@ -112,10 +112,10 @@ public class BusinessImpl implements Business {
 
         final List<Mannschaft> mannschaften = getMannschaften();
         for (final Mannschaft mannschaft : mannschaften) {
-            if (mannschaft.getBegleitpersonName().contains(query)) {
+            if ( query == null ||query.isEmpty() || mannschaft.getBegleitpersonName().toLowerCase().contains(query.toLowerCase())) {
                 strings.add(mannschaft.getBegleitpersonName());
             }
-            if (mannschaft.getCaptainName().contains(query)) {
+            if ( query == null ||query.isEmpty() || mannschaft.getCaptainName().toLowerCase().contains(query.toLowerCase())) {
                 strings.add(mannschaft.getCaptainName());
             }
         }
@@ -192,6 +192,9 @@ public class BusinessImpl implements Business {
      */
     public SpielEinstellungen saveEinstellungen(SpielEinstellungen einstellungenNeu) {
 
+        if(einstellungenNeu == null){
+           return null;
+        }
         if (verarbeiter.isFertig()) {
             einstellungen.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
         }
@@ -206,6 +209,8 @@ public class BusinessImpl implements Business {
         final int millis = time.getMillisOfDay();
         time = time.minusMillis(millis);
         einstellungenNeu.setStarttag(new Date(time.getMillis()));
+
+
         this.einstellungen = this.spielEinstellungenRepo.save(einstellungenNeu);
         return this.einstellungen;
     }

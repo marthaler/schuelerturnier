@@ -22,4 +22,5 @@ public interface DataLoader {
 
     List<Mannschaft> loadMannschaften(boolean knaben, boolean maedchen, Integer... klassenIn);
 
+    byte[] loadFile();
 }

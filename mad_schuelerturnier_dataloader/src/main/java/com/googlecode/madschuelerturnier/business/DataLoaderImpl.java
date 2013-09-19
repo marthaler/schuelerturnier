@@ -42,6 +42,10 @@ public final class DataLoaderImpl implements DataLoader {
         this.jahr = jahr;
     }
 
+    public byte[] loadFile(){
+       return readFile("schuetu-" + jahr + ".xls");
+    }
+
     @Override
     public List<Mannschaft> loadMannschaften() {
         return xls.convertXLSToMannschaften(readFile("schuetu-" + jahr + ".xls"));
