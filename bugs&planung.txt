@@ -20,7 +20,7 @@ bugs:
 *****
 [ok]     Schauen warum beim Export 2013 in den Einstellungen nicht Fertiggespielt steht sondern spielen
 
-[  ]     Schauen warum beim Export 2013 in den bei einem korrigierten Spiel keine Notitzen stehen
+[ok]     Schauen warum beim Export 2013 in den bei einem korrigierten Spiel keine Notizen stehen
 
 [ok]     Echtzeittest wieder reparieren
 

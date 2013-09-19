@@ -74,18 +74,9 @@
                     <p:menuitem id="mm_import_export" value="Inport Export" icon="ui-icon-carat-2-n-s"
                                 action="import-export"/>
 
-
-                    <p:menuitem id="mm_mannschaften_export" value="Mannschaften export" icon="ui-icon-carat-2-n-s"
-                                action="mannschaftslisteExport"/>
-                    <p:menuitem id="mm_mannschaften_inport" value="Mannschaften import" icon="ui-icon-carat-2-n-s"
-                                action="mannschaftslisteImport"/>
                     <p:menuitem rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.spielphase}"
                                 value="Spieleinstellungen" icon="ui-icon-carat-2-n-s" action="spieleinstellungen"/>
 
-                    <p:menuitem id="mm_spiele_export" value="Spiele export" icon="ui-icon-carat-2-n-s"
-                                action="spielListeExport"/>
-                    <p:menuitem id="mm_spiele_import" value="Spiele import" icon="ui-icon-carat-2-n-s"
-                                action="spielListeImport"/>
                     <p:menuitem id="mm_spiele_vertauschungen" value="Manuelle Korrekturen" icon="ui-icon-carat-2-n-s"
                                 action="korrekturen"/>
                     <p:menuitem id="mm_einstelung3" value="Spieleinstellungen" icon="ui-icon-carat-2-n-s"

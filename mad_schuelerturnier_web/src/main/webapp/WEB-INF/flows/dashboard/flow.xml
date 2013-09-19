@@ -64,12 +64,6 @@
         </transition>
     </view-state>
 
-    <view-state id="mannschaftslisteImport" view="mannschaft/liste_import.xhtml"
-                redirect="true">
-        <transition on="submit" to="mannschaftsliste">
-            <evaluate expression="fileUploadAction"></evaluate>
-        </transition>
-    </view-state>
 
     <view-state id="spielsteuerung" view="spielsteuerung/admin.xhtml"
                 redirect="true">
@@ -273,16 +267,20 @@
         </transition>
     </view-state>
 
-    <view-state id="korrekturen" view="mannschaft/korrekturen.xhtml" redirect="true" model="korrekturen">
-        <transition on="save" to="korrekturen" bind="true">
-            <evaluate expression="business.saveEinstellungen(flowScope.korrekturen)"/>
-        </transition>
+
+
+
+    <view-state id="korrekturen" view="mannschaft/korrekturen.xhtml" >
+
     </view-state>
 
-    <view-state id="resultatekorrekturen" view="mannschaft/korrekturen.xhtml" redirect="true" model="korrekturen">
-        <transition on="save" to="korrekturen" bind="true">
-            <evaluate expression="business.saveEinstellungen(flowScope.korrekturen)"/>
-        </transition>
+
+
+    <!--loeschen -->
+
+    <view-state id="resultatekorrekturen" view="mannschaft/korrekturen.xhtml" >
+
+
     </view-state>
 
 
@@ -295,6 +293,7 @@
     <view-state id="edit_spiel" view="root/edit_spiel.xhtml" redirect="true" model="spiel">
         <transition on="save" to="liste_spiel" bind="true">
             <evaluate expression="spielServiceImpl.doKorrektur(spiel)"/>
+            <evaluate expression="spielServiceImpl.readAllSpiele()" result="flowScope.spiele"/>
         </transition>
     </view-state>
 
@@ -325,7 +324,7 @@
         <transition on="import-export" to="import-export"/>
 
         <transition on="korrekturen" to="korrekturen">
-            <evaluate expression="business.getSpielEinstellungen()"
+            <evaluate expression="korrekturRepository.findAll()"
                       result="flowScope.korrekturen"/>
         </transition>
 

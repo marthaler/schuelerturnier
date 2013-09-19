@@ -189,6 +189,7 @@ public class ResultateVerarbeiter {
             kat = spiel.getMannschaftA().getKategorie();
             katName = spiel.getMannschaftA().getKategorie().getName();
         } catch (Exception e) {
+            LOG.fatal(spiel.getTyp() +":" + spiel.getIdString());
             LOG.fatal(e.getMessage(), e);
         }
 

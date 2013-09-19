@@ -26,7 +26,7 @@
                         <p:messages/>
                         <h:form id="form1">
 
-                            <p:fieldset legend="Alle Mannschaften">
+                            <p:fieldset legend="Alle Spiele">
 
                                 <p:dataTable emptyMessage="leer" id="tbl" var="sp" value="#{spiele}"
                                              paginator="false" rowIndexVar="ri">
@@ -90,21 +90,19 @@
                                     </p:column>
 
 
-                                    <!--
-                                         <p:column>
-                                             <f:facet name="header">
-                                                 <h:outputText value="Notizen"/>
-                                             </f:facet>
-                                             <p:commandButton id="notitzenButton" icon="ui-icon-note"
-                                                              onclick="dlg#{ri}.show();" type="button"
-                                                              rendered="#{spiel.notizen.length() > 0}"/>
-                                             <p:dialog id="notizen_dialog" header="Notitzen zu dieser Mannschaft"
-                                                       widgetVar="dlg#{ri}" showEffect="drop" hideEffect="drop" height="200"
-                                                       width="400">
-                                                 <h:outputText value="#{mannschaft.notizen}"/>
-                                             </p:dialog>
-                                         </p:column>
-                               -->
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Korrekturen"/>
+                                        </f:facet>
+                                        <p:commandButton id="notitzenButton" icon="ui-icon-note"
+                                                         onclick="dlg#{ri}.show();" type="button"
+                                                         rendered="#{sp.notizen.value.length() > 0}"/>
+                                        <p:dialog id="notizen_dialog" header="Log zu diesem korrigierten Spiel"
+                                                  widgetVar="dlg#{ri}" showEffect="drop" hideEffect="drop" height="200"
+                                                  width="400">
+                                            <h:outputText value="#{sp.notizen.value}"/>
+                                        </p:dialog>
+                                    </p:column>
 
                                     <p:column size="2">
                                         <f:facet name="header">

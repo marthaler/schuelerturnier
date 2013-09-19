@@ -84,6 +84,13 @@ public class Spiel extends Persistent {
         this.notizen.setValue(notes);
     }
 
+    public String getNotes() {
+        if (this.notizen != null) {
+            return this.notizen.getValue();
+        }
+        return "";
+    }
+
     public void setTypString(String typIn) {
 
         String typS = typIn.toLowerCase();

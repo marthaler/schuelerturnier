@@ -3,6 +3,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
                 template="../../../layouts/100.xhtml">
 
 
@@ -19,29 +20,55 @@
                     <div class="inset">
 
                         <p:messages/>
+
                         <h:form id="form1">
 
+                            <p:fieldset legend="Alle Korrekturen">
 
-                            <p:fieldset id="leg" legend="Korrekturen eintragen und auslesen">
-
-                                <h:panelGrid columns="2" id="inputelements">
-
-                                    <p:inputTextarea name="text" id="text" rows="20" cols="90"
-                                                     value="#{korrekturen.spielVertauschungen}" autoResize="false"/>
-
-                                    <br/>
-
-                                    <p:commandButton widgetVar="submit" id="submit" value="Save" action="save"
-                                                     ajax="true" execute="@form" update="@form"/>
+                                <p:dataTable emptyMessage="leer" id="tbl" var="korrektur" value="#{korrekturen}"
+                                             paginator="false" rowIndexVar="ri">
 
 
-                                </h:panelGrid>
+                                    <p:column>
+                                        <f:facet name="id">
+                                            <h:outputText value="Nr."/>
+                                        </f:facet>
+                                        <h:outputText value="#{korrektur.id}"/>
+                                    </p:column>
+
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Typ"/>
+                                        </f:facet>
+                                        <h:outputText value="#{korrektur.typ}"/>
+                                    </p:column>
+
+
+                                    <p:column size="2">
+                                        <f:facet name="header">
+                                            <h:outputText value=""/>
+                                        </f:facet>
+
+
+                                        <p:inputText name="id" value="#{korrektur.wert}" />
+
+
+
+
+                                    </p:column>
+
+                                </p:dataTable>
 
                             </p:fieldset>
 
-                            <p:blockUI id="blocker" block="leg" trigger="submit">
-                                <p:graphicImage value="/app/resources/static/images/ajax-loader.gif"/>
-                            </p:blockUI>
+                            <h:panelGroup id="button" >
+                                <p:commandButton id="sa" value="Speichern" action="sa" />
+                            </h:panelGroup>
+
+
+                            <br/>
+
 
                         </h:form>
                     </div>
