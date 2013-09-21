@@ -730,7 +730,7 @@
             </snapshots>
         </repository>
 
-        <!-- For Hibernate Validator
+        <!-- For Hibernate Validator  -->
         <repository>
             <id>org.jboss.repository.releases</id>
             <name>JBoss Maven Release Repository</name>
@@ -738,7 +738,7 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </repository>   -->
+        </repository>
 
         <!-- For Sun Mojarra JSF 2 implementation -->
         <repository>
@@ -765,31 +765,10 @@
             <layout>default</layout>
         </repository>
 
-            <repository>
-                <id>eap</id>
-                <url>http://maven.repository.redhat.com/techpreview/all</url>
-                <releases>
-                    <enabled>true</enabled>
-                </releases>
-                <snapshots>
-                    <enabled>true</enabled>
-                </snapshots>
-            </repository>
 
     </repositories>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>eap</id>
-            <url>http://maven.repository.redhat.com/techpreview/all</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
+
 
     <distributionManagement>
         <repository>
@@ -809,29 +788,6 @@
             <modules>
                 <module>mad_schuelerturnier_test</module>
             </modules>
-        </profile>
-        <profile>
-            <!-- When built in OpenShift the 'openshift' profile will be used when
-                invoking mvn. -->
-            <!-- Use this profile for any OpenShift specific customization your app
-                will need. -->
-            <!-- By default that is to put the resulting archive into the 'webapps'
-                folder. -->
-            <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
-            <id>openshift</id>
-            <build>
-                <finalName>sch</finalName>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <version>2.1.1</version>
-                        <configuration>
-                            <outputDirectory>webapps</outputDirectory>
-                            <warName>ROOT</warName>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
     </profiles>
 

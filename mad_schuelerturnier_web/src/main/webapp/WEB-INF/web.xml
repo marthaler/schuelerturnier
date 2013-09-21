@@ -8,7 +8,6 @@
         <param-value>/WEB-INF/spring/root-context.xml</param-value>
     </context-param>
 
-
     <context-param>
         <param-name>org.apache.myfaces.USE_ENCRYPTION</param-name>
         <param-value>false</param-value>
@@ -33,13 +32,11 @@
     <filter>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
-
     </filter>
     <filter-mapping>
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <servlet-name>Spring MVC Servlet</servlet-name>
     </filter-mapping>
-
 
     <!-- SPRING SECURITY -->
     <filter>
@@ -51,7 +48,6 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <servlet-name>Spring MVC Servlet</servlet-name>
     </filter-mapping>
-
 
     <!-- JSF 2 IMPLEMENTATION -->
 

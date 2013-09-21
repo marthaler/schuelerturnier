@@ -1,14 +1,9 @@
 feautures:
 **********
-[  ]     stammdaten menu aufraeumen und ueberfluessigen code loeschen
 
 [  ]     out to website publisher schlau konfigurieren
 
 [  ]     countdown ueber eine stunde springt (stunden einbeziehen)
-
-[ok]     gong per hit space ausloesen
-
-[ok]     Sonar auf 0
 
 [  ]     Neuer Scanner bauen
 
@@ -18,15 +13,8 @@ feautures:
 
 bugs:
 *****
-[ok]     Schauen warum beim Export 2013 in den Einstellungen nicht Fertiggespielt steht sondern spielen
 
-[ok]     Schauen warum beim Export 2013 in den bei einem korrigierten Spiel keine Notizen stehen
 
-[ok]     Echtzeittest wieder reparieren
-
-[ok]     HTML Cleaner Problem beheben
-
-[ok]     schauen warum nicht alle spiele fertig werden mit 2013
 
 ==============
 
@@ -47,6 +35,12 @@ dokumentation
 
 feautures ok:
 **********
+[ok]     stammdaten menu aufraeumen und ueberfluessigen code loeschen
+
+[ok]     gong per hit space ausloesen
+
+[ok]     Sonar auf 0
+
 [ok]     Embedded Tomcat version mit Parametern initialisierbar machen
 
 [ok]     SpielRepositoryDeleaget in SpielDurchfuehrung zuegeln
@@ -150,6 +144,15 @@ feautures ok:
 
 bugs ok:
 ***************
+[ok]     Schauen warum beim Export 2013 in den Einstellungen nicht Fertiggespielt steht sondern spielen
+
+[ok]     Schauen warum beim Export 2013 in den bei einem korrigierten Spiel keine Notizen stehen
+
+[ok]     Echtzeittest wieder reparieren
+
+[ok]     HTML Cleaner Problem beheben
+
+[ok]     schauen warum nicht alle spiele fertig werden mit 2013
 
 [ok]     Rangliste im web Sonderzeichen
 
