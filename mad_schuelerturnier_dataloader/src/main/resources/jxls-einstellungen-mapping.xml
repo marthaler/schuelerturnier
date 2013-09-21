@@ -22,6 +22,7 @@
                 <mapping row="13" col="1">einstellung.automatischesAnsagen</mapping>
                 <mapping row="14" col="1">einstellung.abbrechenZulassen</mapping>
                 <mapping row="15" col="1">einstellung.gongEinschalten</mapping>
+                <mapping row="16" col="1">einstellung.behandleFinaleProKlassebeiZusammengefuehrten</mapping>
             </section>
             <loopbreakcondition>
                 <rowcheck offset="1">

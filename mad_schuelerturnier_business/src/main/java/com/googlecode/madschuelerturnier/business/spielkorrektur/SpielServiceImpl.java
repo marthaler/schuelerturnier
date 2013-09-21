@@ -4,6 +4,7 @@
 package com.googlecode.madschuelerturnier.business.spielkorrektur;
 
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
+
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.Text;
 import com.googlecode.madschuelerturnier.model.comperators.SpielZeitComperator;

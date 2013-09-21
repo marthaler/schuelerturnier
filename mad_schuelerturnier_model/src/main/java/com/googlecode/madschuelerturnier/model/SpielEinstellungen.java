@@ -50,6 +50,8 @@ public class SpielEinstellungen extends Persistent {
 
     private boolean gongEinschalten = false;
 
+    private boolean behandleFinaleProKlassebeiZusammengefuehrten = false;
+
     public SpielEinstellungen() {
         DateTime date = new DateTime();
         date.withDate(2013, 6, 8);
@@ -304,4 +306,11 @@ public class SpielEinstellungen extends Persistent {
         return result;
     }
 
+    public boolean isBehandleFinaleProKlassebeiZusammengefuehrten() {
+        return behandleFinaleProKlassebeiZusammengefuehrten;
+    }
+
+    public void setBehandleFinaleProKlassebeiZusammengefuehrten(boolean behandleFinaleProKlassebeiZusammengefuehrten) {
+        this.behandleFinaleProKlassebeiZusammengefuehrten = behandleFinaleProKlassebeiZusammengefuehrten;
+    }
 }

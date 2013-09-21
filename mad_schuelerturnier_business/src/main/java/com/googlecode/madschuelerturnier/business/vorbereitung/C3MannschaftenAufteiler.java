@@ -3,6 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business.vorbereitung;
 
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
@@ -33,6 +34,9 @@ public class C3MannschaftenAufteiler {
 
     @Autowired
     private SpielRepository spielRepo;
+
+    @Autowired
+    private Business business;
 
     public void mannschaftenVerteilen() {
 
@@ -80,10 +84,16 @@ public class C3MannschaftenAufteiler {
     }
 
     private void dreiBis7Mannschaften(Kategorie kategorie) {
+
         assignGrosserFinalToKategorie(kategorie);
 
         Spiel kf = new Spiel();
+        // den Fall behandeln wenn eis 2 Grosse Finale gibt bei zusammengefassten Mannschaften
+        if(kategorie.isMixedKlassen() && business.getSpielEinstellungen().isBehandleFinaleProKlassebeiZusammengefuehrten()){
+            kf.setTyp(SpielEnum.GFINAL);
+        } else{
         kf.setTyp(SpielEnum.KFINAL);
+        }
         kf.setIdString(IDGeneratorContainer.getNext());
         kf.setKategorieName(kategorie.getName());
         kf = spielRepo.save(kf);
@@ -129,7 +139,6 @@ public class C3MannschaftenAufteiler {
             Mannschaft mtemp = kategorie.getGruppeA().getMannschaften().remove(i);
             mtemp.setGruppe(kategorie.getGruppeB());
             kategorie.getGruppeB().getMannschaften().add(mtemp);
-
         }
 
         Collections.sort(kategorie.getGruppeB().getMannschaften(), new MannschaftsNamenComperator());

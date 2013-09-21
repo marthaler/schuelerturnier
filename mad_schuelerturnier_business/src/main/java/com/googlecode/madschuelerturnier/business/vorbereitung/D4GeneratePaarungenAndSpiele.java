@@ -94,6 +94,7 @@ public class D4GeneratePaarungenAndSpiele {
 
                 Spiel spiel = new Spiel();
                 spiel.setIdString(IDGeneratorContainer.getNext());
+                spiel.setKategorieName(gruppeKandidat.getKategorie().getName());
                 spiel = spielRepo.save(spiel);
 
                 spiel.setMannschaftA(kandidat);

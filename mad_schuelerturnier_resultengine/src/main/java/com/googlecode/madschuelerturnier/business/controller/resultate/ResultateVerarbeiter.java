@@ -8,14 +8,13 @@ import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HT
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLSpielMatrixConverter;
 import com.googlecode.madschuelerturnier.business.out.OutToWebsitePublisher;
 import com.googlecode.madschuelerturnier.business.print.SpielPrintManager;
-import com.googlecode.madschuelerturnier.model.Kategorie;
-import com.googlecode.madschuelerturnier.model.Mannschaft;
-import com.googlecode.madschuelerturnier.model.Penalty;
-import com.googlecode.madschuelerturnier.model.Spiel;
+import com.googlecode.madschuelerturnier.model.*;
 import com.googlecode.madschuelerturnier.model.comperators.MannschaftsNamenComperator;
 import com.googlecode.madschuelerturnier.model.compusw.RanglisteneintragHistorie;
+import com.googlecode.madschuelerturnier.model.compusw.RanglisteneintragZeile;
 import com.googlecode.madschuelerturnier.model.enums.SpielEnum;
 import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
+import com.googlecode.madschuelerturnier.persistence.repository.SpielEinstellungenRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,40 +32,31 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class ResultateVerarbeiter {
 
     private static final int WAITTIME = 1000 * 15;
-
+    private static final Logger LOG = Logger.getLogger(ResultateVerarbeiter.class);
     @Autowired
     private HTMLSpielMatrixConverter matrix;
-
     @Autowired
     private HTMLOutConverter historieGenerator;
-
     @Autowired
     private HTMLConverterRangliste rangliste;
-
     @Autowired
     private SpielRepository repo;
-
     @Autowired
     private KategorieRepository katRepo;
 
     @Autowired
-    private OutToWebsitePublisher ftpPublisher;
+    private SpielEinstellungenRepository eRepo;
 
+    @Autowired
+    private OutToWebsitePublisher ftpPublisher;
     @Autowired
     private SpielPrintManager printer;
 
     private boolean init = false;
-
     private boolean uploadAllKat = false;
-
     private Map<String, Boolean> beendet = new HashMap<String, Boolean>();
-
     private Queue<Long> spielQueue = new ConcurrentLinkedQueue<Long>();
-
     private Queue<Penalty> penaltyQueue = new ConcurrentLinkedQueue<Penalty>();
-
-    private static final Logger LOG = Logger.getLogger(ResultateVerarbeiter.class);
-
     private Map<String, RanglisteneintragHistorie> map = new HashMap<String, RanglisteneintragHistorie>();
 
     public void signalPenalty(Penalty p) {
@@ -92,7 +82,6 @@ public class ResultateVerarbeiter {
 
         this.neuberechnenDerKategorie(p.getKategorie().getKategorie());
     }
-
 
     public boolean isFertig() {
 
@@ -128,7 +117,6 @@ public class ResultateVerarbeiter {
             this.beendet.put(kat.getName(), false);
         }
     }
-
 
     public void signalFertigesSpiel(Long id) {
         spielQueue.offer(id);
@@ -328,44 +316,91 @@ public class ResultateVerarbeiter {
                 RanglisteneintragHistorie rl = map.get(katName);
                 gross.add(rl.getZeilen().get(0).getMannschaft());
                 gross.add(rl.getZeilen().get(1).getMannschaft());
-            } else
+            } else {
 
-                // normal
-                if (!kat.hasVorUndRueckrunde() && !kat.has2Groups()) {
-                    RanglisteneintragHistorie rl = map.get(katName);
-                    gross.add(rl.getZeilen().get(0).getMannschaft());
-                    gross.add(rl.getZeilen().get(1).getMannschaft());
+                if(kat.isMixedKlassen() && eRepo.findAll().get(0).isBehandleFinaleProKlassebeiZusammengefuehrten()){
+                    finaleSuchenNachKlasse(kat, gross, klein);
+                } else{
+                    finaleSuchenNormal(kat, gross, klein);
+                }
 
-                    klein.add(rl.getZeilen().get(2).getMannschaft());
-                    klein.add(rl.getZeilen().get(3).getMannschaft());
-                } else
+                // die richtige reihenfolge
+                Collections.sort(klein, new MannschaftsNamenComperator());
+                Collections.sort(gross, new MannschaftsNamenComperator());
 
-                    // 2 gruppen
-                    if (!kat.hasVorUndRueckrunde() && kat.has2Groups()) {
-                        RanglisteneintragHistorie rla = map.get(katName + "_A");
-                        RanglisteneintragHistorie rlb = map.get(katName + "_B");
+                kat.getGrosserFinal().setMannschaftA(gross.get(0));
+                kat.getGrosserFinal().setMannschaftB(gross.get(1));
 
-                        gross.add(rla.getZeilen().get(0).getMannschaft());
-                        gross.add(rlb.getZeilen().get(0).getMannschaft());
+                if (!kat.hasVorUndRueckrunde()) {
+                    kat.getKleineFinal().setMannschaftA(klein.get(0));
+                    kat.getKleineFinal().setMannschaftB(klein.get(1));
+                }
 
-                        klein.add(rla.getZeilen().get(1).getMannschaft());
-                        klein.add(rlb.getZeilen().get(1).getMannschaft());
-                    }
-
-            // die richtige reihenfolge
-            Collections.sort(klein, new MannschaftsNamenComperator());
-            Collections.sort(gross, new MannschaftsNamenComperator());
-
-            kat.getGrosserFinal().setMannschaftA(gross.get(0));
-            kat.getGrosserFinal().setMannschaftB(gross.get(1));
-
-            if (!kat.hasVorUndRueckrunde()) {
-                kat.getKleineFinal().setMannschaftA(klein.get(0));
-                kat.getKleineFinal().setMannschaftB(klein.get(1));
+                this.katRepo.save(kat);
             }
-
-            this.katRepo.save(kat);
         }
+    }
+
+    private void finaleSuchenNormal(Kategorie kat, List<Mannschaft> gross, List<Mannschaft> klein) {
+        // normal
+        if(!kat.has2Groups()){
+            RanglisteneintragHistorie rl = map.get(kat.getName());
+            gross.add(rl.getZeilen().get(0).getMannschaft());
+            gross.add(rl.getZeilen().get(1).getMannschaft());
+
+            klein.add(rl.getZeilen().get(2).getMannschaft());
+            klein.add(rl.getZeilen().get(3).getMannschaft());
+
+        } else{
+            // 2 gruppen
+            RanglisteneintragHistorie rla = map.get(kat.getName() + "_A");
+            RanglisteneintragHistorie rlb = map.get(kat.getName() + "_B");
+
+            gross.add(rla.getZeilen().get(0).getMannschaft());
+            gross.add(rlb.getZeilen().get(0).getMannschaft());
+
+            klein.add(rla.getZeilen().get(1).getMannschaft());
+            klein.add(rlb.getZeilen().get(1).getMannschaft());
+
+        }
+    }
+
+    private void finaleSuchenNachKlasse(Kategorie kat, List<Mannschaft> gross, List<Mannschaft> klein) {
+
+        // feststellen der beiden klassen
+        int klasseTief = 0;
+        int klasseHoch = 0;
+
+        List<Mannschaft> listeTief = new ArrayList<Mannschaft>();
+        List<Mannschaft> listeHoch = new ArrayList<Mannschaft>();
+
+        RanglisteneintragHistorie rl = map.get(kat.getName());
+        klasseTief = rl.getZeilen().get(0).getMannschaft().getKlasse();
+        for(RanglisteneintragZeile temp : rl.getZeilen()){
+           if(klasseTief != temp.getMannschaft().getKlasse()){
+               klasseHoch = temp.getMannschaft().getKlasse();
+               listeHoch.add(temp.getMannschaft());
+           } else{
+               listeTief.add(temp.getMannschaft());
+           }
+       }
+        if(klasseTief>klasseHoch){
+            int temp = klasseTief;
+            List<Mannschaft> listeTemp =  listeTief;
+            klasseTief = klasseHoch;
+            listeTief =    listeHoch;
+            klasseHoch = temp;
+            listeHoch =  listeTemp;
+        }
+
+        LOG.info("klassen gefunden: tief "+klasseTief +" und hoch " + klasseHoch);
+
+            gross.add(listeTief.get(0));
+            gross.add(listeTief.get(1));
+
+            klein.add(listeTief.get(0));
+            klein.add(listeHoch.get(1));
+
     }
 
 
@@ -398,7 +433,6 @@ public class ResultateVerarbeiter {
         // hochladen der resultate
         this.ftpPublisher.addPage("rangliste.html", this.rangliste.printOutGere(map.values(), true));
     }
-
 
     public void initialisieren() {
 
@@ -444,7 +478,6 @@ public class ResultateVerarbeiter {
         // hochladen der index seite
         this.ftpPublisher.addPage("index.html", this.historieGenerator.generatePageIndex());
     }
-
 
     public String generateSpieleMatrix() {
         List<Kategorie> kategorien = katRepo.findAll();

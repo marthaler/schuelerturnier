@@ -165,6 +165,16 @@ public class Kategorie extends Persistent {
         return false;
     }
 
+    public boolean isMixedKlassen(){
+        int klasse =this.getMannschaften().get(0).getKlasse();
+        for(Mannschaft m : this.getMannschaften()){
+            if(klasse != m.getKlasse()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Set<Spiel> getSpiele() {
         Set<Spiel> spiele = new HashSet<Spiel>();
         if (this.gruppeA != null) {

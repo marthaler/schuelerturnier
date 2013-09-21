@@ -2,12 +2,11 @@ feautures:
 **********
 
 [  ]     out to website publisher schlau konfigurieren
-
-[  ]     countdown ueber eine stunde springt (stunden einbeziehen)
-
 [  ]     Neuer Scanner bauen
 
-[  ]     finalparungsregel konfigurierbar machen 2 gross finale
+[rj]     countdown ueber eine stunde springt (stunden einbeziehen)
+
+
 
 ==============
 
@@ -17,6 +16,10 @@ bugs:
 
 
 ==============
+
+testen
+*************
+[  ]     finalparungsregel konfigurierbar machen 2 gross finale
 
 dokumentation
 *************
@@ -35,6 +38,8 @@ dokumentation
 
 feautures ok:
 **********
+[ok]     finalparungsregel konfigurierbar machen 2 gross finale
+
 [ok]     stammdaten menu aufraeumen und ueberfluessigen code loeschen
 
 [ok]     gong per hit space ausloesen
