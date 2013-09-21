@@ -730,7 +730,7 @@
             </snapshots>
         </repository>
 
-        <!-- For Hibernate Validator    -->
+        <!-- For Hibernate Validator
         <repository>
             <id>org.jboss.repository.releases</id>
             <name>JBoss Maven Release Repository</name>
@@ -738,7 +738,7 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </repository>
+        </repository>   -->
 
         <!-- For Sun Mojarra JSF 2 implementation -->
         <repository>
