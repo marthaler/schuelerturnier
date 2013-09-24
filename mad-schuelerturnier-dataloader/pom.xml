@@ -12,7 +12,7 @@
     <artifactId>mad-schuelerturnier-dataloader</artifactId>
 
     <dependencies>
-
+        <!---->
         <dependency>
             <groupId>com.googlecode.madschuelerturnier</groupId>
             <artifactId>mad-schuelerturnier-model</artifactId>
