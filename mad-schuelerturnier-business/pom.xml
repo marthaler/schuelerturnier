@@ -10,7 +10,7 @@
     <artifactId>mad-schuelerturnier-business</artifactId>
 
     <build>
-
+        <!---->
         <plugins>
 
             <plugin>
