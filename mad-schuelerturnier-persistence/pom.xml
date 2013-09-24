@@ -7,7 +7,7 @@
         <version>1.2.7-SNAPSHOT</version>
 
     </parent>
-
+    <!---->
     <artifactId>mad-schuelerturnier-persistence</artifactId>
 
     <dependencies>
