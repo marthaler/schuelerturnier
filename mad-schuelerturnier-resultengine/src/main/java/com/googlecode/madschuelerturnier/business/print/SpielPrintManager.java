@@ -105,7 +105,7 @@ public class SpielPrintManager {
 
         this.aktuelleSpiele.clear();
 
-        printAgent.saveFileToPrint(" " + pageN, page);
+        printAgent.saveFileToPrint("" + pageN, page);
 
     }
 
