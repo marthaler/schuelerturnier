@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.business.print;
 
 import com.lowagie.text.Document;
@@ -25,13 +28,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created with IntelliJ IDEA.
- * User: dama
- * Date: 21.04.13
- * Time: 19:20
- * To change this template us   e File | Settings | File Templates.
+ * Verwaltet die Druckauftraege
+ *
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 1.2.6
  */
-
 @Component
 public class PrintAgent {
 

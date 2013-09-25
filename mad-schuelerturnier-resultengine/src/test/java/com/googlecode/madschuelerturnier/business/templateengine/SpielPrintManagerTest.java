@@ -1,16 +1,14 @@
-package com.googlecode.madschuelerturnier.business.print;
+package com.googlecode.madschuelerturnier.business.templateengine;
 
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.XHTMLOutputUtil;
+import com.googlecode.madschuelerturnier.business.print.PrintAgent;
+import com.googlecode.madschuelerturnier.business.print.SpielPrintManager;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
-
-
 import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
-import org.apache.commons.io.FileUtils;
+
+import org.apache.log4j.Logger;
 import org.junit.Before;
-
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -24,8 +22,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.mockito.Matchers.*;
+import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
 
 /**
@@ -37,6 +36,9 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class SpielPrintManagerTest {
 
+    private static final Logger LOG = Logger.getLogger(SpielPrintManagerTest.class);
+    @Mock
+    private XHTMLOutputUtil cleaner;
 
     @Mock
     private PrintAgent printAgent;
@@ -73,17 +75,17 @@ public class SpielPrintManagerTest {
             s.setMannschaftB(b);
             s.setToreABestaetigt(i);
             s.setToreBBestaetigt(i + 1);
-            s.setStart(new Date());
+            s.setStart(new Date(77777));
             s.setId(Long.parseLong("" + i));
             s.setPlatz(PlatzEnum.A);
             spiele.add(s);
 
-            obj.saveSpiel(s);
         }
+        String st = Templates.printSpiel(spiele, 8);
+        LOG.info(st);
 
-        verify(printAgent, times(1)).saveFileToPrint(anyString(), argument.capture());
-
-        assertTrue(argument.getValue().contains("<td>14 : 15</td>"));
+        assertTrue(st.contains("<td>16 : 17</td>"));
+        assertTrue(st.contains(" <td align=\"right\" colspan=\"5\">Seite: 8</td>"));
 
     }
 }

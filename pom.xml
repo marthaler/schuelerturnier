@@ -123,6 +123,8 @@
 
         <velocity.version>1.7-beta1</velocity.version>
 
+        <velocitytools.version>2.0</velocitytools.version>
+
         <!-- WEITERE:test -->
         <mockftp.version>2.4</mockftp.version>
         <!-- ok:2.0.2 -> ok:2.4 -->

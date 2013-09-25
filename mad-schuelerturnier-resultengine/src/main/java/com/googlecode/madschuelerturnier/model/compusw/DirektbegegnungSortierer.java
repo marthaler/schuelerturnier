@@ -17,7 +17,6 @@ import java.util.List;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
-
 public final class DirektbegegnungSortierer {
 
     private static final Logger LOG = Logger.getLogger(DirektbegegnungSortierer.class);
