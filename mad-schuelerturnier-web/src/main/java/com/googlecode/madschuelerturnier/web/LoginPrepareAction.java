@@ -68,7 +68,7 @@ public class LoginPrepareAction {
         ServletContext sc = (ServletContext) context2.getExternalContext().getContext();
 
         String path = sc.getRealPath("index.html").replace("index.html", "");
-
+        LOG.info("LoginPrepareAction: path=" + path);
         HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         ip = httpServletRequest.getServerName();
 

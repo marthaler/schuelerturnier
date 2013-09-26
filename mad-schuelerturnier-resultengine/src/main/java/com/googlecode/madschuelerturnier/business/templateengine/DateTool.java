@@ -3,38 +3,37 @@
  */
 package com.googlecode.madschuelerturnier.business.templateengine;
 
-import com.googlecode.madschuelerturnier.model.Spiel;
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.RuntimeServices;
 import org.apache.velocity.runtime.RuntimeSingleton;
 import org.apache.velocity.runtime.parser.node.SimpleNode;
-//import org.apache.velocity.tools.generic.DateTool;
 
 import java.io.BufferedInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
- * Hilfsklasse zum aufrufen der verschiedenen Templates
+ * Tool zum konvertieren der Datumsformate in Velocity
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.7
  */
-public class Templates {
+public class DateTool {
 
-    private Templates() {
+    public DateTool() {
     }
 
-    public static String printSpiel(List<Spiel> spiele, Integer seite) {
-        VelocityContext context = new VelocityContext();
-        context.put("page", seite);
-        context.put("spiele", spiele);
-        context.put("datetool", new DateTool());
-        return TemplateEngine.convert("print-spiele-vtemplate", context);
+    public String format(String pattern, Date date) {
+
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
+        return formatter.format(date);
+
     }
 }

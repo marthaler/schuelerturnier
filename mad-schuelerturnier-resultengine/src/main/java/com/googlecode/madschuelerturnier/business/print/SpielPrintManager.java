@@ -22,7 +22,7 @@ public class SpielPrintManager {
 
     private static final Logger LOG = Logger.getLogger(SpielPrintManager.class);
 
-    private static final Integer SPIELE_PER_PAGE = 15;
+    private static final Integer SPIELE_PER_PAGE = 24;
 
     private List<Spiel> aktuelleSpiele = new ArrayList<Spiel>();
 
