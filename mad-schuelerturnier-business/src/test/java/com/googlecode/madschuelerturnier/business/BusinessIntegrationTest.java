@@ -23,7 +23,7 @@ import java.util.List;
  * @since 0.7
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring-business-context.xml"})
+@ContextConfiguration(locations = {"classpath:spring-business-context-test3.xml"})
 @Transactional
 public class BusinessIntegrationTest {
 

@@ -87,13 +87,20 @@
             <artifactId>velocity</artifactId>
             <version>${velocity.version}</version>
         </dependency>
-
+        <!--
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-tools</artifactId>
             <version>${velocitytools.version}</version>
-        </dependency>
+            <exclusions>
+                <exclusion>
+                    <groupId>antlr</groupId>
+                    <artifactId>antlr</artifactId>
+                </exclusion>
 
+            </exclusions>
+        </dependency>
+         -->
         <dependency>
             <groupId>com.e-movimento.tinytools</groupId>
             <artifactId>privilegedaccessor</artifactId>

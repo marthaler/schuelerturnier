@@ -11,7 +11,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeServices;
 import org.apache.velocity.runtime.RuntimeSingleton;
 import org.apache.velocity.runtime.parser.node.SimpleNode;
-import org.apache.velocity.tools.generic.DateTool;
+//import org.apache.velocity.tools.generic.DateTool;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class Templates {
         VelocityContext context = new VelocityContext();
         context.put("page", seite);
         context.put("spiele", spiele);
-        context.put("datetool", new DateTool());
+        //context.put("datetool", new DateTool());
         return TemplateEngine.convert("print-spiele-vtemplate", context);
     }
 }
