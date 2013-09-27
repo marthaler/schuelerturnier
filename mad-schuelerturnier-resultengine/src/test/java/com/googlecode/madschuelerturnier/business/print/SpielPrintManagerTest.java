@@ -64,7 +64,7 @@ public class SpielPrintManagerTest {
     @Test
     public void testSpielzeilenkorrekturAusDbAnwenden() throws IOException {
 
-        for (int i = 0; i < 17; i++) {
+        for (int i = 0; i < 25; i++) {
             Spiel s = new Spiel();
             s.setKategorieName("kat name");
             s.setIdString("AA" + i);
