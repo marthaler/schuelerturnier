@@ -3,14 +3,12 @@
  */
 package com.googlecode.madschuelerturnier.business.print;
 
-import com.googlecode.madschuelerturnier.business.controller.leiter.converter.XHTMLOutputUtil;
 import com.googlecode.madschuelerturnier.business.templateengine.Templates;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -59,7 +57,6 @@ public class SpielPrintManager {
         pageN = pageN + 1;
 
         String page = Templates.printSpiel(aktuelleSpiele, pageN);
-        System.out.println(page);
         this.savedPages.put(pageN, page);
 
         this.aktuelleSpiele.clear();

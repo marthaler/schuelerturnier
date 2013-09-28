@@ -5,9 +5,6 @@ package com.googlecode.madschuelerturnier.web.utils;
 
 import org.springframework.stereotype.Component;
 
-import javax.faces.bean.SessionScoped;
-import java.util.*;
-
 /**
  * Konvertiert typen
  *

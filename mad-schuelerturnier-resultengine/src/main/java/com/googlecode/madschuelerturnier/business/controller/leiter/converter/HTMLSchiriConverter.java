@@ -99,7 +99,6 @@ public class HTMLSchiriConverter {
         }
 
         responseString = responseString + BR;
-
         return xhtml.cleanup(responseString, true);
     }
 

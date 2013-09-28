@@ -23,7 +23,7 @@ import java.io.StringWriter;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.7
  */
-public class TemplateEngine {
+public final class TemplateEngine {
 
     private static final Logger LOG = Logger.getLogger(TemplateEngine.class);
 
