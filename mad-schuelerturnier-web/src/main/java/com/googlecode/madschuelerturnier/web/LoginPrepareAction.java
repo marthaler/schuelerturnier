@@ -7,6 +7,7 @@ import com.googlecode.madschuelerturnier.business.out.OutToWebsitePublisher;
 import com.googlecode.madschuelerturnier.business.picture.PictureAgent;
 import com.googlecode.madschuelerturnier.business.print.PrintAgent;
 import com.googlecode.madschuelerturnier.business.scanner.ScannerAgent;
+import com.googlecode.madschuelerturnier.web.utils.ContextInformationListener;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -64,10 +65,8 @@ public class LoginPrepareAction {
 
         LOG.info("LoginPrepareAction: wird aufgerufen");
 
-        FacesContext context2 = FacesContext.getCurrentInstance();
-        ServletContext sc = (ServletContext) context2.getExternalContext().getContext();
+        String path = ContextInformationListener.getPATH();
 
-        String path = sc.getRealPath("index.html").replace("index.html", "");
         LOG.info("LoginPrepareAction: path=" + path);
         HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         ip = httpServletRequest.getServerName();

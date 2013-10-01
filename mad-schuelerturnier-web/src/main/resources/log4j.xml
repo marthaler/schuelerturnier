@@ -10,6 +10,13 @@
         </layout>
     </appender>
 
+    <appender name="server" class="com.googlecode.madschuelerturnier.SocketAppender">
+
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%7.7t] %-5p %30.30c.%10.10M:%4.4L - %.500m%n"/>
+        </layout>
+    </appender>
+
 
     <logger name="org.springframework.webflow">
         <level value="INFO"/>
@@ -56,6 +63,7 @@
     <root>
         <priority value="INFO"/>
         <appender-ref ref="console"/>
+        <appender-ref ref="server"/>
     </root>
 
 </log4j:configuration>
