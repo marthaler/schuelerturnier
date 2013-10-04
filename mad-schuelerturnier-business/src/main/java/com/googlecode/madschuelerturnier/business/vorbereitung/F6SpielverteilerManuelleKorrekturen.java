@@ -51,7 +51,7 @@ public class F6SpielverteilerManuelleKorrekturen {
         Map<String, String> vertauschungen = new HashMap<String, String>();
 
         for (String ko : korr) {
-            ko.replace(";", "");
+            ko = ko.replace(";", "");
             String[] sp = ko.split("-");
             vertauschungen.put(sp[0], sp[1]);
         }

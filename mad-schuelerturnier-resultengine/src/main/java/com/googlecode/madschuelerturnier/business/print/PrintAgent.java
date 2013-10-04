@@ -194,6 +194,13 @@ public class PrintAgent {
             in = new FileInputStream(f);
         } catch (FileNotFoundException e) {
             LOG.error(e.getMessage(), e);
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException e1) {
+                LOG.error(e1.getMessage(), e1);
+            }
         }
         DocFlavor flavor = DocFlavor.INPUT_STREAM.PDF;
 

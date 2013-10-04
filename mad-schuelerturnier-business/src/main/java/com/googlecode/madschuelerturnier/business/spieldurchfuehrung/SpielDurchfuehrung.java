@@ -193,7 +193,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
             if ((this.list2ZumVorbereiten.isEmpty())) {
 
                 // pruefung ob nachste zeile bereits zur vorbereitung
-                long naechste = this.list1Wartend.get(this.list1Wartend.size() - 1).getStart().getTime() - (60 * minutenZumVorbereiten * 1000);
+                long naechste = this.list1Wartend.get(this.list1Wartend.size() - 1).getStart().getTime() - (60L * minutenZumVorbereiten * 1000);
                 long now = jetzt.getSpielZeit().getMillis();
 
                 if (naechste < now) {

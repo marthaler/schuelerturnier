@@ -128,7 +128,7 @@ public class Zeitgeber implements ApplicationEventPublisherAware {
         clockRunning = true;
     }
 
-    public void sendPuls() {
+    public synchronized void sendPuls() {
 
         this.zeitJetzt = this.zeitJetzt + (this.verschnellerungsfaktor * 1000);
 

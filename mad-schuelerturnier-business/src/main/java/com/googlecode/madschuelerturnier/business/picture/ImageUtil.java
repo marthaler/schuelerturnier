@@ -1,5 +1,7 @@
 package com.googlecode.madschuelerturnier.business.picture;
 
+import org.apache.log4j.Logger;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -9,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 
 public final class ImageUtil {
+
+    private static final Logger LOG = Logger.getLogger(ImageUtil.class);
 
     private ImageUtil() {
 
@@ -53,7 +57,7 @@ public final class ImageUtil {
             b = (pixelRGBValue >> 0) & 0xff;
             luminance = (r * 0.299) + (g * 0.587) + (b * 0.114);
         } catch (Exception e) {
-            // ign
+            LOG.error(e.getMessage(), e);
         }
 
         return (luminance < luminanceCutOff);

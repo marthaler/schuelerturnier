@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -65,7 +64,7 @@ public class LoginPrepareAction {
 
         LOG.info("LoginPrepareAction: wird aufgerufen");
 
-        String path = ContextInformationListener.getPATH();
+        String path = ContextInformationListener.getPath();
 
         LOG.info("LoginPrepareAction: path=" + path);
         HttpServletRequest httpServletRequest = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();

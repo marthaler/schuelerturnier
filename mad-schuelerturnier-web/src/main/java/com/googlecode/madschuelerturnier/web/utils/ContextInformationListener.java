@@ -19,15 +19,15 @@ import java.net.URL;
 public class ContextInformationListener implements ServletContextListener {
 
     private static final Logger LOG = Logger.getLogger(ContextInformationListener.class);
-    private static String PATH = "not_initialized";
+    private static String path = "not_initialized";
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
         LOG.info("ContextInformationListener:" + event);
         URL url = this.getClass().getResource("/log4j.xml");
         String tempPath = url.getPath();
-        PATH = tempPath.replace("classes/log4j.xml", "");
-        LOG.info("ContextInformationListener, path:" + PATH);
+        path = tempPath.replace("classes/log4j.xml", "");
+        LOG.info("ContextInformationListener, path:" + path);
     }
 
     @Override
@@ -35,8 +35,8 @@ public class ContextInformationListener implements ServletContextListener {
 
     }
 
-    public static String getPATH() {
-        return PATH;
+    public static String getPath() {
+        return path;
     }
 
 }
