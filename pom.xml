@@ -39,21 +39,21 @@
         <!-- ok:1.2.2 -> ok:1.3 -->
 
         <!-- JSF & CO -->
-        <primefaces.version>4.0.RC1</primefaces.version>
-        <!-- ok:3.5.RC1 -> ok:3.5 ??-> 4.0.RC1-->
+        <primefaces.version>4.0</primefaces.version>
+        <!-- ok:3.5.RC1 -> ok:3.5 -> ok:4.0.RC1 -> nok:4.0-->
 
         <jsf.version>2.1.7</jsf.version>
-        <!--ok:2.1.7 -> nok:2.2.0 -> nok:2.2.1 -> nok:2.2.2 -> nok:2.2.3-->
+        <!--ok:2.1.7 -> nok:2.2.0 -> nok:2.2.1 -> nok:2.2.2 -> nok:2.2.3 -> nok:2.2.4-->
 
         <springwebflow.faces.version>2.4.0.M1</springwebflow.faces.version>
         <!-- ok:2.3.1.RELEASE -> ok:2.4.0.M1-->
 
         <!-- PERSISTENZ -->
         <springdata.version>1.4.1.RELEASE</springdata.version>
-        <!-- ok:1.3.2.RELEASE -> ok:1.3.4.RELEASE -> ??:1.4.1.RELEASE-->
+        <!-- ok:1.3.2.RELEASE -> ok:1.3.4.RELEASE -> ok:1.4.1.RELEASE-->
 
         <hibernate.version>4.3.0.Beta4</hibernate.version>
-        <!-- ok:4.1.7.Final -> ok:4.2.0.CR1 -> ok:4.3.0.Beta3 ??:4.3.0.Beta4-->
+        <!-- ok:4.1.7.Final -> ok:4.2.0.CR1 -> ok:4.3.0.Beta3 ok:4.3.0.Beta4-->
 
         <hibernatejpa2api.version>1.0.1.Final</hibernatejpa2api.version>
 
@@ -62,25 +62,25 @@
 
         <!-- VALIDATION -->
         <hibernate-validator.version>5.1.0.Alpha1</hibernate-validator.version>
-        <!-- 5.0.0.Beta1 -> ok:5.0.1.Final -> ??:5.1.0.Alpha1-->
+        <!-- 5.0.0.Beta1 -> ok:5.0.1.Final -> ok:5.1.0.Alpha1-->
 
         <validation-api.version>1.1.0.Final</validation-api.version>
         <!-- ok:1.1.0.Alpha1 -> ok:1.1.0.Final -->
 
         <!-- WEITERE -->
         <slf4j.version>1.7.5</slf4j.version>
-        <!-- 1.7.2 -> 1.7.5-->
+        <!-- ok:1.7.2 -> ok:1.7.5-->
 
         <jodatime.version>2.3</jodatime.version>
         <!-- ok:2.1 -> ok:2.2 -> ??:2.3-->
 
-        <xstream.version>1.4.4</xstream.version>
+        <xstream.version>1.4.5</xstream.version>
 
         <poi.version>3.10-beta2</poi.version>
-        <!--ok:3.9 -> ??3.10-beta1 -> ??3.10-beta2-->
+        <!--ok:3.9 -> ok3.10-beta2-->
 
         <itext.version>4.2.1</itext.version>
-        <!--ok:4.2.0 -> ??:4.2.1-->
+        <!--ok:4.2.0 -> ok:4.2.1-->
 
         <htmlcleaner.version>2.6.1</htmlcleaner.version>
         <!--ok2.2.1 -> ok:2.5 -> ok:2.6 -> ok:2.6.1-->
