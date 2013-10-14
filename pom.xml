@@ -176,11 +176,9 @@
         <developerConnection>scm:git:https://github.com/marthaler/schuelerturnier.git</developerConnection>
         <connection>scm:git:https://github.com/marthaler/schuelerturnier.git</connection>
         <url>http://marthaler.github.io/schuelerturnier/</url>
-        <tag>1.2.5</tag>
     </scm>
 
     <dependencies>
-
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -240,7 +238,6 @@
     </dependencies>
 
     <dependencyManagement>
-
 
         <dependencies>
 
@@ -382,7 +379,6 @@
                 </exclusions>
             </dependency>
 
-
             <!-- Support for testing Spring applications with tools such as JUnit 
                 and TestNG This artifact is generally always defined with a 'test' scope 
                 for the integration testing framework and unit testing stubs -->
@@ -392,7 +388,6 @@
                 <version>${springframework.version}</version>
                 <scope>test</scope>
             </dependency>
-
 
             <dependency>
                 <groupId>junit</groupId>
@@ -434,13 +429,10 @@
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
 
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-
             </plugin>
-
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
