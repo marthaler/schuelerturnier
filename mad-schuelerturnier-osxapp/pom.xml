@@ -5,8 +5,9 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.googlecode.madschuelerturnier</groupId>
-    <version>1.2.7-SNAPSHOT</version>
+    <version>1.2.8-SNAPSHOT</version>
     <artifactId>mad-schuelerturnier-osxapp</artifactId>
+
     <dependencies>
         <dependency>
             <groupId>de.huxhorn.lilith</groupId>
@@ -16,8 +17,7 @@
         <dependency>
             <groupId>com.googlecode.madschuelerturnier</groupId>
             <artifactId>mad-schuelerturnier-web</artifactId>
-            <version>1.2.7-SNAPSHOT</version>
-
+            <version>1.2.8-SNAPSHOT</version>
             <classifier>exec-war</classifier>
             <exclusions>
                 <exclusion>
