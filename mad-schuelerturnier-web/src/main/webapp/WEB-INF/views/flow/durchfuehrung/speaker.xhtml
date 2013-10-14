@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:sec="http://www.springframework.org/security/tags"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="../../../layouts/100.xhtml">
+
+<ui:define name="heading">
+    <h:outputText value="Mannschaft bearbeiten"/>
+</ui:define>
+
+<ui:define name="caption">
+    <p>CAPTION</p>
+</ui:define>
+
+<ui:define name="main">
+<div id="main">
+<div class="page_margins">
+<div class="page">
+<div class="inset">
+
+<h:form id="form2">
+
+    <sec:authorize ifAnyGranted="ROLE_SPEAKER">
+        <!--
+           <p:commandButton value="refresh" id="refresh" action="refresh" icon="ui-icon-check" disabled="false"
+                            ajax="false">
+           </p:commandButton>
+           w: #{wait}
+            -->
+        <p:media value="#{speak}" width="200" height="20" player="quicktime" rendered="#{speak != null}">
+            <f:param name="autoPlay" value="true"/>
+        </p:media>
+    </sec:authorize>
+
+</h:form>
+<br/>
+<h:form id="formular">
+
+<p:fieldset legend="Spieldurchfuehrung">
+<p:messages/>
+<b>
+    <h:outputText id="uhr"
+                  value="Echte Zeit #{spielUhr.richtigeZeit} - Spiel Zeit: #{spielUhr.spielZeit} - Verspätung: #{business.spielzeitVerspaetung()}"/>
+</b>
+<p:poll interval="1" listener="#{spielUhr.getRichtigeZeit}" update="uhr"/>
+<br/>
+<h:panelGrid columns="1" id="inputelements">
+
+<script type="text/javascript">
+    setTimeout("document.getElementById('form_m:m_speaker').click();", #{wait});
+</script>
+<br/>
+
+<p:dataTable emptyMessage="leer" id="dataTablePen" var="penalty" value="#{penaltyAnstehend}"
+             rendered="#{!penaltyAnstehend.isEmpty()}">
+
+    <p:column headerText="Penalty">
+        <p:commandButton value="#{penalty.toString()}" disabled="true" action="notExisting">
+        </p:commandButton>
+    </p:column>
+
+</p:dataTable>
+
+<p:accordionPanel id="panel" multiple="true" activeIndex="#{speakerTabModel.open}">
+
+<p:tab title="Wartende Spiele">
+    <p:dataTable emptyMessage="leer" id="dataTable1" var="zeile"
+                 value="#{spielDurchfuehrung.list1Wartend}">
+
+        <p:column headerText="Start">
+            <h:outputText value="#{zeile.start}">
+                <f:convertDateTime type="date" pattern="HH:mm" timeZone="Europe/Zurich"/>
+            </h:outputText>
+        </p:column>
+        <p:column>
+            <f:facet name="header">Platz A
+            </f:facet>
+            <h:outputText value="#{zeile.a}"/>
+
+        </p:column>
+        <p:column>
+            <f:facet name="header">Platz B
+            </f:facet>
+            <h:outputText value="#{zeile.b}"/>
+
+        </p:column>
+        <p:column>
+            <f:facet name="header">Platz C
+            </f:facet>
+            <h:outputText value="#{zeile.c}"/>
+        </p:column>
+
+        <p:column>
+            <f:facet name="header">
+            </f:facet>
+            <p:commandButton action="no" icon="ui-icon-check"
+                             disabled="true">
+            </p:commandButton>
+        </p:column>
+    </p:dataTable>
+</p:tab>
+
+
+<p:tab title="Zum vorbereiten">
+
+
+    <p:dataTable emptyMessage="leer" id="dataTable2" var="zeile" value="#{spielDurchfuehrung.list2ZumVorbereiten}">
+
+        <p:column headerText="Start">
+            <h:outputText value="#{zeile.start}">
+                <f:convertDateTime type="date" pattern="HH:mm" timeZone="Europe/Zurich"/>
+            </h:outputText>
+        </p:column>
+        <p:column>
+            <f:facet name="header">Platz A
+            </f:facet>
+            <h:outputText value="#{zeile.a}"/>
+
+        </p:column>
+        <p:column>
+            <f:facet name="header">Platz B
+            </f:facet>
+            <h:outputText value="#{zeile.b}"/>
+
+        </p:column>
+        <p:column>
+            <f:facet name="header">Platz C
+            </f:facet>
+            <h:outputText value="#{zeile.c}"/>
+        </p:column>
+
+        <p:column>
+            <f:facet name="header">
+            </f:facet>
+
+            <p:commandButton id="b11" icon="ui-icon-check"
+                             disabled="#{sec:areNotGranted('ROLE_SPEAKER') or !spielDurchfuehrung.readyToVorbereiten}"
+                             action="vorbereitet">
+            </p:commandButton>
+
+
+        </p:column>
+
+
+    </p:dataTable>
+</p:tab>
+<p:tab title="Wartet auf Start">
+    <p:dataTable emptyMessage="leer" id="play_table" var="zeile"
+                 value="#{spielDurchfuehrung.list3Vorbereitet}">
+
+        <p:column headerText="Start">
+            <h:outputText value="#{zeile.start}">
+                <f:convertDateTime type="date" pattern="HH:mm" timeZone="Europe/Zurich"/>
+            </h:outputText>
+        </p:column>
+        <p:column>
+            <f:facet name="header">Platz A
+            </f:facet>
+            <h:outputText value="#{zeile.a}"/>
+
+        </p:column>
+        <p:column>
+            <f:facet name="header">Platz B
+            </f:facet>
+            <h:outputText value="#{zeile.b}"/>
+
+        </p:column>
+        <p:column>
+            <f:facet name="header">Platz C
+            </f:facet>
+            <h:outputText value="#{zeile.c}"/>
+        </p:column>
+
+        <p:column>
+
+            <h:outputText id="zeit3"
+                          value="#{spielDurchfuehrung.countdownToStart.zeit}"/>
+
+            <p:poll interval="1" update="zeit3"/>
+
+        </p:column>
+
+
+        <p:column>
+            <f:facet name="header">
+            </f:facet>
+            <p:commandButton id="play" icon="ui-icon-check"
+                             disabled="#{sec:areNotGranted('ROLE_SPEAKER') or !spielDurchfuehrung.readyToSpielen}"
+                             action="spielen" widgetVar="play" ajax="false">
+            </p:commandButton>
+
+        </p:column>
+
+    </p:dataTable>
+</p:tab>
+
+
+<p:tab title="Am Spielen">
+    <p:dataTable emptyMessage="leer" id="spielentabelle" var="zeile" value="#{spielDurchfuehrung.list4Spielend}">
+
+        <p:column headerText="Start">
+            <h:outputText value="#{zeile.start}">
+                <f:convertDateTime type="date" pattern="HH:mm" timeZone="Europe/Zurich"/>
+            </h:outputText>
+        </p:column>
+
+        <p:column>
+            <f:facet name="header">Platz A
+            </f:facet>
+            <h:outputText value="#{zeile.a}"/>
+        </p:column>
+
+        <p:column>
+            <f:facet name="header">Platz B
+            </f:facet>
+            <h:outputText value="#{zeile.b}"/>
+        </p:column>
+
+        <p:column>
+            <f:facet name="header">Platz C
+            </f:facet>
+            <h:outputText value="#{zeile.c}"/>
+        </p:column>
+
+        <p:column>
+            <h:outputText id="zeit2" value="#{spielDurchfuehrung.countdown.zeit}"/>
+            <p:poll interval="1" update="zeit2"/>
+        </p:column>
+
+        <p:column>
+            <f:facet name="header">
+            </f:facet>
+            <p:commandButton icon="ui-icon-check" ajax="false" action="beenden"
+                             disabled="#{sec:areNotGranted('ROLE_SPEAKER') or !spieleinstellungen.abbrechenZulassen}">
+            </p:commandButton>
+        </p:column>
+
+    </p:dataTable>
+
+</p:tab>
+
+<p:tab title="Beendet">
+    <p:dataTable emptyMessage="leer" id="dataTable5" var="zeile"
+                 value="#{spielDurchfuehrung.list5Beendet}">
+
+        <p:column headerText="Start">
+            <h:outputText value="#{zeile.start}">
+                <f:convertDateTime type="date" pattern="HH:mm" timeZone="Europe/Zurich"/>
+            </h:outputText>
+        </p:column>
+        <p:column>
+            <f:facet name="header">Platz A
+            </f:facet>
+            <h:outputText value="#{zeile.a}"/>
+
+        </p:column>
+        <p:column>
+            <f:facet name="header">Platz B
+            </f:facet>
+            <h:outputText value="#{zeile.b}"/>
+
+        </p:column>
+        <p:column>
+            <f:facet name="header">Platz C
+            </f:facet>
+            <h:outputText value="#{zeile.c}"/>
+        </p:column>
+
+    </p:dataTable>
+
+
+</p:tab>
+
+</p:accordionPanel>
+
+
+</h:panelGrid>
+</p:fieldset>
+<p:hotkey bind="enter"
+          handler="document.getElementById('formular:panel:dataTable2:0:b11').click();document.getElementById('formular:panel:play_table:0:play').click()"/>
+</h:form>
+
+
+</div>
+<br/>
+</div>
+</div>
+</div>
+</ui:define>
+
+</ui:composition>
