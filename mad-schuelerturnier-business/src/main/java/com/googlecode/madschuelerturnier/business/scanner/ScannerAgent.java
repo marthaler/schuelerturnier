@@ -92,7 +92,6 @@ public class ScannerAgent {
 
     public void scann() {
 
-
         if (this.geradeamGehen) {
             return;
         }
@@ -189,6 +188,7 @@ public class ScannerAgent {
             is = uc.getInputStream();
         } catch (Exception e) {
             LOG.debug("kameraverbindung nicht moeglich");
+            this.running = false;
         } finally {
             if (is != null) {
                 is.close();

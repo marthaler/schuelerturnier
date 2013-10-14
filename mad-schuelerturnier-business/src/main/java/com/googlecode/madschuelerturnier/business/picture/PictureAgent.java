@@ -114,6 +114,10 @@ public class PictureAgent {
             return;
         }
 
+        if(!new File("/Users/dama/Desktop").exists()){
+            return;
+        }
+
         Collection<File> files = FileUtils.listFiles(new File("/Users/dama/Desktop"), null, false);
         for (File f : files) {
             if (f.getName().contains("Bildschirmfoto")) {

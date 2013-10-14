@@ -40,7 +40,7 @@ public class StartAction {
             return new Event(this, "gt_matrix");
         }
 
-        return new Event(this, "dashboard");
+        return new Event(this, "flow");
 
     }
 

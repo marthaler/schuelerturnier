@@ -9,7 +9,7 @@
         <evaluate expression="startAction.start(currentUser)"/>
     </action-state>
 
-    <view-state id="dashboard"/>
+    <view-state id="flow"/>
 
     <view-state id="user"/>
 
@@ -241,7 +241,7 @@
 
         <transition on="initialisieren" to="initialisieren_view"/>
 
-        <transition on="dashboard" to="dashboard"/>
+        <transition on="flow" to="flow"/>
         <transition on="newmannschaft" to="newmannschaft"/>
         <transition on="user" to="user"/>
         <transition on="mannschaftsliste" to="mannschaftsliste"/>
