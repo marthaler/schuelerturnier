@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <style type="text/css">
+        table.c1 {
+            font-size: 16px
+        }
+    </style>
+</head>
+<body>
+<table class="c1" border="1">
+    <tr>
+        <td><strong>Start</strong></td>
+        <td><strong>Platz</strong></td>
+        <td colspan="2"><strong>Mannschaften</strong></td>
+        <td><strong>Tore</strong></td>
+    </tr>
+    #foreach( $spiel in $spiele )
+    <tr>
+        <td>$datetool.format("E HH:mm", $spiel.start)</td>
+        <td>$spiel.platz</td>
+        <td>$spiel.mannschaftA.name</td>
+        <td>$spiel.mannschaftB.name</td>
+        <td>$spiel.toreABestaetigt : $spiel.toreBBestaetigt</td>
+    </tr>
+    #end
+    <tr>
+        <td align="right" colspan="5">Seite: $page</td>
+    </tr>
+</table>
+</body>
+</html>

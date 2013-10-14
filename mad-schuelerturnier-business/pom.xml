@@ -1,0 +1,110 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.googlecode.madschuelerturnier</groupId>
+        <artifactId>mad-schuelerturnier-parent</artifactId>
+        <version>1.2.7-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>mad-schuelerturnier-business</artifactId>
+
+    <build>
+        <!---->
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <tasks>
+
+                                <tstamp>
+                                    <format property="current.time" pattern="dd.MM.yyyy HH:mm"/>
+                                </tstamp>
+
+                                <echo file="${project.build.outputDirectory}/version.properties" append="false">
+                                    version=${project.version}
+                                    timestamp=${current.time}
+                                </echo>
+
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>2.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.googlecode.madschuelerturnier</groupId>
+            <artifactId>mad-schuelerturnier-persistence</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.googlecode.madschuelerturnier</groupId>
+            <artifactId>mad-schuelerturnier-resultengine</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.googlecode.madschuelerturnier</groupId>
+            <artifactId>mad-schuelerturnier-dataloader</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- @PostConstruct -->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>jsr250-api</artifactId>
+        </dependency>
+
+        <!-- ftp test -->
+        <dependency>
+            <groupId>org.mockftpserver</groupId>
+            <artifactId>MockFtpServer</artifactId>
+            <version>${mockftp.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-net</groupId>
+            <artifactId>commons-net</artifactId>
+            <version>${commons-net.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.dropbox.core</groupId>
+            <artifactId>dropbox-core-sdk</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+
+    </dependencies>
+
+</project>
