@@ -9,3 +9,5 @@
 .metadata
 .DS*
 **/.DS*
+.DS_Store
+**/.DS_Store
