@@ -146,8 +146,8 @@
         <module>mad-schuelerturnier-web</module>
         <module>mad-schuelerturnier-resultengine</module>
         <module>mad-schuelerturnier-dataloader</module>
-        <!--<module>mad-schuelerturnier-osxapp</module> -->
-        <!--<module>mad-schuelerturnier-picturescanner</module> -->
+        <module>mad-schuelerturnier-osxapp</module>
+        <module>mad-schuelerturnier-picturescanner</module>
     </modules>
 
     <licenses>
