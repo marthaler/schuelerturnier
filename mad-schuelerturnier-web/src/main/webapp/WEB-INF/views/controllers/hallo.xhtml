@@ -24,7 +24,7 @@
 
                             <br/>
 
-                            <h:form>
+                            <h:form id="test" >
 
                                 <p:dataTable var="bean" value="#{beans}">
                                     <p:column headerText="Name">
@@ -37,9 +37,15 @@
                                 </p:dataTable>
 
 
-                            <h:outputText id="date" value="#{demoController.date}"/>
 
-                            <p:poll interval="1" listener="demoController.date" update="date" />
+
+                                <p:commandButton actionListener="halloc" ajax="false" id="iconOnly"
+                                                 icon="ui-icon-disk" title="Icon Only"/>
+
+
+                            <h:outputText id="patrick" value="#{demoController.date}"/>
+
+                            <p:poll interval="1" listener="#{demoController.date}" update="patrick" />
                             </h:form>
                         </p:fieldset>
                     </div>

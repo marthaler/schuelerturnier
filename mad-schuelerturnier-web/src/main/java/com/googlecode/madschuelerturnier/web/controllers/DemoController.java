@@ -32,5 +32,12 @@ public class DemoController  {
     }
 
 
+     public String getDate(){
+         return new Date().toString();
+     }
 
+
+    public void date(){
+        System.out.print("AAAAAAAAAAAAAAAAAA");
+    }
 }
