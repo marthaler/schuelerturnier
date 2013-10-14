@@ -24,13 +24,7 @@
 
                             <br/>
 
-
-
-                            <br/>
-
                             <h:form>
-
-                                <p:captcha label="Captcha"/>
 
                                 <p:dataTable var="bean" value="#{beans}">
                                     <p:column headerText="Name">
@@ -41,8 +35,12 @@
                                         <h:outputText value="#{bean.zahl}" />
                                     </p:column>
                                 </p:dataTable>
-                            </h:form>
 
+
+                            <h:outputText id="date" value="#{demoController.date}"/>
+
+                            <p:poll interval="1" listener="demoController.date" update="date" />
+                            </h:form>
                         </p:fieldset>
                     </div>
                     <br/>

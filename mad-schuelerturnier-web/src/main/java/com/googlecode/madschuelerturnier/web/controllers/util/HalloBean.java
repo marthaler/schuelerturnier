@@ -1,4 +1,4 @@
-package com.googlecode.madschuelerturnier.web.controllers;
+package com.googlecode.madschuelerturnier.web.controllers.util;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +11,6 @@ import java.lang.String;
  * @author marthaler.worb@gmail.com
  * @since 1.2.5
  */
-@Controller
 public class HalloBean  {
 
     private String name;
