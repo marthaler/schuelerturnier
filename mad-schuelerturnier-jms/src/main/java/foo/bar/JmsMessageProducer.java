@@ -16,7 +16,7 @@ import javax.jms.TextMessage;
 @Component
 public class JmsMessageProducer {
 
-    private static final Logger logger = LoggerFactory.getLogger(JmsMessageProducer.class);
+    private static final Logger LOG = Logger.getLogger(JmsMessageProducer.class);
 
     protected static final String MESSAGE_COUNT = "messageCount";
 
@@ -37,8 +37,8 @@ public class JmsMessageProducer {
                 public Message createMessage(Session session) throws JMSException {
                     TextMessage message = session.createTextMessage(text);
                     message.setIntProperty(MESSAGE_COUNT, index);
-                    
-                    logger.info("Sending message: " + text);
+
+                    LOG.info("Sending message: " + text);
                     
                     return message;
                 }
