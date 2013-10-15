@@ -1,12 +1,7 @@
-import marvin.gui.MarvinAttributesPanel;
-import marvin.image.MarvinImage;
-import marvin.image.MarvinImageMask;
-import marvin.io.MarvinImageIO;
-import marvin.plugin.MarvinAbstractImagePlugin;
-import marvin.util.MarvinAttributes;
 
-public class FindColorPattern extends MarvinAbstractImagePlugin {
-
+public class FindColorPattern{
+//public class FindColorPattern extends MarvinAbstractImagePlugin {
+     /**
     private int[] arrTargetPattern,
             arrTempPattern;
 
@@ -325,5 +320,5 @@ public class FindColorPattern extends MarvinAbstractImagePlugin {
 
         return 100 - (((double) l_diffPixels / (patternWidth * patternHeight)) * 100);
     }
-
+    **/
 }

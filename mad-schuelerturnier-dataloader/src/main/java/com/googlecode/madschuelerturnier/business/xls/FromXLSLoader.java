@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Generiert die Daten aus einem XLS
+ * Generiert die Daten aus einem XLS-Dump
  *
  * @author marthaler.worb@gmail.com
  * @since 1.2.5

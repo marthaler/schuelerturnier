@@ -1,14 +1,8 @@
-import marvin.image.MarvinImage;
-import marvin.plugin.MarvinImagePlugin;
-import marvin.util.MarvinAttributes;
-import marvin.util.MarvinPluginLoader;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class CornerUtil {
 
-
+      /**
     public static BufferedImage setCorners(BufferedImage image) {
 
         MarvinImagePlugin moravec = MarvinPluginLoader.loadImagePlugin("org.marvinproject.image.corner.moravec");
@@ -44,4 +38,5 @@ public class CornerUtil {
 
         return ret;
     }
+       **/
 }

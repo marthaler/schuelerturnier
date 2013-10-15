@@ -9,10 +9,10 @@ import com.googlecode.madschuelerturnier.model.Spiel;
 import java.util.List;
 
 /**
- * Dient dazu zuvor gespeicherte XLS Spiele zu laden
+ * Dient dazu zuvor gespeicherte XLS Dumps zu laden
  *
  * @author $Author: marthaler.worb@gmail.com $
- * @since 0.7
+ * @since 1.2.5
  */
 public interface DataLoader {
 

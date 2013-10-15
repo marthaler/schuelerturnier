@@ -1,18 +1,12 @@
-import marvin.gui.MarvinAttributesPanel;
-import marvin.image.MarvinImage;
-import marvin.image.MarvinImageMask;
-import marvin.io.MarvinImageIO;
-import marvin.plugin.MarvinAbstractImagePlugin;
-import marvin.plugin.MarvinImagePlugin;
-import marvin.util.MarvinAttributes;
-import marvin.util.MarvinPluginLoader;
+
 //import org.marvinproject.image.convolution.Convolution;
 
 /**
  * @author Gabriel Ambr�sio Archanjo
  */
-public class Sobel extends MarvinAbstractImagePlugin {
-
+public class Sobel  {
+//public class Sobel extends MarvinAbstractImagePlugin {
+       /**
 
     public static void main(String[] args) {
 
@@ -67,4 +61,5 @@ public class Sobel extends MarvinAbstractImagePlugin {
         MarvinImageIO.saveImage(imageOut, "/res/m3.png");
 
     }
+        **/
 }

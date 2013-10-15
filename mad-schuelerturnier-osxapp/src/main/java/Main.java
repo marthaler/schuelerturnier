@@ -11,15 +11,11 @@
 public class Main {
 
     public static void main(String[] args) {
-
         // tomcat starten
         try {
             org.apache.tomcat.maven.runner.Tomcat7RunnerCli.main(null);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
-
 }

@@ -5,6 +5,8 @@ package com.googlecode.madschuelerturnier.web;
 
 import com.googlecode.madschuelerturnier.business.Business;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -22,8 +24,16 @@ public class StartAction {
     @Autowired
     private Business business;
 
-    public Event start(UsernamePasswordAuthenticationToken user) {   // NOSONAR
 
+    public Event start(RememberMeAuthenticationToken rememberMeAuthenticationToken){
+        return getEvent(rememberMeAuthenticationToken);
+    }
+
+    public Event start(UsernamePasswordAuthenticationToken user) {   // NOSONAR
+        return getEvent(user);
+    }
+
+    private Event getEvent(AbstractAuthenticationToken user) {
         Collection<GrantedAuthority> authorities = user.getAuthorities();
 
         if (!business.isDBInitialized()) {
@@ -41,7 +51,6 @@ public class StartAction {
         }
 
         return new Event(this, "flow");
-
     }
 
 

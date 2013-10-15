@@ -14,7 +14,7 @@
     </context-param>
 
     <context-param>
-        <param-name>facelets.SKIP_COMMENTS</param-name>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
         <param-value>true</param-value>
     </context-param>
 
@@ -56,7 +56,6 @@
     </filter-mapping>
 
     <!-- JSF 2 IMPLEMENTATION -->
-
     <!-- Use JSF view templates saved as *.xhtml, for use with Facelets -->
     <context-param>
         <param-name>javax.faces.DEFAULT_SUFFIX</param-name>

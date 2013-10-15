@@ -57,6 +57,27 @@
             <artifactId>spring-security-config</artifactId>
             <version>${springsecurity.version}</version>
         </dependency>
+        <!--
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-ldap</artifactId>
+            <version>${springsecurity.version}</version>
+        </dependency>
+        -->
+        <!-- Is the ApacheDS server; as noted above, 1.5.6 and 1.5.7 don't work
+        <dependency>
+            <groupId>org.apache.directory.server</groupId>
+            <artifactId>apacheds-server-jndi</artifactId>
+            <version>1.5.5</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.directory.server</groupId>
+            <artifactId>apacheds-core</artifactId>
+            <version>1.5.5</version>
+        </dependency>
+        -->
 
         <!-- JSF-303 Dependency Injection -->
         <dependency>
