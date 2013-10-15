@@ -149,6 +149,7 @@
         <module>mad-schuelerturnier-osxapp</module>
         <module>mad-schuelerturnier-picturescanner</module>
         <module>mad-schuelerturnier-remoteclient</module>
+        <module>mad-schuelerturnier-jms</module>
     </modules>
 
     <licenses>

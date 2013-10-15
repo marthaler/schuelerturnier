@@ -19,19 +19,13 @@
 
        <task:scheduler id="myScheduler" pool-size="10"/>
 
-       <!-- spring rermoting mit hessian-->
-       <bean name="businessService" class="org.springframework.remoting.caucho.HessianServiceExporter">
-           <property name="service" ref="business"/>
-           <property name="serviceInterface" value="com.googlecode.madschuelerturnier.business.Business"/>
+       <!-- jmx -->
+       <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
+           <property name="beans">
+               <map>
+                   <entry key="bean:name=business" value-ref="business"/>
+               </map>
+           </property>
         </bean>
-
-        <!-- jmx -->
-        <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
-            <property name="beans">
-                <map>
-                  <entry key="bean:name=business" value-ref="business"/>
-                </map>
-        </property>
-    </bean>
 
 </beans>

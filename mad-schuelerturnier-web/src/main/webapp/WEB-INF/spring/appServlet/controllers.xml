@@ -28,4 +28,10 @@
           </property>
         </bean>
 
+       <!-- spring rermoting mit hessian-->
+       <bean name="businessService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+           <property name="service" ref="business"/>
+           <property name="serviceInterface" value="com.googlecode.madschuelerturnier.business.Business"/>
+       </bean>
+
 </beans>
