@@ -9,7 +9,7 @@
         <version>1.2.8-SNAPSHOT</version>
     </parent>
 
-    <artifactId>mad-schuelerturnier-jms</artifactId>
+    <artifactId>mad-schuelerturnier-jmsserver</artifactId>
 
     <dependencies>
 
@@ -25,20 +25,28 @@
             <version>3.2.4.RELEASE</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.xbean</groupId>
+            <artifactId>xbean-spring</artifactId>
+            <version>3.14</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jms</artifactId>
+            <version>2.12.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.googlecode.madschuelerturnier</groupId>
+            <artifactId>mad-schuelerturnier-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
     </dependencies>
 
 
-    <repositories>
-        <repository>
-            <id>example</id>
-            <url>http://www.springbyexample.org/maven/repo</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-
-    </repositories>
 
     <build>
         <finalName>SpringApp</finalName>

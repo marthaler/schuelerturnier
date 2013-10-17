@@ -1,5 +1,6 @@
 package foo.bar;
 
+import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
 import org.apache.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,7 @@ import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.Session;
-import javax.jms.TextMessage;
+import javax.jms.*;
 
 @Component
 public class JmsMessageProducer {
@@ -22,8 +20,8 @@ public class JmsMessageProducer {
 
     @Autowired
     private JmsTemplate template = null;
-    private int messageCount = 100;
-
+    private int messageCount = 9999;
+     private static int temp = 0;
     /**
      * Generates JMS messages
      */
@@ -31,13 +29,23 @@ public class JmsMessageProducer {
     public void generateMessages() throws JMSException {
         for (int i = 0; i < messageCount; i++) {
             final int index = i;
+            temp = i;
             final String text = "Message number is " + i + ".";
-
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             template.send(new MessageCreator() {
                 public Message createMessage(Session session) throws JMSException {
-                    TextMessage message = session.createTextMessage(text);
-                    message.setIntProperty(MESSAGE_COUNT, index);
 
+                    SpielEinstellungen einst = new SpielEinstellungen();
+                    einst.setTest("ich bin test: " + temp);
+
+                    ObjectMessage message = session.createObjectMessage();
+                    message.setObject(einst);
+                    message.setIntProperty(MESSAGE_COUNT, index);
+                    System.out.println("Sending message: " + temp);
                     LOG.info("Sending message: " + text);
                     
                     return message;
