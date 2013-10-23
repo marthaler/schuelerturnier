@@ -1,4 +1,4 @@
-package foo.bar;
+package com.googlecode.madschuelerturnier.business.integration.jms;
 
 import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +14,6 @@ public class JmsMessageListener implements MessageListener {
 
     private static final Logger LOG = Logger.getLogger(JmsMessageListener.class);
 
-    @Autowired
-    private AtomicInteger counter = null;
-
     /**
      * Implementation of <code>MessageListener</code>.
      */
@@ -26,12 +23,7 @@ public class JmsMessageListener implements MessageListener {
             
             if (message instanceof ObjectMessage) {
                 ObjectMessage tm = (ObjectMessage)message;
-                SpielEinstellungen msg = (SpielEinstellungen) tm.getObject();
-
-                  System.out.println("bla...: " + msg.getTest());
-               // LOG.info("Processed message '{}'.  value={}", msg, messageCount);
-                
-                counter.incrementAndGet();
+                 LOG.info("message count: " + tm.getIntProperty("count")+ " " + tm.getStringProperty("typ")+ " " + tm.getObject());
             }
         } catch (JMSException e) {
             LOG.error(e.getMessage(), e);

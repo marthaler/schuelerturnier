@@ -8,16 +8,16 @@
                            http://www.springframework.org/schema/context   http://www.springframework.org/schema/context/spring-context.xsd
                            http://activemq.apache.org/schema/core          http://activemq.apache.org/schema/core/activemq-core.xsd">
 
-    <context:component-scan base-package="foo.*" />
+    <context:component-scan base-package="com.googlecode.madschuelerturnier.business.integration.*" />
 
     <!--  Embedded ActiveMQ Broker -->
-    <amq:broker id="broker" useJmx="false" persistent="true">
+    <amq:broker id="broker" useJmx="false" persistent="false">
         <amq:transportConnectors>
             <amq:transportConnector uri="tcp://localhost:6666" />
         </amq:transportConnectors>
     </amq:broker>
 
-    <!--  ActiveMQ Destination   // QUEUE-->
+    <!--  ActiveMQ Destination-->
     <bean id="destination" class="org.apache.activemq.command.ActiveMQTopic">
         <constructor-arg value="schuelerturnier" />
     </bean>

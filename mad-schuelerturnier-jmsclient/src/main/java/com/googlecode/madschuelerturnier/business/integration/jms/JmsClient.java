@@ -1,11 +1,11 @@
-package foo.bar;
+package com.googlecode.madschuelerturnier.business.integration.jms;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class JmsClient {
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring-jmsclient.context.xml");
 
         System.out.println("...");
 
