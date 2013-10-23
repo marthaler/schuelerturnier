@@ -17,7 +17,7 @@
     <context:component-scan base-package="com.googlecode.madschuelerturnier.business.integration.jms.**" />
 
     <!-- JMS ConnectionFactory to use, configuring the embedded broker using XML -->
-    <amq:connectionFactory id="jmsFactory" brokerURL="tcp://localhost:6666" />
+    <amq:connectionFactory id="jmsFactory" brokerURL="tcp://${bus:localhost}:6666" />
 
     <!-- JMS Consumer Configuration -->
     <bean id="jmsConsumerConnectionFactory"

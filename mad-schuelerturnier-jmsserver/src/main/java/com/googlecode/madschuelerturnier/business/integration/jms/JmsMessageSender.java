@@ -20,13 +20,14 @@ public class JmsMessageSender {
     @Autowired
     private JmsTemplate template = null;
 
-    public void sendMessage(final Serializable obj) {
+    public void sendMessage(final String id, final Serializable obj) {
 
             template.send(new MessageCreator() {
                 public Message createMessage(Session session) throws JMSException {
                     messageCount = messageCount +1;
                     ObjectMessage message = session.createObjectMessage();
                     message.setStringProperty("typ", obj.getClass().toString());
+                    message.setStringProperty("id", id);
                     message.setObject(obj);
                     message.setIntProperty("count",messageCount);
                     LOG.debug("Sending message: " + obj.getClass().toString() + " " + obj);

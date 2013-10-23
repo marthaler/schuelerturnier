@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 
 /**
  * Dient als Bridge zum versenden von Zeitpulsen über JMS
- *
+ *  TODO loeschen
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
@@ -30,7 +30,7 @@ public class UhrJmsBridge implements ApplicationListener<ZeitPuls> {
 
     public void onApplicationEvent(final ZeitPuls event) {
         if(on){
-         sender.sendMessage(event);
+         //sender.sendMessage("",event);
         }
     }
 
