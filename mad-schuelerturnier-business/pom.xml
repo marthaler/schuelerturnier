@@ -66,17 +66,7 @@
             <version>${project.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.googlecode.madschuelerturnier</groupId>
-            <artifactId>mad-schuelerturnier-jmsserver</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
-        <dependency>
-            <groupId>com.googlecode.madschuelerturnier</groupId>
-            <artifactId>mad-schuelerturnier-jmsclient</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>commons-httpclient</groupId>

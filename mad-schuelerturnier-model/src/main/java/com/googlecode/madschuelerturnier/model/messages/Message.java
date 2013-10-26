@@ -15,7 +15,6 @@ import java.io.Serializable;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
-@Entity
 public class Message implements Serializable {
 
     private static final long serialVersionUID = 1L;

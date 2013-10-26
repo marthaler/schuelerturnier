@@ -3,8 +3,8 @@
  */
 package com.googlecode.madschuelerturnier.business.bus;
 
-import com.googlecode.madschuelerturnier.business.integration.jms.JmsMessageListener;
-import com.googlecode.madschuelerturnier.business.integration.jms.JmsMessageSender;
+//import com.googlecode.madschuelerturnier.business.integration.jms.JmsMessageListener;
+//import com.googlecode.madschuelerturnier.business.integration.jms.JmsMessageSender;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -27,11 +27,11 @@ import java.util.UUID;
 @Controller
 public class BusController implements ApplicationEventPublisherAware {
 
-    @Autowired
-    private JmsMessageSender sender;
+   // @Autowired
+   // private JmsMessageSender sender;
 
-    @Autowired
-    private JmsMessageListener listener;
+   // @Autowired
+   // private JmsMessageListener listener;
 
     private ApplicationEventPublisher publisher;
 
@@ -44,7 +44,7 @@ public class BusController implements ApplicationEventPublisherAware {
 
     public void sendMessage(Serializable obj){
         String id = UUID.randomUUID().toString();
-        sender.sendMessage(id,obj);
+      //  sender.sendMessage(id,obj);
         map.put(id,obj);
     }
 
