@@ -1,17 +1,10 @@
 package com.googlecode.madschuelerturnier.web.controllers.util;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.lang.Override;
-import java.lang.String;
-
 /**
  * @author marthaler.worb@gmail.com
  * @since 1.2.5
  */
-public class HalloBean  {
+public class HalloBean {
 
     private String name;
 

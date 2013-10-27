@@ -4,62 +4,62 @@
 /**
  * @author Gabriel Ambr�sio Archanjo
  */
-public class Sobel  {
+public class Sobel {
 //public class Sobel extends MarvinAbstractImagePlugin {
-       /**
+    /**
 
-    public static void main(String[] args) {
+     public static void main(String[] args) {
 
-        Sobel s = new Sobel();
-        s.load();
-        MarvinImage imageIn = MarvinImageIO.loadImage("/res/m.png");
-        MarvinImage imageOut = MarvinImageIO.loadImage("/res/m1.png");
-        s.process(imageIn, imageOut);
-
-
-    }
+     Sobel s = new Sobel();
+     s.load();
+     MarvinImage imageIn = MarvinImageIO.loadImage("/res/m.png");
+     MarvinImage imageOut = MarvinImageIO.loadImage("/res/m1.png");
+     s.process(imageIn, imageOut);
 
 
-    // Definitions
-    double[][] matrixSobelX = new double[][]{
-            {1, 0},
-            {0, -1}
-    };
+     }
 
-    double[][] matrixSobelY = new double[][]{
-            {0, 1},
-            {-1, 0}
-    };
 
-    private MarvinImagePlugin convolution;
+     // Definitions
+     double[][] matrixSobelX = new double[][]{
+     {1, 0},
+     {0, -1}
+     };
 
-    public void load() {
-        convolution = MarvinPluginLoader.loadImagePlugin("org.marvinproject.image.convolution.jar");
-        //convolution = new Convolution();
-        convolution.load();
-    }
+     double[][] matrixSobelY = new double[][]{
+     {0, 1},
+     {-1, 0}
+     };
 
-    public MarvinAttributesPanel getAttributesPanel() {
-        return null;
-    }
+     private MarvinImagePlugin convolution;
 
-    public void process
-            (
-                    MarvinImage imageIn,
-                    MarvinImage imageOut,
-                    MarvinAttributes attrOut,
-                    MarvinImageMask mask,
-                    boolean previewMode
-            ) {
-        convolution.setAttribute("matrix", matrixSobelX);
+     public void load() {
+     convolution = MarvinPluginLoader.loadImagePlugin("org.marvinproject.image.convolution.jar");
+     //convolution = new Convolution();
+     convolution.load();
+     }
 
-        convolution.process(imageIn, imageOut, null, mask, previewMode);
+     public MarvinAttributesPanel getAttributesPanel() {
+     return null;
+     }
 
-        convolution.setAttribute("matrix", matrixSobelY);
-        convolution.process(imageIn, imageOut, null, mask, previewMode);
+     public void process
+     (
+     MarvinImage imageIn,
+     MarvinImage imageOut,
+     MarvinAttributes attrOut,
+     MarvinImageMask mask,
+     boolean previewMode
+     ) {
+     convolution.setAttribute("matrix", matrixSobelX);
 
-        MarvinImageIO.saveImage(imageOut, "/res/m3.png");
+     convolution.process(imageIn, imageOut, null, mask, previewMode);
 
-    }
-        **/
+     convolution.setAttribute("matrix", matrixSobelY);
+     convolution.process(imageIn, imageOut, null, mask, previewMode);
+
+     MarvinImageIO.saveImage(imageOut, "/res/m3.png");
+
+     }
+     **/
 }

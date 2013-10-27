@@ -9,21 +9,20 @@ import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Assume;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.Before;
 import org.mockito.Mockito;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.mockito.Mockito.*;
-
 import javax.transaction.Transactional;
 
-import org.primefaces.model.UploadedFile;
+import static org.mockito.Mockito.when;
 
 /**
  * TestSpielKontrollerTest

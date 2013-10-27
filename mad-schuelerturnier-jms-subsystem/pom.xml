@@ -9,7 +9,7 @@
         <version>1.2.8-SNAPSHOT</version>
     </parent>
 
-    <artifactId>mad-schuelerturnier-jmsserver</artifactId>
+    <artifactId>mad-schuelerturnier-jms-subsystem</artifactId>
 
     <dependencies>
 
@@ -44,8 +44,27 @@
             <version>${project.version}</version>
         </dependency>
 
-    </dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.2</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>1.7.2</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.2</version>
+            <scope>runtime</scope>
+        </dependency>
+
+    </dependencies>
 
 
     <build>

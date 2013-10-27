@@ -8,31 +8,31 @@
        http://www.springframework.org/schema/beans             http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 	   http://www.springframework.org/schema/faces             http://www.springframework.org/schema/faces/spring-faces-2.0.xsd">
 
-       <!-- Executes flows: the central entry point into the Spring Web Flow system -->
-       <flow:flow-executor id="flowExecutor">
-           <flow:flow-execution-listeners>
-               <flow:listener ref="facesContextListener"/>
-               <flow:listener ref="securityListener"/>
-           </flow:flow-execution-listeners>
-       </flow:flow-executor>
+    <!-- Executes flows: the central entry point into the Spring Web Flow system -->
+    <flow:flow-executor id="flowExecutor">
+        <flow:flow-execution-listeners>
+            <flow:listener ref="facesContextListener"/>
+            <flow:listener ref="securityListener"/>
+        </flow:flow-execution-listeners>
+    </flow:flow-executor>
 
-       <!-- The registry of executable flow definitions -->
-       <flow:flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices" base-path="/WEB-INF/views">
-           <flow:flow-location-pattern value="/**/flow.xml"/>
-       </flow:flow-registry>
+    <!-- The registry of executable flow definitions -->
+    <flow:flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices" base-path="/WEB-INF/views">
+        <flow:flow-location-pattern value="/**/flow.xml"/>
+    </flow:flow-registry>
 
-       <!-- Maps request paths to flows in the flowRegistry; e.g. a path of /hotels/booking looks for a flow with id "hotels/booking" -->
-       <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
-           <property name="flowRegistry" ref="flowRegistry"/>
-       </bean>
+    <!-- Maps request paths to flows in the flowRegistry; e.g. a path of /hotels/booking looks for a flow with id "hotels/booking" -->
+    <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+        <property name="flowRegistry" ref="flowRegistry"/>
+    </bean>
 
-       <!-- Configures the Spring Web Flow JSF integration -->
-       <faces:flow-builder-services id="flowBuilderServices" development="true"/>
+    <!-- Configures the Spring Web Flow JSF integration -->
+    <faces:flow-builder-services id="flowBuilderServices" development="true"/>
 
-       <!-- A listener to create and release a FacesContext -->
-       <bean id="facesContextListener" class="org.springframework.faces.webflow.FlowFacesContextLifecycleListener"/>
+    <!-- A listener to create and release a FacesContext -->
+    <bean id="facesContextListener" class="org.springframework.faces.webflow.FlowFacesContextLifecycleListener"/>
 
-       <!-- A listener to apply Spring Security authorities -->
-       <bean id="securityListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener"/>
+    <!-- A listener to apply Spring Security authorities -->
+    <bean id="securityListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener"/>
 
 </beans>

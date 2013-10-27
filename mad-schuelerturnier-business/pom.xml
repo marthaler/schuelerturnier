@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.googlecode.madschuelerturnier</groupId>
@@ -9,7 +10,7 @@
     <artifactId>mad-schuelerturnier-business</artifactId>
 
     <build>
-        
+
         <plugins>
 
             <plugin>
@@ -22,7 +23,7 @@
                             <tasks>
 
                                 <tstamp>
-                                    <format property="current.time" pattern="dd.MM.yyyy HH:mm" />
+                                    <format property="current.time" pattern="dd.MM.yyyy HH:mm"/>
                                 </tstamp>
 
                                 <echo file="${project.build.outputDirectory}/version.properties" append="false">
@@ -65,7 +66,6 @@
             <artifactId>mad-schuelerturnier-resultengine</artifactId>
             <version>${project.version}</version>
         </dependency>
-
 
 
         <dependency>

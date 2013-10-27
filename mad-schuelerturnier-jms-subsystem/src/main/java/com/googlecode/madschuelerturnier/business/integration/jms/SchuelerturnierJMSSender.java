@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.business.integration.jms;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -6,11 +9,17 @@ import org.apache.log4j.Logger;
 import javax.jms.*;
 import java.io.Serializable;
 
+/**
+ * Ist eine ausgehende JMS Verbindung
+ *
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 1.2.8
+ */
 public class SchuelerturnierJMSSender {
 
     private static final Logger LOG = Logger.getLogger(SchuelerturnierJMSSender.class);
 
-    private String url = "localhost";
+    private String connString = "";
 
     private Session session;
 
@@ -22,26 +31,27 @@ public class SchuelerturnierJMSSender {
 
     private int messageCount = 0;
 
-    public SchuelerturnierJMSSender(String url) {
-       this.url = url;
-       createConnection();
+    public SchuelerturnierJMSSender(String connection) {
+
+        connString = connection;
+        createConnection();
     }
 
-    public SchuelerturnierJMSSender(){
-       createConnection();
+    public void sendMessage(String id, Serializable object) {
+        sendMessage(id, object, object.getClass().toString());
     }
 
-    public void sendMessage(String id, Serializable object){
+    private void sendMessage(String id, Serializable object, String typ) {
         try {
             ObjectMessage message = session.createObjectMessage();
             message.setObject(object);
-            message.setStringProperty("id",id);
-            message.setStringProperty("typ", object.getClass().toString());
-            messageCount = messageCount +1;
-            message.setIntProperty("count",messageCount);
+            message.setStringProperty("id", id);
+            message.setStringProperty("typ", typ);
+            messageCount = messageCount + 1;
+            message.setIntProperty("count", messageCount);
             producer.send(message);
         } catch (JMSException e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
             online = false;
         }
     }
@@ -49,7 +59,7 @@ public class SchuelerturnierJMSSender {
     private void createConnection() {
         try {
             // Create a ConnectionFactory
-            ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://" + url);
+            ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(connString);
 
             // Create a Connection
             Connection connection = connectionFactory.createConnection();
@@ -69,20 +79,21 @@ public class SchuelerturnierJMSSender {
             this.producer = producer;
             online = true;
 
-        }
-        catch (Exception e) {
-            LOG.error(e.getMessage(),e);
+            this.sendMessage("00", connString, "schuelerturnier-anmeldung");
+
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
             online = false;
         }
     }
 
-    public void teardown(){
-        try{
+    public void teardown() {
+        try {
             session.close();
             connection.close();
-        }catch (Exception e) {
-                LOG.error(e.getMessage(),e);
-            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
 
 }

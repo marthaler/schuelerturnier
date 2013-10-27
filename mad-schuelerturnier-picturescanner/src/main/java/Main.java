@@ -12,11 +12,11 @@ public class Main {
 
 
         BufferedImage image = ImageIO.read(new File("/res/555.png"));
-     //   image = CornerUtil.setCorners(image);
+        //   image = CornerUtil.setCorners(image);
         ImageIO.write(image, "png", new File("/res/666.png"));
 
         image = ImageUtils.rotateImage(image, 10);
-      //  image = CornerUtil.setCorners(image);
+        //  image = CornerUtil.setCorners(image);
         ImageIO.write(image, "png", new File("/res/b1.png"));
 
         image = ImageUtils.rotateImage(image, 10);

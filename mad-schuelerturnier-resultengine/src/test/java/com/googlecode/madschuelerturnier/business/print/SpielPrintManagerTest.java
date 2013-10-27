@@ -1,16 +1,9 @@
 package com.googlecode.madschuelerturnier.business.print;
 
-import com.googlecode.madschuelerturnier.business.controller.leiter.converter.XHTMLOutputUtil;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
-
-
 import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
-import org.apache.commons.io.FileUtils;
 import org.junit.Before;
-
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -18,13 +11,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.mockito.Matchers.*;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 

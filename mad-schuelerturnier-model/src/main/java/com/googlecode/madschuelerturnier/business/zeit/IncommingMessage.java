@@ -3,7 +3,6 @@
  */
 package com.googlecode.madschuelerturnier.business.zeit;
 
-import org.joda.time.DateTime;
 import org.springframework.context.ApplicationEvent;
 
 import java.io.Serializable;

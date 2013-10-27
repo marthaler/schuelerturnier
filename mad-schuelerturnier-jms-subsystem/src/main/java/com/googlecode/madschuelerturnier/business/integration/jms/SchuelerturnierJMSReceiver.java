@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.business.integration.jms;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -5,11 +8,18 @@ import org.apache.log4j.Logger;
 
 import javax.jms.*;
 
+/**
+ * Ist eine eingehende JMS Verbindung
+ *
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 1.2.8
+ */
 public class SchuelerturnierJMSReceiver {
 
     private static final Logger LOG = Logger.getLogger(SchuelerturnierJMSReceiver.class);
 
-    private String url = "localhost";
+    private String connString = "";
+
 
     private Session session;
 
@@ -21,20 +31,21 @@ public class SchuelerturnierJMSReceiver {
 
     private int messageCount = 0;
 
-    public SchuelerturnierJMSReceiver(String url){
-       this.url = url;
-       createConnection();
+
+    public SchuelerturnierJMSReceiver(String connection) {
+        connString = connection;
+        createConnection();
     }
 
-    public SchuelerturnierJMSReceiver(){
-       createConnection();
-    }
 
-    public ObjectMessage receiveMessage(){
+    public ObjectMessage receiveMessage() {
         try {
-            return (ObjectMessage) consumer.receiveNoWait();
+            Object obj = consumer.receiveNoWait();
+            if (obj != null) {
+                return (ObjectMessage) obj;
+            }
         } catch (JMSException e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
         return null;
     }
@@ -42,7 +53,7 @@ public class SchuelerturnierJMSReceiver {
     private void createConnection() {
         try {
             // Create a ConnectionFactory
-            ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://" + url);
+            ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(connString);
 
             // Create a Connection
             Connection connection = connectionFactory.createConnection();
@@ -61,21 +72,19 @@ public class SchuelerturnierJMSReceiver {
 
             online = true;
 
-        }
-        catch (Exception e) {
-            LOG.error(e.getMessage(),e);
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
             online = false;
         }
     }
 
-    public void teardown(){
-        try{
+    public void teardown() {
+        try {
             session.close();
             connection.close();
-        }catch (Exception e) {
-                LOG.error(e.getMessage(),e);
-            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
-
 
 }

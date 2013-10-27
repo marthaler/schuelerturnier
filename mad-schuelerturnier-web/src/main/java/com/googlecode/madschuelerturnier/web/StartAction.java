@@ -25,7 +25,7 @@ public class StartAction {
     private Business business;
 
 
-    public Event start(RememberMeAuthenticationToken rememberMeAuthenticationToken){
+    public Event start(RememberMeAuthenticationToken rememberMeAuthenticationToken) {
         return getEvent(rememberMeAuthenticationToken);
     }
 

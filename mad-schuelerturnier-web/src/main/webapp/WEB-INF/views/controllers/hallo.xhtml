@@ -3,7 +3,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                template="../../layouts/100.xhtml"  >
+                template="../../layouts/100.xhtml">
 
     <ui:define name="main">
         <div id="main">
@@ -15,7 +15,8 @@
 
                         <p:fieldset legend="Eine einfache Ausgabe über ein org.springframework.ui.Model ">
 
-                            <h:outputText value="Falls vorher der Controller aufgerufen wurde, so erscheint hier die Nachricht: (mit: app/halloc)"/>
+                            <h:outputText
+                                    value="Falls vorher der Controller aufgerufen wurde, so erscheint hier die Nachricht: (mit: app/halloc)"/>
                             <br/>
                             <h:outputText value="#{msg}"/>
 
@@ -24,28 +25,26 @@
 
                             <br/>
 
-                            <h:form id="test" >
+                            <h:form id="test">
 
                                 <p:dataTable var="bean" value="#{beans}">
                                     <p:column headerText="Name">
-                                        <h:outputText value="#{bean.name}" />
+                                        <h:outputText value="#{bean.name}"/>
                                     </p:column>
 
                                     <p:column headerText="Zahl">
-                                        <h:outputText value="#{bean.zahl}" />
+                                        <h:outputText value="#{bean.zahl}"/>
                                     </p:column>
                                 </p:dataTable>
-
-
 
 
                                 <p:commandButton actionListener="halloc" ajax="false" id="iconOnly"
                                                  icon="ui-icon-disk" title="Icon Only"/>
 
 
-                            <h:outputText id="patrick" value="#{demoController.date}"/>
+                                <h:outputText id="patrick" value="#{demoController.date}"/>
 
-                            <p:poll interval="1" listener="#{demoController.date}" update="patrick" />
+                                <p:poll interval="1" listener="#{demoController.date}" update="patrick"/>
                             </h:form>
                         </p:fieldset>
                     </div>

@@ -8,7 +8,10 @@ import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HT
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLSpielMatrixConverter;
 import com.googlecode.madschuelerturnier.business.out.OutToWebsitePublisher;
 import com.googlecode.madschuelerturnier.business.print.SpielPrintManager;
-import com.googlecode.madschuelerturnier.model.*;
+import com.googlecode.madschuelerturnier.model.Kategorie;
+import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.Penalty;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.comperators.MannschaftsNamenComperator;
 import com.googlecode.madschuelerturnier.model.compusw.RanglisteneintragHistorie;
 import com.googlecode.madschuelerturnier.model.compusw.RanglisteneintragZeile;

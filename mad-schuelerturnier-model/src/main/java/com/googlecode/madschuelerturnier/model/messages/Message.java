@@ -3,12 +3,8 @@
  */
 package com.googlecode.madschuelerturnier.model.messages;
 
-import com.googlecode.madschuelerturnier.model.Persistent;
 import com.googlecode.madschuelerturnier.model.enums.MessageTyp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Lob;
 import java.io.Serializable;
 
 /**
