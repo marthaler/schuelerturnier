@@ -20,6 +20,7 @@ public class SchuelerturnierJMSSender {
     private static final Logger LOG = Logger.getLogger(SchuelerturnierJMSSender.class);
 
     private String connString = "";
+    private String ownConnection = "";
 
     private Session session;
 
@@ -31,8 +32,8 @@ public class SchuelerturnierJMSSender {
 
     private int messageCount = 0;
 
-    public SchuelerturnierJMSSender(String connection) {
-
+    public SchuelerturnierJMSSender(String connection,String ownConnection) {
+        this.ownConnection = ownConnection;
         connString = connection;
         createConnection();
     }
@@ -79,7 +80,7 @@ public class SchuelerturnierJMSSender {
             this.producer = producer;
             online = true;
 
-            this.sendMessage("00", connString, "schuelerturnier-anmeldung");
+            this.sendMessage("00", ownConnection, "schuelerturnier-anmeldung");
 
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);

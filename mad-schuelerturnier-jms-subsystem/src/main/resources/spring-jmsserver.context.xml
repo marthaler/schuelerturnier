@@ -5,8 +5,8 @@
 
 
     <bean class="com.googlecode.madschuelerturnier.business.integration.jms.SchuelerturnierJMSController">
-        <constructor-arg index="0" value="tcp://${jms.local:default}:6666"/>
-        <constructor-arg index="1" value="tcp://${jms.remote:default}:6666"/>
+        <constructor-arg index="0" value="tcp://${jms.local.url:default}:${jms.local.port:6666}"/>
+        <constructor-arg index="1" value="tcp://${jms.remote.url:default}:${jms.remote.port:6666}"/>
 
     </bean>
 

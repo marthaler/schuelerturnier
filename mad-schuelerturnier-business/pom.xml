@@ -80,6 +80,12 @@
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.googlecode.madschuelerturnier</groupId>
+            <artifactId>mad-schuelerturnier-jms-subsystem</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!-- @PostConstruct -->
         <dependency>
             <groupId>javax.annotation</groupId>

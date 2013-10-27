@@ -29,6 +29,7 @@ public class SchuelerturnierJMSController extends Thread implements ApplicationE
     private final static long WAIT_IF_NO_MESSAGE = 1000;
 
     private String connString = "tcp://localhost:6666";
+    private String ownConnection = "tcp://localhost:6666";
 
     private ObjectMessage latest = null;
 
@@ -64,14 +65,15 @@ public class SchuelerturnierJMSController extends Thread implements ApplicationE
         }
         init();
 
-        SchuelerturnierJMSSender se = new SchuelerturnierJMSSender(connString);
+        SchuelerturnierJMSSender se = new SchuelerturnierJMSSender(connString,connString);
         sender.put(connString, se);
 
         SchuelerturnierJMSReceiver rec = new SchuelerturnierJMSReceiver(connString);
         receivers.add(rec);
 
         if (urlToConnectRemotely != null && !urlToConnectRemotely.equals("") && !urlToConnectRemotely.contains("default")) {
-            SchuelerturnierJMSSender se2 = new SchuelerturnierJMSSender(urlToConnectRemotely);
+            ownConnection = urlToConnectRemotely;
+            SchuelerturnierJMSSender se2 = new SchuelerturnierJMSSender(urlToConnectRemotely,this.connString);
             sender.put(urlToConnectRemotely, se2);
 
             SchuelerturnierJMSReceiver rec2 = new SchuelerturnierJMSReceiver(urlToConnectRemotely);
@@ -117,7 +119,7 @@ public class SchuelerturnierJMSController extends Thread implements ApplicationE
                                 String url = (String) message.getObject();
 
                                 if (!sender.containsKey(url)) {
-                                    sender.put(url, new SchuelerturnierJMSSender(this.connString));
+                                    sender.put(url, new SchuelerturnierJMSSender(this.connString,this.ownConnection));
                                 }
                             } else {
                                 latest = message;
@@ -170,7 +172,8 @@ public class SchuelerturnierJMSController extends Thread implements ApplicationE
 
     @Override
     public void onApplicationEvent(OutgoingMessage event) {
-        this.sendMessage(event.getPayload());
+        Serializable obj = event.getPayload();
+        this.sendMessage(obj);
     }
 
 

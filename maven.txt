@@ -26,4 +26,4 @@ mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha21.1:release-fini
 
 starten:
 *******
-java -jar /app/app.jar -Ddb.url=jdbc:hsqldb:file:/app/db/db -Dftp.folder=daniel
+java -jar /app/app.jar -Ddb.url=jdbc:hsqldb:file:/app/db/db -Dftp.folder=daniel -Djms.local.url=localhost -Djms.local.port=7777 -Djms.remote.url=localhost -Djms.remote.port=6666

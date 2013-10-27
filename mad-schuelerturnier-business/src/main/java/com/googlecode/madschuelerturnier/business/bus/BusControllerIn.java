@@ -14,11 +14,7 @@ import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Controller;
 
-import javax.annotation.PostConstruct;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * Produziert Events, die in angeschlossene Remote Contexte gesendet werden. Ebenfalls werden
@@ -28,35 +24,19 @@ import java.util.UUID;
  * @since 1.2.8
  */
 @Controller
-public class BusController implements ApplicationEventPublisherAware , ApplicationListener<IncommingMessage> {
+public class BusControllerIn implements ApplicationListener<IncommingMessage> {
 
-    private static final Logger LOG = Logger.getLogger(BusController.class);
-
-    private ApplicationEventPublisher publisher;
+    private static final Logger LOG = Logger.getLogger(BusControllerIn.class);
 
     @Autowired
     private MannschaftRepository repo;
-
-    public void saveMannschaft(Mannschaft mannschaft){
-        LOG.info("bus: mannschaft zum senden");
-        OutgoingMessage m = new OutgoingMessage(this);
-        m.setPayload(m);
-        LOG.info("bus: sende mannschaft");
-        publisher.publishEvent(m);
-        LOG.info("bus: mannschaft gesendet");
-    }
-
-    @Override
-    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        this.publisher = applicationEventPublisher;
-    }
 
     @Override
     public void onApplicationEvent(IncommingMessage event) {
         Serializable obj = event.getPayload();
         LOG.info("bus: message von anderem remote kontext angekommen: " + obj);
         if(obj instanceof Mannschaft){
-            LOG.info("bus: es ist eine mannschaft, speichern.");
+            LOG.info("bus: es ist eine mannschaft, speichern...");
             repo.save((Mannschaft) obj);
         }
 
