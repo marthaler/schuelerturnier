@@ -82,7 +82,7 @@
 
         <dependency>
             <groupId>com.googlecode.madschuelerturnier</groupId>
-            <artifactId>mad-schuelerturnier-jms-subsystem</artifactId>
+            <artifactId>mad-schuelerturnier-web-transport-subsystem</artifactId>
             <version>${project.version}</version>
         </dependency>
 

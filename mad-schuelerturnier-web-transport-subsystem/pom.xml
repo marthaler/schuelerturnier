@@ -9,9 +9,15 @@
         <version>1.2.8-SNAPSHOT</version>
     </parent>
 
-    <artifactId>mad-schuelerturnier-jms-subsystem</artifactId>
+    <artifactId>mad-schuelerturnier-web-transport-subsystem</artifactId>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.2.6</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.activemq</groupId>
