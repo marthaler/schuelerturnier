@@ -40,7 +40,12 @@ public final class XstreamUtil {
     }
 
     public static Object deserializeFromString(String string) {
+        try{
         return xStream.fromXML(string);
+        } catch (Exception e){
+           LOG.error("fehler beim deserialisieren: " + string);
+        }
+        return null;
     }
 
     public static String serializeToString(Object object) {

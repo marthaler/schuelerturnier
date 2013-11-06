@@ -3,12 +3,11 @@
  */
 package com.googlecode.madschuelerturnier.business.integration.jms;
 
-import com.googlecode.madschuelerturnier.business.zeit.IncommingMessage;
-import com.googlecode.madschuelerturnier.business.zeit.MessageWrapper;
-import com.googlecode.madschuelerturnier.business.zeit.OutgoingMessage;
-import org.apache.activemq.broker.BrokerService;
+import com.googlecode.madschuelerturnier.model.enums.MessageTyp;
+import com.googlecode.madschuelerturnier.model.messages.IncommingMessage;
+import com.googlecode.madschuelerturnier.model.messages.MessageWrapper;
+import com.googlecode.madschuelerturnier.model.messages.OutgoingMessage;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
@@ -16,8 +15,6 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
-import javax.jms.JMSException;
-import javax.jms.ObjectMessage;
 import java.io.Serializable;
 import java.util.*;
 
@@ -31,23 +28,23 @@ import java.util.*;
 @Component
 public class SchuelerturnierTransportController extends Thread implements ApplicationEventPublisherAware, ApplicationListener<OutgoingMessage> {
 
-    private LinkedList<MessageWrapper> incomming= new LinkedList<MessageWrapper>();
+    private LinkedList<MessageWrapper> incommingMessages = new LinkedList<MessageWrapper>();
+    private LinkedList<MessageWrapper> outgoingMessages = new LinkedList<MessageWrapper>();
+
+    private Set<String> allIncommingMessagesIDs = new HashSet<String>();
+    //private Set<String> allOutgoingMessagesIDs = new HashSet<String>();
+
+    private MessageWrapper registration;
+
+    private Map<String, TransportEndpointSender> senderEndpoints = new HashMap<String, TransportEndpointSender>();
 
     private final static long WAIT_IF_NO_MESSAGE = 1000;
 
-    private String connString = "http://localhost:8080/app/transport";
-    private String ownConnection = "http://localhost:8080/app/transport";
+    @Value("${transport.remote.address:http://localhost:8080/app/transport}")
+    private String remoteConnectionString = "http://localhost:8080/app/transport";
 
-
-    @Value("${transport.local.url:localhost}")
-    String transportLocalUrl = "localhost";
-    @Value("${transport.local.port:8080/app/transport}")
-    String transportLocalPort = "8080/app/transport";
-    @Value("${transport.remote.url:default}")
-    String transportRemoteUrl = "default";
-    @Value("${transport.remote.port:8080/app/transport}")
-    String transportRemotePort = "8080/app/transport";
-
+    @Value("${transport.local.address:http://localhost:8080/app/transport}")
+    private String ownConnectionString = "http://localhost:8080/app/transport";
 
     private MessageWrapper latest = null;
 
@@ -55,108 +52,210 @@ public class SchuelerturnierTransportController extends Thread implements Applic
 
     private static final Logger LOG = Logger.getLogger(SchuelerturnierTransportController.class);
 
-
-    private Map<String, SchuelerturnierTransportSender> sender = new HashMap<String, SchuelerturnierTransportSender>();
-
     private Map<String, Serializable> list = new LinkedHashMap<String, Serializable>();
 
     private boolean running = true;
 
+    public MessageWrapper pullMesageForNode(String id){
+         TransportEndpointSender sender = this.senderEndpoints.get(id);
+        if(sender == null){
+             return null;
+        }
+        return this.senderEndpoints.get(id).getMessage4Pull();
+    }
 
-    private void sendMessage(String id, Serializable object) {
-        for (SchuelerturnierTransportSender send : sender.values()) {
-            send.sendMessage(id, object);
+
+    public SchuelerturnierTransportController(String ownConnectionString, String remoteConnectionString){
+           this.ownConnectionString = ownConnectionString;
+           this.remoteConnectionString = remoteConnectionString;
+        MessageWrapper wr = new MessageWrapper();
+        wr.setSource(this.ownConnectionString);
+        // registration request senden
+        wr.setTyp(MessageTyp.REGISTRATION_REQUEST);
+
+        this.registration = wr;
+        if (remoteConnectionString != null && !"".equals(remoteConnectionString)) {
+
+            if(remoteConnectionString.split(",").length >1){
+                String[] arr = remoteConnectionString.split(",");
+                for(String ep : arr){
+                    createSender(ep);
+                }
+            } else{
+                createSender(remoteConnectionString);
+            }
+
+
+
+        }
+
+
+
+
+        this.start();
+    }
+
+
+
+    public MessageWrapper createAckMessage(String id){
+        MessageWrapper wrapper = new MessageWrapper();
+        wrapper.setSource(ownConnectionString);
+        wrapper.setTyp(MessageTyp.ACK);
+        wrapper.setPayload(id);
+        return wrapper;
+    }
+                 // von onApplication event
+    private void sendMessage(String id, Serializable object, MessageTyp typ) {
+        for (TransportEndpointSender send : senderEndpoints.values()) {
+
+            MessageWrapper wr = new MessageWrapper();
+            wr.setPayload(object);
+            wr.setId(id);
+            wr.setTyp(typ);
+            wr.setSource(ownConnectionString);
+
+            send.sendMessage(wr);
         }
         list.put(id, object);
+    }
+
+    private synchronized void  sendMessage(MessageWrapper wr) {
+         this.outgoingMessages.add(wr);
     }
 
     public MessageWrapper getLatest() {
         return this.latest;
     }
 
-    SchuelerturnierTransportController() {
-
+   public  SchuelerturnierTransportController() {
         this.start();
     }
 
-    public void init(){
-        if (transportLocalUrl != null && !transportLocalUrl.equals("") && !transportLocalUrl.contains("default")) {
-            this.connString = "http://" + transportLocalUrl + ":" + transportLocalPort;
+
+
+    public void messageFromServlet(MessageWrapper wr){
+        if(!allIncommingMessagesIDs.contains(wr.getId()) && wr.getTyp() != MessageTyp.PULLREQUEST){
+            this.incommingMessages.add(wr);
+            this.allIncommingMessagesIDs.add(wr.getId());
         }
-
-        if (transportRemoteUrl != null && !transportRemoteUrl.equals("") && !transportRemoteUrl.contains("default")) {
-            String remote  = "http://" + transportRemoteUrl + ":" + transportRemotePort;
-            SchuelerturnierTransportSender se2 = new SchuelerturnierTransportSender(remote,this.connString);
-            sender.put(remote, se2);
-
-        }
-    }
-
-    void sendMessage(Serializable object) {
-        sendMessage(UUID.randomUUID().toString(), object);
-    }
-
-    public void onMessage(MessageWrapper o){
-       this.incomming.add(o);
     }
 
     public void run() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
 
-        init();
 
         while (running) {
 
-            boolean received = false;
+            boolean action = false;
 
-            MessageWrapper obj = null;
-                if(!this.incomming.isEmpty()){
-                     obj = this.incomming.removeFirst();
+            // 1) versenden
+           while(outgoingMessages.size()>0){
+               action = true;
+           MessageWrapper wr = outgoingMessages.removeFirst() ;
+
+                for (TransportEndpointSender send : senderEndpoints.values()) {
+                    send.sendMessage(wr);
                 }
 
-                if (obj != null) {
-                        LOG.info("SchuelerturnierTransportController nachricht angekommen " + obj);
-                        if (!list.keySet().contains(obj.getId())) {
+               if(wr != null && wr.getTyp() == MessageTyp.PAYLOAD){
+                   list.put(wr.getId(), wr);
+               }
+            }
 
-                            if (obj.getTyp().equalsIgnoreCase("schuelerturnier-anmeldung")) {
-                                String url = (String) obj.getPayload();
 
-                                if (!sender.containsKey(url)) {
-                                    sender.put(url, new SchuelerturnierTransportSender(this.connString,this.ownConnection));
-                                }
-                            } else {
-                                latest = obj;
+
+            MessageWrapper wr = null;
+
+             // 3) empfangen
+            while(!this.incommingMessages.isEmpty()){
+                action = true;
+                     wr = this.incommingMessages.removeFirst();
+
+
+                if (wr != null) {
+                        LOG.debug("SchuelerturnierTransportController - Nachricht angekommen: " + wr);
+
+                    if (!list.keySet().contains(wr.getId())) {
+
+                        // registration request behandeln falls noetig
+                        if(handleRegistrationRequest(wr)){
+                            continue;
+                        }
+
+
+                                latest = wr;
                                 IncommingMessage in = new IncommingMessage(this);
-                                in.setPayload(obj.getPayload());
+                                in.setPayload(wr.getPayload());
                                 if (applicationEventPublisher != null) {
                                     this.applicationEventPublisher.publishEvent(in);
                                 }
-                                sendMessage(obj.getId(), obj.getPayload());
+                                sendMessage(wr);
                             }
-                        }
+
                 }
 
-                if (!received) {
-                    try {
-                        Thread.sleep(WAIT_IF_NO_MESSAGE);
-                    } catch (InterruptedException e) {
-                        LOG.error(e.getMessage(), e);
-                    }
-                }
 
+
+            }
+            if (!action) {
+                try {
+                    Thread.sleep(WAIT_IF_NO_MESSAGE);
+                } catch (InterruptedException e) {
+                    LOG.error(e.getMessage(), e);
+                }
+            }
         }
     }
+
+
+    private boolean handleRegistrationRequest(MessageWrapper obj){
+        if (obj.getTyp().equals(MessageTyp.REGISTRATION_REQUEST)) {
+
+
+
+            TransportEndpointSender sender = null;
+            String url = obj.getSource();
+            if (!senderEndpoints.containsKey(url)) {
+               createSender(url);
+
+
+
+
+                return true;
+            }
+            this.sendMessage(this.registration);
+
+        }
+        return false;
+    }
+
+    private synchronized TransportEndpointSender createSender(String url){
+
+        if(this.senderEndpoints.containsKey(url)){
+           LOG.info("versuche einen neuen senderEndpoints zu kreieren, den es bereits gibt: "+ url);
+            return this.senderEndpoints.get(url);
+        }
+
+
+        TransportEndpointSender send = new TransportEndpointSender(url,this.ownConnectionString,this);
+
+        senderEndpoints.put(url, send);
+        this.sendMessage(this.registration);
+         return send;
+    }
+
 
     @PreDestroy
     public void shutdown() {
 
-        for (SchuelerturnierTransportSender send : sender.values()) {
+        for (TransportEndpointSender send : senderEndpoints.values()) {
             send.teardown();
         }
+
 
         this.running = false;
     }
@@ -169,8 +268,8 @@ public class SchuelerturnierTransportController extends Thread implements Applic
     @Override
     public void onApplicationEvent(OutgoingMessage event) {
         Serializable obj = event.getPayload();
-        this.sendMessage(obj);
-    }
+        this.sendMessage(UUID.randomUUID().toString(), obj, MessageTyp.PAYLOAD);
+        }
 
 
 }

@@ -1,25 +1,25 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.business.zeit;
+package com.googlecode.madschuelerturnier.model.messages;
 
 import org.springframework.context.ApplicationEvent;
 
 import java.io.Serializable;
 
 /**
- * Ausgehende Message zum verschicken an anderen Instanzen, die Payload beinhaltet das Nachrichtenobjekt
+ * Ankommende Message von anderen Instanzen, die Payload beinhaltet das Nachrichtenobjekt
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8
  */
-public class OutgoingMessage extends ApplicationEvent implements Serializable {
+public class IncommingMessage extends ApplicationEvent implements Serializable {
 
     private static final long serialVersionUID = 1;
 
     private Serializable payload;
 
-    public OutgoingMessage(Object source) {
+    public IncommingMessage(Object source) {
         super(source);
     }
 

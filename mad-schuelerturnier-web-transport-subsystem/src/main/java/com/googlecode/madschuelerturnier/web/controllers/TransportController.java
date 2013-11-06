@@ -5,23 +5,18 @@ package com.googlecode.madschuelerturnier.web.controllers;
 
 
 import com.googlecode.madschuelerturnier.business.integration.jms.SchuelerturnierTransportController;
-import com.googlecode.madschuelerturnier.business.zeit.MessageWrapper;
+import com.googlecode.madschuelerturnier.model.enums.MessageTyp;
+import com.googlecode.madschuelerturnier.model.messages.MessageWrapper;
 import com.googlecode.madschuelerturnier.model.util.XstreamUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 /**
- * Nimmt eingehende Nachrichten entgegen
+ * Nimmt eingehende Anfragen entgegen
  *
  * @author marthaler.worb@gmail.com
  * @since 1.2.8
@@ -39,11 +34,25 @@ public class TransportController {
     public String handleRequest(@ModelAttribute("payload") String payload) {
 
         MessageWrapper obj = (MessageWrapper) XstreamUtil.deserializeFromString(payload);
+
+        if(obj.getTyp() != MessageTyp.PULLREQUEST){
         LOG.info("TransportController: nachricht angekommen: " + obj);
+        }
 
-        controller.onMessage(obj);
+        if(obj.getTyp().equals(MessageTyp.PULLREQUEST)){
+             MessageWrapper message = controller.pullMesageForNode(obj.getSource());
 
-        return "ok";
+            if(message != null){
+                return XstreamUtil.serializeToString(message);
+            }
+        }
+
+        controller.messageFromServlet(obj);
+
+        return XstreamUtil.serializeToString(controller.createAckMessage(obj.getId()));
     }
 
+    public void setController(SchuelerturnierTransportController controller) {
+        this.controller = controller;
+    }
 }
