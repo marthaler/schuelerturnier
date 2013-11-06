@@ -23,13 +23,6 @@ public class MessageSenderUtil {
 
     private static final Logger LOG = Logger.getLogger(MessageSenderUtil.class);
 
-    public static void main(String[] args) {
-        MessageWrapper obj = new MessageWrapper();
-        System.out.println(obj);
-        System.out.println(send("http://localhost:8081/app/transport",obj));
-    }
-
-
     public static MessageWrapper send(String adresse,MessageWrapper obj) {
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(adresse);
