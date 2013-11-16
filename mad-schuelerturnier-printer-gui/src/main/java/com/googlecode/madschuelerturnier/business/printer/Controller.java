@@ -17,11 +17,16 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Callback;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -59,16 +64,17 @@ public class Controller implements Initializable , ApplicationListener<Incomming
     private ProgressIndicator progress;
 
 
-    private List<IncommingMessage>  messages = new ArrayList<IncommingMessage>();
-
-
-    ObservableList<IncommingMessage> items  =FXCollections.observableArrayList ();
     @FXML
-    private ListView<IncommingMessage> list;
+    private TableView<IncommingMessage> table;
 
     public Controller(){
 
         INSTANCE = this;
+
+
+
+
+
 
     }
 
@@ -106,15 +112,19 @@ public class Controller implements Initializable , ApplicationListener<Incomming
 
     }
 
+
     public void onApplicationEvent(final IncommingMessage event) {
 
-
-           list.setItems(items);
+           if(table.getItems() == null){
+               ObservableList<IncommingMessage> items  =FXCollections.observableArrayList ();
+               table.setItems(items);
+           }
+        table.getItems().add(event);
 
 
 
         LOG.debug("incomming message: " + event);
-        this.items.add(event);
+
 
 
 

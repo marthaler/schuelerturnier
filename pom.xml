@@ -156,8 +156,8 @@
         <module>mad-schuelerturnier-osxapp</module>
         <module>mad-schuelerturnier-picturescanner</module>
         <module>mad-schuelerturnier-remoteclient</module>
-        <module>mad-schuelerturnier-printer-gui</module>
-        <!--<module>mad-schuelerturnier-jms-transport-subsystem</module>-->
+        <!--<module>mad-schuelerturnier-printer-gui</module>
+        <module>mad-schuelerturnier-jms-transport-subsystem</module>-->
         <module>mad-schuelerturnier-web-transport-subsystem</module>
     </modules>
 

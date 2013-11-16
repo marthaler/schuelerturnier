@@ -6,6 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.collections.*?>
+<?import fxmltableview.*?>
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="572.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.googlecode.madschuelerturnier.business.printer.Controller">
   <children>
@@ -17,8 +20,20 @@
               <content>
                 <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="322.0" prefWidth="573.0">
                   <children>
-                    <ListView fx:id="list" layoutX="14.0" layoutY="14.0" prefHeight="308.0" prefWidth="544.0" />
                     <ProgressIndicator fx:id="progress" layoutX="468.0" layoutY="218.0" prefHeight="90.0" prefWidth="90.0" progress="0.0" visible="false" />
+                    <TableView fx:id="table" layoutX="4.0" layoutY="0.0" prefHeight="321.9998779296875" prefWidth="563.0">
+                      <columns>
+                        <TableColumn prefWidth="75.0" text="File" />
+                        <TableColumn prefWidth="75.0" text="Datum" >
+
+
+                            <cellValueFactory><PropertyValueFactory property="payload" />
+                            </cellValueFactory>
+
+                        </TableColumn>
+
+                      </columns>
+                    </TableView>
                   </children>
                 </AnchorPane>
               </content>
