@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="572.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.googlecode.madschuelerturnier.business.printer.Controller">
+  <children>
+    <Pane layoutX="14.0" layoutY="14.0" prefHeight="372.0" prefWidth="572.0">
+      <children>
+        <TabPane layoutX="-15.0" layoutY="14.0" prefHeight="358.0" prefWidth="580.0" tabClosingPolicy="UNAVAILABLE">
+          <tabs>
+            <Tab text="Ausdrucke">
+              <content>
+                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="322.0" prefWidth="573.0">
+                  <children>
+                    <ListView fx:id="list" layoutX="14.0" layoutY="14.0" prefHeight="308.0" prefWidth="544.0" />
+                    <ProgressIndicator fx:id="progress" layoutX="468.0" layoutY="218.0" prefHeight="90.0" prefWidth="90.0" progress="0.0" visible="false" />
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
+          </tabs>
+        </TabPane>
+      </children>
+    </Pane>
+    <ToolBar layoutX="0.0" layoutY="0.0" prefWidth="572.0">
+      <items>
+        <Button fx:id="beenden" mnemonicParsing="false" onAction="#handleButtonBeendenAction" prefWidth="90.0" text="Beenden" />
+        <Button fx:id="verbinden" mnemonicParsing="false" onAction="#handleButtonVerbindenAction" prefWidth="90.0" text="Verbinden" />
+        <TextField fx:id="urltext" prefWidth="340.0" text="http://localhost:8081/app/transport" />
+        <Rectangle fx:id="verbunden" arcHeight="5.0" arcWidth="5.0" fill="RED" height="16.0" stroke="BLACK" strokeType="INSIDE" width="16.0" />
+      </items>
+    </ToolBar>
+  </children>
+</AnchorPane>

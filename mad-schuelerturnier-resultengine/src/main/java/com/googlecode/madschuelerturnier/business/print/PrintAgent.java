@@ -3,16 +3,20 @@
  */
 package com.googlecode.madschuelerturnier.business.print;
 
+import com.googlecode.madschuelerturnier.model.messages.*;
 import com.lowagie.text.Document;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.html.simpleparser.HTMLWorker;
 import com.lowagie.text.pdf.PdfWriter;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.PrettyXmlSerializer;
 import org.htmlcleaner.TagNode;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +26,7 @@ import javax.print.attribute.HashAttributeSet;
 import javax.print.attribute.standard.Copies;
 import javax.print.attribute.standard.PrinterName;
 import java.io.*;
+import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +39,7 @@ import java.util.Set;
  * @since 1.2.6
  */
 @Component
-public class PrintAgent {
+public class PrintAgent implements ApplicationEventPublisherAware {
 
     private static final Logger LOG = Logger.getLogger(PrintAgent.class);
 
@@ -47,6 +52,8 @@ public class PrintAgent {
     private String printtemplates = "";
 
     private String printer = "brother";
+
+    private ApplicationEventPublisher applicationEventPublisher;
 
     private Map<String, String> map = new HashMap<String, String>();
 
@@ -145,15 +152,32 @@ public class PrintAgent {
             );
 
             String outputFile = pathprinter + name + ".pdf";
-            os = new FileOutputStream(outputFile);
+
+            ByteArrayOutputStream arrO = new ByteArrayOutputStream();
 
             Document doc = new Document(PageSize.A4);
-            PdfWriter.getInstance(doc, os);
+            PdfWriter.getInstance(doc, arrO);
             doc.open();
             HTMLWorker hw = new HTMLWorker(doc);
 
             hw.parse(new FileReader(pathprinter + "out.xml"));
             doc.close();
+
+            os = new FileOutputStream(outputFile);
+
+            FileWriter writer = new FileWriter(outputFile);
+            byte[] out = arrO.toByteArray();
+            IOUtils.write(out,writer);
+
+             if(this.applicationEventPublisher != null){
+                 com.googlecode.madschuelerturnier.model.messages.File file = new com.googlecode.madschuelerturnier.model.messages.File();
+                 file.setContent(out);
+                 file.setName(name + ".pdf");
+                 OutgoingMessage fileOut = new OutgoingMessage(this);
+                 fileOut.setPayload(file);
+                 this.applicationEventPublisher.publishEvent(fileOut);
+             }
+
 
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
@@ -253,5 +277,10 @@ public class PrintAgent {
 
     public void setPrinter(String printer) {
         this.printer = printer;
+    }
+
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+         this.applicationEventPublisher  =  applicationEventPublisher;
     }
 }
