@@ -7,6 +7,7 @@ import com.googlecode.madschuelerturnier.model.enums.MessageTyp;
 import org.springframework.context.ApplicationEvent;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -30,6 +31,8 @@ public class MessageWrapper  implements Serializable {
     private MessageTyp typ = MessageTyp.PAYLOAD;
 
     private Serializable payload;
+
+    private List<String> filter;
 
     private boolean resend = false;
 
@@ -95,5 +98,13 @@ public class MessageWrapper  implements Serializable {
 
     public void setResend(boolean resend) {
         this.resend = resend;
+    }
+
+    public List<String> getFilter() {
+        return filter;
+    }
+
+    public void setFilter(List<String> filter) {
+        this.filter = filter;
     }
 }

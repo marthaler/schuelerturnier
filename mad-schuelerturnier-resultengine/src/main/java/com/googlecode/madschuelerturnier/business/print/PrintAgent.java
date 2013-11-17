@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business.print;
 
-import com.googlecode.madschuelerturnier.model.messages.*;
+import com.googlecode.madschuelerturnier.model.messages.OutgoingMessage;
 import com.lowagie.text.Document;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.html.simpleparser.HTMLWorker;
@@ -26,7 +26,6 @@ import javax.print.attribute.HashAttributeSet;
 import javax.print.attribute.standard.Copies;
 import javax.print.attribute.standard.PrinterName;
 import java.io.*;
-import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,9 +52,9 @@ public class PrintAgent implements ApplicationEventPublisherAware {
 
     private String printer = "brother";
 
-    private ApplicationEventPublisher applicationEventPublisher;
-
     private Map<String, String> map = new HashMap<String, String>();
+
+    private ApplicationEventPublisher applicationEventPublisher;
 
     public void init(String path) {
         this.pathprinter = path + "printer" + System.getProperty("file.separator");
@@ -152,32 +151,25 @@ public class PrintAgent implements ApplicationEventPublisherAware {
             );
 
             String outputFile = pathprinter + name + ".pdf";
-
-            ByteArrayOutputStream arrO = new ByteArrayOutputStream();
+            os = new FileOutputStream(outputFile);
 
             Document doc = new Document(PageSize.A4);
-            PdfWriter.getInstance(doc, arrO);
+            PdfWriter.getInstance(doc, os);
             doc.open();
             HTMLWorker hw = new HTMLWorker(doc);
 
             hw.parse(new FileReader(pathprinter + "out.xml"));
             doc.close();
 
-            os = new FileOutputStream(outputFile);
 
-            FileWriter writer = new FileWriter(outputFile);
-            byte[] out = arrO.toByteArray();
-            IOUtils.write(out,writer);
-
-             if(this.applicationEventPublisher != null){
-                 com.googlecode.madschuelerturnier.model.messages.File file = new com.googlecode.madschuelerturnier.model.messages.File();
-                 file.setContent(out);
-                 file.setName(name + ".pdf");
-                 OutgoingMessage fileOut = new OutgoingMessage(this);
-                 fileOut.setPayload(file);
-                 this.applicationEventPublisher.publishEvent(fileOut);
-             }
-
+            if(this.applicationEventPublisher != null){
+                com.googlecode.madschuelerturnier.model.messages.File file = new com.googlecode.madschuelerturnier.model.messages.File();
+                file.setContent(IOUtils.toByteArray(new FileInputStream(new File(outputFile))));
+                file.setName(name + ".pdf");
+                OutgoingMessage fileOut = new OutgoingMessage(this);
+                fileOut.setPayload(file);
+                this.applicationEventPublisher.publishEvent(fileOut);
+            }
 
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
@@ -281,6 +273,6 @@ public class PrintAgent implements ApplicationEventPublisherAware {
 
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-         this.applicationEventPublisher  =  applicationEventPublisher;
+        this.applicationEventPublisher =  applicationEventPublisher;
     }
 }

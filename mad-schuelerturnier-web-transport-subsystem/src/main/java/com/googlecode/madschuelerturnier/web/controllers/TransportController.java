@@ -37,14 +37,43 @@ public class TransportController {
 
         if(obj.getTyp() != MessageTyp.PULLREQUEST){
         LOG.info("TransportController: nachricht angekommen: " + obj);
-        }
+        } else
 
         if(obj.getTyp().equals(MessageTyp.PULLREQUEST)){
-             MessageWrapper message = controller.pullMesageForNode(obj.getSource());
+            MessageWrapper message = controller.pullMessageForNode(obj.getSource());
+             int i =0;
+            while (message == null){
+                i++;
+                message = controller.pullMessageForNode(obj.getSource());
 
-            if(message != null){
-                return XstreamUtil.serializeToString(message);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(i<100){
+                    break;
+                }
             }
+
+            String toSend = XstreamUtil.serializeToString(message);
+
+            // filter auswerten
+            if(obj.getFilter() != null && !obj.getFilter().isEmpty()){
+               LOG.debug("TransportController: filter im request gefunden");
+               for(String filter : obj.getFilter()){
+                   if(toSend.contains(filter)){
+                       LOG.debug("TransportController: filter trifft zu");
+                        return toSend;
+                   }
+               }
+                LOG.debug("TransportController: filter trifft NICHT zu");
+            } else{
+                if(message != null){
+                    return toSend;
+                }
+            }
+
         }
 
         controller.messageFromServlet(obj);

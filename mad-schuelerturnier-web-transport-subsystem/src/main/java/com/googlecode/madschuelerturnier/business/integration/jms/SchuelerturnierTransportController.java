@@ -40,6 +40,8 @@ public class SchuelerturnierTransportController extends Thread implements Applic
 
     private final static long WAIT_IF_NO_MESSAGE = 1000;
 
+    private List<String> messagefilter = new ArrayList<String>();
+
     @Value("${transport.remote.address:http://localhost:8080/app/transport}")
     private String remoteConnectionString = "http://localhost:8080/app/transport";
 
@@ -56,14 +58,13 @@ public class SchuelerturnierTransportController extends Thread implements Applic
 
     private boolean running = true;
 
-    public MessageWrapper pullMesageForNode(String id){
+    public MessageWrapper pullMessageForNode(String id){
          TransportEndpointSender sender = this.senderEndpoints.get(id);
         if(sender == null){
              return null;
         }
         return this.senderEndpoints.get(id).getMessage4Pull();
     }
-
 
     public SchuelerturnierTransportController(String ownConnectionString, String remoteConnectionString){
            this.ownConnectionString = ownConnectionString;
@@ -84,18 +85,9 @@ public class SchuelerturnierTransportController extends Thread implements Applic
             } else{
                 createSender(remoteConnectionString);
             }
-
-
-
         }
-
-
-
-
         this.start();
     }
-
-
 
     public MessageWrapper createAckMessage(String id){
         MessageWrapper wrapper = new MessageWrapper();
@@ -104,7 +96,8 @@ public class SchuelerturnierTransportController extends Thread implements Applic
         wrapper.setPayload(id);
         return wrapper;
     }
-                 // von onApplication event
+
+    // von onApplication event
     private void sendMessage(String id, Serializable object, MessageTyp typ) {
         for (TransportEndpointSender send : senderEndpoints.values()) {
 
@@ -130,8 +123,6 @@ public class SchuelerturnierTransportController extends Thread implements Applic
    public  SchuelerturnierTransportController() {
         this.start();
     }
-
-
 
     public void messageFromServlet(MessageWrapper wr){
         if(!allIncommingMessagesIDs.contains(wr.getId()) && wr.getTyp() != MessageTyp.PULLREQUEST){
@@ -166,8 +157,6 @@ public class SchuelerturnierTransportController extends Thread implements Applic
                }
             }
 
-
-
             MessageWrapper wr = null;
 
              // 3) empfangen
@@ -185,8 +174,6 @@ public class SchuelerturnierTransportController extends Thread implements Applic
                         if(handleRegistrationRequest(wr)){
                             continue;
                         }
-
-
                                 latest = wr;
                                 IncommingMessage in = new IncommingMessage(this);
                                 in.setPayload(wr.getPayload());
@@ -195,11 +182,7 @@ public class SchuelerturnierTransportController extends Thread implements Applic
                                 }
                                 sendMessage(wr);
                             }
-
                 }
-
-
-
             }
             if (!action) {
                 try {
@@ -214,17 +197,10 @@ public class SchuelerturnierTransportController extends Thread implements Applic
 
     private boolean handleRegistrationRequest(MessageWrapper obj){
         if (obj.getTyp().equals(MessageTyp.REGISTRATION_REQUEST)) {
-
-
-
             TransportEndpointSender sender = null;
             String url = obj.getSource();
             if (!senderEndpoints.containsKey(url)) {
                createSender(url);
-
-
-
-
                 return true;
             }
             this.sendMessage(this.registration);
@@ -240,12 +216,10 @@ public class SchuelerturnierTransportController extends Thread implements Applic
             return this.senderEndpoints.get(url);
         }
 
-
         TransportEndpointSender send = new TransportEndpointSender(url,this.ownConnectionString,this);
-
         senderEndpoints.put(url, send);
         this.sendMessage(this.registration);
-         return send;
+        return send;
     }
 
 
@@ -255,7 +229,6 @@ public class SchuelerturnierTransportController extends Thread implements Applic
         for (TransportEndpointSender send : senderEndpoints.values()) {
             send.teardown();
         }
-
 
         this.running = false;
     }
@@ -271,5 +244,11 @@ public class SchuelerturnierTransportController extends Thread implements Applic
         this.sendMessage(UUID.randomUUID().toString(), obj, MessageTyp.PAYLOAD);
         }
 
+    public List<String> getMessagefilter() {
+        return messagefilter;
+    }
 
+    public void setMessagefilter(List<String> messagefilter) {
+        this.messagefilter = messagefilter;
+    }
 }

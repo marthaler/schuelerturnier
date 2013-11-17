@@ -67,6 +67,7 @@ public class TransportEndpointSender extends Thread{
                 wrapper.setSource(ownConnectionString);
                 wrapper.setDestination(remoteConnectionString);
                 wrapper.setTyp(MessageTyp.PULLREQUEST);
+                wrapper.setFilter(this.controller.getMessagefilter());
 
                 MessageWrapper send = getMessage4Pull();
                 if(send != null){
@@ -84,7 +85,7 @@ public class TransportEndpointSender extends Thread{
                     LOG.debug("echte nachricht erhalten: " + response);
                     this.controller.messageFromServlet(response);
                 } else{
-                    Thread.sleep(2000);
+                    Thread.sleep(500);
                 }
             } catch (Exception e) {
                 LOG.error(e.getMessage(),e);
