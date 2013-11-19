@@ -12,7 +12,7 @@
 
     <bean class="com.googlecode.madschuelerturnier.business.integration.jms.TransportControllerFactory" lazy-init="false"/>
 
-    <bean class="com.googlecode.madschuelerturnier.business.printer.Controller" factory-method="getInstance"/>
+    <bean class="com.googlecode.madschuelerturnier.business.printer.com.googlecode.madschuelerturnier.business.Controller" factory-method="getInstance"/>
 
 
 

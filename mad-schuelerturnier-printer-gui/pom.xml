@@ -34,17 +34,6 @@
     <build>
         <plugins>
 
-
-            <plugin>
-                <groupId>com.zenjava</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>2.0</version>
-                <configuration>
-                    <identifier>schuelerturnier-printer</identifier>
-                    <mainClass>com.googlecode.madschuelerturnier.App</mainClass>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -53,7 +42,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.googlecode.madschuelerturnier.App</mainClass>
+                            <mainClass>com.googlecode.madschuelerturnier.business.printer.App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -72,23 +61,20 @@
             </activation>
             <build>
                 <plugins>
-
                     <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>osxappbundle-maven-plugin</artifactId>
-                        <version>1.0-alpha-1</version>
-                        <configuration>
-                            <mainClass>com.googlecode.madschuelerturnier.App</mainClass>
-                            <iconFile>${basedir}/src/main/resources/green_apple.icns</iconFile>
-                        </configuration>
+                        <groupId>com.zenjava</groupId>
+                        <artifactId>javafx-maven-plugin</artifactId>
+                        <version>2.0</version>
                         <executions>
                             <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>bundle</goal>
-                                </goals>
+                                <phase>install</phase>
+                                <goals><goal>native</goal></goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <identifier>schuelerturnier-printer</identifier>
+                            <mainClass>com.googlecode.madschuelerturnier.business.printer.App</mainClass>
+                        </configuration>
                     </plugin>
                 </plugins>
 

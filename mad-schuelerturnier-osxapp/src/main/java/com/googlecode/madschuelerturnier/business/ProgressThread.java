@@ -1,4 +1,4 @@
-package com.googlecode.madschuelerturnier.business.printer;
+package com.googlecode.madschuelerturnier.business;
 
 import javafx.scene.control.ProgressIndicator;
 

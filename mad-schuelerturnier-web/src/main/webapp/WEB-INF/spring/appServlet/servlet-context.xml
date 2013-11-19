@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/mvc    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
     <!--  DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-    <!-- Imports user-defined @com.googlecode.madschuelerturnier.business.printer.Controller beans that process client requests -->
+    <!-- Imports user-defined @com.googlecode.madschuelerturnier.business.printer.com.googlecode.madschuelerturnier.business.Controller beans that process client requests -->
     <import resource="controllers.xml"/>
     <import resource="webflow.xml"/>
 
