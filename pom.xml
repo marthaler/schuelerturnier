@@ -157,14 +157,9 @@
         <module>mad-schuelerturnier-web</module>
         <module>mad-schuelerturnier-resultengine</module>
         <module>mad-schuelerturnier-dataloader</module>
-        <!--<module>mad-schuelerturnier-osxapp</module> -->
         <module>mad-schuelerturnier-picturescanner</module>
         <module>mad-schuelerturnier-remoteclient</module>
-        <!--  -->
-        <module>mad-schuelerturnier-printer-gui</module>
-       <!-- <module>mad-schuelerturnier-jms-transport-subsystem</module>-->
         <module>mad-schuelerturnier-web-transport-subsystem</module>
-
     </modules>
 
     <licenses>
@@ -773,6 +768,19 @@
 
             <modules>
                 <module>mad-schuelerturnier-test</module>
+            </modules>
+        </profile>
+
+        <profile>
+            <id>imac</id>
+
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <modules>
+                <module>mad-schuelerturnier-osxapp</module>
+                <module>mad-schuelerturnier-printer-gui</module>
             </modules>
         </profile>
     </profiles>
