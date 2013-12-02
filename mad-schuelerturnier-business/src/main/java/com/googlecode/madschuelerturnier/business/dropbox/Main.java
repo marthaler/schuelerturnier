@@ -31,7 +31,7 @@ public class Main {
 
         System.out.println("Linked account: " + client.getAccountInfo().displayName);
 
-        File inputFile = new File("/test.txt");
+        File inputFile = new File("/app/db/db.lck");
         FileInputStream inputStream = new FileInputStream(inputFile);
         try {
             DbxEntry.File uploadedFile = client.uploadFile("/magnum-opus.txt",
