@@ -11,41 +11,67 @@
                 <div class="page">
                     <div class="inset">
 
-                        <h:form id="form1">
-                            <p:messages/>
-                            <p:fieldset legend="Entweder: Neues, leeres Spiel initialisieren ... ">
+                        <h:form id="form">
 
+                        <p:messages/>
 
-                                <h:panelGrid columns="2" id="inputelements">
+                            <p:accordionPanel id="ac" activeIndex="10" >
+                                <p:tab title="Neues Spiel initialisieren">
 
                                     <h:panelGroup id="button" layout="block">
-                                        <p:commandButton id="submit" value="Initialisieren" action="save"
-                                                         execute="@form" update="@form"/>
+                                        <p:commandButton id="submit" value="Initialisieren" action="save" execute="@form" update="@form"/>
                                     </h:panelGroup>
 
-                                </h:panelGrid>
-                            </p:fieldset>
-                            <br/>
-                            <p:fieldset legend="... Oder Spiel aus XLS importieren">
+
+                                </p:tab>
+                                <p:tab title="Spiel aus XLS hochladen">
 
 
-                                <p:fileUpload fileUploadListener="#{fileUploadController.handleFileUpload}"
-                                              multiple="false" auto="true" ajax="true"
-                                              widgetVar="dialogUpLoad" mode="advanced"
-                                              oncomplete="document.getElementById('form1:ok').click()"/>
-                                <br/>
-                            </p:fieldset>
-                            <!--kruecke zum feuern der weiterleitungsaction nach upload-->
-                            <p:commandButton id="ok" value="Initialisieren" action="ok" style="display: none"/>
+                                    <p:fileUpload fileUploadListener="#{fileUploadController.handleFileUpload}"
+                                                  multiple="false" auto="true" ajax="true"
+                                                  widgetVar="dialogUpLoad" mode="advanced"
+                                                  oncomplete="document.getElementById('form1:ok').click()"/>
+                                    <br/>
+                                    <!--kruecke zum feuern der weiterleitungsaction nach upload-->
+                                    <p:commandButton id="ok" value="Initialisieren" action="ok" style="display: none"/>
 
-                            <br/>
+                                </p:tab>
+                                <p:tab  title="Spiel von XLS aus Dropbox laden">
 
-                            <p:fieldset legend="... Oder Spiel aus XLS von der Dropbox laden">
+                                    <h:panelGrid columns="1" id="dropbox_panel" rendered="#{! dropboxBackingBean.isConnected()}"> 
+
+                                    <br/>
+                                        <p:column>
+                                    1) Link klicken:
+                                    <a href="#{dropboxBackingBean.getURL()}" target="_blank" >Bei Dropbox anmelden und Key kopieren</a>
+                                    </p:column>
+                                    <p:column>
+                                    2) Kopierten Key einfuegen:
+                                    <p:inputText id="dropboxtoken" value="#{dropboxBackingBean.token}"/>
+                                    </p:column><p:column>
+                                    3) Zum Bestaetigen klicken
+                                    <p:commandButton id="save" value="eingeben" actionListener="#{dropboxBackingBean.save()}" ajax="true" update=":form"/>
+                                      </p:column>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="1" id="dropbox_panel_chose" rendered="#{dropboxBackingBean.isConnected()}" > 
 
 
-                                <a href="#{dropboxConnectorImpl.getLoginURL()}" target="_blank" >Bei Dropbox anmelden und Key kopieren</a>
 
-                            </p:fieldset>
+                                        <ui:repeat value="#{dropboxBackingBean.fileList}" var="file">
+                                            <p:column>
+                                                #{file}
+                                            </p:column>
+                                        </ui:repeat>
+
+
+
+
+                                    </h:panelGrid>
+
+                                </p:tab>
+                            </p:accordionPanel>
+
 
 
 
