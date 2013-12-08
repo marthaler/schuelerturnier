@@ -46,15 +46,12 @@ public class ResultateVerarbeiter {
     private SpielRepository repo;
     @Autowired
     private KategorieRepository katRepo;
-
     @Autowired
     private SpielEinstellungenRepository eRepo;
-
     @Autowired
     private OutToWebsitePublisher ftpPublisher;
     @Autowired
     private SpielPrintManager printer;
-
     private boolean init = false;
     private boolean uploadAllKat = false;
     private Map<String, Boolean> beendet = new HashMap<String, Boolean>();
@@ -187,12 +184,15 @@ public class ResultateVerarbeiter {
         RanglisteneintragHistorie rangListe = null;
 
         // hat a und b  = mehr als 7 mannschaften
-        if (!spiel.getGruppe().getKategorie().hasVorUndRueckrunde() && spiel.getGruppe().getKategorie().getGruppeB().getMannschaften().size() > 0) {
+        try {
+            if (!spiel.getGruppe().getKategorie().hasVorUndRueckrunde() && spiel.getGruppe().getKategorie().getGruppeB().getMannschaften().size() > 0) {
 
-            aIstInGruppeA(spiel, katName);
+                aIstInGruppeA(spiel, katName);
 
-            aIstInGruppeB(spiel, katName);
-
+                aIstInGruppeB(spiel, katName);
+            }
+        } catch (Exception e) {
+            LOG.fatal(e.getMessage(), e);
         }
 
         rangListe = normalerEintrag(spiel, katName);
@@ -405,7 +405,6 @@ public class ResultateVerarbeiter {
         klein.add(listeHoch.get(1));
 
     }
-
 
     public void uploadAllKat() {
         uploadAllKat = true;

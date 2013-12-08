@@ -34,6 +34,11 @@
             <evaluate expression="business.initializeDB()"/>
         </transition>
         <transition on="ok" to="initialisieren"/>
+
+        <transition on="dropbox_chose" to="initialisieren">
+            <evaluate expression="business.initializeDropbox(requestParameters.dropbox_file)"/>
+        </transition>
+
     </view-state>
 
     <view-state id="mannschaftsliste" view="mannschaft/liste_mannschaften.xhtml" redirect="true">

@@ -1,8 +1,11 @@
 package com.googlecode.madschuelerturnier.model;
 
+import com.googlecode.madschuelerturnier.model.callback.ModelChangeListenerManager;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PostPersist;
+import javax.persistence.PostUpdate;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -19,6 +22,12 @@ public class Persistent extends AbstractPersistable<Long> implements Serializabl
 
     public Date getCreationdate() {
         return creationdate;
+    }
+
+    @PostPersist
+    @PostUpdate
+    void onChangeInDatabase() {
+        ModelChangeListenerManager.getInstance().publish(this);
     }
 
 }

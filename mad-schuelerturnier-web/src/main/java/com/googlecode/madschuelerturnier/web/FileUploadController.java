@@ -25,48 +25,15 @@ public class FileUploadController {
 
     private static final Logger LOG = Logger.getLogger(FileUploadController.class);
 
-    @Autowired
-    private FromXLSLoader xls;
 
     @Autowired
-    private MannschaftRepository mannschaftsRepo;
+    private Business business;
 
-    @Autowired
-    private KorrekturRepository korrekturRepository;
-
-    @Autowired
-    private Business busniess;
-
-    @Autowired
-    private ImportHandler importHandler;
 
     public void handleFileUpload(FileUploadEvent event) {
-
-        // Einstellungen sichern
-        SpielEinstellungen einstellungen = xls.convertXLSToEinstellung(event.getFile().getContents());
-        busniess.saveEinstellungen(einstellungen);
-        LOG.info("einstellungen gespeicher: " + einstellungen);
-
-        // Mannschaften laden und updaten
-        List<Mannschaft> mannschaftsliste = xls.convertXLSToMannschaften(event.getFile().getContents());
-        for (Mannschaft m : mannschaftsliste) {
-            mannschaftsRepo.save(m);
-            LOG.info("mannschaft gespeicher: " + m);
-        }
-
-        // Korrekturen laden und updaten
-        List<Korrektur> korrekturen = xls.convertXLSToKorrektur(event.getFile().getContents());
-        for (Korrektur k : korrekturen) {
-            korrekturRepository.save(k);
-            LOG.info("korrektur gespeicher: " + k);
-        }
-
-        // Spiele laden und updaten
-        List<Spiel> spiele = xls.convertXLSToSpiele(event.getFile().getContents());
-        LOG.info("spiele geladen: " + spiele.size());
-
-        importHandler.turnierHerstellen(spiele);
-
+        business.generateSpielFromXLS(event.getFile().getContents());
     }
+
+
 
 }

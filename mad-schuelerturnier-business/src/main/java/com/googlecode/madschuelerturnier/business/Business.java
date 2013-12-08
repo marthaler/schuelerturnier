@@ -56,10 +56,14 @@ public interface Business {
 
     void initializeDB();
 
+    void initializeDropbox(String file);
+
     void initZeilen(boolean sonntag);
 
     List<SpielZeile> getSpielzeilen(final boolean sonntag);
 
     void manuelleZuordnungDurchziehen(final String mannschaftName, final String zielKategorieKey);
+
+    void generateSpielFromXLS(byte[] xlsIn);
 
 }

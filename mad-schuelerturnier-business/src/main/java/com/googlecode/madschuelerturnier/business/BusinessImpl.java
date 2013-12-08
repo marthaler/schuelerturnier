@@ -4,7 +4,10 @@
 package com.googlecode.madschuelerturnier.business;
 
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
+import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
+import com.googlecode.madschuelerturnier.business.turnierimport.ImportHandler;
 import com.googlecode.madschuelerturnier.business.vorbereitung.helper.SpielzeilenValidator;
+import com.googlecode.madschuelerturnier.business.xls.FromXLSLoader;
 import com.googlecode.madschuelerturnier.business.zeit.Zeitgeber;
 import com.googlecode.madschuelerturnier.model.*;
 import com.googlecode.madschuelerturnier.model.comperators.KategorieNameComperator;
@@ -56,6 +59,21 @@ public class BusinessImpl implements Business {
 
     @Autowired
     private Zeitgeber zeitgeber;
+
+    @Autowired
+    private FromXLSLoader xls;
+
+    @Autowired
+    private MannschaftRepository mannschaftsRepo;
+
+    @Autowired
+    private KorrekturRepository korrekturRepository;
+
+    @Autowired
+    private ImportHandler importHandler;
+
+    @Autowired
+    private DropboxConnector dropbox;
 
     private SpielEinstellungen einstellungen;
 
@@ -552,5 +570,37 @@ public class BusinessImpl implements Business {
             this.einstellungen = this.spielEinstellungenRepo.save(eins);
         }
 
+    }
+
+    public void generateSpielFromXLS(byte[] xlsIn) {
+        // Einstellungen sichern
+        SpielEinstellungen einstellungen = xls.convertXLSToEinstellung(xlsIn);
+        saveEinstellungen(einstellungen);
+        LOG.info("einstellungen gespeicher: " + einstellungen);
+
+        // Mannschaften laden und updaten
+        List<Mannschaft> mannschaftsliste = xls.convertXLSToMannschaften(xlsIn);
+        for (Mannschaft m : mannschaftsliste) {
+            mannschaftsRepo.save(m);
+            LOG.info("mannschaft gespeicher: " + m);
+        }
+
+        // Korrekturen laden und updaten
+        List<Korrektur> korrekturen = xls.convertXLSToKorrektur(xlsIn);
+        for (Korrektur k : korrekturen) {
+            korrekturRepository.save(k);
+            LOG.info("korrektur gespeicher: " + k);
+        }
+
+        // Spiele laden und updaten
+        List<Spiel> spiele = xls.convertXLSToSpiele(xlsIn);
+        LOG.info("spiele geladen: " + spiele.size());
+
+        importHandler.turnierHerstellen(spiele);
+    }
+
+    @Override
+    public void initializeDropbox(String file) {
+        generateSpielFromXLS(dropbox.loadFile(file));
     }
 }

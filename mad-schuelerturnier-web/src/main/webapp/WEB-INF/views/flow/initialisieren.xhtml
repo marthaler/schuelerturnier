@@ -3,6 +3,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
                 template="../../layouts/100.xhtml">
 
     <ui:define name="main">
@@ -30,7 +31,7 @@
                                     <p:fileUpload fileUploadListener="#{fileUploadController.handleFileUpload}"
                                                   multiple="false" auto="true" ajax="true"
                                                   widgetVar="dialogUpLoad" mode="advanced"
-                                                  oncomplete="document.getElementById('form1:ok').click()"/>
+                                                  oncomplete="document.getElementById('form:ok').click()"/>
                                     <br/>
                                     <!--kruecke zum feuern der weiterleitungsaction nach upload-->
                                     <p:commandButton id="ok" value="Initialisieren" action="ok" style="display: none"/>
@@ -60,7 +61,13 @@
 
                                         <ui:repeat value="#{dropboxBackingBean.fileList}" var="file">
                                             <p:column>
-                                                #{file}
+
+                                                <br/>
+                                                <p:commandButton  value="#{file}" action="dropbox_chose" ajax="false"> 
+                                                    <f:param name="dropbox_file" value="#{file}"/>
+                                                </p:commandButton>
+
+
                                             </p:column>
                                         </ui:repeat>
 
