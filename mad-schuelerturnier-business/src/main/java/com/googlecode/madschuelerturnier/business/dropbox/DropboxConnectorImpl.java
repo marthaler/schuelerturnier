@@ -27,8 +27,8 @@ public class DropboxConnectorImpl implements DropboxConnector {
     @Value("${dropbox.secret:jya3m54g1ximgn9}")
     private final String APP_SECRET = "jya3m54g1ximgn9";
 
-    @Value("${dropbox.folder:/shared/z_schuelerturnier/informatik/test}")
-    private String rootFolder ="/shared/z_schuelerturnier/informatik/test";
+    @Value("${dropbox.folder:/shared/z_schuelerturnier/informatik/applikationsdaten}")
+    private String rootFolder ="/shared/z_schuelerturnier/informatik/applikationsdaten";
 
     private DbxClient client;
 

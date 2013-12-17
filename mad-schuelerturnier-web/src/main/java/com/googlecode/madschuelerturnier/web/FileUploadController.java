@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.web;
 
 import com.googlecode.madschuelerturnier.business.Business;
@@ -24,7 +27,6 @@ import java.util.List;
 public class FileUploadController {
 
     private static final Logger LOG = Logger.getLogger(FileUploadController.class);
-
 
     @Autowired
     private Business business;

@@ -3,6 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business;
 
+import com.googlecode.madschuelerturnier.model.DBAuthUser;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
 
@@ -19,6 +20,8 @@ public interface DataLoader {
     List<Mannschaft> loadMannschaften();
 
     List<Spiel> loadSpiele();
+
+    List<DBAuthUser> loadDBUser();
 
     List<Mannschaft> loadMannschaften(boolean knaben, boolean maedchen, Integer... klassenIn);
 

@@ -9,9 +9,34 @@
         <evaluate expression="startAction.start(currentUser)"/>
     </action-state>
 
-    <view-state id="flow"/>
+    <view-state id="dashboard" view="dashboard.xhtml"/>
 
-    <view-state id="user"/>
+    <view-state id="user" model="flowScope.me">
+<on-entry>
+
+    <evaluate expression="DBAuthDetailService.loadUserByUsername(currentUser.principal.username)" result="flowScope.me"/>
+    <evaluate expression="DBAuthUserRepository.findAll()" result="flowScope.all"/>
+    <evaluate expression="modelFactory.getInstance('com.googlecode.madschuelerturnier.model.DBAuthUser')" result="flowScope.neu"/>
+
+</on-entry>
+        <transition on="save" to="back" bind="true">
+            <evaluate expression="DBAuthDetailService.saveUser(flowScope.me)"/>
+        </transition>
+
+        <transition on="chpwd" to="back" bind="true">
+            <evaluate expression="DBAuthDetailService.changeUsersPassword(flowScope.me)"/>
+        </transition>
+
+        <transition on="moduser" to="back" bind="true">
+            <evaluate expression="DBAuthDetailService.saveUser(flowScope.all,flowScope.neu,requestParameters.id)"/>
+        </transition>
+
+    </view-state>
+
+    <decision-state id="back">
+        <if test="1 == 1" then="user"/>
+
+    </decision-state>
 
     <action-state id="newmannschaft">
         <on-entry>
@@ -242,11 +267,15 @@
 
     <global-transitions>
 
+        <transition on="user" to="user"/>
+
+        <transition on="dashboard" to="dashboard"/>
+
         <transition on="initialisieren" to="initialisieren_view"/>
 
-        <transition on="flow" to="flow"/>
+
         <transition on="newmannschaft" to="newmannschaft"/>
-        <transition on="user" to="user"/>
+
         <transition on="mannschaftsliste" to="mannschaftsliste"/>
 
         <transition on="gt_historie" to="v_historie"/>

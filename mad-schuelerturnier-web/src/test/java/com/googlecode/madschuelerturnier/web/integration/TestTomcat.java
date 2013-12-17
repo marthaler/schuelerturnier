@@ -1,21 +1,38 @@
+package com.googlecode.madschuelerturnier.web.integration;
+
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 
 import javax.servlet.ServletException;
 import java.io.File;
 
-public class TransportTestTomcat implements Runnable {
+public class TestTomcat implements Runnable {
  
     private Tomcat tomcat;
     private Thread  serverThread;
     private String folder;
+
+    String webappPath = "";
+    String targetPath = "";
  
-    public TransportTestTomcat(int port, String contextPath,String folder) throws ServletException {
+    public TestTomcat(int port, String contextPath, String folder) throws ServletException {
         this.folder = folder;
         tomcat = new Tomcat();
         tomcat.setPort(port);
-        tomcat.setBaseDir("target/tomcat" + folder);
-        tomcat.addWebapp(contextPath, new File("src/test/webapp").getAbsolutePath());
+
+        if(new File("src/test/webapp").exists()){
+            webappPath = "src/test/webapp";
+            targetPath = "";
+        } else {
+            webappPath = "mad-schuelerturnier-web/src/test/webapp";
+            targetPath = "mad-schuelerturnier-web/target/tomcat";
+        }
+
+        tomcat.addWebapp(contextPath, new File(webappPath).getAbsolutePath());
+
+        tomcat.setBaseDir(targetPath + folder);
+
+
         serverThread = new Thread(this);
  
     }
@@ -37,9 +54,9 @@ public class TransportTestTomcat implements Runnable {
         try {
             tomcat.stop();
             tomcat.destroy();
-            deleteDirectory(new File("target/tomcat"+ folder));
-        } catch (LifecycleException e) {
-            throw new RuntimeException(e);
+            deleteDirectory(new File(targetPath+ folder));
+        } catch (Exception e) {
+            // do nothing
         }
     }
  

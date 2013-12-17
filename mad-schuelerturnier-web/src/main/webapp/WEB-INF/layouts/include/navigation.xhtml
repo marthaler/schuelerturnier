@@ -22,7 +22,7 @@
                     <p:menuitem id="mm_hinzu" value="Mannschaft hinzufügen" icon="ui-icon-plus" action="newmannschaft"/>
                     <p:menuitem id="mm_auflisten" value="Mannschaften auflisten" icon="ui-icon-carat-2-n-s"
                                 action="mannschaftsliste"/>
-                    <p:menuitem id="mm_phasen1" rendered="#{sec:areAnyGranted('ROLE_USER, ROLE_ADMIN')}"
+                    <p:menuitem id="mm_phasen1" rendered="#{sec:areAnyGranted('ROLE_OPERATOR')}"
                                 value="Phasenverwaltung" icon="ui-icon-arrow-4-diag" action="spielsteuerung"/>
                 </p:submenu>
 

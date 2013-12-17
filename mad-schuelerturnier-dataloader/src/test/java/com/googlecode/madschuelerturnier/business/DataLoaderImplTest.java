@@ -3,6 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business;
 
+import com.googlecode.madschuelerturnier.model.DBAuthUser;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import org.junit.Assert;
@@ -46,6 +47,12 @@ public class DataLoaderImplTest {
     public void testLoadDefaultAllSpiele() {
         List<Spiel> spiele = DataLoaderImpl.getDataLoader().loadSpiele();
         Assert.assertEquals(221, spiele.size());
+    }
+
+    @Test
+    public void testLoadDefaultAllUsers() {
+        List<DBAuthUser> user = DataLoaderImpl.getDataLoader().loadDBUser();
+        Assert.assertEquals(1, user.size());
     }
 
 }

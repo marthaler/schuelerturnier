@@ -5,6 +5,7 @@ package com.googlecode.madschuelerturnier.business;
 
 import com.google.common.io.Resources;
 import com.googlecode.madschuelerturnier.business.xls.FromXLSLoader;
+import com.googlecode.madschuelerturnier.model.DBAuthUser;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
@@ -54,6 +55,11 @@ public final class DataLoaderImpl implements DataLoader {
     @Override
     public List<Spiel> loadSpiele() {
         return xls.convertXLSToSpiele(readFile("schuetu-" + jahr + ".xls"));
+    }
+
+    @Override
+    public List<DBAuthUser> loadDBUser() {
+        return xls.convertXLSToDBAuthUsers(readFile("schuetu-" + jahr + ".xls"));
     }
 
     @Override

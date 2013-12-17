@@ -1,3 +1,6 @@
+package com.googlecode.madschuelerturnier.business; /**
+ * Apache License 2.0
+ */
 import com.googlecode.madschuelerturnier.business.integration.jms.SchuelerturnierTransportController;
 import com.googlecode.madschuelerturnier.web.controllers.TransportController;
 
@@ -5,9 +8,15 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+/**
+ * Servlet fuer den Transport test auf dem Tomcat
+ *
+ * @author marthaler.worb@gmail.com
+ * @since 1.2.8
+ */
 public class TransportTestServlet extends HttpServlet {
 
-    TransportController controller;
+    private TransportController controller;
 
     @Override
     public void init() throws ServletException {

@@ -51,7 +51,7 @@ public class DropboxDumper implements ApplicationEventPublisherAware, ModelChane
     public void run() {
         if (changed) {
             if (dropbox.isConnected()) {
-                dropbox.saveFile("dump.xls", dumper.mannschaftenFromDBtoXLS());
+                dropbox.saveFile("aktuelles-spiel.xls", dumper.mannschaftenFromDBtoXLS());
             }
 
             changed = false;

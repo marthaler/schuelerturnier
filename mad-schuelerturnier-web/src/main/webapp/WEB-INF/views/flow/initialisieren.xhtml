@@ -16,7 +16,7 @@
 
                         <p:messages/>
 
-                            <p:accordionPanel id="ac" activeIndex="10" >
+                            <p:accordionPanel id="ac" activeIndex="2">
                                 <p:tab title="Neues Spiel initialisieren">
 
                                     <h:panelGroup id="button" layout="block">
@@ -40,8 +40,6 @@
                                 <p:tab  title="Spiel von XLS aus Dropbox laden">
 
                                     <h:panelGrid columns="1" id="dropbox_panel" rendered="#{! dropboxBackingBean.isConnected()}"> 
-
-                                    <br/>
                                         <p:column>
                                     1) Link klicken:
                                     <a href="#{dropboxBackingBean.getURL()}" target="_blank" >Bei Dropbox anmelden und Key kopieren</a>
@@ -70,7 +68,6 @@
 
                                             </p:column>
                                         </ui:repeat>
-
 
 
 

@@ -27,13 +27,13 @@
 
         <!-- SPRING -->
         <springframework.version>3.2.4.RELEASE</springframework.version>
-        <!--ok:3.2.1.RELEASE -> ok:3.2.3.RELEASE -> ok:3.2.4.RELEASE -> ?:4.0.0.RC1-->
+        <!--ok:3.2.1.RELEASE -> ok:3.2.3.RELEASE -> ok:3.2.4.RELEASE -> nok:4.0.0.RC1 -> nok:4.0.0.RELEASE (swf)-->
 
         <springaop.version>3.2.4.RELEASE</springaop.version>
-        <!--ok:3.2.3.RELEASE -> ok:3.2.4.RELEASE -> ?:4.0.0.RC1-->
+        <!--ok:3.2.3.RELEASE -> ok:3.2.4.RELEASE -> nok:4.0.0.RC1 -> nok:4.0.0.RELEASE (swf)-->
 
         <springsecurity.version>3.2.0.RC2</springsecurity.version>
-        <!--3.1.3.RELEASE -> nok:3.2.0.M1 -> ok:3.2.0.M2 -> ?:3.2.0.RC2-->
+        <!--3.1.3.RELEASE -> nok:3.2.0.M1 -> ok:3.2.0.M2 -> ok:3.2.0.RC2 -> ??:3.2.0.RELEASE-->
 
         <!-- WEB -->
         <springwebflow.version>2.3.1.RELEASE</springwebflow.version>
@@ -50,7 +50,6 @@
 
         <springwebflow.faces.version>2.4.0.M1</springwebflow.faces.version>
         <!-- ok:2.3.1.RELEASE -> ok:2.4.0.M1-->
-
 
         <!-- PERSISTENZ -->
         <springdata.version>1.4.2.RELEASE</springdata.version>
