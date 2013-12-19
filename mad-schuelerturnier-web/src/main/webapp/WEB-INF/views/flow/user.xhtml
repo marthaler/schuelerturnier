@@ -28,7 +28,7 @@
 
 
 
-    <p:tabView orientation="top" activeIndex="#{userTabBean.activeIndex}" >
+    <p:tabView id="tw" orientation="top" activeIndex="#{userTabBean.activeIndex}" >
 
         <p:ajax event="tabChange" listener="#{userTabBean.onTabChange}"/>
 
@@ -81,7 +81,36 @@
         </p:tab>
 
 
-        <p:tab id="tab2"  title="Audit Log" disabled="#{sec:areNotGranted('ROLE_OPERATOR')}">
+
+
+
+
+        <p:tab id="tab2"  title="Benutzerportrait">
+            <h:form id="form_upl">
+
+
+                <p:graphicImage id="bild" value="/app/files/#{me.portraitId}" alt="bild" title="titel"/>
+
+
+                <p:fileUpload fileUploadListener="#{DBFileUploadController.handleFileUpload}"
+                              multiple="false" auto="true" ajax="true"
+                              widgetVar="dialogUpLoad" mode="advanced"
+                              oncomplete="document.getElementById('tw:form_upl:upload_button').click()"/>
+                <br/>
+                <!--kruecke zum feuern der weiterleitungsaction nach upload-->
+                <p:commandButton id="upload_button" value="Initialisieren"  action="upload" ajax="false" style="display: none"/>
+
+            </h:form>
+        </p:tab>
+
+
+
+
+
+
+
+
+        <p:tab id="tab3"  title="Audit Log" disabled="#{sec:areNotGranted('ROLE_OPERATOR')}">
             <h:form id="form2">
 
                 <p:dataTable var="log" value="#{auditLogRepository.findAllAscending()}">
@@ -103,7 +132,7 @@
             </h:form>
         </p:tab>
 
-        <p:tab id="tab3" title="Benutzerverwaltung" disabled="#{sec:areNotGranted('ROLE_OPERATOR')}">
+        <p:tab id="tab4" title="Benutzerverwaltung" disabled="#{sec:areNotGranted('ROLE_OPERATOR')}">
 
 
             <p:commandButton id="neu" value="Neuen Benutzer anlegen"    oncomplete="PF('dlgnu').show();"/>

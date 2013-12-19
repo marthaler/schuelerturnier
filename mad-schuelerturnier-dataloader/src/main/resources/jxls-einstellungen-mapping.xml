@@ -25,7 +25,7 @@
                 <mapping row="16" col="1">einstellung.behandleFinaleProKlassebeiZusammengefuehrten</mapping>
             </section>
             <loopbreakcondition>
-                <rowcheck offset="1">
+                <rowcheck offset="0">
                     <cellcheck offset="1"/>
                 </rowcheck>
             </loopbreakcondition>

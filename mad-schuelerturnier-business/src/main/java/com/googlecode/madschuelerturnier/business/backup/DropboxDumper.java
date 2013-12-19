@@ -5,12 +5,10 @@ package com.googlecode.madschuelerturnier.business.backup;
 
 import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
 import com.googlecode.madschuelerturnier.business.xls.ToXLSDumper;
-import com.googlecode.madschuelerturnier.business.zeit.ZeitPuls;
 import com.googlecode.madschuelerturnier.model.Persistent;
 import com.googlecode.madschuelerturnier.model.callback.ModelChaneListener;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListenerManager;
 import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
@@ -47,11 +45,11 @@ public class DropboxDumper implements ApplicationEventPublisherAware, ModelChane
         ModelChangeListenerManager.getInstance().addListener(this);
     }
 
-    @Scheduled(fixedRate = 15000)
+    @Scheduled(fixedRate = 60000)
     public void run() {
         if (changed) {
             if (dropbox.isConnected()) {
-                dropbox.saveFile("aktuelles-spiel.xls", dumper.mannschaftenFromDBtoXLS());
+                dropbox.saveFile("schuetu-aktuell.xls", dumper.mannschaftenFromDBtoXLS());
             }
 
             changed = false;

@@ -117,6 +117,7 @@ public class DBAuthDetailService implements UserDetailsService {
     }
 
 
+
     public Collection<String> alleRollen() {
         if (alleRollen.size() == 0) {
             List<DBAuthUser> user = repo.findAll();

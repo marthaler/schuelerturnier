@@ -70,6 +70,9 @@ public class BusinessImpl implements Business {
     private KorrekturRepository korrekturRepository;
 
     @Autowired
+    private DBAuthUserRepository userRepository;
+
+    @Autowired
     private ImportHandler importHandler;
 
     @Autowired
@@ -181,6 +184,11 @@ public class BusinessImpl implements Business {
      * @see com.googlecode.madschuelerturnier.business.sdfdf#getSpielEinstellungen()
      */
     public SpielEinstellungen getSpielEinstellungen() {
+
+        // noch nicht im cache
+        if (this.einstellungen == null && this.spielEinstellungenRepo.count() > 0) {
+            this.einstellungen = this.spielEinstellungenRepo.findAll().get(0);
+        }
 
         // einstellungen bereits im cache
         if (this.einstellungen != null) {
@@ -590,6 +598,14 @@ public class BusinessImpl implements Business {
         for (Korrektur k : korrekturen) {
             korrekturRepository.save(k);
             LOG.info("korrektur gespeicher: " + k);
+        }
+
+        // Benutzer laden und updaten
+        List<DBAuthUser> user = xls.convertXLSToDBAuthUsers(xlsIn);
+        LOG.info("dbauthuser geladen: " + user.size());
+        for (DBAuthUser u : user) {
+            userRepository.save(u);
+            LOG.info("dbauthuser gespeicher: " + u);
         }
 
         // Spiele laden und updaten

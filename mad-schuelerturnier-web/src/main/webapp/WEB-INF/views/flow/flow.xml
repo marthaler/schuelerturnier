@@ -31,6 +31,10 @@
             <evaluate expression="DBAuthDetailService.saveUser(flowScope.all,flowScope.neu,requestParameters.id)"/>
         </transition>
 
+        <transition on="upload" to="back" >
+            <evaluate expression="DBFileUploadController.matchPicture(flowScope.me)" />
+        </transition>
+
     </view-state>
 
     <decision-state id="back">

@@ -26,6 +26,8 @@ public class DBAuthUser extends Persistent implements UserDetails {
     private String authoritiesString;
     private String mail;
 
+    private String portraitId = "0";
+
     @Transient
     private String pw;
 
@@ -125,4 +127,11 @@ public class DBAuthUser extends Persistent implements UserDetails {
         authoritiesString = authoritiesString.substring(0, authoritiesString.length() - 1);
     }
 
+    public String getPortraitId() {
+        return portraitId;
+    }
+
+    public void setPortraitId(String portraitId) {
+        this.portraitId = portraitId;
+    }
 }
