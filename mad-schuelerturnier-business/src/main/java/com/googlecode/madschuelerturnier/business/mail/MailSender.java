@@ -18,15 +18,15 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class MailSender {
 
-    public void sendMail(String to, String from,String subject, String text,String passwort){
+    public void sendMail(String to, String from,String subject, String text){
 
         try {
         Email email = new SimpleEmail();
         email.setHostName("asmtp.mail.hostpoint.ch");
         email.setSmtpPort(587);
-        email.setAuthenticator(new DefaultAuthenticator("informatik@schuelerturnier-scworb.ch", passwort));
+        email.setAuthenticator(new DefaultAuthenticator("robot@schuelerturnier-scworb.ch", "LoginPrepareAction"));
         email.setSSLOnConnect(true);
-        email.setFrom("info@gmail.com");
+        email.setFrom(from);
         email.setSubject(subject);
         email.setMsg(text);
         email.addTo(to);

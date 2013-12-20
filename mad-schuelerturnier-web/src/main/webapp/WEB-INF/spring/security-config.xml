@@ -7,13 +7,14 @@
        http://www.springframework.org/schema/security  http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
     <!-- Configure Spring Security -->
-    <sec:http auto-config="true" use-expressions="true" access-denied-page="/app/login">
-        <sec:form-login login-page="/app/login" login-processing-url="/app/j_spring_security_check"
+    <sec:http auto-config="true" use-expressions="true" access-denied-page="/app/flow">
+        <sec:form-login login-page="/app/flow" login-processing-url="/app/j_spring_security_check"
                         default-target-url="/app/flow" always-use-default-target="true"
-                        authentication-failure-url="/app/login?login_error=1"/>
-        <sec:logout logout-url="/app/logout" logout-success-url="/app/login" invalidate-session="true"
-                    delete-cookies="JSESSIONID"/>
-        <sec:intercept-url pattern="/app/flow" method="GET" access="hasRole('ROLE_USER')"/>
+                        authentication-failure-url="/app/flow"/>
+        <sec:logout logout-url="/app/logout" logout-success-url="/app/flow" invalidate-session="true" delete-cookies="JSESSIONID"/>
+
+        <!--<sec:intercept-url pattern="/app/flow" method="GET" access="hasRole('ROLE_USER')"/>-->
+
         <!-- 2 wochen nicht mehr anmelden -->
         <sec:remember-me key="schuelerturnier-key" token-validity-seconds="120960" user-service-ref="DBAuthDetailService"/>
     </sec:http>

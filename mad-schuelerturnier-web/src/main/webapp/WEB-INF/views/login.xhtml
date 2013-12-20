@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:sec="http://www.springframework.org/security/tags"
                 template="../layouts/100.xhtml">
 
     <ui:define name="heading">
         <h:outputText value="Anmeldung"/>
     </ui:define>
 
+    <ui:define name="caption">
+
+    </ui:define>
+
+
     <ui:define name="scripts">
         <script type="text/javascript">
             /* <![CDATA[ */
             jQuery(document).ready(function () {
-                document.getElementById("account_user").focus();
+                document.getElementById("account_form:user").focus();
             });
             /* ]]> */
         </script>
@@ -39,45 +47,53 @@
                     return true;
                 });
             });
-            jQuery(function () {
-                jQuery("form#openid_form input[type=text]").keypress(function (e) {
-                    if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
-                        jQuery('form#openid_form input[type=submit]').click();
-                        return false;
-                    }
-                    return true;
-                });
-            });
             /* ]]> */
         </script>
     </ui:define>
 
-    <ui:define name="form">
-        <h5></h5>
-        <h:panelGroup rendered="#{not empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION}">
-            <p class="warning">
-                <h:outputText value="Anmeldungsversuch fehlgeschlagen."/>
-            </p>
-        </h:panelGroup>
-        <ui:include src="../layouts/include/validation.xhtml"/>
-        <ui:insert name="messages"/>
-        <ui:insert name="inset">
-            <div class="inset">
-                <ui:insert name="page"/>
-            </div>
-        </ui:insert>
+
+    <ui:define name="main">
+        <div id="main">
+        <div class="page_margins">
+            <div class="page">
+                <div class="inset">
+
+
+        <h:form id="account_form" >
+           <h3>Anmeldung</h3>
+            <p:messages closable="true"/>
+            <h:panelGrid columns="2" style="margin-bottom:10px">
+                <h:outputLabel for="user" value="Benutzername oder Mail:" />
+                <h:inputText id ="user" value="#{loginBean.user}" size="15"/>
+                <h:outputLabel for="password" value="Passwort:" size="15"/>
+                <h:inputSecret id="password" value="#{loginBean.password}" />
+                <br/>
+                <p:commandButton id= "ok" value="Login" action="ok" ajax="false"/>
+                <br/>
+                <p:commandButton id="neu" value="Anmeldelink Senden" oncomplete="PF('dlgnu').show();"/>
+            </h:panelGrid>
+
+
+        <p:dialog id="dlgnu"  header="Emailadresse angeben, an die der Anmeldelink Link verschickt wird" widgetVar="dlgnu" resizable="false" modal="true">
+
+            <h:panelGrid columns="2" style="margin-bottom:10px">
+                <h:outputLabel for="mail" value="Emailadresse:" />
+                <h:inputText id = "mail" value="#{loginBean.mail}" ajax="false"/>
+
+            </h:panelGrid>
+
+            <p:commandButton id="mailSenden" value="Senden"  action="mail"  ajax="false"/>
+
+
+        </p:dialog>
+
+        </h:form>
+
+                </div></div>
+        </div>
+        </div>
+
+
     </ui:define>
-
-    <ui:define name="icon"/>
-
-    <ui:define name="heading">
-        <h:outputText value="#{messageSource['login']}"/>
-    </ui:define>
-
-    <ui:define name="paragraphs">
-        <h3>Anmelden</h3>
-        <ui:include src="include/account.xhtml"/>
-    </ui:define>
-
 
 </ui:composition>

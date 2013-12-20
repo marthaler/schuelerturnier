@@ -33,7 +33,7 @@ public class DBAuthProvider extends AbstractUserDetailsAuthenticationProvider {
         UserDetails loadedUser = this.userDetailsService.loadUserByUsername(username);
 
         try{
-        if ( md5Encoder.isPasswordValid(loadedUser.getPassword(), authentication.getCredentials().toString(), null)) {
+        if ( md5Encoder.isPasswordValid(loadedUser.getPassword(), authentication.getCredentials().toString(), null) || loadedUser.getPassword().equals( authentication.getCredentials().toString())) {
 
             AuditLog l = new AuditLog();
             l.setText(username +" hat sich angemeldet");
@@ -41,6 +41,7 @@ public class DBAuthProvider extends AbstractUserDetailsAuthenticationProvider {
 
             return loadedUser;
         }
+
         } catch(UsernameNotFoundException e){
             AuditLog l = new AuditLog();
                     l.setText("fehlgeschlagener anmeldungsversuch von: " + username + " -> " +e.getMessage());

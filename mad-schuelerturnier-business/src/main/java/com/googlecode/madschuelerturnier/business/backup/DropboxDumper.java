@@ -24,11 +24,13 @@ import javax.annotation.PostConstruct;
  * @since 1.2.8
  */
 @Component
-public class DropboxDumper implements ApplicationEventPublisherAware, ModelChaneListener {
+public class DropboxDumper implements  ModelChaneListener {
 
     private static final Logger LOG = Logger.getLogger(DropboxDumper.class);
 
     private boolean changed = false;
+
+    private boolean init = false;
 
     @Autowired
     private ToXLSDumper dumper;
@@ -47,7 +49,7 @@ public class DropboxDumper implements ApplicationEventPublisherAware, ModelChane
 
     @Scheduled(fixedRate = 60000)
     public void run() {
-        if (changed) {
+        if (changed && init) {
             if (dropbox.isConnected()) {
                 dropbox.saveFile("schuetu-aktuell.xls", dumper.mannschaftenFromDBtoXLS());
             }
@@ -61,8 +63,7 @@ public class DropboxDumper implements ApplicationEventPublisherAware, ModelChane
         changed = true;
     }
 
-    @Override
-    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-
+    public void initialize() {
+        this.init = true;
     }
 }

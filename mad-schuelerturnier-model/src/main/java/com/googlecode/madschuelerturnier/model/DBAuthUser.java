@@ -26,6 +26,8 @@ public class DBAuthUser extends Persistent implements UserDetails {
     private String authoritiesString;
     private String mail;
 
+    private String linktoken = UUID.randomUUID().toString();
+
     private String portraitId = "0";
 
     @Transient
@@ -133,5 +135,9 @@ public class DBAuthUser extends Persistent implements UserDetails {
 
     public void setPortraitId(String portraitId) {
         this.portraitId = portraitId;
+    }
+
+    public String getLinktoken() {
+        return linktoken;
     }
 }

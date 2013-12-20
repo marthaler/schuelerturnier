@@ -4,6 +4,25 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+    <!-- Log In -->
+    <var name="loginBean" class="com.googlecode.madschuelerturnier.web.security.LoginBean"/>
+
+    <decision-state id="start">
+        <if test="currentUser != null AND currentUser.isAuthenticated()" then="initialisieren"/>
+        <if test="currentUser == null || ! currentUser.isAuthenticated()" then="login"/>
+    </decision-state>
+
+    <view-state id="login" view="../login.xhtml" model="loginBean">
+        <transition on="ok" to="start" bind="true">
+            <evaluate expression="doLoginController.login(flowScope.loginBean)"/>
+        </transition>
+        <transition on="mail" to="start" bind="true">
+            <evaluate expression="linkLoginSendlinkController.loginPrepare(flowScope.loginBean)"/>
+        </transition>
+    </view-state>
+
+    <!-- Init -->
+
     <action-state id="initialisieren">
         <evaluate expression="loginPrepareAction.execute()"/>
         <evaluate expression="startAction.start(currentUser)"/>
@@ -66,6 +85,8 @@
 
         <transition on="dropbox_chose" to="initialisieren">
             <evaluate expression="business.initializeDropbox(requestParameters.dropbox_file)"/>
+            <evaluate expression="dropboxDumper.initialize()"/>
+
         </transition>
 
     </view-state>

@@ -16,6 +16,8 @@
     <!-- Enable serving of classpath with Spring 3 resource serving mechanism. For example: /webflow-primefaces-showcase/app/resources/styles/blueprint/print.css -->
     <mvc:resources location="/" mapping="/resources/**"/>
 
+    <mvc:default-servlet-handler/>
+
     <!--  Enable processing of JSF 2 resource requests. For example: /webflow-primefaces-showcase/app/javax.faces.resource/jsf.js?ln=javax.faces -->
     <faces:resources/>
 

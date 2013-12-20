@@ -207,6 +207,12 @@
                                     <target>
                                         <copy file="./target/${project.artifactId}-${project.version}-war-exec.jar"
                                               tofile="/app/app.jar" overwrite="true"/>
+
+                                        <move file="/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/ROOT.war"
+                                              tofile="/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/ROOT-BAK.war" overwrite="true"/>
+
+                                        <copy file="./target/${project.artifactId}-${project.version}.war"
+                                              tofile="/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/ROOT.war" overwrite="true"/>
                                     </target>
 
                                 </configuration>

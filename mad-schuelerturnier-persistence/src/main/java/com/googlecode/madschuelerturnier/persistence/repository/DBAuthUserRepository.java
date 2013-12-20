@@ -24,4 +24,8 @@ public interface DBAuthUserRepository extends JpaRepository<DBAuthUser, Long> {
     @Query("select o from DBAuthUser o where o.mail = ?1")
     DBAuthUser findByMail(String mail);
 
+    @Query("select o from DBAuthUser o where o.linktoken like ?1%")
+    DBAuthUser findByLinktoken(String linktoken);
+
+
 }
