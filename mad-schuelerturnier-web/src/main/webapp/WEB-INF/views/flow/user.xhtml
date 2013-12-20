@@ -18,17 +18,7 @@
 <div class="page">
 <div class="inset">
 
-
-
-
-
-
-
-
-
-
-
-    <p:tabView id="tw" orientation="top" activeIndex="#{userTabBean.activeIndex}" >
+    <p:tabView id="tw" orientation="top" activeIndex="#{userTabBean.activeIndex}" effect="fade" effectDuration="normal">
 
         <p:ajax event="tabChange" listener="#{userTabBean.onTabChange}"/>
 
@@ -46,7 +36,6 @@
                     <h:outputLabel for="rollen" value="Rollen"/>
                     <p:autoComplete id="rollen" value="#{me.auths}" multiple="true" size="20"
                                     disabled="true"/>
-
                     <br/>
 
                     <p:commandButton id="submit" value="Speichern" action="save" execute="@form"
@@ -74,23 +63,14 @@
                     </p:password>
                 </h:panelGrid>
                 <br/>
-                <p:commandButton id="saveButton" update="matchGrid" value="Speichern"
-                                 action="chpwd"/>
-
+                <p:commandButton id="saveButton" update="matchGrid" value="Speichern" action="chpwd"/>
             </h:form>
         </p:tab>
-
-
-
-
-
 
         <p:tab id="tab2"  title="Benutzerportrait">
             <h:form id="form_upl">
 
-
                 <p:graphicImage id="bild" value="/app/files/#{me.portraitId}" alt="bild" title="titel"/>
-
 
                 <p:fileUpload fileUploadListener="#{DBFileUploadController.handleFileUpload}"
                               multiple="false" auto="true" ajax="true"
@@ -102,13 +82,6 @@
 
             </h:form>
         </p:tab>
-
-
-
-
-
-
-
 
         <p:tab id="tab3"  title="Audit Log" disabled="#{sec:areNotGranted('ROLE_OPERATOR')}">
             <h:form id="form2">
@@ -125,15 +98,12 @@
                         <h:outputText value="#{log.text}" />
                     </p:column>
 
-
-
                 </p:dataTable>
 
             </h:form>
         </p:tab>
 
         <p:tab id="tab4" title="Benutzerverwaltung" disabled="#{sec:areNotGranted('ROLE_OPERATOR')}">
-
 
             <p:commandButton id="neu" value="Neuen Benutzer anlegen"    oncomplete="PF('dlgnu').show();"/>
             <h:form id="form5">
@@ -147,28 +117,18 @@
                         <h:outputLabel for="mailnu" value="Mail:" />
                         <h:inputText id = "mailnu" value="#{neu.mail}" ajax="true"/>
 
-
                         <h:outputLabel for="rollennu" value="Rollen:" />
                         <p:autoComplete id="rollennu" value="#{neu.auths}" multiple="true" size="20"  completeMethod="#{DBAuthDetailService.alleRollen()}" ajax="true"/>
 
-
                     </h:panelGrid>
-
-
-
 
                     <p:commandButton id="submitButtonneu" value="Speichern"  action="moduser"  oncomplete="PF('dlgnu').hide();">
                         <f:param name="id" value="#{user.id}"/>
                     </p:commandButton>
 
-
-
                 </p:dialog>
 
-
             </h:form>
-
-
 
             <br/>
             <p:dataTable var="user" value="#{all}" rowIndexVar="ri" >
@@ -183,11 +143,6 @@
                 <p:column headerText="Rollen">
                     <p:autoComplete id="rollen2" value="#{user.auths}" multiple="true" size="20"
                                     disabled="true"/>
-
-
-
-
-
 
                     <h:form id="form4#{ri}" >
 
@@ -204,42 +159,23 @@
                                 <h:outputLabel for="rollen#{ri}" value="Rollen:" />
                                 <p:autoComplete id="rollen#{ri}" value="#{user.auths}" multiple="true" size="20"  completeMethod="#{DBAuthDetailService.alleRollen()}" ajax="true"/>
 
-
                             </h:panelGrid>
-
-
-
 
                             <p:commandButton id="submitButton" value="Speichern"  action="moduser"  oncomplete="PF('dlg#{user.username}').hide();">
                                 <f:param name="id" value="#{user.id}"/>
                             </p:commandButton>
 
-
-
                         </p:dialog>
-
 
                     </h:form>
 
-
-
-
-
-
-
                 </p:column>
-
-
-
 
                 <p:column headerText="">
                     <p:commandButton id="showDialogButton" type="button" value="Bearbeiten" onclick="PF('dlg#{user.username}').show()" />
                 </p:column>
 
-
-
             </p:dataTable>
-
 
         </p:tab>
 

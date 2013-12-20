@@ -36,16 +36,19 @@
 
         <h:form id="account_form" >
            <h3>Anmeldung</h3>
+            <br/>
+
             <p:messages closable="true"/>
+            <br/>
             <h:panelGrid columns="2" style="margin-bottom:10px">
                 <h:outputLabel for="user" value="Benutzername oder Mail:" />
-                <h:inputText id ="user" value="#{loginBean.user}" size="20"  onkeypress="if (event.keyCode == 13) { document.getElementById('account_form:ok').click(); return false; }"/>
+                <h:inputText id ="user" value="#{loginBean.user}" size="40"  onkeypress="if (event.keyCode == 13) { document.getElementById('account_form:ok').click(); return false; }"/>
                 <h:outputLabel for="password" value="Passwort:" />
-                <h:inputSecret id="password" value="#{loginBean.password}" size="20" onkeypress="if (event.keyCode == 13) { document.getElementById('account_form:ok').click(); return false; }"/>
+                <h:inputSecret id="password" value="#{loginBean.password}" size="40" onkeypress="if (event.keyCode == 13) { document.getElementById('account_form:ok').click(); return false; }"/>
                 <br/>
                 <p:commandButton id= "ok" value="Login" action="ok" ajax="false"/>
-                <br/>
-                <p:commandButton id="neu" value="Anmeldelink Senden" oncomplete="PF('dlgnu').show();"/>
+                <br/>  <br/><br/>
+                <p:commandLink id="neu" value="Anmeldelink Senden" oncomplete="PF('dlgnu').show();"/>
             </h:panelGrid>
 
 
@@ -57,7 +60,7 @@
 
             </h:panelGrid>
 
-            <p:commandLink id="mailSenden" value="Senden"  action="mail"  ajax="false"/>
+            <p:commandButton id="mailSenden" value="Senden"  action="mail"  ajax="false"/>
 
 
         </p:dialog>

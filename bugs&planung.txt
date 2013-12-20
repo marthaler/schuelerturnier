@@ -2,7 +2,11 @@ feautures:
 **********
 
 [  ]     out to website publisher schlau konfigurieren
+[  ]     master einfuehren
+[  ]     Bilder in die DB
+[  ]     bei den usern echten namen einfuehren und auch exportieren
 [  ]     Neuer Scanner bauen
+[  ]     integrationstests aufraeumen & tomcat
 
 [rj]     countdown ueber eine stunde springt (stunden einbeziehen)
 

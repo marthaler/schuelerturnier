@@ -27,7 +27,7 @@ public class TestIndex {
     public void simpleCheck() throws IOException {
 
         HtmlPage page = client.getPage("http://localhost:8080");
-        Assert.assertTrue(page.getBody().asText().contains("Benutzername:"));
+        Assert.assertTrue(page.getBody().asText().contains("Passwort:"));
     }
 
 }
