@@ -64,7 +64,7 @@ public class ExcelWithDatabaseIntegrationTest {
     @Test
     public void testParseEinstellungen() {
         Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
-        SpielEinstellungen einst = xls.convertXLSToEinstellung(DataLoaderImpl.readFile("schuetu-2014.xls"));
+        SpielEinstellungen einst = xls.convertXLSToEinstellung(DataLoaderImpl.readFile("schuetu-2013.xls"));
         Assert.assertNotNull(einst);
     }
 
