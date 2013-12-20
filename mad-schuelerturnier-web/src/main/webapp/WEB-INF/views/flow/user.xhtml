@@ -18,7 +18,7 @@
 <div class="page">
 <div class="inset">
 
-    <p:tabView id="tw" orientation="top" activeIndex="#{userTabBean.activeIndex}" effect="fade" effectDuration="normal">
+    <p:tabView id="tw" orientation="top" activeIndex="#{userTabBean.activeIndex}" effect="fade" effectDuration="fast">
 
         <p:ajax event="tabChange" listener="#{userTabBean.onTabChange}"/>
 
@@ -71,7 +71,7 @@
             <h:form id="form_upl">
 
                 <p:graphicImage id="bild" value="/app/files/#{me.portraitId}" alt="bild" title="titel"/>
-
+                <br/> <br/>
                 <p:fileUpload fileUploadListener="#{DBFileUploadController.handleFileUpload}"
                               multiple="false" auto="true" ajax="true"
                               widgetVar="dialogUpLoad" mode="advanced"

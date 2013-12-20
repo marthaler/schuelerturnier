@@ -52,11 +52,11 @@
             </h:panelGrid>
 
 
-        <p:dialog id="dlgnu"  header="Emailadresse angeben, an die der Anmeldelink Link verschickt wird" widgetVar="dlgnu" resizable="false" modal="true">
+        <p:dialog id="dlgnu"  header="Emailadresse angeben, an die der Anmeldelink Link verschickt werden soll" widgetVar="dlgnu" resizable="false" modal="true">
 
             <h:panelGrid columns="2" style="margin-bottom:10px">
                 <h:outputLabel for="mail" value="Emailadresse:" />
-                <h:inputText id = "mail" value="#{loginBean.mail}" size="25" ajax="false"/>
+                <h:inputText id = "mail" value="#{loginBean.mail}" size="50" ajax="false" onkeypress="if (event.keyCode == 13) { document.getElementById('account_form:mailSenden').click(); return false; }"/>
 
             </h:panelGrid>
 
