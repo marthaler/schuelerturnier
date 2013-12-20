@@ -4,18 +4,15 @@
 package com.googlecode.madschuelerturnier.web.security;
 
 import com.googlecode.madschuelerturnier.business.security.DBAuthProvider;
-import com.googlecode.madschuelerturnier.model.DBAuthUser;
 import com.googlecode.madschuelerturnier.persistence.repository.DBAuthUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  * fuehrt ein login aufgrund eines tokens, das per email an den besitzer gegangen ist durch
@@ -29,23 +26,24 @@ public class DoLoginController {
     @Autowired
     private DBAuthProvider provider;
 
-    @Autowired
-    private DBAuthUserRepository repo;
+    public void login(LoginBean login) {
+        try {
 
-    public void login(LoginBean login){
-try{
+            if (login.getUser() == null || login.getUser().equals("")) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Benutzername oder Email leer", ""));
+            }
+
+            if (login.getPassword() == null || login.getPassword().equals("")) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Passwort leer", ""));
+            }
 
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(login.getUser(), login.getPassword());
-
             Authentication authentication = this.provider.authenticate(authToken);
-
             SecurityContextHolder.getContext().setAuthentication(authentication);
+
         } catch (Exception e) {
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Anmeldefehler, bitte probieren sie es noch einmal", ""));
             SecurityContextHolder.getContext().setAuthentication(null);
-
-
         }
-
     }
-
 }

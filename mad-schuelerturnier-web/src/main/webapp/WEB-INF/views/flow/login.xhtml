@@ -5,7 +5,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:sec="http://www.springframework.org/security/tags"
-                template="../layouts/100.xhtml">
+                template="../../layouts/100.xhtml">
 
     <ui:define name="heading">
         <h:outputText value="Anmeldung"/>
@@ -26,31 +26,6 @@
         </script>
     </ui:define>
 
-    <ui:define name="keypress">
-        <script type="text/javascript">
-            /* <![CDATA[ */
-            jQuery(function () {
-                jQuery("form#account_form input[type=text]").keypress(function (e) {
-                    if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
-                        jQuery('form#account_form input[type=submit]').click();
-                        return false;
-                    }
-                    return true;
-                });
-            });
-            jQuery(function () {
-                jQuery("form#account_form input[type=password]").keypress(function (e) {
-                    if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
-                        jQuery('form#account_form input[type=submit]').click();
-                        return false;
-                    }
-                    return true;
-                });
-            });
-            /* ]]> */
-        </script>
-    </ui:define>
-
 
     <ui:define name="main">
         <div id="main">
@@ -64,9 +39,9 @@
             <p:messages closable="true"/>
             <h:panelGrid columns="2" style="margin-bottom:10px">
                 <h:outputLabel for="user" value="Benutzername oder Mail:" />
-                <h:inputText id ="user" value="#{loginBean.user}" size="15"/>
-                <h:outputLabel for="password" value="Passwort:" size="15"/>
-                <h:inputSecret id="password" value="#{loginBean.password}" />
+                <h:inputText id ="user" value="#{loginBean.user}" size="20"  onkeypress="if (event.keyCode == 13) { document.getElementById('account_form:ok').click(); return false; }"/>
+                <h:outputLabel for="password" value="Passwort:" />
+                <h:inputSecret id="password" value="#{loginBean.password}" size="20" onkeypress="if (event.keyCode == 13) { document.getElementById('account_form:ok').click(); return false; }"/>
                 <br/>
                 <p:commandButton id= "ok" value="Login" action="ok" ajax="false"/>
                 <br/>
@@ -78,11 +53,11 @@
 
             <h:panelGrid columns="2" style="margin-bottom:10px">
                 <h:outputLabel for="mail" value="Emailadresse:" />
-                <h:inputText id = "mail" value="#{loginBean.mail}" ajax="false"/>
+                <h:inputText id = "mail" value="#{loginBean.mail}" size="25" ajax="false"/>
 
             </h:panelGrid>
 
-            <p:commandButton id="mailSenden" value="Senden"  action="mail"  ajax="false"/>
+            <p:commandLink id="mailSenden" value="Senden"  action="mail"  ajax="false"/>
 
 
         </p:dialog>

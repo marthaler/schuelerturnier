@@ -12,7 +12,7 @@
         <if test="currentUser == null || ! currentUser.isAuthenticated()" then="login"/>
     </decision-state>
 
-    <view-state id="login" view="../login.xhtml" model="loginBean">
+    <view-state id="login" view="login.xhtml" model="loginBean">
         <transition on="ok" to="start" bind="true">
             <evaluate expression="doLoginController.login(flowScope.loginBean)"/>
         </transition>
