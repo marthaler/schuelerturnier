@@ -72,7 +72,7 @@ public class LinkLoginSendlinkController {
         }
 
         String text = "Sie haben einen Anmeldelink für die Schülerturnier Applikation bestellt: \n"+
-        adresse + "/app/login/link"+user.getLinktoken() + "\n\n"+
+        adresse + "/app/login/link/"+user.getLinktoken() + "\n\n"+
 
         "Falls sie ihr Passwort ändern möchten können sie das nach dem anklicken \n des Links tun indem sie "+
                 "ihren Benutzernamen (oben rechts) anklicken";
