@@ -1,8 +1,8 @@
 package com.googlecode.madschuelerturnier.business; /**
  * Apache License 2.0
  */
-import com.googlecode.madschuelerturnier.business.integration.jms.SchuelerturnierTransportController;
-import com.googlecode.madschuelerturnier.web.controllers.TransportController;
+import com.googlecode.madschuelerturnier.business.integration.jms.SchuelerturnierTransportControllerImpl;
+import com.googlecode.madschuelerturnier.web.controllers.TransportReceiver;
 
 import java.io.*;
 import javax.servlet.*;
@@ -16,7 +16,7 @@ import javax.servlet.http.*;
  */
 public class TransportTestServlet extends HttpServlet {
 
-    private TransportController controller;
+    private TransportReceiver controller;
 
     @Override
     public void init() throws ServletException {
@@ -25,8 +25,8 @@ public class TransportTestServlet extends HttpServlet {
         String ownConnectionString = System.getProperty("ownConnectionString");
         String remoteConnectionString = System.getProperty("remoteConnectionString");
 
-        SchuelerturnierTransportController brain = new SchuelerturnierTransportController(ownConnectionString, remoteConnectionString);
-        controller = new TransportController();
+        SchuelerturnierTransportControllerImpl brain = new SchuelerturnierTransportControllerImpl();
+        controller = new TransportReceiver();
         controller.setController(brain);
     }
 

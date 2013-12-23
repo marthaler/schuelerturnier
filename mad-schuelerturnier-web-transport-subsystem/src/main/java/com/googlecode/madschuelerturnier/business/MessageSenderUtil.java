@@ -2,7 +2,7 @@ package com.googlecode.madschuelerturnier.business;
 
 
 
-import com.googlecode.madschuelerturnier.model.messages.MessageWrapper;
+import com.googlecode.madschuelerturnier.model.messages.MessageWrapperToSend;
 import com.googlecode.madschuelerturnier.model.util.XstreamUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -23,7 +23,7 @@ public class MessageSenderUtil {
 
     private static final Logger LOG = Logger.getLogger(MessageSenderUtil.class);
 
-    public static MessageWrapper send(String adresse,MessageWrapper obj) {
+    public static MessageWrapperToSend send(String adresse,MessageWrapperToSend obj) {
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(adresse);
         StringBuffer buff = new StringBuffer();
@@ -41,7 +41,7 @@ public class MessageSenderUtil {
                 buff.append(line);
             }
 
-           return (MessageWrapper) XstreamUtil.deserializeFromString(buff.toString());
+           return (MessageWrapperToSend) XstreamUtil.deserializeFromString(buff.toString());
 
         } catch (IOException e) {
             LOG.error(e.getMessage());

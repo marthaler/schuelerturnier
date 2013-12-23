@@ -3,8 +3,10 @@
  */
 package com.googlecode.madschuelerturnier.business.bus;
 
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.model.messages.IncommingMessage;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.messages.state.MasterState;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +30,14 @@ public class BusControllerIn implements ApplicationListener<IncommingMessage> {
     @Autowired
     private MannschaftRepository repo;
 
+    @Autowired
+    private Business business;
+
     @Override
     public void onApplicationEvent(IncommingMessage event) {
         Serializable obj = event.getPayload();
-        LOG.info("bus: message von anderem remote kontext angekommen: " + obj);
+        LOG.info("BusControllerIn: message von anderem remote kontext angekommen: " + obj);
         if(obj instanceof Mannschaft){
-            LOG.info("bus: es ist eine mannschaft, speichern...");
             repo.save((Mannschaft) obj);
         }
 

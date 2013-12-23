@@ -73,7 +73,6 @@
     <view-state id="newmannschaft_view" view="mannschaft/details_mannschaften.xhtml" model="mannschaftBean">
         <transition on="save" to="mannschaftsliste" bind="true">
             <evaluate expression="mannschaftRepository.save(mannschaftBean)"/>
-            <evaluate expression="busControllerOut.saveMannschaft(mannschaftBean)"/>
         </transition>
     </view-state>
 

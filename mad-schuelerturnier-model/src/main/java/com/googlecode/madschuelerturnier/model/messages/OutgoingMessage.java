@@ -17,6 +17,8 @@ public class OutgoingMessage extends ApplicationEvent implements Serializable {
 
     private static final long serialVersionUID = 1;
 
+    private boolean trans = false;
+
     private Serializable payload;
 
     public OutgoingMessage(Object source) {
@@ -29,5 +31,13 @@ public class OutgoingMessage extends ApplicationEvent implements Serializable {
 
     public void setPayload(Serializable payload) {
         this.payload = payload;
+    }
+
+    public boolean isTrans() {
+        return trans;
+    }
+
+    public void setTrans(boolean trans) {
+        this.trans = trans;
     }
 }

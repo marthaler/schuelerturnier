@@ -8,7 +8,7 @@ import com.googlecode.madschuelerturnier.model.Persistent;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8
  */
-public interface ModelChaneListener {
+public interface ModelChangeListener {
 
     public void onChangeModel(Persistent p);
 }

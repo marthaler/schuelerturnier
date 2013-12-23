@@ -1,5 +1,6 @@
 package com.googlecode.madschuelerturnier.business.printer;
 
+import com.googlecode.madschuelerturnier.model.support.File;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,6 +29,7 @@ public class App extends javafx.application.Application {
     }
 
     public static void main(String[] args) {
+        System.out.println(File.class.getCanonicalName());
         launch(args);
     }
     

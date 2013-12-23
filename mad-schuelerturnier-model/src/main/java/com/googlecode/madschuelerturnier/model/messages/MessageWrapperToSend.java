@@ -16,9 +16,7 @@ import java.util.UUID;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8
  */
-public class MessageWrapper  implements Serializable {
-
-    public final static String PULLREQUEST = "pullrequest";
+public class MessageWrapperToSend implements Serializable {
 
     private static final long serialVersionUID = 1;
 
@@ -36,7 +34,9 @@ public class MessageWrapper  implements Serializable {
 
     private boolean resend = false;
 
-    public MessageWrapper() {
+    private boolean trans = false;
+
+    public MessageWrapperToSend() {
 
     }
 
@@ -59,7 +59,7 @@ public class MessageWrapper  implements Serializable {
 
     @Override
     public String toString() {
-        return "MessageWrapper{" +
+        return "MessageWrapperToSend{" +
                 "id='" + id.substring(0,8) + '\'' +
                 ", source='" + source.replace("http://","").replace("/app/transport","") + '\'' +
                 ", dest='" + destination.replace("http://","").replace("/app/transport","") + '\'' +
@@ -106,5 +106,13 @@ public class MessageWrapper  implements Serializable {
 
     public void setFilter(List<String> filter) {
         this.filter = filter;
+    }
+
+    public boolean isTrans() {
+        return trans;
+    }
+
+    public void setTrans(boolean trans) {
+        this.trans = trans;
     }
 }

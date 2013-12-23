@@ -21,7 +21,7 @@
         <flow:flow-location-pattern value="/**/flow.xml"/>
     </flow:flow-registry>
 
-    <!-- Maps request paths to flows in the flowRegistry; e.g. a path of /hotels/booking looks for a flow with id "hotels/booking" -->
+    <!-- Maps incommingMessage paths to flows in the flowRegistry; e.g. a path of /hotels/booking looks for a flow with id "hotels/booking" -->
     <bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
         <property name="flowRegistry" ref="flowRegistry"/>
     </bean>

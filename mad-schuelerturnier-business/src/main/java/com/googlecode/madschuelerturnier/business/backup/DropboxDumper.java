@@ -6,12 +6,10 @@ package com.googlecode.madschuelerturnier.business.backup;
 import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
 import com.googlecode.madschuelerturnier.business.xls.ToXLSDumper;
 import com.googlecode.madschuelerturnier.model.Persistent;
-import com.googlecode.madschuelerturnier.model.callback.ModelChaneListener;
+import com.googlecode.madschuelerturnier.model.callback.ModelChangeListener;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListenerManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +22,7 @@ import javax.annotation.PostConstruct;
  * @since 1.2.8
  */
 @Component
-public class DropboxDumper implements  ModelChaneListener {
+public class DropboxDumper implements ModelChangeListener {
 
     private static final Logger LOG = Logger.getLogger(DropboxDumper.class);
 

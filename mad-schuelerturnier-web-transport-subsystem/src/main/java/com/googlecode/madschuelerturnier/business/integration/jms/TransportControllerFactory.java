@@ -1,8 +1,5 @@
 package com.googlecode.madschuelerturnier.business.integration.jms;
 
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 
@@ -19,8 +16,8 @@ public class TransportControllerFactory implements ApplicationEventPublisherAwar
            INSTANCE = this;
     }
 
-    public SchuelerturnierTransportController createController(String ownAddress,String remoteAddress){
-        SchuelerturnierTransportController co = new SchuelerturnierTransportController(ownAddress,remoteAddress);
+    public SchuelerturnierTransportControllerImpl createController(String ownAddress,String remoteAddress){
+        SchuelerturnierTransportControllerImpl co = new SchuelerturnierTransportControllerImpl( ownAddress, remoteAddress);
         co.setApplicationEventPublisher(applicationEventPublisher);
         return co;
     }

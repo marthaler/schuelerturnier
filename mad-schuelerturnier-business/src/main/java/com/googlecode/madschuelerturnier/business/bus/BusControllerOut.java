@@ -3,6 +3,10 @@
  */
 package com.googlecode.madschuelerturnier.business.bus;
 
+import com.googlecode.madschuelerturnier.model.Persistent;
+import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
+import com.googlecode.madschuelerturnier.model.callback.ModelChangeListener;
+import com.googlecode.madschuelerturnier.model.callback.ModelChangeListenerManager;
 import com.googlecode.madschuelerturnier.model.messages.OutgoingMessage;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import org.apache.log4j.Logger;
@@ -18,25 +22,32 @@ import org.springframework.stereotype.Controller;
  * @since 1.2.8
  */
 @Controller
-public class BusControllerOut implements ApplicationEventPublisherAware {
+public class BusControllerOut implements ApplicationEventPublisherAware , ModelChangeListener {
+
+    public BusControllerOut(){
+        ModelChangeListenerManager.getInstance().addListener(this);
+    }
 
     private static final Logger LOG = Logger.getLogger(BusControllerOut.class);
 
     private ApplicationEventPublisher publisher;
-
-    public void saveMannschaft(Mannschaft mannschaft){
-        LOG.info("bus: mannschaft zum senden");
-        OutgoingMessage m = new OutgoingMessage(this);
-        m.setPayload(mannschaft);
-        LOG.info("bus: sende mannschaft");
-        publisher.publishEvent(m);
-        LOG.info("bus: mannschaft gesendet");
-    }
 
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
         this.publisher = applicationEventPublisher;
     }
 
+    @Override
+    public void onChangeModel(Persistent p) {
+        LOG.info("model change: " + p.getClass().getName());
 
+        if( !(p instanceof SpielEinstellungen) ){
+            LOG.info("model change: senden");
+            OutgoingMessage m = new OutgoingMessage(this);
+            m.setPayload(p);
+            publisher.publishEvent(m);
+        } else{
+            LOG.info("model change: mache nichts");
+        }
+    }
 }

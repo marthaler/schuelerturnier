@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ModelChangeListenerManager {
 
-    private List<ModelChaneListener> listener = new ArrayList<ModelChaneListener>();
+    private List<ModelChangeListener> listener = new ArrayList<ModelChangeListener>();
 
     private static ModelChangeListenerManager instance;
 
@@ -28,16 +28,16 @@ public class ModelChangeListenerManager {
 
     }
 
-    public void addListener(ModelChaneListener listener){
+    public void addListener(ModelChangeListener listener){
         this.listener.add(listener);
     }
 
-    public void removeListener(ModelChaneListener listener){
+    public void removeListener(ModelChangeListener listener){
         this.listener.remove(listener);
     }
 
     public void publish(Persistent p){
-        for (ModelChaneListener l :listener) {
+        for (ModelChangeListener l :listener) {
             l.onChangeModel(p);
         }
     }
