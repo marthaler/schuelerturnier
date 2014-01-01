@@ -6,6 +6,7 @@ package com.googlecode.madschuelerturnier.business.bus;
 import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.model.messages.IncommingMessage;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.messages.StartFile;
 import com.googlecode.madschuelerturnier.model.messages.state.MasterState;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import org.apache.log4j.Logger;
@@ -39,6 +40,9 @@ public class BusControllerIn implements ApplicationListener<IncommingMessage> {
         LOG.info("BusControllerIn: message von anderem remote kontext angekommen: " + obj);
         if(obj instanceof Mannschaft){
             repo.save((Mannschaft) obj);
+        }
+        if(obj instanceof StartFile){
+            business.generateSpielFromXLS(((StartFile) obj).getContent());
         }
 
     }

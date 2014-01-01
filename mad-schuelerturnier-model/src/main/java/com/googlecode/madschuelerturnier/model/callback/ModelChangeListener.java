@@ -2,6 +2,8 @@ package com.googlecode.madschuelerturnier.model.callback;
 
 import com.googlecode.madschuelerturnier.model.Persistent;
 
+import java.io.Serializable;
+
 /**
  * Callback fuer geeaenderte Models
  *
@@ -10,5 +12,5 @@ import com.googlecode.madschuelerturnier.model.Persistent;
  */
 public interface ModelChangeListener {
 
-    public void onChangeModel(Persistent p);
+    public void onChangeModel(Serializable object);
 }

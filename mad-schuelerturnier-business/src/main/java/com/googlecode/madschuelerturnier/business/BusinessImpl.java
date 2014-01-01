@@ -3,17 +3,21 @@
  */
 package com.googlecode.madschuelerturnier.business;
 
+import com.googlecode.madschuelerturnier.business.bus.BusControllerOut;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
 import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
 import com.googlecode.madschuelerturnier.business.turnierimport.ImportHandler;
 import com.googlecode.madschuelerturnier.business.vorbereitung.helper.SpielzeilenValidator;
 import com.googlecode.madschuelerturnier.business.xls.FromXLSLoader;
+import com.googlecode.madschuelerturnier.business.xls.ToXLSDumper;
 import com.googlecode.madschuelerturnier.business.zeit.Zeitgeber;
 import com.googlecode.madschuelerturnier.model.*;
 import com.googlecode.madschuelerturnier.model.comperators.KategorieNameComperator;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
+import com.googlecode.madschuelerturnier.model.messages.StartFile;
 import com.googlecode.madschuelerturnier.persistence.repository.*;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -21,6 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -35,6 +42,11 @@ public class BusinessImpl implements Business {
 
     private static final int MITTAG = 12;
     private static final int SEC_PRO_MINUTE = 60;
+
+    private boolean initialized = false;
+
+    @Autowired
+    BusControllerOut outSender;
 
     @Autowired
     private MannschaftRepository mannschaftRepo;
@@ -59,6 +71,9 @@ public class BusinessImpl implements Business {
 
     @Autowired
     private Zeitgeber zeitgeber;
+
+    @Autowired
+    private ToXLSDumper xlsdumper;
 
     @Autowired
     private FromXLSLoader xls;
@@ -577,10 +592,30 @@ public class BusinessImpl implements Business {
             SpielEinstellungen eins = new SpielEinstellungen();
             this.einstellungen = this.spielEinstellungenRepo.save(eins);
         }
+    }
 
+    public void sendDumpToRemotes(){
+        // sende das initiale file an die weiteren empfaenger
+        StartFile file = new StartFile();
+        byte[] arr = this.xlsdumper.mannschaftenFromDBtoXLS();
+        file.setContent(arr);
+        this.outSender.onChangeModel(file);
+        try {
+            IOUtils.write(arr,new FileWriter(new File("/test.xml")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void generateSpielFromXLS(byte[] xlsIn) {
+
+        if(this.initialized){
+            LOG.info("generateSpielFromXLS: ist aber bereits initialisiert, mache nichts");
+            return;
+        }
+
+        this.initialized = true;
+
         // Einstellungen sichern
         SpielEinstellungen einstellungen = xls.convertXLSToEinstellung(xlsIn);
         saveEinstellungen(einstellungen);
@@ -613,6 +648,10 @@ public class BusinessImpl implements Business {
         LOG.info("spiele geladen: " + spiele.size());
 
         importHandler.turnierHerstellen(spiele);
+
+        this.initializeDB();
+
+
     }
 
     @Override

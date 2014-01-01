@@ -3,16 +3,16 @@
  */
 package com.googlecode.madschuelerturnier.business.bus;
 
-import com.googlecode.madschuelerturnier.model.Persistent;
 import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListener;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListenerManager;
 import com.googlecode.madschuelerturnier.model.messages.OutgoingMessage;
-import com.googlecode.madschuelerturnier.model.Mannschaft;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Controller;
+
+import java.io.Serializable;
 
 /**
  * Produziert Events, die in angeschlossene Remote Contexte gesendet werden. Ebenfalls werden
@@ -38,16 +38,16 @@ public class BusControllerOut implements ApplicationEventPublisherAware , ModelC
     }
 
     @Override
-    public void onChangeModel(Persistent p) {
-        LOG.info("model change: " + p.getClass().getName());
+    public void onChangeModel(Serializable object) {
+        LOG.info("new outgoing message: " + object.getClass().getName());
 
-        if( !(p instanceof SpielEinstellungen) ){
-            LOG.info("model change: senden");
+        if( !(object instanceof SpielEinstellungen) ){
+            LOG.info("message: senden");
             OutgoingMessage m = new OutgoingMessage(this);
-            m.setPayload(p);
+            m.setPayload(object);
             publisher.publishEvent(m);
         } else{
-            LOG.info("model change: mache nichts");
+            LOG.info("message: mache nichts");
         }
     }
 }

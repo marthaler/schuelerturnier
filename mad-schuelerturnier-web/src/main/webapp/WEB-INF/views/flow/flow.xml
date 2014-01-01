@@ -79,13 +79,17 @@
     <view-state id="initialisieren_view" view="initialisieren.xhtml">
         <transition on="save" to="initialisieren">
             <evaluate expression="business.initializeDB()"/>
+            <evaluate expression="business.sendDumpToRemotes()"/>
         </transition>
-        <transition on="ok" to="initialisieren"/>
+
+        <transition on="ok" to="initialisieren">
+        <evaluate expression="business.sendDumpToRemotes()"/>
+        </transition>
 
         <transition on="dropbox_chose" to="initialisieren">
             <evaluate expression="business.initializeDropbox(requestParameters.dropbox_file)"/>
             <evaluate expression="dropboxDumper.initialize()"/>
-
+            <evaluate expression="business.sendDumpToRemotes()"/>
         </transition>
 
     </view-state>

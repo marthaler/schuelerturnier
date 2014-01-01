@@ -19,11 +19,19 @@ public class TransportControllerFactory implements ApplicationEventPublisherAwar
     public SchuelerturnierTransportControllerImpl createController(String ownAddress,String remoteAddress){
         SchuelerturnierTransportControllerImpl co = new SchuelerturnierTransportControllerImpl( ownAddress, remoteAddress);
         co.setApplicationEventPublisher(applicationEventPublisher);
+        co.init();
         return co;
     }
 
     public static TransportControllerFactory getInstance(){
         return INSTANCE;
+    }
+
+    public void shutDown(){
+        if(INSTANCE != null){
+            INSTANCE.shutDown();
+            INSTANCE = null;
+        }
     }
 
     @Override

@@ -29,7 +29,6 @@ public class File implements Serializable{
 
     private String kbyte;
 
-
     private String druckzeit;
 
     public byte[] getContent() {

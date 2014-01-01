@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.business.printer;
 
 import com.googlecode.madschuelerturnier.model.support.File;
@@ -9,8 +12,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
+ * Die Applikation
  *
- * @author dama
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 1.2.8
  */
 public class App extends javafx.application.Application {
 

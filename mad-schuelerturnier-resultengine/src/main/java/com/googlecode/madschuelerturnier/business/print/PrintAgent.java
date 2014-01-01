@@ -108,7 +108,8 @@ public class PrintAgent implements ApplicationEventPublisherAware {
             }
 
             if (running) {
-                this.print(f);
+                // TODO remove printer in app
+        //        this.print(f);
             }
 
             try {

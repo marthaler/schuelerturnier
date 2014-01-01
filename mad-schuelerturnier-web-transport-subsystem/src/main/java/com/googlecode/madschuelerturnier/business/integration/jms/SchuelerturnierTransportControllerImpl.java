@@ -46,7 +46,9 @@ public class SchuelerturnierTransportControllerImpl extends Thread implements Ap
     private String ownConnectionString = "http://localhost:8080/app/transport";
     private MessageWrapperToSend latest = null;
     private ApplicationEventPublisher applicationEventPublisher = null;
-    private Map<String, Serializable> list = new LinkedHashMap<String, Serializable>();
+
+
+    private Map<String, MessageWrapperToSend> storeMap = new LinkedHashMap<String, MessageWrapperToSend>();
 
     private boolean running = true;
 
@@ -68,7 +70,7 @@ public class SchuelerturnierTransportControllerImpl extends Thread implements Ap
     }
 
     @PostConstruct
-    private void init() {
+    public void init() {
         MessageWrapperToSend wr = new MessageWrapperToSend();
         wr.setSource(this.ownConnectionString);
         // registration request senden
@@ -99,9 +101,10 @@ public class SchuelerturnierTransportControllerImpl extends Thread implements Ap
 
     // von onApplication event
     private void sendMessage(String id, Serializable object, MessageTyp typ, boolean trans) {
+        MessageWrapperToSend wr=null;
         for (TransportEndpointSender send : senderEndpoints.values()) {
 
-            MessageWrapperToSend wr = new MessageWrapperToSend();
+            wr = new MessageWrapperToSend();
             wr.setPayload(object);
             wr.setId(id);
             wr.setTyp(typ);
@@ -110,7 +113,7 @@ public class SchuelerturnierTransportControllerImpl extends Thread implements Ap
 
             send.sendMessage(wr);
         }
-        list.put(id, object);
+        storeMap.put(id, wr);
     }
 
     private synchronized void sendMessage(MessageWrapperToSend wr) {
@@ -155,9 +158,9 @@ public class SchuelerturnierTransportControllerImpl extends Thread implements Ap
 
                         // setzen der ausgehenden messages in zwischenspeicher
                         if (outgoingMessage.isTrans()) {
-                            list.put(outgoingMessage.getId(), null);
+                            storeMap.put(outgoingMessage.getId(), null);
                         } else {
-                            list.put(outgoingMessage.getId(), outgoingMessage);
+                            storeMap.put(outgoingMessage.getId(), outgoingMessage);
 
                         }
                     }
@@ -172,6 +175,9 @@ public class SchuelerturnierTransportControllerImpl extends Thread implements Ap
                 incommingMessage = this.incommingMessages.removeFirst();
 
                 if (incommingMessage != null && !allIncommingMessagesIDs.contains(incommingMessage.getId())) {
+
+                    // weiterschicken
+                    this.sendMessage(incommingMessage);
 
                     LOG.debug("SchuelerturnierTransportController: nachricht angekommen: " + incommingMessage);
                     allIncommingMessagesIDs.add(incommingMessage.getId());
@@ -194,14 +200,10 @@ public class SchuelerturnierTransportControllerImpl extends Thread implements Ap
                     }
 
                     if (!incommingMessage.isTrans()) {
-                        list.put(incommingMessage.getId(), incommingMessage);
+                        storeMap.put(incommingMessage.getId(), incommingMessage);
                         sendMessage(incommingMessage);
                     }
                 }
-            }
-
-            if(incommingMessage != null){
-                allIncommingMessagesIDs.add(incommingMessage.getId());
             }
 
             if (sleepFlag) {
@@ -220,6 +222,19 @@ public class SchuelerturnierTransportControllerImpl extends Thread implements Ap
             String url = obj.getSource();
             if (!senderEndpoints.containsKey(url)) {
                 createSender(url);
+
+                // alles senden, falls ich der master bin
+                if(this.master){
+                   for(String s : this.storeMap.keySet()){
+                       Serializable pay = storeMap.get(s);
+                       MessageWrapperToSend envelop = new MessageWrapperToSend();
+                       envelop.setPayload(pay);
+                       envelop.setId(s);
+                       envelop.setTyp(MessageTyp.PAYLOAD);
+                       this.sendMessage(envelop);
+                   }
+                }
+
                 return true;
             }
             this.sendMessage(registration);
@@ -231,11 +246,9 @@ public class SchuelerturnierTransportControllerImpl extends Thread implements Ap
     private boolean handleMasterState(MessageWrapperToSend obj) {
 
         if (obj.getPayload() instanceof MasterState) {
-            this.master = true;
-            this.sendMessage(obj);
+            this.master = false;
             return true;
         }
-
         return false;
     }
 
@@ -270,6 +283,7 @@ public class SchuelerturnierTransportControllerImpl extends Thread implements Ap
 
     @Override
     public void onApplicationEvent(OutgoingMessage event) {
+
         Serializable obj = event.getPayload();
         this.sendMessage(UUID.randomUUID().toString(), obj, MessageTyp.PAYLOAD, event.isTrans());
     }
@@ -289,7 +303,7 @@ public class SchuelerturnierTransportControllerImpl extends Thread implements Ap
 
     @Override
     public void setMaster(boolean master) {
-        if (master) {
+        if (this.master == false && master == true) {
             this.master = true;
             MasterState ms = new MasterState();
             OutgoingMessage m = new OutgoingMessage(ms);

@@ -5,7 +5,6 @@ package com.googlecode.madschuelerturnier.business.backup;
 
 import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
 import com.googlecode.madschuelerturnier.business.xls.ToXLSDumper;
-import com.googlecode.madschuelerturnier.model.Persistent;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListener;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListenerManager;
 import org.apache.log4j.Logger;
@@ -14,6 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.Serializable;
 
 /**
  * Speichert die ganze DB asl XLS in die Dropbox
@@ -57,7 +57,7 @@ public class DropboxDumper implements ModelChangeListener {
     }
 
     @Override
-    public void onChangeModel(Persistent p) {
+    public void onChangeModel(Serializable object) {
         changed = true;
     }
 

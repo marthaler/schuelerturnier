@@ -1,8 +1,7 @@
-package com.googlecode.madschuelerturnier.business.printer;/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Apache License 2.0
  */
+package com.googlecode.madschuelerturnier.business.printer;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
@@ -20,11 +19,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import org.apache.commons.io.IOUtils;
@@ -37,23 +39,28 @@ import org.springframework.context.ApplicationListener;
 import javax.print.*;
 
 /**
+ * Controller und model fuer den printer
  *
- * @author dama
+ * @author $Author: marthaler.worb@gmail.com $
+ * @since 1.2.8
  */
-
-public class Controller implements Initializable , ApplicationListener<IncommingMessage>, ApplicationContextAware {
-
-    private boolean init = false;
+public class Controller implements Initializable, ApplicationListener<IncommingMessage>, ApplicationContextAware {
 
     private static final Logger LOG = Logger.getLogger(Controller.class);
+
+    private boolean init = false;
 
     SchuelerturnierTransportControllerImpl cont;
 
     ApplicationContext applicationContext;
 
     private static Controller INSTANCE = null;
+
     @FXML
     private Button beenden;
+
+    @FXML
+    private CheckBox drucken;
 
     @FXML
     private Button verbinden;
@@ -65,113 +72,154 @@ public class Controller implements Initializable , ApplicationListener<Incomming
     private TextField urltext;
 
     @FXML
-    private ProgressIndicator progress;
+    private TextField urltextmy;
 
+    @FXML
+    private ProgressIndicator progress;
 
     @FXML
     private TableView<File> table;
 
-    public Controller(){
+    ContextMenu menu = new ContextMenu();
 
+    public Controller() {
         INSTANCE = this;
     }
-
-    private void start(){
-        if(this.init){
-                    return;
+    private void init() {
+        if (this.init) {
+            return;
         }
-        table.getSelectionModel().selectedItemProperty().addListener( new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observableValue, Object o, Object o2) {
-                File file = (File) o;
+        MenuItem oeffnenMenue = new MenuItem("Öffnen");
+        oeffnenMenue.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                File item = table.getItems().get(table.getSelectionModel().getSelectedIndex());
+                if (item != null) {
 
-                if(file == null){
-                    file = (File) o2;
-                }
+                    open(item);
 
-                try {
-                    java.io.File f = java.io.File.createTempFile("tmp", ".pdf");
-
-                    IOUtils.write(file.getContent(),new FileOutputStream(f));
-                    f.deleteOnExit();
-                    //Desktop.getDesktop().open(f);
-
-
-                    Runtime.getRuntime().exec(new String[]{"/usr/bin/open",
-                            f.getAbsolutePath()});
-
-
-                        /** windows
-                    Process p = Runtime
-                            .getRuntime()
-                            .exec("rundll32 url.dll,FileProtocolHandler c:\\Java-Interview.pdf");
-                   **/
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
-
         });
+
+        MenuItem druckenMenu = new MenuItem("Drucken");
+        druckenMenu.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                File item = table.getItems().get(table.getSelectionModel().getSelectedIndex());
+                if (item != null) {
+                    drucken(item);
+                }
+            }
+        });
+
+        menu.getItems().addAll(oeffnenMenue);
+        menu.getItems().addAll(druckenMenu);
+
+        table.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouse) {
+                if (mouse.getButton() == MouseButton.SECONDARY) {
+                    //add some menu items here
+                    menu.show(table, mouse.getScreenX(), mouse.getScreenY());
+                } else {
+                    if (menu != null) {
+                        menu.hide();
+                    }
+                }
+            }
+        });
+
 
         this.init = true;
     }
 
-    @FXML
-    private void handleTableAction(ActionEvent event) {
-        System.out.println(event);
+    public void open(File item) {
+        try {
+            java.io.File f = java.io.File.createTempFile("tmp", ".pdf");
+
+            IOUtils.write(item.getContent(), new FileOutputStream(f));
+            f.deleteOnExit();
+
+            if (System.getProperties().getProperty("os.name").contains("Mac")) {
+                Runtime.getRuntime().exec(new String[]{"/usr/bin/open",
+                        f.getAbsolutePath()});
+            } else {
+                Runtime.getRuntime()
+                        .exec("rundll32 url.dll,FileProtocolHandler " + f.getAbsolutePath());
+            }
+
+        } catch (IOException e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
 
 
-    public static Controller getInstance(){
+
+    public static Controller getInstance() {
         return INSTANCE;
     }
 
-
     @FXML
     private void handleButtonBeendenAction(ActionEvent event) {
-       System.exit(0);
+        System.exit(0);
     }
 
     @FXML
     private void handleButtonVerbindenAction(ActionEvent event) {
-        if(verbinden.getText().equals("Trennen")){
+        if (verbinden.getText().equals("Trennen")) {
             verbinden.setText("Verbinden");
             verbunden.setFill(Paint.valueOf("RED"));
             urltext.setDisable(false);
-        }  else{
+            cont.shutdown();
 
-            cont = TransportControllerFactory.getInstance().createController("NO URL",urltext.getText());
+        } else {
 
-             // filter nach File setzen
+            String url = "http://" + urltext.getText() + "/app/transport";
+
+            cont = TransportControllerFactory.getInstance().createController(urltextmy.getText(), url);
+
+            // filter nach File setzen
             cont.getMessagefilter().add(File.class.getCanonicalName());
 
             verbinden.setText("Trennen");
             verbunden.setFill(Paint.valueOf("GREEN"));
             urltext.setDisable(true);
         }
-
-        ProgressThread th = new ProgressThread(progress);
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
     }
 
-
     public void onApplicationEvent(final IncommingMessage event) {
-         start();
+
+        init();
         File file = (File) event.getPayload();
 
-           if(table.getItems() == null){
-               ObservableList<File> items  =FXCollections.observableArrayList ();
-               table.setItems(items);
-           }
-        file.updateDruckzeit();
-        table.getItems().add(0, file);
+        if (table.getItems() == null) {
+            ObservableList<File> items = FXCollections.observableArrayList();
+            table.setItems(items);
+        }
 
+        if (this.drucken.isSelected()) {
+            drucken(file);
+        } else {
+            table.getItems().add(0, file);
+        }
+
+        LOG.debug("incomming message: " + file);
+
+    }
+
+    private void drucken(File file) {
+
+        file.updateDruckzeit();
+
+        if (table.getItems().contains(file)) {
+            table.getItems().remove(file);
+        }
+        table.getItems().add(0, file);
 
         PrintService service = PrintServiceLookup.lookupDefaultPrintService();
 
@@ -179,12 +227,9 @@ public class Controller implements Initializable , ApplicationListener<Incomming
 
         ByteArrayInputStream bin = new ByteArrayInputStream(file.getContent());
 
-        //create document
         Doc doc = new SimpleDoc(bin, flavor, null);
 
         DocPrintJob job = service.createPrintJob();
-
-
 
         try {
             job.print(doc, null);
@@ -199,15 +244,10 @@ public class Controller implements Initializable , ApplicationListener<Incomming
         } catch (IOException e) {
             LOG.error(e.getMessage(), e);
         }
-
-
-        LOG.debug("incomming message: " + file);
-
-
     }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-          this.applicationContext  = applicationContext;
+        this.applicationContext = applicationContext;
     }
 }
