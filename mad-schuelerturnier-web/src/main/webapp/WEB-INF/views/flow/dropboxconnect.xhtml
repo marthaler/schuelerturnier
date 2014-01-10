@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="../../layouts/100.xhtml">
+
+    <ui:define name="main">
+        <div id="main">
+            <div class="page_margins">
+                <div class="page">
+                    <div class="inset">
+
+                        <h:form id="form">
+
+                        <p:messages/>
+
+                            <p:accordionPanel id="ac" activeIndex="0">
+
+                                <p:tab  title="Mit Dropbox verbinden">
+
+                                    <h:panelGrid columns="1" id="dropbox_panel" rendered="#{! dropboxBackingBean.isConnected()}"> 
+                                        <p:column>
+                                    1) Link klicken:
+                                    <a href="#{dropboxBackingBean.getURL()}" target="_blank" >Bei Dropbox anmelden und Key kopieren</a>
+                                    </p:column>
+                                    <p:column>
+                                    2) Kopierten Key einfuegen:
+                                    <p:inputText id="dropboxtoken" value="#{dropboxBackingBean.token}"/>
+                                    </p:column><p:column>
+                                    3) Zum Bestaetigen klicken
+                                    <p:commandButton id="Verbinden" value="verbinden" action="connect" ajax="false"/>
+                                      </p:column>
+
+                                        <p:column>
+
+                                        <p:commandButton id="weiter" value="weiter ohne Verbindung" action="nodropbox" ajax="false"/>
+                                        </p:column>
+
+                                    </h:panelGrid>
+
+                                </p:tab>
+                            </p:accordionPanel>
+
+                        </h:form>
+
+                    </div>
+                    <br/>
+                </div>
+            </div>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

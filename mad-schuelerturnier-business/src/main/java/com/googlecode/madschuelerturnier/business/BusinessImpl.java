@@ -15,7 +15,7 @@ import com.googlecode.madschuelerturnier.model.*;
 import com.googlecode.madschuelerturnier.model.comperators.KategorieNameComperator;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
-import com.googlecode.madschuelerturnier.model.messages.StartFile;
+import com.googlecode.madschuelerturnier.model.integration.StartFile;
 import com.googlecode.madschuelerturnier.persistence.repository.*;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -95,6 +95,12 @@ public class BusinessImpl implements Business {
 
     private SpielEinstellungen einstellungen;
 
+    final Set<String> schulhaeuser = new HashSet<String>();
+
+    final Set<String> namen = new HashSet<String>();
+
+    final Set<String> emails = new HashSet<String>();
+
     public BusinessImpl() {
 
     }
@@ -113,8 +119,25 @@ public class BusinessImpl implements Business {
         } else {
             LOG.info("sende keinen puls, da db noch nicht initialisiert ist [01]");
         }
+
+        // autocompletes aus db initialisieren
+        final List<Mannschaft> mannschaften = getMannschaften();
+        updateAutocompletesMannschaft(mannschaften);
+
     }
 
+    /*
+     * Update der Mannschafts autocomplete Sets
+     */
+    public void updateAutocompletesMannschaft(List<Mannschaft> mannschaften) {
+        for (final Mannschaft mannschaft : mannschaften) {
+            schulhaeuser.add(mannschaft.getSchulhaus());
+            namen.add(mannschaft.getBegleitpersonName());
+            namen.add(mannschaft.getCaptainName());
+            emails.add(mannschaft.getBegleitpersonEmail());
+            emails.add(mannschaft.getCaptainEmail());
+        }
+    }
 
     /*
      * (non-Javadoc)
@@ -123,19 +146,29 @@ public class BusinessImpl implements Business {
      */
     public List<String> getSchulhausListe(final String query) {
         final Set<String> strings = new HashSet<String>();
-
-        final List<Mannschaft> mannschaften = getMannschaften();
-        for (final Mannschaft mannschaft : mannschaften) {
-            if (query == null || query.isEmpty() || mannschaft.getSchulhaus().toLowerCase().contains(query.toLowerCase())) {
-                strings.add(mannschaft.getSchulhaus());
+        for (final String schulhaus : this.schulhaeuser) {
+            if (query == null || query.isEmpty() || schulhaus.toLowerCase().contains(query.toLowerCase())) {
+                strings.add(schulhaus);
             }
         }
-        final List<String> lStr = new ArrayList<String>();
-        for (final String str : strings) {
-            lStr.add(str);
+
+        return new ArrayList<String>(strings);
+    }
+
+    /*
+    * (non-Javadoc)
+    *
+    * @see com.googlecode.madschuelerturnier.business.sdfdf#getSchulhausListe(java .lang.String)
+    */
+    public List<String> getEmailsListe(final String query) {
+        final Set<String> strings = new HashSet<String>();
+        for (final String mail : this.emails) {
+            if (query == null || query.isEmpty() || mail.toLowerCase().contains(query.toLowerCase())) {
+                strings.add(mail.toLowerCase());
+            }
         }
 
-        return lStr;
+        return new ArrayList<String>(strings);
     }
 
     /*
@@ -145,22 +178,12 @@ public class BusinessImpl implements Business {
      */
     public List<String> getPersonenListe(final String query) {
         final Set<String> strings = new HashSet<String>();
-
-        final List<Mannschaft> mannschaften = getMannschaften();
-        for (final Mannschaft mannschaft : mannschaften) {
-            if (query == null || query.isEmpty() || mannschaft.getBegleitpersonName().toLowerCase().contains(query.toLowerCase())) {
-                strings.add(mannschaft.getBegleitpersonName());
-            }
-            if (query == null || query.isEmpty() || mannschaft.getCaptainName().toLowerCase().contains(query.toLowerCase())) {
-                strings.add(mannschaft.getCaptainName());
+        for (final String name : namen) {
+            if (query == null || query.isEmpty() || name.toLowerCase().contains(query.toLowerCase())) {
+                strings.add(name);
             }
         }
-        final List<String> lStr = new ArrayList<String>();
-        for (final String str : strings) {
-            lStr.add(str);
-        }
-
-        return lStr;
+        return new ArrayList<String>(strings);
     }
 
     /*

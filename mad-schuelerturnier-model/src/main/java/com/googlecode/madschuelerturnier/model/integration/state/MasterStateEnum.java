@@ -1,9 +1,7 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.model.messages.state;
-
-import org.springframework.context.ApplicationEvent;
+package com.googlecode.madschuelerturnier.model.integration.state;
 
 import java.io.Serializable;
 
@@ -13,7 +11,7 @@ import java.io.Serializable;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8
  */
-public class MasterState implements Serializable {
+public class MasterStateEnum implements Serializable {
 
     private static final long serialVersionUID = 1;
 

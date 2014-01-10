@@ -6,7 +6,7 @@ package com.googlecode.madschuelerturnier.business.bus;
 import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListener;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListenerManager;
-import com.googlecode.madschuelerturnier.model.messages.OutgoingMessage;
+import com.googlecode.madschuelerturnier.model.integration.OutgoingMessage;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;

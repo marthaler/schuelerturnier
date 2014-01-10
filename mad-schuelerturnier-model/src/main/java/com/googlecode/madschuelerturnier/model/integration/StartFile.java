@@ -1,14 +1,12 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.model.messages;
+package com.googlecode.madschuelerturnier.model.integration;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
- * Wrapper fuer das Startfile
+ * Wrapper fuer das Startfile (xls mit einem db dump)
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8

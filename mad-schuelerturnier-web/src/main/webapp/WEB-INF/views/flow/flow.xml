@@ -8,9 +8,20 @@
     <var name="loginBean" class="com.googlecode.madschuelerturnier.web.security.LoginBean"/>
 
     <decision-state id="start">
-        <if test="currentUser != null AND currentUser.isAuthenticated()" then="initialisieren"/>
         <if test="currentUser == null || ! currentUser.isAuthenticated()" then="login"/>
+        <if test="!dropboxBackingBean.isConnected() AND !dropboxBackingBean.isWillNotconnect()" then="dropboxconnect"/>
+        <if test="currentUser != null AND currentUser.isAuthenticated()" then="initialisieren"/>
     </decision-state>
+
+    <view-state id="dropboxconnect" view="dropboxconnect.xhtml">
+        <transition on="nodropbox" to="start" bind="true">
+            <set name="flashScope.nd" value="true" type="java.lang.Boolean"/>
+            <evaluate expression="dropboxBackingBean.setWillNotconnect(flashScope.nd)"/>
+        </transition>
+        <transition on="connect" to="start" bind="true">
+            <evaluate expression="dropboxBackingBean.save()"/>
+        </transition>
+    </view-state>
 
     <view-state id="login" view="login.xhtml" model="loginBean">
         <transition on="ok" to="start" bind="true">
@@ -201,8 +212,7 @@
 
     </view-state>
 
-    <view-state id="spiel_start" view="durchfuehrung/operator.xhtml" redirect="true"
-                model="flowScope.spieleinstellungen">
+    <view-state id="spiel_start" view="durchfuehrung/operator.xhtml" redirect="true" model="flowScope.spieleinstellungen">
         <on-render>
             <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"/>
             <evaluate expression="business.getSpielEinstellungen()" result="flowScope.spieleinstellungen"/>
@@ -216,6 +226,11 @@
             <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"/>
             <evaluate expression="business.stopClock()"/>
         </transition>
+
+        <transition on="setmaster" to="spiel_start" bind="true">
+            <evaluate expression="integrationControllerImpl.thisMaster()"/>
+        </transition>
+
     </view-state>
 
     <view-state id="eintrager" view="durchfuehrung/eintrager.xhtml" redirect="true">

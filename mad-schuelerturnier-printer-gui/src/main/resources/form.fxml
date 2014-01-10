@@ -53,7 +53,7 @@
         <Button fx:id="verbinden" mnemonicParsing="false" onAction="#handleButtonVerbindenAction" prefWidth="90.0" text="Verbinden" />
         <CheckBox fx:id="drucken" mnemonicParsing="false" text="Drucker ein" />
         <TextField fx:id="urltext" prefWidth="110.0" text="localhost:8080" />
-        <TextField id="urltextmy" prefWidth="110.0" text="myprinter01" />
+        <TextField fx:id="urltextmy" prefWidth="110.0" text="myprinter01" />
         <Rectangle fx:id="verbunden" arcHeight="5.0" arcWidth="5.0" fill="RED" height="16.0" stroke="BLACK" strokeType="INSIDE" width="16.0" />
       </items>
     </ToolBar>

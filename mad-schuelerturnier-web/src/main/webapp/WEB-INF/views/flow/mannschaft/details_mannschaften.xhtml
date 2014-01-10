@@ -40,18 +40,19 @@
                                         <f:validateLength minimum="3" maximum="40"/>
                                     </p:autoComplete>
 
-
                                     <h:outputLabel for="captainTelefon" value="Captain Tel. "/>
-                                    <p:inputText id="captainTelefon" label="captainTelefon"
-                                                 value="#{mannschaftBean.captainTelefon}" size="40">
-                                        <f:validateLength minimum="0" maximum="40"/>
-                                    </p:inputText>
+                                    <p:inputMask id="captainTelefon" label="captainTelefon"
+                                                 value="#{mannschaftBean.captainTelefon}" mask="999 999 99 99" size="40">
+
+                                    </p:inputMask>
+
 
                                     <h:outputLabel for="captainEmail" value="Captain Mail. "/>
-                                    <p:inputText id="captainEmail" label="captainEmail"
+                                    <p:autoComplete id="captainEmail" label="captainEmail"
+                                                 completeMethod="#{business.getEmailsListe}"
                                                  value="#{mannschaftBean.captainEmail}" size="40">
-                                        <f:validateLength minimum="0" maximum="40"/>
-                                    </p:inputText>
+
+                                    </p:autoComplete>
 
 
                                     <h:outputLabel for="begleitperson" value="Begleitperson "/>
@@ -62,16 +63,16 @@
                                     </p:autoComplete>
 
                                     <h:outputLabel for="begleitpersonTelefon" value="Begleitperson Tel. "/>
-                                    <p:inputText id="begleitpersonTelefon" label="begleitpersonTelefon"
-                                                 value="#{mannschaftBean.begleitpersonTelefon}" size="40">
-                                        <f:validateLength minimum="0" maximum="40"/>
-                                    </p:inputText>
+                                    <p:inputMask id="begleitpersonTelefon" label="begleitpersonTelefon"
+                                                 value="#{mannschaftBean.begleitpersonTelefon}" mask="999 999 99 99" size="40">
+                                    </p:inputMask>
 
                                     <h:outputLabel for="begleitpersonEmail" value="Begleitperson Mail."/>
-                                    <p:inputText id="begleitpersonEmail" label="begleitpersonEmail"
+                                    <p:autoComplete id="begleitpersonEmail" label="begleitpersonEmail"
+                                                    completeMethod="#{business.getEmailsListe}"
                                                  value="#{mannschaftBean.begleitpersonEmail}" size="40">
                                         <f:validateLength minimum="0" maximum="40"/>
-                                    </p:inputText>
+                                    </p:autoComplete>
 
                                     <h:outputLabel for="klasseb" value="Klassenbezeichner"/>
                                     <p:inputText id="klasseb" label="Klassenbezeichner"

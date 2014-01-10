@@ -1,8 +1,6 @@
-package com.googlecode.madschuelerturnier.business;
+package com.googlecode.madschuelerturnier.business.integration.util;
 
-
-
-import com.googlecode.madschuelerturnier.model.messages.MessageWrapperToSend;
+import com.googlecode.madschuelerturnier.model.integration.MessageWrapperToSend;
 import com.googlecode.madschuelerturnier.model.util.XstreamUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -44,7 +42,7 @@ public class MessageSenderUtil {
            return (MessageWrapperToSend) XstreamUtil.deserializeFromString(buff.toString());
 
         } catch (IOException e) {
-            LOG.error(e.getMessage());
+            LOG.debug(e.getMessage());
         }
     return null;
     }

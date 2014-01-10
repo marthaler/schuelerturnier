@@ -24,8 +24,8 @@ public class TestTomcat implements Runnable {
             webappPath = "src/test/webapp";
             targetPath = "";
         } else {
-            webappPath = "mad-schuelerturnier-web/src/test/webapp";
-            targetPath = "mad-schuelerturnier-web/target/tomcat";
+            webappPath = "mad-schuelerturnier-controllers/src/test/webapp";
+            targetPath = "mad-schuelerturnier-controllers/target/tomcat";
         }
 
         tomcat.addWebapp(contextPath, new File(webappPath).getAbsolutePath());

@@ -405,7 +405,7 @@
             <!-- Web application development utilities applicable to both Servlet 
                 and Portlet Environments (depends on spring-core, spring-beans, spring-context) 
                 Define this if you use Spring MVC, or wish to use Struts, JSF, or another 
-                web framework with Spring (org.springframework.web.*) -->
+                controllers framework with Spring (org.springframework.controllers.*) -->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
@@ -643,7 +643,7 @@
                                     <linkXref>true</linkXref>
                                     <minimumTokens>100</minimumTokens>
                                     <minimumPriority>3</minimumPriority>
-                                    <!-- Change minimum priority to see more or less messages -->
+                                    <!-- Change minimum priority to see more or less integration -->
                                     <targetJdk>${java.version}</targetJdk>
                                 </configuration>
                             </plugin>
@@ -775,8 +775,9 @@
             </modules>
         </profile>
 
+
         <profile>
-            <id>imac</id>
+            <id>mac-clients</id>
 
             <activation>
                 <activeByDefault>false</activeByDefault>

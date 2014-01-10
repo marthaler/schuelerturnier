@@ -1,16 +1,10 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.model.messages;
+package com.googlecode.madschuelerturnier.model.integration;
 
-import com.googlecode.madschuelerturnier.model.Persistent;
-import org.springframework.context.ApplicationEvent;
-
-import javax.persistence.Entity;
-import javax.persistence.OrderColumn;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 
 /**

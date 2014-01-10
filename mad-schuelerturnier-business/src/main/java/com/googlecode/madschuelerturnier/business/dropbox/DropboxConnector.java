@@ -19,6 +19,8 @@ public interface DropboxConnector {
 
     List<String> getFilesInFolder();
 
+    List<String> getFilesInAltFolder();
+
     byte[] loadFile(String file);
 
     void saveFile(String file, byte[] content);

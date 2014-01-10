@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business.print;
 
-import com.googlecode.madschuelerturnier.model.messages.OutgoingMessage;
+import com.googlecode.madschuelerturnier.model.integration.OutgoingMessage;
 import com.lowagie.text.Document;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.html.simpleparser.HTMLWorker;
@@ -164,7 +164,7 @@ public class PrintAgent implements ApplicationEventPublisherAware {
 
 
             if(this.applicationEventPublisher != null){
-                com.googlecode.madschuelerturnier.model.messages.File file = new com.googlecode.madschuelerturnier.model.messages.File();
+                com.googlecode.madschuelerturnier.model.integration.File file = new com.googlecode.madschuelerturnier.model.integration.File();
                 file.setContent(IOUtils.toByteArray(new FileInputStream(new File(outputFile))));
                 file.setName(name + ".pdf");
                 OutgoingMessage fileOut = new OutgoingMessage(this);

@@ -15,6 +15,7 @@
             </list>
         </property>
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="nullValue" value=""/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

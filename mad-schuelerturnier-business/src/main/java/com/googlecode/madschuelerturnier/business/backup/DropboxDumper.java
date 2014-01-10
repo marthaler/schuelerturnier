@@ -4,6 +4,7 @@
 package com.googlecode.madschuelerturnier.business.backup;
 
 import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
+import com.googlecode.madschuelerturnier.business.integration.IntegrationController;
 import com.googlecode.madschuelerturnier.business.xls.ToXLSDumper;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListener;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListenerManager;
@@ -16,7 +17,7 @@ import javax.annotation.PostConstruct;
 import java.io.Serializable;
 
 /**
- * Speichert die ganze DB asl XLS in die Dropbox
+ * Speichert die ganze DB asl XLS in die Dropbox falls dies die Master Instanz ist
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8
@@ -36,6 +37,9 @@ public class DropboxDumper implements ModelChangeListener {
     @Autowired
     private DropboxConnector dropbox;
 
+    @Autowired
+    private IntegrationController master;
+
     public DropboxDumper() {
 
     }
@@ -47,11 +51,10 @@ public class DropboxDumper implements ModelChangeListener {
 
     @Scheduled(fixedRate = 60000)
     public void run() {
-        if (changed && init) {
+        if (changed && init && master.isMaster()) {
             if (dropbox.isConnected()) {
                 dropbox.saveFile("schuetu-aktuell.xls", dumper.mannschaftenFromDBtoXLS());
             }
-
             changed = false;
         }
     }

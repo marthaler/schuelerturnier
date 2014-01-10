@@ -4,9 +4,9 @@
 package com.googlecode.madschuelerturnier.web.controllers;
 
 
-import com.googlecode.madschuelerturnier.business.integration.jms.SchuelerturnierTransportControllerImpl;
+import com.googlecode.madschuelerturnier.business.integration.IntegrationControllerImpl;
 import com.googlecode.madschuelerturnier.model.enums.MessageTyp;
-import com.googlecode.madschuelerturnier.model.messages.MessageWrapperToSend;
+import com.googlecode.madschuelerturnier.model.integration.MessageWrapperToSend;
 import com.googlecode.madschuelerturnier.model.util.XstreamUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TransportReceiver {
 
     @Autowired
-    SchuelerturnierTransportControllerImpl controller;
+    IntegrationControllerImpl controller;
 
     private static final Logger LOG = Logger.getLogger(TransportReceiver.class);
 
@@ -37,7 +37,7 @@ public class TransportReceiver {
 
          LOG.debug("TransportController: nachricht angekommen: " + incommingMessage);
         if(incommingMessage.getTyp() != MessageTyp.PULLREQUEST){
-            controller.messageFromServlet(incommingMessage);
+            controller.messageReceivedFromRemote(incommingMessage);
         }
 
             // nachricht fuer aufrufer da sofort senden!
@@ -80,7 +80,7 @@ public class TransportReceiver {
         return null;
     }
 
-    public void setController(SchuelerturnierTransportControllerImpl controller) {
+    public void setController(IntegrationControllerImpl controller) {
         this.controller = controller;
     }
 }

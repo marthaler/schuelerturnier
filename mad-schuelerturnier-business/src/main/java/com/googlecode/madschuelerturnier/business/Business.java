@@ -17,6 +17,8 @@ public interface Business {
 
     List<String> getPersonenListe(String query);
 
+    List<String> getEmailsListe(String query);
+
     List<Mannschaft> getMannschaften();
 
     List<Kategorie> getKategorien();
@@ -65,5 +67,7 @@ public interface Business {
     void manuelleZuordnungDurchziehen(final String mannschaftName, final String zielKategorieKey);
 
     void generateSpielFromXLS(byte[] xlsIn);
+
+    void updateAutocompletesMannschaft(List<Mannschaft> mannschaften);
 
 }

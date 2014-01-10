@@ -34,7 +34,6 @@ public class App extends javafx.application.Application {
     }
 
     public static void main(String[] args) {
-        System.out.println(File.class.getCanonicalName());
         launch(args);
     }
     

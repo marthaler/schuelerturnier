@@ -1,13 +1,14 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.model.messages;
+package com.googlecode.madschuelerturnier.model.integration;
 
 import com.googlecode.madschuelerturnier.model.enums.MessageTyp;
-import org.springframework.context.ApplicationEvent;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -35,6 +36,8 @@ public class MessageWrapperToSend implements Serializable {
     private boolean resend = false;
 
     private boolean trans = false;
+
+    private Set<String> nodesThatReceivedThisMessage = new HashSet<String>();
 
     public MessageWrapperToSend() {
 
@@ -114,5 +117,13 @@ public class MessageWrapperToSend implements Serializable {
 
     public void setTrans(boolean trans) {
         this.trans = trans;
+    }
+
+    public Set<String> getNodesThatReceivedThisMessage() {
+        return nodesThatReceivedThisMessage;
+    }
+
+    public void setNodesThatReceivedThisMessage(Set<String> nodesThatReceivedThisMessage) {
+        this.nodesThatReceivedThisMessage = nodesThatReceivedThisMessage;
     }
 }

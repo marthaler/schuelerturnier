@@ -1,7 +1,7 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.model.messages;
+package com.googlecode.madschuelerturnier.model.integration;
 
 import org.springframework.context.ApplicationEvent;
 

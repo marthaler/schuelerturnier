@@ -18,6 +18,8 @@ public class DropboxBackingBean  {
 
     private String token;
 
+    private boolean willNotConnect = false;
+
     @Autowired
     private DropboxConnector connector;
 
@@ -47,5 +49,13 @@ public class DropboxBackingBean  {
            return null;
         }
         return connector.getFilesInFolder();
+    }
+
+    public void setWillNotconnect(boolean willNotconnect) {
+        this.willNotConnect = willNotconnect;
+    }
+
+    public boolean isWillNotconnect() {
+        return willNotConnect;
     }
 }

@@ -32,7 +32,7 @@ public class OutToWebsitePublisher implements ApplicationListener<ZeitPuls> {
 
     @Value("${ftp.server}")
     private String ftpServer = "";
-    @Value("${ftp.port}")
+    @Value("${ftp.port:21}")
     private int ftpPort;
     @Value("${ftp.folder}")
     private String ftpUnterordner = "";

@@ -29,3 +29,6 @@ mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha21.1:release-fini
 starten:
 *******
 java -jar /app/app.jar -Ddb.url=jdbc:hsqldb:file:/app/db/db -Dftp.folder=daniel -Dtransport.local.url=127.0.0.1 -Dtransport.local.port=8080/app/transport -Dtransport.local.address=http://localhost:8080/app/transport  -Dtransport.remote.address=http://localhost:8081/app/transport
+
+java -jar /Users/dama/Documents/schuelerturnier/mad-schuelerturnier-printer-gui/target/jfx/native/mad-schuelerturnier-printer-gui-1.2.8-SNAPSHOT-jfx.jar
+java -jar /Users/dama/Documents/schuelerturnier/mad-schuelerturnier-web/target/mad-schuelerturnier-web-1.2.8-SNAPSHOT-war-exec.jar -Dtransport.local.address=http://localhost:8080/app/transport  -Dtransport.remote.address=http://localhost:8081/app/transport

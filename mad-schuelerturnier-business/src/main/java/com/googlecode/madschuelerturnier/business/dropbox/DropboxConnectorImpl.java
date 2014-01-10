@@ -2,6 +2,7 @@ package com.googlecode.madschuelerturnier.business.dropbox;
 
 import com.dropbox.core.*;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,9 @@ import java.util.Locale;
  */
 @Component
 public class DropboxConnectorImpl implements DropboxConnector {
+
+    @Autowired
+    private DropboxOldDataLoader loader;
 
     private static final Logger LOG = Logger.getLogger(DropboxConnectorImpl.class);
 
@@ -69,6 +73,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
                 LOG.error(e.getMessage(), e);
             }
         }
+        loader.loadData(this);
     }
 
     @Override
@@ -77,7 +82,24 @@ public class DropboxConnectorImpl implements DropboxConnector {
         try {
             DbxEntry.WithChildren listing = client.getMetadataWithChildren(this.rootFolder);
             for (DbxEntry child : listing.children) {
-                result.add(child.name);
+                if(child.isFile()){
+                    result.add(child.name);
+                }
+            }
+        } catch (DbxException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return result;
+    }
+
+    public List<String> getFilesInAltFolder() {
+        List<String> result = new ArrayList<String>();
+        try {
+            DbxEntry.WithChildren listing = client.getMetadataWithChildren(this.rootFolder + "/alt");
+            for (DbxEntry child : listing.children) {
+                if(child.isFile()){
+                    result.add("/alt/" + child.name);
+                }
             }
         } catch (DbxException e) {
             LOG.error(e.getMessage(), e);
@@ -135,4 +157,5 @@ public class DropboxConnectorImpl implements DropboxConnector {
             }
         }
     }
+
 }

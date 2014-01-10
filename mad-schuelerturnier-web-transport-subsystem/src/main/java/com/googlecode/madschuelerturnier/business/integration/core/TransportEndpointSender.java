@@ -1,11 +1,12 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.business.integration.jms;
+package com.googlecode.madschuelerturnier.business.integration.core;
 
-import com.googlecode.madschuelerturnier.business.MessageSenderUtil;
+import com.googlecode.madschuelerturnier.business.integration.IntegrationControllerImpl;
+import com.googlecode.madschuelerturnier.business.integration.util.MessageSenderUtil;
 import com.googlecode.madschuelerturnier.model.enums.MessageTyp;
-import com.googlecode.madschuelerturnier.model.messages.MessageWrapperToSend;
+import com.googlecode.madschuelerturnier.model.integration.MessageWrapperToSend;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -31,13 +32,14 @@ public class TransportEndpointSender extends Thread{
 
 
     private boolean online = true;
+    private boolean running = true;
 
     private LinkedList<MessageWrapperToSend> messagesOut = new LinkedList<MessageWrapperToSend>();
 
 
-    private SchuelerturnierTransportControllerImpl controller;
+    private IntegrationControllerImpl controller;
 
-    public TransportEndpointSender(String remoteConnectionString, String ownConnectionString, SchuelerturnierTransportControllerImpl controller) {
+    public TransportEndpointSender(String remoteConnectionString, String ownConnectionString, IntegrationControllerImpl controller) {
         this.controller = controller;
         this.ownConnectionString = ownConnectionString;
         this.remoteConnectionString = remoteConnectionString;
@@ -48,7 +50,7 @@ public class TransportEndpointSender extends Thread{
     }
 
     public void run(){
-        while (online){
+        while (running){
             try {
 
                 MessageWrapperToSend wrapper = new MessageWrapperToSend();
@@ -66,11 +68,18 @@ public class TransportEndpointSender extends Thread{
                 MessageWrapperToSend response = MessageSenderUtil.send(remoteConnectionString, wrapper);
 
                 if(response != null && response.getTyp() != MessageTyp.ACK){
+                online = true;
                 LOG.info("TransportEndpointSender ("+remoteConnectionString+") nachricht erhalten: " + response);
-                this.controller.messageFromServlet(response);
+                this.controller.messageReceivedFromRemote(response);
                 }
 
-                if(response == null || response.getTyp() == MessageTyp.ACK){
+                if(response == null){
+                    online = false;
+                    Thread.sleep(5000);
+                } else
+
+                if(response.getTyp() == MessageTyp.ACK){
+                    online = true;
                     Thread.sleep(1000);
                 }
 
@@ -81,23 +90,43 @@ public class TransportEndpointSender extends Thread{
         }
     }
 
-     public MessageWrapperToSend getMessageToSendOutRequest(){
+     public synchronized  MessageWrapperToSend getMessageToSendOutRequest(){
          if(this.messagesOut.size() > 0){
-             return this.messagesOut.removeFirst();
+             MessageWrapperToSend out = this.messagesOut.removeFirst();
+
+                 return out;
+
          }
           return null;
      }
 
     public void sendMessage(MessageWrapperToSend wr) {
-        messagesOut.add(wr);
+        // nur schicken wenn nicht bereits schon mal geschickt
+        if(!wr.getNodesThatReceivedThisMessage().contains(this.ownConnectionString) && !wr.getSource().equals(this.remoteConnectionString)){
+            wr.getNodesThatReceivedThisMessage().add(this.ownConnectionString);
+            messagesOut.add(wr);
+        }
     }
 
     public void teardown() {
+        this.running = false;
        LOG.info("TransportEndpointSender ("+remoteConnectionString+") down: " + this.remoteConnectionString);
     }
 
     public long getStartuptime() {
         return startuptime;
+    }
+
+    public String getOwnConnectionString() {
+        return ownConnectionString;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public int countMessagesToSend(){
+        return this.messagesOut.size();
     }
 
 }

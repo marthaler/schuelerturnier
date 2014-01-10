@@ -55,7 +55,7 @@ public class HTMLMenu {
 
         Collections.sort(grl);
 
-        buffer.append("<form action='web' method='post'>");
+        buffer.append("<form action='controllers' method='post'>");
         buffer.append("<label valign='top' for='url'>Kategorie waehlen</label>");
 
         buffer.append("<select valign='top' name='url' onChange='JumpToIt(this.form)'>");

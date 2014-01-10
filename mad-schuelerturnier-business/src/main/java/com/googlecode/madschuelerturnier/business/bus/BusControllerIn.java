@@ -4,10 +4,9 @@
 package com.googlecode.madschuelerturnier.business.bus;
 
 import com.googlecode.madschuelerturnier.business.Business;
-import com.googlecode.madschuelerturnier.model.messages.IncommingMessage;
+import com.googlecode.madschuelerturnier.model.integration.IncommingMessage;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
-import com.googlecode.madschuelerturnier.model.messages.StartFile;
-import com.googlecode.madschuelerturnier.model.messages.state.MasterState;
+import com.googlecode.madschuelerturnier.model.integration.StartFile;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

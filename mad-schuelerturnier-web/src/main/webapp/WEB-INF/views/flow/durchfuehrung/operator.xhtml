@@ -22,37 +22,51 @@
 <div class="inset">
 <h:form id="form1">
 
+<p:fieldset legend="Status">
+    <p:commandButton id="masteroff" value="Setze diesen Node als Master" action="setmaster" ajax="false" rendered="#{!integrationControllerImpl.isMaster()}" />
+    <p:commandButton id="masteron" value="Dieser Node ist der Master" action="setmaster" disabled="true" ajax="false" rendered="#{integrationControllerImpl.isMaster()}" />
+</p:fieldset>
 
-
-
+<br/>
 <p:tabView orientation="top">
 
-    <p:tab title="Godfather Part I">
-        <h:panelGrid columns="2" cellpadding="10">
+<p:tab title="Messaging">
+    <h:panelGrid columns="2" cellpadding="0">
 
-            <h:outputText
-                    value="The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees his daughter's wedding.
-                His beloved son Michael has just come home from the war, but does not intend to become part of his father's business. T
-                hrough Michael's life the nature of the family business becomes clear. The business of the family is just like the head of the family, kind and benevolent to those who give respect,
-                but given to ruthless violence whenever anything stands against the good of the family." />
+
+        <h:panelGrid columns="2" style="margin-bottom:10px">
+
+
+
+            <h:outputLabel for="outbound" value="Messages raus (Applikation->Transportschicht):" />
+            <h:outputText id ="outbound" value="#{integrationControllerImpl.countOutboundMessages()}"/>
+
+            <h:outputLabel for="inbound" value="Messages rein (Transportschicht->Applikation):" />
+            <h:outputText id ="inbound" value="#{integrationControllerImpl.countInboundMessages()}"/>
+
+            <h:outputLabel for="stored" value="Gespeicherte Nachrichten in der Transportschicht:" />
+            <h:outputText id ="stored" value="#{integrationControllerImpl.countStoredObjects()}"/>
+
+            <h:outputLabel for="own" value="Eigene Adresse:" />
+            <h:outputText id= "own" value="#{integrationControllerImpl.getOwnAddress()}"/>
+
+
+
+            <h:outputLabel value="Remote Nodes:" />
+
+
+            <ui:repeat value="#{integrationControllerImpl.getAllReceivers()}" var="rec">
+<br/>
+
+                <h:outputText value="#{rec.remoteConnectionString} - online:#{rec.isOnline()} - messagequeu: #{rec.countMessagesToSend()}"/>
+            </ui:repeat>
+
         </h:panelGrid>
-    </p:tab>
-    <p:tab title="Godfather Part II">
-        <h:panelGrid columns="2" cellpadding="10">
-            <p:graphicImage value="/images/godfather/godfather2.jpg" />
-            <h:outputText value="Francis Ford Coppola's legendary continuation and sequel to his landmark 1972 film, The_Godfather, parallels the young Vito Corleone's rise with his son Michael's spiritual fall, deepening The_Godfather's depiction of the dark side of the American dream.
-            In the early 1900s, the child Vito flees his Sicilian village for America after the local Mafia kills his family. Vito struggles to make a living, legally or illegally, for his wife and growing brood in Little Italy,
-            killing the local Black Hand Fanucci after he demands his customary cut of the tyro's business. With Fanucci gone, Vito's communal stature grows."></h:outputText>
-        </h:panelGrid>
-    </p:tab>
-    <p:tab title="Godfather Part III">
-        <h:panelGrid columns="2" cellpadding="10">
-            <p:graphicImage value="/images/godfather/godfather3.jpg" />
-            <h:outputText value="After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family.
-                Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate."></h:outputText>
-        </h:panelGrid>
-    </p:tab>
-</p:tabView>
+
+    </h:panelGrid>
+</p:tab>
+<p:tab title="Alles andere">
+<h:panelGrid columns="2" cellpadding="10">
 
 
 
@@ -65,11 +79,6 @@
 <p:separator id="customSeparator33"/>
 
 <h:panelGrid columns="2" id="grid01" style="margin-bottom:10px" cellpadding="5">
-
-
-    <p:selectBooleanButton id = "in" value="#{schuelerturnierTransportControllerImpl.master}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" ajax="true"  execute="@form" update="@form1"/>
-
-
 
 
     <h:outputText value="Spielabbruch durch Speaker erlauben"/>
@@ -306,6 +315,21 @@ Phase: #{spieleinstellungen.phase}
 
 
 </p:fieldset>
+
+
+
+</h:panelGrid>
+</p:tab>
+<p:tab title="Godfather Part III">
+    <h:panelGrid columns="2" cellpadding="10">
+        <p:graphicImage value="/images/godfather/godfather3.jpg" />
+        <h:outputText value="After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family.
+                Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate."></h:outputText>
+    </h:panelGrid>
+</p:tab>
+</p:tabView>
+
+
 
 </h:form>
 

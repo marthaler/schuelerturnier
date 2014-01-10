@@ -9,13 +9,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.googlecode.madschuelerturnier.business.integration.jms.SchuelerturnierTransportControllerImpl;
+import com.googlecode.madschuelerturnier.business.integration.IntegrationControllerImpl;
 
-import com.googlecode.madschuelerturnier.business.integration.jms.TransportControllerFactory;
-import com.googlecode.madschuelerturnier.model.messages.File;
-import com.googlecode.madschuelerturnier.model.messages.IncommingMessage;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import com.googlecode.madschuelerturnier.business.integration.core.TransportControllerFactory;
+import com.googlecode.madschuelerturnier.model.integration.File;
+import com.googlecode.madschuelerturnier.model.integration.IncommingMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -50,7 +48,7 @@ public class Controller implements Initializable, ApplicationListener<IncommingM
 
     private boolean init = false;
 
-    SchuelerturnierTransportControllerImpl cont;
+    IntegrationControllerImpl cont;
 
     ApplicationContext applicationContext;
 

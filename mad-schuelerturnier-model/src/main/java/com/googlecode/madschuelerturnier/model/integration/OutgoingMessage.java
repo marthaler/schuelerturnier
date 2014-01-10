@@ -1,14 +1,16 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.model.messages;
+package com.googlecode.madschuelerturnier.model.integration;
 
 import org.springframework.context.ApplicationEvent;
 
 import java.io.Serializable;
 
 /**
- * Ausgehende Message zum verschicken an anderen Instanzen, die Payload beinhaltet das Nachrichtenobjekt
+ * Ausgehende Message zum verschicken an anderen Instanzen, der Payload beinhaltet das Nachrichtenobjekt
+ * Trans bedeutet, dass die Nachrichten nicht in der Transportschicht zwischengespeichert werden und somit
+ * nicht noch einmal weitergeschickt werden bei der Anmelung eines neuen Nodes
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8
