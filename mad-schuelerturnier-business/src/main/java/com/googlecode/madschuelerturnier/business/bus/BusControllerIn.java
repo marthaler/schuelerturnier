@@ -4,9 +4,11 @@
 package com.googlecode.madschuelerturnier.business.bus;
 
 import com.googlecode.madschuelerturnier.business.Business;
+import com.googlecode.madschuelerturnier.model.DBAuthUser;
 import com.googlecode.madschuelerturnier.model.integration.IncommingMessage;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.integration.StartFile;
+import com.googlecode.madschuelerturnier.persistence.repository.DBAuthUserRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class BusControllerIn implements ApplicationListener<IncommingMessage> {
     private MannschaftRepository repo;
 
     @Autowired
+    private DBAuthUserRepository authUserRepository;
+
+    @Autowired
     private Business business;
 
     @Override
@@ -42,6 +47,9 @@ public class BusControllerIn implements ApplicationListener<IncommingMessage> {
         }
         if(obj instanceof StartFile){
             business.generateSpielFromXLS(((StartFile) obj).getContent());
+        }
+        if(obj instanceof DBAuthUser){
+            authUserRepository.save((DBAuthUser) obj);
         }
 
     }
