@@ -2,6 +2,7 @@ feautures:
 **********
 
 [  ]     sender, eigene nachrichten nicht mehr weiterschicken
+[  ]     schauen, dass nachrichten mit content gesendet werden nach anmeldung an master
 [  ]     masterstate reparieren
 [  ]     audit log in der transportschicht
 [  ]     einrichten, dass der master einen sauberen dump schickt
