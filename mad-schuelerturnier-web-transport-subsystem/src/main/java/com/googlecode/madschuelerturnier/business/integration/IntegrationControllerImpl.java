@@ -185,11 +185,8 @@ public class IntegrationControllerImpl extends Thread implements ApplicationEven
                     if (outgoingMessage.getTyp() == MessageTyp.PAYLOAD) {
 
                         // setzen der ausgehenden integration in zwischenspeicher
-                        if (outgoingMessage.isTrans()) {
-                            storeMap.put(outgoingMessage.getId(), null);
-                        } else {
+                        if (!outgoingMessage.isTrans()) {
                             storeMap.put(outgoingMessage.getId(), outgoingMessage);
-
                         }
                     }
                 }
@@ -257,18 +254,20 @@ public class IntegrationControllerImpl extends Thread implements ApplicationEven
             if (!senderEndpoints.containsKey(url) && !url.equals(this.ownConnectionString)) {
                 createSender(url);
 
+                this.sendMessage(registration);
+
                 // alles senden, falls ich der master bin
                 if(this.master){
                    for(String s : this.storeMap.keySet()){
-                       Serializable pay = storeMap.get(s);
+                       MessageWrapperToSend pay = storeMap.get(s);
                        MessageWrapperToSend envelop = new MessageWrapperToSend();
-                       envelop.setPayload(pay);
+                       envelop.setPayload(pay.getPayload());
                        envelop.setId(s);
                        envelop.setTyp(MessageTyp.PAYLOAD);
                        this.sendMessage(envelop);
                    }
                 }
-                this.sendMessage(registration);
+
                 return true;
             }
 
