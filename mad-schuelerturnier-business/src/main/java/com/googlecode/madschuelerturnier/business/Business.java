@@ -70,4 +70,6 @@ public interface Business {
 
     void updateAutocompletesMannschaft(List<Mannschaft> mannschaften);
 
+    void updateMannschafCache();
+
 }

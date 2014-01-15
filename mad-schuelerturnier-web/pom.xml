@@ -301,5 +301,78 @@
                 </plugins>
             </build>
         </profile>
+
+
+
+
+
+
+
+
+
+        <profile>
+            <id>ftp-copy-war</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+
+                  <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.6</version>
+                    <executions>
+                        <execution>
+                            <id>ftp</id>
+                            <phase>deploy</phase>
+                            <configuration>
+                                <target>
+                                    <ftp action="send" server="ftp.schuelerturnier-scworb.ch" remotedir="/" userid="turnier@schuelerturnier-scworb.ch" password="turnier11" depends="yes" verbose="yes">
+                                        <fileset dir="${project.build.directory}">
+                                            <include name="*.war" />
+                                        </fileset>
+                                    </ftp>
+                                </target>
+                            </configuration>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>commons-net</groupId>
+                            <artifactId>commons-net</artifactId>
+                            <version>1.4.1</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>ant</groupId>
+                            <artifactId>ant-commons-net</artifactId>
+                            <version>1.6.5</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>ant</groupId>
+                            <artifactId>ant-nodeps</artifactId>
+                            <version>1.6.5</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+            </build>
+        </profile>
+
+
+
+
+
+
+
+
+
+
+
+
+
     </profiles>
 </project>
