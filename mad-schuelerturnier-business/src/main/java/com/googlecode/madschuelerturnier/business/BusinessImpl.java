@@ -122,14 +122,14 @@ public class BusinessImpl implements Business {
 
         // autocompletes aus db initialisieren
         final List<Mannschaft> mannschaften = getMannschaften();
-        updateAutocompletesMannschaft(mannschaften);
+        updateAutocompletesMannschaften(mannschaften);
 
     }
 
     /*
      * Update der Mannschafts autocomplete Sets
      */
-    public void updateAutocompletesMannschaft(List<Mannschaft> mannschaften) {
+    public void updateAutocompletesMannschaften(List<Mannschaft> mannschaften) {
         for (final Mannschaft mannschaft : mannschaften) {
             schulhaeuser.add(mannschaft.getSchulhaus());
             namen.add(mannschaft.getBegleitpersonName());
@@ -137,6 +137,13 @@ public class BusinessImpl implements Business {
             emails.add(mannschaft.getBegleitpersonEmail());
             emails.add(mannschaft.getCaptainEmail());
         }
+    }
+
+    @Override
+    public void updateAutocompletesMannschaft(Mannschaft mannschaft) {
+        final List<Mannschaft> mannschaften = new ArrayList<Mannschaft>();
+        mannschaften.add(mannschaft);
+        updateAutocompletesMannschaften(mannschaften);
     }
 
     /*

@@ -68,6 +68,8 @@ public interface Business {
 
     void generateSpielFromXLS(byte[] xlsIn);
 
-    void updateAutocompletesMannschaft(List<Mannschaft> mannschaften);
+    void updateAutocompletesMannschaften(List<Mannschaft> mannschaften);
+
+    void updateAutocompletesMannschaft(Mannschaft mannschaft);
 
 }

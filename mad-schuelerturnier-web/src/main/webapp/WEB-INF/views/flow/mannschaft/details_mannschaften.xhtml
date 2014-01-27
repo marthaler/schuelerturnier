@@ -77,7 +77,7 @@
                                     <h:outputLabel for="klasseb" value="Klassenbezeichner (Bsp: b für 2b)"/>
                                     <p:inputText id="klasseb" label="Klassenbezeichner"
                                                  value="#{mannschaftBean.klassenBezeichnung}" size="5">
-                                        <f:validateLength minimum="1" maximum="5"/>
+                                        <f:validateLength minimum="0" maximum="5"/>
                                     </p:inputText>
 
                                     <h:outputLabel for="schulhaus" value="Schulhaus "/>
@@ -111,7 +111,6 @@
 
 
                                     <h:outputLabel for="klasse" value="Klasse"/>
-
                                     <p:selectOneMenu id="klasse" value="#{mannschaftBean.klasse}"
                                                      event="onchange" disabled="#{! spielstatusWebBean.anmeldephase}">
                                         <f:selectItem itemLabel="1" itemValue="1"/>
@@ -132,6 +131,14 @@
                                                      disabled="#{! spielstatusWebBean.anmeldephase}">
                                         <f:selectItem itemLabel="Knaben" itemValue="K"/>
                                         <f:selectItem itemLabel="M&#228;dchen" itemValue="M"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel for="spielwunsch" value="Spielwunsch"/>
+                                    <p:selectOneMenu id="spielwunsch" value="#{mannschaftBean.spielWunschHint}"  event="onchange" disabled="#{! spielstatusWebBean.anmeldephase}">
+                                        <f:selectItem itemLabel="-" itemValue=""/>
+                                        <f:selectItem itemLabel="Sammstag" itemValue="morgen"/>
+                                        <f:selectItem itemLabel="Sammstag Nachmittag (Bitte nicht benutzen)" itemValue="nachmittag"/>
+                                        <f:selectItem itemLabel="Sonntag Morgen" itemValue="sonntag"/>
                                     </p:selectOneMenu>
 
 

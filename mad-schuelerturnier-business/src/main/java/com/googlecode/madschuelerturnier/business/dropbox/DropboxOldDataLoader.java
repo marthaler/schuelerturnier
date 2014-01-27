@@ -1,20 +1,13 @@
 package com.googlecode.madschuelerturnier.business.dropbox;
 
-import com.dropbox.core.*;
 import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.xls.FromXLSLoader;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Sobald die Verbindung zur Dropbox steht wird hiermit dafuer gesorgt, dass
@@ -39,7 +32,7 @@ public class DropboxOldDataLoader  {
    public void loadData(DropboxConnector connector){
         List<String> files = connector.getFilesInAltFolder();
         for(String file :files){
-            business.updateAutocompletesMannschaft(loader.convertXLSToMannschaften(connector.loadFile(file)));
+            business.updateAutocompletesMannschaften(loader.convertXLSToMannschaften(connector.loadFile(file)));
         }
    }
 
