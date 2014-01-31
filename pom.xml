@@ -19,18 +19,15 @@
         <java.version>1.7</java.version>
 
         <tomcat-version>7.0.26</tomcat-version>
-        <!--ok:7.0.26 -> ??:8.0.0-RC10-->
+        <!--ok:7.0.26 -> xx:8.0.0-RC10-->
 
         <!-- ============= -->
         <!-- LIB-VERSIONEN -->
         <!-- ============= -->
 
         <!-- SPRING -->
-        <springframework.version>4.0.0.RELEASE</springframework.version>
-        <!--ok:3.2.1.RELEASE -> ok:3.2.3.RELEASE -> ok:3.2.4.RELEASE -> nok:4.0.0.RC1 -> ok:4.0.0.RELEASE-->
-
-        <springaop.version>4.0.0.RELEASE</springaop.version>
-        <!--ok:3.2.3.RELEASE -> ok:3.2.4.RELEASE -> nok:4.0.0.RC1 -> ok:4.0.0.RELEASE-->
+        <springframework.version>4.0.1.RELEASE</springframework.version>
+        <!--ok:3.2.1.RELEASE -> ok:3.2.3.RELEASE -> ok:3.2.4.RELEASE -> nok:4.0.0.RC1 -> ok:4.0.0.RELEASE -> ok:4.0.1.RELEASE-->
 
         <springsecurity.version>3.2.0.RELEASE</springsecurity.version>
         <!--3.1.3.RELEASE -> nok:3.2.0.M1 -> ok:3.2.0.M2 -> ok:3.2.0.RC2 -> ok:3.2.0.RELEASE-->
@@ -38,9 +35,6 @@
         <!-- WEB -->
         <springwebflow.version>2.3.3.RELEASE</springwebflow.version>
         <!--3.1.3.RELEASE -> nok:3.2.0.M1 -> ok:3.2.0.M2 -> ok:3.2.0.RC2 -> ok:2.3.3.RELEASE -> xx:2.4.0.M1-->
-
-        <springwebflow.faces.version>2.3.3.RELEASE</springwebflow.faces.version>
-        <!-- ok:2.3.1.RELEASE -> nok:2.4.0.M1 -> ok:2.3.3.RELEASE -> xx:2.4.0.M1-->
 
         <commons-fileupload.version>1.3</commons-fileupload.version>
         <!-- ok:1.2.2 -> ok:1.3 -->
@@ -53,11 +47,11 @@
         <!--ok:2.1.7 -> nok:2.2.0 -> nok:2.2.1 -> nok:2.2.2 -> nok:2.2.3 -> nok:2.2.4 -> ok:2.2.5 -> xx:2.2.5-jbossorg-2-->
 
         <!-- PERSISTENZ -->
-        <springdata.version>1.4.2.RELEASE</springdata.version>
-        <!-- ok:1.3.2.RELEASE -> ok:1.3.4.RELEASE -> ok:1.4.1.RELEASE -> ok:1.4.2.RELEASE -> nok:1.5.0.M1-->
+        <spring-data-jpa.version>1.4.2.RELEASE</spring-data-jpa.version>
+        <!-- ok:1.3.2.RELEASE -> ok:1.3.4.RELEASE -> ok:1.4.1.RELEASE -> ok:1.4.2.RELEASE -> nok:1.5.0.M1 -> xx:1.5.0.RC1-->
 
-        <hibernate.version>4.3.0.CR1</hibernate.version>
-        <!-- ok:4.1.7.Final -> ok:4.2.0.CR1 -> ok:4.3.0.Beta3 ok:4.3.0.Beta4 -> ok:4.3.0.Beta5 -> ok:4.3.0.CR1 -> ??:4.3.1.Final-->
+        <hibernate-entitymanager.version>4.3.0.CR1</hibernate-entitymanager.version>
+        <!-- ok:4.1.7.Final -> ok:4.2.0.CR1 -> ok:4.3.0.Beta3 ok:4.3.0.Beta4 -> ok:4.3.0.Beta5 -> ok:4.3.0.CR1 -> xx:4.3.1.Final -> xx:4.3.1.Final-->
 
         <hibernatejpa2api.version>1.0.1.Final</hibernatejpa2api.version>
 
@@ -66,7 +60,7 @@
 
         <!-- VALIDATION -->
         <hibernate-validator.version>5.1.0.Alpha1</hibernate-validator.version>
-        <!-- 5.0.0.Beta1 -> ok:5.0.1.Final -> ok:5.1.0.Alpha1 -> ??:5.1.0.Beta1-->
+        <!-- 5.0.0.Beta1 -> ok:5.0.1.Final -> ok:5.1.0.Alpha1 -> xx:5.1.0.Beta1-->
 
         <validation-api.version>1.1.0.Final</validation-api.version>
         <!-- ok:1.1.0.Alpha1 -> ok:1.1.0.Final -->
@@ -142,7 +136,7 @@
         <junit.version>4.11</junit.version>
 
         <openpojo.version>0.4.8</openpojo.version>
-        <!-- ok:0.4.2 -> ok:0.4.5 -> ok?:0.4.6 -> ??:0.4.9-->
+        <!-- ok:0.4.2 -> ok:0.4.5 -> ok:0.4.6 -> xx:0.4.9-->
 
         <activemq.version>5.9.0</activemq.version>
         <!-- ok:5.8.0 -> ok:5.9.0-->
@@ -360,7 +354,7 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>
-                <version>${springaop.version}</version>
+                <version>${springframework.version}</version>
             </dependency>
 
             <!-- com.googlecode.madschuelerturnier.business.printer.com.googlecode.madschuelerturnier.business.App Context (depends on spring-core, spring-expression, spring-aop,
