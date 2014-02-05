@@ -25,7 +25,6 @@
             <version>${project.version}</version>
         </dependency>
 
-
         <!-- TEST -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
@@ -66,4 +65,38 @@
 
     </dependencies>
 
+<profiles>
+    <profile>
+        <id>integrationtest</id>
+        <activation>
+            <activeByDefault>false</activeByDefault>
+        </activation>
+        <build>
+            <plugins>
+
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>integration-test</id>
+                            <phase>integration-test</phase>
+                            <goals>
+                                <goal>test</goal>
+                            </goals>
+                            <configuration>
+                                <excludes>
+                                    <exclude>none</exclude>
+                                </excludes>
+                                <includes>
+                                    <include>**/integration/**</include>
+                                </includes>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+            </plugins>
+        </build>
+    </profile>
+</profiles>
 </project>

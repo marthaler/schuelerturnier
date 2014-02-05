@@ -75,12 +75,15 @@ public class B1KategorienZuordner {
 
         for (Kategorie kat : map.values()) {
 
+            //Kategorie kategorie = kat;
             Kategorie kategorie = kategorieRepo.findOne(kat.getId());
             Gruppe gruppe = gruppeRepo.findOne(kategorie.getGruppeA().getId());
 
             String hintS = null;
 
-            for (Mannschaft mann : kategorie.getGruppeA().getMannschaften()) {
+            List<Mannschaft> m = kategorie.getGruppeA().getMannschaften();
+
+            for (Mannschaft mann : m) {
 
                 // SpielwunschHint beruecksichtigen, beispielsweise aus der Import Liste
                 if (mann.getSpielWunschHint() != null && !mann.getSpielWunschHint().isEmpty()) {
@@ -100,21 +103,30 @@ public class B1KategorienZuordner {
                         kategorie.setSpielwunsch(SpielTageszeit.SAMMSTAGNACHMITTAG);
                         hintS = "nachmittag";
                     }
-                    this.kategorieRepo.save(kategorie);
+
                 }
 
-                mann.setGruppe(gruppe);
-                mannschaftRepo.save(mann);
+                mann.setGruppe(kategorie.getGruppeA());
+                // todo pruefon ob persistence noch funktioniert
+
             }
+
+
 
             if (hintS != null) {
-                for (Mannschaft mann : kategorie.getGruppeA().getMannschaften()) {
+                for (Mannschaft mann : m) {
                     mann.setSpielWunschHint(hintS);
-                    mannschaftRepo.save(mann);
+                    // todo pruefon ob persistence noch funktioniert
+
                 }
             }
-
+            mannschaftRepo.save(m);
+            this.kategorieRepo.save(kategorie);
         }
+
+
+
+
         return map;
     }
 
@@ -167,7 +179,32 @@ public class B1KategorienZuordner {
 
                         Collections.sort(kategorieMinusOne.getGruppeA().getMannschaften(), new MannschaftsNamenComperator());
                         map.remove(keyActual);
-                        kategorieRepo.delete(temp);
+
+                       for( Mannschaft mt : temp.getGruppeA().getMannschaften()){
+                           mt.setGruppe(null);
+                           this.mannschaftRepo.save(mt);
+                       }
+
+                        for( Mannschaft mt : temp.getGruppeB().getMannschaften()){
+                            mt.setGruppe(null);
+                            this.mannschaftRepo.save(mt);
+                        }
+
+                        /**
+                        temp.getGruppeA().setMannschaften(null);
+                        temp.getGruppeA().setKategorie(null);
+                        temp.getGruppeB().setKategorie(null);
+
+                        gruppeRepo.delete(temp.getGruppeA());
+                        gruppeRepo.delete(temp.getGruppeB());
+
+                        temp.getGruppeB().setMannschaften(null);
+                        LOG.info("vor sichern der unnoetigen kategorie ");
+                        temp = kategorieRepo.saveAndFlush(temp);
+                        List <Mannschaft> mm = temp.getMannschaften();
+                        LOG.info("mannschaften: " + mm.size());
+                         */
+                        //kategorieRepo.delete(temp);
                         kategorieRepo.save(kategorieMinusOne);
                     }
                 }
@@ -204,10 +241,11 @@ public class B1KategorienZuordner {
 
         kategorieRepo.save(temp);
 
+        kategorieRepo.save(kategoriePlusOne);
+
         gruppeRepo.delete(a.getId());
         gruppeRepo.delete(b.getId());
 
-        kategorieRepo.save(kategoriePlusOne);
         return moved;
     }
 

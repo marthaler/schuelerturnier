@@ -1,11 +1,12 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.web;
+package com.googlecode.madschuelerturnier.web.integration;
 
 import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
+import com.googlecode.madschuelerturnier.web.FileUploadController;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Assume;
@@ -52,7 +53,7 @@ public class FileUploadIntegrationTest {
     @Before
     public void init() {
 
-        doc = DataLoaderImpl.getDataLoader().loadFile();
+        doc = DataLoaderImpl.getDataLoader(2013).loadFile();
 
         file = Mockito.mock(UploadedFile.class);
         event = Mockito.mock(FileUploadEvent.class);

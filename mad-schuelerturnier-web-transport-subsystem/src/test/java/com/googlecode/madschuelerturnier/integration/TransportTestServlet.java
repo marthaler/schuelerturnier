@@ -1,4 +1,4 @@
-package com.googlecode.madschuelerturnier.business; /**
+package com.googlecode.madschuelerturnier.integration; /**
  * Apache License 2.0
  */
 import com.googlecode.madschuelerturnier.business.integration.IntegrationControllerImpl;

@@ -1,8 +1,11 @@
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.business;
+package com.googlecode.madschuelerturnier.business.integration;
 
+import com.googlecode.madschuelerturnier.business.Business;
+import com.googlecode.madschuelerturnier.business.DataLoader;
+import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.business.vorbereitung.A0SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;

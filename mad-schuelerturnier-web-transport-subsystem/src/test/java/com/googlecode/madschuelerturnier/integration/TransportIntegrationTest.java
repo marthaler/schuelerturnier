@@ -1,4 +1,4 @@
-package com.googlecode.madschuelerturnier.business; /**
+package com.googlecode.madschuelerturnier.integration; /**
  * Apache License 2.0
  */
 import org.apache.log4j.Logger;

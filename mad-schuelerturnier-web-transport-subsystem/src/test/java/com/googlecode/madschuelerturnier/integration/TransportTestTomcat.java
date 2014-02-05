@@ -1,4 +1,4 @@
-package com.googlecode.madschuelerturnier.business;
+package com.googlecode.madschuelerturnier.integration;
 
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
@@ -24,8 +24,8 @@ public class TransportTestTomcat implements Runnable {
             webappPath = "src/test/webapp";
             targetPath = "";
         } else {
-            webappPath = "mad-schuelerturnier-controllers-transport-subsystem/src/test/webapp";
-            targetPath = "mad-schuelerturnier-controllers-transport-subsystem/target/tomcat";
+            webappPath = "mad-schuelerturnier-web-transport-subsystem/src/test/webapp";
+            targetPath = "mad-schuelerturnier-web-transport-subsystem/target/tomcat";
         }
 
         tomcat.addWebapp(contextPath, new File(webappPath).getAbsolutePath());

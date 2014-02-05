@@ -88,12 +88,7 @@
         </dependency>
 
         <!-- Servlet -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>3.0-alpha-1</version>
-            <scope>provided</scope>
-        </dependency>
+
 
         <!-- Sun Mojarra JSF 2 runtime -->
         <dependency>
@@ -154,48 +149,24 @@
             <version>${tomcat-version}</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-logging-juli</artifactId>
-            <version>${tomcat-version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <version>${tomcat-version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jasper</artifactId>
-            <version>${tomcat-version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jasper-el</artifactId>
-            <version>${tomcat-version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-jsp-api</artifactId>
-            <version>${tomcat-version}</version>
-            <scope>test</scope>
+            <groupId>com.googlecode.madschuelerturnier</groupId>
+            <artifactId>mad-schuelerturnier-testutils</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
 
     <profiles>
         <profile>
-            <id>imac</id>
+            <id>imac-and-dropbox</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>
-
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
@@ -228,9 +199,9 @@
 
 
         <profile>
-            <id>integration</id>
+            <id>integrationtest</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>
@@ -238,15 +209,31 @@
                     <plugin>
                         <groupId>org.apache.tomcat.maven</groupId>
                         <artifactId>tomcat7-maven-plugin</artifactId>
+                        <version>2.1</version>
+                        <configuration>
+                            <fork>true</fork>
+                            <path>/</path>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>tomcat-run</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>run-war-only</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>tomcat-shutdown</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>shutdown</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
 
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <excludes>
-                                <exclude>**/integration/**</exclude>
-                            </excludes>
-                        </configuration>
                         <executions>
                             <execution>
                                 <id>integration-test</id>
@@ -273,7 +260,7 @@
         <profile>
             <id>exec-war-only</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>
@@ -301,78 +288,6 @@
                 </plugins>
             </build>
         </profile>
-
-
-
-
-
-
-
-
-
-        <profile>
-            <id>ftp-copy-war</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-
-                  <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.5</version>
-                    <executions>
-                        <execution>
-                            <id>ftp</id>
-                            <phase>deploy</phase>
-                            <configuration>
-                                <target>
-                                    <ftp action="send" server="ftp.schuelerturnier-scworb.ch" remotedir="/" userid="turnier@schuelerturnier-scworb.ch" password="turnier11" depends="yes" verbose="yes">
-                                        <fileset dir="${project.build.directory}">
-                                            <include name="*.war" />
-                                        </fileset>
-                                    </ftp>
-                                </target>
-                            </configuration>
-                            <goals>
-                                <goal>run</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>commons-net</groupId>
-                            <artifactId>commons-net</artifactId>
-                            <version>1.4.1</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>ant</groupId>
-                            <artifactId>ant-commons-net</artifactId>
-                            <version>1.6.5</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>ant</groupId>
-                            <artifactId>ant-nodeps</artifactId>
-                            <version>1.6.5</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-            </plugins>
-            </build>
-        </profile>
-
-
-
-
-
-
-
-
-
-
-
-
 
     </profiles>
 </project>

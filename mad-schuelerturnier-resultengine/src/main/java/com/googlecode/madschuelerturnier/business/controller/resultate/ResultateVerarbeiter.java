@@ -134,7 +134,7 @@ public class ResultateVerarbeiter {
 
     @Scheduled(fixedRate = WAITTIME) //NOSONAR
     private void verarbeiten() {
-
+try{
         if (!init) {
             initialisieren();
             init = true;
@@ -163,6 +163,9 @@ public class ResultateVerarbeiter {
                 id = null;
             }
         }
+} catch(Exception e){
+    LOG.fatal(e.getMessage(),e);
+}
     }
 
     private void verarbeiteSpiel(Long id) {

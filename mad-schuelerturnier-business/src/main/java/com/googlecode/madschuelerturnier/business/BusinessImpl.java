@@ -616,7 +616,7 @@ public class BusinessImpl implements Business {
     @Override
     public void initializeDB() {
         if (this.spielEinstellungenRepo.count() > 0) {
-            BusinessImpl.LOG.fatal("achtung versuch spiel einstellungen zu initialisieren obwohl bereits in der db vorhanden ");
+            BusinessImpl.LOG.info("achtung versuch spiel einstellungen zu initialisieren obwohl bereits in der db vorhanden ");
             this.einstellungen = spielEinstellungenRepo.findAll().get(0);
         } else {
             SpielEinstellungen eins = new SpielEinstellungen();
