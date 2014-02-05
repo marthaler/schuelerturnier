@@ -191,6 +191,7 @@ public class B1KategorienZuordner {
                         }
 
                    // todo vereinfachen
+                        /*
                         temp.getGruppeA().setMannschaften(null);
                         temp.getGruppeA().setKategorie(null);
                         temp.getGruppeB().setKategorie(null);
@@ -203,8 +204,9 @@ public class B1KategorienZuordner {
                         temp = kategorieRepo.saveAndFlush(temp);
                         List <Mannschaft> mm = temp.getMannschaften();
                         LOG.info("mannschaften: " + mm.size());
-
-                        //kategorieRepo.delete(temp);
+*/
+                        // todo vereinfachen -> hier anchauen
+                        kategorieRepo.delete(temp);
                         kategorieRepo.save(kategorieMinusOne);
                     }
                 }
