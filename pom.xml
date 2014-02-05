@@ -26,7 +26,7 @@
         <!-- ============= -->
 
         <!-- SPRING -->
-        <springframework.version>4.0.1.RELEASE</springframework.version>
+        <springframework.version>3.2.4.RELEASE</springframework.version>
         <!--ok:3.2.1.RELEASE -> ok:3.2.3.RELEASE -> ok:3.2.4.RELEASE -> nok:4.0.0.RC1 -> ok:4.0.0.RELEASE -> ok:4.0.1.RELEASE-->
 
         <springsecurity.version>3.2.0.RELEASE</springsecurity.version>

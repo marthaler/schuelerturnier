@@ -2,8 +2,7 @@ package com.googlecode.madschuelerturnier.web.integration;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.googlecode.madschuelerturnier.testutil.TestTomcat;
-import org.apache.catalina.startup.Tomcat;
+
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;

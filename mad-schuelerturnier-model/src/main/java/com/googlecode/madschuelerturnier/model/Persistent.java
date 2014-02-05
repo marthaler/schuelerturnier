@@ -27,7 +27,7 @@ public class Persistent extends AbstractPersistable<Long> implements Serializabl
     @PostPersist
     @PostUpdate
     void onChangeInDatabase() {
-        //ModelChangeListenerManager.getInstance().publish(this);
+        ModelChangeListenerManager.getInstance().publish(this);
     }
 
 }
