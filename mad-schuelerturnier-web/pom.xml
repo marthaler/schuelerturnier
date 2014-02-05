@@ -150,13 +150,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.googlecode.madschuelerturnier</groupId>
-            <artifactId>mad-schuelerturnier-testutils</artifactId>
-            <version>${project.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
     </dependencies>
 
     <profiles>
