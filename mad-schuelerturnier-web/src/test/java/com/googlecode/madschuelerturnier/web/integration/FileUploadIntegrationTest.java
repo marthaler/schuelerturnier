@@ -50,6 +50,8 @@ public class FileUploadIntegrationTest {
 
     private byte[] doc;
 
+    private JunitAppender appender;
+
     @Before
     public void init() {
 
@@ -61,6 +63,8 @@ public class FileUploadIntegrationTest {
         when(event.getFile()).thenReturn(file);
         when(file.getContents()).thenReturn(doc);
 
+        appender  = new JunitAppender();
+        Logger.getRootLogger().addAppender(appender);
 
     }
 
@@ -68,7 +72,7 @@ public class FileUploadIntegrationTest {
     @Rollback(true)
     public void testHandleFileUpload() {
 
-        Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
+        //Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
 
         UploadedFile temp = event.getFile();
         byte[] doct = temp.getContents();
@@ -90,5 +94,8 @@ public class FileUploadIntegrationTest {
             }
             LOG.info("Phase: " + business.getSpielEinstellungen().getPhase());
         }
+
+        Assert.assertFalse("fehler im log gefunden",appender.hasErrors());
+
     }
 }

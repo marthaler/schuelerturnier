@@ -89,7 +89,7 @@
 
     <profiles>
         <profile>
-            <id>imac</id>
+            <id>dropbox</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
@@ -109,8 +109,7 @@
 
 
                                         <copy file="./target/${project.artifactId}-${project.version}.jar"
-                                              tofile="/app/test.jar" overwrite="true"/>
-
+                                              tofile="/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/test.jar" overwrite="true"/>
                                     </target>
 
                                 </configuration>

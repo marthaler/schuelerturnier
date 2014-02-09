@@ -153,6 +153,11 @@ public class BusinessImpl implements Business {
      */
     public List<String> getSchulhausListe(final String query) {
         final Set<String> strings = new HashSet<String>();
+
+        if(this.schulhaeuser.size() < 1){
+            updateAutocompletesMannschaften(getMannschaften());
+        }
+
         for (final String schulhaus : this.schulhaeuser) {
             if (query == null || query.isEmpty() || schulhaus.toLowerCase().contains(query.toLowerCase())) {
                 strings.add(schulhaus);
@@ -169,6 +174,11 @@ public class BusinessImpl implements Business {
     */
     public List<String> getEmailsListe(final String query) {
         final Set<String> strings = new HashSet<String>();
+
+        if(emails.size() < 1){
+            this.updateAutocompletesMannschaften(getMannschaften());
+        }
+
         for (final String mail : this.emails) {
             if (query == null || query.isEmpty() || mail.toLowerCase().contains(query.toLowerCase())) {
                 strings.add(mail.toLowerCase());
@@ -185,6 +195,11 @@ public class BusinessImpl implements Business {
      */
     public List<String> getPersonenListe(final String query) {
         final Set<String> strings = new HashSet<String>();
+
+        if(namen.size() < 1){
+            this.updateAutocompletesMannschaften(getMannschaften());
+        }
+
         for (final String name : namen) {
             if (query == null || query.isEmpty() || name.toLowerCase().contains(query.toLowerCase())) {
                 strings.add(name);

@@ -188,7 +188,7 @@ try{
 
         // hat a und b  = mehr als 7 mannschaften
         try {
-            if (!spiel.getGruppe().getKategorie().hasVorUndRueckrunde() && spiel.getGruppe().getKategorie().getGruppeB().getMannschaften().size() > 0) {
+            if (spiel.getTyp() == SpielEnum.GRUPPE && !spiel.getGruppe().getKategorie().hasVorUndRueckrunde() && spiel.getGruppe().getKategorie().getGruppeB().getMannschaften().size() > 0) {
 
                 aIstInGruppeA(spiel, katName);
 
@@ -322,9 +322,8 @@ try{
                 RanglisteneintragHistorie rl = map.get(katName);
                 gross.add(rl.getZeilen().get(0).getMannschaft());
                 gross.add(rl.getZeilen().get(1).getMannschaft());
-            } else {
-
-                if (kat.isMixedKlassen() && eRepo.findAll().get(0).isBehandleFinaleProKlassebeiZusammengefuehrten()) {
+                // 8.2.2014: else if, damit auch die 3 er richtig gespeichert werden
+            } else if(kat.isMixedKlassen() && eRepo.findAll().get(0).isBehandleFinaleProKlassebeiZusammengefuehrten()) {
                     finaleSuchenNachKlasse(kat, gross, klein);
                 } else {
                     finaleSuchenNormal(kat, gross, klein);
@@ -344,7 +343,7 @@ try{
 
                 this.katRepo.save(kat);
             }
-        }
+
     }
 
     private void finaleSuchenNormal(Kategorie kat, List<Mannschaft> gross, List<Mannschaft> klein) {

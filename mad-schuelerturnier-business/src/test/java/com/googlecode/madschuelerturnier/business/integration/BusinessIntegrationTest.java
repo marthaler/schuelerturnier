@@ -49,7 +49,7 @@ public class BusinessIntegrationTest {
     public void testGetPersonenListe() {
         List<Mannschaft> mannschaften = DataLoaderImpl.getDataLoader().loadMannschaften();
         mrepo.save(mannschaften);
-        List<String> listeAlle = business.getPersonenListe("");
+        List<String> listeAlle = business.getPersonenListe(null);
         Assert.assertEquals(165, listeAlle.size());
 
         List<String> listeDa = business.getPersonenListe("da");

@@ -154,7 +154,7 @@
 
     <profiles>
         <profile>
-            <id>imac-and-dropbox</id>
+            <id>dropbox</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
@@ -251,7 +251,7 @@
         </profile>
 
         <profile>
-            <id>exec-war-only</id>
+            <id>packages</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>

@@ -11,7 +11,10 @@
     <!-- ist noetig, damit verschieden data sourcen pro test eingestellt werden koennen -->
 
     <context:property-placeholder location="classpath*:**.properties"/>
+
     <context:component-scan base-package="com.googlecode.madschuelerturnier"/>
+
+
     <context:annotation-config/>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

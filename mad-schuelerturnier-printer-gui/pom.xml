@@ -55,7 +55,7 @@
 
     <profiles>
         <profile>
-            <id>imac</id>
+            <id>packages</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
