@@ -163,7 +163,7 @@
         <module>mad-schuelerturnier-picturescanner</module>
         <module>mad-schuelerturnier-remoteclient</module>
         <module>mad-schuelerturnier-web-transport-subsystem</module>
-        <module>mad-schuelerturnier-printer-gui</module>
+
     </modules>
 
     <licenses>
@@ -758,6 +758,19 @@
 
             <modules>
                 <module>mad-schuelerturnier-test</module>
+            </modules>
+        </profile>
+
+
+        <profile>
+            <id>packages</id>
+
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <modules>
+                <module>mad-schuelerturnier-printer-gui</module>
             </modules>
         </profile>
 
