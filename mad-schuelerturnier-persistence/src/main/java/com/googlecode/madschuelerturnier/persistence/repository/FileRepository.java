@@ -22,4 +22,7 @@ public interface FileRepository extends JpaRepository<File, Long> {
     @Query("select o from File o  where o.dateiName = ?1")
     public File findByName(String dateiName);
 
+    @Query("select o from File o  where o.typ = ?1 and o.pearID = ?2")
+    public File findByTypAndPearID(String typ, Integer pearID);
+
 }

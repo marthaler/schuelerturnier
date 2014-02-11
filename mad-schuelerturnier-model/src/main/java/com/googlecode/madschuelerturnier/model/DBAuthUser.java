@@ -20,6 +20,12 @@ import java.util.*;
 @Entity
 public class DBAuthUser extends Persistent implements UserDetails {
 
+    public static String getPictureType() {
+        return PICTURE_TYPE;
+    }
+
+    private static final String PICTURE_TYPE = "portrait";
+
     private String username;
     // initial 1234
     private String password = "81dc9bdb52d04dc20036dbd8313ed055";
@@ -27,8 +33,6 @@ public class DBAuthUser extends Persistent implements UserDetails {
     private String mail;
 
     private String linktoken = UUID.randomUUID().toString();
-
-    private String portraitId = "0";
 
     @Transient
     private String pw;
@@ -127,14 +131,6 @@ public class DBAuthUser extends Persistent implements UserDetails {
             authoritiesString = authoritiesString + "ROLE_" + auth.toUpperCase() + ",";
         }
         authoritiesString = authoritiesString.substring(0, authoritiesString.length() - 1);
-    }
-
-    public String getPortraitId() {
-        return portraitId;
-    }
-
-    public void setPortraitId(String portraitId) {
-        this.portraitId = portraitId;
     }
 
     public String getLinktoken() {

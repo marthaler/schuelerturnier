@@ -62,7 +62,7 @@
         </transition>
 
         <transition on="upload" to="back" >
-            <evaluate expression="DBFileUploadController.matchPicture(flowScope.me)" />
+
         </transition>
 
     </view-state>
@@ -76,6 +76,9 @@
         <on-entry>
             <evaluate expression="modelFactory.getInstance('com.googlecode.madschuelerturnier.model.Mannschaft')"
                       result="flowScope.mannschaftBean"/>
+
+            <evaluate expression="mannschaftRepository.save(mannschaftBean)"
+                      result="flowScope.mannschaftBean"/>
         </on-entry>
         <evaluate expression="modelFactory.ok()"/>
         <transition on="ok" to="newmannschaft_view"/>
@@ -85,6 +88,8 @@
         <transition on="save" to="mannschaftsliste" bind="true">
             <evaluate expression="mannschaftRepository.save(mannschaftBean)"/>
             <evaluate expression="business.updateAutocompletesMannschaft(mannschaftBean)"/>
+        </transition>
+        <transition on="upload" to="newmannschaft_view" bind="true">
         </transition>
     </view-state>
 

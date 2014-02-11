@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * Zur Anzeige des Build Datums und der Version im GUI
+ * Zur Anzeige des Build Datums und der Version im GUI, die Ausgabe des Datums muss explizit eingestellt werden (setShowVersion())
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
@@ -23,6 +23,8 @@ public class MavenVersionUtil {
 
     private String version = "-";
     private String time = "-";
+
+    private boolean showTime = false;
 
     public MavenVersionUtil() {
         init();
@@ -56,11 +58,21 @@ public class MavenVersionUtil {
     }
 
     public String getTime() {
-        return this.time;
+        if(this.showTime){
+            return this.time;
+        }
+        return "";
     }
 
     public String getVersion() {
         return this.version;
     }
 
+    public boolean isShowTime() {
+        return showTime;
+    }
+
+    public void setShowTime(boolean showTime) {
+        this.showTime = showTime;
+    }
 }

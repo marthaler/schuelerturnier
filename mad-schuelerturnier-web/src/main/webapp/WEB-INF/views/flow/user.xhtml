@@ -70,15 +70,29 @@
         <p:tab id="tab2"  title="Benutzerportrait">
             <h:form id="form_upl">
 
-                <p:graphicImage id="bild" value="/app/files/#{me.portraitId}" alt="bild" title="titel"/>
-                <br/> <br/>
+                <p:graphicImage id="bild" value="/app/files/portrait/id/#{me.id}" alt="bild" title="titel"/>
+                <br/>
+                <br/>
+
+                <!--kruecke zum feuern der weiterleitungsaction nach upload und zum setzen des typs und der original id-->
                 <p:fileUpload fileUploadListener="#{DBFileUploadController.handleFileUpload}"
                               multiple="false" auto="true" ajax="true"
                               widgetVar="dialogUpLoad" mode="advanced"
+                              onstart="document.getElementById('tw:form_upl:upload_button_prepare').click();"
                               oncomplete="document.getElementById('tw:form_upl:upload_button').click()"/>
                 <br/>
-                <!--kruecke zum feuern der weiterleitungsaction nach upload-->
-                <p:commandButton id="upload_button" value="Initialisieren"  action="upload" ajax="false" style="display: none"/>
+                <!-- kruekce hier: -->
+                <h:inputText id = "idToMatchWith" value="#{DBFileUploadController.idToMatchWith}" ajax="true" style="display: none"/>
+                <h:inputText id = "typeToSet" value="#{DBFileUploadController.typeToSet}" ajax="true" style="display: none"/>
+
+                <script type="text/javascript">
+                        document.getElementById('tw:form_upl:idToMatchWith').value = "#{me.id}";
+                        document.getElementById('tw:form_upl:typeToSet').value = "portrait";
+
+                </script>
+                <p:commandButton id="upload_button_prepare" value="prepare"  action="#{DBFileUploadController.prepare()}" ajax="true" style="display: none"/>
+                <p:commandButton id="upload_button" value="Initialisieren"  action="upload" ajax="false"  style="display: none"/>
+                <!-- kruecke ende -->
 
             </h:form>
         </p:tab>

@@ -50,6 +50,9 @@ public class Mannschaft extends Persistent {
     @Email
     private String captainEmail = null;
 
+
+    private String begleitpersonAnrede = null;
+
     private String begleitpersonName = null;
 
     private String begleitpersonStrasse = null;
@@ -351,6 +354,14 @@ public class Mannschaft extends Persistent {
 
     public void setNotizen(final String notizen) {
         this.notizen = notizen;
+    }
+
+    public String getBegleitpersonAnrede() {
+        return begleitpersonAnrede;
+    }
+
+    public void setBegleitpersonAnrede(String begleitpersonAnrede) {
+        this.begleitpersonAnrede = begleitpersonAnrede;
     }
 
     @Deprecated

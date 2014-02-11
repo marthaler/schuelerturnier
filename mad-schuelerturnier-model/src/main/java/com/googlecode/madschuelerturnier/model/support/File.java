@@ -30,7 +30,13 @@ public class File extends Persistent {
     @Lob
     private byte[] content;
 
+    // typ des dokuments
     private String typ;
+
+    // id des zugehoerigen datensatzes im restlichen model
+    private Integer pearID;
+
+    private String mimeType;
 
     private String dateiName;
 
@@ -71,5 +77,21 @@ public class File extends Persistent {
         } catch (IOException e) {
             LOG.error(e.getMessage(),e);
         }
+    }
+
+    public Integer getPearID() {
+        return pearID;
+    }
+
+    public void setPearID(Integer pearID) {
+        this.pearID = pearID;
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
     }
 }

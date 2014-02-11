@@ -25,7 +25,43 @@
                             <p:fieldset legend="Mannschaft bearbeiten">
                                 <p:messages/>
 
+                                <!--kruecke zum feuern der weiterleitungsaction nach upload und zum setzen des typs und der original id-->
+                                <p:fileUpload fileUploadListener="#{DBFileUploadController.handleFileUpload}"
+                                              multiple="false" auto="true" ajax="true"
+                                              widgetVar="dialogUpLoad" mode="advanced"
+                                              onstart="document.getElementById('form1:upload_button_prepare').click();"
+                                              oncomplete="document.getElementById('form1:upload_button').click()"
+                                              label = "Anmeldung hochladen (draufziehen)"
+                                              rendered="#{!DBFileDownloadController.hasFile('anmeldung',mannschaftBean.id)}"/>
+
+                                <!-- kruekce hier: -->
+                                <h:inputText id = "idToMatchWith" value="#{DBFileUploadController.idToMatchWith}" ajax="true" style="display: none"/>
+                                <h:inputText id = "typeToSet" value="#{DBFileUploadController.typeToSet}" ajax="true" style="display: none"/>
+                                <h:inputText id = "mimeType" value="#{DBFileUploadController.mymeType}" ajax="true" style="display: none"/>
+
+                                <script type="text/javascript">
+                                    document.getElementById('form1:idToMatchWith').value = "#{mannschaftBean.id}";
+                                    document.getElementById('form1:typeToSet').value = "anmeldung";
+                                    document.getElementById('form1:mimeType').value = "application/pdf";
+
+                                </script>
+                                <p:commandButton id="upload_button_prepare" value="prepare"  action="#{DBFileUploadController.prepare()}" ajax="true" style="display: none"/>
+                                <p:commandButton id="upload_button" value="Initialisieren"  action="upload" ajax="false"  style="display: none"/>
+                                <!-- kruecke ende -->
+
+                                <p:commandButton id="downloadLink" value="Anmeldung herunterladen" ajax="false" icon="ui-icon-arrowthichk-s" rendered="#{DBFileDownloadController.hasFile('anmeldung',mannschaftBean.id)}">
+                                    <p:fileDownload value="#{DBFileDownloadController.getFileAsStreamedContent('anmeldung',mannschaftBean.id)}" />
+                                </p:commandButton>
+                                <br/>
+
+
                                 <h:panelGrid columns="2" id="inputelements">
+
+
+
+
+
+
 
 
                                     <h:outputLabel for="name" value="Name "/>
@@ -40,34 +76,49 @@
                                         <f:validateLength minimum="3" maximum="40"/>
                                     </p:autoComplete>
 
-                                    <h:outputLabel for="captainTelefon" value="Captain Tel. "/>
+                                    <h:outputLabel for="captainTelefon" value="Captain Telefon"/>
                                     <p:inputMask id="captainTelefon" label="captainTelefon"
                                                  value="#{mannschaftBean.captainTelefon}" mask="999 999 99 99" size="40">
 
                                     </p:inputMask>
 
 
-                                    <h:outputLabel for="captainEmail" value="Captain Mail. "/>
+                                    <h:outputLabel for="captainEmail" value="Captain Email"/>
                                     <p:autoComplete id="captainEmail" label="captainEmail"
                                                  completeMethod="#{business.getEmailsListe}"
                                                  value="#{mannschaftBean.captainEmail}" size="40">
 
                                     </p:autoComplete>
 
+                                    <h:outputLabel for="b_anrede" value="Begleitperson Anrede"/>
+                                    <p:selectOneMenu id="b_anrede" value="#{mannschaftBean.begleitpersonAnrede}">
+                                        <f:selectItem itemLabel="An" itemValue="An"/>
+                                        <f:selectItem itemLabel="Frau" itemValue="Frau"/>
+                                        <f:selectItem itemLabel="Herr" itemValue="Herr"/>
+                                    </p:selectOneMenu>
 
-                                    <h:outputLabel for="begleitperson" value="Begleitperson "/>
+                                    <h:outputLabel for="begleitperson" value="Begleitperson Name"/>
                                     <p:autoComplete id="begleitperson" label="Begleitperson"
                                                     completeMethod="#{business.getPersonenListe}"
                                                     value="#{mannschaftBean.begleitpersonName}" size="40">
                                         <f:validateLength minimum="3" maximum="40"/>
                                     </p:autoComplete>
 
-                                    <h:outputLabel for="begleitpersonTelefon" value="Begleitperson Tel. "/>
+                                    <h:outputLabel for="b_strasse" value="Begleitperson Strasse"/>
+                                    <p:inputText id="b_strasse"
+                                                 value="#{mannschaftBean.begleitpersonStrasse}" size="40"/>
+
+                                    <h:outputLabel for="b_ort" value="Begleitperson Ort"/>
+                                    <p:inputText id="b_ort"
+                                                 value="#{mannschaftBean.begleitpersonPLZOrt}" size="40"/>
+
+
+                                    <h:outputLabel for="begleitpersonTelefon" value="Begleitperson Telefon"/>
                                     <p:inputMask id="begleitpersonTelefon" label="begleitpersonTelefon"
                                                  value="#{mannschaftBean.begleitpersonTelefon}" mask="999 999 99 99" size="40">
                                     </p:inputMask>
 
-                                    <h:outputLabel for="begleitpersonEmail" value="Begleitperson Mail."/>
+                                    <h:outputLabel for="begleitpersonEmail" value="Begleitperson Email"/>
                                     <p:autoComplete id="begleitpersonEmail" label="begleitpersonEmail"
                                                     completeMethod="#{business.getEmailsListe}"
                                                  value="#{mannschaftBean.begleitpersonEmail}" size="40">
@@ -155,13 +206,18 @@
                                                showEffect="fade" hideEffect="fade"/>
 
                                     <p:watermark for="captain" value="Vorname und Name"/>
+                                    <p:watermark for="captainEmail" value="Emailadresse"/>
                                     <p:watermark for="captainTelefon" value="Telefonnummer (optional)"/>
-                                    <p:watermark for="captainEmail" value="Emailadresse (optional)"/>
+                                    <p:watermark for="b_ort" value="PLZ und Ort"/>
                                     <p:watermark for="begleitperson" value="Vorname und Name"/>
-                                    <p:watermark for="begleitpersonTelefon" value="Telefonnummer (optional)"/>
-                                    <p:watermark for="begleitpersonEmail" value="Emailadresse (optional)"/>
+                                    <p:watermark for="begleitperson" value="Vorname und Name"/>
+                                    <p:watermark for="begleitpersonTelefon" value="Telefonnummer"/>
+                                    <p:watermark for="begleitpersonEmail" value="Emailadresse"/>
 
-                                </h:panelGrid>
+
+
+
+                    </h:panelGrid>
                             </p:fieldset>
                         </h:form>
                     </div>

@@ -23,45 +23,70 @@ import java.io.Serializable;
  * @since 1.2.8
  */
 @Component
+@Scope("session")
 public class DBFileUploadController implements Serializable{
 
     private static final Logger LOG = Logger.getLogger(DBFileUploadController.class);
 
-    private String lastId = "0";
+    private String idToMatchWith;
+
+    private String typeToSet;
+
+    private String mimeType;
 
     @Autowired
     private FileRepository repo;
 
-    @Autowired
-    private DBAuthUserRepository repoUser;
-
 
     public void handleFileUpload(FileUploadEvent event) {
-        event.getFile().getContents();
 
-        File f = new File();
-        f.setContent(event.getFile().getContents());
-        f.setDateiName(event.getFile().getFileName());
+        File file = repo.findByTypAndPearID(typeToSet,Integer.parseInt(idToMatchWith));
 
-        f = repo.save(f);
-        lastId = ""+f.getId();
+        if(file != null){
+            this.repo.delete(file);
+        }
+        file = new File();
+
+        file.setContent(event.getFile().getContents());
+        file.setDateiName(event.getFile().getFileName());
+
+        file.setPearID(Integer.parseInt(idToMatchWith));
+
+        file.setTyp(typeToSet);
+
+        file.setMimeType(mimeType);
+
+        this.idToMatchWith = null;
+        this.typeToSet = null;
+
+        this.repo.save(file);
 
     }
 
-    public String getLastId() {
-        return lastId;
+    public String getTypeToSet() {
+        return typeToSet;
     }
 
-    public void setLastId(String id) {
-         lastId = id;
+    public void setTypeToSet(String typeToSet) {
+        this.typeToSet = typeToSet;
+    }
+    public String getIdToMatchWith() {
+        return idToMatchWith;
     }
 
-
-
-    public void matchPicture(DBAuthUser user) {
-        user.setPortraitId(lastId);
-        repoUser.save(user);
+    public void setIdToMatchWith(String idToMatchWith) {
+        this.idToMatchWith = idToMatchWith;
     }
 
+    public void prepare(){
+        LOG.debug("noop beim upload");
+    }
 
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
 }

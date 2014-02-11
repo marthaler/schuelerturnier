@@ -3,24 +3,22 @@
  */
 package com.googlecode.madschuelerturnier.web.controllers;
 
-import com.googlecode.madschuelerturnier.model.support.*;
 import com.googlecode.madschuelerturnier.model.support.File;
 import com.googlecode.madschuelerturnier.persistence.repository.FileRepository;
-import com.googlecode.madschuelerturnier.web.controllers.util.HalloBean;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Controller zum Files aus der DB zu laden
@@ -29,19 +27,20 @@ import java.util.List;
  * @since 1.2.8
  */
 @Controller
+@RequestMapping("/files/{typ}")
 public class DBFileDownloadController {
+
+    private static final Logger LOG = Logger.getLogger(DBFileDownloadController.class);
 
     @Autowired
     private FileRepository repo;
 
-    @RequestMapping(value = "/files/{file_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     public void getFile(
-            @PathVariable("file_id") String fileId,
+            @PathVariable("typ") String typ, @PathVariable("id") String pearID,
             HttpServletResponse response) {
-        File file=null;
-        try {
-        file = repo.findOne(Long.parseLong(fileId));
-        } catch (Exception e) {}
+
+        File file = getFile(typ, pearID);
 
         try {
 
@@ -56,11 +55,38 @@ public class DBFileDownloadController {
             IOUtils.copy(is, response.getOutputStream());
             response.flushBuffer();
         } catch (IOException ex) {
-
-            throw new RuntimeException("IOError writing file to output stream");
+            LOG.error(ex.getMessage(),ex);
         }
 
     }
+
+    public File getFile(String typ, String pearID) {
+        File file=null;
+        try {
+        file = repo.findByTypAndPearID(typ, Integer.parseInt(pearID));
+        } catch (Exception e) {
+            LOG.error(e.getMessage(),e);
+        }
+        return file;
+    }
+
+
+
+    public StreamedContent getFileAsStreamedContent(String typ, String pearID){
+        File f = getFile( typ,  pearID);
+        InputStream stream = new ByteArrayInputStream(f.getContent());
+        return new DefaultStreamedContent(stream, f.getMimeType(), f.getDateiName());
+    }
+
+
+    public boolean hasFile(String typ, String pearID){
+        File file = repo.findByTypAndPearID(typ,Integer.parseInt(pearID));
+        if(file != null){
+            return true;
+        }
+        return false;
+    }
+
 
 
     private String getNullFile(){
