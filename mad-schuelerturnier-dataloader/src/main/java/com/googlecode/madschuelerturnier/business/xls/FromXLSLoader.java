@@ -201,7 +201,7 @@ public class FromXLSLoader {
 
             LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
 
-            return (List<File>) beans.get("files");
+            return (List<File>) beans.get("attachements");
 
 
         } catch (Exception e) {
