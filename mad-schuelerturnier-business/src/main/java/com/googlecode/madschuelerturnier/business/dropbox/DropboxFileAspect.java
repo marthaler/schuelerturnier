@@ -31,7 +31,9 @@ public class DropboxFileAspect {
         for (Object obj : joinPoint.getArgs()) {
             if (obj instanceof File) {
                 File f = (File) obj;
-                saveToDropbox(f);
+                if(f.getContent() != null && f.getContent().length > 0){
+                    saveToDropbox(f);
+                }
             }
 
         }
@@ -45,7 +47,10 @@ public class DropboxFileAspect {
                 File f = (File) obj;
 
                 if(f.getContent() == null || f.getContent().length <1){
-                    f.setContent(loadFromDropbox(f));
+                    byte[] content =loadFromDropbox(f);
+                    if(content != null && content.length >0 ){
+                    f.setContent(content);
+                    }
                 }
             }
         }
