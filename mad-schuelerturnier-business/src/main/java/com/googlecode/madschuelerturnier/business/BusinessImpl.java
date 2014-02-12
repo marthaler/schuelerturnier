@@ -88,6 +88,9 @@ public class BusinessImpl implements Business {
     private DBAuthUserRepository userRepository;
 
     @Autowired
+    private FileRepository fileRepo;
+
+    @Autowired
     private ImportHandler importHandler;
 
     @Autowired
@@ -688,6 +691,14 @@ public class BusinessImpl implements Business {
             LOG.info("dbauthuser gespeicher: " + u);
         }
 
+        // Attachements laden und updaten
+        List<com.googlecode.madschuelerturnier.model.support.File> attachements = xls.convertXLSToFiles(xlsIn);
+        LOG.info("attachements geladen: " + attachements.size());
+        for (com.googlecode.madschuelerturnier.model.support.File f : attachements) {
+            fileRepo.save(f);
+            LOG.info("attachements gespeicher: " + f);
+        }
+
         // Spiele laden und updaten
         List<Spiel> spiele = xls.convertXLSToSpiele(xlsIn);
         LOG.info("spiele geladen: " + spiele.size());
@@ -701,6 +712,6 @@ public class BusinessImpl implements Business {
 
     @Override
     public void initializeDropbox(String file) {
-        generateSpielFromXLS(dropbox.loadFile(file));
+        generateSpielFromXLS(dropbox.selectGame(file));
     }
 }

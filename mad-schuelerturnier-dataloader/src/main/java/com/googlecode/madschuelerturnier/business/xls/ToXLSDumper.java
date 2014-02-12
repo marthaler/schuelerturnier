@@ -5,6 +5,7 @@ package com.googlecode.madschuelerturnier.business.xls;
 
 import com.google.common.io.Resources;
 import com.googlecode.madschuelerturnier.model.*;
+import com.googlecode.madschuelerturnier.model.support.File;
 import com.googlecode.madschuelerturnier.persistence.repository.*;
 import net.sf.jxls.transformer.XLSTransformer;
 import org.apache.log4j.Logger;
@@ -47,25 +48,29 @@ public class ToXLSDumper {
     @Autowired
     private KorrekturRepository krepo;
 
+    @Autowired
+    private FileRepository frepo;
+
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
 
     public byte[] mannschaftenFromDBtoXLS() {
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), seinst.findAll(), krepo.findAll(),authRepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), seinst.findAll(), krepo.findAll(),authRepo.findAll(),frepo.findAll());
     }
 
     public byte[] mannschaftenFromDBtoXLS(SpielEinstellungen einst) {
         List<SpielEinstellungen> korrekturen = new ArrayList<SpielEinstellungen>();
         korrekturen.add(einst);
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), korrekturen, krepo.findAll(),authRepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), korrekturen, krepo.findAll(),authRepo.findAll(),frepo.findAll());
     }
 
-    protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<SpielEinstellungen> einstellungenIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn) {
+    protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<SpielEinstellungen> einstellungenIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn, List<File> filesIn) {
 
         List<SpielEinstellungen> einstellungen = einstellungenIn;
         List<Spiel> spiele = spieleIn;
         List<Mannschaft> mannschaften = mannschaftenIn;
         List<Korrektur> korrekturen = korrekturenIn;
         List<DBAuthUser> users = usersIn;
+        List<File> files = filesIn;
 
         // SpielEinstellungen aufbereiten
         if (einstellungen == null) {
@@ -88,6 +93,10 @@ public class ToXLSDumper {
             korrekturen = new ArrayList();
         }
 
+        if (files == null) {
+            files = new ArrayList();
+        }
+
         Map beans = new HashMap();
 
         beans.put("mannschaften", mannschaften);
@@ -95,6 +104,7 @@ public class ToXLSDumper {
         beans.put("einstellungen", einstellungen);
         beans.put("korrekturen", korrekturen);
         beans.put("users", users);
+        beans.put("attachements", files);
 
         XLSTransformer transformer = new XLSTransformer();
         byte[] arr = readFreshTemplate();

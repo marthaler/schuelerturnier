@@ -25,4 +25,16 @@ public interface DropboxConnector {
 
     void saveFile(String file, byte[] content);
 
+    byte[] selectGame(String folder);
+
+    List<String> getAllGames();
+
+    String getSelectedGame();
+
+    byte[] loadGameAttachemt(String file);
+
+    void saveGameAttachemt(String file, byte[] content);
+
+    void saveGame(byte[] content);
+
 }

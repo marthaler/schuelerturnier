@@ -94,4 +94,19 @@ public class File extends Persistent {
     public void setMimeType(String mimeType) {
         this.mimeType = mimeType;
     }
+
+    public String getSuffix(){
+        String[] arr = this.dateiName.split("\\.");
+        if(arr.length<2){
+            return "bin";
+        }
+
+        return arr[1];
+    }
+
+    // getter und setter fuer xls export und import
+    public void setId(Long id) {  // NOSONAR
+        super.setId(id);
+    }
+
 }

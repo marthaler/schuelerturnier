@@ -47,13 +47,15 @@ public class DropboxDumper implements ModelChangeListener {
     @PostConstruct
     public void init() {
         ModelChangeListenerManager.getInstance().addListener(this);
+        this.init = true;
     }
 
     @Scheduled(fixedRate = 60000)
     public void run() {
+
         if (changed && init && master.isMaster()) {
             if (dropbox.isConnected()) {
-                dropbox.saveFile("schuetu-aktuell.xls", dumper.mannschaftenFromDBtoXLS());
+                dropbox.saveGame(dumper.mannschaftenFromDBtoXLS());
             }
             changed = false;
         }

@@ -21,6 +21,8 @@ import java.util.Locale;
 @Component
 public class DropboxConnectorImpl implements DropboxConnector {
 
+    private String selectedGame = "";
+
     @Autowired
     private DropboxOldDataLoader loader;
 
@@ -41,6 +43,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
     private DbxWebAuthNoRedirect webAuth = null;
 
     private DbxRequestConfig config = null;
+
 
     @Override
     public Boolean isConnected() {
@@ -107,6 +110,21 @@ public class DropboxConnectorImpl implements DropboxConnector {
         return result;
     }
 
+    public List<String> getFoldersInRootFolder() {
+        List<String> result = new ArrayList<String>();
+        try {
+            DbxEntry.WithChildren listing = client.getMetadataWithChildren(this.rootFolder);
+            for (DbxEntry child : listing.children) {
+                if(child.isFolder() && !child.name.contains("alt")){
+                    result.add( child.name);
+                }
+            }
+        } catch (DbxException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return result;
+    }
+
     @Override
     public byte[] loadFile(String file) {
         LOG.info("DropboxConnectorImpl: will load file -> " + file);
@@ -157,5 +175,36 @@ public class DropboxConnectorImpl implements DropboxConnector {
             }
         }
     }
+
+    @Override
+    public byte[] selectGame(String folder) {
+        this.selectedGame = folder;
+        return this.loadFile( this.selectedGame + "/"+ this.selectedGame +".xls");
+    }
+
+    @Override
+    public List<String> getAllGames() {
+        return getFoldersInRootFolder();
+    }
+
+    public String getSelectedGame() {
+        return selectedGame;
+    }
+
+    @Override
+    public byte[] loadGameAttachemt(String file) {
+        return this.loadFile( this.selectedGame + "/attachements/" + file);
+    }
+
+    @Override
+    public void saveGameAttachemt(String file, byte[] content) {
+        this.saveFile( this.selectedGame + "/attachements/" + file,content);
+    }
+
+    @Override
+    public void saveGame(byte[] content) {
+        this.saveFile( this.selectedGame + "/"+ this.selectedGame +".xls",content);
+    }
+
 
 }

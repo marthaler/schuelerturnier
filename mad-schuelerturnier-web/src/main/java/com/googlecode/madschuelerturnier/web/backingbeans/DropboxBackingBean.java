@@ -48,7 +48,7 @@ public class DropboxBackingBean  {
         if(!isConnected()){
            return null;
         }
-        return connector.getFilesInFolder();
+        return connector.getAllGames();
     }
 
     public void setWillNotconnect(boolean willNotconnect) {
