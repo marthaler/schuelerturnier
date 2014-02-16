@@ -5,13 +5,13 @@
     <parent>
         <artifactId>mad-schuelerturnier-parent</artifactId>
         <groupId>com.googlecode.madschuelerturnier</groupId>
-        <version>1.2.7</version>
+        <version>1.2.9</version>
     </parent>
 
     <artifactId>mad-schuelerturnier-dataloader</artifactId>
 
     <dependencies>
-        
+
         <dependency>
             <groupId>com.googlecode.madschuelerturnier</groupId>
             <artifactId>mad-schuelerturnier-model</artifactId>

@@ -14,6 +14,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,8 @@ public class RealDBTest2013 {
     }
 
     @Test
+    @Ignore
+    // TODO neue DB vorbereiten
     public void xlsTest() {
 
         LOG.info("-->" + System.getProperty("java.io.tmpdir"));
@@ -161,7 +164,7 @@ public class RealDBTest2013 {
 
     private void dumpMOdelToXLSFile(List<Mannschaft> mannschaften, List<Spiel> spiele, File file) {
         try {
-            byte[] wb = toXlsDumper.convertModelToXLS(mannschaften, spiele, null, null);
+            byte[] wb = toXlsDumper.convertModelToXLS(mannschaften, spiele, null, null,null,null);
             FileOutputStream out = new FileOutputStream(file);
             out.write(wb);
             out.close();

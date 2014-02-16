@@ -3,14 +3,21 @@
  */
 package com.googlecode.madschuelerturnier.business;
 
+import com.googlecode.madschuelerturnier.business.bus.BusControllerOut;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
+import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
+import com.googlecode.madschuelerturnier.business.turnierimport.ImportHandler;
 import com.googlecode.madschuelerturnier.business.vorbereitung.helper.SpielzeilenValidator;
+import com.googlecode.madschuelerturnier.business.xls.FromXLSLoader;
+import com.googlecode.madschuelerturnier.business.xls.ToXLSDumper;
 import com.googlecode.madschuelerturnier.business.zeit.Zeitgeber;
 import com.googlecode.madschuelerturnier.model.*;
 import com.googlecode.madschuelerturnier.model.comperators.KategorieNameComperator;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
+import com.googlecode.madschuelerturnier.model.integration.StartFile;
 import com.googlecode.madschuelerturnier.persistence.repository.*;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -18,6 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -32,6 +42,11 @@ public class BusinessImpl implements Business {
 
     private static final int MITTAG = 12;
     private static final int SEC_PRO_MINUTE = 60;
+
+    private boolean initialized = false;
+
+    @Autowired
+    BusControllerOut outSender;
 
     @Autowired
     private MannschaftRepository mannschaftRepo;
@@ -57,7 +72,37 @@ public class BusinessImpl implements Business {
     @Autowired
     private Zeitgeber zeitgeber;
 
+    @Autowired
+    private ToXLSDumper xlsdumper;
+
+    @Autowired
+    private FromXLSLoader xls;
+
+    @Autowired
+    private MannschaftRepository mannschaftsRepo;
+
+    @Autowired
+    private KorrekturRepository korrekturRepository;
+
+    @Autowired
+    private DBAuthUserRepository userRepository;
+
+    @Autowired
+    private FileRepository fileRepo;
+
+    @Autowired
+    private ImportHandler importHandler;
+
+    @Autowired
+    private DropboxConnector dropbox;
+
     private SpielEinstellungen einstellungen;
+
+    final Set<String> schulhaeuser = new HashSet<String>();
+
+    final Set<String> namen = new HashSet<String>();
+
+    final Set<String> emails = new HashSet<String>();
 
     public BusinessImpl() {
 
@@ -77,8 +122,32 @@ public class BusinessImpl implements Business {
         } else {
             LOG.info("sende keinen puls, da db noch nicht initialisiert ist [01]");
         }
+
+        // autocompletes aus db initialisieren
+        final List<Mannschaft> mannschaften = getMannschaften();
+        updateAutocompletesMannschaften(mannschaften);
+
     }
 
+    /*
+     * Update der Mannschafts autocomplete Sets
+     */
+    public void updateAutocompletesMannschaften(List<Mannschaft> mannschaften) {
+        for (final Mannschaft mannschaft : mannschaften) {
+            schulhaeuser.add(mannschaft.getSchulhaus());
+            namen.add(mannschaft.getBegleitpersonName());
+            namen.add(mannschaft.getCaptainName());
+            emails.add(mannschaft.getBegleitpersonEmail());
+            emails.add(mannschaft.getCaptainEmail());
+        }
+    }
+
+    @Override
+    public void updateAutocompletesMannschaft(Mannschaft mannschaft) {
+        final List<Mannschaft> mannschaften = new ArrayList<Mannschaft>();
+        mannschaften.add(mannschaft);
+        updateAutocompletesMannschaften(mannschaften);
+    }
 
     /*
      * (non-Javadoc)
@@ -88,18 +157,38 @@ public class BusinessImpl implements Business {
     public List<String> getSchulhausListe(final String query) {
         final Set<String> strings = new HashSet<String>();
 
-        final List<Mannschaft> mannschaften = getMannschaften();
-        for (final Mannschaft mannschaft : mannschaften) {
-            if (query == null || query.isEmpty() || mannschaft.getSchulhaus().toLowerCase().contains(query.toLowerCase())) {
-                strings.add(mannschaft.getSchulhaus());
-            }
-        }
-        final List<String> lStr = new ArrayList<String>();
-        for (final String str : strings) {
-            lStr.add(str);
+        if(this.schulhaeuser.size() < 1){
+            updateAutocompletesMannschaften(getMannschaften());
         }
 
-        return lStr;
+        for (final String schulhaus : this.schulhaeuser) {
+            if (query == null || query.isEmpty() || schulhaus.toLowerCase().contains(query.toLowerCase())) {
+                strings.add(schulhaus);
+            }
+        }
+
+        return new ArrayList<String>(strings);
+    }
+
+    /*
+    * (non-Javadoc)
+    *
+    * @see com.googlecode.madschuelerturnier.business.sdfdf#getSchulhausListe(java .lang.String)
+    */
+    public List<String> getEmailsListe(final String query) {
+        final Set<String> strings = new HashSet<String>();
+
+        if(emails.size() < 1){
+            this.updateAutocompletesMannschaften(getMannschaften());
+        }
+
+        for (final String mail : this.emails) {
+            if (query == null || query.isEmpty() || mail.toLowerCase().contains(query.toLowerCase())) {
+                strings.add(mail.toLowerCase());
+            }
+        }
+
+        return new ArrayList<String>(strings);
     }
 
     /*
@@ -110,21 +199,16 @@ public class BusinessImpl implements Business {
     public List<String> getPersonenListe(final String query) {
         final Set<String> strings = new HashSet<String>();
 
-        final List<Mannschaft> mannschaften = getMannschaften();
-        for (final Mannschaft mannschaft : mannschaften) {
-            if (query == null || query.isEmpty() || mannschaft.getBegleitpersonName().toLowerCase().contains(query.toLowerCase())) {
-                strings.add(mannschaft.getBegleitpersonName());
-            }
-            if (query == null || query.isEmpty() || mannschaft.getCaptainName().toLowerCase().contains(query.toLowerCase())) {
-                strings.add(mannschaft.getCaptainName());
-            }
-        }
-        final List<String> lStr = new ArrayList<String>();
-        for (final String str : strings) {
-            lStr.add(str);
+        if(namen.size() < 1){
+            this.updateAutocompletesMannschaften(getMannschaften());
         }
 
-        return lStr;
+        for (final String name : namen) {
+            if (query == null || query.isEmpty() || name.toLowerCase().contains(query.toLowerCase())) {
+                strings.add(name);
+            }
+        }
+        return new ArrayList<String>(strings);
     }
 
     /*
@@ -163,6 +247,11 @@ public class BusinessImpl implements Business {
      * @see com.googlecode.madschuelerturnier.business.sdfdf#getSpielEinstellungen()
      */
     public SpielEinstellungen getSpielEinstellungen() {
+
+        // noch nicht im cache
+        if (this.einstellungen == null && this.spielEinstellungenRepo.count() > 0) {
+            this.einstellungen = this.spielEinstellungenRepo.findAll().get(0);
+        }
 
         // einstellungen bereits im cache
         if (this.einstellungen != null) {
@@ -545,12 +634,82 @@ public class BusinessImpl implements Business {
     @Override
     public void initializeDB() {
         if (this.spielEinstellungenRepo.count() > 0) {
-            BusinessImpl.LOG.fatal("achtung versuch spiel einstellungen zu initialisieren obwohl bereits in der db vorhanden ");
+            BusinessImpl.LOG.info("achtung versuch spiel einstellungen zu initialisieren obwohl bereits in der db vorhanden ");
             this.einstellungen = spielEinstellungenRepo.findAll().get(0);
         } else {
             SpielEinstellungen eins = new SpielEinstellungen();
             this.einstellungen = this.spielEinstellungenRepo.save(eins);
         }
+    }
 
+    public void sendDumpToRemotes(){
+        // sende das initiale file an die weiteren empfaenger
+        StartFile file = new StartFile();
+        byte[] arr = this.xlsdumper.mannschaftenFromDBtoXLS();
+        file.setContent(arr);
+        this.outSender.onChangeModel(file);
+// todo !!!
+      //      IOUtils.write(arr,new FileWriter(new File("/test.xml")));
+
+    }
+
+    public void generateSpielFromXLS(byte[] xlsIn) {
+
+        if(this.initialized){
+            LOG.info("generateSpielFromXLS: ist aber bereits initialisiert, mache nichts");
+            return;
+        }
+
+        this.initialized = true;
+
+        // Einstellungen sichern
+        SpielEinstellungen einstellungen = xls.convertXLSToEinstellung(xlsIn);
+        saveEinstellungen(einstellungen);
+        LOG.info("einstellungen gespeicher: " + einstellungen);
+
+        // Mannschaften laden und updaten
+        List<Mannschaft> mannschaftsliste = xls.convertXLSToMannschaften(xlsIn);
+        for (Mannschaft m : mannschaftsliste) {
+            mannschaftsRepo.save(m);
+            LOG.info("mannschaft gespeicher: " + m);
+        }
+
+        // Korrekturen laden und updaten
+        List<Korrektur> korrekturen = xls.convertXLSToKorrektur(xlsIn);
+        for (Korrektur k : korrekturen) {
+            korrekturRepository.save(k);
+            LOG.info("korrektur gespeicher: " + k);
+        }
+
+        // Benutzer laden und updaten
+        List<DBAuthUser> user = xls.convertXLSToDBAuthUsers(xlsIn);
+        LOG.info("dbauthuser geladen: " + user.size());
+        for (DBAuthUser u : user) {
+            userRepository.save(u);
+            LOG.info("dbauthuser gespeicher: " + u);
+        }
+
+        // Attachements laden und updaten
+        List<com.googlecode.madschuelerturnier.model.support.File> attachements = xls.convertXLSToFiles(xlsIn);
+        LOG.info("attachements geladen: " + attachements.size());
+        for (com.googlecode.madschuelerturnier.model.support.File f : attachements) {
+            fileRepo.save(f);
+            LOG.info("attachements gespeicher: " + f);
+        }
+
+        // Spiele laden und updaten
+        List<Spiel> spiele = xls.convertXLSToSpiele(xlsIn);
+        LOG.info("spiele geladen: " + spiele.size());
+
+        importHandler.turnierHerstellen(spiele);
+
+        this.initializeDB();
+
+
+    }
+
+    @Override
+    public void initializeDropbox(String file) {
+        generateSpielFromXLS(dropbox.selectGame(file));
     }
 }

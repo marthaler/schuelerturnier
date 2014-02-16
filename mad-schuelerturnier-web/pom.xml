@@ -3,7 +3,7 @@
     <parent>
         <groupId>com.googlecode.madschuelerturnier</groupId>
         <artifactId>mad-schuelerturnier-parent</artifactId>
-        <version>1.2.7</version>
+        <version>1.2.9</version>
     </parent>
 
     <artifactId>mad-schuelerturnier-web</artifactId>
@@ -25,8 +25,8 @@
             <version>${project.version}</version>
         </dependency>
         <!-- Spring MVC for Servlet Environments (depends on spring-core, spring-beans,
-                       spring-context, spring-web) Define this if you use Spring MVC with a Servlet
-                       Container such as Apache Tomcat (org.springframework.web.servlet.*) -->
+                       spring-context, spring-controllers) Define this if you use Spring MVC with a Servlet
+                       Container such as Apache Tomcat (org.springframework.controllers.servlet.*) -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -36,7 +36,7 @@
         <dependency>
             <groupId>org.springframework.webflow</groupId>
             <artifactId>spring-faces</artifactId>
-            <version>${springwebflow.faces.version}</version>
+            <version>${springwebflow.version}</version>
         </dependency>
 
         <dependency>
@@ -57,6 +57,27 @@
             <artifactId>spring-security-config</artifactId>
             <version>${springsecurity.version}</version>
         </dependency>
+        <!--
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-ldap</artifactId>
+            <version>${springsecurity.version}</version>
+        </dependency>
+        -->
+        <!-- Is the ApacheDS server; as noted above, 1.5.6 and 1.5.7 don't work
+        <dependency>
+            <groupId>org.apache.directory.server</groupId>
+            <artifactId>apacheds-server-jndi</artifactId>
+            <version>1.5.5</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.directory.server</groupId>
+            <artifactId>apacheds-core</artifactId>
+            <version>1.5.5</version>
+        </dependency>
+        -->
 
         <!-- JSF-303 Dependency Injection -->
         <dependency>
@@ -66,12 +87,7 @@
         </dependency>
 
         <!-- Servlet -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>3.0-alpha-1</version>
-            <scope>provided</scope>
-        </dependency>
+
 
         <!-- Sun Mojarra JSF 2 runtime -->
         <dependency>
@@ -108,8 +124,8 @@
 
         <!-- fuer Prime Faces -->
         <dependency>
-            <groupId>com.lowagie</groupId>
-            <artifactId>itext</artifactId>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
             <version>${itext.version}</version>
         </dependency>
 
@@ -125,17 +141,24 @@
             <version>${commons-fileupload.version}</version>
         </dependency>
 
+        <!-- TEST -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>${tomcat-version}</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <profiles>
         <profile>
-            <id>imac</id>
+            <id>dropbox</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>
-
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
@@ -146,6 +169,10 @@
 
                                     <target>
                                         <copy file="./target/${project.artifactId}-${project.version}-war-exec.jar" tofile="/app/app.jar" overwrite="true" />
+
+                                        <move file="/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/ROOT.war" tofile="/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/ROOT-BAK.war" overwrite="true" />
+
+                                        <copy file="./target/${project.artifactId}-${project.version}.war" tofile="/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/ROOT.war" overwrite="true" />
                                     </target>
 
                                 </configuration>
@@ -161,9 +188,9 @@
 
 
         <profile>
-            <id>integration</id>
+            <id>integrationtest</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>
@@ -171,15 +198,31 @@
                     <plugin>
                         <groupId>org.apache.tomcat.maven</groupId>
                         <artifactId>tomcat7-maven-plugin</artifactId>
+                        <version>2.1</version>
+                        <configuration>
+                            <fork>true</fork>
+                            <path>/</path>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>tomcat-run</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>run-war-only</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>tomcat-shutdown</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>shutdown</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
 
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <excludes>
-                                <exclude>**/integration/**</exclude>
-                            </excludes>
-                        </configuration>
                         <executions>
                             <execution>
                                 <id>integration-test</id>
@@ -204,9 +247,9 @@
         </profile>
 
         <profile>
-            <id>exec-war-only</id>
+            <id>packages</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <plugins>
@@ -234,5 +277,6 @@
                 </plugins>
             </build>
         </profile>
+
     </profiles>
 </project>

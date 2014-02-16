@@ -196,7 +196,7 @@
         width: auto;
     }
 
-    /* Styling of error-messages | Fehlermeldungen */
+    /* Styling of error-integration | Fehlermeldungen */
     .yform div.error {
         border: 1px #a00 dashed;
         background: #faf4f4;
@@ -322,7 +322,7 @@
 
     /**
     * Forms Fieldset/Legend-Bug in IE
-    * @see http://www.mattheerema.com/web-design/2006/04/getting-fieldset-backgrounds-and-legends-to-behave-in-ie/
+    * @see http://www.mattheerema.com/controllers-design/2006/04/getting-fieldset-backgrounds-and-legends-to-behave-in-ie/
     *
     * @workaround
     * @affected IE 5.x/Win, IE6, IE7, IE8

@@ -4,7 +4,7 @@
 
     <groupId>com.googlecode.madschuelerturnier</groupId>
     <artifactId>mad-schuelerturnier-parent</artifactId>
-    <version>1.2.7</version>
+    <version>1.2.9</version>
 
     <packaging>pom</packaging>
 
@@ -17,42 +17,40 @@
 
         <java.version>1.7</java.version>
 
+        <tomcat-version>7.0.26</tomcat-version>
+        <!--ok:7.0.26 -> nok:8.0.0-RC10 -> nok:8.0.1-->
+
         <!-- ============= -->
         <!-- LIB-VERSIONEN -->
         <!-- ============= -->
 
         <!-- SPRING -->
         <springframework.version>3.2.4.RELEASE</springframework.version>
-        <!--ok:3.2.1.RELEASE -> ok:3.2.3.RELEASE -> ok:3.2.4.RELEASE  -->
+        <!--ok:3.2.1.RELEASE -> ok:3.2.3.RELEASE -> ok:3.2.4.RELEASE -> nok:4.0.0.RC1 -> ok:4.0.0.RELEASE -> ok:4.0.1.RELEASE-->
 
-        <springaop.version>3.2.4.RELEASE</springaop.version>
-        <!--ok:3.2.3.RELEASE -> ok:3.2.4.RELEASE -->
-
-        <springsecurity.version>3.2.0.M2</springsecurity.version>
-        <!--3.1.3.RELEASE -> nok:3.2.0.M1 -> ??:3.2.0.M2 -->
+        <springsecurity.version>3.2.0.RELEASE</springsecurity.version>
+        <!--3.1.3.RELEASE -> nok:3.2.0.M1 -> ok:3.2.0.M2 -> ok:3.2.0.RC2 -> ok:3.2.0.RELEASE-->
 
         <!-- WEB -->
-        <springwebflow.version>2.3.1.RELEASE</springwebflow.version>
+        <springwebflow.version>2.3.3.RELEASE</springwebflow.version>
+        <!--3.1.3.RELEASE -> nok:3.2.0.M1 -> ok:3.2.0.M2 -> ok:3.2.0.RC2 -> ok:2.3.3.RELEASE -> xx:2.4.0.M1-->
 
         <commons-fileupload.version>1.3</commons-fileupload.version>
-        <!-- ok:1.2.2 -> ok:1.3 -->
+        <!-- ok:1.2.2 -> ok:1.3 -> xx:1.3.1 -->
 
         <!-- JSF & CO -->
         <primefaces.version>4.0</primefaces.version>
-        <!-- ok:3.5.RC1 -> ok:3.5 -> ok:4.0.RC1 -> nok:4.0-->
+        <!-- ok:3.5.RC1 -> ok:3.5 -> ok:4.0.RC1 -> ok:4.0-->
 
-        <jsf.version>2.1.7</jsf.version>
-        <!--ok:2.1.7 -> nok:2.2.0 -> nok:2.2.1 -> nok:2.2.2 -> nok:2.2.3 -> nok:2.2.4-->
-
-        <springwebflow.faces.version>2.4.0.M1</springwebflow.faces.version>
-        <!-- ok:2.3.1.RELEASE -> ok:2.4.0.M1-->
+        <jsf.version>2.1.7</jsf.version> <!--(2.2.5 nicht wegen primefaces upload) -->
+        <!--ok:2.1.7 -> nok:2.2.0 -> nok:2.2.1 -> nok:2.2.2 -> nok:2.2.3 -> nok:2.2.4 -> nok:2.2.5 -> nok:2.2.5-jbossorg-2-->
 
         <!-- PERSISTENZ -->
-        <springdata.version>1.4.1.RELEASE</springdata.version>
-        <!-- ok:1.3.2.RELEASE -> ok:1.3.4.RELEASE -> ok:1.4.1.RELEASE-->
+        <spring-data-jpa.version>1.3.4.RELEASE</spring-data-jpa.version>
+        <!-- ok:1.3.2.RELEASE -> ok:1.3.4.RELEASE -> ok:1.4.1.RELEASE -> ok:1.4.2.RELEASE -> nok:1.5.0.M1 -> xx:1.5.0.RC1-->
 
-        <hibernate.version>4.3.0.Beta5</hibernate.version>
-        <!-- ok:4.1.7.Final -> ok:4.2.0.CR1 -> ok:4.3.0.Beta3 ok:4.3.0.Beta4 -> ??:4.3.0.Beta5-->
+        <hibernate-entitymanager.version>4.3.0.CR1</hibernate-entitymanager.version>
+        <!-- ok:4.1.7.Final -> ok:4.2.0.CR1 -> ok:4.3.0.Beta3 ok:4.3.0.Beta4 -> ok:4.3.0.Beta5 -> ok:4.3.0.CR1 -> xx:4.3.1.Final -> xx:4.3.1.Final-->
 
         <hibernatejpa2api.version>1.0.1.Final</hibernatejpa2api.version>
 
@@ -61,30 +59,35 @@
 
         <!-- VALIDATION -->
         <hibernate-validator.version>5.1.0.Alpha1</hibernate-validator.version>
-        <!-- 5.0.0.Beta1 -> ok:5.0.1.Final -> ok:5.1.0.Alpha1-->
+        <!-- 5.0.0.Beta1 -> ok:5.0.1.Final -> ok:5.1.0.Alpha1 -> xx:5.1.0.Beta1-->
 
         <validation-api.version>1.1.0.Final</validation-api.version>
         <!-- ok:1.1.0.Alpha1 -> ok:1.1.0.Final -->
 
         <!-- WEITERE -->
-        <slf4j.version>1.7.5</slf4j.version>
-        <!-- ok:1.7.2 -> ok:1.7.5-->
+        <slf4j.version>1.7.6</slf4j.version>
+        <!-- ok:1.7.2 -> ok:1.7.5 -> xx:1.7.6-->
 
         <jodatime.version>2.3</jodatime.version>
-        <!-- ok:2.1 -> ok:2.2 -> ??:2.3-->
+        <!-- ok:2.1 -> ok:2.2 -> ok:2.3-->
 
-        <xstream.version>1.4.5</xstream.version>
+        <xstream.version>1.4.7</xstream.version>
+        <!--ok:1.4.5 -> ok:1.4.6 -> xx:1.4.7-->
 
         <poi.version>3.10-beta2</poi.version>
-        <!--ok:3.9 -> ok3.10-beta2-->
+        <!--ok:3.9 -> ok:3.10-beta2 -> xx:3.10-FINAL-->
 
         <itext.version>4.2.1</itext.version>
         <!--ok:4.2.0 -> ok:4.2.1-->
 
-        <htmlcleaner.version>2.6.1</htmlcleaner.version>
-        <!--ok2.2.1 -> ok:2.5 -> ok:2.6 -> ok:2.6.1-->
+        <zxing.version>2.3.0</zxing.version>
+        <!--ok:2.2 -> ok:2.3.0-->
 
-        <commons-configuration.version>1.9</commons-configuration.version>
+        <htmlcleaner.version>2.7</htmlcleaner.version>
+        <!--ok2.2.1 -> ok:2.5 -> ok:2.6 -> ok:2.6.1 -> ??:2.7-->
+
+        <commons-configuration.version>1.10</commons-configuration.version>
+        <!--ok:1.9 -> ok:1.10-->
 
         <commons-cli.version>20040117.000000</commons-cli.version>
 
@@ -92,8 +95,8 @@
 
         <!-- VERSIONEN -->
 
-        <guava.version>15.0</guava.version>
-        <!-- 14.0 -> ok:14.0.1 -> ??:15.0-rc1 -> ??:15.0-->
+        <guava.version>16.0.1</guava.version>
+        <!-- 14.0 -> ok:14.0.1 -> ok:15.0-rc1 -> ok:15.0 -> ok:16.0-rc1 -> ok:16.0 -> xx:16.0.1-->
 
         <commons-email.version>1.3.1</commons-email.version>
         <!-- ok:1.3 -> ok:1.3.1-->
@@ -102,7 +105,10 @@
         <!-- ok:2.32.0 -> ok:2.33.0-->
 
         <htmlunit.version>2.13</htmlunit.version>
-        <!-- ok:2.11 -> ok:2.12 -> ??:2.13-->
+        <!-- ok:2.11 -> ok:2.12 -> ok:2.13-->
+
+        <httpclient.version>4.3.2</httpclient.version>
+        <!-- ok:4.3.1 -> ??:4.3.2-->
 
         <commons-net.version>3.3</commons-net.version>
         <!-- ok:3.2 -> ok:3.3-->
@@ -114,6 +120,7 @@
         <log4j.version>1.2.17</log4j.version>
 
         <commons-io.version>2.4</commons-io.version>
+        <!-- ok:1.4 -> ??:2.4-->
 
         <jxls.version>1.0.3</jxls.version>
         <!-- ok:1.0.2 -> ok:1.0.3-->
@@ -128,15 +135,30 @@
 
         <junit.version>4.11</junit.version>
 
-        <openpojo.version>0.4.5</openpojo.version>
-        <!-- ok:0.4.2 -> ok:0.4.5 -->
+        <openpojo.version>0.4.9</openpojo.version>
+        <!-- ok:0.4.2 -> ok:0.4.5 -> ok:0.4.6 -> ??:0.4.9-->
+
+        <activemq.version>5.9.0</activemq.version>
+        <!-- ok:5.8.0 -> ok:5.9.0-->
 
         <privilegedaccessor.version>1.2.2</privilegedaccessor.version>
+
+        <dropbox.version>1.7.6</dropbox.version>
+        <!-- ok:1.7.5 -> ok:1.7.6-->
+
+        <itext.version>5.4.5</itext.version>
+        <!-- ok:5.0.6 -> xx:5.4.5-->
+
+        <cglib.version>2.2</cglib.version>
+        <!-- ok:2.2 -> xx:3.1-->
+
+        <aspectjweaver.version>1.6.11</aspectjweaver.version>
+        <!-- 1.6.11:2.2 -> xx:1.8.0.M1-->
 
     </properties>
 
     <prerequisites>
-        <maven>2.2.1</maven>
+        <maven>3.0.0</maven>
     </prerequisites>
 
     <modules>
@@ -146,8 +168,10 @@
         <module>mad-schuelerturnier-web</module>
         <module>mad-schuelerturnier-resultengine</module>
         <module>mad-schuelerturnier-dataloader</module>
-        <!--<module>mad-schuelerturnier-osxapp</module> -->
-        <!--<module>mad-schuelerturnier-picturescanner</module> -->
+        <module>mad-schuelerturnier-picturescanner</module>
+        <module>mad-schuelerturnier-remoteclient</module>
+        <module>mad-schuelerturnier-web-transport-subsystem</module>
+
     </modules>
 
     <licenses>
@@ -232,6 +256,23 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-remoting</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.caucho</groupId>
+            <artifactId>hessian</artifactId>
+            <version>4.0.33</version>
+        </dependency>
+
+        <dependency>
+            <groupId>burlap</groupId>
+            <artifactId>burlap</artifactId>
+            <version>2.1.7</version>
         </dependency>
 
     </dependencies>
@@ -323,10 +364,10 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>
-                <version>${springaop.version}</version>
+                <version>${springframework.version}</version>
             </dependency>
 
-            <!-- Application Context (depends on spring-core, spring-expression, spring-aop, 
+            <!-- com.googlecode.madschuelerturnier.business.printer.com.googlecode.madschuelerturnier.business.App Context (depends on spring-core, spring-expression, spring-aop,
                 spring-beans) This is the central artifact for Spring's Dependency Injection 
                 Container and is generally always defined -->
             <dependency>
@@ -335,7 +376,7 @@
                 <version>${springframework.version}</version>
             </dependency>
 
-            <!-- Various Application Context utilities, including EhCache, JavaMail, 
+            <!-- Various com.googlecode.madschuelerturnier.business.printer.com.googlecode.madschuelerturnier.business.App Context utilities, including EhCache, JavaMail,
                 Quartz, and Freemarker integration Define this if you need any of these integrations -->
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -362,10 +403,17 @@
             </dependency>
             -->
 
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-remoting</artifactId>
+                <version>2.0.8</version>
+            </dependency>
+
             <!-- Web application development utilities applicable to both Servlet 
                 and Portlet Environments (depends on spring-core, spring-beans, spring-context) 
                 Define this if you use Spring MVC, or wish to use Struts, JSF, or another 
-                web framework with Spring (org.springframework.web.*) -->
+                controllers framework with Spring (org.springframework.controllers.*) -->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
@@ -438,6 +486,10 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
         </plugins>
 
         <pluginManagement>
@@ -447,7 +499,7 @@
                 <plugin>
                     <groupId>com.atlassian.maven.plugins</groupId>
                     <artifactId>maven-jgitflow-plugin</artifactId>
-                    <version>1.0-alpha21.1</version>
+                    <version>1.0-alpha26</version>
                 </plugin>
 
                 <plugin>
@@ -465,6 +517,13 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.16</version>
+
+                        <configuration>
+                            <excludes>
+                                <exclude>**/integration/**</exclude>
+                            </excludes>
+                        </configuration>
+
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.maven.surefire</groupId>
@@ -473,6 +532,13 @@
                             <version>2.13</version>
                         </dependency>
                     </dependencies>
+
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.7</version>
                 </plugin>
 
                 <plugin>
@@ -508,7 +574,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.7</version>
                 </plugin>
 
                 <plugin>
@@ -603,7 +668,7 @@
                                     <linkXref>true</linkXref>
                                     <minimumTokens>100</minimumTokens>
                                     <minimumPriority>3</minimumPriority>
-                                    <!-- Change minimum priority to see more or less messages -->
+                                    <!-- Change minimum priority to see more or less integration -->
                                     <targetJdk>${java.version}</targetJdk>
                                 </configuration>
                             </plugin>
@@ -623,32 +688,6 @@
                             </manifest>
                         </archive>
                     </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>2.1</version>
-                    <configuration>
-                        <fork>false</fork>
-                        <path>/</path>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>tomcat-run</id>
-                            <goals>
-                                <goal>run-war-only</goal>
-                            </goals>
-                            <phase>pre-integration-test</phase>
-                        </execution>
-                        <execution>
-                            <id>tomcat-shutdown</id>
-                            <goals>
-                                <goal>shutdown</goal>
-                            </goals>
-                            <phase>post-integration-test</phase>
-                        </execution>
-                    </executions>
                 </plugin>
 
                 <plugin>
@@ -724,16 +763,32 @@
 
     <profiles>
         <profile>
-            <id>testcompile</id>
-            <!--
+            <id>integrationtest</id>
+
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
-            -->
+
             <modules>
                 <module>mad-schuelerturnier-test</module>
             </modules>
         </profile>
+
+
+        <profile>
+            <id>packages</id>
+
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <modules>
+                <module>mad-schuelerturnier-printer-gui</module>
+            </modules>
+        </profile>
+
+
+
     </profiles>
 
-</project> 
+</project>

@@ -48,7 +48,7 @@ public class StartActionTest {
 
         // dasboard
         ret = obj.start(user);
-        assertEquals("flow", ret.getId());
+        assertEquals("dashboard", ret.getId());
 
 
         // beobachter

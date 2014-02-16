@@ -8,7 +8,10 @@ import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HT
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLSpielMatrixConverter;
 import com.googlecode.madschuelerturnier.business.out.OutToWebsitePublisher;
 import com.googlecode.madschuelerturnier.business.print.SpielPrintManager;
-import com.googlecode.madschuelerturnier.model.*;
+import com.googlecode.madschuelerturnier.model.Kategorie;
+import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.Penalty;
+import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.comperators.MannschaftsNamenComperator;
 import com.googlecode.madschuelerturnier.model.compusw.RanglisteneintragHistorie;
 import com.googlecode.madschuelerturnier.model.compusw.RanglisteneintragZeile;
@@ -43,15 +46,12 @@ public class ResultateVerarbeiter {
     private SpielRepository repo;
     @Autowired
     private KategorieRepository katRepo;
-
     @Autowired
     private SpielEinstellungenRepository eRepo;
-
     @Autowired
     private OutToWebsitePublisher ftpPublisher;
     @Autowired
     private SpielPrintManager printer;
-
     private boolean init = false;
     private boolean uploadAllKat = false;
     private Map<String, Boolean> beendet = new HashMap<String, Boolean>();
@@ -134,7 +134,7 @@ public class ResultateVerarbeiter {
 
     @Scheduled(fixedRate = WAITTIME) //NOSONAR
     private void verarbeiten() {
-
+try{
         if (!init) {
             initialisieren();
             init = true;
@@ -163,6 +163,9 @@ public class ResultateVerarbeiter {
                 id = null;
             }
         }
+} catch(Exception e){
+    LOG.fatal(e.getMessage(),e);
+}
     }
 
     private void verarbeiteSpiel(Long id) {
@@ -184,12 +187,15 @@ public class ResultateVerarbeiter {
         RanglisteneintragHistorie rangListe = null;
 
         // hat a und b  = mehr als 7 mannschaften
-        if (!spiel.getGruppe().getKategorie().hasVorUndRueckrunde() && spiel.getGruppe().getKategorie().getGruppeB().getMannschaften().size() > 0) {
+        try {
+            if (spiel.getTyp() == SpielEnum.GRUPPE && !spiel.getGruppe().getKategorie().hasVorUndRueckrunde() && spiel.getGruppe().getKategorie().getGruppeB().getMannschaften().size() > 0) {
 
-            aIstInGruppeA(spiel, katName);
+                aIstInGruppeA(spiel, katName);
 
-            aIstInGruppeB(spiel, katName);
-
+                aIstInGruppeB(spiel, katName);
+            }
+        } catch (Exception e) {
+            LOG.fatal(e.getMessage(), e);
         }
 
         rangListe = normalerEintrag(spiel, katName);
@@ -316,9 +322,8 @@ public class ResultateVerarbeiter {
                 RanglisteneintragHistorie rl = map.get(katName);
                 gross.add(rl.getZeilen().get(0).getMannschaft());
                 gross.add(rl.getZeilen().get(1).getMannschaft());
-            } else {
-
-                if (kat.isMixedKlassen() && eRepo.findAll().get(0).isBehandleFinaleProKlassebeiZusammengefuehrten()) {
+                // 8.2.2014: else if, damit auch die 3 er richtig gespeichert werden
+            } else if(kat.isMixedKlassen() && eRepo.findAll().get(0).isBehandleFinaleProKlassebeiZusammengefuehrten()) {
                     finaleSuchenNachKlasse(kat, gross, klein);
                 } else {
                     finaleSuchenNormal(kat, gross, klein);
@@ -338,7 +343,7 @@ public class ResultateVerarbeiter {
 
                 this.katRepo.save(kat);
             }
-        }
+
     }
 
     private void finaleSuchenNormal(Kategorie kat, List<Mannschaft> gross, List<Mannschaft> klein) {
@@ -402,7 +407,6 @@ public class ResultateVerarbeiter {
         klein.add(listeHoch.get(1));
 
     }
-
 
     public void uploadAllKat() {
         uploadAllKat = true;

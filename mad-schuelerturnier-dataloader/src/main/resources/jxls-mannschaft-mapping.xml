@@ -12,20 +12,25 @@
                 <mapping row="1" col="3">mannschaft.captainName</mapping>
                 <mapping row="1" col="4">mannschaft.captainTelefon</mapping>
                 <mapping row="1" col="5">mannschaft.captainEmail</mapping>
-                <mapping row="1" col="6">mannschaft.begleitpersonName</mapping>
-                <mapping row="1" col="7">mannschaft.begleitpersonTelefon</mapping>
-                <mapping row="1" col="8">mannschaft.begleitpersonEmail</mapping>
-                <mapping row="1" col="9">mannschaft.schulhaus</mapping>
-                <mapping row="1" col="10">mannschaft.geschlechtString</mapping>
-                <mapping row="1" col="11">mannschaft.klasse</mapping>
-                <mapping row="1" col="12">mannschaft.klassenBezeichnung</mapping>
-                <mapping row="1" col="13">mannschaft.anzahlSpieler</mapping>
-                <mapping row="1" col="14">mannschaft.notizen</mapping>
-                <mapping row="1" col="15">mannschaft.spielWunschHint</mapping>
+
+                <mapping row="1" col="6">mannschaft.begleitpersonAnrede</mapping>
+                <mapping row="1" col="7">mannschaft.begleitpersonName</mapping>
+                <mapping row="1" col="8">mannschaft.begleitpersonStrasse</mapping>
+                <mapping row="1" col="9">mannschaft.begleitpersonPLZOrt</mapping>
+                <mapping row="1" col="10">mannschaft.begleitpersonTelefon</mapping>
+                <mapping row="1" col="11">mannschaft.begleitpersonEmail</mapping>
+
+                <mapping row="1" col="12">mannschaft.schulhaus</mapping>
+                <mapping row="1" col="13">mannschaft.geschlechtString</mapping>
+                <mapping row="1" col="14">mannschaft.klasse</mapping>
+                <mapping row="1" col="15">mannschaft.klassenBezeichnung</mapping>
+                <mapping row="1" col="16">mannschaft.anzahlSpieler</mapping>
+                <mapping row="1" col="17">mannschaft.notizen</mapping>
+                <mapping row="1" col="18">mannschaft.spielWunschHint</mapping>
             </section>
             <loopbreakcondition>
                 <rowcheck offset="0">
-                    <cellcheck offset="10"/>
+                    <cellcheck offset="0"/>
                 </rowcheck>
             </loopbreakcondition>
         </loop>

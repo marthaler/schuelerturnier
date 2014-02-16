@@ -3,10 +3,8 @@
  */
 package com.googlecode.madschuelerturnier.business.xls;
 
-import com.googlecode.madschuelerturnier.model.Korrektur;
-import com.googlecode.madschuelerturnier.model.Mannschaft;
-import com.googlecode.madschuelerturnier.model.Spiel;
-import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
+import com.googlecode.madschuelerturnier.model.*;
+import com.googlecode.madschuelerturnier.model.support.File;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import net.sf.jxls.reader.ReaderBuilder;
 import net.sf.jxls.reader.XLSReadStatus;
@@ -23,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Generiert die Daten aus einem XLS
+ * Generiert die Daten aus einem XLS-Dump
  *
  * @author marthaler.worb@gmail.com
  * @since 1.2.5
@@ -152,5 +150,66 @@ public class FromXLSLoader {
 
         return null;
     }
+
+    public List<DBAuthUser> convertXLSToDBAuthUsers(byte[] arr) {
+
+        try {
+
+            InputStream inputXML = new BufferedInputStream(getClass().getResourceAsStream("/jxls-user-mapping.xml"));
+            XLSReader mainReader = ReaderBuilder.buildFromXML(inputXML);
+
+            InputStream inputXLS = new ByteArrayInputStream(arr);
+
+            List users = new ArrayList();
+            DBAuthUser user = new DBAuthUser();
+
+            Map beans = new HashMap();
+            beans.put("users", users);
+            beans.put("user", user);
+
+            XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
+
+            LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
+
+            return (List<DBAuthUser>) beans.get("users");
+
+
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+
+        return null;
+    }
+
+    public List<File> convertXLSToFiles(byte[] arr) {
+
+        try {
+
+            InputStream inputXML = new BufferedInputStream(getClass().getResourceAsStream("/jxls-attachement-mapping.xml"));
+            XLSReader mainReader = ReaderBuilder.buildFromXML(inputXML);
+
+            InputStream inputXLS = new ByteArrayInputStream(arr);
+
+            List files = new ArrayList();
+            File file = new File();
+
+            Map beans = new HashMap();
+            beans.put("attachements", files);
+            beans.put("attachement", file);
+
+            XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
+
+            LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
+
+            return (List<File>) beans.get("attachements");
+
+
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+
+        return null;
+    }
+
 
 }

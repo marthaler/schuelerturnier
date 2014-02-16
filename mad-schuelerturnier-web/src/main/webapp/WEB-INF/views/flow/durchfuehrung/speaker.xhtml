@@ -33,6 +33,9 @@
         <p:media value="#{speak}" width="200" height="20" player="quicktime" rendered="#{speak != null}">
             <f:param name="autoPlay" value="true"/>
         </p:media>
+
+
+
     </sec:authorize>
 
 </h:form>
@@ -63,6 +66,7 @@
     </p:column>
 
 </p:dataTable>
+
 
 <p:accordionPanel id="panel" multiple="true" activeIndex="#{speakerTabModel.open}">
 

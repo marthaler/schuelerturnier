@@ -17,6 +17,8 @@ public interface Business {
 
     List<String> getPersonenListe(String query);
 
+    List<String> getEmailsListe(String query);
+
     List<Mannschaft> getMannschaften();
 
     List<Kategorie> getKategorien();
@@ -56,10 +58,18 @@ public interface Business {
 
     void initializeDB();
 
+    void initializeDropbox(String file);
+
     void initZeilen(boolean sonntag);
 
     List<SpielZeile> getSpielzeilen(final boolean sonntag);
 
     void manuelleZuordnungDurchziehen(final String mannschaftName, final String zielKategorieKey);
+
+    void generateSpielFromXLS(byte[] xlsIn);
+
+    void updateAutocompletesMannschaften(List<Mannschaft> mannschaften);
+
+    void updateAutocompletesMannschaft(Mannschaft mannschaft);
 
 }

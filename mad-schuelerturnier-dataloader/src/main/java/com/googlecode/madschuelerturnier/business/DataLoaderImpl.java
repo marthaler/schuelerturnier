@@ -5,9 +5,11 @@ package com.googlecode.madschuelerturnier.business;
 
 import com.google.common.io.Resources;
 import com.googlecode.madschuelerturnier.business.xls.FromXLSLoader;
+import com.googlecode.madschuelerturnier.model.DBAuthUser;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
+import com.googlecode.madschuelerturnier.model.support.File;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -17,10 +19,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Dient dazu zuvor gespeicherte XLS Spiele zu laden
+ * Dient dazu zuvor gespeicherte XLS Dumps zu laden
  *
  * @author $Author: marthaler.worb@gmail.com $
- * @since 0.7
+ * @since 1.2.5
  */
 public final class DataLoaderImpl implements DataLoader {
 
@@ -54,6 +56,16 @@ public final class DataLoaderImpl implements DataLoader {
     @Override
     public List<Spiel> loadSpiele() {
         return xls.convertXLSToSpiele(readFile("schuetu-" + jahr + ".xls"));
+    }
+
+    @Override
+    public List<DBAuthUser> loadDBUser() {
+        return xls.convertXLSToDBAuthUsers(readFile("schuetu-" + jahr + ".xls"));
+    }
+
+    @Override
+    public List<File> loadAttachements() {
+        return xls.convertXLSToFiles(readFile("schuetu-" + jahr + ".xls"));
     }
 
     @Override

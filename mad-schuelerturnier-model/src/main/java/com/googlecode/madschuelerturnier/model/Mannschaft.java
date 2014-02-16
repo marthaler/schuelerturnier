@@ -5,6 +5,8 @@ package com.googlecode.madschuelerturnier.model;
 
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
 import org.apache.log4j.Logger;
+import org.hibernate.validator.constraints.Email;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -45,7 +47,11 @@ public class Mannschaft extends Persistent {
 
     private String captainTelefon = null;
 
+    @Email
     private String captainEmail = null;
+
+
+    private String begleitpersonAnrede = null;
 
     private String begleitpersonName = null;
 
@@ -55,6 +61,7 @@ public class Mannschaft extends Persistent {
 
     private String begleitpersonTelefon = null;
 
+    @Email
     private String begleitpersonEmail = null;
 
     private String spielWunschHint = null;
@@ -347,6 +354,14 @@ public class Mannschaft extends Persistent {
 
     public void setNotizen(final String notizen) {
         this.notizen = notizen;
+    }
+
+    public String getBegleitpersonAnrede() {
+        return begleitpersonAnrede;
+    }
+
+    public void setBegleitpersonAnrede(String begleitpersonAnrede) {
+        this.begleitpersonAnrede = begleitpersonAnrede;
     }
 
     @Deprecated

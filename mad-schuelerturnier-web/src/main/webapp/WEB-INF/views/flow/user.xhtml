@@ -2,39 +2,203 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:sec="http://www.springframework.org/security/tags"
                 template="../../layouts/100.xhtml" xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="heading">
-        <h:outputText value="Account"/>
-    </ui:define>
+<ui:define name="heading">
+    <h:outputText value="Benutzerinformationen"/>
+</ui:define>
 
-    <ui:define name="caption">
-        <p>Benutzerinformationen</p>
-    </ui:define>
+<ui:define name="main">
+<div id="main">
+<div class="page_margins"></div>
 
+<div class="page_margins">
+<div class="page">
+<div class="inset">
 
-    <ui:define name="main">
-        <div id="main">
-            <div class="page_margins"></div>
+    <p:tabView id="tw" orientation="top" activeIndex="#{userTabBean.activeIndex}" effect="fade" effectDuration="fast">
 
-            <div class="page_margins">
-                <div class="page">
-                    <div class="inset">
+        <p:ajax event="tabChange" listener="#{userTabBean.onTabChange}"/>
 
-                        <p:fieldset legend="Informationen zum angemeldeten Benutzer">
+        <p:tab id="tab0" title="Benutzerdetails">
+            <h:form id="form">
+                <h:panelGrid columns="2" cellpadding="10">
 
-                            <h:outputText value="#{currentUser.principal.username}"/>
-                            <br/>
-                            <h:outputText value="#{currentUser.authorities}"/>
-                            <br/>
-                            <br/>
-                        </p:fieldset>
-                    </div>
+                    <h:outputLabel for="username" value="Benutzernamen"/>
+                    <p:inputText id="username" label="Benutzernamen" value="#{me.username}"
+                                 size="20" disabled="true"/>
+
+                    <h:outputLabel for="mail" value="Emailadresse"/>
+                    <p:inputText id="mail" label="Emailadresse" value="#{me.mail}" size="20"/>
+
+                    <h:outputLabel for="rollen" value="Rollen"/>
+                    <p:autoComplete id="rollen" value="#{me.auths}" multiple="true" size="20"
+                                    disabled="true"/>
                     <br/>
-                </div>
-            </div>
-        </div>
-    </ui:define>
 
+                    <p:commandButton id="submit" value="Speichern" action="save" execute="@form"
+                                     update="@form"/>
+                </h:panelGrid>
+            </h:form>
+
+        </p:tab>
+
+        <p:tab id="tab1" title="Passwort wechseln">
+            <h:form id="form1">
+
+                <p:messages id="message1"  showDetail="false" autoUpdate="true" closable="true"/>
+
+                <h:panelGrid columns="2" id="matchGrid">
+                    <h:outputLabel for="pwd1" value="Passwort eingeben:"/>
+                    <p:password id="pwd1" value="#{me.pw}" match="pwd2" label="Erste eingabe"
+                                required="true">
+                        <f:validateLength minimum="5" maximum="15"/>
+                    </p:password>
+
+                    <h:outputLabel for="pwd2" value="Passwort wiederholen: "/>
+                    <p:password id="pwd2" value="#{me.pw}" label="Zweite eingabe" required="true">
+                        <f:validateLength minimum="5" maximum="15"/>
+                    </p:password>
+                </h:panelGrid>
+                <br/>
+                <p:commandButton id="saveButton" update="matchGrid" value="Speichern" action="chpwd"/>
+            </h:form>
+        </p:tab>
+
+        <p:tab id="tab2"  title="Benutzerportrait">
+            <h:form id="form_upl">
+
+                <p:graphicImage id="bild" value="/app/files/portrait/id/#{me.id}" alt="bild" title="titel"/>
+                <br/>
+                <br/>
+
+                <!--kruecke zum feuern der weiterleitungsaction nach upload und zum setzen des typs und der original id-->
+                <p:fileUpload fileUploadListener="#{DBFileUploadController.handleFileUpload}"
+                              multiple="false" auto="true" ajax="true"
+                              widgetVar="dialogUpLoad" mode="advanced"
+                              onstart="document.getElementById('tw:form_upl:upload_button_prepare').click();"
+                              oncomplete="document.getElementById('tw:form_upl:upload_button').click()"/>
+                <br/>
+                <!-- kruekce hier: -->
+                <h:inputText id = "idToMatchWith" value="#{DBFileUploadController.idToMatchWith}" ajax="true" style="display: none"/>
+                <h:inputText id = "typeToSet" value="#{DBFileUploadController.typeToSet}" ajax="true" style="display: none"/>
+
+                <script type="text/javascript">
+                        document.getElementById('tw:form_upl:idToMatchWith').value = "#{me.id}";
+                        document.getElementById('tw:form_upl:typeToSet').value = "portrait";
+
+                </script>
+                <p:commandButton id="upload_button_prepare" value="prepare"  action="#{DBFileUploadController.prepare()}" ajax="true" style="display: none"/>
+                <p:commandButton id="upload_button" value="Initialisieren"  action="upload" ajax="false"  style="display: none"/>
+                <!-- kruecke ende -->
+
+            </h:form>
+        </p:tab>
+
+        <p:tab id="tab3"  title="Audit Log" disabled="#{sec:areNotGranted('ROLE_OPERATOR')}">
+            <h:form id="form2">
+
+                <p:dataTable var="log" value="#{auditLogRepository.findAllAscending()}">
+                    <p:column headerText="Datum / Zeit">
+                        <h:outputText value="#{log.datum}" >
+                            <f:convertDateTime type="date" pattern="YY.MM.dd HH:mm"
+                                               timeZone="Europe/Zurich"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Vorgang">
+                        <h:outputText value="#{log.text}" />
+                    </p:column>
+
+                </p:dataTable>
+
+            </h:form>
+        </p:tab>
+
+        <p:tab id="tab4" title="Benutzerverwaltung" disabled="#{sec:areNotGranted('ROLE_OPERATOR')}">
+
+            <p:commandButton id="neu" value="Neuen Benutzer anlegen"    oncomplete="PF('dlgnu').show();"/>
+            <h:form id="form5">
+
+                <p:dialog header="Neuen Benutzer erstellen" widgetVar="dlgnu" resizable="false" modal="true">
+
+                    <h:panelGrid columns="2" style="margin-bottom:10px">
+                        <h:outputLabel for="usernu" value="User ID:" />
+                        <h:inputText id = "usernu" value="#{neu.username}" ajax="true"/>
+
+                        <h:outputLabel for="mailnu" value="Mail:" />
+                        <h:inputText id = "mailnu" value="#{neu.mail}" ajax="true"/>
+
+                        <h:outputLabel for="rollennu" value="Rollen:" />
+                        <p:autoComplete id="rollennu" value="#{neu.auths}" multiple="true" size="20"  completeMethod="#{DBAuthDetailService.alleRollen()}" ajax="true"/>
+
+                    </h:panelGrid>
+
+                    <p:commandButton id="submitButtonneu" value="Speichern"  action="moduser"  oncomplete="PF('dlgnu').hide();">
+                        <f:param name="id" value="#{user.id}"/>
+                    </p:commandButton>
+
+                </p:dialog>
+
+            </h:form>
+
+            <br/>
+            <p:dataTable var="user" value="#{all}" rowIndexVar="ri" >
+                <p:column headerText="User ID">
+                    <h:outputText value="#{user.username}"/>
+                </p:column>
+
+                <p:column headerText="Mail">
+                    <h:outputText value="#{user.mail}"/>
+                </p:column>
+
+                <p:column headerText="Rollen">
+                    <p:autoComplete id="rollen2" value="#{user.auths}" multiple="true" size="20"
+                                    disabled="true"/>
+
+                    <h:form id="form4#{ri}" >
+
+                        <p:dialog header="Benutzer bearbeiten" widgetVar="dlg#{user.username}" resizable="false" modal="true">
+
+                            <h:panelGrid columns="2" style="margin-bottom:10px">
+                                <h:outputLabel for="user#{ri}" value="User ID:" />
+                                <h:inputText id = "user#{ri}" value="#{user.username}" ajax="true"/>
+
+                                <h:outputLabel for="mail#{ri}" value="Mail:" />
+                                <h:inputText id = "mail#{ri}" value="#{user.mail}" ajax="true"/>
+
+
+                                <h:outputLabel for="rollen#{ri}" value="Rollen:" />
+                                <p:autoComplete id="rollen#{ri}" value="#{user.auths}" multiple="true" size="20"  completeMethod="#{DBAuthDetailService.alleRollen()}" ajax="true"/>
+
+                            </h:panelGrid>
+
+                            <p:commandButton id="submitButton" value="Speichern"  action="moduser"  oncomplete="PF('dlg#{user.username}').hide();">
+                                <f:param name="id" value="#{user.id}"/>
+                            </p:commandButton>
+
+                        </p:dialog>
+
+                    </h:form>
+
+                </p:column>
+
+                <p:column headerText="">
+                    <p:commandButton id="showDialogButton" type="button" value="Bearbeiten" onclick="PF('dlg#{user.username}').show()" />
+                </p:column>
+
+            </p:dataTable>
+
+        </p:tab>
+
+    </p:tabView>
+</div>
+<br/>
+</div>
+</div>
+</div>
+</ui:define>
 
 </ui:composition>

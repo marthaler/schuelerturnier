@@ -4,18 +4,80 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+    <!-- Log In -->
+    <var name="loginBean" class="com.googlecode.madschuelerturnier.web.security.LoginBean"/>
+
+    <decision-state id="start">
+        <if test="currentUser == null || ! currentUser.isAuthenticated()" then="login"/>
+        <if test="!dropboxBackingBean.isConnected() AND !dropboxBackingBean.isWillNotconnect()" then="dropboxconnect"/>
+        <if test="currentUser != null AND currentUser.isAuthenticated()" then="initialisieren"/>
+    </decision-state>
+
+    <view-state id="dropboxconnect" view="dropboxconnect.xhtml">
+        <transition on="nodropbox" to="start" bind="true">
+            <set name="flashScope.nd" value="true" type="java.lang.Boolean"/>
+            <evaluate expression="dropboxBackingBean.setWillNotconnect(flashScope.nd)"/>
+        </transition>
+        <transition on="connect" to="start" bind="true">
+            <evaluate expression="dropboxBackingBean.save()"/>
+        </transition>
+    </view-state>
+
+    <view-state id="login" view="login.xhtml" model="loginBean">
+        <transition on="ok" to="start" bind="true">
+            <evaluate expression="doLoginController.login(flowScope.loginBean)"/>
+        </transition>
+        <transition on="mail" to="start" bind="true">
+            <evaluate expression="linkLoginSendlinkController.loginPrepare(flowScope.loginBean)"/>
+        </transition>
+    </view-state>
+
+    <!-- Init -->
+
     <action-state id="initialisieren">
         <evaluate expression="loginPrepareAction.execute()"/>
         <evaluate expression="startAction.start(currentUser)"/>
     </action-state>
 
-    <view-state id="flow"/>
+    <view-state id="dashboard" view="dashboard.xhtml"/>
 
-    <view-state id="user"/>
+    <view-state id="user" model="flowScope.me">
+<on-entry>
+
+    <evaluate expression="DBAuthDetailService.loadUserByUsername(currentUser.principal.username)" result="flowScope.me"/>
+    <evaluate expression="DBAuthUserRepository.findAll()" result="flowScope.all"/>
+    <evaluate expression="modelFactory.getInstance('com.googlecode.madschuelerturnier.model.DBAuthUser')" result="flowScope.neu"/>
+
+</on-entry>
+        <transition on="save" to="back" bind="true">
+            <evaluate expression="DBAuthDetailService.saveUser(flowScope.me)"/>
+        </transition>
+
+        <transition on="chpwd" to="back" bind="true">
+            <evaluate expression="DBAuthDetailService.changeUsersPassword(flowScope.me)"/>
+        </transition>
+
+        <transition on="moduser" to="back" bind="true">
+            <evaluate expression="DBAuthDetailService.saveUser(flowScope.all,flowScope.neu,requestParameters.id)"/>
+        </transition>
+
+        <transition on="upload" to="back" >
+
+        </transition>
+
+    </view-state>
+
+    <decision-state id="back">
+        <if test="1 == 1" then="user"/>
+
+    </decision-state>
 
     <action-state id="newmannschaft">
         <on-entry>
             <evaluate expression="modelFactory.getInstance('com.googlecode.madschuelerturnier.model.Mannschaft')"
+                      result="flowScope.mannschaftBean"/>
+
+            <evaluate expression="mannschaftRepository.save(mannschaftBean)"
                       result="flowScope.mannschaftBean"/>
         </on-entry>
         <evaluate expression="modelFactory.ok()"/>
@@ -25,14 +87,28 @@
     <view-state id="newmannschaft_view" view="mannschaft/details_mannschaften.xhtml" model="mannschaftBean">
         <transition on="save" to="mannschaftsliste" bind="true">
             <evaluate expression="mannschaftRepository.save(mannschaftBean)"/>
+            <evaluate expression="business.updateAutocompletesMannschaft(mannschaftBean)"/>
+        </transition>
+        <transition on="upload" to="newmannschaft_view" bind="true">
         </transition>
     </view-state>
 
     <view-state id="initialisieren_view" view="initialisieren.xhtml">
         <transition on="save" to="initialisieren">
             <evaluate expression="business.initializeDB()"/>
+            <evaluate expression="business.sendDumpToRemotes()"/>
         </transition>
-        <transition on="ok" to="initialisieren"/>
+
+        <transition on="ok" to="initialisieren">
+        <evaluate expression="business.sendDumpToRemotes()"/>
+        </transition>
+
+        <transition on="dropbox_chose" to="initialisieren">
+            <evaluate expression="business.initializeDropbox(requestParameters.dropbox_file)"/>
+            <evaluate expression="dropboxDumper.initialize()"/>
+            <evaluate expression="business.sendDumpToRemotes()"/>
+        </transition>
+
     </view-state>
 
     <view-state id="mannschaftsliste" view="mannschaft/liste_mannschaften.xhtml" redirect="true">
@@ -40,7 +116,8 @@
             <evaluate expression="business.getMannschaften()" result="flowScope.mannschaftList"/>
         </on-entry>
         <transition on="newmannschaft_view" to="newmannschaft_view">
-            <evaluate expression="mannschaftRepositoryDelegate.findOne(requestParameters.id)" result="flowScope.mannschaftBean"/>
+            <evaluate expression="mannschaftRepositoryDelegate.findOne(requestParameters.id)"
+                      result="flowScope.mannschaftBean"/>
         </transition>
     </view-state>
 
@@ -87,7 +164,8 @@
         <transition on="save" to="spieleinstellungen" bind="true">
             <set name="flashScope.tr" value="true" type="java.lang.Boolean"/>
             <set name="flashScope.fa" value="false" type="java.lang.Boolean"/>
-            <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)" result="flowScope.spieleinstellungen"/>
+            <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"
+                      result="flowScope.spieleinstellungen"/>
             <evaluate expression="business.initZeilen(flashScope.fa)" result="flowScope.spielZeilenSa"/>
             <evaluate expression="business.initZeilen(flashScope.tr)" result="flowScope.spielZeilenSo"/>
         </transition>
@@ -154,12 +232,17 @@
             <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"/>
             <evaluate expression="business.stopClock()"/>
         </transition>
+
+        <transition on="setmaster" to="spiel_start" bind="true">
+            <evaluate expression="integrationControllerImpl.thisMaster()"/>
+        </transition>
+
     </view-state>
 
     <view-state id="eintrager" view="durchfuehrung/eintrager.xhtml" redirect="true">
         <on-render>
             <evaluate expression="business.anstehendePenalty()" result="flowScope.penaltyAnstehend"/>
-            <evaluate expression="spielRepositoryDelegate.findAllEinzutragende()"  result="flowScope.einzutragende"/>
+            <evaluate expression="spielRepositoryDelegate.findAllEinzutragende()" result="flowScope.einzutragende"/>
         </on-render>
         <transition on="zuweisen" to="eintrager">
             <evaluate expression="pictureAgent.zuweisen()"/>
@@ -188,7 +271,8 @@
             <evaluate expression="spielRepositoryDelegate.findAllZuBestaetigen()" result="flowScope.bestaetigen"/>
         </on-render>
         <transition on="save" to="kontrollierer">
-            <evaluate expression="spielRepositoryDelegate.bestaetigen(flowScope.bestaetigen,requestParameters.id,requestParameters.ok)"/>
+            <evaluate
+                    expression="spielRepositoryDelegate.bestaetigen(flowScope.bestaetigen,requestParameters.id,requestParameters.ok)"/>
             <evaluate expression="spielRepositoryDelegate.findAllZuBestaetigen()" result="flowScope.bestaetigen"/>
         </transition>
     </view-state>
@@ -205,7 +289,8 @@
             <evaluate expression="korrekturRepository.findAll()" result="flowScope.korrekturen"/>
         </transition>
         <transition on="new" to="detail_korrekturen">
-            <evaluate expression="modelFactory.getInstance('com.googlecode.madschuelerturnier.model.Korrektur')" result="flowScope.korrekturd"/>
+            <evaluate expression="modelFactory.getInstance('com.googlecode.madschuelerturnier.model.Korrektur')"
+                      result="flowScope.korrekturd"/>
         </transition>
     </view-state>
 
@@ -231,11 +316,15 @@
 
     <global-transitions>
 
+        <transition on="user" to="user"/>
+
+        <transition on="dashboard" to="dashboard"/>
+
         <transition on="initialisieren" to="initialisieren_view"/>
 
-        <transition on="flow" to="flow"/>
+
         <transition on="newmannschaft" to="newmannschaft"/>
-        <transition on="user" to="user"/>
+
         <transition on="mannschaftsliste" to="mannschaftsliste"/>
 
         <transition on="gt_historie" to="v_historie"/>

@@ -114,7 +114,7 @@ public class PictureAgent {
             return;
         }
 
-        if(!new File("/Users/dama/Desktop").exists()){
+        if (!new File("/Users/dama/Desktop").exists()) {
             return;
         }
 

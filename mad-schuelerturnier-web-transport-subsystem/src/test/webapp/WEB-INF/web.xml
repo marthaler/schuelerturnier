@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <!-- Just here so the JSF implementation can initialize, *not* used at runtime -->
+    <servlet>
+        <servlet-name>servlet</servlet-name>
+        <servlet-class>com.googlecode.madschuelerturnier.integration.TransportTestServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <!-- Just here so the JSF implementation can initialize -->
+    <servlet-mapping>
+        <servlet-name>servlet</servlet-name>
+        <url-pattern>/app/transport</url-pattern>
+    </servlet-mapping>
+
+
+    <!-- DEFAULT PAGE -->
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    <!-- <error-page> <error-code>500</error-code> <location>/app/login</location> </error-page> -->
+</web-app>

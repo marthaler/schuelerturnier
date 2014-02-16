@@ -26,11 +26,16 @@
                         <p:messages/>
                         <h:form id="form1">
 
-                            <p:fieldset legend="Alle Mannschaften">
 
-                                <p:dataTable emptyMessage="leer" id="tbl" var="mannschaft" value="#{mannschaftList}"
-                                             paginator="false" rowIndexVar="ri">
 
+                                <p:dataTable emptyMessage="leer" widgetVar="msch" id="tbl" var="mannschaft" value="#{mannschaftList}"  rowIndexVar="ri">
+
+                                    <f:facet  name="header">
+                                        <p:outputPanel>
+                                            <h:outputText value="Alle Mannschaften durchsuchen: " />
+                                            <p:inputText id="globalFilter" onkeyup="msch.filter()" style="width:150px" />
+                                        </p:outputPanel>
+                                    </f:facet>
 
                                     <p:column>
                                         <f:facet name="nr">
@@ -39,61 +44,23 @@
                                         <h:outputText value="#{ri +1}"/>
                                     </p:column>
 
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Name"/>
-                                        </f:facet>
+                                    <p:column id="name" filterBy="name"  headerText="Name" filterMatchMode="contains">
                                         <h:outputText value="#{mannschaft.name}"/>
                                     </p:column>
 
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Captain"/>
-                                        </f:facet>
-
-
-                                        <p:commandLink id="commandlinkDialogCapatin" onclick="dlgca#{ri}.show();">
-                                            <h:outputText value="#{mannschaft.captainName}"/>
-                                        </p:commandLink>
-                                        <p:dialog id="dialogCaptain" header="Kontakdaten des Begleiters"
-                                                  widgetVar="dlgca#{ri}" showEffect="drop" hideEffect="drop"
-                                                  height="100" width="300">
-                                            <h:outputText value="Telefonnummer: #{mannschaft.captainTelefon}"/>
-                                            <br/>
-                                            <h:outputText value="Emailadresse: #{mannschaft.captainEmail}"/>
-                                            <br/>
-
-                                        </p:dialog>
-
-
+                                    <p:column id="captainName" filterBy="captainName"  headerText="Captain"  filterMatchMode="contains">
+                                        <h:outputText value="#{mannschaft.captainName}"/>
                                     </p:column>
 
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Begleitperson"/>
-                                        </f:facet>
-
-
-                                        <p:commandLink id="notitzenButtons" onclick="dlgs#{ri}.show();">
-                                            <h:outputText value="#{mannschaft.begleitpersonName}"/>
-                                        </p:commandLink>
-                                        <p:dialog id="notizen_dialogs" header="Kontakdaten des Begleiters"
-                                                  widgetVar="dlgs#{ri}" showEffect="drop" hideEffect="drop" height="100"
-                                                  width="300">
-                                            <h:outputText value="Telefonnummer: #{mannschaft.begleitpersonTelefon}"/>
-                                            <br/>
-                                            <h:outputText value="Emailadresse: #{mannschaft.begleitpersonEmail}"/>
-                                            <br/>
-
-                                        </p:dialog>
-
-
+                                    <p:column id="begleitpersonName" filterBy="begleitpersonName"  headerText="Begleitperson"  filterMatchMode="contains">
+                                        <h:outputText value="#{mannschaft.begleitpersonName}"/>
                                     </p:column>
 
-                                    <p:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Schulhaus"/>
-                                        </f:facet>
+
+
+
+                                    <p:column id="schulhaus" filterBy="schulhaus"  headerText="Schulhaus" filterMatchMode="contains">
+
                                         <h:outputText value="#{mannschaft.schulhaus}"/>
                                     </p:column>
 
@@ -148,44 +115,9 @@
 
                                 </p:dataTable>
 
-                            </p:fieldset>
 
 
-                            <br/>
-
-                            <p:fieldset legend="Alle Mannschaften exportieren">
-
-                                <h:commandLink>
-                                    <p:graphicImage
-                                            value="/app/resources/static/images/export/excel.png"/>
-                                    <p:dataExporter type="xls" target="tbl" fileName="mannschaften"
-                                                    excludeColumns="1,8"/>
-                                </h:commandLink>
-
-                                <h:commandLink>
-                                    <p:graphicImage
-                                            value="/app/resources/static/images/export/pdf.png"/>
-                                    <p:dataExporter type="pdf" target="tbl" fileName="mannschaften"
-                                                    excludeColumns="1,8"/>
-                                </h:commandLink>
-
-                                <h:commandLink>
-                                    <p:graphicImage
-                                            value="/app/resources/static/images/export/csv.png"/>
-                                    <p:dataExporter type="csv" target="tbl" fileName="mannschaften"
-                                                    excludeColumns="1,8"/>
-                                </h:commandLink>
-
-                                <h:commandLink>
-                                    <p:graphicImage
-                                            value="/app/resources/static/images/export/xml.png"/>
-                                    <p:dataExporter type="xml" target="tbl" fileName="mannschaften"
-                                                    excludeColumns="1,8"/>
-                                </h:commandLink>
-
-                            </p:fieldset>
                         </h:form>
-
                     </div>
                     <br/>
                 </div>

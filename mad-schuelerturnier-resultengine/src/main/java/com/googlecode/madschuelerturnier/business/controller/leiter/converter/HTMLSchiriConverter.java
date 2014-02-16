@@ -115,7 +115,7 @@ public class HTMLSchiriConverter {
         b.append(TR);
         b.append("<td colspan=\"1\" align=\"left\"><b>&nbsp;[a]</b>&nbsp; Farbe:");
         b.append("______________&nbsp;&nbsp; Tore:</td>");
-        b.append("<td rowspan=\"4\" colspan=\"1\"><img src='resources/static/barcode/[idstring].png'");
+        b.append("<td rowspan=\"4\" colspan=\"1\"><img src='barcode/[idstring].png'");
         b.append("height=\"85\" width=\"85\"></td>");
         b.append(TR_E);
         b.append("<tr align=\"center\">");

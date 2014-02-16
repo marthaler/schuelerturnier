@@ -109,13 +109,13 @@ public class Kategorie extends Persistent {
 
         final Set<Mannschaft> result = new HashSet<Mannschaft>();
 
-        if (this.gruppeA != null) {
+        if (this.gruppeA != null && this.gruppeA.getMannschaften() != null) {
             for (final Mannschaft mannschaft : this.gruppeA.getMannschaften()) {
                 result.add(mannschaft);
             }
         }
 
-        if (this.gruppeB != null) {
+        if (this.gruppeB != null && this.gruppeB.getMannschaften() != null) {
             for (final Mannschaft mannschaft : this.gruppeB.getMannschaften()) {
                 result.add(mannschaft);
             }

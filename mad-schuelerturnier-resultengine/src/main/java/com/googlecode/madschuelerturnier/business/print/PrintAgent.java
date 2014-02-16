@@ -3,16 +3,20 @@
  */
 package com.googlecode.madschuelerturnier.business.print;
 
+import com.googlecode.madschuelerturnier.model.integration.OutgoingMessage;
 import com.lowagie.text.Document;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.html.simpleparser.HTMLWorker;
 import com.lowagie.text.pdf.PdfWriter;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.PrettyXmlSerializer;
 import org.htmlcleaner.TagNode;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -34,7 +38,7 @@ import java.util.Set;
  * @since 1.2.6
  */
 @Component
-public class PrintAgent {
+public class PrintAgent implements ApplicationEventPublisherAware {
 
     private static final Logger LOG = Logger.getLogger(PrintAgent.class);
 
@@ -49,6 +53,8 @@ public class PrintAgent {
     private String printer = "brother";
 
     private Map<String, String> map = new HashMap<String, String>();
+
+    private ApplicationEventPublisher applicationEventPublisher;
 
     public void init(String path) {
         this.pathprinter = path + "printer" + System.getProperty("file.separator");
@@ -102,7 +108,8 @@ public class PrintAgent {
             }
 
             if (running) {
-                this.print(f);
+                // TODO remove printer in app
+        //        this.print(f);
             }
 
             try {
@@ -154,6 +161,16 @@ public class PrintAgent {
 
             hw.parse(new FileReader(pathprinter + "out.xml"));
             doc.close();
+
+
+            if(this.applicationEventPublisher != null){
+                com.googlecode.madschuelerturnier.model.integration.File file = new com.googlecode.madschuelerturnier.model.integration.File();
+                file.setContent(IOUtils.toByteArray(new FileInputStream(new File(outputFile))));
+                file.setName(name + ".pdf");
+                OutgoingMessage fileOut = new OutgoingMessage(this);
+                fileOut.setPayload(file);
+                this.applicationEventPublisher.publishEvent(fileOut);
+            }
 
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
@@ -253,5 +270,10 @@ public class PrintAgent {
 
     public void setPrinter(String printer) {
         this.printer = printer;
+    }
+
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher =  applicationEventPublisher;
     }
 }

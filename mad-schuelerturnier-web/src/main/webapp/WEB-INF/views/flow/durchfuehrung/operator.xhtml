@@ -21,6 +21,55 @@
 <div class="page">
 <div class="inset">
 <h:form id="form1">
+
+<p:fieldset legend="Status">
+    <p:commandButton id="masteroff" value="Setze diesen Node als Master" action="setmaster" ajax="false" rendered="#{!integrationControllerImpl.isMaster()}" />
+    <p:commandButton id="masteron" value="Dieser Node ist der Master" action="setmaster" disabled="true" ajax="false" rendered="#{integrationControllerImpl.isMaster()}" />
+</p:fieldset>
+
+<br/>
+<p:tabView orientation="top">
+
+<p:tab title="Messaging">
+    <h:panelGrid columns="2" cellpadding="0">
+
+
+        <h:panelGrid columns="2" style="margin-bottom:10px">
+
+
+
+            <h:outputLabel for="outbound" value="Messages raus (Applikation->Transportschicht):" />
+            <h:outputText id ="outbound" value="#{integrationControllerImpl.countOutboundMessages()}"/>
+
+            <h:outputLabel for="inbound" value="Messages rein (Transportschicht->Applikation):" />
+            <h:outputText id ="inbound" value="#{integrationControllerImpl.countInboundMessages()}"/>
+
+            <h:outputLabel for="stored" value="Gespeicherte Nachrichten in der Transportschicht:" />
+            <h:outputText id ="stored" value="#{integrationControllerImpl.countStoredObjects()}"/>
+
+            <h:outputLabel for="own" value="Eigene Adresse:" />
+            <h:outputText id= "own" value="#{integrationControllerImpl.getOwnAddress()}"/>
+
+
+
+            <h:outputLabel value="Remote Nodes:" />
+
+
+            <ui:repeat value="#{integrationControllerImpl.getAllReceivers()}" var="rec">
+<br/>
+
+                <h:outputText value="#{rec.remoteConnectionString} - online:#{rec.isOnline()} - messagequeu: #{rec.countMessagesToSend()}"/>
+            </ui:repeat>
+
+        </h:panelGrid>
+
+    </h:panelGrid>
+</p:tab>
+<p:tab title="Alles andere">
+<h:panelGrid columns="2" cellpadding="10">
+
+
+
 <h:inputHidden id="txt2" value="#{spieleinstellungen.aufholzeitInSekunden}"/>
 <p:fieldset legend="Spielsteuerung">
 <p:messages/>
@@ -266,6 +315,21 @@ Phase: #{spieleinstellungen.phase}
 
 
 </p:fieldset>
+
+
+
+</h:panelGrid>
+</p:tab>
+<p:tab title="Godfather Part III">
+    <h:panelGrid columns="2" cellpadding="10">
+        <p:graphicImage value="/images/godfather/godfather3.jpg" />
+        <h:outputText value="After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family.
+                Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate."></h:outputText>
+    </h:panelGrid>
+</p:tab>
+</p:tabView>
+
+
 
 </h:form>
 

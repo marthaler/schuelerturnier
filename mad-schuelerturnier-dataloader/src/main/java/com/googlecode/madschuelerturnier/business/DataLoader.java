@@ -3,22 +3,28 @@
  */
 package com.googlecode.madschuelerturnier.business;
 
+import com.googlecode.madschuelerturnier.model.DBAuthUser;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
+import com.googlecode.madschuelerturnier.model.support.File;
 
 import java.util.List;
 
 /**
- * Dient dazu zuvor gespeicherte XLS Spiele zu laden
+ * Dient dazu zuvor gespeicherte XLS Dumps zu laden
  *
  * @author $Author: marthaler.worb@gmail.com $
- * @since 0.7
+ * @since 1.2.5
  */
 public interface DataLoader {
 
     List<Mannschaft> loadMannschaften();
 
     List<Spiel> loadSpiele();
+
+    List<DBAuthUser> loadDBUser();
+
+    List<File> loadAttachements();
 
     List<Mannschaft> loadMannschaften(boolean knaben, boolean maedchen, Integer... klassenIn);
 

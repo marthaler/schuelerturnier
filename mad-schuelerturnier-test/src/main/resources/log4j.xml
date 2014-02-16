@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!-- Appenders -->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%7.7t] %-5p %30.30c.%10.10M:%4.4L - %.500m%n"/>
+
+        </layout>
+    </appender>
+
+    <appender name="file" class="org.apache.log4j.FileAppender">
+        <param name="File" value="/temp/file.txt"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%7.7t] %-5p %30.30c.%10.10M:%4.4L - %.500m%n"/>
+
+        </layout>
+    </appender>
+
+
+    <logger name="com">
+        <level value="INFO"/>
+    </logger>
+
+    <logger name="org.hibernate">
+        <level value="ERROR"/>
+    </logger>
+
+    <!-- Root Logger -->
+    <root>
+        <priority value="FATAL"/>
+        <appender-ref ref="console"/>
+    </root>
+
+</log4j:configuration>

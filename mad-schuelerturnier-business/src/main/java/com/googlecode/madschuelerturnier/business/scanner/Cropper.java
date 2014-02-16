@@ -29,6 +29,6 @@ public final class Cropper {
     }
 
     public static void main(String[] args) {
-        Cropper.crop("/Users/dama/Documents/schuelerturnier/mad-schuelerturnier-web/target/mad-schuelerturnier-web-1.1.1-SNAPSHOT/static/scannbilder/1369768081375.png", "/temp/pmg2.png", 0, 90, 590, 260);
+        Cropper.crop("/Users/dama/Documents/schuelerturnier/mad-schuelerturnier-controllers/target/mad-schuelerturnier-controllers-1.1.1-SNAPSHOT/static/scannbilder/1369768081375.png", "/temp/pmg2.png", 0, 90, 590, 260);
     }
 }

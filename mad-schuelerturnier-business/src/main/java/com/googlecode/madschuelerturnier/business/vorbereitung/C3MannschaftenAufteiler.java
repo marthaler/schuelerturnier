@@ -40,7 +40,7 @@ public class C3MannschaftenAufteiler {
 
     public void mannschaftenVerteilen() {
 
-        leereKategorienLoeschen();
+    leereKategorienLoeschen();
 
         // falls die gruppe a genau 3 mannschaften hat gibt es eine vor- und eine rueckrunde
         // bei mehr als 7 werden die gruppen geteilt
