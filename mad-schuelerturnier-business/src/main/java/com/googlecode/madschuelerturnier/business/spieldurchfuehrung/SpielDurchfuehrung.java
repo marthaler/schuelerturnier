@@ -415,7 +415,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
     public void generateText(SpielZeile zeile) {
         if (this.business.getSpielEinstellungen().isAutomatischesAnsagen()) {
-            text.add("resources/static/sound/" + zeile.getId() + ".mp3");
+            text.add("/app/tts/spielansage/id/" + zeile.getId());
         }
     }
 

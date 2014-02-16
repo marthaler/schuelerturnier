@@ -125,8 +125,8 @@
 
         <!-- fuer Prime Faces -->
         <dependency>
-            <groupId>com.lowagie</groupId>
-            <artifactId>itext</artifactId>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
             <version>${itext.version}</version>
         </dependency>
 

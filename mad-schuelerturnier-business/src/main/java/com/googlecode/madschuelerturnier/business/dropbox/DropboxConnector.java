@@ -33,7 +33,9 @@ public interface DropboxConnector {
 
     byte[] loadGameAttachemt(String file);
 
-    void saveGameAttachemt(String file, byte[] content);
+    void saveGameAttachemt(String file, String suffix,byte[] content);
+
+    void deleteGameAttachemt(String file);
 
     void saveGame(byte[] content);
 

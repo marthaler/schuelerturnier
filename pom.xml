@@ -19,7 +19,7 @@
         <java.version>1.7</java.version>
 
         <tomcat-version>7.0.26</tomcat-version>
-        <!--ok:7.0.26 -> xx:8.0.0-RC10 -> ??:8.0.1-->
+        <!--ok:7.0.26 -> nok:8.0.0-RC10 -> nok:8.0.1-->
 
         <!-- ============= -->
         <!-- LIB-VERSIONEN -->
@@ -37,7 +37,7 @@
         <!--3.1.3.RELEASE -> nok:3.2.0.M1 -> ok:3.2.0.M2 -> ok:3.2.0.RC2 -> ok:2.3.3.RELEASE -> xx:2.4.0.M1-->
 
         <commons-fileupload.version>1.3</commons-fileupload.version>
-        <!-- ok:1.2.2 -> ok:1.3 -->
+        <!-- ok:1.2.2 -> ok:1.3 -> xx:1.3.1 -->
 
         <!-- JSF & CO -->
         <primefaces.version>4.0</primefaces.version>
@@ -66,17 +66,17 @@
         <!-- ok:1.1.0.Alpha1 -> ok:1.1.0.Final -->
 
         <!-- WEITERE -->
-        <slf4j.version>1.7.5</slf4j.version>
-        <!-- ok:1.7.2 -> ok:1.7.5-->
+        <slf4j.version>1.7.6</slf4j.version>
+        <!-- ok:1.7.2 -> ok:1.7.5 -> xx:1.7.6-->
 
         <jodatime.version>2.3</jodatime.version>
         <!-- ok:2.1 -> ok:2.2 -> ok:2.3-->
 
-        <xstream.version>1.4.6</xstream.version>
-        <!--ok:1.4.5 -> ok:1.4.6-->
+        <xstream.version>1.4.7</xstream.version>
+        <!--ok:1.4.5 -> ok:1.4.6 -> xx:1.4.7-->
 
         <poi.version>3.10-beta2</poi.version>
-        <!--ok:3.9 -> ok3.10-beta2-->
+        <!--ok:3.9 -> ok:3.10-beta2 -> xx:3.10-FINAL-->
 
         <itext.version>4.2.1</itext.version>
         <!--ok:4.2.0 -> ok:4.2.1-->
@@ -96,8 +96,8 @@
 
         <!-- VERSIONEN -->
 
-        <guava.version>16.0</guava.version>
-        <!-- 14.0 -> ok:14.0.1 -> ok:15.0-rc1 -> ok:15.0 -> ok:16.0-rc1 -> ok:16.0-->
+        <guava.version>16.0.1</guava.version>
+        <!-- 14.0 -> ok:14.0.1 -> ok:15.0-rc1 -> ok:15.0 -> ok:16.0-rc1 -> ok:16.0 -> xx:16.0.1-->
 
         <commons-email.version>1.3.1</commons-email.version>
         <!-- ok:1.3 -> ok:1.3.1-->
@@ -146,6 +146,15 @@
 
         <dropbox.version>1.7.6</dropbox.version>
         <!-- ok:1.7.5 -> ok:1.7.6-->
+
+        <itext.version>5.4.5</itext.version>
+        <!-- ok:5.0.6 -> xx:5.4.5-->
+
+        <cglib.version>2.2</cglib.version>
+        <!-- ok:2.2 -> xx:3.1-->
+
+        <aspectjweaver.version>1.6.11</aspectjweaver.version>
+        <!-- 1.6.11:2.2 -> xx:1.8.0.M1-->
 
     </properties>
 
@@ -479,9 +488,9 @@
             </plugin>
 
             <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-</plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
         </plugins>
 
         <pluginManagement>
@@ -491,7 +500,7 @@
                 <plugin>
                     <groupId>com.atlassian.maven.plugins</groupId>
                     <artifactId>maven-jgitflow-plugin</artifactId>
-                    <version>1.0-alpha21.1</version>
+                    <version>1.0-alpha26</version>
                 </plugin>
 
                 <plugin>
@@ -529,6 +538,12 @@
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.7</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>2.4</version>
                 </plugin>
@@ -560,7 +575,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.7</version>
                 </plugin>
 
                 <plugin>

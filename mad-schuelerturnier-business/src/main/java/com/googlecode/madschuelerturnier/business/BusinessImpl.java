@@ -648,11 +648,9 @@ public class BusinessImpl implements Business {
         byte[] arr = this.xlsdumper.mannschaftenFromDBtoXLS();
         file.setContent(arr);
         this.outSender.onChangeModel(file);
-        try {
-            IOUtils.write(arr,new FileWriter(new File("/test.xml")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+// todo !!!
+      //      IOUtils.write(arr,new FileWriter(new File("/test.xml")));
+
     }
 
     public void generateSpielFromXLS(byte[] xlsIn) {

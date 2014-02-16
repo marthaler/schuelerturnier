@@ -8,6 +8,7 @@ import com.googlecode.madschuelerturnier.model.support.File;
 import com.googlecode.madschuelerturnier.persistence.repository.DBAuthUserRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.FileRepository;
 import org.apache.log4j.Logger;
+import org.hsqldb.HsqlException;
 import org.primefaces.event.FileUploadEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -42,10 +43,9 @@ public class DBFileUploadController implements Serializable{
 
         File file = repo.findByTypAndPearID(typeToSet,Integer.parseInt(idToMatchWith));
 
-        if(file != null){
-            this.repo.delete(file);
+        if(file == null){
+            file = new File();
         }
-        file = new File();
 
         file.setContent(event.getFile().getContents());
         file.setDateiName(event.getFile().getFileName());
@@ -58,8 +58,15 @@ public class DBFileUploadController implements Serializable{
 
         this.idToMatchWith = null;
         this.typeToSet = null;
+try {
+    this.repo.save(file);
+} catch(Exception e){
+    LOG.info("file musste aufgrund der org.hsqldb.HsqlException vor dem speichern zuerst geloescht werden");
+    // murks wegen der: org.hsqldb.HsqlException: data exception: string data, right truncation
+    this.repo.delete(file);
+    this.repo.save(file);
+}
 
-        this.repo.save(file);
 
     }
 

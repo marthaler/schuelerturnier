@@ -5,9 +5,13 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.DigestUtils;
 
 import java.io.*;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -96,6 +100,12 @@ public class DropboxConnectorImpl implements DropboxConnector {
     }
 
     public List<String> getFilesInAltFolder() {
+
+        if(!this.isConnected()){
+            LOG.info("dropbox nicht verbunden.");
+            return null;
+        }
+
         List<String> result = new ArrayList<String>();
         try {
             DbxEntry.WithChildren listing = client.getMetadataWithChildren(this.rootFolder + "/alt");
@@ -111,6 +121,12 @@ public class DropboxConnectorImpl implements DropboxConnector {
     }
 
     public List<String> getFoldersInRootFolder() {
+
+        if(!this.isConnected()){
+            LOG.info("dropbox nicht verbunden.");
+            return null;
+        }
+
         List<String> result = new ArrayList<String>();
         try {
             DbxEntry.WithChildren listing = client.getMetadataWithChildren(this.rootFolder);
@@ -127,6 +143,12 @@ public class DropboxConnectorImpl implements DropboxConnector {
 
     @Override
     public byte[] loadFile(String file) {
+
+        if(!this.isConnected()){
+            LOG.info("dropbox nicht verbunden.");
+            return null;
+        }
+
         LOG.info("DropboxConnectorImpl: will load file -> " + file);
         ByteArrayOutputStream outputStream = null;
         try {
@@ -150,6 +172,12 @@ public class DropboxConnectorImpl implements DropboxConnector {
 
     @Override
     public void saveFile(String file, byte[] content) {
+
+        if(!this.isConnected()){
+            LOG.info("dropbox nicht verbunden.");
+            return;
+        }
+
         LOG.info("DropboxConnectorImpl: upload file -> " + file);
         ByteArrayInputStream inputFile = new ByteArrayInputStream(content);
 
@@ -193,12 +221,81 @@ public class DropboxConnectorImpl implements DropboxConnector {
 
     @Override
     public byte[] loadGameAttachemt(String file) {
-        return this.loadFile( this.selectedGame + "/attachements/" + file);
+
+        if(!this.isConnected()){
+            LOG.info("dropbox nicht verbunden.");
+            return null;
+        }
+
+        DbxEntry.WithChildren listing = null;
+        try {
+            listing = client.getMetadataWithChildren(this.rootFolder + "/" +this.selectedGame + "/attachements");
+        } catch (DbxException e) {
+            LOG.error(e.getMessage(),e);
+        }
+
+        for (DbxEntry child : listing.children) {
+            if(child.isFile() && child.name.contains(file)){
+                return this.loadFile( this.selectedGame + "/attachements/" + child.name);
+            }
+        }
+        return null;
+    }
+
+    private String loadGameAttachemtMD5(String file){
+
+        if(!this.isConnected()){
+            LOG.info("dropbox nicht verbunden.");
+            return null;
+        }
+
+        byte[] f = this.loadFile(this.selectedGame + "/attachements/md5/" + file +".md5.txt");
+        if(f != null){
+           return new String(f);
+        }
+        return null;
     }
 
     @Override
-    public void saveGameAttachemt(String file, byte[] content) {
-        this.saveFile( this.selectedGame + "/attachements/" + file,content);
+    public void saveGameAttachemt(String file, String suffix ,byte[] content) {
+
+        if(!this.isConnected()){
+            LOG.info("dropbox nicht verbunden.");
+            return;
+        }
+
+        if(this.generateMD5(content).equals(loadGameAttachemtMD5(file))){
+            LOG.debug("brauche attachement nicht zu sichern inhalt ist gleich");
+        } else{
+            deleteGameAttachemt(file);
+            this.saveFile( this.selectedGame + "/attachements/" + file + "." + suffix,content);
+            this.saveFile( this.selectedGame + "/attachements/md5/" + file +".md5.txt" ,generateMD5(content).getBytes());
+        }
+
+    }
+
+    @Override
+    public void deleteGameAttachemt(String file) {
+        if(!this.isConnected()){
+            LOG.info("dropbox nicht verbunden.");
+            return;
+        }
+        DbxEntry.WithChildren listing = null;
+        try {
+            listing = client.getMetadataWithChildren(this.rootFolder + "/" +this.selectedGame + "/attachements");
+        } catch (DbxException e) {
+            LOG.error(e.getMessage(),e);
+        }
+        try {
+        for (DbxEntry child : listing.children) {
+            if(child.isFile() && child.name.contains(file)){
+                client.delete(rootFolder + "/" +this.selectedGame + "/attachements/" + child.name);
+                client.delete(rootFolder + "/" +this.selectedGame + "/attachements/md5/" + file +".md5.txt");
+            }
+        }
+        } catch (DbxException e) {
+            LOG.error(e.getMessage(),e);
+        }
     }
 
     @Override
@@ -206,5 +303,9 @@ public class DropboxConnectorImpl implements DropboxConnector {
         this.saveFile( this.selectedGame + "/"+ this.selectedGame +".xls",content);
     }
 
+
+    private String generateMD5(byte[] args) {
+        return DigestUtils.md5DigestAsHex(args);
+    }
 
 }

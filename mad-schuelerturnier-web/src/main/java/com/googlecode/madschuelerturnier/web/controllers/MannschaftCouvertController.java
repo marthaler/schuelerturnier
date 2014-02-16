@@ -5,6 +5,7 @@ package com.googlecode.madschuelerturnier.web.controllers;
 
 import com.googlecode.madschuelerturnier.business.pdf.MannschaftBegeiterA5CouverPDFCreator;
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,13 +17,15 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Controller zum Downloaden der Mannschaftscouverts
+ * Controller zum Downloaden der Mannschaftscouverts als C5
  *
  * @author marthaler.worb@gmail.com
  * @since 1.2.8
  */
 @Controller
-public class MannschaftCouvert {
+public class MannschaftCouvertController {
+
+    private static final Logger LOG = Logger.getLogger(MannschaftCouvertController.class);
 
     @Autowired
     private MannschaftBegeiterA5CouverPDFCreator cr;
@@ -42,7 +45,7 @@ public class MannschaftCouvert {
             IOUtils.copy(is, response.getOutputStream());
             response.flushBuffer();
         } catch (IOException ex) {
-            throw new RuntimeException("IOError writing file to output stream");
+            LOG.error(ex.getMessage(),ex);
         }
 
     }

@@ -4,12 +4,12 @@
 package com.googlecode.madschuelerturnier.business.dropbox;
 
 import com.googlecode.madschuelerturnier.model.support.File;
+import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,46 +22,47 @@ import org.springframework.stereotype.Component;
 @Component
 public class DropboxFileAspect {
 
+    private static final Logger LOG = Logger.getLogger(DropboxConnectorImpl.class);
+
     @Autowired
-    private DropboxConnector dropbox;
-
-    @After("execution(* com.googlecode.madschuelerturnier.persistence.repository.FileRepository.save(..))")
-    public void logAfter(JoinPoint joinPoint) {
-
-        for (Object obj : joinPoint.getArgs()) {
-            if (obj instanceof File) {
-                File f = (File) obj;
-                if(f.getContent() != null && f.getContent().length > 0){
-                    saveToDropbox(f);
-                }
-            }
-
-        }
-    }
+    private DropboxFileAsyncBean dropbox;
 
     @Before("execution(* com.googlecode.madschuelerturnier.persistence.repository.FileRepository.save(..))")
-    public void logBefore(JoinPoint joinPoint) {
+    public void saveFile(JoinPoint joinPoint) {
+        try {
+            for (Object obj : joinPoint.getArgs()) {
+                if (obj instanceof File) {
+                    File f = (File) obj;
 
-        for (Object obj : joinPoint.getArgs()) {
-            if (obj instanceof File) {
-                File f = (File) obj;
-
-                if(f.getContent() == null || f.getContent().length <1){
-                    byte[] content =loadFromDropbox(f);
-                    if(content != null && content.length >0 ){
-                    f.setContent(content);
+                    if (f.getContent() == null || f.getContent().length < 1) {
+                        byte[] content = dropbox.loadFromDropbox(f);
+                        if (content != null && content.length > 0) {
+                            f.setContent(content);
+                        }
+                    }else{
+                        dropbox.saveToDropbox(f);
                     }
                 }
             }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
         }
     }
 
-    private void saveToDropbox(File f) {
-        dropbox.saveGameAttachemt(f.getTyp() + "_" + f.getPearID() + "."+f.getSuffix(), f.getContent());
-    }
-
-    private byte[] loadFromDropbox(File f) {
-        return dropbox.loadGameAttachemt(f.getTyp() + "_" + f.getPearID() + "."+f.getSuffix());
+    @After("execution(* com.googlecode.madschuelerturnier.persistence.repository.FileRepository.delete(..))")
+    public void deleteFile(JoinPoint joinPoint) {
+        try {
+            for (Object obj : joinPoint.getArgs()) {
+                if (obj instanceof File) {
+                    File f = (File) obj;
+                    if (f.getContent() != null && f.getContent().length > 0) {
+                        dropbox.deleteFromDropbox(f);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
 
 }

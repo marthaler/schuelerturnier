@@ -70,14 +70,11 @@ public class DBFileDownloadController {
         return file;
     }
 
-
-
     public StreamedContent getFileAsStreamedContent(String typ, String pearID){
         File f = getFile( typ,  pearID);
         InputStream stream = new ByteArrayInputStream(f.getContent());
         return new DefaultStreamedContent(stream, f.getMimeType(), f.getDateiName());
     }
-
 
     public boolean hasFile(String typ, String pearID){
         File file = repo.findByTypAndPearID(typ,Integer.parseInt(pearID));
@@ -86,8 +83,6 @@ public class DBFileDownloadController {
         }
         return false;
     }
-
-
 
     private String getNullFile(){
         return ""+
