@@ -114,7 +114,7 @@ public class ImportHandler {
                 s.setMannschaftA(temp.getMannschaftA());
                 s.setMannschaftB(temp.getMannschaftB());
 
-                // notitzen uebertragen
+                // notizen uebertragen
                 if (s.getNotizen() != null && s.getNotizen().getValue() != null && s.getNotizen().getValue().length() > 0) {
                     temp.getNotizen().setValue(s.getNotizen().getValue());
                     temp.getNotizen().setKey(s.getNotizen().getKey());

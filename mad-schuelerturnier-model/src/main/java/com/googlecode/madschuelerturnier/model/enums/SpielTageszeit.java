@@ -8,5 +8,5 @@ package com.googlecode.madschuelerturnier.model.enums;
  * @since 0.7
  */
 public enum SpielTageszeit {
-    SAMSTAGMORGEN, SAMMSTAGNACHMITTAG, SONNTAGMORGEN, EGAL
+    SAMSTAGMORGEN, SAMSTAGNACHMITTAG, SONNTAGMORGEN, EGAL
 }

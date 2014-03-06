@@ -100,7 +100,7 @@ public class B1KategorienZuordner {
                     }
 
                     if (hint.contains("nach")) {
-                        kategorie.setSpielwunsch(SpielTageszeit.SAMMSTAGNACHMITTAG);
+                        kategorie.setSpielwunsch(SpielTageszeit.SAMSTAGNACHMITTAG);
                         hintS = "nachmittag";
                     }
 

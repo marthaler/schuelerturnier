@@ -122,7 +122,7 @@ feautures ok:
 
 [ok]     gererangliste publishen
 
-[ok]     machen, dass keine gruppe sammstag und sonntag spielen muss
+[ok]     machen, dass keine gruppe samstag und sonntag spielen muss
 
 [ok]     spieldurchfuehrung absichern mit laden aus der db beim neustart
 

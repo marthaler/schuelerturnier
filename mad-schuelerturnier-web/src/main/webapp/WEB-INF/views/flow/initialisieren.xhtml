@@ -40,13 +40,17 @@
                                 <p:tab  title="Spiel von XLS aus Dropbox laden" rendered="#{dropboxBackingBean.isConnected()}">
 
 
-                                    <h:panelGrid columns="1" id="dropbox_panel_chose"  > 
+                                    <h:panelGrid columns="1" id="dropbox_panel_chose"> 
+<h:column>
+                                     <p:inputText id="newdropboxfolder" value="#{dropboxBackingBean.newfolder}"/><p:commandButton  value="-> Neu" action="dropbox_chose_new" ajax="false"/> 
+
+</h:column>
 
                                         <ui:repeat value="#{dropboxBackingBean.fileList}" var="file">
                                             <p:column>
 
-                                                <br/>
-                                                <p:commandButton  value="#{file}" action="dropbox_chose" ajax="false"> 
+                                                <br/><br/>
+                                                <p:commandButton  value="Vorhanden -> #{file}" action="dropbox_chose" ajax="false"> 
                                                     <f:param name="dropbox_file" value="#{file}"/>
                                                 </p:commandButton>
 

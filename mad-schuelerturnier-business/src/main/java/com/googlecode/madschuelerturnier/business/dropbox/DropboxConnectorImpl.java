@@ -271,7 +271,6 @@ public class DropboxConnectorImpl implements DropboxConnector {
             this.saveFile( this.selectedGame + "/attachements/" + file + "." + suffix,content);
             this.saveFile( this.selectedGame + "/attachements/md5/" + file +".md5.txt" ,generateMD5(content).getBytes());
         }
-
     }
 
     @Override
@@ -281,8 +280,15 @@ public class DropboxConnectorImpl implements DropboxConnector {
             return;
         }
         DbxEntry.WithChildren listing = null;
+
         try {
             listing = client.getMetadataWithChildren(this.rootFolder + "/" +this.selectedGame + "/attachements");
+
+            if(listing == null){
+                LOG.debug("attachement ordner nicht vorhanden: loesch nicht");
+                return;
+            }
+
         } catch (DbxException e) {
             LOG.error(e.getMessage(),e);
         }
@@ -301,6 +307,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
     @Override
     public void saveGame(byte[] content) {
         this.saveFile( this.selectedGame + "/"+ this.selectedGame +".xls",content);
+        this.saveFile( "alt/"+ this.selectedGame +".xls",content);
     }
 
 

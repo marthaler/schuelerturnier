@@ -17,7 +17,6 @@ import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
 import com.googlecode.madschuelerturnier.model.integration.StartFile;
 import com.googlecode.madschuelerturnier.persistence.repository.*;
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -25,9 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -325,9 +321,9 @@ public class BusinessImpl implements Business {
             k.setSpielwunsch(SpielTageszeit.SAMSTAGMORGEN);
             spielwunsch = "morgen";
         } else if (wunsch.equals(SpielTageszeit.SAMSTAGMORGEN)) {
-            k.setSpielwunsch(SpielTageszeit.SAMMSTAGNACHMITTAG);
+            k.setSpielwunsch(SpielTageszeit.SAMSTAGNACHMITTAG);
             spielwunsch = "nachmittag";
-        } else if (wunsch.equals(SpielTageszeit.SAMMSTAGNACHMITTAG)) {
+        } else if (wunsch.equals(SpielTageszeit.SAMSTAGNACHMITTAG)) {
             k.setSpielwunsch(SpielTageszeit.SONNTAGMORGEN);
             spielwunsch = "sonntag";
         }
@@ -405,7 +401,7 @@ public class BusinessImpl implements Business {
 
         List<SpielZeile> ret;
         if (!sonntag) {
-            ret = this.spielzeilenRepo.findSpieleSammstag();
+            ret = this.spielzeilenRepo.findSpieleSamstag();
 
         } else {
             ret = this.spielzeilenRepo.findSpieleSonntag();
@@ -482,7 +478,7 @@ public class BusinessImpl implements Business {
                 zeile.setSpieltageszeit(SpielTageszeit.SAMSTAGMORGEN);
             }
             if (!sonntag && (start.getHourOfDay() > MITTAG)) {
-                zeile.setSpieltageszeit(SpielTageszeit.SAMMSTAGNACHMITTAG);
+                zeile.setSpieltageszeit(SpielTageszeit.SAMSTAGNACHMITTAG);
             }
 
             zeile.setStart(start.toDate());
@@ -710,6 +706,11 @@ public class BusinessImpl implements Business {
 
     @Override
     public void initializeDropbox(String file) {
-        generateSpielFromXLS(dropbox.selectGame(file));
+        byte[] xls = dropbox.selectGame(file);
+        if(xls == null){
+            this.initializeDB();
+        } else{
+            generateSpielFromXLS(xls);
+        }
     }
 }

@@ -59,7 +59,7 @@ public class E5Spielverteiler {
 
         for (SpielZeile zeilen : gruppenSpieleZeilen) {
 
-            if (zeilen.isPause() && !isSammstagNachNeuekategoriesperre(zeilen)) {
+            if (zeilen.isPause() && !isSamstagNachNeuekategoriesperre(zeilen)) {
                 vorher = zeilen;
                 continue;
             }
@@ -226,8 +226,8 @@ public class E5Spielverteiler {
 
                 if (ieg == iB) {
 
-                    // falls bereits spaeter als 16 uhr am Sammstag, keine neue Kategorie mehr verplanen
-                    if (isSammstagNachNeuekategoriesperre(zeile)) {
+                    // falls bereits spaeter als 16 uhr am Samstag, keine neue Kategorie mehr verplanen
+                    if (isSamstagNachNeuekategoriesperre(zeile)) {
                         if (!helper.isFirstSpielInGruppe(spiel)) {
                             firstEgal = spiel;
                         }
@@ -241,8 +241,8 @@ public class E5Spielverteiler {
             if (zeile.getSpieltageszeit() == spiel.getMannschaftA().getKategorie().getSpielwunsch()) {
                 if (ineg == iB) {
 
-                    // falls bereits spaeter als 16 uhr am Sammstag, keine neue Kategorie mehr verplanen
-                    if (isSammstagNachNeuekategoriesperre(zeile)) {
+                    // falls bereits spaeter als 16 uhr am Samstag, keine neue Kategorie mehr verplanen
+                    if (isSamstagNachNeuekategoriesperre(zeile)) {
                         if (!helper.isFirstSpielInGruppe(spiel)) {
                             return spiel;
                         }
@@ -257,9 +257,9 @@ public class E5Spielverteiler {
     }
 
 
-    private boolean isSammstagNachNeuekategoriesperre(SpielZeile zeile) {
+    private boolean isSamstagNachNeuekategoriesperre(SpielZeile zeile) {
         DateTime start = new DateTime(zeile.getStart());
-        return zeile.getSpieltageszeit() == SpielTageszeit.SAMMSTAGNACHMITTAG && start.getHourOfDay() > 17;
+        return zeile.getSpieltageszeit() == SpielTageszeit.SAMSTAGNACHMITTAG && start.getHourOfDay() > 17;
     }
 
     private void removeUeberschuss(List<SpielZeile> zeilen) {

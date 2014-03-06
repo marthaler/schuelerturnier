@@ -403,8 +403,8 @@ public class Spiel extends Persistent {
         return notizen;
     }
 
-    public void setNotizen(Text notitzen) {
-        this.notizen = notitzen;
+    public void setNotizen(Text notizen) {
+        this.notizen = notizen;
     }
 
     public int getMannschaftAId() {

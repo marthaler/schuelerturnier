@@ -28,7 +28,7 @@ public interface SpielZeilenRepository extends PagingAndSortingRepository<SpielZ
     List<SpielZeile> findSpieleSonntag();
 
     @Query("select o from SpielZeile o where o.sonntag = 'false'")
-    List<SpielZeile> findSpieleSammstag();
+    List<SpielZeile> findSpieleSamstag();
 
     @Query("select o from SpielZeile o where o.phase = 0 order by o.start asc")
     List<SpielZeile> findNextZeile();

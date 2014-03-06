@@ -109,6 +109,16 @@
             <evaluate expression="business.sendDumpToRemotes()"/>
         </transition>
 
+
+        <transition on="dropbox_chose_new" to="initialisieren">
+            <evaluate expression="business.initializeDropbox(dropboxBackingBean.newfolder)"/>
+            <evaluate expression="dropboxDumper.initialize()"/>
+            <evaluate expression="business.sendDumpToRemotes()"/>
+        </transition>
+
+
+
+
     </view-state>
 
     <view-state id="mannschaftsliste" view="mannschaft/liste_mannschaften.xhtml" redirect="true">
