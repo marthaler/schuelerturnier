@@ -58,6 +58,10 @@ public class TTSDownloadController {
             }
         }
 
+        if (typ.equals("frei")) {
+                talk = id;
+        }
+
         try {
 
             CloseableHttpClient httpclient = HttpClients.createDefault();

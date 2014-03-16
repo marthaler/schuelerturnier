@@ -59,11 +59,6 @@
 
 
 
-
-
-
-
-
                                     <h:outputLabel for="name" value="Name "/>
                                     <p:inputText id="name" label="Name"
                                                  value="#{mannschaftBean.name}" size="5" disabled="true"/>
@@ -201,6 +196,8 @@
                                     <h:panelGroup id="button" layout="block">
                                         <p:commandButton id="submit" value="Speichern" action="save"
                                                          execute="@form" update="@form"/>
+                                        <p:commandButton id="delete" value="Löschen" action="delete"
+                                                         execute="@form" update="@form" rendered="#{spielstatusWebBean.anmeldephase}"/>
                                     </h:panelGroup>
                                     <p:tooltip for="button" value="Mannschaft speichern"
                                                showEffect="fade" hideEffect="fade"/>

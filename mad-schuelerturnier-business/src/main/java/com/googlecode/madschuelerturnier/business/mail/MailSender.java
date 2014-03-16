@@ -30,7 +30,6 @@ public class MailSender {
         email.setSubject(subject);
         email.setMsg(text);
         email.addTo(to);
-
             email.send();
         } catch (EmailException e) {
             e.printStackTrace();

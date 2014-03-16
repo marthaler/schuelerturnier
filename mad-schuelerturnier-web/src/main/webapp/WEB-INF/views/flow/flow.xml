@@ -89,6 +89,10 @@
             <evaluate expression="mannschaftRepository.save(mannschaftBean)"/>
             <evaluate expression="business.updateAutocompletesMannschaft(mannschaftBean)"/>
         </transition>
+        <transition on="delete" to="mannschaftsliste" bind="true">
+            <evaluate expression="business.updateAutocompletesMannschaft(mannschaftBean)"/>
+            <evaluate expression="mannschaftRepository.delete(mannschaftBean.id)"/>
+        </transition>
         <transition on="upload" to="newmannschaft_view" bind="true">
         </transition>
     </view-state>
@@ -115,8 +119,6 @@
             <evaluate expression="dropboxDumper.initialize()"/>
             <evaluate expression="business.sendDumpToRemotes()"/>
         </transition>
-
-
 
 
     </view-state>
