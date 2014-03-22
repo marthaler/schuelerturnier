@@ -66,6 +66,18 @@
 
                             </p:dialog>
 
+                            <h:panelGrid columns="3">
+                                <p:photoCam widgetVar="pc" listener="#{photoCamBean.oncapture}" update="photos"/>
+
+                                <p:commandButton type="button" value="Capture" onclick="PF('pc').capture()"/>
+
+                                <p:imageSwitch effect="zoom" id="photos">
+                                    <ui:repeat value="#{photoCamBean.photos}" var="photo">
+                                        <p:graphicImage value="/photocam/#{photo}.png" />
+                                    </ui:repeat>
+                                </p:imageSwitch>
+                            </h:panelGrid>
+
                         </h:form>
                     </div>
                 </div>

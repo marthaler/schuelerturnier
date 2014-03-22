@@ -57,7 +57,7 @@ public class LinkLoginSendlinkController {
             adresse ="http://" + ipA.getHostAddress() + ":" + request.getServerPort();
         }
 
-        DBAuthUser user = repo.findByMail(bean.getMail());
+        DBAuthUser user = repo.findByMail(bean.getMail().toLowerCase().trim());
 
         if(user == null){
             FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, "Eingegebene Emailadresse wurde nicht gefunden",""));
