@@ -195,20 +195,6 @@
 
     </p:tabView>
 
-    <h:form>
-        <h:panelGrid columns="2">
-            <p:imageCropper value="#{imageCropperBean.croppedImage}"
-                            image="http://www.bettmeralpbahnen.ch/graphics/live/cam7.jpg"
-                            initialCoords="225,75,300,125"/>
-
-            <p:graphicImage id="localCroppedImage"
-                            value="#{imageCropperBean.newImageName}.jpg" />
-        </h:panelGrid>
-
-        <p:commandButton value="Crop"
-                         action="#{imageCropperBean.crop}"
-                         update="localCroppedImage"/>
-    </h:form>
 </div>
 <br/>
 </div>
