@@ -126,6 +126,12 @@
                             value="#{request.userPrincipal.name}" icon="ui-icon-person"
                             action="user"/>
 
+                <!-- info -->
+                <p:menuitem id="m_webcam"
+                            rendered="#{sec:areAnyGranted('ROLE_ROOT')}"
+                            value="Webcam" icon="ui-icon-person"
+                            action="webcam"/>
+
                 <!-- logout -->
                 <p:menuitem id="m_logout" style="position: absolute; right: 4px;"
                             rendered="#{sec:areAnyGranted('ROLE_USER, ROLE_ADMIN')}"

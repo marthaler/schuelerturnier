@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:sec="http://www.springframework.org/security/tags"
+                template="../../../layouts/100.xhtml">
+
+
+    <ui:define name="main">
+        <div id="main">
+            <div class="page_margins">
+                <div class="page">
+                    <div class="inset">
+                        <h:form id="form1">
+
+
+                            <p:fieldset legend="eintragen: ">
+                                <p:messages/>
+
+                                <h:panelGrid columns="1" id="inputelements">
+
+                                    <script type="text/javascript">
+                                        setTimeout(function () {
+                                            window.location.reload(1);
+                                        }, 30000);
+                                    </script>
+
+                                    <h:form>
+
+                                        <h:panelGrid columns="3">
+                                            <p:photoCam widgetVar="pc" listener="#{webcamController.oncapture}" update="photos"/>
+
+                                            <p:commandButton type="button" value="Capture" onclick="PF('pc').capture()"/>
+
+                                            <p:imageSwitch effect="zoom" id="photos">
+                                                <ui:repeat value="#{webcamController.photos}" var="photo">
+                                                    <p:graphicImage value="/photocam/#{photo}.png" />
+                                                </ui:repeat>
+                                            </p:imageSwitch>
+                                        </h:panelGrid>
+
+                                    </h:form>
+
+
+                                </h:panelGrid>
+
+
+                            </p:fieldset>
+                        </h:form>
+
+
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>
