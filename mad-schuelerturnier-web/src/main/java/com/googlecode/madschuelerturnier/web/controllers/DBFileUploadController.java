@@ -50,7 +50,7 @@ public class DBFileUploadController implements Serializable{
         file.setContent(event.getFile().getContents());
         file.setDateiName(event.getFile().getFileName());
 
-        file.setPearID(Integer.parseInt(idToMatchWith));
+        file.setPearID(Long.parseLong(idToMatchWith));
 
         file.setTyp(typeToSet);
 

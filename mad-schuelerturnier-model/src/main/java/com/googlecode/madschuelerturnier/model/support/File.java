@@ -34,7 +34,7 @@ public class File extends Persistent {
     private String typ;
 
     // id des zugehoerigen datensatzes im restlichen model
-    private Integer pearID;
+    private Long pearID;
 
     private String mimeType;
 
@@ -79,11 +79,11 @@ public class File extends Persistent {
         }
     }
 
-    public Integer getPearID() {
+    public Long getPearID() {
         return pearID;
     }
 
-    public void setPearID(Integer pearID) {
+    public void setPearID(Long pearID) {
         this.pearID = pearID;
     }
 

@@ -1,5 +1,6 @@
 package com.googlecode.madschuelerturnier.web.controllers;
 
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -7,78 +8,179 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.FacesException;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.imageio.ImageIO;
 import javax.imageio.stream.FileImageOutputStream;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
+import com.googlecode.madschuelerturnier.business.picture.BarcodeUtil;
+import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.model.Spiel;
+import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
+import com.googlecode.madschuelerturnier.persistence.repository.FileRepository;
+import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
+import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.CaptureEvent;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.CroppedImage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Component
 @Scope("session")
+@RequestMapping("/webcam")
 public class WebcamController {
 
-    private  byte[] data;
+    @Autowired
+    private SpielRepository repo;
 
+    @Autowired
+    private FileRepository fileRepo;
 
-    private List<String> photos = new ArrayList<String>();
+    private Spiel spiel;
+    private  byte[] rawPicture;
+    private String code;
 
-    private String getRandomImageName() {
-		int i = (int) (Math.random() * 10000000);
+    private boolean demomode = true;
 
-		return String.valueOf(i);
-	}
-
-    public List<String> getPhotos() {
-        return photos;
-    }
-
-
-    @RequestMapping(value = "/webcam", method = RequestMethod.GET)
-    public void getFile(
-            HttpServletResponse response) {
-
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    public void getFile( HttpServletResponse response) {
         try {
-
-
-
-            // get your file as InputStream
-            InputStream is = new ByteArrayInputStream(data);
-            // copy it to response's OutputStream
+            InputStream is = new ByteArrayInputStream(rawPicture);
             IOUtils.copy(is, response.getOutputStream());
             response.flushBuffer();
         } catch (IOException ex) {
-            //LOG.error(ex.getMessage(),ex);
+
         }
-
     }
+
+    public boolean hasCode(){
+        if(code != null && code.length() > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasPic(){
+        if(rawPicture == null){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean hasSpiel(){
+        if(spiel == null){
+            return false;
+        }
+        return true;
+    }
+
+    public void fileupload(FileUploadEvent event) {
+       this.rawPicture = event.getFile().getContents();
+        treatPic();
+     }
+
     public void oncapture(CaptureEvent captureEvent) {
-        String photo = getRandomImageName();
-        this.photos.add(0,photo);
-        byte[] data = captureEvent.getData();
+        this.rawPicture = captureEvent.getData();
+        treatPic();
+    }
 
-        WebcamDLController.data = captureEvent.getData();
+    public void treatPic(){
+        InputStream in = new ByteArrayInputStream(this.rawPicture);
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        code = BarcodeUtil.decode(image);
 
-        this.data = captureEvent.getData();
+        findeSpiel();
 
-		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-		String newFileName = servletContext.getRealPath("") + File.separator + "photocam" + File.separator + photo + ".png";
 
-		FileImageOutputStream imageOutput;
-		try {
-			imageOutput = new FileImageOutputStream(new File(newFileName));
-			imageOutput.write(data, 0, data.length);
-			imageOutput.close();
-		}
-        catch(Exception e) {
-			throw new FacesException("Error in writing captured image.");
-		}
+        if(spiel == null || !spiel.isFertiggespielt()){
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Spiel eintragen nicht möglich",  "Spiel ist nicht fertig gespielt");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                code = null;
+            }
+    }
+
+    private void findeSpiel() {
+        if(this.demomode && code != null && code.length() > 0){
+            spiel = getSpiel(code);
+        } else{
+            spiel = repo.findSpielByIdString(code);
+        }
+    }
+
+    public void reset() {
+        this.rawPicture = null;
+        this.spiel = null;
+    }
+
+    public void search() {
+        findeSpiel();
+        if(spiel == null){
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Spiel mit dem Code: " + this.code + " nicht gefunden",  "Spiel mit dem Code: " + this.code + " nicht gefunden");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            this.code = null;
+        }
+    }
+
+    public void save() {
+        com.googlecode.madschuelerturnier.model.support.File file = new com.googlecode.madschuelerturnier.model.support.File();
+        file.setContent(this.rawPicture);
+        file.setDateiName("schirizettel.png");
+        file.setMimeType("image/png");
+        file.setPearID(spiel.getId());
+        file.setTyp("schirizettel");
+        fileRepo.save(file);
+        this.rawPicture = null;
+        this.repo.save(spiel);
+        this.spiel = null;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Spiel getSpiel() {
+        return spiel;
+    }
+
+    public void setSpiel(Spiel spiel) {
+        this.spiel = spiel;
+    }
+
+    private Spiel getSpiel(String id){
+        Spiel s = new Spiel();
+        s.setIdString(id);
+
+        Mannschaft a = new Mannschaft();
+        a.setTeamNummer(1);
+        a.setKlasse(3);
+        a.setGeschlecht(GeschlechtEnum.M);
+
+        s.setMannschaftA(a);
+
+        Mannschaft b = new Mannschaft();
+        b.setTeamNummer(2);
+        b.setKlasse(3);
+        b.setGeschlecht(GeschlechtEnum.M);
+
+        s.setMannschaftB(b);
+
+        return s;
     }
 }
                         
