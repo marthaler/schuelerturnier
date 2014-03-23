@@ -39,7 +39,7 @@ public class DropboxFileAspect {
                         if (content != null && content.length > 0) {
                             f.setContent(content);
                         }
-                    }else{
+                    } else {
                         dropbox.saveToDropbox(f);
                     }
                 }

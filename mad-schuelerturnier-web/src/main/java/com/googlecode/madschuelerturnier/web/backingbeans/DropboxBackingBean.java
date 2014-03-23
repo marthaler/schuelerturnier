@@ -7,9 +7,6 @@ import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.webflow.execution.Action;
-import org.springframework.webflow.execution.Event;
-import org.springframework.webflow.execution.RequestContext;
 
 import java.util.Date;
 import java.util.List;
@@ -22,7 +19,7 @@ import java.util.List;
  */
 @Component
 @Scope("session")
-public class DropboxBackingBean  {
+public class DropboxBackingBean {
 
     private String token;
 
@@ -34,7 +31,7 @@ public class DropboxBackingBean  {
     @Autowired
     private DropboxConnector connector;
 
-    public void save(){
+    public void save() {
         connector.insertToken(token);
         token = "";
     }
@@ -51,13 +48,13 @@ public class DropboxBackingBean  {
         return this.connector.getLoginURL();
     }
 
-    public boolean isConnected(){
+    public boolean isConnected() {
         return connector.isConnected();
     }
 
-    public List<String> getFileList(){
-        if(!isConnected()){
-           return null;
+    public List<String> getFileList() {
+        if (!isConnected()) {
+            return null;
         }
         return connector.getAllGames();
     }

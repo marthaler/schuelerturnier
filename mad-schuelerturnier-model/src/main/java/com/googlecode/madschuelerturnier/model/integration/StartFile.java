@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8
  */
-public class StartFile implements Serializable{
+public class StartFile implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

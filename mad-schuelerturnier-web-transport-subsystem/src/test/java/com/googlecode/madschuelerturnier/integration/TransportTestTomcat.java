@@ -7,20 +7,20 @@ import javax.servlet.ServletException;
 import java.io.File;
 
 public class TransportTestTomcat implements Runnable {
- 
+
     private Tomcat tomcat;
-    private Thread  serverThread;
+    private Thread serverThread;
     private String folder;
 
     String webappPath = "";
     String targetPath = "";
- 
-    public TransportTestTomcat(int port, String contextPath,String folder) throws ServletException {
+
+    public TransportTestTomcat(int port, String contextPath, String folder) throws ServletException {
         this.folder = folder;
         tomcat = new Tomcat();
         tomcat.setPort(port);
 
-        if(new File("src/test/webapp").exists()){
+        if (new File("src/test/webapp").exists()) {
             webappPath = "src/test/webapp";
             targetPath = "";
         } else {
@@ -34,13 +34,13 @@ public class TransportTestTomcat implements Runnable {
 
 
         serverThread = new Thread(this);
- 
+
     }
- 
+
     public void start() {
         serverThread.start();
     }
- 
+
     public void run() {
         try {
             tomcat.start();
@@ -49,17 +49,17 @@ public class TransportTestTomcat implements Runnable {
         }
         tomcat.getServer().await();
     }
- 
+
     public void stop() {
         try {
             tomcat.stop();
             tomcat.destroy();
-            deleteDirectory(new File(targetPath+ folder));
+            deleteDirectory(new File(targetPath + folder));
         } catch (Exception e) {
             // do nothing
         }
     }
- 
+
     void deleteDirectory(File path) {
         if (path == null) return;
         if (path.exists()) {

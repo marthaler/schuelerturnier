@@ -21,7 +21,7 @@ public class MessageSenderUtil {
 
     private static final Logger LOG = Logger.getLogger(MessageSenderUtil.class);
 
-    public static MessageWrapperToSend send(String adresse,MessageWrapperToSend obj) {
+    public static MessageWrapperToSend send(String adresse, MessageWrapperToSend obj) {
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(adresse);
         StringBuffer buff = new StringBuffer();
@@ -39,11 +39,11 @@ public class MessageSenderUtil {
                 buff.append(line);
             }
 
-           return (MessageWrapperToSend) XstreamUtil.deserializeFromString(buff.toString());
+            return (MessageWrapperToSend) XstreamUtil.deserializeFromString(buff.toString());
 
         } catch (IOException e) {
             LOG.debug(e.getMessage());
         }
-    return null;
+        return null;
     }
 }

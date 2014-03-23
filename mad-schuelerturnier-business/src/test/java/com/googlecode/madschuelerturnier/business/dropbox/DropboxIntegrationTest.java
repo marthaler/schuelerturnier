@@ -3,24 +3,10 @@
  */
 package com.googlecode.madschuelerturnier.business.dropbox;
 
-import com.googlecode.madschuelerturnier.business.Business;
-import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
-import com.googlecode.madschuelerturnier.model.Mannschaft;
-import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.swing.*;
-import javax.transaction.Transactional;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 /**
@@ -44,7 +30,7 @@ public class DropboxIntegrationTest {
         System.out.println("code von der webseite eingeben (und enter drücken): ");
         String code = null;
 
-        code = (String) JOptionPane.showInputDialog("Bitte Code von der URL eingeben",url);
+        code = (String) JOptionPane.showInputDialog("Bitte Code von der URL eingeben", url);
 
         conn.insertToken(code);
 
@@ -53,7 +39,7 @@ public class DropboxIntegrationTest {
         List<String> files = conn.getFilesInFolder();
         Assert.assertTrue(files.size() > 0);
 
-        for(String file : files){
+        for (String file : files) {
             ff = file;
             LOG.info("file: " + file);
         }
@@ -64,7 +50,7 @@ public class DropboxIntegrationTest {
 
         Assert.assertTrue(dl.length > 2);
 
-        conn.saveFile("file3.txt",dl);
+        conn.saveFile("file3.txt", dl);
 
     }
 
@@ -72,5 +58,5 @@ public class DropboxIntegrationTest {
         DropboxIntegrationTest test = new DropboxIntegrationTest();
         test.testDropboxHandling();
     }
-    
+
 }

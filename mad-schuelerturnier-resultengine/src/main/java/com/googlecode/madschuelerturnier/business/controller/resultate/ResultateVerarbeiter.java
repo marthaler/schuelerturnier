@@ -134,38 +134,38 @@ public class ResultateVerarbeiter {
 
     @Scheduled(fixedRate = WAITTIME) //NOSONAR
     private void verarbeiten() {
-try{
-        if (!init) {
-            initialisieren();
-            init = true;
-        }
-
-        Long id = null;
         try {
-            id = spielQueue.remove();
-        } catch (NoSuchElementException e) {
-            id = null;
-        }
+            if (!init) {
+                initialisieren();
+                init = true;
+            }
 
-        while (id != null) {
-
-            // map mit den fertig flags initialisieren
-            initFertigMap();
-
-            verarbeitePenalty();
-
-            verarbeiteUploadAllKat();
-
-            verarbeiteSpiel(id);
+            Long id = null;
             try {
                 id = spielQueue.remove();
             } catch (NoSuchElementException e) {
                 id = null;
             }
+
+            while (id != null) {
+
+                // map mit den fertig flags initialisieren
+                initFertigMap();
+
+                verarbeitePenalty();
+
+                verarbeiteUploadAllKat();
+
+                verarbeiteSpiel(id);
+                try {
+                    id = spielQueue.remove();
+                } catch (NoSuchElementException e) {
+                    id = null;
+                }
+            }
+        } catch (Exception e) {
+            LOG.fatal(e.getMessage(), e);
         }
-} catch(Exception e){
-    LOG.fatal(e.getMessage(),e);
-}
     }
 
     private void verarbeiteSpiel(Long id) {
@@ -323,26 +323,26 @@ try{
                 gross.add(rl.getZeilen().get(0).getMannschaft());
                 gross.add(rl.getZeilen().get(1).getMannschaft());
                 // 8.2.2014: else if, damit auch die 3 er richtig gespeichert werden
-            } else if(kat.isMixedKlassen() && eRepo.findAll().get(0).isBehandleFinaleProKlassebeiZusammengefuehrten()) {
-                    finaleSuchenNachKlasse(kat, gross, klein);
-                } else {
-                    finaleSuchenNormal(kat, gross, klein);
-                }
-
-                // die richtige reihenfolge
-                Collections.sort(klein, new MannschaftsNamenComperator());
-                Collections.sort(gross, new MannschaftsNamenComperator());
-
-                kat.getGrosserFinal().setMannschaftA(gross.get(0));
-                kat.getGrosserFinal().setMannschaftB(gross.get(1));
-
-                if (!kat.hasVorUndRueckrunde()) {
-                    kat.getKleineFinal().setMannschaftA(klein.get(0));
-                    kat.getKleineFinal().setMannschaftB(klein.get(1));
-                }
-
-                this.katRepo.save(kat);
+            } else if (kat.isMixedKlassen() && eRepo.findAll().get(0).isBehandleFinaleProKlassebeiZusammengefuehrten()) {
+                finaleSuchenNachKlasse(kat, gross, klein);
+            } else {
+                finaleSuchenNormal(kat, gross, klein);
             }
+
+            // die richtige reihenfolge
+            Collections.sort(klein, new MannschaftsNamenComperator());
+            Collections.sort(gross, new MannschaftsNamenComperator());
+
+            kat.getGrosserFinal().setMannschaftA(gross.get(0));
+            kat.getGrosserFinal().setMannschaftB(gross.get(1));
+
+            if (!kat.hasVorUndRueckrunde()) {
+                kat.getKleineFinal().setMannschaftA(klein.get(0));
+                kat.getKleineFinal().setMannschaftB(klein.get(1));
+            }
+
+            this.katRepo.save(kat);
+        }
 
     }
 

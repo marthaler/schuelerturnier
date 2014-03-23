@@ -34,7 +34,7 @@ public class MannschaftCouvertController {
     public void getFile(HttpServletResponse response) {
         try {
             response.setContentType("application/pdf");
-            response.setHeader("Content-disposition","inline; filename=couverts.pdf");
+            response.setHeader("Content-disposition", "inline; filename=couverts.pdf");
             response.setHeader("Cache-Control", "no-cache");
             response.setDateHeader("Expires", 0);
             response.setHeader("Pragma", "No-cache");
@@ -45,7 +45,7 @@ public class MannschaftCouvertController {
             IOUtils.copy(is, response.getOutputStream());
             response.flushBuffer();
         } catch (IOException ex) {
-            LOG.error(ex.getMessage(),ex);
+            LOG.error(ex.getMessage(), ex);
         }
 
     }

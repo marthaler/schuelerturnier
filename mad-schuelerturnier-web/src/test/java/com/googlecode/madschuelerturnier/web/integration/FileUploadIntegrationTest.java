@@ -63,7 +63,7 @@ public class FileUploadIntegrationTest {
         when(event.getFile()).thenReturn(file);
         when(file.getContents()).thenReturn(doc);
 
-        appender  = new JunitAppender();
+        appender = new JunitAppender();
         Logger.getRootLogger().addAppender(appender);
 
     }
@@ -95,7 +95,7 @@ public class FileUploadIntegrationTest {
             LOG.info("Phase: " + business.getSpielEinstellungen().getPhase());
         }
 
-        Assert.assertFalse("fehler im log gefunden",appender.hasErrors());
+        Assert.assertFalse("fehler im log gefunden", appender.hasErrors());
 
     }
 }

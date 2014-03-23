@@ -1,30 +1,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title></title>
-<meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
-<style type="text/css">
- table.c1 {font-size: 16px}
-</style>
+    <title></title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <style type="text/css">
+        table.c1 {
+            font-size: 16px
+        }
+    </style>
 </head>
 <body>
 <table class="c1" border="1">
-<tr>
-<td><strong>Start</strong></td>
-<td><strong>Platz</strong></td>
-<td colspan="2"><strong>Mannschaften</strong></td>
-<td><strong>Tore</strong></td>
-</tr>
-<tr>
-<td>Mi 22:04</td>
-<td>A</td>
-<td>a-Name</td>
-<td>b-Name</td>
-<td>14 : 15</td>
-</tr>
-<tr>
-<td align="right" colspan="5">Seite: 1</td>
-</tr>
+    <tr>
+        <td><strong>Start</strong></td>
+        <td><strong>Platz</strong></td>
+        <td colspan="2"><strong>Mannschaften</strong></td>
+        <td><strong>Tore</strong></td>
+    </tr>
+    <tr>
+        <td>Mi 22:04</td>
+        <td>A</td>
+        <td>a-Name</td>
+        <td>b-Name</td>
+        <td>14 : 15</td>
+    </tr>
+    <tr>
+        <td align="right" colspan="5">Seite: 1</td>
+    </tr>
 </table>
 </body>
 </html>

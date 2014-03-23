@@ -81,19 +81,19 @@ public class IntegrationControllerImpl extends Thread implements ApplicationEven
     public void init() {
 
         // own adress erraten, wenn nicht gesetzt
-        if(this.ownConnectionString.contains("${")){
+        if (this.ownConnectionString.contains("${")) {
 
-            if(System.getProperty("transport.local.address") != null && !System.getProperty("transport.local.address").equals("") ){
+            if (System.getProperty("transport.local.address") != null && !System.getProperty("transport.local.address").equals("")) {
                 this.ownConnectionString = System.getProperty("transport.local.address");
-            }else{
+            } else {
 
-            try {
-                InetAddress ip =InetAddress.getLocalHost();
-                this.ownConnectionString = "http://" + ip.getHostAddress() + "/app/transport";
-            } catch (UnknownHostException e) {
-                LOG.error(e.getMessage(),e);
-                this.ownConnectionString = "http://"+System.currentTimeMillis()+"/app/transport";
-            }
+                try {
+                    InetAddress ip = InetAddress.getLocalHost();
+                    this.ownConnectionString = "http://" + ip.getHostAddress() + "/app/transport";
+                } catch (UnknownHostException e) {
+                    LOG.error(e.getMessage(), e);
+                    this.ownConnectionString = "http://" + System.currentTimeMillis() + "/app/transport";
+                }
             }
         }
 
@@ -111,8 +111,8 @@ public class IntegrationControllerImpl extends Thread implements ApplicationEven
                     createSender(ep);
                 }
             } else {
-                if(remoteConnectionString.length() > 0 && !remoteConnectionString.contains("${")){
-                createSender(remoteConnectionString);
+                if (remoteConnectionString.length() > 0 && !remoteConnectionString.contains("${")) {
+                    createSender(remoteConnectionString);
                 }
             }
         }
@@ -129,7 +129,7 @@ public class IntegrationControllerImpl extends Thread implements ApplicationEven
 
     // von onApplication event
     private void sendMessage(String id, Serializable object, MessageTyp typ, boolean trans) {
-        MessageWrapperToSend wr=null;
+        MessageWrapperToSend wr = null;
         for (TransportEndpointSender send : senderEndpoints.values()) {
 
             wr = new MessageWrapperToSend();
@@ -229,7 +229,7 @@ public class IntegrationControllerImpl extends Thread implements ApplicationEven
                     if (applicationEventPublisher != null) {
                         this.applicationEventPublisher.publishEvent(in);
                         this.inboundMessages++;
-                    } else{
+                    } else {
                         LOG.warn("uebergeben einer nachricht an den internen context nicht moeglich, keinen applicationEventPublisher");
                     }
 
@@ -257,15 +257,15 @@ public class IntegrationControllerImpl extends Thread implements ApplicationEven
                 this.sendMessage(registration);
 
                 // alles senden, falls ich der master bin
-                if(this.master){
-                   for(String s : this.storeMap.keySet()){
-                       MessageWrapperToSend pay = storeMap.get(s);
-                       MessageWrapperToSend envelop = new MessageWrapperToSend();
-                       envelop.setPayload(pay.getPayload());
-                       envelop.setId(s);
-                       envelop.setTyp(MessageTyp.PAYLOAD);
-                       this.sendMessage(envelop);
-                   }
+                if (this.master) {
+                    for (String s : this.storeMap.keySet()) {
+                        MessageWrapperToSend pay = storeMap.get(s);
+                        MessageWrapperToSend envelop = new MessageWrapperToSend();
+                        envelop.setPayload(pay.getPayload());
+                        envelop.setId(s);
+                        envelop.setTyp(MessageTyp.PAYLOAD);
+                        this.sendMessage(envelop);
+                    }
                 }
 
                 return true;
@@ -293,6 +293,7 @@ public class IntegrationControllerImpl extends Thread implements ApplicationEven
         }
 
         TransportEndpointSender send = new TransportEndpointSender(url, this.ownConnectionString, this);
+        send.start();
         senderEndpoints.put(url, send);
         this.sendMessage(this.registration);
         return send;
@@ -321,7 +322,7 @@ public class IntegrationControllerImpl extends Thread implements ApplicationEven
         this.sendMessage(UUID.randomUUID().toString(), obj, MessageTyp.PAYLOAD, event.isTrans());
     }
 
-    public void sendMessage(OutgoingMessage event){
+    public void sendMessage(OutgoingMessage event) {
         onApplicationEvent(event);
     }
 

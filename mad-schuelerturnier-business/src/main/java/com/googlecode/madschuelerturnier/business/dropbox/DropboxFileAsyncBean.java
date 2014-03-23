@@ -5,10 +5,6 @@ package com.googlecode.madschuelerturnier.business.dropbox;
 
 import com.googlecode.madschuelerturnier.model.support.File;
 import org.apache.log4j.Logger;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -29,7 +25,7 @@ public class DropboxFileAsyncBean {
 
     @Async
     protected void saveToDropbox(File f) {
-        dropbox.saveGameAttachemt(getFileName(f), f.getSuffix(),f.getContent());
+        dropbox.saveGameAttachemt(getFileName(f), f.getSuffix(), f.getContent());
     }
 
     @Async
@@ -41,7 +37,7 @@ public class DropboxFileAsyncBean {
         return dropbox.loadGameAttachemt(getFileName(f));
     }
 
-    private String getFileName(File f){
+    private String getFileName(File f) {
         return f.getTyp() + "_" + f.getPearID();
     }
 

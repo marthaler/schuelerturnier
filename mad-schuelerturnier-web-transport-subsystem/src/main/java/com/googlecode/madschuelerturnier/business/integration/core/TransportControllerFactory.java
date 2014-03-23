@@ -13,23 +13,23 @@ public class TransportControllerFactory implements ApplicationEventPublisherAwar
 
     private ApplicationEventPublisher applicationEventPublisher;
 
-    public  TransportControllerFactory(){
-           INSTANCE = this;
+    public TransportControllerFactory() {
+        INSTANCE = this;
     }
 
-    public IntegrationControllerImpl createController(String ownAddress,String remoteAddress){
-        IntegrationControllerImpl co = new IntegrationControllerImpl( ownAddress, remoteAddress);
+    public IntegrationControllerImpl createController(String ownAddress, String remoteAddress) {
+        IntegrationControllerImpl co = new IntegrationControllerImpl(ownAddress, remoteAddress);
         co.setApplicationEventPublisher(applicationEventPublisher);
         co.init();
         return co;
     }
 
-    public static TransportControllerFactory getInstance(){
+    public static TransportControllerFactory getInstance() {
         return INSTANCE;
     }
 
-    public void shutDown(){
-        if(INSTANCE != null){
+    public void shutDown() {
+        if (INSTANCE != null) {
             INSTANCE.shutDown();
             INSTANCE = null;
         }

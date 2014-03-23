@@ -21,23 +21,23 @@ public class MailSender {
 
     private static final Logger LOG = Logger.getLogger(MailSender.class);
 
-    public void sendMail(String to, String from,String subject, String text){
+    public void sendMail(String to, String from, String subject, String text) {
 
         try {
-        Email email = new SimpleEmail();
+            Email email = new SimpleEmail();
 
-        email.setHostName("asmtp.mail.hostpoint.ch");
-        email.setSmtpPort(587);
-        email.setAuthenticator(new DefaultAuthenticator("robot@schuelerturnier-scworb.ch", "LoginPrepareAction"));
-        email.setSSLOnConnect(true);
-        email.setFrom(from);
-        email.setSubject(subject);
-        email.setMsg(text);
-        email.setCharset("utf-8");
-        email.addTo(to);
-        email.send();
+            email.setHostName("asmtp.mail.hostpoint.ch");
+            email.setSmtpPort(587);
+            email.setAuthenticator(new DefaultAuthenticator("robot@schuelerturnier-scworb.ch", "LoginPrepareAction"));
+            email.setSSLOnConnect(true);
+            email.setFrom(from);
+            email.setSubject(subject);
+            email.setMsg(text);
+            email.setCharset("utf-8");
+            email.addTo(to);
+            email.send();
         } catch (EmailException e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
     }
 

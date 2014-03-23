@@ -9,15 +9,16 @@ import org.apache.log4j.Logger;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
 import java.io.IOException;
 
 /**
  * Speichert ein beliebiges File in der DB
  * Es existiert die Moeglichkeit den Inhalt als Base64 String zu
  * holen und zu setzen
- * @author $Author: marthaler.worb@gmail.com $
  *
+ * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8
  */
 @Entity
@@ -65,17 +66,17 @@ public class File extends Persistent {
     }
 
     // spezielle zugriffsmethoden
-    public String getContentBase64(){
+    public String getContentBase64() {
         BASE64Encoder encoder = new BASE64Encoder();
         return encoder.encode(this.content);
     }
 
-    public void setContentBase64(String content){
+    public void setContentBase64(String content) {
         BASE64Decoder decoder = new BASE64Decoder();
         try {
             this.content = decoder.decodeBuffer(content);
         } catch (IOException e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
     }
 
@@ -95,9 +96,9 @@ public class File extends Persistent {
         this.mimeType = mimeType;
     }
 
-    public String getSuffix(){
+    public String getSuffix() {
         String[] arr = this.dateiName.split("\\.");
-        if(arr.length<2){
+        if (arr.length < 2) {
             return "bin";
         }
 

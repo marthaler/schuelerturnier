@@ -3,7 +3,6 @@
  */
 package com.googlecode.madschuelerturnier.business.printer;
 
-import com.googlecode.madschuelerturnier.model.support.File;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,7 +25,7 @@ public class App extends javafx.application.Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("/form.fxml"));
         Scene scene = new Scene(root);
-        
+
         stage.setScene(scene);
         context = new ClassPathXmlApplicationContext("spring-business-context.xml");
         stage.show();
@@ -36,5 +35,5 @@ public class App extends javafx.application.Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

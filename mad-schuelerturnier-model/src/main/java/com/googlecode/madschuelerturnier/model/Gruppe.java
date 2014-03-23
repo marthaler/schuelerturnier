@@ -128,7 +128,7 @@ public class Gruppe extends Persistent {
         }
 
         // workaround weil JPA anscheinend auf der kategorie den gruppennicht die selben Mannschaften zuordnen kann
-        if (this.kategorie != null && this == this.kategorie.getGruppeB() && this.kategorie.getGruppeA()!= null && this.kategorie.getGruppeA().getMannschaften() != null && this.kategorie.getGruppeA().getMannschaften().size() == 3) {
+        if (this.kategorie != null && this == this.kategorie.getGruppeB() && this.kategorie.getGruppeA() != null && this.kategorie.getGruppeA().getMannschaften() != null && this.kategorie.getGruppeA().getMannschaften().size() == 3) {
             return this.kategorie.getGruppeA().getMannschaften();
         }
 

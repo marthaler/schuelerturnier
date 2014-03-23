@@ -3,20 +3,8 @@
  */
 package com.googlecode.madschuelerturnier.model;
 
-import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
-import com.googlecode.madschuelerturnier.model.enums.SpielZeilenPhaseEnum;
-import com.sun.jndi.url.rmi.rmiURLContextFactory;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Dient zum Loggen der Anmeldungen und fehlgeschlagenen Anmeldeversuchen

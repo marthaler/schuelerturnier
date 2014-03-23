@@ -52,7 +52,7 @@ public class SpielEinstellungen extends Persistent {
 
     private boolean behandleFinaleProKlassebeiZusammengefuehrten = false;
 
-    private boolean webcamdemomode = true;
+    private boolean webcamdemomode = false;
 
     public SpielEinstellungen() {
         DateTime date = new DateTime();

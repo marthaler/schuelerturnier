@@ -48,8 +48,7 @@ public class StartAction {
             return new Event(this, "eintrager");
         } else if (contains(authorities, "ROLE_BEOBACHTER")) {
             return new Event(this, "gt_matrix");
-        }
-        else if (contains(authorities, "ROLE_ROOT")) {
+        } else if (contains(authorities, "ROLE_ROOT")) {
             return new Event(this, "spielsteuerung");
         }
 

@@ -26,13 +26,13 @@ public class BarcodeUtilTest {
     @Test
     public void testReadBarcode() {
 
-        BufferedImage img =null;
+        BufferedImage img = null;
 
         URL defaultImage = this.getClass().getResource("/pictures/test.png");
         try {
-             img = ImageIO.read(new File(defaultImage.getPath().toString()));
+            img = ImageIO.read(new File(defaultImage.getPath().toString()));
         } catch (IOException e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
         Assert.assertEquals("BZ", BarcodeUtil.decode(img));
 

@@ -42,7 +42,8 @@
         <primefaces.version>4.0</primefaces.version>
         <!-- ok:3.5.RC1 -> ok:3.5 -> ok:4.0.RC1 -> ok:4.0-->
 
-        <jsf.version>2.1.7</jsf.version> <!--(2.2.5 nicht wegen primefaces upload) -->
+        <jsf.version>2.1.7</jsf.version>
+        <!--(2.2.5 nicht wegen primefaces upload) -->
         <!--ok:2.1.7 -> nok:2.2.0 -> nok:2.2.1 -> nok:2.2.2 -> nok:2.2.3 -> nok:2.2.4 -> nok:2.2.5 -> nok:2.2.5-jbossorg-2 ??:2.2.6-->
 
         <!-- PERSISTENZ -->
@@ -518,11 +519,11 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.16</version>
 
-                        <configuration>
-                            <excludes>
-                                <exclude>**/integration/**</exclude>
-                            </excludes>
-                        </configuration>
+                    <configuration>
+                        <excludes>
+                            <exclude>**/integration/**</exclude>
+                        </excludes>
+                    </configuration>
 
                     <dependencies>
                         <dependency>
@@ -786,7 +787,6 @@
                 <module>mad-schuelerturnier-printer-gui</module>
             </modules>
         </profile>
-
 
 
     </profiles>

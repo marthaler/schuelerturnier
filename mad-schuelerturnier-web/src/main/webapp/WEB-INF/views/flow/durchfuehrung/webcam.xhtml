@@ -14,7 +14,7 @@
                     <div class="inset">
                         <h:form id="form1">
 
-                            <p:fieldset legend="Schirizettel eingeben: ">
+                            <p:fieldset legend="Schirizettel eintragen">
                                 <p:messages/>
                                     <h:form>
 
@@ -34,17 +34,16 @@
                                             <p:row rendered="#{webcamController.hasPic() &amp;&amp; !webcamController.hasCode() &amp;&amp; !webcamController.hasSpiel() }">
                                                 <p:graphicImage id="pic" widgetWar="pic" value="/app/webcam/download"  /><br/> <br/>
                                                 <h:outputText value="Spiel Code zum Suchen: " /><br/>
-                                                <p:inputText value="#{webcamController.code}"  /><br/>
+                                                <p:inputText value="#{webcamController.code}"  /><br/><br/>
                                                 <p:commandButton  id="suchen" value="Spiel Suchen"  action="#{webcamController.search}" ajax="false"/>
                                                 <p:commandButton  id="abbrechen" value="Abbrechen" action="#{webcamController.reset}" ajax="false"/>
                                             </p:row>
 
-
                                             <p:row rendered="#{webcamController.hasSpiel()}">
                                                 <p:graphicImage id="pic2" widgetWar="pic" value="/app/webcam/download"  /><br/><br/>
-                                                <h:outputText value="Spiel Code: #{webcamController.spiel.idString}" /><br/>
-                                                <p:inputText id="ToreA" value="#{webcamController.spiel.toreA}"  /><br/>
-                                                <p:inputText id="ToreB" value="#{webcamController.spiel.toreB}"  /><br/>
+                                                <h:outputText value="Spiel Code: #{webcamController.spiel.idString}" /><br/><br/>
+                                                <h:outputText value="#{webcamController.spiel.mannschaftA.getName()}: " /><p:inputText id="ToreA" value="#{webcamController.spiel.toreA}"  /><br/><br/>
+                                                <h:outputText value="#{webcamController.spiel.mannschaftB.getName()}: " /><p:inputText id="ToreB" value="#{webcamController.spiel.toreB}"  /><br/><br/><br/>
                                                 <p:commandButton  id="save" value="Sichern"  action="#{webcamController.save}" ajax="false"/>
                                                 <p:commandButton  id="abbrechen2" value="Abbrechen" action="#{webcamController.reset}" ajax="false"/>
                                             </p:row>

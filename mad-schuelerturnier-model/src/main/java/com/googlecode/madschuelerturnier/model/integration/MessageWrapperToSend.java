@@ -63,9 +63,9 @@ public class MessageWrapperToSend implements Serializable {
     @Override
     public String toString() {
         return "MessageWrapperToSend{" +
-                "id='" + id.substring(0,8) + '\'' +
-                ", source='" + source.replace("http://","").replace("/app/transport","") + '\'' +
-                ", dest='" + destination.replace("http://","").replace("/app/transport","") + '\'' +
+                "id='" + id.substring(0, 8) + '\'' +
+                ", source='" + source.replace("http://", "").replace("/app/transport", "") + '\'' +
+                ", dest='" + destination.replace("http://", "").replace("/app/transport", "") + '\'' +
                 ", typ=" + typ +
                 ", payload=" + payload +
                 '}';

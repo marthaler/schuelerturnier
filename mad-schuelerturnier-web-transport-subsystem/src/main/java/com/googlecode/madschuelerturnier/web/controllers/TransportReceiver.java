@@ -35,29 +35,29 @@ public class TransportReceiver {
 
         MessageWrapperToSend incommingMessage = (MessageWrapperToSend) XstreamUtil.deserializeFromString(payload);
 
-         LOG.debug("TransportController: nachricht angekommen: " + incommingMessage);
-        if(incommingMessage.getTyp() != MessageTyp.PULLREQUEST){
+        LOG.debug("TransportController: nachricht angekommen: " + incommingMessage);
+        if (incommingMessage.getTyp() != MessageTyp.PULLREQUEST) {
             controller.messageReceivedFromRemote(incommingMessage);
         }
 
-            // nachricht fuer aufrufer da sofort senden!
-            MessageWrapperToSend outgoingMessage = controller.pullMessageForNode(incommingMessage.getSource());
+        // nachricht fuer aufrufer da sofort senden!
+        MessageWrapperToSend outgoingMessage = controller.pullMessageForNode(incommingMessage.getSource());
 
-            int i = 0;
+        int i = 0;
 
-            while(outgoingMessage != null || i < 100){
-                i++;
-                String response = sendMessage(incommingMessage, outgoingMessage);
-                if(response == null || response.equals("<null/>")){
-                    outgoingMessage = controller.pullMessageForNode(incommingMessage.getSource());
-                    // aus der schleife springen wenn last angekommen ist
-                    if(incommingMessage.getTyp() == MessageTyp.PAYLOAD){
-                        break;
-                    }
-                }else{
-                    return response;
+        while (outgoingMessage != null || i < 100) {
+            i++;
+            String response = sendMessage(incommingMessage, outgoingMessage);
+            if (response == null || response.equals("<null/>")) {
+                outgoingMessage = controller.pullMessageForNode(incommingMessage.getSource());
+                // aus der schleife springen wenn last angekommen ist
+                if (incommingMessage.getTyp() == MessageTyp.PAYLOAD) {
+                    break;
                 }
+            } else {
+                return response;
             }
+        }
 
         return XstreamUtil.serializeToString(controller.createAckMessage(incommingMessage.getId()));
     }
@@ -65,16 +65,16 @@ public class TransportReceiver {
     private String sendMessage(MessageWrapperToSend incommingMessage, MessageWrapperToSend outgoingMessage) {
         String toSend = XstreamUtil.serializeToString(outgoingMessage);
         // filter auswerten
-        if(incommingMessage.getFilter() != null && !incommingMessage.getFilter().isEmpty()){
-           LOG.debug("TransportController: filter im incommingMessage gefunden");
-           for(String filter : incommingMessage.getFilter()){
-               if(toSend.contains(filter)){
-                   LOG.debug("TransportController: filter trifft zu");
-                   return toSend;
-               }
-           }
-           LOG.debug("TransportController: filter trifft NICHT zu");
-        } else{
+        if (incommingMessage.getFilter() != null && !incommingMessage.getFilter().isEmpty()) {
+            LOG.debug("TransportController: filter im incommingMessage gefunden");
+            for (String filter : incommingMessage.getFilter()) {
+                if (toSend.contains(filter)) {
+                    LOG.debug("TransportController: filter trifft zu");
+                    return toSend;
+                }
+            }
+            LOG.debug("TransportController: filter trifft NICHT zu");
+        } else {
             return toSend;
         }
         return null;

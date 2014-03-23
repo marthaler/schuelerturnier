@@ -3,12 +3,9 @@
  */
 package com.googlecode.madschuelerturnier.persistence.repository;
 
-import com.googlecode.madschuelerturnier.model.AuditLog;
 import com.googlecode.madschuelerturnier.model.support.File;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
-import java.util.List;
 
 /**
  * Repository interface for {@link com.googlecode.madschuelerturnier.model.Gruppe} instances. Provides basic CRUD operations due to the extension of

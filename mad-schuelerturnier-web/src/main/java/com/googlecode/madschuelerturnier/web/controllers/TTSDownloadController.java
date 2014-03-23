@@ -50,22 +50,22 @@ public class TTSDownloadController {
         }
 
         if (typ.equals("minute")) {
-            if(id.equals("1")){
+            if (id.equals("1")) {
                 talk = "Die Spiele dauern noch eine Minute";
-            }else{
+            } else {
 
-            talk = "Die Spiele dauern noch " + id + " Minuten";
+                talk = "Die Spiele dauern noch " + id + " Minuten";
             }
         }
 
         if (typ.equals("frei")) {
-                talk = id;
+            talk = id;
         }
 
         try {
 
             CloseableHttpClient httpclient = HttpClients.createDefault();
-            HttpGet httpget = new HttpGet("http://localhost:59125/process?" + this.generateSettings() +URLEncoder.encode(talk,"UTF-8"));
+            HttpGet httpget = new HttpGet("http://localhost:59125/process?" + this.generateSettings() + URLEncoder.encode(talk, "UTF-8"));
             CloseableHttpResponse rs = httpclient.execute(httpget);
             try {
                 HttpEntity entity = rs.getEntity();
@@ -109,7 +109,7 @@ public class TTSDownloadController {
     }
 
     private String generateFromSpiel(Spiel spiel, String platz) {
-        return "Auf Platz " + platz + ", bereitmachen " + spiel.getMannschaftAName() + " gegen " + spiel.getMannschaftBName() +".";
+        return "Auf Platz " + platz + ", bereitmachen " + spiel.getMannschaftAName() + " gegen " + spiel.getMannschaftBName() + ".";
     }
 
     private String generateSettings() {

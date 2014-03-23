@@ -112,7 +112,6 @@ public class B1KategorienZuordner {
             }
 
 
-
             if (hintS != null) {
                 for (Mannschaft mann : m) {
                     mann.setSpielWunschHint(hintS);
@@ -123,8 +122,6 @@ public class B1KategorienZuordner {
             mannschaftRepo.save(m);
             this.kategorieRepo.save(kategorie);
         }
-
-
 
 
         return map;
@@ -180,17 +177,17 @@ public class B1KategorienZuordner {
                         Collections.sort(kategorieMinusOne.getGruppeA().getMannschaften(), new MannschaftsNamenComperator());
                         map.remove(keyActual);
 
-                       for( Mannschaft mt : temp.getGruppeA().getMannschaften()){
-                           mt.setGruppe(null);
-                           this.mannschaftRepo.save(mt);
-                       }
-
-                        for( Mannschaft mt : temp.getGruppeB().getMannschaften()){
+                        for (Mannschaft mt : temp.getGruppeA().getMannschaften()) {
                             mt.setGruppe(null);
                             this.mannschaftRepo.save(mt);
                         }
 
-                   // todo vereinfachen
+                        for (Mannschaft mt : temp.getGruppeB().getMannschaften()) {
+                            mt.setGruppe(null);
+                            this.mannschaftRepo.save(mt);
+                        }
+
+                        // todo vereinfachen
                         /*
                         temp.getGruppeA().setMannschaften(null);
                         temp.getGruppeA().setKategorie(null);
@@ -242,7 +239,6 @@ public class B1KategorienZuordner {
         gruppeRepo.save(b);
 
         kategorieRepo.save(temp);
-
 
 
         gruppeRepo.delete(a.getId());

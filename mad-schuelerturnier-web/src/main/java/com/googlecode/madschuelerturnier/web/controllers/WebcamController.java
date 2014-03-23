@@ -3,13 +3,6 @@
  */
 package com.googlecode.madschuelerturnier.web.controllers;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
-
 import com.googlecode.madschuelerturnier.business.picture.WebcamBusiness;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import org.apache.commons.io.IOUtils;
@@ -21,6 +14,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Controller mit Session Scope, welcher den Schirizettel Scan unterstuetzen
@@ -49,7 +49,7 @@ public class WebcamController {
             IOUtils.copy(is, response.getOutputStream());
             response.flushBuffer();
         } catch (IOException ex) {
-
+            LOG.error(ex.getMessage(), ex);
         }
     }
 

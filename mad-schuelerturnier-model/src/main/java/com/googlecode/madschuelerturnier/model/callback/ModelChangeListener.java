@@ -1,7 +1,5 @@
 package com.googlecode.madschuelerturnier.model.callback;
 
-import com.googlecode.madschuelerturnier.model.Persistent;
-
 import java.io.Serializable;
 
 /**

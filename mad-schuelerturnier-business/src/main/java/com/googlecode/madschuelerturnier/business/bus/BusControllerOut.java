@@ -22,9 +22,9 @@ import java.io.Serializable;
  * @since 1.2.8
  */
 @Controller
-public class BusControllerOut implements ApplicationEventPublisherAware , ModelChangeListener {
+public class BusControllerOut implements ApplicationEventPublisherAware, ModelChangeListener {
 
-    public BusControllerOut(){
+    public BusControllerOut() {
         ModelChangeListenerManager.getInstance().addListener(this);
     }
 
@@ -41,12 +41,12 @@ public class BusControllerOut implements ApplicationEventPublisherAware , ModelC
     public void onChangeModel(Serializable object) {
         LOG.info("new outgoing message: " + object.getClass().getName());
 
-        if( !(object instanceof SpielEinstellungen) ){
+        if (!(object instanceof SpielEinstellungen)) {
             LOG.info("message: senden");
             OutgoingMessage m = new OutgoingMessage(this);
             m.setPayload(object);
             publisher.publishEvent(m);
-        } else{
+        } else {
             LOG.info("message: mache nichts");
         }
     }

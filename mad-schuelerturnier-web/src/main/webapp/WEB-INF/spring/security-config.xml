@@ -11,32 +11,34 @@
         <sec:form-login login-page="/app/flow" login-processing-url="/app/j_spring_security_check"
                         default-target-url="/app/flow" always-use-default-target="true"
                         authentication-failure-url="/app/flow"/>
-        <sec:logout logout-url="/app/logout" logout-success-url="/app/flow" invalidate-session="true" delete-cookies="JSESSIONID"/>
+        <sec:logout logout-url="/app/logout" logout-success-url="/app/flow" invalidate-session="true"
+                    delete-cookies="JSESSIONID"/>
 
         <!--<sec:intercept-url pattern="/app/flow" method="GET" access="hasRole('ROLE_USER')"/>-->
 
         <!-- 2 wochen nicht mehr anmelden -->
-        <sec:remember-me key="schuelerturnier-key" token-validity-seconds="120960" user-service-ref="DBAuthDetailService"/>
+        <sec:remember-me key="schuelerturnier-key" token-validity-seconds="120960"
+                         user-service-ref="DBAuthDetailService"/>
     </sec:http>
 
     <!-- Users to authorise -->
     <sec:authentication-manager>
-<!--
-        <sec:authentication-provider>
+        <!--
+                <sec:authentication-provider>
 
-            <sec:user-service>
-                <sec:user name="root" password="root"
-                          authorities="ROLE_ROOT,ROLE_ADMIN,ROLE_OPERATOR,ROLE_BEOBACHTER,ROLE_EINTRAGER,ROLE_KONTROLLIERER,ROLE_SPEAKER,ROLE_USER"/>
-                <sec:user name="admin" password="admin" authorities="ROLE_ADMIN, ROLE_USER"/>
-                <sec:user name="operator" password="operator" authorities="ROLE_OPERATOR,ROLE_BEOBACHTER,ROLE_USER"/>
-                <sec:user name="eintrager" password="eintrager" authorities="ROLE_EINTRAGER,ROLE_USER"/>
-                <sec:user name="kontrollierer" password="kontrollierer" authorities="ROLE_KONTROLLIERER,ROLE_USER"/>
-                <sec:user name="speaker" password="speaker" authorities="ROLE_SPEAKER,ROLE_USER"/>
-                <sec:user name="beobachter" password="beobachter" authorities="ROLE_BEOBACHTER,ROLE_USER"/>
-            </sec:user-service>
+                    <sec:user-service>
+                        <sec:user name="root" password="root"
+                                  authorities="ROLE_ROOT,ROLE_ADMIN,ROLE_OPERATOR,ROLE_BEOBACHTER,ROLE_EINTRAGER,ROLE_KONTROLLIERER,ROLE_SPEAKER,ROLE_USER"/>
+                        <sec:user name="admin" password="admin" authorities="ROLE_ADMIN, ROLE_USER"/>
+                        <sec:user name="operator" password="operator" authorities="ROLE_OPERATOR,ROLE_BEOBACHTER,ROLE_USER"/>
+                        <sec:user name="eintrager" password="eintrager" authorities="ROLE_EINTRAGER,ROLE_USER"/>
+                        <sec:user name="kontrollierer" password="kontrollierer" authorities="ROLE_KONTROLLIERER,ROLE_USER"/>
+                        <sec:user name="speaker" password="speaker" authorities="ROLE_SPEAKER,ROLE_USER"/>
+                        <sec:user name="beobachter" password="beobachter" authorities="ROLE_BEOBACHTER,ROLE_USER"/>
+                    </sec:user-service>
 
-        </sec:authentication-provider>
--->
+                </sec:authentication-provider>
+        -->
         <sec:authentication-provider ref="DBAuthProvider">
 
         </sec:authentication-provider>

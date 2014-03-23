@@ -23,7 +23,7 @@ public class MannschaftBegeiterA5CouverPDFCreator {
 
     private static final Logger LOG = Logger.getLogger(MannschaftBegeiterA5CouverPDFCreator.class);
 
-    public byte[] createPdfFromDB(){
+    public byte[] createPdfFromDB() {
         return createPdf(repo.findAll());
     }
 

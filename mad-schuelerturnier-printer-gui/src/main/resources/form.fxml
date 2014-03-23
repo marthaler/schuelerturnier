@@ -10,52 +10,53 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.999977929685" prefWidth="573.0000168945262" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="com.googlecode.madschuelerturnier.business.printer.Controller">
-  <children>
-    <Pane layoutX="15.0" layoutY="14.0" prefHeight="372.0" prefWidth="558.0">
-      <children>
-        <TabPane layoutX="-15.0" layoutY="14.0" prefHeight="358.0" prefWidth="572.0000999999975" tabClosingPolicy="UNAVAILABLE">
-          <tabs>
-            <Tab text="Ausdrucke">
-              <content>
-                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="322.0" prefWidth="573.0">
-                  <children>
-                    <TableView fx:id="table" layoutX="0.0" layoutY="0.0" prefHeight="322.0" prefWidth="574.0">
-                      <columns>
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="128.0" text="File">
-                          <cellValueFactory>
-                            <PropertyValueFactory property="name" />
-                          </cellValueFactory>
-                        </TableColumn>
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="92.0" text="Druckzeit">
-                          <cellValueFactory>
-                            <PropertyValueFactory property="druckzeit" />
-                          </cellValueFactory>
-                        </TableColumn>
-                        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="92.0" text="Grösse">
-                          <cellValueFactory>
-                            <PropertyValueFactory property="kbyte" />
-                          </cellValueFactory>
-                        </TableColumn>
-                      </columns>
-                    </TableView>
-                  </children>
-                </AnchorPane>
-              </content>
-            </Tab>
-          </tabs>
-        </TabPane>
-      </children>
-    </Pane>
-    <ToolBar layoutX="0.0" layoutY="0.0" prefWidth="574.0">
-      <items>
-        <Button fx:id="beenden" mnemonicParsing="false" onAction="#handleButtonBeendenAction" prefWidth="90.0" text="Beenden" />
-        <Button fx:id="verbinden" mnemonicParsing="false" onAction="#handleButtonVerbindenAction" prefWidth="90.0" text="Verbinden" />
-        <CheckBox fx:id="drucken" mnemonicParsing="false" text="Drucker ein" />
-        <TextField fx:id="urltext" prefWidth="110.0" text="localhost:8080" />
-        <TextField fx:id="urltextmy" prefWidth="110.0" text="myprinter01" />
-        <Rectangle fx:id="verbunden" arcHeight="5.0" arcWidth="5.0" fill="RED" height="16.0" stroke="BLACK" strokeType="INSIDE" width="16.0" />
-      </items>
-    </ToolBar>
-  </children>
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.999977929685" prefWidth="573.0000168945262" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/2.2" fx:controller="com.googlecode.madschuelerturnier.business.printer.Controller">
+    <children>
+        <Pane layoutX="15.0" layoutY="14.0" prefHeight="372.0" prefWidth="558.0">
+            <children>
+                <TabPane layoutX="-15.0" layoutY="14.0" prefHeight="358.0" prefWidth="572.0000999999975" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab text="Ausdrucke">
+                            <content>
+                                <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="322.0" prefWidth="573.0">
+                                    <children>
+                                        <TableView fx:id="table" layoutX="0.0" layoutY="0.0" prefHeight="322.0" prefWidth="574.0">
+                                            <columns>
+                                                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="128.0" text="File">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="name"/>
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="92.0" text="Druckzeit">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="druckzeit"/>
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                                <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="92.0" text="Grösse">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="kbyte"/>
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                            </columns>
+                                        </TableView>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </children>
+        </Pane>
+        <ToolBar layoutX="0.0" layoutY="0.0" prefWidth="574.0">
+            <items>
+                <Button fx:id="beenden" mnemonicParsing="false" onAction="#handleButtonBeendenAction" prefWidth="90.0" text="Beenden"/>
+                <Button fx:id="verbinden" mnemonicParsing="false" onAction="#handleButtonVerbindenAction" prefWidth="90.0" text="Verbinden"/>
+                <CheckBox fx:id="drucken" mnemonicParsing="false" text="Drucker ein"/>
+                <TextField fx:id="urltext" prefWidth="110.0" text="localhost:8080"/>
+                <TextField fx:id="urltextmy" prefWidth="110.0" text="myprinter01"/>
+                <Rectangle fx:id="verbunden" arcHeight="5.0" arcWidth="5.0" fill="RED" height="16.0" stroke="BLACK" strokeType="INSIDE" width="16.0"/>
+            </items>
+        </ToolBar>
+    </children>
 </AnchorPane>

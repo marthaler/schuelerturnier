@@ -153,7 +153,7 @@ public class BusinessImpl implements Business {
     public List<String> getSchulhausListe(final String query) {
         final Set<String> strings = new HashSet<String>();
 
-        if(this.schulhaeuser.size() < 1){
+        if (this.schulhaeuser.size() < 1) {
             updateAutocompletesMannschaften(getMannschaften());
         }
 
@@ -174,7 +174,7 @@ public class BusinessImpl implements Business {
     public List<String> getEmailsListe(final String query) {
         final Set<String> strings = new HashSet<String>();
 
-        if(emails.size() < 1){
+        if (emails.size() < 1) {
             this.updateAutocompletesMannschaften(getMannschaften());
         }
 
@@ -195,7 +195,7 @@ public class BusinessImpl implements Business {
     public List<String> getPersonenListe(final String query) {
         final Set<String> strings = new HashSet<String>();
 
-        if(namen.size() < 1){
+        if (namen.size() < 1) {
             this.updateAutocompletesMannschaften(getMannschaften());
         }
 
@@ -259,17 +259,15 @@ public class BusinessImpl implements Business {
             return einstellungen;
         }
 
-        // noch nicht aus der db geladen, laden
-        if (this.spielEinstellungenRepo.count() > 1) {
-            einstellungen = this.spielEinstellungenRepo.findAll().iterator().next();
-            return einstellungen;
-        }
-
         // noch nicht initialisiert
-        return null;
+        this.initializeDB();
+        return this.einstellungen;
 
     }
 
+    public void setSpielEinstellungen(SpielEinstellungen einstellungenNeu) {
+        saveEinstellungen(einstellungenNeu);
+    }
     /*
      * (non-Javadoc)
      *
@@ -638,20 +636,20 @@ public class BusinessImpl implements Business {
         }
     }
 
-    public void sendDumpToRemotes(){
+    public void sendDumpToRemotes() {
         // sende das initiale file an die weiteren empfaenger
         StartFile file = new StartFile();
         byte[] arr = this.xlsdumper.mannschaftenFromDBtoXLS();
         file.setContent(arr);
         this.outSender.onChangeModel(file);
 // todo !!!
-      //      IOUtils.write(arr,new FileWriter(new File("/test.xml")));
+        //      IOUtils.write(arr,new FileWriter(new File("/test.xml")));
 
     }
 
     public void generateSpielFromXLS(byte[] xlsIn) {
 
-        if(this.initialized){
+        if (this.initialized) {
             LOG.info("generateSpielFromXLS: ist aber bereits initialisiert, mache nichts");
             return;
         }
@@ -707,9 +705,9 @@ public class BusinessImpl implements Business {
     @Override
     public void initializeDropbox(String file) {
         byte[] xls = dropbox.selectGame(file);
-        if(xls == null){
+        if (xls == null) {
             this.initializeDB();
-        } else{
+        } else {
             generateSpielFromXLS(xls);
         }
     }

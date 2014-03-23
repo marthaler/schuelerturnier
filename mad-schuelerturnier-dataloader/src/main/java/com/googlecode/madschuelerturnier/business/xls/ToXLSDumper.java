@@ -54,13 +54,13 @@ public class ToXLSDumper {
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
 
     public byte[] mannschaftenFromDBtoXLS() {
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), seinst.findAll(), krepo.findAll(),authRepo.findAll(),frepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), seinst.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll());
     }
 
     public byte[] mannschaftenFromDBtoXLS(SpielEinstellungen einst) {
         List<SpielEinstellungen> korrekturen = new ArrayList<SpielEinstellungen>();
         korrekturen.add(einst);
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), korrekturen, krepo.findAll(),authRepo.findAll(),frepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), korrekturen, krepo.findAll(), authRepo.findAll(), frepo.findAll());
     }
 
     protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<SpielEinstellungen> einstellungenIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn, List<File> filesIn) {

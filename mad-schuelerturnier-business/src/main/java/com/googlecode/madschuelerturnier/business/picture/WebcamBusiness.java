@@ -18,6 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 /**
  * Dient der Verarbeitung der hochgeladenenSchirzettel
  *
@@ -39,14 +40,14 @@ public final class WebcamBusiness {
     private FileRepository fileRepo;
 
     public Spiel findeSpiel(String code) {
-        if(business.getSpielEinstellungen().isWebcamdemomode() && code != null && code.length() > 0){
+        if (business.getSpielEinstellungen().isWebcamdemomode() && code != null && code.length() > 0) {
             return getSpiel(code);
-        } else{
+        } else {
             return spielRepo.findSpielByIdString(code);
         }
     }
 
-    private Spiel getSpiel(String id){
+    private Spiel getSpiel(String id) {
         Spiel s = new Spiel();
         s.setIdString(id);
 
@@ -69,7 +70,7 @@ public final class WebcamBusiness {
 
     public void save(Spiel spiel, byte[] rawPicture) {
 
-        if(business.getSpielEinstellungen().isWebcamdemomode()){
+        if (business.getSpielEinstellungen().isWebcamdemomode()) {
             LOG.warn("Speichern eines Spiels im Demomodus, schreibe nicht in die Datenbank!");
             return;
         }
@@ -86,7 +87,7 @@ public final class WebcamBusiness {
 
     }
 
-    public Spiel findSpielByDecodedPic(byte[] rawPicture){
+    public Spiel findSpielByDecodedPic(byte[] rawPicture) {
         InputStream in = new ByteArrayInputStream(rawPicture);
         BufferedImage image = null;
         try {

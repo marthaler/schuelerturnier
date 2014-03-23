@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 
-import java.io.*;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -38,7 +37,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
     private final String APP_SECRET = "jya3m54g1ximgn9";
 
     @Value("${dropbox.folder:/shared/z_schuelerturnier/informatik/applikationsdaten}")
-    private String rootFolder ="/shared/z_schuelerturnier/informatik/applikationsdaten";
+    private String rootFolder = "/shared/z_schuelerturnier/informatik/applikationsdaten";
 
     private DbxClient client;
 
@@ -89,7 +88,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
         try {
             DbxEntry.WithChildren listing = client.getMetadataWithChildren(this.rootFolder);
             for (DbxEntry child : listing.children) {
-                if(child.isFile()){
+                if (child.isFile()) {
                     result.add(child.name);
                 }
             }
@@ -101,7 +100,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
 
     public List<String> getFilesInAltFolder() {
 
-        if(!this.isConnected()){
+        if (!this.isConnected()) {
             LOG.info("dropbox nicht verbunden.");
             return null;
         }
@@ -110,7 +109,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
         try {
             DbxEntry.WithChildren listing = client.getMetadataWithChildren(this.rootFolder + "/alt");
             for (DbxEntry child : listing.children) {
-                if(child.isFile()){
+                if (child.isFile()) {
                     result.add("/alt/" + child.name);
                 }
             }
@@ -122,7 +121,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
 
     public List<String> getFoldersInRootFolder() {
 
-        if(!this.isConnected()){
+        if (!this.isConnected()) {
             LOG.info("dropbox nicht verbunden.");
             return null;
         }
@@ -131,8 +130,8 @@ public class DropboxConnectorImpl implements DropboxConnector {
         try {
             DbxEntry.WithChildren listing = client.getMetadataWithChildren(this.rootFolder);
             for (DbxEntry child : listing.children) {
-                if(child.isFolder() && !child.name.contains("alt")){
-                    result.add( child.name);
+                if (child.isFolder() && !child.name.contains("alt")) {
+                    result.add(child.name);
                 }
             }
         } catch (DbxException e) {
@@ -144,7 +143,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
     @Override
     public byte[] loadFile(String file) {
 
-        if(!this.isConnected()){
+        if (!this.isConnected()) {
             LOG.info("dropbox nicht verbunden.");
             return null;
         }
@@ -153,7 +152,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
         ByteArrayOutputStream outputStream = null;
         try {
             outputStream = new ByteArrayOutputStream();
-            DbxEntry.File downloadedFile = client.getFile(rootFolder +"/" + file, null,outputStream);
+            DbxEntry.File downloadedFile = client.getFile(rootFolder + "/" + file, null, outputStream);
             LOG.info("DropboxConnectorImpl: file loaded; size -> " + downloadedFile.humanSize);
             return outputStream.toByteArray();
         } catch (Exception e) {
@@ -173,7 +172,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
     @Override
     public void saveFile(String file, byte[] content) {
 
-        if(!this.isConnected()){
+        if (!this.isConnected()) {
             LOG.info("dropbox nicht verbunden.");
             return;
         }
@@ -207,7 +206,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
     @Override
     public byte[] selectGame(String folder) {
         this.selectedGame = folder;
-        return this.loadFile( this.selectedGame + "/"+ this.selectedGame +".xls");
+        return this.loadFile(this.selectedGame + "/" + this.selectedGame + ".xls");
     }
 
     @Override
@@ -222,92 +221,92 @@ public class DropboxConnectorImpl implements DropboxConnector {
     @Override
     public byte[] loadGameAttachemt(String file) {
 
-        if(!this.isConnected()){
+        if (!this.isConnected()) {
             LOG.info("dropbox nicht verbunden.");
             return null;
         }
 
         DbxEntry.WithChildren listing = null;
         try {
-            listing = client.getMetadataWithChildren(this.rootFolder + "/" +this.selectedGame + "/attachements");
+            listing = client.getMetadataWithChildren(this.rootFolder + "/" + this.selectedGame + "/attachements");
         } catch (DbxException e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
 
         for (DbxEntry child : listing.children) {
-            if(child.isFile() && child.name.contains(file)){
-                return this.loadFile( this.selectedGame + "/attachements/" + child.name);
+            if (child.isFile() && child.name.contains(file)) {
+                return this.loadFile(this.selectedGame + "/attachements/" + child.name);
             }
         }
         return null;
     }
 
-    private String loadGameAttachemtMD5(String file){
+    private String loadGameAttachemtMD5(String file) {
 
-        if(!this.isConnected()){
+        if (!this.isConnected()) {
             LOG.info("dropbox nicht verbunden.");
             return null;
         }
 
-        byte[] f = this.loadFile(this.selectedGame + "/attachements/md5/" + file +".md5.txt");
-        if(f != null){
-           return new String(f);
+        byte[] f = this.loadFile(this.selectedGame + "/attachements/md5/" + file + ".md5.txt");
+        if (f != null) {
+            return new String(f);
         }
         return null;
     }
 
     @Override
-    public void saveGameAttachemt(String file, String suffix ,byte[] content) {
+    public void saveGameAttachemt(String file, String suffix, byte[] content) {
 
-        if(!this.isConnected()){
+        if (!this.isConnected()) {
             LOG.info("dropbox nicht verbunden.");
             return;
         }
 
-        if(this.generateMD5(content).equals(loadGameAttachemtMD5(file))){
+        if (this.generateMD5(content).equals(loadGameAttachemtMD5(file))) {
             LOG.debug("brauche attachement nicht zu sichern inhalt ist gleich");
-        } else{
+        } else {
             deleteGameAttachemt(file);
-            this.saveFile( this.selectedGame + "/attachements/" + file + "." + suffix,content);
-            this.saveFile( this.selectedGame + "/attachements/md5/" + file +".md5.txt" ,generateMD5(content).getBytes());
+            this.saveFile(this.selectedGame + "/attachements/" + file + "." + suffix, content);
+            this.saveFile(this.selectedGame + "/attachements/md5/" + file + ".md5.txt", generateMD5(content).getBytes());
         }
     }
 
     @Override
     public void deleteGameAttachemt(String file) {
-        if(!this.isConnected()){
+        if (!this.isConnected()) {
             LOG.info("dropbox nicht verbunden.");
             return;
         }
         DbxEntry.WithChildren listing = null;
 
         try {
-            listing = client.getMetadataWithChildren(this.rootFolder + "/" +this.selectedGame + "/attachements");
+            listing = client.getMetadataWithChildren(this.rootFolder + "/" + this.selectedGame + "/attachements");
 
-            if(listing == null){
+            if (listing == null) {
                 LOG.debug("attachement ordner nicht vorhanden: loesch nicht");
                 return;
             }
 
         } catch (DbxException e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
         try {
-        for (DbxEntry child : listing.children) {
-            if(child.isFile() && child.name.contains(file)){
-                client.delete(rootFolder + "/" +this.selectedGame + "/attachements/" + child.name);
-                client.delete(rootFolder + "/" +this.selectedGame + "/attachements/md5/" + file +".md5.txt");
+            for (DbxEntry child : listing.children) {
+                if (child.isFile() && child.name.contains(file)) {
+                    client.delete(rootFolder + "/" + this.selectedGame + "/attachements/" + child.name);
+                    client.delete(rootFolder + "/" + this.selectedGame + "/attachements/md5/" + file + ".md5.txt");
+                }
             }
-        }
         } catch (DbxException e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
     }
 
     @Override
     public void saveGame(byte[] content) {
-        this.saveFile( this.selectedGame + "/"+ this.selectedGame +".xls",content);
-        this.saveFile( "alt/"+ this.selectedGame +".xls",content);
+        this.saveFile(this.selectedGame + "/" + this.selectedGame + ".xls", content);
+        this.saveFile("alt/" + this.selectedGame + ".xls", content);
     }
 
 

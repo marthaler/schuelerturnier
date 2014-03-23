@@ -7,7 +7,6 @@ import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
 import org.apache.log4j.Logger;
 import org.hibernate.validator.constraints.Email;
 
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

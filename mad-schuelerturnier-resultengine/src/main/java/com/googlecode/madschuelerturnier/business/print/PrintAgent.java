@@ -109,7 +109,7 @@ public class PrintAgent implements ApplicationEventPublisherAware {
 
             if (running) {
                 // TODO remove printer in app
-        //        this.print(f);
+                //        this.print(f);
             }
 
             try {
@@ -163,7 +163,7 @@ public class PrintAgent implements ApplicationEventPublisherAware {
             doc.close();
 
 
-            if(this.applicationEventPublisher != null){
+            if (this.applicationEventPublisher != null) {
                 com.googlecode.madschuelerturnier.model.integration.File file = new com.googlecode.madschuelerturnier.model.integration.File();
                 file.setContent(IOUtils.toByteArray(new FileInputStream(new File(outputFile))));
                 file.setName(name + ".pdf");
@@ -274,6 +274,6 @@ public class PrintAgent implements ApplicationEventPublisherAware {
 
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        this.applicationEventPublisher =  applicationEventPublisher;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 }
