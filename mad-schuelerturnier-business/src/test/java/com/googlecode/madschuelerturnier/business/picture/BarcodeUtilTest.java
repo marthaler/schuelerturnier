@@ -3,13 +3,10 @@
  */
 package com.googlecode.madschuelerturnier.business.picture;
 
-import com.googlecode.madschuelerturnier.business.mail.MailSender;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,10 +23,10 @@ public class BarcodeUtilTest {
 
     @Test
     public void testReadBarcode() {
-
+System.out.println("->");
         BufferedImage img =null;
 
-        URL defaultImage = BarcodeUtilTest.class.getResource("/pictures/test.png");
+        URL defaultImage = BarcodeUtilTest.class.getResource("pictures/test.png");
         try {
              img = ImageIO.read(new File(defaultImage.getPath().toString()));
         } catch (IOException e) {

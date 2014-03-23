@@ -38,7 +38,7 @@ public class MailTest {
     public void testSpielZeileKorrigieren() {
 
         MailSender sender = new MailSender();
-        sender.sendMail("marthaler.worb@gmail.com","noreply@schuelerturnier-scworb.ch","Betreff","Text");
+        sender.sendMail("marthaler.worb@gmail.com","noreply@schuelerturnier-scworb.ch","Betreff: äöü","Text: äöü");
     }
 
 }
