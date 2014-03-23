@@ -38,9 +38,6 @@ public class BusinessIntegrationTest {
     @Test
     @Rollback(true)
     public void testSpielKontroller() {
-        Assert.assertNull(business.getSpielEinstellungen());
-        Assert.assertFalse(business.isDBInitialized());
-        business.initializeDB();
         Assert.assertNotNull(business.getSpielEinstellungen());
     }
 

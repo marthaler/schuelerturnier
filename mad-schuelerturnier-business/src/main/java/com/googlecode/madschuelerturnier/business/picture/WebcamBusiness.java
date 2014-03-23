@@ -69,12 +69,10 @@ public final class WebcamBusiness {
     }
 
     public void save(Spiel spiel, byte[] rawPicture) {
-
         if (business.getSpielEinstellungen().isWebcamdemomode()) {
             LOG.warn("Speichern eines Spiels im Demomodus, schreibe nicht in die Datenbank!");
             return;
         }
-
         com.googlecode.madschuelerturnier.model.support.File file = new com.googlecode.madschuelerturnier.model.support.File();
         file.setContent(rawPicture);
         file.setDateiName("schirizettel.png");
@@ -82,9 +80,7 @@ public final class WebcamBusiness {
         file.setPearID(spiel.getId());
         file.setTyp("schirizettel");
         fileRepo.save(file);
-
         this.spielRepo.save(spiel);
-
     }
 
     public Spiel findSpielByDecodedPic(byte[] rawPicture) {
