@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
 
 public final class BarcodeDecoder {
 
