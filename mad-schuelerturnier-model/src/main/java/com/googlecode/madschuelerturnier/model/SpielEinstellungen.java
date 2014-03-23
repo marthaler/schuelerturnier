@@ -52,6 +52,8 @@ public class SpielEinstellungen extends Persistent {
 
     private boolean behandleFinaleProKlassebeiZusammengefuehrten = false;
 
+    private boolean webcamdemomode = true;
+
     public SpielEinstellungen() {
         DateTime date = new DateTime();
         date.withDate(2013, 6, 8);
@@ -304,6 +306,14 @@ public class SpielEinstellungen extends Persistent {
         result = 31 * result + (abbrechenZulassen ? 1 : 0);
         result = 31 * result + (gongEinschalten ? 1 : 0);
         return result;
+    }
+
+    public boolean isWebcamdemomode() {
+        return webcamdemomode;
+    }
+
+    public void setWebcamdemomode(boolean webcamdemomode) {
+        this.webcamdemomode = webcamdemomode;
     }
 
     public boolean isBehandleFinaleProKlassebeiZusammengefuehrten() {

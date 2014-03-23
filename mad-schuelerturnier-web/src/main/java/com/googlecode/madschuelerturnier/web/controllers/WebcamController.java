@@ -1,56 +1,49 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.web.controllers;
 
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.imageio.ImageIO;
-import javax.imageio.stream.FileImageOutputStream;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 
-import com.googlecode.madschuelerturnier.business.picture.BarcodeUtil;
-import com.googlecode.madschuelerturnier.model.Mannschaft;
+import com.googlecode.madschuelerturnier.business.picture.WebcamBusiness;
 import com.googlecode.madschuelerturnier.model.Spiel;
-import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
-import com.googlecode.madschuelerturnier.persistence.repository.FileRepository;
-import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
-import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 import org.primefaces.event.CaptureEvent;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.CroppedImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * Controller mit Session Scope, welcher den Schirizettel Scan unterstuetzen
+ *
+ * @author marthaler.worb@gmail.com
+ * @since 1.3.0
+ */
 @Component
 @Scope("session")
 @RequestMapping("/webcam")
 public class WebcamController {
 
-    @Autowired
-    private SpielRepository repo;
+    private static final Logger LOG = Logger.getLogger(WebcamController.class);
 
     @Autowired
-    private FileRepository fileRepo;
+    WebcamBusiness webcamBusiness;
 
     private Spiel spiel;
-    private  byte[] rawPicture;
+    private byte[] rawPicture;
     private String code;
 
-    private boolean demomode = true;
-
     @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public void getFile( HttpServletResponse response) {
+    public void getFile(HttpServletResponse response) {
         try {
             InputStream is = new ByteArrayInputStream(rawPicture);
             IOUtils.copy(is, response.getOutputStream());
@@ -60,62 +53,26 @@ public class WebcamController {
         }
     }
 
-    public boolean hasCode(){
-        if(code != null && code.length() > 0){
-            return true;
-        }
-        return false;
-    }
-
-    public boolean hasPic(){
-        if(rawPicture == null){
-            return false;
-        }
-        return true;
-    }
-
-    public boolean hasSpiel(){
-        if(spiel == null){
-            return false;
-        }
-        return true;
-    }
-
     public void fileupload(FileUploadEvent event) {
-       this.rawPicture = event.getFile().getContents();
-        treatPic();
-     }
+        this.rawPicture = event.getFile().getContents();
+        decodePicAndSearchSpiel();
+    }
 
     public void oncapture(CaptureEvent captureEvent) {
         this.rawPicture = captureEvent.getData();
-        treatPic();
+        decodePicAndSearchSpiel();
     }
 
-    public void treatPic(){
-        InputStream in = new ByteArrayInputStream(this.rawPicture);
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        code = BarcodeUtil.decode(image);
+    public void decodePicAndSearchSpiel() {
 
-        findeSpiel();
+        this.spiel = this.webcamBusiness.findSpielByDecodedPic(this.rawPicture);
 
-
-        if(spiel == null || !spiel.isFertiggespielt()){
-                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Spiel eintragen nicht möglich",  "Spiel ist nicht fertig gespielt");
-                FacesContext.getCurrentInstance().addMessage(null, message);
-                code = null;
-            }
-    }
-
-    private void findeSpiel() {
-        if(this.demomode && code != null && code.length() > 0){
-            spiel = getSpiel(code);
-        } else{
-            spiel = repo.findSpielByIdString(code);
+        if (this.spiel == null) {
+            createError("Spiel mit dem Code: " + this.code + " nicht gefunden");
+            code = null;
+        } else if (!this.spiel.isFertiggespielt()) {
+            createError("Spiel mit dem Code: " + this.code + " ist nicht fertig gespielt und kan somit noch nicht eingetragen werden");
+            code = null;
         }
     }
 
@@ -125,25 +82,22 @@ public class WebcamController {
     }
 
     public void search() {
-        findeSpiel();
-        if(spiel == null){
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Spiel mit dem Code: " + this.code + " nicht gefunden",  "Spiel mit dem Code: " + this.code + " nicht gefunden");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+        this.spiel = webcamBusiness.findeSpiel(code);
+        if (spiel == null) {
+            createError("Spiel mit dem Code: " + this.code + " nicht gefunden");
             this.code = null;
         }
     }
 
     public void save() {
-        com.googlecode.madschuelerturnier.model.support.File file = new com.googlecode.madschuelerturnier.model.support.File();
-        file.setContent(this.rawPicture);
-        file.setDateiName("schirizettel.png");
-        file.setMimeType("image/png");
-        file.setPearID(spiel.getId());
-        file.setTyp("schirizettel");
-        fileRepo.save(file);
+        this.webcamBusiness.save(this.spiel, this.rawPicture);
         this.rawPicture = null;
-        this.repo.save(spiel);
         this.spiel = null;
+    }
+
+    private void createError(String text) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, text, text);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     public String getCode() {
@@ -162,25 +116,25 @@ public class WebcamController {
         this.spiel = spiel;
     }
 
-    private Spiel getSpiel(String id){
-        Spiel s = new Spiel();
-        s.setIdString(id);
+    public boolean hasCode() {
+        if (code != null && code.length() > 0) {
+            return true;
+        }
+        return false;
+    }
 
-        Mannschaft a = new Mannschaft();
-        a.setTeamNummer(1);
-        a.setKlasse(3);
-        a.setGeschlecht(GeschlechtEnum.M);
+    public boolean hasPic() {
+        if (rawPicture == null) {
+            return false;
+        }
+        return true;
+    }
 
-        s.setMannschaftA(a);
-
-        Mannschaft b = new Mannschaft();
-        b.setTeamNummer(2);
-        b.setKlasse(3);
-        b.setGeschlecht(GeschlechtEnum.M);
-
-        s.setMannschaftB(b);
-
-        return s;
+    public boolean hasSpiel() {
+        if (spiel == null) {
+            return false;
+        }
+        return true;
     }
 }
                         

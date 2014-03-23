@@ -65,6 +65,26 @@
 
     </h:panelGrid>
 </p:tab>
+
+<p:tab title="Schirizettel">
+    <h:panelGrid columns="2" cellpadding="0">
+
+
+        <h:panelGrid columns="2" style="margin-bottom:10px">
+
+
+            <h:outputText value="Schrizettelscanner im Demo Modus laufen lassen"/>
+            <p:selectBooleanCheckbox
+                    id="webcamdemomode" value="#{spieleinstellungen.webcamdemomode}"
+                    ajax="true">
+            </p:selectBooleanCheckbox>
+
+        </h:panelGrid>
+
+    </h:panelGrid>
+</p:tab>
+
+
 <p:tab title="Alles andere">
 <h:panelGrid columns="2" cellpadding="10">
 
@@ -320,13 +340,7 @@ Phase: #{spieleinstellungen.phase}
 
 </h:panelGrid>
 </p:tab>
-<p:tab title="Godfather Part III">
-    <h:panelGrid columns="2" cellpadding="10">
-        <p:graphicImage value="/images/godfather/godfather3.jpg" />
-        <h:outputText value="After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well for this third and final story of the fictional Corleone crime family.
-                Two decades have passed, and crime kingpin Michael Corleone, now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be completely legitimate."></h:outputText>
-    </h:panelGrid>
-</p:tab>
+
 </p:tabView>
 
 

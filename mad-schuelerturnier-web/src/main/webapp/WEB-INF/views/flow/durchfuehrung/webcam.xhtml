@@ -7,7 +7,6 @@
                 xmlns:sec="http://www.springframework.org/security/tags"
                 template="../../../layouts/100.xhtml">
 
-
     <ui:define name="main">
         <div id="main">
             <div class="page_margins">
@@ -15,33 +14,24 @@
                     <div class="inset">
                         <h:form id="form1">
 
-
                             <p:fieldset legend="Schirizettel eingeben: ">
                                 <p:messages/>
-
-
-
                                     <h:form>
 
                                         <h:panelGrid columns="1">
-
                                             <p:row rendered="#{!webcamController.hasPic()}">
                                             <p:fileUpload fileUploadListener="#{webcamController.fileupload}"
                                                           multiple="false" auto="true" ajax="true"
                                                           widgetVar="dialogUpLoad" mode="advanced" rendered="#{!webcamController.hasPic()}"
-
                                                           oncomplete="document.getElementById('form1:j_idt25:up').click()"/>
                                             <br/>
-
-
                                                 <p:photoCam widgetVar="pc" listener="#{webcamController.oncapture}"  />
-
                                                 <br/>
                                                 <p:commandButton  id="up" value="Photo schiessen" onclick="PF('pc').capture()"  rendered="#{!webcamController.hasPic()}" ajax="false"/>
 
                                             </p:row>
 
-                                            <p:row rendered="#{webcamController.hasPic() &amp;&amp; !webcamController.hasCode()  &amp;&amp; !webcamController.hasSpiel() }">
+                                            <p:row rendered="#{webcamController.hasPic() &amp;&amp; !webcamController.hasCode() &amp;&amp; !webcamController.hasSpiel() }">
                                                 <p:graphicImage id="pic" widgetWar="pic" value="/app/webcam/download"  /><br/> <br/>
                                                 <h:outputText value="Spiel Code zum Suchen: " /><br/>
                                                 <p:inputText value="#{webcamController.code}"  /><br/>
@@ -50,30 +40,19 @@
                                             </p:row>
 
 
-
                                             <p:row rendered="#{webcamController.hasSpiel()}">
                                                 <p:graphicImage id="pic2" widgetWar="pic" value="/app/webcam/download"  /><br/><br/>
                                                 <h:outputText value="Spiel Code: #{webcamController.spiel.idString}" /><br/>
-                                                <p:inputText id="Tore A" value="#{webcamController.spiel.toreA}"  /><br/>
-                                                <p:inputText id="Tore B" value="#{webcamController.spiel.toreB}"  /><br/>
+                                                <p:inputText id="ToreA" value="#{webcamController.spiel.toreA}"  /><br/>
+                                                <p:inputText id="ToreB" value="#{webcamController.spiel.toreB}"  /><br/>
                                                 <p:commandButton  id="save" value="Sichern"  action="#{webcamController.save}" ajax="false"/>
                                                 <p:commandButton  id="abbrechen2" value="Abbrechen" action="#{webcamController.reset}" ajax="false"/>
                                             </p:row>
 
-
-
-
                                         </h:panelGrid>
                                     </h:form>
-
-
-
-
-
                             </p:fieldset>
                         </h:form>
-
-
                     </div>
                     <br/>
                 </div>

@@ -2,7 +2,6 @@ package com.googlecode.madschuelerturnier.web;
 
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLOutConverter;
 import com.googlecode.madschuelerturnier.business.out.OutToWebsitePublisher;
-import com.googlecode.madschuelerturnier.business.picture.PictureAgent;
 import com.googlecode.madschuelerturnier.business.print.PrintAgent;
 import com.googlecode.madschuelerturnier.business.scanner.ScannerAgent;
 import com.googlecode.madschuelerturnier.web.utils.ContextInformationListener;
@@ -36,9 +35,6 @@ public class LoginPrepareAction {
 
     @Autowired
     private ScannerAgent scannerAgent;
-
-    @Autowired
-    private PictureAgent pictureAgent;
 
     @Autowired
     private HTMLOutConverter converter;
@@ -80,8 +76,6 @@ public class LoginPrepareAction {
         converter.setPath(path + STATIC + delim);
 
         outToWebsite.init(path + STATIC + delim);
-
-        pictureAgent.init(path + STATIC + delim);
 
         scannerAgent.init(path + STATIC + delim);
 

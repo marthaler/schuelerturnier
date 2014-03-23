@@ -72,7 +72,7 @@ public class FileUploadIntegrationTest {
     @Rollback(true)
     public void testHandleFileUpload() {
 
-        //Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
+        Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
 
         UploadedFile temp = event.getFile();
         byte[] doct = temp.getContents();
