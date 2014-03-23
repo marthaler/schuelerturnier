@@ -84,7 +84,9 @@ public class TransportEndpointSender extends Thread{
                 }
 
             } catch (Exception e) {
-                //LOG.error("TransportEndpointSender ("+remoteConnectionString+") fehler:"+e.getMessage(),e);
+                if(online){
+                    LOG.error("TransportEndpointSender ("+remoteConnectionString+") fehler:"+e.getMessage(),e);
+                }
                 online = false;
             }
         }

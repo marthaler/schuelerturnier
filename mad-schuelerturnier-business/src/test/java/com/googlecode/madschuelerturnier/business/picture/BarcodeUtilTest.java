@@ -3,6 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business.picture;
 
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,28 +14,30 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * MailSender Test
+ * Testet das Barcode Util
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.6
  */
 public class BarcodeUtilTest {
 
+    private static final Logger LOG = Logger.getLogger(BarcodeUtilTest.class);
 
     @Test
     public void testReadBarcode() {
-System.out.println("->");
+
         BufferedImage img =null;
 
-        URL defaultImage = BarcodeUtilTest.class.getResource("pictures/test.png");
+        URL defaultImage = this.getClass().getResource("/pictures/test.png");
         try {
              img = ImageIO.read(new File(defaultImage.getPath().toString()));
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(),e);
         }
-
         Assert.assertEquals("BZ", BarcodeUtil.decode(img));
 
-    }
+        // voller test mit Erstellen des Codes
+        Assert.assertEquals("ich bin ein test", BarcodeUtil.decode(BarcodeUtil.encode("ich bin ein test")));
 
+    }
 }
