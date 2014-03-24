@@ -65,8 +65,9 @@ public final class WebsiteInfoService {
 
             if(m.getGeschlecht() == GeschlechtEnum.K){
                 knaben.addMannscgaft(ma);
+                knaben.setTotal(knaben.getTotal() + ma.getSpieler());
             } else{
-                maedchen.addMannscgaft(ma);
+                maedchen.setTotal(maedchen.getTotal() + ma.getSpieler());
             }
         }
 
