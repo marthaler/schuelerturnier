@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright (C) Schweizerische Bundesbahnen SBB, 2014.
+  -->
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="../../../layouts/100.xhtml">
+
+
+    <ui:define name="main">
+
+
+
+        <h:form id="form">
+            <p:dataTable id="playersTable" var="player" value="#{tableBean.players}">
+
+                <f:facet name="header">
+                    Mannschaften
+                </f:facet>
+
+
+                <p:subTable var="team" value="#{teams.mannschaften}">
+                    <f:facet name="header">
+                        #{teams.name}
+                    </f:facet>
+
+                    <p:column>
+                        #{team.begleitperson}
+                    </p:column>
+
+                    <p:column>
+                        #{team.spieler}
+                    </p:column>
+
+
+                    <p:columnGroup type="footer">
+                        <p:row>
+                            <p:column footerText="Totals: " style="text-align:right"/>
+                            <p:column footerText="#{teams.mannschaften.size}" />
+                        </p:row>
+                    </p:columnGroup>
+                </p:subTable>
+            </p:dataTable>
+        </h:form>
+
+
+
+
+    </ui:define>
+
+</ui:composition>

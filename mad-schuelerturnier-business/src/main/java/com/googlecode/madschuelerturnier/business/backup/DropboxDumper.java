@@ -17,7 +17,7 @@ import javax.annotation.PostConstruct;
 import java.io.Serializable;
 
 /**
- * Speichert die ganze DB asl XLS in die Dropbox falls dies die Master Instanz ist
+ * Speichert die ganze DB als XLS in die Dropbox falls dieser Server die Master Instanz ist
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8

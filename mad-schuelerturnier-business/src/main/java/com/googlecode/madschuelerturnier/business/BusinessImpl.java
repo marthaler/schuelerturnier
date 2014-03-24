@@ -259,8 +259,6 @@ public class BusinessImpl implements Business {
             return einstellungen;
         }
 
-        // noch nicht initialisiert
-        this.initializeDB();
         return this.einstellungen;
 
     }
