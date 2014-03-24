@@ -24,7 +24,6 @@ public class StartAction {
     @Autowired
     private Business business;
 
-
     public Event start(RememberMeAuthenticationToken rememberMeAuthenticationToken) {
         return getEvent(rememberMeAuthenticationToken);
     }

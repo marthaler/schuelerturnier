@@ -21,6 +21,7 @@ public class MessageSenderUtil {
 
     private static final Logger LOG = Logger.getLogger(MessageSenderUtil.class);
 
+    private static int failurecounter = 0;
     public static MessageWrapperToSend send(String adresse, MessageWrapperToSend obj) {
         HttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(adresse);
@@ -42,7 +43,10 @@ public class MessageSenderUtil {
             return (MessageWrapperToSend) XstreamUtil.deserializeFromString(buff.toString());
 
         } catch (IOException e) {
-            LOG.debug(e.getMessage());
+            failurecounter++;
+            if(failurecounter % 100 == 0 ){
+                LOG.error(e.getMessage(),e);
+            }
         }
         return null;
     }

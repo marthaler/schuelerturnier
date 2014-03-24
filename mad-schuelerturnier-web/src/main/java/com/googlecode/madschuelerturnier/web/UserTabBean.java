@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.web;
 
 import org.primefaces.event.TabChangeEvent;
@@ -10,11 +13,9 @@ public class UserTabBean {
 
     private int activeIndex = 0;
 
-
     public void onTabChange(TabChangeEvent event) {
         activeIndex = Integer.parseInt(event.getTab().getId().replace("tab", ""));
     }
-
 
     public int getActiveIndex() {
         return activeIndex;

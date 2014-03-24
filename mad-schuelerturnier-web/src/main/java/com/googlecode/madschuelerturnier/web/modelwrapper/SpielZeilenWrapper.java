@@ -17,7 +17,8 @@ public class SpielZeilenWrapper extends ListDataModel<SpielZeile> implements Sel
     }
 
     public SpielZeile getRowData(String arg0) {
-        List<SpielZeile> cars = (List<SpielZeile>) getWrappedData();
+        List<SpielZeile> cars;
+        cars = (List<SpielZeile>) getWrappedData();
 
         for (SpielZeile car : cars) {
             if (car.getStart().toString().equals(arg0)) {

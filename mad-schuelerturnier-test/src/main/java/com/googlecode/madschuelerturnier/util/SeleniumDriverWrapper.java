@@ -186,7 +186,7 @@ public class SeleniumDriverWrapper {
 
             URL url = new URL("http://www.aa.bb");
 
-            WebClient webClient = new WebClient(BrowserVersion.FIREFOX_10);
+            WebClient webClient = new WebClient(BrowserVersion.FIREFOX_17);
             webClient.getOptions().setJavaScriptEnabled(false);
 
 

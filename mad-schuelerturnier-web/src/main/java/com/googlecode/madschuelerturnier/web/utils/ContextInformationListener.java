@@ -10,7 +10,7 @@ import javax.servlet.ServletContextListener;
 import java.net.URL;
 
 /**
- * Sammelt Informationen zu Servlet Context um diese spaeter per statischen getter von ausserhalb abzufragen
+ * Sammelt Informationen zu Servlet Context um diese per statischen getter von ausserhalb abzufragen
  * Muss zuerst gestartet werden (vor Spring usw.)
  *
  * @author marthaler.worb@gmail.com
