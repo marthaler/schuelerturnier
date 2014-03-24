@@ -34,9 +34,6 @@ public class LoginPrepareAction {
     private OutToWebsitePublisher outToWebsite;
 
     @Autowired
-    private ScannerAgent scannerAgent;
-
-    @Autowired
     private HTMLOutConverter converter;
 
     private String ip;
@@ -76,8 +73,6 @@ public class LoginPrepareAction {
         converter.setPath(path + STATIC + delim);
 
         outToWebsite.init(path + STATIC + delim);
-
-        scannerAgent.init(path + STATIC + delim);
 
         init = true;
 
