@@ -6,12 +6,9 @@ package com.googlecode.madschuelerturnier.model.support;
 
 import com.googlecode.madschuelerturnier.model.Persistent;
 import org.apache.log4j.Logger;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
-import java.io.IOException;
 
 /**
  * Speichert ein beliebiges File in der DB
@@ -67,17 +64,11 @@ public class File extends Persistent {
 
     // spezielle zugriffsmethoden
     public String getContentBase64() {
-        BASE64Encoder encoder = new BASE64Encoder();
-        return encoder.encode(this.content);
+        return org.apache.commons.codec.binary.Base64.encodeBase64String(this.content);
     }
 
     public void setContentBase64(String content) {
-        BASE64Decoder decoder = new BASE64Decoder();
-        try {
-            this.content = decoder.decodeBuffer(content);
-        } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
-        }
+        this.content = org.apache.commons.codec.binary.Base64.decodeBase64(content);
     }
 
     public Long getPearID() {
