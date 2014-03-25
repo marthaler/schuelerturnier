@@ -9,61 +9,57 @@
     <ui:define name="main">
 
         <h:form id="form">
-            <p:dataTable id="tbl" var="team" value="#{teams}">
 
-                <f:facet name="header" style="text-align:left">
-                    Teams
-                </f:facet>
+            <p:tabView dynamic="true" cache="true">
+                <p:tab title="Bla">
 
-                <p:columnGroup type="header">
-                <p:row>
-                    <p:column colspan="2" headerText="Klasse" style="text-align:left"/>
-                    <p:column headerText="Captain" style="text-align:left"/>
-                    <p:column headerText="Begleitperson" style="text-align:left"/>
-                    <p:column headerText="Schulhaus" style="text-align:left"/>
-                    <p:column headerText="Gr." style="text-align:left"/>
-                </p:row>
-                </p:columnGroup>
+                </p:tab>
 
-                <p:subTable var="mannschaft" value="#{team.mannschaften}">
-
-                    <f:facet name="header">
-                        #{team.name}
-                    </f:facet>
-
-                    <p:column>
-                        #{mannschaft.klasse}
-                    </p:column>
-
-                    <p:column>
-                        #{mannschaft.klassenname}
-                    </p:column>
-
-                    <p:column>
-                        #{mannschaft.captain}
-                    </p:column>
-
-                    <p:column>
-                        #{mannschaft.begleitperson}
-                    </p:column>
-
-                    <p:column>
-                        #{mannschaft.schulhaus}
-                    </p:column>
-
-                    <p:column>
-                        #{mannschaft.spieler}
-                    </p:column>
-
-                    <p:columnGroup type="footer" >
-                        <p:row>
-                            <p:column colspan="5" footerText="Teilnehmerzahl: " style="text-align:right"/>
-                            <p:column footerText="#{team.total}" />
-                        </p:row>
-                    </p:columnGroup>
-
-                </p:subTable>
-            </p:dataTable>
+                <p:tab title="Teams">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:dataTable id="tbl" var="team" value="#{teams}">
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column colspan="2" headerText="Klasse" style="text-align:left"/>
+                                    <p:column headerText="Captain" style="text-align:left"/>
+                                    <p:column headerText="Begleitperson" style="text-align:left"/>
+                                    <p:column headerText="Schulhaus" style="text-align:left"/>
+                                    <p:column headerText="Gr." style="text-align:left"/>
+                                </p:row>
+                            </p:columnGroup>
+                            <p:subTable var="mannschaft" value="#{team.mannschaften}">
+                                <f:facet name="header">
+                                    #{team.name}
+                                </f:facet>
+                                <p:column>
+                                    #{mannschaft.klasse}
+                                </p:column>
+                                <p:column>
+                                    #{mannschaft.klassenname}
+                                </p:column>
+                                <p:column>
+                                    #{mannschaft.captain}
+                                </p:column>
+                                <p:column>
+                                    #{mannschaft.begleitperson}
+                                </p:column>
+                                <p:column>
+                                    #{mannschaft.schulhaus}
+                                </p:column>
+                                <p:column>
+                                    #{mannschaft.spieler}
+                                </p:column>
+                                <p:columnGroup type="footer">
+                                    <p:row>
+                                        <p:column colspan="5" footerText="Teilnehmerzahl: " style="text-align:right"/>
+                                        <p:column footerText="#{team.total}"/>
+                                    </p:row>
+                                </p:columnGroup>
+                            </p:subTable>
+                        </p:dataTable>
+                    </h:panelGrid>
+                </p:tab>
+            </p:tabView>
 
         </h:form>
 
