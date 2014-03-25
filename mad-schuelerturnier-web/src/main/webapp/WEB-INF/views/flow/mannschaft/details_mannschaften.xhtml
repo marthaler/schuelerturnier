@@ -33,8 +33,7 @@
                                               oncomplete="document.getElementById('form1:upload_button').click()"
                                               label = "Anmeldung hochladen (draufziehen)"
                                               rendered="#{!DBFileDownloadController.hasFile('anmeldung',mannschaftBean.id)}"/>
-
-                                <!-- kruekce hier: -->
+                                <!-- kruecke hier: -->
                                 <h:inputText id = "idToMatchWith" value="#{DBFileUploadController.idToMatchWith}" ajax="true" style="display: none"/>
                                 <h:inputText id = "typeToSet" value="#{DBFileUploadController.typeToSet}" ajax="true" style="display: none"/>
                                 <h:inputText id = "mimeType" value="#{DBFileUploadController.mimeType}" ajax="true" style="display: none"/>
@@ -43,8 +42,8 @@
                                     document.getElementById('form1:idToMatchWith').value = "#{mannschaftBean.id}";
                                     document.getElementById('form1:typeToSet').value = "anmeldung";
                                     document.getElementById('form1:mimeType').value = "application/pdf";
-
                                 </script>
+
                                 <p:commandButton id="upload_button_prepare" value="prepare"  action="#{DBFileUploadController.prepare()}" ajax="true" style="display: none"/>
                                 <p:commandButton id="upload_button" value="Initialisieren"  action="upload" ajax="false"  style="display: none"/>
                                 <!-- kruecke ende -->
@@ -54,15 +53,10 @@
                                 </p:commandButton>
                                 <br/>
 
-
                                 <h:panelGrid columns="2" id="inputelements">
-
-
-
                                     <h:outputLabel for="name" value="Name "/>
                                     <p:inputText id="name" label="Name"
                                                  value="#{mannschaftBean.name}" size="5" disabled="true"/>
-
 
                                     <h:outputLabel for="captain" value="Captain "/>
                                     <p:autoComplete id="captain" label="Capitain"
@@ -74,15 +68,12 @@
                                     <h:outputLabel for="captainTelefon" value="Captain Telefon"/>
                                     <p:inputMask id="captainTelefon" label="captainTelefon"
                                                  value="#{mannschaftBean.captainTelefon}" mask="999 999 99 99" size="40">
-
                                     </p:inputMask>
-
 
                                     <h:outputLabel for="captainEmail" value="Captain Email"/>
                                     <p:autoComplete id="captainEmail" label="captainEmail"
                                                  completeMethod="#{business.getEmailsListe}"
                                                  value="#{mannschaftBean.captainEmail}" size="40">
-
                                     </p:autoComplete>
 
                                     <h:outputLabel for="b_anrede" value="Begleitperson Anrede"/>
@@ -106,7 +97,6 @@
                                     <h:outputLabel for="b_ort" value="Begleitperson Ort"/>
                                     <p:inputText id="b_ort"
                                                  value="#{mannschaftBean.begleitpersonPLZOrt}" size="40"/>
-
 
                                     <h:outputLabel for="begleitpersonTelefon" value="Begleitperson Telefon"/>
                                     <p:inputMask id="begleitpersonTelefon" label="begleitpersonTelefon"
@@ -152,7 +142,6 @@
                                         <f:selectItem itemLabel="13" itemValue="13"/>
                                         <f:selectItem itemLabel="14" itemValue="14"/>
                                         <f:selectItem itemLabel="15" itemValue="15"/>
-
                                     </p:selectOneMenu>
 
 
@@ -168,7 +157,6 @@
                                         <f:selectItem itemLabel="7" itemValue="7"/>
                                         <f:selectItem itemLabel="8" itemValue="8"/>
                                         <f:selectItem itemLabel="9" itemValue="9"/>
-
                                     </p:selectOneMenu>
 
                                     <h:outputLabel for="geschlecht" value="M / K"/>
@@ -187,20 +175,25 @@
                                         <f:selectItem itemLabel="Sonntag Morgen" itemValue="sonntag"/>
                                     </p:selectOneMenu>
 
-
                                     <h:outputLabel for="notizen" value="Notizen"/>
                                     <p:inputTextarea id="notizen" rows="5" cols="30" value="#{mannschaftBean.notizen}"
                                                      autoResize="false"/>
 
-
                                     <h:panelGroup id="button" layout="block">
-                                        <p:commandButton id="submit" value="Speichern" action="save"
-                                                         execute="@form" update="@form"/>
-                                        <p:commandButton id="delete" value="Löschen" action="delete"
-                                                         execute="@form" update="@form" rendered="#{spielstatusWebBean.anmeldephase}"/>
+                                        <p:commandButton id="submit" value="Speichern" action="save" execute="@form" update="@form"/>
+
+                                        <p:commandButton value="Löschen" action="delete">
+                                            <p:confirm header="Bitte Bestätigen" message="Wirklich löschen?" icon="ui-icon-alert" rendered="#{spielstatusWebBean.anmeldephase}"/>
+                                        </p:commandButton>
+
+                                        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                                            <p:commandButton value="Ja" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="delete" ajax="false"/>
+                                            <p:commandButton value="Nein" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+                                        </p:confirmDialog>
+
                                     </h:panelGroup>
-                                    <p:tooltip for="button" value="Mannschaft speichern"
-                                               showEffect="fade" hideEffect="fade"/>
+
+                                    <p:tooltip for="button" value="Mannschaft speichern" showEffect="fade" hideEffect="fade"/>
 
                                     <p:watermark for="captain" value="Vorname und Name"/>
                                     <p:watermark for="captainEmail" value="Emailadresse"/>
@@ -210,9 +203,6 @@
                                     <p:watermark for="begleitperson" value="Vorname und Name"/>
                                     <p:watermark for="begleitpersonTelefon" value="Telefonnummer"/>
                                     <p:watermark for="begleitpersonEmail" value="Emailadresse"/>
-
-
-
 
                     </h:panelGrid>
                             </p:fieldset>

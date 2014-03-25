@@ -99,8 +99,13 @@
                             action="eintrager"/>
 
                 <p:menuitem id="m_webcam"
-                            rendered="#{sec:areAnyGranted('ROLE_ROOT,ROLE_EINTRAGER')}"
-                            value="Webcam" icon="ui-icon-image"
+                            rendered="#{sec:areAnyGranted('ROLE_EINTRAGER') and spielstatusWebBean.spielend}"
+                            value="Schirzettelimport" icon="ui-icon-image"
+                            action="webcam"/>
+
+                <p:menuitem id="m_webcamdemo"
+                            rendered="#{business.spielEinstellungen != null and business.spielEinstellungen.webcamdemomode}"
+                            value="Schirzettelimport" icon="ui-icon-image"
                             action="webcam"/>
 
                 <!-- spielen: rollen : kontrollierer-->

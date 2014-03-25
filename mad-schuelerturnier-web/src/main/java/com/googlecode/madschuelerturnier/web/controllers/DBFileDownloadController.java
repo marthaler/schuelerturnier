@@ -63,7 +63,7 @@ public class DBFileDownloadController {
     public File getFile(String typ, String pearID) {
         File file = null;
         try {
-            file = repo.findByTypAndPearID(typ, Integer.parseInt(pearID));
+            file = repo.findByTypAndPearID(typ, Long.parseLong(pearID));
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
@@ -77,7 +77,7 @@ public class DBFileDownloadController {
     }
 
     public boolean hasFile(String typ, String pearID) {
-        File file = repo.findByTypAndPearID(typ, Integer.parseInt(pearID));
+        File file = repo.findByTypAndPearID(typ, Long.parseLong(pearID));
         if (file != null) {
             return true;
         }

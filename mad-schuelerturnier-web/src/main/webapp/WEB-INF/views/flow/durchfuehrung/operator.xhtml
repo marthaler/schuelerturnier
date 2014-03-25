@@ -69,8 +69,11 @@
             <h:outputText value="Schrizettelscanner im Demo Modus laufen lassen"/>
             <p:selectBooleanCheckbox
                     id="webcamdemomode" value="#{business.spielEinstellungen.webcamdemomode}"
-                    ajax="true">
+                    ajax="true" update="form1">
             </p:selectBooleanCheckbox>
+
+
+            <p:commandButton  id="refresh"  widgetWar="refresh" value="Refresh" ajax="false"/>
 
         </h:panelGrid>
 
