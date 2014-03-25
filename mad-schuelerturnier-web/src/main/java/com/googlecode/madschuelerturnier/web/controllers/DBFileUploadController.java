@@ -38,7 +38,7 @@ public class DBFileUploadController implements Serializable {
 
     public void handleFileUpload(FileUploadEvent event) {
 
-        File file = repo.findByTypAndPearID(typeToSet, Integer.parseInt(idToMatchWith));
+        File file = repo.findByTypAndPearID(typeToSet, Long.parseLong(idToMatchWith));
 
         if (file == null) {
             file = new File();
