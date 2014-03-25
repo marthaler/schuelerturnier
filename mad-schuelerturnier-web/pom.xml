@@ -142,6 +142,9 @@
                         <groupId>com.github.goldin</groupId>
                         <artifactId>copy-maven-plugin</artifactId>
                         <version>0.2.5</version>
+                        <dependencies>
+
+                        </dependencies>
                         <executions>
                             <execution>
                                 <id>create-archive</id>
