@@ -7,6 +7,7 @@
  */
 package com.googlecode.madschuelerturnier.business.websiteinfo;
 
+import com.googlecode.madschuelerturnier.business.websiteinfo.model.MannschaftsComperator;
 import com.googlecode.madschuelerturnier.business.websiteinfo.model.TeamGruppen;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -64,12 +66,17 @@ public final class WebsiteInfoService {
             ma.setSchulhaus(m.getSchulhaus());
 
             if(m.getGeschlecht() == GeschlechtEnum.K){
-                knaben.addMannscgaft(ma);
+                knaben.addMannschaft(ma);
                 knaben.setTotal(knaben.getTotal() + ma.getSpieler());
             } else{
                 maedchen.setTotal(maedchen.getTotal() + ma.getSpieler());
+                maedchen.addMannschaft(ma);
             }
         }
+
+        // sortieren nach klasse
+        Collections.sort(maedchen.getMannschaften(), new MannschaftsComperator());
+        Collections.sort(knaben.getMannschaften(), new MannschaftsComperator());
 
         gruppen.add(maedchen);
         gruppen.add(knaben);

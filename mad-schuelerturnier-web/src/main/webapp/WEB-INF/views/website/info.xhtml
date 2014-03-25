@@ -1,49 +1,35 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-
-
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
-                template="../../layouts/100.xhtml">
-
+                template="../../layouts/root-naked.xhtml">
 
     <ui:define name="main">
 
-
-
         <h:form id="form">
-            <p:dataTable id="playersTable" var="team" value="#{teams}">
+            <p:dataTable id="tbl" var="team" value="#{teams}">
 
-                <f:facet name="header">
-                    Mannschaften
+                <f:facet name="header" style="text-align:left">
+                    Teams
                 </f:facet>
 
-
                 <p:columnGroup type="header">
-
-                    <p:row>
-
-                        <p:column colspan="2" headerText="Klasse" />
-                        <p:column headerText="Captain" />
-                        <p:column headerText="Begleitperson" />
-
-                        <p:column headerText="Schulhaus" />
-                        <p:column headerText="Teamgrösse" />
-                    </p:row>
+                <p:row>
+                    <p:column colspan="2" headerText="Klasse" style="text-align:left"/>
+                    <p:column headerText="Captain" style="text-align:left"/>
+                    <p:column headerText="Begleitperson" style="text-align:left"/>
+                    <p:column headerText="Schulhaus" style="text-align:left"/>
+                    <p:column headerText="Teamgrösse" style="text-align:left"/>
+                </p:row>
                 </p:columnGroup>
 
                 <p:subTable var="mannschaft" value="#{team.mannschaften}">
 
-
                     <f:facet name="header">
                         #{team.name}
-
-
-
                     </f:facet>
-
 
                     <p:column>
                         #{mannschaft.klasse}
@@ -57,30 +43,29 @@
                         #{mannschaft.captain}
                     </p:column>
 
-
                     <p:column>
                         #{mannschaft.begleitperson}
                     </p:column>
-
-
 
                     <p:column>
                         #{mannschaft.schulhaus}
                     </p:column>
 
-
                     <p:column>
                         #{mannschaft.spieler}
                     </p:column>
 
-
+                    <p:columnGroup type="footer" >
+                        <p:row>
+                            <p:column colspan="5" footerText="Teilnehmerzahl: " style="text-align:right"/>
+                            <p:column footerText="#{team.total}" />
+                        </p:row>
+                    </p:columnGroup>
 
                 </p:subTable>
             </p:dataTable>
+
         </h:form>
-
-
-
 
     </ui:define>
 

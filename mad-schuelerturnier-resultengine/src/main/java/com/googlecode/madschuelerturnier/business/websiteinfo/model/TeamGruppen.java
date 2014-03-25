@@ -22,7 +22,7 @@ public class TeamGruppen {
         return mannschaften;
     }
 
-    public void addMannscgaft(Mannschaft mannschaften) {
+    public void addMannschaft(Mannschaft mannschaften) {
         this.mannschaften.add(mannschaften);
     }
 
