@@ -99,28 +99,41 @@
                 <plugins>
 
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
+                        <groupId>com.github.goldin</groupId>
+                        <artifactId>copy-maven-plugin</artifactId>
+                        <version>0.2.5</version>
                         <executions>
                             <execution>
+                                <id>create-archive</id>
                                 <phase>install</phase>
-                                <configuration>
-
-                                    <target>
-
-
-                                        <copy file="./target/${project.artifactId}-${project.version}.jar"
-                                              tofile="/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/test.jar" overwrite="true"/>
-                                    </target>
-
-                                </configuration>
                                 <goals>
-                                    <goal>run</goal>
+                                    <goal>copy</goal>
                                 </goals>
+                                <configuration>
+                                    <resources>
+                                        <!-- ~~~~~~~~~~~~~~ -->
+                                        <!-- Dropbox Copy: Windows -->
+                                        <!-- ~~~~~~~~~~~~~~ -->
+                                        <resource>
+                                            <targetPath>D:/db/Dropbox/shared/z_schuelerturnier/Informatik/app/</targetPath>
+                                            <file>${project.basedir}/target/${project.artifactId}-${project.version}.jar</file>
+                                            <destFileName>test.jar</destFileName>
+                                            <runIf>{{ new File( "D:/db/Dropbox/shared/z_schuelerturnier/Informatik/app", "test.jar" ).isFile() }}</runIf>
+                                        </resource>
+                                        <!-- ~~~~~~~~~~~~~~ -->
+                                        <!-- Dropbox Copy: Mac -->
+                                        <!-- ~~~~~~~~~~~~~~ -->
+                                        <resource>
+                                            <targetPath>/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app</targetPath>
+                                            <file>${project.basedir}/target/${project.artifactId}-${project.version}.jar</file>
+                                            <destFileName>test.jar</destFileName>
+                                            <runIf>{{ new File( "/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app", "test.jar" ).isFile() }}</runIf>
+                                        </resource>
+                                    </resources>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
-
                 </plugins>
             </build>
         </profile>
