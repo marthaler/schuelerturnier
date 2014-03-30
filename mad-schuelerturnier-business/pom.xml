@@ -113,9 +113,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.dropbox.core</groupId>
-            <artifactId>dropbox-core-sdk</artifactId>
-            <version>${dropbox.version}</version>
+            <groupId>com.googlecode.madschuelerturnier</groupId>
+            <artifactId>mad-schuelerturnier-dropboxinterface</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>

@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DropboxFileAspect {
 
-    private static final Logger LOG = Logger.getLogger(DropboxConnectorImpl.class);
+    private static final Logger LOG = Logger.getLogger(DropboxFileAspect.class);
 
     @Autowired
     private DropboxFileAsyncBean dropbox;

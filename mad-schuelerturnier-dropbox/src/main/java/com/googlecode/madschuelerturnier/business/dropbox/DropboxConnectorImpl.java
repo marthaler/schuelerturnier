@@ -1,3 +1,7 @@
+/***************************************************************************************************************************************************************************************************************************
+ * Copyright (C) Schweizerische Bundesbahnen SBB, 2014.
+ */
+
 package com.googlecode.madschuelerturnier.business.dropbox;
 
 import com.dropbox.core.*;
@@ -26,8 +30,6 @@ public class DropboxConnectorImpl implements DropboxConnector {
 
     private String selectedGame = "";
 
-    @Autowired
-    private DropboxOldDataLoader loader;
 
     private static final Logger LOG = Logger.getLogger(DropboxConnectorImpl.class);
 
@@ -79,7 +81,8 @@ public class DropboxConnectorImpl implements DropboxConnector {
                 LOG.error(e.getMessage(), e);
             }
         }
-        loader.loadData(this);
+        // TODO
+        //loader.loadData(this);
     }
 
     @Override

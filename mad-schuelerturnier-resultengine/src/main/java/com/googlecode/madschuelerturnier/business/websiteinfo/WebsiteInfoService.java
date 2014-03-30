@@ -38,22 +38,25 @@ public final class WebsiteInfoService {
 
     }
 
-    public List<TeamGruppen> getGeschlechtgruppen() {
-       return getGeschlechtgruppen(null);
+
+    public TeamGruppen getKnabenMannschaften(String jahr) {
+        return convertToGeschlechtgruppe(mannschaftRepo.findAll(),true);
     }
 
-    public List<TeamGruppen> getGeschlechtgruppen(String jahr) {
-        return convertToGeschlechtgruppe(mannschaftRepo.findAll());
+    public TeamGruppen getMaedchenMannschaften(String jahr) {
+        return convertToGeschlechtgruppe(mannschaftRepo.findAll(),false);
     }
 
-    private List<TeamGruppen> convertToGeschlechtgruppe(List<Mannschaft> mannschaften){
+    private TeamGruppen convertToGeschlechtgruppe(List<Mannschaft> mannschaften, boolean knaben){
         List<TeamGruppen> gruppen = new ArrayList<TeamGruppen>();
 
-        TeamGruppen maedchen = new TeamGruppen();
-        maedchen.setName("Die Mädchenteams");
+        TeamGruppen result = new TeamGruppen();
+        if(!knaben){
+            result.setName("Die Mädchenteams");
+        } else{
 
-        TeamGruppen knaben = new TeamGruppen();
-        knaben.setName("Die Knabenteams");
+            result.setName("Die Knabenteams");
+        }
 
         for(Mannschaft m : mannschaften){
             com.googlecode.madschuelerturnier.business.websiteinfo.model.Mannschaft ma = new com.googlecode.madschuelerturnier.business.websiteinfo.model.Mannschaft();
@@ -65,22 +68,21 @@ public final class WebsiteInfoService {
             ma.setSpieler(m.getAnzahlSpieler());
             ma.setSchulhaus(m.getSchulhaus());
 
-            if(m.getGeschlecht() == GeschlechtEnum.K){
-                knaben.addMannschaft(ma);
-                knaben.setTotal(knaben.getTotal() + ma.getSpieler());
-            } else{
-                maedchen.setTotal(maedchen.getTotal() + ma.getSpieler());
-                maedchen.addMannschaft(ma);
+            if(m.getGeschlecht() == GeschlechtEnum.K && knaben){
+                result.addMannschaft(ma);
+                result.setTotal(result.getTotal() + ma.getSpieler());
             }
+
+            if(m.getGeschlecht() == GeschlechtEnum.M && !knaben){
+                result.addMannschaft(ma);
+                result.setTotal(result.getTotal() + ma.getSpieler());
+            }
+
         }
 
         // sortieren nach klasse
-        Collections.sort(maedchen.getMannschaften(), new MannschaftsComperator());
-        Collections.sort(knaben.getMannschaften(), new MannschaftsComperator());
-
-        gruppen.add(maedchen);
-        gruppen.add(knaben);
-        return gruppen;
+        Collections.sort(result.getMannschaften(), new MannschaftsComperator());
+        return result;
 
     }
 

@@ -171,6 +171,8 @@
         <module>mad-schuelerturnier-dataloader</module>
         <module>mad-schuelerturnier-remoteclient</module>
         <module>mad-schuelerturnier-web-transport-subsystem</module>
+        <module>mad-schuelerturnier-dropbox</module>
+        <module>mad-schuelerturnier-dropboxinterface</module>
         <!--<module>mad-schuelerturnier-attic</module>-->
     </modules>
 
@@ -227,30 +229,9 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
         </dependency>
 
         <dependency>
@@ -258,28 +239,20 @@
             <artifactId>mockito-core</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-remoting</artifactId>
-        </dependency>
 
-        <dependency>
-            <groupId>com.caucho</groupId>
-            <artifactId>hessian</artifactId>
-            <version>4.0.33</version>
-        </dependency>
-
-        <dependency>
-            <groupId>burlap</groupId>
-            <artifactId>burlap</artifactId>
-            <version>2.1.7</version>
-        </dependency>
 
     </dependencies>
 
     <dependencyManagement>
 
         <dependencies>
+
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.1</version>
+            </dependency>
 
             <!-- weitere -->
             <dependency>

@@ -40,7 +40,8 @@ public class WebsiteInfoController {
             jahr = null;
         }
 
-        model.addAttribute("teams", service.getGeschlechtgruppen(jahr));
+        model.addAttribute("maedchen", service.getMaedchenMannschaften(jahr));
+        model.addAttribute("knaben", service.getKnabenMannschaften(jahr));
         return "website/info";
 
     }

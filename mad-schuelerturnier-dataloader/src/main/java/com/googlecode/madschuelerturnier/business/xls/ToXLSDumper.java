@@ -58,9 +58,9 @@ public class ToXLSDumper {
     }
 
     public byte[] mannschaftenFromDBtoXLS(SpielEinstellungen einst) {
-        List<SpielEinstellungen> korrekturen = new ArrayList<SpielEinstellungen>();
-        korrekturen.add(einst);
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), korrekturen, krepo.findAll(), authRepo.findAll(), frepo.findAll());
+        List<SpielEinstellungen> einstellungen = new ArrayList<SpielEinstellungen>();
+        einstellungen.add(einst);
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), einstellungen, krepo.findAll(), authRepo.findAll(), frepo.findAll());
     }
 
     protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<SpielEinstellungen> einstellungenIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn, List<File> filesIn) {
@@ -79,6 +79,18 @@ public class ToXLSDumper {
 
         if (spiele == null) {
             spiele = new ArrayList();
+        } else {
+            // setze dummy Mannschaften fuer das speichern der Finale
+            Mannschaft m = new Mannschaft();
+            m.setId(0l);
+            for(Spiel s : spiele){
+                if(s.getMannschaftA() == null){
+                    s.setMannschaftA(m);
+                }
+                if(s.getMannschaftB() == null){
+                    s.setMannschaftB(m);
+                }
+            }
         }
 
         if (mannschaften == null) {

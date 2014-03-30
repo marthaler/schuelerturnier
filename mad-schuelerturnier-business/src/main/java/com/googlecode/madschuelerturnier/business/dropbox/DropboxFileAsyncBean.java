@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DropboxFileAsyncBean {
 
-    private static final Logger LOG = Logger.getLogger(DropboxConnectorImpl.class);
+    private static final Logger LOG = Logger.getLogger(DropboxFileAsyncBean.class);
 
     @Autowired
     private DropboxConnector dropbox;

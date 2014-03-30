@@ -7,6 +7,7 @@ import com.googlecode.madschuelerturnier.model.*;
 import com.googlecode.madschuelerturnier.model.support.File;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import net.sf.jxls.reader.ReaderBuilder;
+import net.sf.jxls.reader.ReaderConfig;
 import net.sf.jxls.reader.XLSReadStatus;
 import net.sf.jxls.reader.XLSReader;
 import org.apache.log4j.Logger;
@@ -202,7 +203,6 @@ public class FromXLSLoader {
             LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
 
             return (List<File>) beans.get("attachements");
-
 
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);

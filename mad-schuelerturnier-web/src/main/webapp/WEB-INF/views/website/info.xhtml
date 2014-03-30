@@ -3,21 +3,17 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://java.sun.com/jsf/core"
                 template="../../layouts/root-naked.xhtml">
 
     <ui:define name="main">
 
         <h:form id="form">
 
-            <p:tabView dynamic="true" cache="true">
-                <p:tab title="Bla">
+            <p:tabView>
 
-                </p:tab>
-
-                <p:tab title="Teams">
+                <p:tab title="Mädchenteams">
                     <h:panelGrid columns="2" cellpadding="10">
-                        <p:dataTable id="tbl" var="team" value="#{teams}">
+                        <p:dataTable id="tbl" var="mmannschaft" value="#{maedchen.mannschaften}">
                             <p:columnGroup type="header">
                                 <p:row>
                                     <p:column colspan="2" headerText="Klasse" style="text-align:left"/>
@@ -27,38 +23,78 @@
                                     <p:column headerText="Gr." style="text-align:left"/>
                                 </p:row>
                             </p:columnGroup>
-                            <p:subTable var="mannschaft" value="#{team.mannschaften}">
-                                <f:facet name="header">
-                                    #{team.name}
-                                </f:facet>
-                                <p:column>
-                                    #{mannschaft.klasse}
-                                </p:column>
-                                <p:column>
-                                    #{mannschaft.klassenname}
-                                </p:column>
-                                <p:column>
-                                    #{mannschaft.captain}
-                                </p:column>
-                                <p:column>
-                                    #{mannschaft.begleitperson}
-                                </p:column>
-                                <p:column>
-                                    #{mannschaft.schulhaus}
-                                </p:column>
-                                <p:column>
-                                    #{mannschaft.spieler}
-                                </p:column>
-                                <p:columnGroup type="footer">
-                                    <p:row>
-                                        <p:column colspan="5" footerText="Teilnehmerzahl: " style="text-align:right"/>
-                                        <p:column footerText="#{team.total}"/>
-                                    </p:row>
-                                </p:columnGroup>
-                            </p:subTable>
+
+                            <p:column>
+                                #{mmannschaft.klasse}
+                            </p:column>
+                            <p:column>
+                                #{mmannschaft.klassenname}
+                            </p:column>
+                            <p:column>
+                                #{mmannschaft.captain}
+                            </p:column>
+                            <p:column>
+                                #{mmannschaft.begleitperson}
+                            </p:column>
+                            <p:column>
+                                #{mmannschaft.schulhaus}
+                            </p:column>
+                            <p:column>
+                                #{mmannschaft.spieler}
+                            </p:column>
+                            <p:columnGroup type="footer">
+                                <p:row>
+                                    <p:column colspan="5" footerText="Teilnehmerinnen Total: " style="text-align:right"/>
+                                    <p:column footerText="#{maedchen.total}"/>
+                                </p:row>
+                            </p:columnGroup>
+
                         </p:dataTable>
                     </h:panelGrid>
                 </p:tab>
+
+                <p:tab title="Knabenteams">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:dataTable id="tbl" var="kmannschaft" value="#{knaben.mannschaften}">
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column colspan="2" headerText="Klasse" style="text-align:left"/>
+                                    <p:column headerText="Captain" style="text-align:left"/>
+                                    <p:column headerText="Begleitperson" style="text-align:left"/>
+                                    <p:column headerText="Schulhaus" style="text-align:left"/>
+                                    <p:column headerText="Gr." style="text-align:left"/>
+                                </p:row>
+                            </p:columnGroup>
+
+                            <p:column>
+                                #{kmannschaft.klasse}
+                            </p:column>
+                            <p:column>
+                                #{kmannschaft.klassenname}
+                            </p:column>
+                            <p:column>
+                                #{kmannschaft.captain}
+                            </p:column>
+                            <p:column>
+                                #{kmannschaft.begleitperson}
+                            </p:column>
+                            <p:column>
+                                #{kmannschaft.schulhaus}
+                            </p:column>
+                            <p:column>
+                                #{kmannschaft.spieler}
+                            </p:column>
+                            <p:columnGroup type="footer">
+                                <p:row>
+                                    <p:column colspan="5" footerText="Teilnehmer Total: " style="text-align:right"/>
+                                    <p:column footerText="#{knaben.total}"/>
+                                </p:row>
+                            </p:columnGroup>
+
+                        </p:dataTable>
+                    </h:panelGrid>
+                </p:tab>
+
             </p:tabView>
 
         </h:form>
