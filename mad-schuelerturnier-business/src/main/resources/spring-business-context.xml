@@ -34,10 +34,11 @@
         </property>
     </bean>
 
-    <!-- dropbox-->
+    <!-- dropbox
     <bean id="DropboxConnector" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
         <property name="serviceUrl" value="rmi://127.0.0.1:1199/DropboxConnector"/>
         <property name="serviceInterface" value="com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector"/>
     </bean>
+    -->
 
 </beans>

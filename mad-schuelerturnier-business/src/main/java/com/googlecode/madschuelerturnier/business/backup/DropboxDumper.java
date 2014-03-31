@@ -10,6 +10,7 @@ import com.googlecode.madschuelerturnier.model.callback.ModelChangeListener;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListenerManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +36,7 @@ public class DropboxDumper implements ModelChangeListener {
     private ToXLSDumper dumper;
 
     @Autowired
+    @Qualifier("dropboxConnector")
     private DropboxConnector dropbox;
 
     @Autowired

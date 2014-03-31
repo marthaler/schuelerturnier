@@ -6,6 +6,7 @@ package com.googlecode.madschuelerturnier.business.dropbox;
 import com.googlecode.madschuelerturnier.model.support.File;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,7 @@ public class DropboxFileAsyncBean {
     private static final Logger LOG = Logger.getLogger(DropboxFileAsyncBean.class);
 
     @Autowired
+    @Qualifier("dropboxConnector")
     private DropboxConnector dropbox;
 
     @Async

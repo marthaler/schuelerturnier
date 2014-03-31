@@ -25,11 +25,10 @@ import java.util.Locale;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8
  */
-@Component
+@Component("localDropboxConnector")
 public class DropboxConnectorImpl implements DropboxConnector {
 
     private String selectedGame = "";
-
 
     private static final Logger LOG = Logger.getLogger(DropboxConnectorImpl.class);
 

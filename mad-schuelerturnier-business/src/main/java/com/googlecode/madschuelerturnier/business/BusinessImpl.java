@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -90,6 +91,7 @@ public class BusinessImpl implements Business {
     private ImportHandler importHandler;
 
     @Autowired
+    @Qualifier("dropboxConnector")
     private DropboxConnector dropbox;
 
     private SpielEinstellungen einstellungen;
