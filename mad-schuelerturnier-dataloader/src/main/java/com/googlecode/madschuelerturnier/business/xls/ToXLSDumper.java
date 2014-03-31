@@ -51,19 +51,22 @@ public class ToXLSDumper {
     @Autowired
     private FileRepository frepo;
 
+    @Autowired
+    private TextRepository trepo;
+
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
 
     public byte[] mannschaftenFromDBtoXLS() {
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), seinst.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), seinst.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll());
     }
 
     public byte[] mannschaftenFromDBtoXLS(SpielEinstellungen einst) {
         List<SpielEinstellungen> einstellungen = new ArrayList<SpielEinstellungen>();
         einstellungen.add(einst);
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), einstellungen, krepo.findAll(), authRepo.findAll(), frepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), einstellungen, krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll());
     }
 
-    protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<SpielEinstellungen> einstellungenIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn, List<File> filesIn) {
+    protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<SpielEinstellungen> einstellungenIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn, List<File> filesIn,List<Text> texteIn) {
 
         List<SpielEinstellungen> einstellungen = einstellungenIn;
         List<Spiel> spiele = spieleIn;
@@ -71,6 +74,7 @@ public class ToXLSDumper {
         List<Korrektur> korrekturen = korrekturenIn;
         List<DBAuthUser> users = usersIn;
         List<File> files = filesIn;
+        List<Text> texte = texteIn;
 
         // SpielEinstellungen aufbereiten
         if (einstellungen == null) {
@@ -109,6 +113,10 @@ public class ToXLSDumper {
             files = new ArrayList();
         }
 
+        if (texte == null) {
+            texte = new ArrayList();
+        }
+
         Map beans = new HashMap();
 
         beans.put("mannschaften", mannschaften);
@@ -117,6 +125,7 @@ public class ToXLSDumper {
         beans.put("korrekturen", korrekturen);
         beans.put("users", users);
         beans.put("attachements", files);
+        beans.put("texte", texte);
 
         XLSTransformer transformer = new XLSTransformer();
         byte[] arr = readFreshTemplate();

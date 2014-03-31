@@ -211,5 +211,34 @@ public class FromXLSLoader {
         return null;
     }
 
+    public List<Text> convertXLSToTexte(byte[] arr) {
+
+        try {
+
+            InputStream inputXML = new BufferedInputStream(getClass().getResourceAsStream("/jxls-text-mapping.xml"));
+            XLSReader mainReader = ReaderBuilder.buildFromXML(inputXML);
+
+            InputStream inputXLS = new ByteArrayInputStream(arr);
+
+            List texte = new ArrayList();
+            Text text = new Text();
+
+            Map beans = new HashMap();
+            beans.put("texte", texte);
+            beans.put("text", text);
+
+            XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
+
+            LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
+
+            return (List<Text>) beans.get("texte");
+
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+
+        return null;
+    }
+
 
 }

@@ -5,6 +5,7 @@ package com.googlecode.madschuelerturnier.model;
 
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 
+import com.googlecode.madschuelerturnier.model.util.XstreamUtil;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.joda.time.DateTime;
@@ -20,6 +21,8 @@ import java.util.Date;
 public class SpielEinstellungen extends Persistent {
 
     private static final long serialVersionUID = 1L;
+
+    private String xstreamField;
 
     private SpielPhasenEnum phase = SpielPhasenEnum.A_ANMELDEPHASE;
 
@@ -260,5 +263,15 @@ public class SpielEinstellungen extends Persistent {
 
     public void setWebsiteInMannschaftslistenmode(boolean websiteInMannschaftslistenmode) {
         this.websiteInMannschaftslistenmode = websiteInMannschaftslistenmode;
+    }
+
+    public String getXstreamField() {
+        this.xstreamField = "";
+        this.xstreamField = XstreamUtil.serializeToString(this);
+        return xstreamField;
+    }
+
+    public void setXstreamField(String xstreamField) {
+        this.xstreamField = xstreamField;
     }
 }

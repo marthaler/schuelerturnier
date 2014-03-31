@@ -16,6 +16,7 @@ import com.googlecode.madschuelerturnier.model.comperators.KategorieNameComperat
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
 import com.googlecode.madschuelerturnier.model.integration.StartFile;
+import com.googlecode.madschuelerturnier.model.util.XstreamUtil;
 import com.googlecode.madschuelerturnier.persistence.repository.*;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
@@ -93,6 +94,9 @@ public class BusinessImpl implements Business {
     @Autowired
     @Qualifier("dropboxConnector")
     private DropboxConnector dropbox;
+
+    @Autowired
+    private TextRepository trepo;
 
     private SpielEinstellungen einstellungen;
 
@@ -249,8 +253,18 @@ public class BusinessImpl implements Business {
     public SpielEinstellungen getSpielEinstellungen() {
 
         // noch nicht im cache
-        if (this.einstellungen == null && this.spielEinstellungenRepo.count() > 0) {
-            this.einstellungen = this.spielEinstellungenRepo.findAll().get(0);
+        if (this.einstellungen == null) {
+if(this.trepo == null){
+    return null;
+}
+            Text einstellungsstring = trepo.findTextByKey("einstellungen");
+            if(einstellungsstring != null && einstellungsstring.getValue().length() > 2){
+                this.einstellungen = (SpielEinstellungen) XstreamUtil.deserializeFromString(einstellungsstring.getValue());
+            } else if( this.spielEinstellungenRepo.count() > 0){
+
+                this.einstellungen = this.spielEinstellungenRepo.findAll().get(0);
+            }
+
         }
 
         // einstellungen bereits im cache
@@ -297,6 +311,17 @@ public class BusinessImpl implements Business {
 
 
         this.einstellungen = this.spielEinstellungenRepo.save(einstellungenNeu);
+
+        // neu als Text mit Xstream
+       Text einstellungString = this.trepo.findTextByKey("einstellung");
+
+        if(einstellungString == null){
+            einstellungString = new Text();
+            einstellungString.setKey("einstellung");
+        }
+        einstellungString.setValue(XstreamUtil.serializeToString(einstellungen));
+        trepo.save(einstellungString);
+
         this.einstellungeHash = this.einstellungen.hashCode();
         return this.einstellungen;
     }
