@@ -7,7 +7,9 @@
  */
 package com.googlecode.madschuelerturnier.web.controllers;
 
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.websiteinfo.WebsiteInfoService;
+import com.googlecode.madschuelerturnier.web.SpielstatusWebBean;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -32,6 +34,10 @@ public class WebsiteInfoController {
 
     @Autowired
     private WebsiteInfoService service;
+    @Autowired
+    private Business business;
+    @Autowired
+    private SpielstatusWebBean spielstatusWebBean;
 
     @RequestMapping(value = "/info/{jahr}", method = RequestMethod.GET)
     public String getWebsiteinfo(@PathVariable("jahr") String jahr, Model model) {
@@ -42,6 +48,9 @@ public class WebsiteInfoController {
 
         model.addAttribute("maedchen", service.getMaedchenMannschaften(jahr));
         model.addAttribute("knaben", service.getKnabenMannschaften(jahr));
+        model.addAttribute("einstellungen", business.getSpielEinstellungen());
+        model.addAttribute("spielstatusWebBean", spielstatusWebBean);
+
         return "website/info";
 
     }

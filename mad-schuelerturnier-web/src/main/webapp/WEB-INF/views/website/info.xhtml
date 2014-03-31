@@ -12,11 +12,51 @@
             <p:tabView>
 
                 <p:tab title="Mädchenteams">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <p:dataTable id="tbl" var="mmannschaft" value="#{maedchen.mannschaften}">
+                    <!-- listenmode maedchen -->
+                    <h:panelGrid columns="2" cellpadding="10"  >
+                        <p:dataTable id="tbl" var="mmannschaft" value="#{maedchen.mannschaften}" rendered="#{einstellungen.websiteInMannschaftslistenmode or spielstatusWebBean.anmeldephase}">
                             <p:columnGroup type="header">
                                 <p:row>
                                     <p:column colspan="2" headerText="Klasse" style="text-align:left"/>
+                                    <p:column headerText="Captain" style="text-align:left"/>
+                                    <p:column headerText="Begleitperson" style="text-align:left"/>
+                                    <p:column headerText="Schulhaus" style="text-align:left"/>
+                                    <p:column headerText="Gr." style="text-align:left"/>
+                                </p:row>
+                            </p:columnGroup>
+
+                            <p:column>
+                                #{business.spielEinstellungen.websiteInMannschaftslistenmode}
+                                #{mmannschaft.klasse}
+                            </p:column>
+                            <p:column>
+                                #{mmannschaft.klassenname}
+                            </p:column>
+                            <p:column>
+                                #{mmannschaft.captain}
+                            </p:column>
+                            <p:column>
+                                #{mmannschaft.begleitperson}
+                            </p:column>
+                            <p:column>
+                                #{mmannschaft.schulhaus}
+                            </p:column>
+                            <p:column>
+                                #{mmannschaft.spieler}
+                            </p:column>
+                            <p:columnGroup type="footer">
+                                <p:row>
+                                    <p:column colspan="5" footerText="Teilnehmerinnen Total: " style="text-align:right"/>
+                                    <p:column footerText="#{maedchen.total}"/>
+                                </p:row>
+                            </p:columnGroup>
+
+                        </p:dataTable>
+
+                        <p:dataTable id="tb2" var="mmannschaft" value="#{maedchen.mannschaften}" rendered="#{!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase}">
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column colspan="2" headerText="Klasse  --> kat" style="text-align:left"/>
                                     <p:column headerText="Captain" style="text-align:left"/>
                                     <p:column headerText="Begleitperson" style="text-align:left"/>
                                     <p:column headerText="Schulhaus" style="text-align:left"/>
@@ -55,7 +95,7 @@
 
                 <p:tab title="Knabenteams">
                     <h:panelGrid columns="2" cellpadding="10">
-                        <p:dataTable id="tbl" var="kmannschaft" value="#{knaben.mannschaften}">
+                        <p:dataTable id="tb3" var="kmannschaft" value="#{knaben.mannschaften}" rendered="#{einstellungen.websiteInMannschaftslistenmode or spielstatusWebBean.anmeldephase}">
                             <p:columnGroup type="header">
                                 <p:row>
                                     <p:column colspan="2" headerText="Klasse" style="text-align:left"/>
@@ -92,7 +132,49 @@
                             </p:columnGroup>
 
                         </p:dataTable>
-                    </h:panelGrid>
+
+
+
+                    <p:dataTable id="tb4" var="kmannschaft" value="#{knaben.mannschaften}" rendered="#{!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase}">
+                        <p:columnGroup type="header">
+                            <p:row>
+                                <p:column colspan="2" headerText="Klasse --> kategorien" style="text-align:left"/>
+                                <p:column headerText="Captain" style="text-align:left"/>
+                                <p:column headerText="Begleitperson" style="text-align:left"/>
+                                <p:column headerText="Schulhaus" style="text-align:left"/>
+                                <p:column headerText="Gr." style="text-align:left"/>
+                            </p:row>
+                        </p:columnGroup>
+
+                        <p:column>
+                            #{kmannschaft.klasse}
+                        </p:column>
+                        <p:column>
+                            #{kmannschaft.klassenname}
+                        </p:column>
+                        <p:column>
+                            #{kmannschaft.captain}
+                        </p:column>
+                        <p:column>
+                            #{kmannschaft.begleitperson}
+                        </p:column>
+                        <p:column>
+                            #{kmannschaft.schulhaus}
+                        </p:column>
+                        <p:column>
+                            #{kmannschaft.spieler}
+                        </p:column>
+                        <p:columnGroup type="footer">
+                            <p:row>
+                                <p:column colspan="5" footerText="Teilnehmer Total: " style="text-align:right"/>
+                                <p:column footerText="#{knaben.total}"/>
+                            </p:row>
+                        </p:columnGroup>
+
+                    </p:dataTable>
+                </h:panelGrid>
+
+
                 </p:tab>
 
             </p:tabView>

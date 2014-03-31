@@ -20,8 +20,11 @@
     <p:commandButton id="masteron" value="Dieser Node ist der Master" action="setmaster" disabled="true" ajax="false" rendered="#{integrationControllerImpl.isMaster()}" />
 </p:fieldset>
 
+
+<p:commandButton  id="refresh"  widgetWar="refresh" value="Refresh" ajax="false" style="display: none" />
+
 <br/>
-<p:tabView orientation="top">
+<p:tabView orientation="top" id="tabview">
 
 <p:tab title="Messaging">
     <h:panelGrid columns="2" cellpadding="0">
@@ -59,23 +62,30 @@
     </h:panelGrid>
 </p:tab>
 
-<p:tab title="Schirizettel">
-    <h:panelGrid columns="2" cellpadding="0">
+<p:tab id="schirizettel" title="Schirizettel">
 
 
-        <h:panelGrid columns="2" style="margin-bottom:10px">
-
+        <h:panelGrid id="panel" columns="2" style="margin-bottom:10px">
 
             <h:outputText value="Schrizettelscanner im Demo Modus laufen lassen"/>
-            <p:selectBooleanCheckbox
+            <p:selectBooleanCheckbox onchange="document.getElementById('form1:refresh').click()"
                     id="webcamdemomode" value="#{business.spielEinstellungen.webcamdemomode}"
                     ajax="true" update="form1">
             </p:selectBooleanCheckbox>
 
+    </h:panelGrid>
+</p:tab>
 
-            <p:commandButton  id="refresh"  widgetWar="refresh" value="Refresh" ajax="false"/>
+<p:tab id="websitepublicher" title="Websitepublisher">
 
-        </h:panelGrid>
+
+    <h:panelGrid id="panel2" columns="2" style="margin-bottom:10px">
+
+        <h:outputText value="Mannschaftsliste nicht nach Kategorien sortieren"/>
+        <p:selectBooleanCheckbox onchange="document.getElementById('form1:refresh').click()"
+                                 id="websiteInMannschaftslistenmode" value="#{business.spielEinstellungen.websiteInMannschaftslistenmode}"
+                                 ajax="true" update="form1">
+        </p:selectBooleanCheckbox>
 
     </h:panelGrid>
 </p:tab>

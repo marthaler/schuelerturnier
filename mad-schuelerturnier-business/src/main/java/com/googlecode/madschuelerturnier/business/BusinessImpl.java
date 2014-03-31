@@ -684,10 +684,22 @@ if(this.trepo == null){
 
         this.initialized = true;
 
+        // Texte sichern
+        List<Text> text = xls.convertXLSToTexte(xlsIn);
+        trepo.save(text);
+        LOG.info("texte gespeicher: " + text);
+
+        // todo entfernen wenn alle konvertiert nach text
         // Einstellungen sichern
         SpielEinstellungen einstellungen = xls.convertXLSToEinstellung(xlsIn);
-        saveEinstellungen(einstellungen);
-        LOG.info("einstellungen gespeicher: " + einstellungen);
+        if(einstellungen == null){
+            LOG.info("einstellungen NICHT gespeicher: " + einstellungen);
+        } else{
+
+            this.spielEinstellungenRepo.save(einstellungen);
+            LOG.info("einstellungen gespeicher: " + einstellungen);
+        }
+
 
         // Mannschaften laden und updaten
         List<Mannschaft> mannschaftsliste = xls.convertXLSToMannschaften(xlsIn);

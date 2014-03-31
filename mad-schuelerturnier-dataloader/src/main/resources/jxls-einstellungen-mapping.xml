@@ -7,7 +7,7 @@
         <loop startRow="1" endRow="18" items="einstellungen" var="einstellung"
               varType="com.googlecode.madschuelerturnier.model.SpielEinstellungen">
             <section startRow="1" endRow="18">
-                <mapping row="1" col="1">einstellung.xstreamField</mapping>
+                <mapping row="1" col="1">einstellung.spielPhaseString</mapping>
                 <mapping row="2" col="1">einstellung.starttag</mapping>
                 <mapping row="3" col="1">einstellung.starttagstr</mapping>
                 <mapping row="4" col="1">einstellung.test</mapping>
@@ -23,7 +23,6 @@
                 <mapping row="14" col="1">einstellung.abbrechenZulassen</mapping>
                 <mapping row="15" col="1">einstellung.gongEinschalten</mapping>
                 <mapping row="16" col="1">einstellung.behandleFinaleProKlassebeiZusammengefuehrten</mapping>
-
             </section>
             <loopbreakcondition>
                 <rowcheck offset="0">

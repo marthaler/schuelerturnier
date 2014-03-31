@@ -22,8 +22,6 @@ public class SpielEinstellungen extends Persistent {
 
     private static final long serialVersionUID = 1L;
 
-    private String xstreamField;
-
     private SpielPhasenEnum phase = SpielPhasenEnum.A_ANMELDEPHASE;
 
     private Date starttag = new Date();
@@ -265,13 +263,4 @@ public class SpielEinstellungen extends Persistent {
         this.websiteInMannschaftslistenmode = websiteInMannschaftslistenmode;
     }
 
-    public String getXstreamField() {
-        this.xstreamField = "";
-        this.xstreamField = XstreamUtil.serializeToString(this);
-        return xstreamField;
-    }
-
-    public void setXstreamField(String xstreamField) {
-        this.xstreamField = xstreamField;
-    }
 }
