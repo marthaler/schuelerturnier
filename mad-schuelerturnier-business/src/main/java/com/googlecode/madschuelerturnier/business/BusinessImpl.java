@@ -96,6 +96,8 @@ public class BusinessImpl implements Business {
 
     private SpielEinstellungen einstellungen;
 
+    private int einstellungeHash=0;
+
     final Set<String> schulhaeuser = new HashSet<String>();
 
     final Set<String> namen = new HashSet<String>();
@@ -283,7 +285,7 @@ public class BusinessImpl implements Business {
         }
 
         // falls keine aenderung wird einstellung zurueckgegeben
-        if (this.einstellungen != null && einstellungenNeu.equals(this.einstellungen)) {
+        if (this.einstellungen != null && einstellungenNeu.hashCode() == this.einstellungeHash) {
             return einstellungenNeu;
         }
 
@@ -295,6 +297,7 @@ public class BusinessImpl implements Business {
 
 
         this.einstellungen = this.spielEinstellungenRepo.save(einstellungenNeu);
+        this.einstellungeHash = this.einstellungen.hashCode();
         return this.einstellungen;
     }
 

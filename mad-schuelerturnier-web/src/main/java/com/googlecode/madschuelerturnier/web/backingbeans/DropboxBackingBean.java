@@ -30,7 +30,7 @@ public class DropboxBackingBean {
     private boolean willNotConnect = false;
 
     @Autowired
-    @Qualifier("localDropboxConnector")
+    @Qualifier("dropboxConnector")
     private DropboxConnector connector;
 
     public void save() {

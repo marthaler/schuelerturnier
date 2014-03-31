@@ -21,6 +21,7 @@ import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 
 /**
@@ -58,7 +59,7 @@ public class DropboxWeiche implements DropboxConnector{
     @Override
     public Boolean isConnected() {
        if(isLocal()){
-          return this.isConnected();
+          return this.connector.isConnected();
        }else {
            return this.connectorRemote.isConnected();
        }
@@ -67,7 +68,7 @@ public class DropboxWeiche implements DropboxConnector{
     @Override
     public String getLoginURL() {
         if(isLocal()){
-            return this.getLoginURL();
+            return this.connector.getLoginURL();
         }else {
             return this.connectorRemote.getLoginURL();
         }
@@ -76,7 +77,7 @@ public class DropboxWeiche implements DropboxConnector{
     @Override
     public void insertToken(String token) {
         if(isLocal()){
-            this.insertToken(token);
+            this.connector.insertToken(token);
         }else {
             this.connectorRemote.insertToken(token);
         }
@@ -85,7 +86,7 @@ public class DropboxWeiche implements DropboxConnector{
     @Override
     public List<String> getFilesInFolder() {
         if(isLocal()){
-            return this.getFilesInFolder();
+            return this.connector.getFilesInFolder();
         }else {
             return this.connectorRemote.getFilesInFolder();
         }
@@ -94,7 +95,7 @@ public class DropboxWeiche implements DropboxConnector{
     @Override
     public List<String> getFilesInAltFolder() {
         if(isLocal()){
-            return this.getFilesInAltFolder();
+            return this.connector.getFilesInAltFolder();
         }else {
             return this.connectorRemote.getFilesInAltFolder();
         }
@@ -103,7 +104,7 @@ public class DropboxWeiche implements DropboxConnector{
     @Override
     public byte[] loadFile(String file) {
         if(isLocal()){
-            return this.loadFile(file);
+            return this.connector.loadFile(file);
         }else {
             return this.connectorRemote.loadFile(file);
         }
@@ -112,43 +113,43 @@ public class DropboxWeiche implements DropboxConnector{
     @Override
     public void saveFile(String file, byte[] content) {
         if(isLocal()){
-            this.saveFile(file, content);
+            this.connector.saveFile(file, content);
         }else {
-            this.saveFile(file,content);
+            this.connectorRemote.saveFile(file,content);
         }
     }
 
     @Override
     public byte[] selectGame(String folder) {
         if(isLocal()){
-            return this.selectGame(folder);
+            return this.connector.selectGame(folder);
         }else {
-            return this.selectGame( folder);
+            return this.connectorRemote.selectGame( folder);
         }
     }
 
     @Override
     public List<String> getAllGames() {
         if(isLocal()){
-            return this.getFilesInAltFolder();
+            return this.connector.getAllGames();
         }else {
-            return this.connectorRemote.getFilesInAltFolder();
+            return this.connectorRemote.getAllGames();
         }
     }
 
     @Override
     public String getSelectedGame() {
         if(isLocal()){
-            return this.getSelectedGame();
+            return this.connector.getSelectedGame();
         }else {
-            return this.getSelectedGame();
+            return this.connectorRemote.getSelectedGame();
         }
     }
 
     @Override
     public byte[] loadGameAttachemt(String file) {
         if(isLocal()){
-            return this.loadGameAttachemt(file);
+            return this.connector.loadGameAttachemt(file);
         }else {
             return this.connectorRemote.loadGameAttachemt( file);
         }
@@ -157,7 +158,7 @@ public class DropboxWeiche implements DropboxConnector{
     @Override
     public void saveGameAttachemt(String file, String suffix, byte[] content) {
         if(isLocal()){
-            this.saveGame(content);
+            this.connector.saveGame(content);
         }else {
             this.connectorRemote.saveGame(content);
         }
@@ -166,7 +167,7 @@ public class DropboxWeiche implements DropboxConnector{
     @Override
     public void deleteGameAttachemt(String file) {
         if(isLocal()){
-            this.deleteGameAttachemt(file);
+            this.connector.deleteGameAttachemt(file);
         }else {
             this.connectorRemote.deleteGameAttachemt(file);
         }
@@ -175,7 +176,7 @@ public class DropboxWeiche implements DropboxConnector{
     @Override
     public void saveGame(byte[] content) {
         if(isLocal()){
-            this.saveGame(content);
+            this.connector.saveGame(content);
         }else {
             this.connectorRemote.saveGame(content);
         }
