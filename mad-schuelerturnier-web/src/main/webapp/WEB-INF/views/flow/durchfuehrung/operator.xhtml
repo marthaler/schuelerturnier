@@ -76,25 +76,29 @@
     </h:panelGrid>
 </p:tab>
 
-<p:tab id="websitepublicher" title="Websitepublisher">
+<p:tab id="websitepublisher" title="Websitepublisher">
 
-
-    <h:panelGrid id="panel2" columns="2" style="margin-bottom:10px">
-
+    <h:panelGrid  columns="2" style="margin-bottom:10px">
         <h:outputText value="Mannschaftsliste nicht nach Kategorien sortieren"/>
         <p:selectBooleanCheckbox onchange="document.getElementById('form1:refresh').click()"
                                  id="websiteInMannschaftslistenmode" value="#{business.spielEinstellungen.websiteInMannschaftslistenmode}"
                                  ajax="true" update="form1">
         </p:selectBooleanCheckbox>
-
     </h:panelGrid>
 </p:tab>
 
+<p:tab id="Spielplanung" title="Spielplanung">
+    <h:panelGrid id="panel2" columns="2" style="margin-bottom:10px">
+        <h:outputText value="Bis- und mit Klassen haben 2 Pausen:"/>
+        <h:panelGrid columns="1" style="margin-bottom:10px">
+            <p:inputText id="txt1" value="#{business.spielEinstellungen.zweiPausenBisKlasse}" onchange="document.getElementById('form1:refresh').click()"/>
+            <p:slider for="txt1" minValue="0" maxValue = "9"/>
+        </h:panelGrid>
+    </h:panelGrid>
+</p:tab>
 
 <p:tab title="Alles andere">
 <h:panelGrid columns="2" cellpadding="10">
-
-
 
 <h:inputHidden id="txt2" value="#{spieleinstellungen.aufholzeitInSekunden}"/>
 <p:fieldset legend="Spielsteuerung">
@@ -105,7 +109,6 @@
 <p:separator id="customSeparator33"/>
 
 <h:panelGrid columns="2" id="grid01" style="margin-bottom:10px" cellpadding="5">
-
 
     <h:outputText value="Spielabbruch durch Speaker erlauben"/>
     <p:selectBooleanCheckbox
@@ -146,7 +149,6 @@
     <p:slider for="minutenZumVorbereiten" display="output4"
               displayTemplate="Minuten fuer Vorbereitungsansage: {value}" ajax="true"
               minValue="1" maxValue="10" style="width:200px"/>
-
 
     <h:outputText id="is1Active"
                   value="Wartende Spiele ausblenden"/>

@@ -434,8 +434,11 @@ if(this.trepo == null){
         }
 
         SpielZeile vorher = null;
+        SpielZeile vorVorher = null;
+
         for (final SpielZeile spielZeile : ret) {
-            this.val.validateSpielZeilen(vorher, spielZeile);
+            this.val.validateSpielZeilen(vorher, vorVorher,spielZeile);
+            vorVorher = vorher;
             vorher = spielZeile;
         }
 

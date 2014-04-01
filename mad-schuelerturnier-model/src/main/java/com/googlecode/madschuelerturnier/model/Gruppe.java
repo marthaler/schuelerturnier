@@ -72,6 +72,18 @@ public class Gruppe extends Persistent {
         return geschlecht;
     }
 
+    public int evaluateFloorKlasse(){
+        if(this.mannschaften == null || this.mannschaften.size() <1){
+            return -1;
+        }
+        int ret = 11;
+        for(Mannschaft m : this.mannschaften){
+            if(m.getKlasse() < ret){
+                ret = m.getKlasse();
+            }
+        }
+        return ret;
+    }
 
     /**
      * fuegt eine mannschaft der Liste hinzu wenn versucht wird eine mannschaft

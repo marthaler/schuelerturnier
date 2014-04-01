@@ -60,6 +60,9 @@ public class SpielEinstellungen extends Persistent {
 
     private boolean websiteInMannschaftslistenmode = false;
 
+    // 05 Spielverteilung
+    private int zweiPausenBisKlasse = 0;
+
     public SpielEinstellungen() {
         DateTime date = new DateTime();
         date.withDate(2013, 6, 8);
@@ -263,4 +266,11 @@ public class SpielEinstellungen extends Persistent {
         this.websiteInMannschaftslistenmode = websiteInMannschaftslistenmode;
     }
 
+    public int getZweiPausenBisKlasse() {
+        return zweiPausenBisKlasse;
+    }
+
+    public void setZweiPausenBisKlasse(int zweiPausenBisKlasse) {
+        this.zweiPausenBisKlasse = zweiPausenBisKlasse;
+    }
 }

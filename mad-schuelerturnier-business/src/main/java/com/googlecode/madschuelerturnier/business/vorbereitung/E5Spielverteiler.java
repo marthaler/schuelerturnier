@@ -49,6 +49,8 @@ public class E5Spielverteiler {
 
         behandleFinalspielzeilen();
 
+        SpielZeile vorherVorher = null;
+
         SpielZeile vorher = null;
 
         List<SpielZeile> gruppenSpieleZeilen = spielzeilenRepo.findGruppenSpielZeilen();
@@ -57,20 +59,23 @@ public class E5Spielverteiler {
 
         helper.init(gruppenSpiele);
 
-        for (SpielZeile zeilen : gruppenSpieleZeilen) {
+        for (SpielZeile zeileJetzt : gruppenSpieleZeilen) {
 
-            if (zeilen.isPause() && !isSamstagNachNeuekategoriesperre(zeilen)) {
-                vorher = zeilen;
+            if (zeileJetzt.isPause() && !isSamstagNachNeuekategoriesperre(zeileJetzt)) {
+                vorherVorher = vorher;
+                vorher = zeileJetzt;
                 continue;
             }
 
-            stopA(vorher, gruppenSpiele, zeilen);
+            stopA(vorher, vorherVorher ,gruppenSpiele, zeileJetzt);
 
-            stopB(vorher, gruppenSpiele, zeilen);
+            stopB(vorher, vorherVorher,gruppenSpiele, zeileJetzt);
 
-            stopC(vorher, gruppenSpiele, zeilen);
+            stopC(vorher, vorherVorher,gruppenSpiele, zeileJetzt);
 
-            vorher = spielzeilenRepo.save(zeilen);
+            vorherVorher = vorher;
+
+            vorher = spielzeilenRepo.save(zeileJetzt);
 
         }
 
@@ -90,7 +95,7 @@ public class E5Spielverteiler {
 
     }
 
-    private void stopA(SpielZeile vorher, List<Spiel> gruppenSpiele, SpielZeile zeilen) {
+    private void stopA(SpielZeile vorher,SpielZeile vorherVorher,List<Spiel> gruppenSpiele, SpielZeile zeilen) {
         boolean stopA = false;
 
         int iA = 0;
@@ -108,7 +113,9 @@ public class E5Spielverteiler {
             zeilen.setKonfliktText(null);
             zeilen.setPause(false);
 
-            String ret = val.validateSpielZeilen(vorher, zeilen);
+            String ret = "";
+            ret = val.validateSpielZeilen(vorher, vorherVorher, zeilen);
+
             if (ret == null || ret.equals("")) {
                 gruppenSpiele.remove(tempSpiel);
                 helper.consumeSpiel(tempSpiel);
@@ -121,7 +128,7 @@ public class E5Spielverteiler {
         }
     }
 
-    private void stopC(SpielZeile vorher, List<Spiel> gruppenSpiele, SpielZeile zeilen) {
+    private void stopC(SpielZeile vorher, SpielZeile vorherVorher,List<Spiel> gruppenSpiele, SpielZeile zeilen) {
         boolean stopC = false;
 
         int iC = 0;
@@ -139,7 +146,9 @@ public class E5Spielverteiler {
             zeilen.setKonfliktText(null);
             zeilen.setPause(false);
 
-            String ret = val.validateSpielZeilen(vorher, zeilen);
+            String ret = "";
+            ret = val.validateSpielZeilen(vorher, vorherVorher, zeilen);
+
             if (ret == null || ret.equals("")) {
                 helper.consumeSpiel(tempSpiel);
                 gruppenSpiele.remove(tempSpiel);
@@ -152,7 +161,7 @@ public class E5Spielverteiler {
         }
     }
 
-    private void stopB(SpielZeile vorher, List<Spiel> gruppenSpiele, SpielZeile zeilen) {
+    private void stopB(SpielZeile vorher, SpielZeile vorherVorher,List<Spiel> gruppenSpiele, SpielZeile zeilen) {
         boolean stopB = false;
 
         int iB = 0;
@@ -170,7 +179,9 @@ public class E5Spielverteiler {
             zeilen.setKonfliktText(null);
             zeilen.setPause(false);
 
-            String ret = val.validateSpielZeilen(vorher, zeilen);
+            String ret = "";
+            ret = val.validateSpielZeilen(vorher, vorherVorher, zeilen);
+
             if (ret == null || ret.equals("")) {
 
                 helper.consumeSpiel(tempSpiel);
@@ -196,12 +207,20 @@ public class E5Spielverteiler {
                 continue;
             }
 
+
             try {
                 zeilen.setA(finalSpiele.get(i));
                 finalSpiele.get(i).setPlatz(PlatzEnum.A);
                 finalSpiele.get(i).setStart(zeilen.getStart());
                 spielRepo.save(finalSpiele.get(i));
                 i++;
+
+                // mad: neue verteilung
+                // versetzen der ersten Zeile
+                if(i == 1){
+                    continue;
+                }
+
                 zeilen = spielzeilenRepo.save(zeilen);
                 zeilen.setB(finalSpiele.get(i));
                 finalSpiele.get(i).setPlatz(PlatzEnum.B);

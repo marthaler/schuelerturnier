@@ -71,6 +71,13 @@ public class Spiel extends Persistent {
 
     }
 
+    public int evaluateFloorKlasse(){
+        if(this.getGruppe() == null){
+            return -1;
+        }
+        return this.getGruppe().evaluateFloorKlasse();
+    }
+
     // getter und setter fuer xls export und import
 
     public void setId(Long id) {  // NOSONAR
@@ -340,6 +347,8 @@ public class Spiel extends Persistent {
         }
         return null;
     }
+
+
 
 
     @Override
