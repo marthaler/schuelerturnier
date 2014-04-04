@@ -48,6 +48,10 @@ public class WebsiteInfoController {
 
         model.addAttribute("maedchen", service.getMaedchenMannschaften(jahr));
         model.addAttribute("knaben", service.getKnabenMannschaften(jahr));
+
+        model.addAttribute("maedchenkat", service.getMaedchenKategorien(jahr));
+        model.addAttribute("knabenkat", service.getKnabenKategorien(jahr));
+
         model.addAttribute("einstellungen", business.getSpielEinstellungen());
         model.addAttribute("spielstatusWebBean", spielstatusWebBean);
 

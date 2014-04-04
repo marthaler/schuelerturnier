@@ -11,7 +11,7 @@
 
             <p:tabView>
 
-                <p:tab title="Mädchenteams">
+                <p:tab title="Mädchenteams #{knabenkat}">
                     <!-- listenmode maedchen -->
                     <h:panelGrid columns="2" cellpadding="10"  >
                         <p:dataTable id="tbl" var="mmannschaft" value="#{maedchen.mannschaften}" rendered="#{einstellungen.websiteInMannschaftslistenmode or spielstatusWebBean.anmeldephase}">
@@ -95,6 +95,9 @@
 
                 <p:tab title="Knabenteams">
                     <h:panelGrid columns="2" cellpadding="10">
+
+
+
                         <p:dataTable id="tb3" var="kmannschaft" value="#{knaben.mannschaften}" rendered="#{einstellungen.websiteInMannschaftslistenmode or spielstatusWebBean.anmeldephase}">
                             <p:columnGroup type="header">
                                 <p:row>
@@ -126,7 +129,7 @@
                             </p:column>
                             <p:columnGroup type="footer">
                                 <p:row>
-                                    <p:column colspan="5" footerText="Teilnehmer Total: " style="text-align:right"/>
+                                    <p:column colspan="5" footerText="Teilnehmer Total:" style="text-align:right"/>
                                     <p:column footerText="#{knaben.total}"/>
                                 </p:row>
                             </p:columnGroup>
@@ -135,16 +138,9 @@
 
 
 
-                    <p:dataTable id="tb4" var="kmannschaft" value="#{knaben.mannschaften}" rendered="#{!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase}">
-                        <p:columnGroup type="header">
-                            <p:row>
-                                <p:column colspan="2" headerText="Klasse --> kategorien" style="text-align:left"/>
-                                <p:column headerText="Captain" style="text-align:left"/>
-                                <p:column headerText="Begleitperson" style="text-align:left"/>
-                                <p:column headerText="Schulhaus" style="text-align:left"/>
-                                <p:column headerText="Gr." style="text-align:left"/>
-                            </p:row>
-                        </p:columnGroup>
+                        <p:dataTable id="tb4" var="gruppe" value="#{knabenkat}" rendered="#{einstellungen.websiteInMannschaftslistenmode or spielstatusWebBean.anmeldephase}">
+                    <p:subTable id="tb5" var="kmannschaft" value="#{gruppe.mannschaften}" rendered="#{!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase}">
+
 
                         <p:column>
                             #{kmannschaft.klasse}
@@ -171,7 +167,7 @@
                             </p:row>
                         </p:columnGroup>
 
-                    </p:dataTable>
+                    </p:subTable>   </p:dataTable>
                 </h:panelGrid>
 
 

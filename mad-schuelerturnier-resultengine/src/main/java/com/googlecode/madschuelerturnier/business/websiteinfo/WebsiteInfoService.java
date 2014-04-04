@@ -9,8 +9,10 @@ package com.googlecode.madschuelerturnier.business.websiteinfo;
 
 import com.googlecode.madschuelerturnier.business.websiteinfo.model.MannschaftsComperator;
 import com.googlecode.madschuelerturnier.business.websiteinfo.model.TeamGruppen;
+import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
+import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,10 @@ public final class WebsiteInfoService {
     @Autowired
     private MannschaftRepository mannschaftRepo;
 
+    @Autowired
+    private KategorieRepository kategorieRepository;
+
+
     private WebsiteInfoService() {
 
     }
@@ -47,10 +53,36 @@ public final class WebsiteInfoService {
         return convertToGeschlechtgruppe(mannschaftRepo.findAll(),false);
     }
 
-    private TeamGruppen convertToGeschlechtgruppe(List<Mannschaft> mannschaften, boolean knaben){
+    public List<TeamGruppen> getKnabenKategorien(String jahr) {
+        return convertToKategorienGruppen(kategorieRepository.findAll(),true);
+    }
+
+    public List<TeamGruppen> getMaedchenKategorien(String jahr) {
+        return convertToKategorienGruppen(kategorieRepository.findAll(),true);
+    }
+
+    private List<TeamGruppen> convertToKategorienGruppen(List<Kategorie> kategorien, boolean knaben){
+
         List<TeamGruppen> gruppen = new ArrayList<TeamGruppen>();
 
-        TeamGruppen result = new TeamGruppen();
+        //MannschaftenKonvertierenUndEinfuellen(mannschaften, knaben, result);
+
+        for(Kategorie m : kategorien){
+            // nicht gewuenschte wegfiltern
+            if(!knaben && m.getMannschaften().get(0).getGeschlecht() == GeschlechtEnum.K){
+                continue;
+            }
+            TeamGruppen gr = new TeamGruppen();
+            gr.setName(m.getName());
+            this.MannschaftenKonvertierenUndEinfuellen(m.getMannschaften(),gr);
+            gruppen.add(gr);
+        }
+        return gruppen;
+    }
+
+    private TeamGruppen convertToGeschlechtgruppe(List<Mannschaft> mannschaften, boolean knaben){
+
+            TeamGruppen result = new TeamGruppen();
         if(!knaben){
             result.setName("Die Mädchenteams");
         } else{
@@ -58,6 +90,13 @@ public final class WebsiteInfoService {
             result.setName("Die Knabenteams");
         }
 
+        MannschaftenKonvertierenUndEinfuellen(mannschaften, result);
+
+        return result;
+
+    }
+
+    private void MannschaftenKonvertierenUndEinfuellen(List<Mannschaft> mannschaften, TeamGruppen result) {
         for(Mannschaft m : mannschaften){
             com.googlecode.madschuelerturnier.business.websiteinfo.model.Mannschaft ma = new com.googlecode.madschuelerturnier.business.websiteinfo.model.Mannschaft();
 
@@ -68,22 +107,12 @@ public final class WebsiteInfoService {
             ma.setSpieler(m.getAnzahlSpieler());
             ma.setSchulhaus(m.getSchulhaus());
 
-            if(m.getGeschlecht() == GeschlechtEnum.K && knaben){
                 result.addMannschaft(ma);
                 result.setTotal(result.getTotal() + ma.getSpieler());
-            }
-
-            if(m.getGeschlecht() == GeschlechtEnum.M && !knaben){
-                result.addMannschaft(ma);
-                result.setTotal(result.getTotal() + ma.getSpieler());
-            }
-
         }
 
         // sortieren nach klasse
         Collections.sort(result.getMannschaften(), new MannschaftsComperator());
-        return result;
-
     }
 
 }
