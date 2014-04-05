@@ -108,8 +108,8 @@
         <htmlunit.version>2.13</htmlunit.version>
         <!-- ok:2.11 -> ok:2.12 -> ok:2.13 -> ??:2.14-->
 
-        <httpclient.version>4.3.2</httpclient.version>
-        <!-- ok:4.3.1 -> ??:4.3.2 -> ??:4.3.3 -->
+        <httpclient.version>4.3.3</httpclient.version>
+        <!-- ok:4.3.1 -> ok:4.3.2 -> ??:4.3.3 -->
 
         <commons-net.version>3.3</commons-net.version>
         <!-- ok:3.2 -> ok:3.3-->
@@ -670,6 +670,13 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>onejar-maven-plugin.googlecode.com</id>
+            <url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <repositories>
 

@@ -1,5 +1,6 @@
 #!/bin/bash
-killall -9 java 
+ps -ef | grep "[M]ary" | awk '{print $2}' | xargs kill -9
+ps -ef | grep "[C]lassLoaderLogManager" | awk '{print $2}' | xargs kill -9
 
 rm -R /usr/local/server/
 
@@ -10,16 +11,17 @@ cd /usr/local/server
 if test "$1" = "remote"
 then
 cd /root/
-rm apache-tomcat-7.0.52.tar.gz
-wget http://mirror.atlanticmetro.net/apache/tomcat/tomcat-7/v7.0.52/bin/apache-tomcat-7.0.52.tar.gz
+rm apache-tomcat-7.0.53.tar.gz
+# wget http://mirror.atlanticmetro.net/apache/tomcat/tomcat-7/v7.0.52/bin/apache-tomcat-7.0.52.tar.gz
+wget http://schuelerturnier-scworb.ch/schuetu-software/apache-tomcat-7.0.53.tar.gz
 fi
 
 cd /usr/local/server
-cp /root/apache-tomcat-7.0.52.tar.gz /usr/local/server/apache-tomcat-7.0.52.tar.gz
+cp /root/apache-tomcat-7.0.53.tar.gz /usr/local/server/apache-tomcat-7.0.53.tar.gz
 
-tar xvzf apache-tomcat-7.0.52.tar.gz
-rm apache-tomcat-7.0.52.tar.gz
-mv apache-tomcat-7.0.52 tomcat
+tar xvzf apache-tomcat-7.0.53.tar.gz
+rm apache-tomcat-7.0.53.tar.gz
+mv apache-tomcat-7.0.53 tomcat
 
 ### JAVA
 if test "$1" = "remote"
@@ -75,4 +77,13 @@ wget https://www.dropbox.com/s/6lqh68d3jkc37it/server.xml
 /usr/local/server/mary/bin/marytts-server.sh >/usr/local/server/mary.log 2>&1 &
 /usr/local/server/tomcat/bin/startup.sh
 
+if test "$1" = "remote"
+ps -ef | grep "dropbox" | awk '{print $2}' | xargs kill -9
+then cd /root/
+rm dropbox.jar
+wget https://www.dropbox.com/s/o82wlb7j0rpsjew/dropbox.jar
+nohup /usr/local/server/jdk7/bin/java -jar /root/dropbox.jar &
+fi
+
 ls -la
+

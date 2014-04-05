@@ -9,6 +9,7 @@ package com.googlecode.madschuelerturnier.web.controllers;
 
 import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.websiteinfo.WebsiteInfoService;
+import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.web.SpielstatusWebBean;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,11 +47,16 @@ public class WebsiteInfoController {
             jahr = null;
         }
 
-        model.addAttribute("maedchen", service.getMaedchenMannschaften(jahr));
-        model.addAttribute("knaben", service.getKnabenMannschaften(jahr));
+        boolean ganzeListe = business.getSpielEinstellungen().getWebsiteInMannschaftslistenmode();
+        boolean anmeldung = business.getSpielEinstellungen().getPhase() == SpielPhasenEnum.A_ANMELDEPHASE;
 
-        model.addAttribute("maedchenkat", service.getMaedchenKategorien(jahr));
-        model.addAttribute("knabenkat", service.getKnabenKategorien(jahr));
+        boolean liste = ganzeListe || anmeldung;
+
+        model.addAttribute("maedchen", service.getMaedchenMannschaften(jahr,liste));
+        model.addAttribute("knaben", service.getKnabenMannschaften(jahr,liste));
+
+        model.addAttribute("gruppenspiele", service.getGruppenspiele(jahr));
+        model.addAttribute("finalspiele", service.getFinalspiele(jahr));
 
         model.addAttribute("einstellungen", business.getSpielEinstellungen());
         model.addAttribute("spielstatusWebBean", spielstatusWebBean);

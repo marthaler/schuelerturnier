@@ -3,34 +3,31 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
                 template="../../layouts/root-naked.xhtml">
-
     <ui:define name="main">
-
         <h:form id="form">
-
             <p:tabView>
-
-                <p:tab title="Mädchenteams #{knabenkat}">
-                    <!-- listenmode maedchen -->
-                    <h:panelGrid columns="2" cellpadding="10"  >
-                        <p:dataTable id="tbl" var="mmannschaft" value="#{maedchen.mannschaften}" rendered="#{einstellungen.websiteInMannschaftslistenmode or spielstatusWebBean.anmeldephase}">
+                <p:tab title="Mädchenteams">
+                    <ui:repeat value="#{maedchen}" var="kat" varStatus="status">
+                        <p:dataTable id="tbl" var="mmannschaft" value="#{kat.mannschaften}">
                             <p:columnGroup type="header">
                                 <p:row>
-                                    <p:column colspan="2" headerText="Klasse" style="text-align:left"/>
+                                    <p:column colspan="5" headerText="#{kat.name}" style="text-align:left"/>
+                                </p:row>
+                                <p:row>
+                                    <p:column headerText="Nr." style="text-align:left"/>
+                                    <p:column headerText="Klasse" style="text-align:left"/>
                                     <p:column headerText="Captain" style="text-align:left"/>
                                     <p:column headerText="Begleitperson" style="text-align:left"/>
-                                    <p:column headerText="Schulhaus" style="text-align:left"/>
-                                    <p:column headerText="Gr." style="text-align:left"/>
+                                    <p:column headerText="Gr." style="text-align:right"/>
                                 </p:row>
                             </p:columnGroup>
-
                             <p:column>
-                                #{business.spielEinstellungen.websiteInMannschaftslistenmode}
-                                #{mmannschaft.klasse}
+                                #{mmannschaft.nummer}
                             </p:column>
                             <p:column>
-                                #{mmannschaft.klassenname}
+                                [#{mmannschaft.klasse} #{mmannschaft.klassenname}]-#{mmannschaft.schulhaus}
                             </p:column>
                             <p:column>
                                 #{mmannschaft.captain}
@@ -38,145 +35,132 @@
                             <p:column>
                                 #{mmannschaft.begleitperson}
                             </p:column>
-                            <p:column>
-                                #{mmannschaft.schulhaus}
-                            </p:column>
-                            <p:column>
+                            <p:column style="text-align:right">
                                 #{mmannschaft.spieler}
                             </p:column>
                             <p:columnGroup type="footer">
                                 <p:row>
-                                    <p:column colspan="5" footerText="Teilnehmerinnen Total: " style="text-align:right"/>
-                                    <p:column footerText="#{maedchen.total}"/>
+                                    <p:column colspan="4" footerText="Teilnehmerinnen Total: " style="text-align:right"/>
+                                    <p:column style="text-align:right" footerText="#{kat.total}"/>
                                 </p:row>
                             </p:columnGroup>
-
                         </p:dataTable>
-
-                        <p:dataTable id="tb2" var="mmannschaft" value="#{maedchen.mannschaften}" rendered="#{!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase}">
-                            <p:columnGroup type="header">
-                                <p:row>
-                                    <p:column colspan="2" headerText="Klasse  --> kat" style="text-align:left"/>
-                                    <p:column headerText="Captain" style="text-align:left"/>
-                                    <p:column headerText="Begleitperson" style="text-align:left"/>
-                                    <p:column headerText="Schulhaus" style="text-align:left"/>
-                                    <p:column headerText="Gr." style="text-align:left"/>
-                                </p:row>
-                            </p:columnGroup>
-
-                            <p:column>
-                                #{mmannschaft.klasse}
-                            </p:column>
-                            <p:column>
-                                #{mmannschaft.klassenname}
-                            </p:column>
-                            <p:column>
-                                #{mmannschaft.captain}
-                            </p:column>
-                            <p:column>
-                                #{mmannschaft.begleitperson}
-                            </p:column>
-                            <p:column>
-                                #{mmannschaft.schulhaus}
-                            </p:column>
-                            <p:column>
-                                #{mmannschaft.spieler}
-                            </p:column>
-                            <p:columnGroup type="footer">
-                                <p:row>
-                                    <p:column colspan="5" footerText="Teilnehmerinnen Total: " style="text-align:right"/>
-                                    <p:column footerText="#{maedchen.total}"/>
-                                </p:row>
-                            </p:columnGroup>
-
-                        </p:dataTable>
-                    </h:panelGrid>
+                        <br/>
+                    </ui:repeat>
                 </p:tab>
-
                 <p:tab title="Knabenteams">
-                    <h:panelGrid columns="2" cellpadding="10">
-
-
-
-                        <p:dataTable id="tb3" var="kmannschaft" value="#{knaben.mannschaften}" rendered="#{einstellungen.websiteInMannschaftslistenmode or spielstatusWebBean.anmeldephase}">
+                    <ui:repeat value="#{knaben}" var="kat" varStatus="status">
+                        <p:dataTable id="tbl" var="mmannschaft" value="#{kat.mannschaften}">
                             <p:columnGroup type="header">
                                 <p:row>
-                                    <p:column colspan="2" headerText="Klasse" style="text-align:left"/>
+                                    <p:column colspan="5" headerText="#{kat.name}" style="text-align:left"/>
+                                </p:row>
+                                <p:row>
+                                    <p:column headerText="Nr." style="text-align:left"/>
+                                    <p:column headerText="Klasse" style="text-align:left"/>
                                     <p:column headerText="Captain" style="text-align:left"/>
                                     <p:column headerText="Begleitperson" style="text-align:left"/>
-                                    <p:column headerText="Schulhaus" style="text-align:left"/>
-                                    <p:column headerText="Gr." style="text-align:left"/>
+                                    <p:column headerText="Gr." style="text-align:right"/>
                                 </p:row>
                             </p:columnGroup>
-
                             <p:column>
-                                #{kmannschaft.klasse}
+                                #{mmannschaft.nummer}
                             </p:column>
                             <p:column>
-                                #{kmannschaft.klassenname}
+                                [#{mmannschaft.klasse} #{mmannschaft.klassenname}]-#{mmannschaft.schulhaus}
                             </p:column>
                             <p:column>
-                                #{kmannschaft.captain}
+                                #{mmannschaft.captain}
                             </p:column>
                             <p:column>
-                                #{kmannschaft.begleitperson}
+                                #{mmannschaft.begleitperson}
                             </p:column>
-                            <p:column>
-                                #{kmannschaft.schulhaus}
-                            </p:column>
-                            <p:column>
-                                #{kmannschaft.spieler}
+                            <p:column style="text-align:right">
+                                #{mmannschaft.spieler}
                             </p:column>
                             <p:columnGroup type="footer">
                                 <p:row>
-                                    <p:column colspan="5" footerText="Teilnehmer Total:" style="text-align:right"/>
-                                    <p:column footerText="#{knaben.total}"/>
+                                    <p:column colspan="4" footerText="Teilnehmer Total: " style="text-align:right"/>
+                                    <p:column style="text-align:right" footerText="#{kat.total}"/>
                                 </p:row>
                             </p:columnGroup>
+                        </p:dataTable>
+                        <br/>
+                    </ui:repeat>
+                </p:tab>
+                <p:tab title="Gruppenspiele" rendered="#{!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase}">
+                        <p:dataTable  var="spiel" value="#{gruppenspiele}">
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column headerText="Zeit" style="text-align:left"/>
+                                    <p:column headerText="Platz" style="text-align:left"/>
+                                    <p:column colspan="2" headerText="Team A" style="text-align:left"/>
+                                    <p:column colspan="2" headerText="Team B" style="text-align:left"/>
+                                </p:row>
+                            </p:columnGroup>
+                            <p:column>
+                                <h:outputText value="#{spiel.start}">
+                                    <f:convertDateTime type="date" pattern="EEE HH:mm" timeZone="Europe/Zurich"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                #{spiel.platz}
+                            </p:column>
+                            <p:column>
+                                #{spiel.mannschaftA.name}
+                            </p:column>
+                            <p:column>
+                                #{spiel.evaluateToreABestateigtString()}
+                            </p:column>
+                            <p:column>
+                                #{spiel.mannschaftB.name}
+                            </p:column>
+                            <p:column>
+                                #{spiel.evaluateToreBBestateigtString()}
+                            </p:column>
 
                         </p:dataTable>
-
-
-
-                        <p:dataTable id="tb4" var="gruppe" value="#{knabenkat}" rendered="#{einstellungen.websiteInMannschaftslistenmode or spielstatusWebBean.anmeldephase}">
-                    <p:subTable id="tb5" var="kmannschaft" value="#{gruppe.mannschaften}" rendered="#{!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase}">
-
-
-                        <p:column>
-                            #{kmannschaft.klasse}
-                        </p:column>
-                        <p:column>
-                            #{kmannschaft.klassenname}
-                        </p:column>
-                        <p:column>
-                            #{kmannschaft.captain}
-                        </p:column>
-                        <p:column>
-                            #{kmannschaft.begleitperson}
-                        </p:column>
-                        <p:column>
-                            #{kmannschaft.schulhaus}
-                        </p:column>
-                        <p:column>
-                            #{kmannschaft.spieler}
-                        </p:column>
-                        <p:columnGroup type="footer">
+                        <br/>
+                </p:tab>
+                <p:tab title="Finalspiele" rendered="#{!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase}">
+                    <p:dataTable  var="spiel" value="#{finalspiele}">
+                        <p:columnGroup type="header">
                             <p:row>
-                                <p:column colspan="5" footerText="Teilnehmer Total: " style="text-align:right"/>
-                                <p:column footerText="#{knaben.total}"/>
+                                <p:column headerText="Zeit" style="text-align:left"/>
+                                <p:column headerText="Platz" style="text-align:left"/>
+                                <p:column colspan="2" headerText="Spiel" style="text-align:left"/>
+                                <p:column colspan="2" headerText="Team A" style="text-align:left"/>
+                                <p:column colspan="2" headerText="Team B" style="text-align:left"/>
                             </p:row>
                         </p:columnGroup>
+                        <p:column>
+                            <h:outputText value="#{spiel.start}">
+                                <f:convertDateTime type="date" pattern="EEE HH:mm" timeZone="Europe/Zurich"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            #{spiel.platz}
+                        </p:column>
+                        <p:column>
+                            #{spiel}
+                        </p:column>
+                        <p:column>
+                            #{spiel.mannschaftA.name}
+                        </p:column>
+                        <p:column>
+                            #{spiel.evaluateToreABestateigtString()}
+                        </p:column>
+                        <p:column>
+                            #{spiel.mannschaftB.name}
+                        </p:column>
+                        <p:column>
+                            #{spiel.evaluateToreBBestateigtString()}
+                        </p:column>
 
-                    </p:subTable>   </p:dataTable>
-                </h:panelGrid>
-
-
+                    </p:dataTable>
+                    <br/>
                 </p:tab>
-
             </p:tabView>
-
         </h:form>
-
     </ui:define>
-
 </ui:composition>

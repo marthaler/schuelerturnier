@@ -6,10 +6,13 @@ package com.googlecode.madschuelerturnier.business.vorbereitung;
 import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.vorbereitung.helper.SpielverteilerHelper;
 import com.googlecode.madschuelerturnier.business.vorbereitung.helper.SpielzeilenValidator;
+import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.SpielZeile;
+import com.googlecode.madschuelerturnier.model.comperators.KategorieKlasseUndGeschlechtComperator;
 import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
+import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.apache.log4j.Logger;
@@ -18,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,6 +38,9 @@ public class E5Spielverteiler {
 
     @Autowired
     private SpielRepository spielRepo;
+
+    @Autowired
+    private KategorieRepository katRepo;
 
     @Autowired
     private SpielzeilenValidator val;
@@ -196,6 +203,64 @@ public class E5Spielverteiler {
     }
 
     private void behandleFinalspielzeilen() {
+
+        List<Kategorie> kategorien = katRepo.findAll();
+        Collections.sort(kategorien, new KategorieKlasseUndGeschlechtComperator());
+
+        List<SpielZeile> finalspieleZeilen = spielzeilenRepo.findFinalSpielZeilen();
+        List<SpielZeile> finalspieleZeilenGeaendert = new ArrayList<SpielZeile>();
+        List<Spiel> spieleGeaendert = new ArrayList<Spiel>();
+
+        boolean first = true;
+        Spiel letztesFinale = null;
+
+        for(Kategorie k: kategorien){
+
+            SpielZeile zeile = finalspieleZeilen.remove(0);
+
+            if(first){
+                mergeKleinerFinalToSpielzeile(spieleGeaendert, k, zeile);
+                first = false;
+            } else{
+                mergeKleinerFinalToSpielzeile(spieleGeaendert, k, zeile);
+                mergeGrosserFinalToSpielzeile(spieleGeaendert, zeile, letztesFinale);
+            }
+
+            letztesFinale = k.getGrosserFinal();
+            finalspieleZeilenGeaendert.add(zeile);
+
+        }
+
+        SpielZeile zeile = finalspieleZeilen.remove(0);
+        mergeGrosserFinalToSpielzeile(spieleGeaendert, zeile, letztesFinale);
+        finalspieleZeilenGeaendert.add(zeile);
+
+        spielRepo.save(spieleGeaendert);
+        spielzeilenRepo.save(finalspieleZeilenGeaendert);
+
+    }
+
+    private void mergeKleinerFinalToSpielzeile(List<Spiel> spieleGeaendert, Kategorie k, SpielZeile zeile) {
+        // kleiner finale
+        if(k.getKleineFinal() != null){
+        zeile.setB(k.getKleineFinal());
+        k.getKleineFinal().setPlatz(PlatzEnum.B);
+        k.getKleineFinal().setStart(zeile.getStart());
+
+        spieleGeaendert.add(k.getKleineFinal());
+        }
+    }
+
+    private void mergeGrosserFinalToSpielzeile(List<Spiel> spieleGeaendert, SpielZeile zeile, Spiel grosserFinal) {
+        // grosser finale
+        zeile.setA(grosserFinal);
+        grosserFinal.setPlatz(PlatzEnum.A);
+        grosserFinal.setStart(zeile.getStart());
+
+        spieleGeaendert.add(grosserFinal);
+    }
+
+    private void behandleFinalspielzeilenAlt() {
         int i = 0;
         List<Spiel> finalSpiele = spielRepo.findFinalSpiel();
 
@@ -214,12 +279,6 @@ public class E5Spielverteiler {
                 finalSpiele.get(i).setStart(zeilen.getStart());
                 spielRepo.save(finalSpiele.get(i));
                 i++;
-
-                // mad: neue verteilung
-                // versetzen der ersten Zeile
-                if(i == 1){
-                    continue;
-                }
 
                 zeilen = spielzeilenRepo.save(zeilen);
                 zeilen.setB(finalSpiele.get(i));

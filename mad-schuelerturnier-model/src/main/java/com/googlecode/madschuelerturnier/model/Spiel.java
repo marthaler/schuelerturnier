@@ -139,6 +139,20 @@ public class Spiel extends Persistent {
 
     }
 
+    public String evaluateToreABestateigtString(){
+        if(this.toreABestaetigt == NOT_INIT_FLAG){
+            return "--";
+        }
+        return String.format("%02d", this.toreABestaetigt);
+    }
+
+    public String evaluateToreBBestateigtString(){
+        if(this.toreBBestaetigt == NOT_INIT_FLAG){
+            return "--";
+        }
+        return String.format("%02d", this.toreABestaetigt);
+    }
+
     public String getMannschaftBName() {
 
         if (mannschaftB != null) {

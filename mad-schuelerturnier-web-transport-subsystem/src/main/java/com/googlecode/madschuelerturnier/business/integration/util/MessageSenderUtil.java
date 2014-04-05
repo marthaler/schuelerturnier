@@ -7,7 +7,8 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
+
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 
@@ -23,7 +24,7 @@ public class MessageSenderUtil {
 
     private static int failurecounter = 0;
     public static MessageWrapperToSend send(String adresse, MessageWrapperToSend obj) {
-        HttpClient client = new DefaultHttpClient();
+        HttpClient client = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(adresse);
         StringBuffer buff = new StringBuffer();
         try {

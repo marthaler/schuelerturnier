@@ -166,6 +166,7 @@ public class SpielstatusWebBean implements Serializable {
         this.kategoriezuordnungsphase = kategoriezuordnungsphase;
     }
 
+
     public boolean isSpielzuordnungsphase() {
         init();
         return this.spielzuordnungsphase;
