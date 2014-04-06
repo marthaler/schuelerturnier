@@ -1,40 +1,44 @@
 feautures:
 **********
 
+***********************************************
+[  ]     mannschaftsplan auf webseite
 [  ]     sender, eigene nachrichten nicht mehr weiterschicken
 [  ]     schauen, dass nachrichten mit content gesendet werden nach anmeldung an master
-[  ]     masterstate reparieren
+
 [  ]     audit log in der transportschicht
 [  ]     einrichten, dass der master einen sauberen dump schickt
 [  ]     prüfen ob die nachrichten wirklich der reihe nach kommen
 
-[  ]     out to website publisher schlau konfigurieren
+[  ]     out to website publisher schlau konfigurieren (ausbauen)
 [  ]     master einfuehren
-[ok]     Bilder in die DB
-[ok]     Ansagen in die DB
-[  ]     bei den usern echten namen einfuehren und auch exportieren
-[ok]     Neuer Scanner bauen
+
 [  ]     integrationstests aufraeumen & tomcat
 
 [  ]     testlauf 2013
 [  ]     testlauf 2014
 
+[  ]     ausbauen des printers auf dem server
+
 [rj]     countdown ueber eine stunde springt (stunden einbeziehen)
-
-
+[rj]     bei den usern echten namen einfuehren und auch exportieren
 
 ==============
 
 bugs:
 *****
-
-[  ] spielansagen funktionieren nicht mehr
+[  ] einstellung start richtig verwenden beim generieren
+[  ] kamera funktioniert nicht auf mac (demoansicht)
+[  ] webseite bei der ersten ansicht nummern nicht mehr anzeigen
+[  ] text reparieren in den 1. webseitenasichtsperren funktion
+[  ] printer funktioniert nicht
 
 ==============
 
 testen
 *************
-[  ]     finalparungsregel konfigurierbar machen 2 gross finale
+[  ] finalparungsregel konfigurierbar machen 2 gross finale !!! -> bei der planung einführen
+[  ] spielansagen funktionieren nicht mehr
 
 dokumentation
 *************
@@ -53,6 +57,12 @@ dokumentation
 
 feautures ok:
 **********
+[ok]     Bilder in die DB
+
+[ok]     Ansagen in die DB
+
+[ok]     Neuer Scanner bauen
+
 [ok]     finalparungsregel konfigurierbar machen 2 gross finale
 
 [ok]     stammdaten menu aufraeumen und ueberfluessigen code loeschen
@@ -153,13 +163,19 @@ feautures ok:
 [ok]     automatischer gong auschaltbar machen
 
 [ok]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
+
 [ok]     version wird nicht angezeigt nach release
+
 [ok]     drucken geht nicht nach release
+
 [ok]     beim letzten Finalspiel phase auf beendet und letzte liste drucken
 
 [ok]     Rangliste drucken immer bei 1
+
 [ok]     Rangliste, letzte Seite drucken
+
 [ok]     schlaue Startseite
+
 [ok]     wenn fertig dinge nicht ausblenden
 
 bugs ok:
