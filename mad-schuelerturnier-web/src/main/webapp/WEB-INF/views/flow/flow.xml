@@ -33,7 +33,6 @@
     </view-state>
 
     <!-- Init -->
-
     <action-state id="initialisieren">
         <evaluate expression="loginPrepareAction.execute()"/>
         <evaluate expression="startAction.start(currentUser)"/>
@@ -176,13 +175,12 @@
         <transition on="save" to="spieleinstellungen" bind="true">
             <set name="flashScope.tr" value="true" type="java.lang.Boolean"/>
             <set name="flashScope.fa" value="false" type="java.lang.Boolean"/>
-            <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"
-                      result="flowScope.spieleinstellungen"/>
+            <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)" result="flowScope.spieleinstellungen"/>
             <evaluate expression="business.initZeilen(flashScope.fa)" result="flowScope.spielZeilenSa"/>
             <evaluate expression="business.initZeilen(flashScope.tr)" result="flowScope.spielZeilenSo"/>
         </transition>
 
-        <transition on="man" to="spieleinstellungen" bind="true">
+        <transition on="manuellekorrekturen" to="spieleinstellungen" bind="true">
             <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"/>
             <evaluate expression="f6SpielverteilerManuelleKorrekturen.korrekturenVornehmen()"/>
         </transition>

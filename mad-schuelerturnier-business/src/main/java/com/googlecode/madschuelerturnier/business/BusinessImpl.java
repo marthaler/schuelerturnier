@@ -59,6 +59,9 @@ public class BusinessImpl implements Business {
     private SpielZeilenRepository spielzeilenRepo;
 
     @Autowired
+    private SpielRepository spielRepository;
+
+    @Autowired
     private SpielEinstellungenRepository spielEinstellungenRepo;
 
     @Autowired
@@ -284,6 +287,7 @@ if(this.trepo == null){
     public void setSpielEinstellungen(SpielEinstellungen einstellungenNeu) {
         saveEinstellungen(einstellungenNeu);
     }
+
     /*
      * (non-Javadoc)
      *
@@ -698,7 +702,6 @@ if(this.trepo == null){
         if(einstellungen == null){
             LOG.info("einstellungen NICHT gespeicher: " + einstellungen);
         } else{
-
             this.spielEinstellungenRepo.save(einstellungen);
             LOG.info("einstellungen gespeicher: " + einstellungen);
         }
@@ -707,7 +710,7 @@ if(this.trepo == null){
         // Mannschaften laden und updaten
         List<Mannschaft> mannschaftsliste = xls.convertXLSToMannschaften(xlsIn);
         for (Mannschaft m : mannschaftsliste) {
-            mannschaftsRepo.save(m);
+            m = mannschaftsRepo.save(m);
             LOG.info("mannschaft gespeicher: " + m);
         }
 
@@ -737,7 +740,7 @@ if(this.trepo == null){
         // Spiele laden und updaten
         List<Spiel> spiele = xls.convertXLSToSpiele(xlsIn);
         LOG.info("spiele geladen: " + spiele.size());
-
+        // NICHT! spiele = spielRepository.save(spiele);
         importHandler.turnierHerstellen(spiele);
 
         this.initializeDB();

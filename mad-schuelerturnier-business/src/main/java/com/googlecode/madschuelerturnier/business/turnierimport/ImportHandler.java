@@ -50,11 +50,6 @@ public class ImportHandler {
         einstellungenStart.setPhase(SpielPhasenEnum.A_ANMELDEPHASE);
         business.saveEinstellungen(einstellungenStart);
 
-        LOG.info("SpielPhasenEnum.A_ANMELDEPHASE");
-        if (isToDo(startPhase)) {
-            LOG.info("SpielPhasenEnum.A_ANMELDEPHASE: wird durchgefuehrt");
-            phasenCheck(startPhase);
-        }
 
         LOG.info("SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG");
         if (isToDo(startPhase)) {
@@ -76,8 +71,10 @@ public class ImportHandler {
         LOG.info("SpielPhasenEnum.D_SPIELE_ZUORDNUNG");
         if (isToDo(startPhase)) {
             LOG.info("SpielPhasenEnum.D_SPIELE_ZUORDNUNG: wird durchgefuehrt");
-            // todo hier spiele ueberschreiben?
             phasenCheck(startPhase);
+            // Spiele updaten
+            spieleUpdaten(spiele);
+
         }
 
         LOG.info("SpielPhasenEnum.E_SPIELBEREIT");
@@ -89,10 +86,6 @@ public class ImportHandler {
         LOG.info("SpielPhasenEnum.F_SPIELEN");
         if (isToDo(startPhase)) {
             LOG.info("SpielPhasenEnum.F_SPIELEN: wird durchgefuehrt");
-
-            // Spiele updaten
-            spieleUpdaten(spiele);
-
             phasenCheck(startPhase);
         }
 
@@ -110,10 +103,8 @@ public class ImportHandler {
             for (Spiel s : spiele) {
                 Spiel temp = sRepo.findOne(s.getId());
                 // Objekte setzen welche sonst null wären vor dem Uebertragen
-
                 s.setMannschaftA(temp.getMannschaftA());
                 s.setMannschaftB(temp.getMannschaftB());
-
                 // notizen uebertragen
                 if (s.getNotizen() != null && s.getNotizen().getValue() != null && s.getNotizen().getValue().length() > 0) {
                     temp.getNotizen().setValue(s.getNotizen().getValue());

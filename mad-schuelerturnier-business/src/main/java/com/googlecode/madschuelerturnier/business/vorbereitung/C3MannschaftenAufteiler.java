@@ -57,7 +57,7 @@ public class C3MannschaftenAufteiler {
             Kategorie kategorie = kategorieRepo.findOne(id);
 
             // todo problem loesen
-            // wegen dem jpa problem, dass kategorie nicht mehr gelöscht erden kann
+            // wegen dem jpa problem, dass kategorie nicht mehr gelöscht werden kann
             if (kategorie.getGruppeA() == null) {
                 continue;
             }

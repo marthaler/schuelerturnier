@@ -2,6 +2,10 @@ feautures:
 **********
 
 ***********************************************
+[  ]     kamera view verbessern
+[  ]     testlaeufe erstellen
+[  ]     Unittest fuer Importhandler
+
 [  ]     mannschaftsplan auf webseite
 [  ]     sender, eigene nachrichten nicht mehr weiterschicken
 [  ]     schauen, dass nachrichten mit content gesendet werden nach anmeldung an master
@@ -27,11 +31,11 @@ feautures:
 
 bugs:
 *****
-[  ] einstellung start richtig verwenden beim generieren
-[  ] kamera funktioniert nicht auf mac (demoansicht)
-[  ] webseite bei der ersten ansicht nummern nicht mehr anzeigen
-[  ] text reparieren in den 1. webseitenasichtsperren funktion
 [  ] printer funktioniert nicht
+[ok] einstellung start richtig verwenden beim generieren
+[ok] kamera funktioniert nicht auf mac (demoansicht)
+[ok] webseite bei der ersten ansicht nummern nicht mehr anzeigen
+[ok] text reparieren in den 1. webseitenasichtsperren funktion
 
 ==============
 

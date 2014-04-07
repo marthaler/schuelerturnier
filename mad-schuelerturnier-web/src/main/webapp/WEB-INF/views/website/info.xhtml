@@ -24,7 +24,7 @@
                                 </p:row>
                             </p:columnGroup>
                             <p:column>
-                                #{mmannschaft.nummer}
+                                <h:outputText value="#{mmannschaft.nummer}" rendered="#{!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase}"></h:outputText>
                             </p:column>
                             <p:column>
                                 [#{mmannschaft.klasse} #{mmannschaft.klassenname}]-#{mmannschaft.schulhaus}
@@ -64,7 +64,7 @@
                                 </p:row>
                             </p:columnGroup>
                             <p:column>
-                                #{mmannschaft.nummer}
+                                <h:outputText value="#{mmannschaft.nummer}" rendered="#{!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase}"></h:outputText>
                             </p:column>
                             <p:column>
                                 [#{mmannschaft.klasse} #{mmannschaft.klassenname}]-#{mmannschaft.schulhaus}
