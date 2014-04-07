@@ -2,6 +2,7 @@ feautures:
 **********
 
 ***********************************************
+[  ]     M1 und 2 mit 2 GF
 [  ]     kamera view verbessern
 [  ]     testlaeufe erstellen
 [  ]     Unittest fuer Importhandler
