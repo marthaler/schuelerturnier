@@ -15,6 +15,7 @@ import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
 import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
+import org.apache.commons.io.output.StringBuilderWriter;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,9 @@ public class E5Spielverteiler {
     private Business business;
 
 
-    public void spieleAutomatischVerteilen() {
+    public String spieleAutomatischVerteilen() {
+
+        StringBuilder result = new StringBuilder();
 
         behandleFinalspielzeilen();
 
@@ -89,8 +92,9 @@ public class E5Spielverteiler {
 
         LOG.info("spiele verteilt ");
         if (gruppenSpiele.size() > 0) {
-            LOG.fatal("NICHT ZUGEORDNETE SPIELE !!! " + gruppenSpiele.size());
-            LOG.fatal("NICHT ZUGEORDNETE SPIELE --> " + gruppenSpiele);
+            result.append("NICHT ZUGEORDNETE SPIELE !!! " + gruppenSpiele.size());
+            result.append("NICHT ZUGEORDNETE SPIELE --> " + gruppenSpiele);
+            LOG.fatal(result.toString());
         }
 
         LOG.info("werde jetzt ueberzaehlige pausen loeschen");
@@ -99,7 +103,7 @@ public class E5Spielverteiler {
         List<SpielZeile> zeilenSa = business.getSpielzeilen(false);
         removeUeberschuss(zeilenSo);
         removeUeberschuss(zeilenSa);
-
+return result.toString();
     }
 
     private void stopA(SpielZeile vorher,SpielZeile vorherVorher,List<Spiel> gruppenSpiele, SpielZeile zeilen) {

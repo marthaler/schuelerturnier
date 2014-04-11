@@ -14,9 +14,7 @@ import org.springframework.util.DigestUtils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 /**
  * Stellt die Verbindung zum gesharten Dropbox Ordner her
@@ -111,7 +109,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
         try {
             DbxEntry.WithChildren listing = client.getMetadataWithChildren(this.rootFolder + "/alt");
             for (DbxEntry child : listing.children) {
-                if (child.isFile()) {
+                if (child.isFile() && child.name.contains("xls")) {
                     result.add("/alt/" + child.name);
                 }
             }
@@ -309,6 +307,49 @@ public class DropboxConnectorImpl implements DropboxConnector {
     public void saveGame(byte[] content) {
         this.saveFile(this.selectedGame + "/" + this.selectedGame + ".xls", content);
         this.saveFile("alt/" + this.selectedGame + ".xls", content);
+    }
+
+    @Override
+    public void saveOldGame(String jahr,String content) {
+        this.saveFile("alt/" + jahr + "-websitedump.xml", content.getBytes());
+    }
+
+    @Override
+    public Map<String, String> loadOldGames() {
+        Map<String,String> result = new HashMap<String,String>();
+        try {
+            DbxEntry.WithChildren listing = client.getMetadataWithChildren(this.rootFolder + "/alt");
+            for (DbxEntry child : listing.children) {
+                if (child.isFile() && child.name.contains("xml")) {
+
+                    LOG.info("DropboxConnectorImpl: will load OldGames files");
+                    ByteArrayOutputStream outputStream = null;
+                    try {
+                        outputStream = new ByteArrayOutputStream();
+                        DbxEntry.File downloadedFile = client.getFile(child.asFile().path, null, outputStream);
+                        LOG.info("DropboxConnectorImpl: file loaded; size -> " + downloadedFile.humanSize);
+                        String out = new String(outputStream.toByteArray());
+String[] arr = child.asFile().path.split("/");
+                        String str = arr[arr.length-1].replace("-websitedump.xml","");
+                        result.put(str,out);
+
+                    } catch (Exception e) {
+                        LOG.error(e.getMessage(), e);
+                    } finally {
+                        if (outputStream != null) {
+                            try {
+                                outputStream.close();
+                            } catch (IOException e) {
+                                LOG.error(e.getMessage(), e);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (DbxException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return result;
     }
 
 

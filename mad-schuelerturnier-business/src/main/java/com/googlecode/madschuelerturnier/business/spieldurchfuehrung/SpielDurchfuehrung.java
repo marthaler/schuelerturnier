@@ -5,9 +5,9 @@ package com.googlecode.madschuelerturnier.business.spieldurchfuehrung;
 
 import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
-import com.googlecode.madschuelerturnier.business.out.OutToWebsitePublisher;
 import com.googlecode.madschuelerturnier.business.print.PrintAgent;
 import com.googlecode.madschuelerturnier.business.print.SpielPrintManager;
+import com.googlecode.madschuelerturnier.business.websiteinfo.WebsiteInfoService;
 import com.googlecode.madschuelerturnier.business.zeit.Countdown;
 import com.googlecode.madschuelerturnier.business.zeit.ZeitPuls;
 import com.googlecode.madschuelerturnier.business.zeit.Zeitgeber;
@@ -43,6 +43,9 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     private String delim = System.getProperty("file.separator");
 
     @Autowired
+    private WebsiteInfoService infoservice;
+
+    @Autowired
     private ResultateVerarbeiter verarbeiter;
 
     @Autowired
@@ -59,9 +62,6 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
     @Autowired
     private PrintAgent agent;
-
-    @Autowired
-    private OutToWebsitePublisher publisher;
 
     @Autowired
     private SpielPrintManager spielPrinter;
@@ -268,10 +268,14 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
             agent.saveFileToPrint("rangliste", verarbeiter.getRangliste());
 
-            publisher.addPage("rangliste", verarbeiter.getRangliste());
-
             // letzte resultate drucken
             spielPrinter.printPage();
+
+
+
+            String jahr = ""+ new DateTime(this.business.getSpielEinstellungen().getStarttag()).getYear();
+
+            this.infoservice.dumpJetzt(jahr);
 
             endranglistegedruckt = true;
             LOG.debug("checkSpielende: spiel abgeschlossen");

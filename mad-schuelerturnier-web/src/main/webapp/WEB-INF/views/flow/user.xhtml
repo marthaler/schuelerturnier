@@ -41,6 +41,22 @@
                     <p:commandButton id="submit" value="Speichern" action="save" execute="@form"
                                      update="@form"/>
                 </h:panelGrid>
+
+
+
+
+
+
+
+
+                <p:commandButton id="sdddubmit" value="save" action="#{dropboxConnector.saveOldGame('1230','aaaa')}" execute="@form"
+                                 update="@form"/>
+
+                <p:commandButton id="susssbmit" value="load" action="#{dropboxConnector.loadOldGames()}" execute="@form"
+                                 update="@form"/>
+
+
+
             </h:form>
 
         </p:tab>

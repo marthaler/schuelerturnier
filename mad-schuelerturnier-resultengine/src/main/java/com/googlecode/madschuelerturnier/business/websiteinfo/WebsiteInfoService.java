@@ -7,13 +7,16 @@
  */
 package com.googlecode.madschuelerturnier.business.websiteinfo;
 
+import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
 import com.googlecode.madschuelerturnier.business.websiteinfo.model.MannschaftsComperator;
 import com.googlecode.madschuelerturnier.business.websiteinfo.model.TeamGruppen;
+import com.googlecode.madschuelerturnier.business.websiteinfo.model.WebsiteInfoJahresDump;
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.comperators.KategorieKlasseUndGeschlechtComperator;
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
+import com.googlecode.madschuelerturnier.model.util.XstreamUtil;
 import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
@@ -22,9 +25,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Zugriff auf die Mannschaften, Kategorien und Resultate fuer die Darstellung auf der Webseite
@@ -37,6 +38,10 @@ public final class WebsiteInfoService {
 
     private static final Logger LOG = Logger.getLogger(WebsiteInfoService.class);
 
+    private WebsiteInfoJahresDump jetzt = new WebsiteInfoJahresDump();
+
+    private Map<String,WebsiteInfoJahresDump> alt = new HashMap<String,WebsiteInfoJahresDump>();
+
     @Autowired
     private MannschaftRepository mannschaftRepo;
 
@@ -46,19 +51,67 @@ public final class WebsiteInfoService {
     @Autowired
     private SpielRepository spielRepository;
 
+    @Autowired
+    private DropboxConnector dropboxConnector;
+
+
+    public void dumpJetzt(String jahr){
+        this.getFinalspiele("1");
+        this.getGruppenspiele("1");
+        this.getKnabenMannschaften("1",false);
+        this.getMaedchenMannschaften("1",false);
+        dropboxConnector.saveOldGame(jahr,XstreamUtil.serializeToString(jetzt));
+    }
+
+
     private WebsiteInfoService() {
 
     }
 
     public List<Spiel> getGruppenspiele(String jahr){
-        return spielRepository.findGruppenSpielAsc();
+
+        if(jahr.length() == 4){
+            return getOldJahredump(jahr).getGruppenspiele();
+        }
+
+        jetzt.setGruppenspiele(spielRepository.findGruppenSpielAsc());
+        return jetzt.getGruppenspiele();
+    }
+
+    public WebsiteInfoJahresDump getOldJahredump(String jahr ){
+        WebsiteInfoJahresDump dump = alt.get(jahr);
+        if(dump == null){
+            Map<String,String> str = dropboxConnector.loadOldGames();
+            for(String key : str.keySet()){
+                this.alt.put(key, (WebsiteInfoJahresDump) XstreamUtil.deserializeFromString(str.get(key)));
+            }
+        } else{
+            return dump;
+        }
+        WebsiteInfoJahresDump dump2 = alt.get(jahr);
+        if(dump2 != null){
+            return dump2;
+        }
+        return dump;
     }
 
     public List<Spiel> getFinalspiele(String jahr){
-        return spielRepository.findFinalSpielAsc();
+
+        if(jahr.length() == 4){
+            return getOldJahredump(jahr).getFinalspiele();
+        }
+
+        jetzt.setFinalspiele(spielRepository.findFinalSpielAsc());
+        return jetzt.getFinalspiele();
+
     }
 
     public List<TeamGruppen> getKnabenMannschaften(String jahr, boolean ganzeliste) {
+
+
+        if(jahr.length() == 4){
+            return getOldJahredump(jahr).getKnabenMannschaften();
+        }
 
         if (ganzeliste) {
             return convertToGanzeGruppe(mannschaftRepo.findAll(), true);
@@ -68,6 +121,11 @@ public final class WebsiteInfoService {
     }
 
     public List<TeamGruppen> getMaedchenMannschaften(String jahr, boolean ganzeliste) {
+
+        if(jahr.length() == 4){
+            return getOldJahredump(jahr).getMaedchenMannschaften();
+        }
+
         if (ganzeliste) {
             return convertToGanzeGruppe(mannschaftRepo.findAll(), false);
         }
@@ -102,6 +160,13 @@ public final class WebsiteInfoService {
             this.mannschaftenKonvertierenUndEinfuellen(m.getMannschaften(), gr);
             result.add(gr);
         }
+
+        if(knaben){
+            jetzt.setKnabenMannschaften(result);
+        } else{
+            jetzt.setMaedchenMannschaften(result);
+        }
+
         return result;
     }
 

@@ -54,7 +54,7 @@ public class SpielEinstellungen extends Persistent {
 
     private boolean gongEinschalten = false;
 
-    private boolean behandleFinaleProKlassebeiZusammengefuehrten = false;
+    private boolean behandleFinaleProKlassebeiZusammengefuehrten = true;
 
     private boolean webcamdemomode = false;
 
@@ -152,6 +152,7 @@ public class SpielEinstellungen extends Persistent {
         this.test = test;
     }
 
+    @Deprecated
     public Date getStart() {
         return this.start;
     }
@@ -163,7 +164,7 @@ public class SpielEinstellungen extends Persistent {
     public void setStartJetzt(final boolean startJetzt) {
         this.startJetzt = startJetzt;
     }
-
+@Deprecated
     public void setStart(final Date start) {
         this.start = start;
     }

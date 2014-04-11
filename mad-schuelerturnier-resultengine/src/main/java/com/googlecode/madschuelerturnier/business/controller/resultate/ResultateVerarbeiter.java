@@ -6,7 +6,6 @@ package com.googlecode.madschuelerturnier.business.controller.resultate;
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLConverterRangliste;
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLOutConverter;
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLSpielMatrixConverter;
-import com.googlecode.madschuelerturnier.business.out.OutToWebsitePublisher;
 import com.googlecode.madschuelerturnier.business.print.SpielPrintManager;
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
@@ -48,10 +47,10 @@ public class ResultateVerarbeiter {
     private KategorieRepository katRepo;
     @Autowired
     private SpielEinstellungenRepository eRepo;
-    @Autowired
-    private OutToWebsitePublisher ftpPublisher;
+
     @Autowired
     private SpielPrintManager printer;
+
     private boolean init = false;
     private boolean uploadAllKat = false;
     private Map<String, Boolean> beendet = new HashMap<String, Boolean>();
@@ -154,8 +153,6 @@ public class ResultateVerarbeiter {
 
                 verarbeitePenalty();
 
-                verarbeiteUploadAllKat();
-
                 verarbeiteSpiel(id);
                 try {
                     id = spielQueue.remove();
@@ -206,8 +203,6 @@ public class ResultateVerarbeiter {
         spiel = repo.findOne(id);
 
         pruefeUndSetzeFinale(spiel, kat, katName, rangListe);
-
-        uploadKat(kat);
 
         printer.saveSpiel(spiel);
 
@@ -403,39 +398,9 @@ public class ResultateVerarbeiter {
         gross.add(listeTief.get(0));
         gross.add(listeTief.get(1));
 
-        klein.add(listeTief.get(0));
+        klein.add(listeHoch.get(0));
         klein.add(listeHoch.get(1));
 
-    }
-
-    public void uploadAllKat() {
-        uploadAllKat = true;
-    }
-
-    private void verarbeiteUploadAllKat() {
-
-        if (!uploadAllKat) {
-            return;
-        }
-
-        LOG.info("ftpPublisher: reconnect");
-        this.ftpPublisher.reconnect();
-        for (Kategorie kat : this.katRepo.findAll()) {
-            uploadKat(kat);
-        }
-        uploadAllKat = false;
-    }
-
-    private void uploadKat(Kategorie kat) {
-        // hochladen der index seite
-        this.ftpPublisher.addPage("index.html", this.historieGenerator.generatePageIndex());
-
-        // hochladen der kategorie
-        String page = this.historieGenerator.generatePageKategorie(kat);
-        this.ftpPublisher.addPage(kat.getName() + ".html".toLowerCase(), page);
-
-        // hochladen der resultate
-        this.ftpPublisher.addPage("rangliste.html", this.rangliste.printOutGere(map.values(), true));
     }
 
     public void initialisieren() {
@@ -452,9 +417,6 @@ public class ResultateVerarbeiter {
                 this.signalFertigesSpiel(spiel.getId());
             }
         }
-
-        // hochladen der index seite
-        this.ftpPublisher.addPage("index.html", this.historieGenerator.generatePageIndex());
     }
 
     public void neuberechnenDerKategorie(Kategorie kat) {
@@ -479,8 +441,6 @@ public class ResultateVerarbeiter {
             this.signalFertigesSpiel(kat.getGrosserFinal().getId());
         }
 
-        // hochladen der index seite
-        this.ftpPublisher.addPage("index.html", this.historieGenerator.generatePageIndex());
     }
 
     public String generateSpieleMatrix() {

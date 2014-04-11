@@ -44,6 +44,10 @@
                            label="Spieltagezuordnung" icon="ui-icon-refresh">
                     <p:menuitem id="mm_einstelung1" value="Spieleinstellungen" icon="ui-icon-carat-2-n-s"
                                 action="spieleinstellungen"/>
+
+                    <p:menuitem id="mm_spiele_vertauschungen_1" value="Manuelle Korrekturen" icon="ui-icon-carat-2-n-s"
+                                action="korrekturen"/>
+
                     <p:menuitem id="mm_phasen3" rendered="#{sec:areAnyGranted('ROLE_USER, ROLE_ADMIN')}"
                                 value="Phasenverwaltung" icon="ui-icon-arrow-4-diag" action="spielsteuerung"/>
                 </p:submenu>
@@ -68,6 +72,7 @@
                            rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.spielend}"
                            label="Stammdaten"
                            icon="ui-icon-contact">
+
                     <p:menuitem id="mm_mannschaften" value="Mannschaften auflisten" icon="ui-icon-carat-2-n-s"
                                 action="mannschaftsliste"/>
 
@@ -79,6 +84,7 @@
 
                     <p:menuitem id="mm_spiele_vertauschungen" value="Manuelle Korrekturen" icon="ui-icon-carat-2-n-s"
                                 action="korrekturen"/>
+
                     <p:menuitem id="mm_einstelung3" value="Spieleinstellungen" icon="ui-icon-carat-2-n-s"
                                 action="spieleinstellungen"
                                 rendered="#{sec:areAnyGranted('ROLE_ADMIN,ROLE_EINTRAGER') and spielstatusWebBean.spielphase}"/>

@@ -23,6 +23,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Aspekt zum sichern der File Attachements in der Dropbox
@@ -179,6 +180,24 @@ public class DropboxWeiche implements DropboxConnector{
             this.connector.saveGame(content);
         }else {
             this.connectorRemote.saveGame(content);
+        }
+    }
+
+    @Override
+    public void saveOldGame(String jahr, String content) {
+        if(isLocal()){
+            this.connector.saveOldGame(jahr,content);
+        }else {
+            this.connectorRemote.saveOldGame(jahr,content);
+        }
+    }
+
+    @Override
+    public Map<String, String> loadOldGames() {
+        if(isLocal()){
+            return this.connector.loadOldGames();
+        }else {
+            return this.connectorRemote.loadOldGames();
         }
     }
 

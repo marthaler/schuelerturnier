@@ -91,16 +91,25 @@
     <h:panelGrid id="panel2" columns="2" style="margin-bottom:10px">
         <h:outputText value="Bis- und mit Klassen haben 2 Pausen:"/>
         <h:panelGrid columns="1" style="margin-bottom:10px">
-            <p:inputText id="txt1" value="#{business.spielEinstellungen.zweiPausenBisKlasse}" onchange="document.getElementById('form1:refresh').click()"/>
-            <p:slider for="txt1" minValue="0" maxValue = "9"/>
+            <p:inputText id="txt1" value="#{business.spielEinstellungen.zweiPausenBisKlasse}" onchange="document.getElementById('form1:refresh').click()" disabled="#{!spielstatusWebBean.anmeldephase and !spielstatusWebBean.kategoriezuordnungsphase}"/>
+            <p:slider for="txt1" minValue="0" maxValue = "9" disabled="#{!spielstatusWebBean.anmeldephase and !spielstatusWebBean.kategoriezuordnungsphase}"/>
         </h:panelGrid>
+
+        <h:outputText value="Kategorien mit 2 Klassen haben 2 separate grosse Finale"/>
+        <h:panelGrid columns="1" style="margin-bottom:10px">
+            <p:selectBooleanCheckbox onchange="document.getElementById('form1:refresh').click()"
+                                     id="txt2" value="#{business.spielEinstellungen.behandleFinaleProKlassebeiZusammengefuehrten}"
+                                     ajax="true" update="form1" disabled="#{!spielstatusWebBean.anmeldephase and !spielstatusWebBean.kategoriezuordnungsphase}"/>
+
+        </h:panelGrid>
+
     </h:panelGrid>
 </p:tab>
 
 <p:tab title="Alles andere">
 <h:panelGrid columns="2" cellpadding="10">
 
-<h:inputHidden id="txt2" value="#{spieleinstellungen.aufholzeitInSekunden}"/>
+<h:inputHidden id="txt3" value="#{spieleinstellungen.aufholzeitInSekunden}"/>
 <p:fieldset legend="Spielsteuerung">
 <p:messages/>
 
@@ -275,8 +284,6 @@ Phase: #{spieleinstellungen.phase}
 </h:panelGrid>
 <p:separator id="customSeparator"/>
 
-<p:commandButton action="#{resultateVerarbeiter.uploadAllKat()}"
-                 value="Upload auf Webseite anstossen" ajax="false"/>
 <br/><br/>
 <p:separator id="customSeparator2"/>
 
@@ -309,15 +316,6 @@ Phase: #{spieleinstellungen.phase}
 
 
 <br/>
-
-<p:commandButton action="#{databaseDumpAndImport.fullDatabaseExportToRoot()}" value="dumpdb" ajax="true"/>
-<br/>
-
-<br/>
-
-<p:commandButton action="#{databaseDumpAndImport.fullDatabaseImportToRoot()}" value="loaddb" ajax="true"/>
-<br/>
-
 
 </p:fieldset>
 

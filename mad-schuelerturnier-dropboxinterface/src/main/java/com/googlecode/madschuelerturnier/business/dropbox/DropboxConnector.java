@@ -8,6 +8,7 @@
 package com.googlecode.madschuelerturnier.business.dropbox;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author $Author: marthaler.worb@gmail.com $
@@ -42,5 +43,9 @@ public interface DropboxConnector {
     void deleteGameAttachemt(String file);
 
     void saveGame(byte[] content);
+
+    void saveOldGame(String jahr,String content);
+
+    Map<String,String> loadOldGames();
 
 }

@@ -4,7 +4,6 @@
 package com.googlecode.madschuelerturnier.web;
 
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLOutConverter;
-import com.googlecode.madschuelerturnier.business.out.OutToWebsitePublisher;
 import com.googlecode.madschuelerturnier.business.print.PrintAgent;
 import com.googlecode.madschuelerturnier.web.utils.ContextInformationListener;
 import org.apache.log4j.Logger;
@@ -31,9 +30,6 @@ public class LoginPrepareAction {
 
     @Autowired
     private PrintAgent printAgent;
-
-    @Autowired
-    private OutToWebsitePublisher outToWebsite;
 
     @Autowired
     private HTMLOutConverter converter;
@@ -73,8 +69,6 @@ public class LoginPrepareAction {
         printAgent.init(path + STATIC + delim);
 
         converter.setPath(path + STATIC + delim);
-
-        outToWebsite.init(path + STATIC + delim);
 
         init = true;
 
