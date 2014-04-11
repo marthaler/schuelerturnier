@@ -43,8 +43,11 @@ public class WebsiteInfoController {
     @RequestMapping(value = "/info/{jahr}", method = RequestMethod.GET)
     public String getWebsiteinfo(@PathVariable("jahr") String jahr, Model model) {
 
-        if(jahr.length() < 4){
-            jahr = null;
+        if(jahr.length() == 4){
+            model.addAttribute("thisjear", false);
+        } else{
+            model.addAttribute("thisjear", true);
+            jahr = "1"; // = jetzt
         }
 
         boolean ganzeListe = business.getSpielEinstellungen().getWebsiteInMannschaftslistenmode();

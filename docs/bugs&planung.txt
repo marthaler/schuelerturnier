@@ -2,6 +2,7 @@ feautures:
 **********
 
 ***********************************************
+[  ]     ResultateVerarbeiter ohne verbindung zu Spiel Einstelungs Repo
 [  ]     M1 und 2 mit 2 GF
 [  ]     kamera view verbessern
 [  ]     testlaeufe erstellen

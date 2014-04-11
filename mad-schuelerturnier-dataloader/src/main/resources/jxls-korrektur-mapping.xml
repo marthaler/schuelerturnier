@@ -12,8 +12,8 @@
                 <mapping row="1" col="3">korrektur.reihenfolge</mapping>
             </section>
             <loopbreakcondition>
-                <rowcheck offset="1">
-                    <cellcheck offset="2"/>
+                <rowcheck offset="0">
+                    <cellcheck offset="1"/>
                 </rowcheck>
             </loopbreakcondition>
         </loop>
