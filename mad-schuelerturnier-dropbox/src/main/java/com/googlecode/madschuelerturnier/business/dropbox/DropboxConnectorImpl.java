@@ -14,6 +14,7 @@ import org.springframework.util.DigestUtils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
@@ -311,7 +312,11 @@ public class DropboxConnectorImpl implements DropboxConnector {
 
     @Override
     public void saveOldGame(String jahr,String content) {
-        this.saveFile("alt/" + jahr + "-websitedump.xml", content.getBytes());
+        try {
+            this.saveFile("alt/" + jahr + "-websitedump.xml", content.getBytes("utf-8"));
+        } catch (UnsupportedEncodingException e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
 
     @Override
@@ -328,11 +333,10 @@ public class DropboxConnectorImpl implements DropboxConnector {
                         outputStream = new ByteArrayOutputStream();
                         DbxEntry.File downloadedFile = client.getFile(child.asFile().path, null, outputStream);
                         LOG.info("DropboxConnectorImpl: file loaded; size -> " + downloadedFile.humanSize);
-                        String out = new String(outputStream.toByteArray());
-String[] arr = child.asFile().path.split("/");
+                        String out = outputStream.toString("utf-8");
+                        String[] arr = child.asFile().path.split("/");
                         String str = arr[arr.length-1].replace("-websitedump.xml","");
                         result.put(str,out);
-
                     } catch (Exception e) {
                         LOG.error(e.getMessage(), e);
                     } finally {
@@ -351,7 +355,6 @@ String[] arr = child.asFile().path.split("/");
         }
         return result;
     }
-
 
     private String generateMD5(byte[] args) {
         return DigestUtils.md5DigestAsHex(args);

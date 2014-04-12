@@ -24,7 +24,7 @@
                                 </p:row>
                             </p:columnGroup>
                             <p:column>
-                                <h:outputText value="#{mmannschaft.nummer}" rendered="#{!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase or !thisjear}"></h:outputText>
+                                <h:outputText value="#{mmannschaft.nummer}" rendered="#{(!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase) or !thisjear}"></h:outputText>
                             </p:column>
                             <p:column>
                                 [#{mmannschaft.klasse} #{mmannschaft.klassenname}]-#{mmannschaft.schulhaus}
@@ -64,7 +64,7 @@
                                 </p:row>
                             </p:columnGroup>
                             <p:column>
-                                <h:outputText value="#{mmannschaft.nummer}" rendered="#{!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase or !thisjear}"></h:outputText>
+                                <h:outputText value="#{mmannschaft.nummer}" rendered="#{(!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase) or !thisjear}"></h:outputText>
                             </p:column>
                             <p:column>
                                 [#{mmannschaft.klasse} #{mmannschaft.klassenname}]-#{mmannschaft.schulhaus}
@@ -88,7 +88,7 @@
                         <br/>
                     </ui:repeat>
                 </p:tab>
-                <p:tab title="Gruppenspiele" rendered="#{!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase or !thisjear}">
+                <p:tab title="Gruppenspiele" rendered="#{(!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase) or !thisjear}">
                         <p:dataTable  var="spiel" value="#{gruppenspiele}">
                             <p:columnGroup type="header">
                                 <p:row>
@@ -122,7 +122,7 @@
                         </p:dataTable>
                         <br/>
                 </p:tab>
-                <p:tab title="Finalspiele" rendered="#{!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase or !thisjear}">
+                <p:tab title="Finalspiele" rendered="#{(!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase) or !thisjear}">
                     <p:dataTable  var="spiel" value="#{finalspiele}">
                         <p:columnGroup type="header">
                             <p:row>
@@ -156,7 +156,33 @@
                         <p:column>
                             #{spiel.evaluateToreBBestateigtString()}
                         </p:column>
-
+                    </p:dataTable>
+                    <br/>
+                </p:tab>
+                <p:tab title="Rangliste" rendered="#{(!einstellungen.websiteInMannschaftslistenmode and !spielstatusWebBean.anmeldephase) or !thisjear}">
+                    <p:dataTable id="Zeile" var="zeile" value="#{rangliste}">
+                        <f:facet name="header">
+                            Schlussrangliste
+                        </f:facet>
+                        <p:columnGroup type="header">
+                            <p:row>
+                                <p:column headerText=" " />
+                                <p:column headerText="1.Rang" />
+                                <p:column headerText="2.Rang" />
+                                <p:column headerText="3.Rang" />
+                                <p:column headerText="4.Rang" />
+                            </p:row>
+                        </p:columnGroup>
+                        <p:subTable var="z" value="#{zeile.getAsZeilen()}">
+                            <f:facet name="header">
+                                #{zeile.name}
+                            </f:facet>
+                            <p:column>#{z.get(0)}</p:column>
+                            <p:column>#{z.get(1)}</p:column>
+                            <p:column>#{z.get(2)}</p:column>
+                            <p:column>#{z.get(3)}</p:column>
+                            <p:column>#{z.get(4)}</p:column>
+                        </p:subTable>
                     </p:dataTable>
                     <br/>
                 </p:tab>

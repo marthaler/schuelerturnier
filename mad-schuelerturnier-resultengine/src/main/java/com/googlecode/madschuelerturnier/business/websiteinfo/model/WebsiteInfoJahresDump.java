@@ -6,6 +6,7 @@ package com.googlecode.madschuelerturnier.business.websiteinfo.model;
 
 import com.googlecode.madschuelerturnier.model.Spiel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,8 @@ public class WebsiteInfoJahresDump {
     private List<TeamGruppen> knabenMannschaften = null;
 
     private List<TeamGruppen> maedchenMannschaften = null;
+
+    private List<KlassenrangZeile> rangliste = new ArrayList<KlassenrangZeile>();
 
     public List<Spiel> getGruppenspiele() {
         return gruppenspiele;
@@ -51,5 +54,13 @@ public class WebsiteInfoJahresDump {
 
     public void setMaedchenMannschaften(List<TeamGruppen> maedchenMannschaften) {
         this.maedchenMannschaften = maedchenMannschaften;
+    }
+
+    public List<KlassenrangZeile> getRangliste() {
+        return rangliste;
+    }
+
+    public void setRangliste(List<KlassenrangZeile> rangliste) {
+        this.rangliste = rangliste;
     }
 }

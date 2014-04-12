@@ -6,7 +6,10 @@ package com.googlecode.madschuelerturnier.business.controller.resultate;
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLConverterRangliste;
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLOutConverter;
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLSpielMatrixConverter;
+import com.googlecode.madschuelerturnier.business.controller.leiter.converter.ModelConverterRangliste;
 import com.googlecode.madschuelerturnier.business.print.SpielPrintManager;
+import com.googlecode.madschuelerturnier.business.websiteinfo.WebsiteInfoService;
+import com.googlecode.madschuelerturnier.business.websiteinfo.model.KlassenrangZeile;
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Penalty;
@@ -47,6 +50,8 @@ public class ResultateVerarbeiter {
     private KategorieRepository katRepo;
     @Autowired
     private SpielEinstellungenRepository eRepo;
+    @Autowired
+    private ModelConverterRangliste ranglisteConverter;
 
     @Autowired
     private SpielPrintManager printer;
@@ -455,6 +460,10 @@ public class ResultateVerarbeiter {
 
     public String getRangliste() {
         return rangliste.printOutGere(map.values(), false);
+    }
+
+    public List<KlassenrangZeile> getRanglisteModel() {
+        return this.ranglisteConverter.convertKlassenrangZeile(map.values());
     }
 
     @Deprecated

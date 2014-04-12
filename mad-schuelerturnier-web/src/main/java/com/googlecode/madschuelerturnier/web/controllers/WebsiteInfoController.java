@@ -1,7 +1,3 @@
-/***************************************************************************************************************************************************************************************************************************
- * Copyright (C) Schweizerische Bundesbahnen SBB, 2014.
- */
-
 /**
  * Apache License 2.0
  */
@@ -43,10 +39,11 @@ public class WebsiteInfoController {
     @RequestMapping(value = "/info/{jahr}", method = RequestMethod.GET)
     public String getWebsiteinfo(@PathVariable("jahr") String jahr, Model model) {
 
+        // fuer die anschaltung der details im jahr auch wenn im aktuellen die details ausgeblendet sind
         if(jahr.length() == 4){
-            model.addAttribute("thisjear", false);
+            model.addAttribute("thisyear", false);
         } else{
-            model.addAttribute("thisjear", true);
+            model.addAttribute("thisyear", true);
             jahr = "1"; // = jetzt
         }
 
@@ -60,6 +57,8 @@ public class WebsiteInfoController {
 
         model.addAttribute("gruppenspiele", service.getGruppenspiele(jahr));
         model.addAttribute("finalspiele", service.getFinalspiele(jahr));
+
+        model.addAttribute("rangliste", service.getRangliste(jahr));
 
         model.addAttribute("einstellungen", business.getSpielEinstellungen());
         model.addAttribute("spielstatusWebBean", spielstatusWebBean);

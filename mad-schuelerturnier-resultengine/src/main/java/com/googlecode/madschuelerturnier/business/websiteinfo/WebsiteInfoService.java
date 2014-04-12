@@ -7,7 +7,10 @@
  */
 package com.googlecode.madschuelerturnier.business.websiteinfo;
 
+import com.googlecode.madschuelerturnier.business.controller.leiter.converter.ModelConverterRangliste;
+import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
 import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
+import com.googlecode.madschuelerturnier.business.websiteinfo.model.KlassenrangZeile;
 import com.googlecode.madschuelerturnier.business.websiteinfo.model.MannschaftsComperator;
 import com.googlecode.madschuelerturnier.business.websiteinfo.model.TeamGruppen;
 import com.googlecode.madschuelerturnier.business.websiteinfo.model.WebsiteInfoJahresDump;
@@ -54,12 +57,16 @@ public final class WebsiteInfoService {
     @Autowired
     private DropboxConnector dropboxConnector;
 
+    @Autowired
+    private ResultateVerarbeiter resultate;
+
 
     public void dumpJetzt(String jahr){
         this.getFinalspiele("1");
         this.getGruppenspiele("1");
         this.getKnabenMannschaften("1",false);
         this.getMaedchenMannschaften("1",false);
+        this.getRangliste("1");
         dropboxConnector.saveOldGame(jahr,XstreamUtil.serializeToString(jetzt));
     }
 
@@ -104,6 +111,14 @@ public final class WebsiteInfoService {
         jetzt.setFinalspiele(spielRepository.findFinalSpielAsc());
         return jetzt.getFinalspiele();
 
+    }
+
+    public List<KlassenrangZeile> getRangliste(String jahr){
+        if(jahr.length() == 4){
+            return getOldJahredump(jahr).getRangliste();
+        }
+        this.jetzt.setRangliste(this.resultate.getRanglisteModel());
+        return jetzt.getRangliste();
     }
 
     public List<TeamGruppen> getKnabenMannschaften(String jahr, boolean ganzeliste) {
