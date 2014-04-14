@@ -137,16 +137,23 @@ public class F6SpielverteilerManuelleKorrekturen {
 
         if (platz.equals("a")) {
             zeile.setA(spiel);
-            spiel.setPlatz(PlatzEnum.A);
+            if(spiel != null){
+                spiel.setPlatz(PlatzEnum.A);
+            }
         }
 
         if (platz.equals("b")) {
             zeile.setB(spiel);
+            if(spiel != null){
             spiel.setPlatz(PlatzEnum.B);
+            }
         }
 
         if (platz.equals("c")) {
             zeile.setC(spiel);
+            if(spiel != null){
+                spiel.setPlatz(PlatzEnum.C);
+            }
         }
 
         if (spiel != null) {
