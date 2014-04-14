@@ -63,14 +63,18 @@ public class F6SpielverteilerManuelleKorrekturen {
             LOG.info("vertauschung: " + key + " " + value);
 
             SpielZeile quelle = findZeile(convertSonntag(key), convertTime(key));
+            LOG.info("vertauschung quellezeile: " + quelle);
             SpielZeile ziel = findZeile(convertSonntag(value), convertTime(value));
+            LOG.info("vertauschung zielzeile: " + ziel);
 
             Spiel quelleSpiel = getSpielFromZeile(quelle, key);
             Spiel zielSpiel = getSpielFromZeile(ziel, value);
 
+            LOG.info("vertauschung quellespiel: " + quelleSpiel);
             setSpielToZeile(quelle, key, zielSpiel);
+            LOG.info("vertauschung zielspiel: " + zielSpiel);
             setSpielToZeile(ziel, value, quelleSpiel);
-
+            LOG.info("vertauschung fertig.");
         }
 
         LOG.info("starte manuelle korrektur: ende");
@@ -81,6 +85,7 @@ public class F6SpielverteilerManuelleKorrekturen {
     private SpielZeile findZeile(boolean sonntag, String zeit) {
         Iterable<SpielZeile> zeilen = spielzeilenRepo.findAll();
         for (SpielZeile spielZeile : zeilen) {
+            LOG.info("found:" + spielZeile);
             if (spielZeile.isSonntag() == sonntag) {
                 if (spielZeile.getZeitAsString().equals(zeit)) {
                     return spielZeile;

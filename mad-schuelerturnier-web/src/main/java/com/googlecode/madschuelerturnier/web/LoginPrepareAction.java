@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.TimeZone;
 
 /**
  * @author marthaler.worb@gmail.com
@@ -39,6 +40,11 @@ public class LoginPrepareAction {
     private String delim = System.getProperty("file.separator");
 
     public void execute() throws IOException {
+
+        LOG.info("TIMEZONE: " + TimeZone.getDefault().getDisplayName());
+        TimeZone.setDefault(TimeZone.getTimeZone("Europe/Busingen"));
+        LOG.info("SET TIMEZONE: Europe/Busingen");
+        LOG.info("TIMEZONE NOW: " + TimeZone.getDefault().getDisplayName());
 
         if (init) {
             LOG.info("LoginPrepareAction: bereits aufgerufen, nicht mehr noetig");
