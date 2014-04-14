@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business.bus;
 
-import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
+import com.googlecode.madschuelerturnier.model.*;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListener;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListenerManager;
 import com.googlecode.madschuelerturnier.model.integration.OutgoingMessage;
@@ -39,15 +39,38 @@ public class BusControllerOut implements ApplicationEventPublisherAware, ModelCh
 
     @Override
     public void onChangeModel(Serializable object) {
-        LOG.info("new outgoing message: " + object.getClass().getName());
-
-        if (!(object instanceof SpielEinstellungen)) {
-            LOG.info("message: senden");
-            OutgoingMessage m = new OutgoingMessage(this);
-            m.setPayload(object);
-            publisher.publishEvent(m);
-        } else {
-            LOG.info("message: mache nichts");
+            if(object instanceof SpielEinstellungen){
+            LOG.info("BusControllerOut senden: SpielEinstellungen");
+            sendMessage(object);
         }
+else
+        if(object instanceof Mannschaft){
+            LOG.info("BusControllerOut senden: Mannschaft");
+            sendMessage(object);
+        }
+else
+        if(object instanceof SpielZeile){
+            LOG.info("BusControllerOut senden: SpielZeile");
+            sendMessage(object);
+        }
+    else
+            if(object instanceof DBAuthUser){
+                LOG.info("BusControllerOut senden: DBAuthUser");
+                sendMessage(object);
+                // todo bins eintragen
+    }
+else
+        if (object instanceof Spiel) {
+            LOG.info("BusControllerOut senden: Spiel");
+            sendMessage(object);
+        } else {
+            LOG.info("BusControllerOut senden: mache nichts, geaendert: " + object.getClass());
+        }
+    }
+
+    private void sendMessage(Serializable object) {
+        OutgoingMessage m = new OutgoingMessage(this);
+        m.setPayload(object);
+        publisher.publishEvent(m);
     }
 }

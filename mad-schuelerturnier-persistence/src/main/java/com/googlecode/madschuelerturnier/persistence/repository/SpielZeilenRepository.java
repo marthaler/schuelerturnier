@@ -42,4 +42,7 @@ public interface SpielZeilenRepository extends PagingAndSortingRepository<SpielZ
     @Query("select o from SpielZeile o where o.phase = 3 order by o.start asc")
     List<SpielZeile> findDSpielend();
 
+    @Query("select o from SpielZeile o where o.phase = 4 order by o.start asc")
+    List<SpielZeile> findEBeendet();
+
 }
