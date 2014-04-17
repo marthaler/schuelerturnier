@@ -77,20 +77,31 @@
 </p:tab>
 
 <p:tab id="websitepublisher" title="Websitepublisher">
-
     <h:panelGrid  columns="2" style="margin-bottom:10px">
-        <h:outputText value="Kategorien-, Spiele- und Mannschaftsnummernanzeigen verbergen"/>
+
+
+        <h:outputText value="Kategorien-, Spiele- und Mannschaftsnummernanzeigen verbergen: "/>
         <p:selectBooleanCheckbox onchange="document.getElementById('form1:refresh').click()"
                                  id="websiteInMannschaftslistenmode" value="#{business.spielEinstellungen.websiteInMannschaftslistenmode}"
                                  ajax="true" update="form1"/>
 
-        <h:outputText value="Link Anmeldung downloaden anzeigen"/>
+        <p:separator /> <p:separator />
+
+        <h:outputText value="Link Anmeldung downloaden anzeigen " />
         <p:selectBooleanCheckbox onchange="document.getElementById('form1:refresh').click()"
                                   value="#{business.spielEinstellungen.websiteEnableDownloadLink}"
                                  ajax="true" update="form1"/>
 
-        <h:outputText value="AnmeldeLink:"/>
-        <p:inputText value="#{business.spielEinstellungen.websiteDownloadLink}" onchange="document.getElementById('form1:refresh').click()"/>
+        <h:outputText value="AnmeldeLink: "/>
+        <p:inputText value="#{business.spielEinstellungen.websiteDownloadLink}" onchange="document.getElementById('form1:refresh').click()" size="40"/>
+
+
+        <p:separator /><p:separator />
+
+
+        <h:outputText value="Website Turnier Titel: "/>
+        <p:inputText value="#{business.spielEinstellungen.websiteTurnierTitel}" onchange="document.getElementById('form1:refresh').click()" size="40"/>
+
 
 
     </h:panelGrid>

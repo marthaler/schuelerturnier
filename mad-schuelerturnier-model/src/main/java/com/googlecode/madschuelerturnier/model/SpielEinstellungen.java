@@ -64,6 +64,8 @@ public class SpielEinstellungen extends Persistent {
 
     private String websiteDownloadLink = "";
 
+    private String websiteTurnierTitel ="";
+
 
     // 05 Spielverteilung
     private int zweiPausenBisKlasse = 0;
@@ -298,6 +300,14 @@ public class SpielEinstellungen extends Persistent {
 
     public void setWebsiteDownloadLink(String websiteDownloadLink) {
         this.websiteDownloadLink = websiteDownloadLink;
+    }
+
+    public String getWebsiteTurnierTitel() {
+        return websiteTurnierTitel;
+    }
+
+    public void setWebsiteTurnierTitel(String websiteTurnierTitel) {
+        this.websiteTurnierTitel = websiteTurnierTitel;
     }
 
 }
