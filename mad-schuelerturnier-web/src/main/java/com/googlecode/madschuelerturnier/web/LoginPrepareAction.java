@@ -41,13 +41,8 @@ public class LoginPrepareAction {
 
     public void execute() throws IOException {
 
-        LOG.info("TIMEZONE: " + TimeZone.getDefault().getDisplayName());
-        TimeZone.setDefault(TimeZone.getTimeZone("Europe/Zurich"));
-        LOG.info("SET TIMEZONE: Europe/Zurich");
-        LOG.info("TIMEZONE NOW: " + TimeZone.getDefault().getID());
-
         if (init) {
-            LOG.info("LoginPrepareAction: bereits aufgerufen, nicht mehr noetig");
+            LOG.debug("LoginPrepareAction: bereits aufgerufen, nicht mehr noetig");
             return;
         }
 

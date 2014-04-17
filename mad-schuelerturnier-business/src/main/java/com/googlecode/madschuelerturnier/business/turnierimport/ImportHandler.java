@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -102,6 +103,7 @@ public class ImportHandler {
             Collections.sort(spiele, new SpielZeitComperator());
             for (Spiel s : spiele) {
                 Spiel temp = sRepo.findOne(s.getId());
+                Date startGeneriert = temp.getStart();
                 // Objekte setzen welche sonst null wären vor dem Uebertragen
                 s.setMannschaftA(temp.getMannschaftA());
                 s.setMannschaftB(temp.getMannschaftB());
@@ -119,6 +121,11 @@ public class ImportHandler {
                     LOG.error(e.getMessage(), e);
                 }
 
+                // generierter Start wieder setzen, wegen dem Timezone problem
+                LOG.info("spielimport: " + temp.getIdString() + "-" +  s.getIdString());
+                LOG.info("spielimport, start aus xls: " + temp.getStart());
+                LOG.info("spielimport, generiert: " + startGeneriert);
+                temp.setStart(startGeneriert);
                 temp = sRepo.save(temp);
                 // signalisiere fertiges Spiel an Resultate Verabeiter
                 if (temp.isFertigGespielt()) {

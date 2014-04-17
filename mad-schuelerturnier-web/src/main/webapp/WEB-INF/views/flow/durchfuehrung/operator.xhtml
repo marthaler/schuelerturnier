@@ -82,8 +82,17 @@
         <h:outputText value="Kategorien-, Spiele- und Mannschaftsnummernanzeigen verbergen"/>
         <p:selectBooleanCheckbox onchange="document.getElementById('form1:refresh').click()"
                                  id="websiteInMannschaftslistenmode" value="#{business.spielEinstellungen.websiteInMannschaftslistenmode}"
-                                 ajax="true" update="form1">
-        </p:selectBooleanCheckbox>
+                                 ajax="true" update="form1"/>
+
+        <h:outputText value="Link Anmeldung downloaden anzeigen"/>
+        <p:selectBooleanCheckbox onchange="document.getElementById('form1:refresh').click()"
+                                  value="#{business.spielEinstellungen.websiteEnableDownloadLink}"
+                                 ajax="true" update="form1"/>
+
+        <h:outputText value="AnmeldeLink:"/>
+        <p:inputText value="#{business.spielEinstellungen.websiteDownloadLink}" onchange="document.getElementById('form1:refresh').click()"/>
+
+
     </h:panelGrid>
 </p:tab>
 

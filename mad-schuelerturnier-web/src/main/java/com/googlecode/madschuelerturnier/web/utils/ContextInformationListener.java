@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.net.URL;
+import java.util.TimeZone;
 
 /**
  * Sammelt Informationen zu Servlet Context um diese per statischen getter von ausserhalb abzufragen
@@ -20,6 +21,7 @@ public class ContextInformationListener implements ServletContextListener {
 
     private static final Logger LOG = Logger.getLogger(ContextInformationListener.class);
     private static String path = "not_initialized";
+    private static TimeZone zone;
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
@@ -28,6 +30,13 @@ public class ContextInformationListener implements ServletContextListener {
         String tempPath = url.getPath();
         path = tempPath.replace("classes/log4j.xml", "");
         LOG.info("ContextInformationListener, path:" + path);
+
+
+        LOG.info("ContextInformationListener, TimeZone: " + TimeZone.getDefault().getDisplayName());
+        TimeZone.setDefault(TimeZone.getTimeZone("Europe/Zurich"));
+        LOG.info("ContextInformationListener, set TimeZone: Europe/Zurich");
+        LOG.info("ContextInformationListener, TimeZone now: " + TimeZone.getDefault().getID());
+
     }
 
     @Override

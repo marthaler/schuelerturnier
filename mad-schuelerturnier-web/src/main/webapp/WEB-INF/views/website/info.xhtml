@@ -7,6 +7,9 @@
                 template="../../layouts/root-naked.xhtml">
     <ui:define name="main">
         <h:form id="form">
+
+            <h:outputText rendered="#{einstellungen.websiteEnableDownloadLink}" value="Anmeldeformular herunterladen, ausdrucken und einsenden: "/> <h:outputLink rendered="#{einstellungen.websiteEnableDownloadLink}" value="#{einstellungen.websiteDownloadLink}">hier klicken</h:outputLink>
+
             <p:tabView>
                 <p:tab title="Mädchenteams">
                     <ui:repeat value="#{maedchen}" var="kat" varStatus="status">

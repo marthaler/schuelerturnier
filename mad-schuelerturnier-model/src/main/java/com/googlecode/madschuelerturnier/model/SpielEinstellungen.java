@@ -60,6 +60,11 @@ public class SpielEinstellungen extends Persistent {
 
     private boolean websiteInMannschaftslistenmode = false;
 
+    private boolean websiteEnableDownloadLink = false;
+
+    private String websiteDownloadLink = "";
+
+
     // 05 Spielverteilung
     private int zweiPausenBisKlasse = 0;
 
@@ -274,4 +279,25 @@ public class SpielEinstellungen extends Persistent {
     public void setZweiPausenBisKlasse(int zweiPausenBisKlasse) {
         this.zweiPausenBisKlasse = zweiPausenBisKlasse;
     }
+
+    public boolean isWebsiteInMannschaftslistenmode() {
+        return websiteInMannschaftslistenmode;
+    }
+
+    public boolean isWebsiteEnableDownloadLink() {
+        return websiteEnableDownloadLink;
+    }
+
+    public void setWebsiteEnableDownloadLink(boolean websiteEnableDownloadLink) {
+        this.websiteEnableDownloadLink = websiteEnableDownloadLink;
+    }
+
+    public String getWebsiteDownloadLink() {
+        return websiteDownloadLink;
+    }
+
+    public void setWebsiteDownloadLink(String websiteDownloadLink) {
+        this.websiteDownloadLink = websiteDownloadLink;
+    }
+
 }
