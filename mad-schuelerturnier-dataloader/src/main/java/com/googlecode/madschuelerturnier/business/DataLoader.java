@@ -6,6 +6,7 @@ package com.googlecode.madschuelerturnier.business;
 import com.googlecode.madschuelerturnier.model.DBAuthUser;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
+import com.googlecode.madschuelerturnier.model.Text;
 import com.googlecode.madschuelerturnier.model.support.File;
 
 import java.util.List;
@@ -27,6 +28,8 @@ public interface DataLoader {
     List<File> loadAttachements();
 
     List<Mannschaft> loadMannschaften(boolean knaben, boolean maedchen, Integer... klassenIn);
+
+   List<Text> loadTexte();
 
     byte[] loadFile();
 }

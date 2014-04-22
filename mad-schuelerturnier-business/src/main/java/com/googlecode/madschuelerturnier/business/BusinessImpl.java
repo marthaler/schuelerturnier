@@ -74,9 +74,6 @@ public class BusinessImpl implements Business {
     private Zeitgeber zeitgeber;
 
     @Autowired
-    private ToXLSDumper xlsdumper;
-
-    @Autowired
     private FromXLSLoader xls;
 
     @Autowired
@@ -95,15 +92,11 @@ public class BusinessImpl implements Business {
     private ImportHandler importHandler;
 
     @Autowired
-    @Qualifier("dropboxConnector")
-    private DropboxConnector dropbox;
-
-    @Autowired
     private TextRepository trepo;
 
-    private SpielEinstellungen einstellungen;
-
-    private int einstellungeHash=0;
+    @Autowired
+    @Qualifier("dropboxConnector")
+    private DropboxConnector dropbox;
 
     final Set<String> schulhaeuser = new HashSet<String>();
 
@@ -117,7 +110,7 @@ public class BusinessImpl implements Business {
 
     @PostConstruct //NOSONAR
     private void init() {
-        einstellungen = getSpielEinstellungen();
+        SpielEinstellungen einstellungen = getSpielEinstellungen();
         if (einstellungen != null && einstellungen.isStartJetzt()) {
             this.startClock();
         }
@@ -254,34 +247,17 @@ public class BusinessImpl implements Business {
      * @see com.googlecode.madschuelerturnier.business.sdfdf#getSpielEinstellungen()
      */
     public SpielEinstellungen getSpielEinstellungen() {
-
-        // noch nicht im cache
-        if (this.einstellungen == null) {
-if(this.trepo == null){
-    return null;
-}
-            Text einstellungsstring = trepo.findTextByKey("einstellungen");
-            if(einstellungsstring != null && einstellungsstring.getValue().length() > 2){
-                this.einstellungen = (SpielEinstellungen) XstreamUtil.deserializeFromString(einstellungsstring.getValue());
-            } else if( this.spielEinstellungenRepo.count() > 0){
-
-                this.einstellungen = this.spielEinstellungenRepo.findAll().get(0);
-            }
-
-        }
+        SpielEinstellungen einstellungen = spielEinstellungenRepo.getEinstellungen();
 
         // einstellungen bereits im cache
-        if (this.einstellungen != null) {
+        if (einstellungen != null) {
 
             if (verarbeiter.isFertig()) {
                 einstellungen.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
                 this.saveEinstellungen(einstellungen);
             }
-            return einstellungen;
         }
-
-        return this.einstellungen;
-
+        return this.spielEinstellungenRepo.getEinstellungen();
     }
 
     public void setSpielEinstellungen(SpielEinstellungen einstellungenNeu) {
@@ -298,13 +274,9 @@ if(this.trepo == null){
         if (einstellungenNeu == null) {
             return null;
         }
-        if (verarbeiter.isFertig()) {
-            einstellungen.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
-        }
 
-        // falls keine aenderung wird einstellung zurueckgegeben
-        if (this.einstellungen != null && einstellungenNeu.hashCode() == this.einstellungeHash) {
-            return einstellungenNeu;
+        if (verarbeiter.isFertig()) {
+            einstellungenNeu.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
         }
 
         // spieldatum auf 0 Uhr zuruecksetzen
@@ -313,21 +285,9 @@ if(this.trepo == null){
         time = time.minusMillis(millis);
         einstellungenNeu.setStarttag(new Date(time.getMillis()));
 
+        this.spielEinstellungenRepo.save(einstellungenNeu);
 
-        this.einstellungen = this.spielEinstellungenRepo.save(einstellungenNeu);
-
-        // neu als Text mit Xstream
-       Text einstellungString = this.trepo.findTextByKey("einstellung");
-
-        if(einstellungString == null){
-            einstellungString = new Text();
-            einstellungString.setKey("einstellung");
-        }
-        einstellungString.setValue(XstreamUtil.serializeToString(einstellungen));
-        trepo.save(einstellungString);
-
-        this.einstellungeHash = this.einstellungen.hashCode();
-        return this.einstellungen;
+        return spielEinstellungenRepo.getEinstellungen();
     }
 
 
@@ -657,29 +617,22 @@ if(this.trepo == null){
 
     @Override
     public boolean isDBInitialized() {
-        return this.getSpielEinstellungen() != null;
+        return spielEinstellungenRepo.isInitialized();
     }
 
     @Override
     public void initializeDB() {
-        if (this.spielEinstellungenRepo.count() > 0) {
+        SpielEinstellungen einst = getSpielEinstellungen();
+        if (einst != null) {
             BusinessImpl.LOG.info("achtung versuch spiel einstellungen zu initialisieren obwohl bereits in der db vorhanden ");
-            this.einstellungen = spielEinstellungenRepo.findAll().get(0);
         } else {
             SpielEinstellungen eins = new SpielEinstellungen();
-            this.einstellungen = this.spielEinstellungenRepo.save(eins);
+            this.spielEinstellungenRepo.save(eins);
         }
     }
 
     public void sendDumpToRemotes() {
-        // sende das initiale file an die weiteren empfaenger
-        StartFile file = new StartFile();
-        byte[] arr = this.xlsdumper.mannschaftenFromDBtoXLS();
-        file.setContent(arr);
-        this.outSender.onChangeModel(file);
-// todo !!!
-        //      IOUtils.write(arr,new FileWriter(new File("/test.xml")));
-
+        // todo !!! weg !!!
     }
 
     public void generateSpielFromXLS(byte[] xlsIn) {
@@ -695,17 +648,6 @@ if(this.trepo == null){
         List<Text> text = xls.convertXLSToTexte(xlsIn);
         trepo.save(text);
         LOG.info("texte gespeicher: " + text);
-
-        // todo entfernen wenn alle konvertiert nach text
-        // Einstellungen sichern
-        SpielEinstellungen einstellungen = xls.convertXLSToEinstellung(xlsIn);
-        if(einstellungen == null){
-            LOG.info("einstellungen NICHT gespeicher: " + einstellungen);
-        } else{
-            this.spielEinstellungenRepo.save(einstellungen);
-            LOG.info("einstellungen gespeicher: " + einstellungen);
-        }
-
 
         // Mannschaften laden und updaten
         List<Mannschaft> mannschaftsliste = xls.convertXLSToMannschaften(xlsIn);

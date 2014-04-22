@@ -323,7 +323,7 @@ public class ResultateVerarbeiter {
                 gross.add(rl.getZeilen().get(0).getMannschaft());
                 gross.add(rl.getZeilen().get(1).getMannschaft());
                 // 8.2.2014: else if, damit auch die 3 er richtig gespeichert werden
-            } else if (kat.isMixedKlassen() && eRepo.findAll().get(0).isBehandleFinaleProKlassebeiZusammengefuehrten()) {
+            } else if (kat.isMixedKlassen() && eRepo.getEinstellungen().isBehandleFinaleProKlassebeiZusammengefuehrten()) {
                 finaleSuchenNachKlasse(kat, gross, klein);
             } else {
                 finaleSuchenNormal(kat, gross, klein);

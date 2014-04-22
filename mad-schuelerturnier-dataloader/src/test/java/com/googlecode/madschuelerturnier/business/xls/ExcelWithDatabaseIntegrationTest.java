@@ -4,10 +4,7 @@
 package com.googlecode.madschuelerturnier.business.xls;
 
 import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
-import com.googlecode.madschuelerturnier.model.Korrektur;
-import com.googlecode.madschuelerturnier.model.Mannschaft;
-import com.googlecode.madschuelerturnier.model.Spiel;
-import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
+import com.googlecode.madschuelerturnier.model.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.junit.*;
@@ -62,13 +59,6 @@ public class ExcelWithDatabaseIntegrationTest {
     }
 
     @Test
-    public void testParseEinstellungen() {
-        Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
-        SpielEinstellungen einst = xls.convertXLSToEinstellung(DataLoaderImpl.readFile("schuetu-2013.xls"));
-        Assert.assertNotNull(einst);
-    }
-
-    @Test
     public void testParseKorrekturen() {
         Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
         List<Korrektur> korrektur = xls.convertXLSToKorrektur(DataLoaderImpl.readFile("schuetu-2013.xls"));
@@ -79,5 +69,16 @@ public class ExcelWithDatabaseIntegrationTest {
         Assert.assertEquals("Inhalt nicht richtig", "4", korrektur.get(0).getWert());
         Assert.assertEquals("Inhalt nicht richtig", 1, korrektur.get(0).getReihenfolge());
     }
+
+
+    @Test
+    public void testParseText() {
+        Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
+        List<Text> text = xls.convertXLSToTexte(DataLoaderImpl.readFile("schuetu-2013.xls"));
+        Assert.assertNotNull(text);
+        Assert.assertEquals("nicht genau eine Text", 1, text.size());
+
+    }
+
 
 }

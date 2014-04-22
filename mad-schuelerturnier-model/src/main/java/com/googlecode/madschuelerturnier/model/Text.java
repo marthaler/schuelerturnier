@@ -39,5 +39,10 @@ public class Text extends Persistent {
         this.key = key;
     }
 
+    // getter und setter fuer xls export und import
+    public void setId(Long id) {  // NOSONAR
+        super.setId(id);
+    }
+
 
 }

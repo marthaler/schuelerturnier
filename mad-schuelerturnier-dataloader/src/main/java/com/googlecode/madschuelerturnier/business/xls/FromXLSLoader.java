@@ -91,37 +91,6 @@ public class FromXLSLoader {
         return null;
     }
 
-    public SpielEinstellungen convertXLSToEinstellung(byte[] arr) {
-
-        try {
-
-            InputStream inputXML = new BufferedInputStream(getClass().getResourceAsStream("/jxls-einstellungen-mapping.xml"));
-            XLSReader mainReader = ReaderBuilder.buildFromXML(inputXML);
-
-            InputStream inputXLS = new ByteArrayInputStream(arr);
-
-            List einstellungen = new ArrayList();
-            SpielEinstellungen einstellung = new SpielEinstellungen();
-
-            Map beans = new HashMap();
-            beans.put("einstellungen", einstellungen);
-            beans.put("einstellunge", einstellung);
-
-            XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
-
-            LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
-
-            List<SpielEinstellungen> einst = (List<SpielEinstellungen>) beans.get("einstellungen");
-
-            return einst.get(0);
-
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-        }
-
-        return null;
-    }
-
     public List<Korrektur> convertXLSToKorrektur(byte[] arr) {
 
         try {

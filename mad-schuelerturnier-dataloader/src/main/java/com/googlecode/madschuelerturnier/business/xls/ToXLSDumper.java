@@ -39,8 +39,7 @@ public class ToXLSDumper {
     @Autowired
     private SpielRepository srepo;
 
-    @Autowired
-    private SpielEinstellungenRepository seinst;
+
 
     @Autowired
     private DBAuthUserRepository authRepo;
@@ -57,29 +56,23 @@ public class ToXLSDumper {
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
 
     public byte[] mannschaftenFromDBtoXLS() {
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), seinst.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll());
     }
 
     public byte[] mannschaftenFromDBtoXLS(SpielEinstellungen einst) {
         List<SpielEinstellungen> einstellungen = new ArrayList<SpielEinstellungen>();
         einstellungen.add(einst);
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), einstellungen, krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll());
     }
 
-    protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<SpielEinstellungen> einstellungenIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn, List<File> filesIn,List<Text> texteIn) {
+    protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn, List<File> filesIn,List<Text> texteIn) {
 
-        List<SpielEinstellungen> einstellungen = einstellungenIn;
         List<Spiel> spiele = spieleIn;
         List<Mannschaft> mannschaften = mannschaftenIn;
         List<Korrektur> korrekturen = korrekturenIn;
         List<DBAuthUser> users = usersIn;
         List<File> files = filesIn;
         List<Text> texte = texteIn;
-
-        // SpielEinstellungen aufbereiten
-        if (einstellungen == null) {
-            einstellungen = new ArrayList();
-        }
 
         if (spiele == null) {
             spiele = new ArrayList();
@@ -121,7 +114,6 @@ public class ToXLSDumper {
 
         beans.put("mannschaften", mannschaften);
         beans.put("spiele", spiele);
-        beans.put("einstellungen", einstellungen);
         beans.put("korrekturen", korrekturen);
         beans.put("users", users);
         beans.put("attachements", files);

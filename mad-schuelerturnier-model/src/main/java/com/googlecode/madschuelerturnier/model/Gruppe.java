@@ -30,7 +30,7 @@ public class Gruppe extends Persistent {
 
     private GeschlechtEnum geschlecht = null;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Mannschaft> mannschaften = new ArrayList<Mannschaft>();
 

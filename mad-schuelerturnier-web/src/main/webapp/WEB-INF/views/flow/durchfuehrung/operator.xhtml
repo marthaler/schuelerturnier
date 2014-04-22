@@ -69,8 +69,8 @@
 
             <h:outputText value="Schrizettelscanner im Demo Modus laufen lassen"/>
             <p:selectBooleanCheckbox onchange="document.getElementById('form1:refresh').click()"
-                    id="webcamdemomode" value="#{business.spielEinstellungen.webcamdemomode}"
-                    ajax="true" update="form1">
+                    id="webcamdemomode" value="#{spieleinstellungen.webcamdemomode}"
+                    ajax="true" >
             </p:selectBooleanCheckbox>
 
     </h:panelGrid>
@@ -81,26 +81,26 @@
 
 
         <h:outputText value="Kategorien-, Spiele- und Mannschaftsnummernanzeigen verbergen: "/>
-        <p:selectBooleanCheckbox onchange="document.getElementById('form1:refresh').click()"
-                                 id="websiteInMannschaftslistenmode" value="#{business.spielEinstellungen.websiteInMannschaftslistenmode}"
-                                 ajax="true" update="form1"/>
+        <p:selectBooleanCheckbox
+                                 id="websiteInMannschaftslistenmode" value="#{spieleinstellungen.websiteInMannschaftslistenmode}"
+                                 ajax="true" />
 
         <p:separator /> <p:separator />
 
         <h:outputText value="Link Anmeldung downloaden anzeigen " />
-        <p:selectBooleanCheckbox onchange="document.getElementById('form1:refresh').click()"
-                                  value="#{business.spielEinstellungen.websiteEnableDownloadLink}"
-                                 ajax="true" update="form1"/>
+        <p:selectBooleanCheckbox
+                                  value="#{spieleinstellungen.websiteEnableDownloadLink}"
+                                 ajax="true"/>
 
         <h:outputText value="AnmeldeLink: "/>
-        <p:inputText value="#{business.spielEinstellungen.websiteDownloadLink}" onchange="document.getElementById('form1:refresh').click()" size="40"/>
+        <p:inputText value="#{spieleinstellungen.websiteDownloadLink}"  size="40"/>
 
 
         <p:separator /><p:separator />
 
 
         <h:outputText value="Website Turnier Titel: "/>
-        <p:inputText value="#{business.spielEinstellungen.websiteTurnierTitel}" onchange="document.getElementById('form1:refresh').click()" size="40"/>
+        <p:inputText value="#{spieleinstellungen.websiteTurnierTitel}"  size="40"/>
 
 
 

@@ -17,11 +17,13 @@ import com.googlecode.madschuelerturnier.business.websiteinfo.model.WebsiteInfoJ
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
+import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.model.comperators.KategorieKlasseUndGeschlechtComperator;
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
 import com.googlecode.madschuelerturnier.model.util.XstreamUtil;
 import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
+import com.googlecode.madschuelerturnier.persistence.repository.SpielEinstellungenRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import com.openpojo.business.identity.impl.DefaultBusinessValidator;
 import org.apache.log4j.Logger;
@@ -60,6 +62,9 @@ public final class WebsiteInfoService {
     @Autowired
     private ResultateVerarbeiter resultate;
 
+    @Autowired
+    private SpielEinstellungenRepository eRepo;
+
 
     public void dumpJetzt(String jahr){
         this.getFinalspiele("1");
@@ -83,6 +88,16 @@ public final class WebsiteInfoService {
 
         jetzt.setGruppenspiele(spielRepository.findGruppenSpielAsc());
         return jetzt.getGruppenspiele();
+    }
+
+    public SpielEinstellungen getEinstellungen(String jahr){
+
+        if(jahr.length() == 4){
+            return getOldJahredump(jahr).getEinstellung();
+        }
+
+        jetzt.setEinstellung(eRepo.getEinstellungen());
+        return jetzt.getEinstellung();
     }
 
     public WebsiteInfoJahresDump getOldJahredump(String jahr ){
