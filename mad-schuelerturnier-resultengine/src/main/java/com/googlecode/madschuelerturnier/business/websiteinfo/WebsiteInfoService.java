@@ -65,13 +65,13 @@ public final class WebsiteInfoService {
     @Autowired
     private SpielEinstellungenRepository eRepo;
 
-
     public void dumpJetzt(String jahr){
-        this.getFinalspiele("1");
-        this.getGruppenspiele("1");
-        this.getKnabenMannschaften("1",false);
-        this.getMaedchenMannschaften("1",false);
-        this.getRangliste("1");
+        this.getFinalspiele("now");
+        this.getGruppenspiele("now");
+        this.getKnabenMannschaften("now",false);
+        this.getMaedchenMannschaften("now",false);
+        this.getRangliste("now");
+        this.getEinstellungen("now");
         dropboxConnector.saveOldGame(jahr,XstreamUtil.serializeToString(jetzt));
     }
 

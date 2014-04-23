@@ -34,6 +34,8 @@ import java.util.Map;
 @Component("dropboxConnector")
 public class DropboxWeiche implements DropboxConnector{
 
+    private static final Logger LOG = Logger.getLogger(DropboxConnector.class);
+
     @Autowired
     @Qualifier("localDropboxConnector")
     private DropboxConnector connector;
@@ -42,6 +44,7 @@ public class DropboxWeiche implements DropboxConnector{
 
     @PostConstruct
     public void init(){
+        LOG.info("DropboxWeiche versuche verbindung mit rmi://127.0.0.1:1199/DropboxConnectorRemote");
         try{
         RmiProxyFactoryBean connectorRemoteProxy = new RmiProxyFactoryBean();
         connectorRemoteProxy.setServiceUrl("rmi://127.0.0.1:1199/DropboxConnectorRemote");
@@ -50,9 +53,10 @@ public class DropboxWeiche implements DropboxConnector{
 
         connectorRemote = (DropboxConnector) connectorRemoteProxy.getObject();
         connectorRemote.isConnected();
-
+        LOG.info("DropboxWeiche verbindung ok");
         }
         catch (Exception e){
+            LOG.error(e.getMessage(),e);
             connectorRemote = null;
         }
     }

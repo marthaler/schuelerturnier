@@ -60,7 +60,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
     public String getLoginURL() {
         if (authorizeUrl == null) {
             DbxAppInfo appInfo = new DbxAppInfo(APP_KEY, APP_SECRET);
-            config = new DbxRequestConfig("Schuelerturnier/1.2.8", Locale.getDefault().toString());
+            config = new DbxRequestConfig("Schuelerturnier/1.3.0", Locale.getDefault().toString());
             webAuth = new DbxWebAuthNoRedirect(config, appInfo);
             authorizeUrl = webAuth.start();
         }
@@ -79,8 +79,6 @@ public class DropboxConnectorImpl implements DropboxConnector {
                 LOG.error(e.getMessage(), e);
             }
         }
-        // TODO
-        //loader.loadData(this);
     }
 
     @Override

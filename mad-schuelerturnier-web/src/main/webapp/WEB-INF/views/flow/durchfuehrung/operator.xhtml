@@ -102,6 +102,10 @@
         <h:outputText value="Website Turnier Titel: "/>
         <p:inputText value="#{spieleinstellungen.websiteTurnierTitel}"  size="40"/>
 
+        <p:separator /><p:separator />
+
+
+        <p:commandButton action="#{websiteInfoService.dumpJetzt('2013')}" value="Dump erstellen" ajax="true" />
 
 
     </h:panelGrid>
