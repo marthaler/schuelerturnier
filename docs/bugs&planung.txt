@@ -2,11 +2,16 @@ feautures:
 **********
 
 ***********************************************
-[  ]     ResultateVerarbeiter ohne verbindung zu Spiel Einstelungs Repo
-[  ]     M1 und 2 mit 2 GF
+[  ]     Knopf Jahresdump mit Jahrzahl
+[  ]     Spieleinstellung neu
+[  ]     Filter fuer Speaker wieder machen
+[  ]     Aufraeumen mit den Berechtigungen
+[ok]     ResultateVerarbeiter ohne verbindung zu Spiel Einstelungs Repo
+[  ]     Knopf Dump weg
+[ok]     M1 und 2 mit 2 GF
 [  ]     kamera view verbessern
 [  ]     testlaeufe erstellen
-[  ]     Unittest fuer Importhandler
+[ok]     Unittest fuer Importhandler
 
 [  ]     mannschaftsplan auf webseite
 [  ]     sender, eigene nachrichten nicht mehr weiterschicken
