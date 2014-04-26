@@ -6,7 +6,7 @@ import com.googlecode.madschuelerturnier.model.SpielZeile;
 
 public interface SpielDurchfuehrungData {
 
-	public abstract List<SpielZeile> getList1Wartend();
+	public abstract List<SpielZeile> getList1Wartend(int size);
 
 	public abstract void setList1Wartend(List<SpielZeile> list1Wartend);
 

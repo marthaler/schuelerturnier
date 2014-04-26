@@ -1,8 +1,11 @@
 package com.googlecode.madschuelerturnier.business.spieldurchfuehrung;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.googlecode.madschuelerturnier.model.SpielZeile;
@@ -33,8 +36,11 @@ public class DurchfuehrungDataDatabase implements SpielDurchfuehrungData {
 	/* (non-Javadoc)
 	 * @see com.googlecode.madschuelerturnier.business.spieldurchfuehrung.SpielDurchfuehrungData#getList1Wartend()
 	 */
-	public List<SpielZeile> getList1Wartend() {
-       return this.repo.findNextZeile();
+	public List<SpielZeile> getList1Wartend(int size) {
+        Pageable p = new PageRequest(0,size);
+        List<SpielZeile>  zeilen = this.repo.findNextZeilen(p);
+        Collections.reverse(zeilen);
+       return zeilen;
 	}
 
 	/* (non-Javadoc)

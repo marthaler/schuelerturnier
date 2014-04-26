@@ -136,28 +136,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
     private synchronized void prepare1Wartend() {
         // wartende auffuellen
-        if (this.data.getList1Wartend().size() < wartendSize) {
-            final List<SpielZeile> list = this.spielzeilenRepo.findNextZeile();
 
-            if (!list.isEmpty()) {
-                for (final SpielZeile spielZeile : list) {
-
-                    if (pruefeObMannschaftenBeiFinalenSind(spielZeile)) {
-                        continue;
-                    }
-
-                    if (!this.data.getList1Wartend().contains(spielZeile)) {
-                        if (!spielZeile.checkEmty()) {
-                            this.data.getList1Wartend().add(0, spielZeile);
-                            SpielDurchfuehrung.LOG.info("neue zeile geholt: " + spielZeile);
-                            if (this.data.getList1Wartend().size() == wartendSize) {
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 
     private boolean pruefeObMannschaftenBeiFinalenSind(SpielZeile spielZeile) {
@@ -185,16 +164,16 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
     private void prepare2ZumVorbereiten() {
 
-        if (!this.data.getList1Wartend().isEmpty()) {
+        if (!this.data.getList1Wartend(this.wartendSize).isEmpty()) {
             // zum vorbereiten einstellen
             if ((this.data.getList2ZumVorbereiten().isEmpty())) {
 
                 // pruefung ob nachste zeile bereits zur vorbereitung
-                long naechste = this.data.getList1Wartend().get(this.data.getList1Wartend().size() - 1).getStart().getTime() - (60L * minutenZumVorbereiten * 1000);
+                long naechste = this.data.getList1Wartend(wartendSize).get(this.data.getList1Wartend(wartendSize).size() - 1).getStart().getTime() - (60L * minutenZumVorbereiten * 1000);
                 long now = jetzt.getSpielZeit().getMillis();
 
                 if (naechste < now) {
-                    SpielZeile temp = this.data.getList1Wartend().remove(this.data.getList1Wartend().size() - 1);
+                    SpielZeile temp = this.data.getList1Wartend(wartendSize).remove(this.data.getList1Wartend(wartendSize).size() - 1);
                     temp.setPhase(SpielZeilenPhaseEnum.B_ZUR_VORBEREITUNG);
                     temp = this.spielzeilenRepo.save(temp);
                     this.data.getList2ZumVorbereiten().add(temp);
@@ -345,7 +324,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     }
 
     public synchronized List<SpielZeile> getList1Wartend() {
-        return this.data.getList1Wartend();
+        return this.data.getList1Wartend(this.wartendSize);
     }
 
     public String getText() {

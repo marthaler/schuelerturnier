@@ -22,7 +22,7 @@ public class SpielDurchfuehrungDataMemory implements SpielDurchfuehrungData {
 	/* (non-Javadoc)
 	 * @see com.googlecode.madschuelerturnier.business.spieldurchfuehrung.SpielDurchfuehrungData#getList1Wartend()
 	 */
-	public List<SpielZeile> getList1Wartend() {
+	public List<SpielZeile> getList1Wartend(int size) {
 		return list1Wartend;
 	}
 
