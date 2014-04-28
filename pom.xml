@@ -39,8 +39,9 @@
         <!-- ok:1.2.2 -> ok:1.3 -> xx:1.3.1 -->
 
         <!-- JSF & CO -->
-        <primefaces.version>5.0.RC1</primefaces.version>
-        <!-- ok:3.5.RC1 -> ok:3.5 -> ok:4.0.RC1 -> ok:4.0 -> ok:5.0.RC1-->
+        <primefaces.version>4.0</primefaces.version>
+        <!--(5.0.RC1 nicht wegen primefaces upload) -->
+        <!-- ok:3.5.RC1 -> ok:3.5 -> ok:4.0.RC1 -> ok:4.0 -> nok:5.0.RC1-->
 
         <jsf.version>2.1.7</jsf.version>
         <!--(2.2.5 nicht wegen primefaces upload) -->
@@ -56,7 +57,7 @@
         <hibernatejpa2api.version>1.0.1.Final</hibernatejpa2api.version>
 
         <hsqldb.version>2.3.1</hsqldb.version>
-        <!-- ok:2.2.9 -> ok:2.3.0 -> ??:2.3.1 -> ??:2.3.2-->
+        <!-- ok:2.2.9 -> ok:2.3.0 -> ok:2.3.1 -> ??:2.3.2-->
 
         <!-- VALIDATION -->
         <hibernate-validator.version>5.1.0.Alpha1</hibernate-validator.version>

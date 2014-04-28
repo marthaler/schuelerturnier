@@ -93,26 +93,42 @@
 
                 <!-- spielen: rollen -->
                 <!-- spielen: rollen : root-->
-                <p:menuitem id="m_resultatekorrekturen"
+                <p:submenu id="m_root"
                             rendered="#{sec:areAnyGranted('ROLE_ROOT') and spielstatusWebBean.spielend}"
-                            value="Spielkorrektur" icon="ui-icon-notice"
-                            action="gt_resultatekorrekturen"/>
+                            label="Root"
+                            icon="ui-icon-notice">
+
+
+                    <p:menuitem id="mm_eintragerList"
+                                rendered="#{sec:areAnyGranted('ROLE_ROOT') and spielstatusWebBean.spielend}"
+                                value="Spielkorrekturen" icon="ui-icon-notice"
+                                action="gt_resultatekorrekturen"/>
+
+                </p:submenu>
 
                 <!-- spielen: rollen : eintrager-->
-                <p:menuitem id="m_eintrager"
-                            rendered="#{sec:areAnyGranted('ROLE_ADMIN,ROLE_EINTRAGER') and spielstatusWebBean.spielend}"
-                            value="Eintrager" icon="ui-icon-person"
-                            action="eintrager"/>
+                <p:submenu id="m_eintrager"
+                           rendered="#{sec:areAnyGranted('ROLE_EINTRAGER') and spielstatusWebBean.spielend}"
+                           label="Eintrager"
+                           icon="ui-icon-contact">
 
-                <p:menuitem id="m_webcam"
-                            rendered="#{sec:areAnyGranted('ROLE_EINTRAGER') and spielstatusWebBean.spielend}"
-                            value="Schirzettelimport" icon="ui-icon-image"
-                            action="webcam"/>
+                    <p:menuitem id="m_eintragerList"
+                                rendered="#{sec:areAnyGranted('ROLE_EINTRAGER') and spielstatusWebBean.spielend}"
+                                value="Liste" icon="ui-icon-person"
+                                action="eintrager"/>
 
+                    <p:menuitem id="m_webcam"
+                                rendered="#{sec:areAnyGranted('ROLE_EINTRAGER') and spielstatusWebBean.spielend}"
+                                value="Schirzettelimport" icon="ui-icon-image"
+                                action="webcam"/>
+                </p:submenu>
+
+                <!-- spielen: rollen : eintrager : Schirzettelimportdemo-->
                 <p:menuitem id="m_webcamdemo"
                             rendered="#{business.spielEinstellungen != null and business.spielEinstellungen.webcamdemomode}"
-                            value="Schirzettelimport" icon="ui-icon-image"
+                            value="ImpDemo" icon="ui-icon-image"
                             action="webcam"/>
+
 
                 <!-- spielen: rollen : kontrollierer-->
                 <p:menuitem id="m_kontrollierer"
@@ -123,7 +139,7 @@
                 <!-- spielen: rollen : speaker-->
                 <p:menuitem id="m_speaker"
                             rendered="#{sec:areAnyGranted('ROLE_ADMIN,ROLE_SPEAKER') and spielstatusWebBean.spielend}"
-                            value="speaker" icon="ui-icon-arrow-4-diag" action="speaker"/>
+                            value="Speaker" icon="ui-icon-arrow-4-diag" action="speaker"/>
 
                 <!-- spielen : rollen : beobachter -->
                 <p:submenu id="m_beobachter"

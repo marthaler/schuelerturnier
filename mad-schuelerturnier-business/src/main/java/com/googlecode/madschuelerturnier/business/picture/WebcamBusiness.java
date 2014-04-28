@@ -80,6 +80,7 @@ public final class WebcamBusiness {
         file.setPearID(spiel.getId());
         file.setTyp("schirizettel");
         fileRepo.save(file);
+        spiel.setFertigEingetragen(true);
         this.spielRepo.save(spiel);
     }
 

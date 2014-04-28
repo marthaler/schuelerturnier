@@ -39,7 +39,6 @@ public class DBFileDownloadController {
     public void getFile(
             @PathVariable("typ") String typ, @PathVariable("id") String pearID,
             HttpServletResponse response) {
-
         File file = getFile(typ, pearID);
 
         try {
