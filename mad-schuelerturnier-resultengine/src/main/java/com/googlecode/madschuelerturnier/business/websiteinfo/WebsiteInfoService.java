@@ -65,6 +65,8 @@ public final class WebsiteInfoService {
     @Autowired
     private SpielEinstellungenRepository eRepo;
 
+    private String jahrFuerDump;
+
     public void dumpJetzt(String jahr){
         this.getFinalspiele("now");
         this.getGruppenspiele("now");
@@ -75,6 +77,12 @@ public final class WebsiteInfoService {
         dropboxConnector.saveOldGame(jahr,XstreamUtil.serializeToString(jetzt));
     }
 
+    public void dumpJetztVonSeite(){
+        if(jahrFuerDump == null && jahrFuerDump.length() != 4){
+            return;
+        }
+        dumpJetzt(jahrFuerDump);
+    }
 
     private WebsiteInfoService() {
 
@@ -137,7 +145,6 @@ public final class WebsiteInfoService {
     }
 
     public List<TeamGruppen> getKnabenMannschaften(String jahr, boolean ganzeliste) {
-
 
         if(jahr.length() == 4){
             return getOldJahredump(jahr).getKnabenMannschaften();
@@ -245,4 +252,11 @@ public final class WebsiteInfoService {
         Collections.sort(result.getMannschaften(), new MannschaftsComperator());
     }
 
+    public String getJahrFuerDump() {
+        return jahrFuerDump;
+    }
+
+    public void setJahrFuerDump(String jahrFuerDump) {
+        this.jahrFuerDump = jahrFuerDump;
+    }
 }

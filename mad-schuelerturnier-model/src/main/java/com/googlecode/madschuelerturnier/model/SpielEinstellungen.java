@@ -61,8 +61,10 @@ public class SpielEinstellungen extends Persistent {
     private boolean websiteInMannschaftslistenmode = false;
 
     private boolean websiteEnableDownloadLink = false;
-
     private String websiteDownloadLink = "";
+
+    private boolean websiteEnableProgrammDownloadLink = false;
+    private String websiteProgrammDownloadLink = "";
 
     private String websiteTurnierTitel ="";
 
@@ -310,4 +312,20 @@ public class SpielEinstellungen extends Persistent {
         this.websiteTurnierTitel = websiteTurnierTitel;
     }
 
+
+    public boolean isWebsiteEnableProgrammDownloadLink() {
+        return websiteEnableProgrammDownloadLink;
+    }
+
+    public void setWebsiteEnableProgrammDownloadLink(boolean websiteEnableProgrammDownloadLink) {
+        this.websiteEnableProgrammDownloadLink = websiteEnableProgrammDownloadLink;
+    }
+
+    public String getWebsiteProgrammDownloadLink() {
+        return websiteProgrammDownloadLink;
+    }
+
+    public void setWebsiteProgrammDownloadLink(String websiteProgrammDownloadLink) {
+        this.websiteProgrammDownloadLink = websiteProgrammDownloadLink;
+    }
 }

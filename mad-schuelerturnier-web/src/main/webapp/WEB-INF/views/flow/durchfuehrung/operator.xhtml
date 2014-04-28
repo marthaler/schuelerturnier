@@ -32,8 +32,6 @@
 
         <h:panelGrid columns="2" style="margin-bottom:10px">
 
-
-
             <h:outputLabel for="outbound" value="Messages raus (Applikation->Transportschicht):" />
             <h:outputText id ="outbound" value="#{integrationControllerImpl.countOutboundMessages()}"/>
 
@@ -46,10 +44,7 @@
             <h:outputLabel for="own" value="Eigene Adresse:" />
             <h:outputText id= "own" value="#{integrationControllerImpl.getOwnAddress()}"/>
 
-
-
             <h:outputLabel value="Remote Nodes:" />
-
 
             <ui:repeat value="#{integrationControllerImpl.getAllReceivers()}" var="rec">
 <br/>
@@ -80,7 +75,8 @@
     <h:panelGrid  columns="2" style="margin-bottom:10px">
 
 
-        <h:outputText value="Kategorien-, Spiele- und Mannschaftsnummernanzeigen verbergen: "/>
+        <h:outputText value="Kategorien-, Spiele- und "/><br/>
+        <h:outputText value="Mannschaftsnummernanzeigen verbergen: "/>
         <p:selectBooleanCheckbox
                                  id="websiteInMannschaftslistenmode" value="#{spieleinstellungen.websiteInMannschaftslistenmode}"
                                  ajax="true" />
@@ -88,25 +84,38 @@
         <p:separator /> <p:separator />
 
         <h:outputText value="Link Anmeldung downloaden anzeigen " />
-        <p:selectBooleanCheckbox
-                                  value="#{spieleinstellungen.websiteEnableDownloadLink}"
+        <p:selectBooleanCheckbox value="#{spieleinstellungen.websiteEnableDownloadLink}"
                                  ajax="true"/>
 
-        <h:outputText value="AnmeldeLink: "/>
-        <p:inputText value="#{spieleinstellungen.websiteDownloadLink}"  size="40"/>
-
+        <h:outputText value="Anmeldung Download Link: "/>
+        <p:inputText value="#{spieleinstellungen.websiteDownloadLink}"  size="80"/>
 
         <p:separator /><p:separator />
 
+        <h:outputText value="Link Programm downloaden anzeigen " />
+        <p:selectBooleanCheckbox value="#{spieleinstellungen.websiteEnableProgrammDownloadLink}"
+                                 ajax="true"/>
+
+        <h:outputText value="Anmeldung Download Link: "/>
+        <p:inputText value="#{spieleinstellungen.websiteProgrammDownloadLink}"  size="80"/>
+
+        <p:separator /><p:separator />
 
         <h:outputText value="Website Turnier Titel: "/>
-        <p:inputText value="#{spieleinstellungen.websiteTurnierTitel}"  size="40"/>
+        <p:inputText value="#{spieleinstellungen.websiteTurnierTitel}"  size="80"/>
 
         <p:separator /><p:separator />
 
+        <h:outputText value="Dump sofort erstellen (Jahr angeben): "/>
+        <h:column>
 
-        <p:commandButton action="#{websiteInfoService.dumpJetzt('2013')}" value="Dump erstellen" ajax="true" />
+        <p:inputMask mask="9999" value="#{websiteInfoService.jahrFuerDump}" size="4"/>
+            <p:commandButton id="dump" action="#{websiteInfoService.dumpJetztVonSeite()}" value="Dump erstellen" ajax="true" enabled="#{dropboxWeiche.isConnected()}"/>
+        </h:column>
 
+        <p:blockUI block="websitepublisher" trigger="dump">
+            <p:graphicImage value="/app/resources/static/images/ajax-loader.gif"/>
+        </p:blockUI>
 
     </h:panelGrid>
 </p:tab>
@@ -115,14 +124,13 @@
     <h:panelGrid id="panel2" columns="2" style="margin-bottom:10px">
         <h:outputText value="Bis- und mit Klassen haben 2 Pausen:"/>
         <h:panelGrid columns="1" style="margin-bottom:10px">
-            <p:inputText id="txt1" value="#{business.spielEinstellungen.zweiPausenBisKlasse}" onchange="document.getElementById('form1:refresh').click()" disabled="#{!spielstatusWebBean.anmeldephase and !spielstatusWebBean.kategoriezuordnungsphase}"/>
+            <p:inputText id="txt1" value="#{spieleinstellungen.zweiPausenBisKlasse}" disabled="#{!spielstatusWebBean.anmeldephase and !spielstatusWebBean.kategoriezuordnungsphase}"/>
             <p:slider for="txt1" minValue="0" maxValue = "9" disabled="#{!spielstatusWebBean.anmeldephase and !spielstatusWebBean.kategoriezuordnungsphase}"/>
         </h:panelGrid>
 
         <h:outputText value="Kategorien mit 2 Klassen haben 2 separate grosse Finale"/>
         <h:panelGrid columns="1" style="margin-bottom:10px">
-            <p:selectBooleanCheckbox onchange="document.getElementById('form1:refresh').click()"
-                                     id="txt2" value="#{business.spielEinstellungen.behandleFinaleProKlassebeiZusammengefuehrten}"
+            <p:selectBooleanCheckbox id="txt2" value="#{spieleinstellungen.behandleFinaleProKlassebeiZusammengefuehrten}"
                                      ajax="true" update="form1" disabled="#{!spielstatusWebBean.anmeldephase and !spielstatusWebBean.kategoriezuordnungsphase}"/>
 
         </h:panelGrid>

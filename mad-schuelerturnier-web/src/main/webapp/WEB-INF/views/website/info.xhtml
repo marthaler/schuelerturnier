@@ -8,8 +8,9 @@
     <ui:define name="main">
         <h:form id="form">
 
-            <p:fieldset legend="#{einstellungen.websiteTurnierTitel}" style="margin-bottom:10px">
-           <h:outputText rendered="#{einstellungen.websiteEnableDownloadLink}" value="Anmeldeformular herunterladen, ausdrucken und einsenden: "/> <h:outputLink rendered="#{einstellungen.websiteEnableDownloadLink}" value="#{einstellungen.websiteDownloadLink}">hier klicken</h:outputLink>
+           <p:fieldset legend="#{einstellungen.websiteTurnierTitel}" style="margin-bottom:10px">
+           <h:outputText rendered="#{einstellungen.websiteEnableDownloadLink}" value="Anmeldeformular herunterladen, ausdrucken und einsenden: "/><h:outputLink rendered="#{einstellungen.websiteEnableDownloadLink}" value="#{einstellungen.websiteDownloadLink}">hier klicken <br/></h:outputLink>
+                <h:outputText rendered="#{einstellungen.websiteEnableProgrammDownloadLink}" value="Programmheft herunterladen: "/><h:outputLink rendered="#{einstellungen.websiteEnableProgrammDownloadLink}" value="#{einstellungen.websiteProgrammDownloadLink }">hier klicken</h:outputLink>
             </p:fieldset>
 
             <p:tabView>
