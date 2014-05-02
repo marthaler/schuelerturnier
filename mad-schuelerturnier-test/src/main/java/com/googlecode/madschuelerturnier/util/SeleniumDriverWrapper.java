@@ -12,6 +12,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -34,13 +35,13 @@ public class SeleniumDriverWrapper {
 
     private static int TIME_OUT_IN_SECONDS = 5;
 
-    private String baseURL = "http://localhost:8080";
+    private String baseURL = "http://localhost:8081";
 
     public WebDriver getDriver() {
         return driver;
     }
 
-    private FirefoxDriver driver = new FirefoxDriver();
+    private SafariDriver driver = new SafariDriver();
 
     private boolean upAndRunning = true;
 
@@ -52,16 +53,16 @@ public class SeleniumDriverWrapper {
 
     public void login(String user, String password) {
         getBaseURL();
-        this.sendById("account_user", user);
-        driver.findElement(By.id("account_password")).clear();
-        driver.findElement(By.id("account_password")).sendKeys(password);
-        this.sendById("account_password", password);
-        this.clickById("account_submit");
+        this.sendById("account_form:user", user);
+        driver.findElement(By.id("account_form:password")).clear();
+        driver.findElement(By.id("account_form:password")).sendKeys(password);
+        this.sendById("account_form:password", password);
+        this.clickById("account_form:ok");
 
     }
 
     public void getBaseURL() {
-        driver.get(baseURL + "/app/login");
+        driver.get(baseURL + "/app/flow");
     }
 
     public void sendById(String selector, String keys) {

@@ -10,6 +10,7 @@ import com.googlecode.madschuelerturnier.business.vorbereitung.helper.Korrekture
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.model.comperators.SpielZeitComperator;
+import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.commons.beanutils.BeanUtils;
@@ -104,6 +105,7 @@ public class ImportHandler {
             for (Spiel s : spiele) {
                 Spiel temp = sRepo.findOne(s.getId());
                 Date startGeneriert = temp.getStart();
+                PlatzEnum platzGeneriert = temp.getPlatz();
                 // Objekte setzen welche sonst null wären vor dem Uebertragen
                 s.setMannschaftA(temp.getMannschaftA());
                 s.setMannschaftB(temp.getMannschaftB());
@@ -126,6 +128,7 @@ public class ImportHandler {
                 LOG.info("spielimport, start aus xls: " + temp.getStart());
                 LOG.info("spielimport, generiert: " + startGeneriert);
                 temp.setStart(startGeneriert);
+                temp.setPlatz(platzGeneriert);
                 temp = sRepo.save(temp);
                 // signalisiere fertiges Spiel an Resultate Verabeiter
                 if (temp.isFertigGespielt()) {

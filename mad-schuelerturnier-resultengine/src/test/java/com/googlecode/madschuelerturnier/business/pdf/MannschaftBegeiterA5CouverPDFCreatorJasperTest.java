@@ -4,9 +4,12 @@
 package com.googlecode.madschuelerturnier.business.pdf;
 
 import com.googlecode.madschuelerturnier.model.Mannschaft;
+
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +19,7 @@ import java.util.List;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8
  */
-public class MannschaftBegeiterA5CouverPDFCreatorTest {
+public class MannschaftBegeiterA5CouverPDFCreatorJasperTest {
 
     @Test
     public void finaleSuchenNormal() {
@@ -35,11 +38,11 @@ public class MannschaftBegeiterA5CouverPDFCreatorTest {
 
         }
 
-        MannschaftBegeiterA5CouverPDFCreator cr = new MannschaftBegeiterA5CouverPDFCreator();
+        MannschaftBegleiterA5CouverPDFCreator cr = new MannschaftBegleiterA5CouverPDFCreator();
         byte[] result = cr.createPdf(mannschaftList);
 
         try {
-            //FileUtils.writeByteArrayToFile(new File("test.pdf"),result);
+            FileUtils.writeByteArrayToFile(new File("/pdf/test.pdf"), result);
             Assert.assertTrue(result.length > 30);
         } catch (Exception e) {
             e.printStackTrace();

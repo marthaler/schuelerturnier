@@ -5,6 +5,8 @@ package com.googlecode.madschuelerturnier.business.xls;
 
 import com.google.common.io.Resources;
 import com.googlecode.madschuelerturnier.model.*;
+import com.googlecode.madschuelerturnier.model.comperators.MannschaftsNamenComperator;
+import com.googlecode.madschuelerturnier.model.comperators.SpielZeitComperator;
 import com.googlecode.madschuelerturnier.model.support.File;
 import com.googlecode.madschuelerturnier.persistence.repository.*;
 import net.sf.jxls.transformer.XLSTransformer;
@@ -19,10 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Generiert einen XLS Export aus der Datenbank
@@ -88,11 +87,14 @@ public class ToXLSDumper {
                     s.setMannschaftB(m);
                 }
             }
+
         }
+        Collections.sort(spiele,new SpielZeitComperator());
 
         if (mannschaften == null) {
             mannschaften = new ArrayList();
         }
+        Collections.sort(mannschaften,new MannschaftsNamenComperator());
 
         if (korrekturen == null) {
             korrekturen = new ArrayList();

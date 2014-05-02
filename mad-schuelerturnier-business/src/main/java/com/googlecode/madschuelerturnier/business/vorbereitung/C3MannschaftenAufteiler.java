@@ -85,12 +85,25 @@ public class C3MannschaftenAufteiler {
 
     private void dreiBis7Mannschaften(Kategorie kategorie) {
 
-        assignGrosserFinalToKategorie(kategorie);
+        // Grosser Final
+        Spiel gf = new Spiel();
+        gf.setTyp(SpielEnum.GFINAL);
+        gf.setIdString(IDGeneratorContainer.getNext());
+        gf.setKategorieName(kategorie.getName());
+
+        // selber setzen des Namen, bei kategorien, mit 2 klassen
+        if (kategorie.isMixedKlassen() && business.getSpielEinstellungen().isBehandleFinaleProKlassebeiZusammengefuehrten()) {
+            gf.setRealName("GrFin-" + kategorie.getMannschaften().get(0).getGeschlecht() + "Kl" + kategorie.getKlassen().get(0));
+        }
+
+        gf = spielRepo.save(gf);
+        kategorie.setGrosserFinal(gf);
 
         Spiel kf = new Spiel();
-        // den Fall behandeln wenn eis 2 Grosse Finale gibt bei zusammengefassten Mannschaften
+        // den Fall behandeln wenn es 2 Grosse Finale gibt bei zusammengefassten Mannschaften
         if (kategorie.isMixedKlassen() && business.getSpielEinstellungen().isBehandleFinaleProKlassebeiZusammengefuehrten()) {
             kf.setTyp(SpielEnum.GFINAL);
+            kf.setRealName("GrFin-" + kategorie.getMannschaften().get(0).getGeschlecht() + "Kl" + kategorie.getKlassen().get(1));
         } else {
             kf.setTyp(SpielEnum.KFINAL);
         }

@@ -59,7 +59,7 @@ public class DevContentStarter {
 
     private List<Mannschaft> datenbankBefuellen() {
         List<Mannschaft> liste = new ArrayList<Mannschaft>();
-
+/**
         // Knaben
         liste.addAll(DataLoaderImpl.getDataLoader().loadMannschaften(false, true, 1));
         liste.addAll(DataLoaderImpl.getDataLoader().loadMannschaften(false, true, 2));
@@ -69,7 +69,7 @@ public class DevContentStarter {
         // Maedchen
         liste.addAll(DataLoaderImpl.getDataLoader().loadMannschaften(true, false, 8));
         liste.addAll(DataLoaderImpl.getDataLoader().loadMannschaften(true, false, 9));
-
+**/
         // einstellungen setzen
         SpielEinstellungen einstellungen = this.business.getSpielEinstellungen();
         if (einstellungen == null) {

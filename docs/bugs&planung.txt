@@ -34,6 +34,8 @@ feautures:
 [rj]     countdown ueber eine stunde springt (stunden einbeziehen)
 [rj]     bei den usern echten namen einfuehren und auch exportieren
 
+[  ]     auch bei > 7 mannschaftskategorien bei gemischten der Spiel string selber setzen beim C3
+
 ==============
 
 bugs:

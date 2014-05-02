@@ -48,6 +48,8 @@ public class Spiel extends Persistent {
     private boolean fertigBestaetigt = false;
     private boolean zurueckgewiesen = false;
 
+    private String realName = "";
+
     // hilfsfeld zum ausgeben der finale, falls noch keine mannschaft bestimmt wurde
     private String kategorieName;
 
@@ -364,9 +366,12 @@ public class Spiel extends Persistent {
 
 
 
-
     @Override
     public String toString() {
+
+        if(!this.realName.isEmpty()){
+            return this.realName;
+        }
 
         String ret = "";
 
@@ -444,5 +449,9 @@ public class Spiel extends Persistent {
 
     public void setMannschaftBId(int mannschaftBId) {
         this.mannschaftBId = mannschaftBId;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 }

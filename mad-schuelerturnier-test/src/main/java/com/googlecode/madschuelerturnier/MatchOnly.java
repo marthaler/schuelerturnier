@@ -23,7 +23,6 @@ public class MatchOnly {
 
             while (1 == 1) {
 
-
                 restart = false;
                 SeleniumEintragerThread eintrager = new SeleniumEintragerThread();
                 eintrager.start();
@@ -33,7 +32,6 @@ public class MatchOnly {
 
                 SeleniumSpeakerThread speaker = new SeleniumSpeakerThread();
                 speaker.start();
-
 
                 speaker.join();
                 restart = true;
