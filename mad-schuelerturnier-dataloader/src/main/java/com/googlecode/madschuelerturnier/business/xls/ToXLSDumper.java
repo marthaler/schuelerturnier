@@ -94,7 +94,6 @@ public class ToXLSDumper {
         if (mannschaften == null) {
             mannschaften = new ArrayList();
         }
-        Collections.sort(mannschaften,new MannschaftsNamenComperator());
 
         if (korrekturen == null) {
             korrekturen = new ArrayList();
