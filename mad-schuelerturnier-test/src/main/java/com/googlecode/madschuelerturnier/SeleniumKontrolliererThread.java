@@ -23,7 +23,7 @@ public class SeleniumKontrolliererThread extends Thread {
     @Override
     public void run() {
 
-        this.util.login("root", "root");
+        this.util.login("tester1915kontrollierer", "1234");
 
 
         for (int i = 0; i < 20000; i++) {

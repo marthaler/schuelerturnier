@@ -41,7 +41,7 @@ public class MannschaftBegleiterA5CouverPDFCreator {
     public byte[] createPdfFromDB() {
         List<Mannschaft> mannschaften = repo.findAll();
         Collections.sort(mannschaften,new MannschaftsNamenComperator());
-        return createPdf(repo.findAll());
+        return createPdf(mannschaften);
     }
 
     protected byte[] createPdf(List<Mannschaft> mannschaften) {

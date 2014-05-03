@@ -17,7 +17,7 @@ public class SeleniumSpeakerThread extends Thread {
     @Override
     public void run() {
 
-        this.util.login("root", "root");
+        this.util.login("tester1915speaker", "1234");
         this.util.clickByLink("speaker");
 
         for (int i = 0; i < 20000; i++) {

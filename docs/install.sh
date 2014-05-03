@@ -57,6 +57,7 @@ rm -R Users
 # WEITER
 
 export JAVA_HOME=/usr/local/server/jdk7
+export JAVA_OPTS=-XX:MaxPermSize=256m
 export CATALINA_HOME=/usr/local/server/tomcat
 export PATH=$PATH:${JAVA_HOME}/bin
 
