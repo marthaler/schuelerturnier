@@ -78,7 +78,7 @@ public final class WebsiteInfoService {
     }
 
     public void dumpJetztVonSeite(){
-        if(jahrFuerDump == null && jahrFuerDump.length() != 4){
+        if(jahrFuerDump == null || jahrFuerDump.length() != 4){
             return;
         }
         dumpJetzt(jahrFuerDump);
