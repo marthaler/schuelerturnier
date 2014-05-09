@@ -23,8 +23,7 @@ import org.springframework.stereotype.Controller;
 import java.io.Serializable;
 
 /**
- * Produziert Events, die in angeschlossene Remote Contexte gesendet werden. Ebenfalls werden
- * ankommende Events verarbeitet.
+ * Verarbeitet die Events, die vom remote host ankommen
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8
@@ -47,9 +46,6 @@ public class BusControllerIn implements ApplicationListener<IncommingMessage> {
     private DBAuthUserRepository uRepo;
 
     @Autowired
-    private Business business;
-
-    @Autowired
     private ResultateVerarbeiter resultEngine;
 
     @Override
@@ -58,9 +54,6 @@ public class BusControllerIn implements ApplicationListener<IncommingMessage> {
         LOG.info("BusControllerIn empfangen: message von anderem remote kontext angekommen: " + obj);
         if (obj instanceof Mannschaft) {
             repo.save((Mannschaft) obj);
-        } else
-        if (obj instanceof StartFile) {
-            business.generateSpielFromXLS(((StartFile) obj).getContent());
         } else
         if (obj instanceof DBAuthUser) {
             uRepo.save((DBAuthUser) obj);
@@ -76,7 +69,7 @@ public class BusControllerIn implements ApplicationListener<IncommingMessage> {
             }
             sRepo.save((Spiel) obj);
         }
-
+        // todo
         // penalty
 
     }

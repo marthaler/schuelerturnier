@@ -26,20 +26,24 @@ public class MatchOnly {
                 restart = false;
                 SeleniumEintragerThread eintrager = new SeleniumEintragerThread();
                 eintrager.start();
-
+                Thread.sleep(3000);
                 SeleniumKontrolliererThread kontrollierer = new SeleniumKontrolliererThread();
                 kontrollierer.start();
-
+                Thread.sleep(3000);
                 SeleniumSpeakerThread speaker = new SeleniumSpeakerThread();
                 speaker.start();
-
+                Thread.sleep(3000);
+                SeleniumEintragerThreadOld eintragerOld = new SeleniumEintragerThreadOld();
+                eintragerOld.start();
+                Thread.sleep(3000);
                 speaker.join();
                 restart = true;
                 kontrollierer.join();
                 restart = true;
                 eintrager.join();
                 restart = true;
-
+                eintragerOld.join();
+                restart = true;
 
             }
 

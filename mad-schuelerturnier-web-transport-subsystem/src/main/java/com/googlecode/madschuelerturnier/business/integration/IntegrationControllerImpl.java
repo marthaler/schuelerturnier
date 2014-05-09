@@ -152,7 +152,6 @@ public class IntegrationControllerImpl extends Thread implements ApplicationEven
         return this.latest;
     }
 
-
     public void messageReceivedFromRemote(MessageWrapperToSend wr) {
         this.incommingMessages.add(wr);
     }
@@ -317,6 +316,12 @@ public class IntegrationControllerImpl extends Thread implements ApplicationEven
 
     @Override
     public void onApplicationEvent(OutgoingMessage event) {
+
+        if(!this.isMaster()){
+           LOG.debug("IntegrationBusControlleImpl: i am not master, will not send");
+            return;
+        }
+
         this.outboundMessages = this.outboundMessages + 1;
         Serializable obj = event.getPayload();
         this.sendMessage(UUID.randomUUID().toString(), obj, MessageTyp.PAYLOAD, event.isTrans());

@@ -9,7 +9,11 @@ import com.googlecode.madschuelerturnier.model.enums.MessageTyp;
 import com.googlecode.madschuelerturnier.model.integration.MessageWrapperToSend;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Ist eine ausgehende HTTP Verbindung
@@ -34,7 +38,13 @@ public class TransportEndpointSender extends Thread {
     private boolean online = true;
     private boolean running = true;
 
-    private LinkedList<MessageWrapperToSend> messagesOut = new LinkedList<MessageWrapperToSend>();
+    private List<MessageWrapperToSend> messagesOut = Collections.synchronizedList(new ArrayList<MessageWrapperToSend>());
+
+    public int getMessagecount() {
+        return messagecount;
+    }
+
+    private int messagecount = 0;
 
 
     private IntegrationControllerImpl controller;
@@ -49,6 +59,7 @@ public class TransportEndpointSender extends Thread {
 
     public void run() {
         while (running) {
+            MessageWrapperToSend send = null;
             try {
 
                 MessageWrapperToSend wrapper = new MessageWrapperToSend();
@@ -57,7 +68,7 @@ public class TransportEndpointSender extends Thread {
                 wrapper.setTyp(MessageTyp.PULLREQUEST);
                 wrapper.setFilter(this.controller.getMessagefilter());
 
-                MessageWrapperToSend send = getMessageToSendOutRequest();
+                send = getMessageToSendOutRequest();
                 if (send != null) {
                     wrapper = send;
                     LOG.info("TransportEndpointSender (" + remoteConnectionString + ") sende nachricht: " + wrapper);
@@ -69,6 +80,7 @@ public class TransportEndpointSender extends Thread {
                     online = true;
                     LOG.info("TransportEndpointSender (" + remoteConnectionString + ") nachricht erhalten: " + response);
                     this.controller.messageReceivedFromRemote(response);
+                    Thread.sleep(2000);
                 }
 
                 if (response == null) {
@@ -76,12 +88,20 @@ public class TransportEndpointSender extends Thread {
                     Thread.sleep(5000);
                 } else if (response.getTyp() == MessageTyp.ACK) {
                     online = true;
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                 }
 
             } catch (Exception e) {
                 if (online) {
                     LOG.error("TransportEndpointSender (" + remoteConnectionString + ") fehler:" + e.getMessage(), e);
+                }
+                if(send != null){
+                this.messagesOut.add(0,send);
+                }
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e1) {
+                    LOG.error(e.getMessage(),e);
                 }
                 online = false;
             }
@@ -90,7 +110,7 @@ public class TransportEndpointSender extends Thread {
 
     public synchronized MessageWrapperToSend getMessageToSendOutRequest() {
         if (this.messagesOut.size() > 0) {
-            MessageWrapperToSend out = this.messagesOut.removeFirst();
+            MessageWrapperToSend out = this.messagesOut.remove(0);
 
             return out;
 
@@ -103,6 +123,8 @@ public class TransportEndpointSender extends Thread {
         if (!wr.getNodesThatReceivedThisMessage().contains(this.ownConnectionString) && !wr.getSource().equals(this.remoteConnectionString)) {
             wr.getNodesThatReceivedThisMessage().add(this.ownConnectionString);
             messagesOut.add(wr);
+            this.messagecount = this.messagecount + 1;
+            LOG.debug("message added to:" + this.getRemoteConnectionString());
         }
     }
 

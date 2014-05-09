@@ -26,8 +26,15 @@
 
 
                     <p:dataList var="spiel" value="#{mobileController.getSpiele()}">
-                        <p:commandLink value="#{spiel.start} #{spiel.mannschaftA.name} #{spiel.mannschaftB.name}" action="pm:group?transition=slide">
 
+
+
+                        <p:commandLink action="pm:group?transition=slide">
+
+                        <h:outputText value="#{spiel.start}">
+                            <f:convertDateTime type="date" pattern="EEE HH:mm" timeZone="Europe/Zurich"/>
+                        </h:outputText>
+                            <h:outputText value=" #{spiel.mannschaftA.name} #{spiel.mannschaftB.name}"/>
                         </p:commandLink>
                     </p:dataList>
 

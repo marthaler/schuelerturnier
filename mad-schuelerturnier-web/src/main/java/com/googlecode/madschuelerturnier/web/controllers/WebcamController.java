@@ -36,7 +36,7 @@ public class WebcamController {
     private static final Logger LOG = Logger.getLogger(WebcamController.class);
 
     @Autowired
-    WebcamBusiness webcamBusiness;
+    WebcamBusiness WebcamBusiness;
 
     private Spiel spiel;
     private byte[] rawPicture;
@@ -59,13 +59,20 @@ public class WebcamController {
     }
 
     public void oncapture(CaptureEvent captureEvent) {
+        LOG.info("capture: event here");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            LOG.error(e.getMessage(),e);
+        }
         this.rawPicture = captureEvent.getData();
+        LOG.info("capture: event ok");
         decodePicAndSearchSpiel();
     }
 
     public void decodePicAndSearchSpiel() {
 
-        this.spiel = this.webcamBusiness.findSpielByDecodedPic(this.rawPicture);
+        this.spiel = this.WebcamBusiness.findSpielByDecodedPic(this.rawPicture);
 
         if (this.spiel == null) {
             createError("Spiel mit dem Code: " + this.code + " nicht gefunden");
@@ -82,7 +89,7 @@ public class WebcamController {
     }
 
     public void search() {
-        this.spiel = webcamBusiness.findeSpiel(code);
+        this.spiel = WebcamBusiness.findeSpiel(code);
         if (spiel == null) {
             createError("Spiel mit dem Code: " + this.code + " nicht gefunden");
             this.code = null;
@@ -90,7 +97,7 @@ public class WebcamController {
     }
 
     public void save() {
-        this.webcamBusiness.save(this.spiel, this.rawPicture);
+        this.WebcamBusiness.save(this.spiel, this.rawPicture);
         this.rawPicture = null;
         this.spiel = null;
     }

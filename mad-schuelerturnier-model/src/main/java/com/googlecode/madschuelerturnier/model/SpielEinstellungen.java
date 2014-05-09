@@ -58,6 +58,8 @@ public class SpielEinstellungen extends Persistent {
 
     private boolean webcamdemomode = false;
 
+    private boolean webcamdemomodescharf = false;
+
     private boolean websiteInMannschaftslistenmode = false;
 
     private boolean websiteEnableDownloadLink = false;
@@ -327,5 +329,13 @@ public class SpielEinstellungen extends Persistent {
 
     public void setWebsiteProgrammDownloadLink(String websiteProgrammDownloadLink) {
         this.websiteProgrammDownloadLink = websiteProgrammDownloadLink;
+    }
+
+    public boolean isWebcamdemomodescharf() {
+        return webcamdemomodescharf;
+    }
+
+    public void setWebcamdemomodescharf(boolean webcamdemomodescharf) {
+        this.webcamdemomodescharf = webcamdemomodescharf;
     }
 }

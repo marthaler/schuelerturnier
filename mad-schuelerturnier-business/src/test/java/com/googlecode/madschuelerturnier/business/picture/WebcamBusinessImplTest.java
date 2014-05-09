@@ -20,19 +20,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.imageio.ImageIO;
 
-import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.*;
 
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import static org.mockito.Mockito.when;
 
@@ -44,7 +38,7 @@ import static org.mockito.Mockito.when;
  * @since 1.2.6
  */
 @RunWith(MockitoJUnitRunner.class)
-public class WebcamBusinessTest {
+public class WebcamBusinessImplTest {
 
     @Mock
     private Spiel spiel2;
@@ -62,7 +56,7 @@ public class WebcamBusinessTest {
     SpielEinstellungen einstellungen;
 
     @InjectMocks
-    private WebcamBusiness obj = new WebcamBusiness();
+    private WebcamBusiness obj = new WebcamBusinessImpl();
 
     @Test
     public void testFindeSpiel() {

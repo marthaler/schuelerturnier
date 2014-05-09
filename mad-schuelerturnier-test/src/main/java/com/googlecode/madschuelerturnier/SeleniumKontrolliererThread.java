@@ -24,7 +24,10 @@ public class SeleniumKontrolliererThread extends Thread {
     public void run() {
 
         this.util.login("tester1915kontrollierer", "1234");
+        this.util.sleepAMoment(1);
+        this.util.clickById("form:ac:weiter");
 
+        Thread.currentThread().setName("KONTROLLE");
 
         for (int i = 0; i < 20000; i++) {
 

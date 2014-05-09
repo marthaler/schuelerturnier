@@ -17,7 +17,12 @@ public class SeleniumSpeakerThread extends Thread {
     @Override
     public void run() {
 
+        Thread.currentThread().setName("SPEAK");
+
         this.util.login("tester1915speaker", "1234");
+        this.util.sleepAMoment(1);
+        this.util.clickById("form:ac:weiter");
+
         this.util.clickByLink("speaker");
 
         for (int i = 0; i < 20000; i++) {

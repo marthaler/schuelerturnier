@@ -49,7 +49,7 @@
             <ui:repeat value="#{integrationControllerImpl.getAllReceivers()}" var="rec">
 <br/>
 
-                <h:outputText value="#{rec.remoteConnectionString} - online:#{rec.isOnline()} - messagequeu: #{rec.countMessagesToSend()}"/>
+                <h:outputText value="#{rec.remoteConnectionString} - online:#{rec.isOnline()} - total messages: #{rec.getMessagecount()} ausstehend: #{rec.countMessagesToSend()}"/>
             </ui:repeat>
 
         </h:panelGrid>
@@ -66,6 +66,12 @@
             <p:selectBooleanCheckbox onchange="document.getElementById('form1:refresh').click()"
                     id="webcamdemomode" value="#{spieleinstellungen.webcamdemomode}"
                     ajax="true" >
+            </p:selectBooleanCheckbox>
+
+            <h:outputText value="Schrizettelscanner im SCHARFEN Demo Modus laufen lassen"/>
+            <p:selectBooleanCheckbox onchange="document.getElementById('form1:refresh').click()"
+                                     id="webcamdemomodescharf" value="#{spieleinstellungen.webcamdemomodescharf}"
+                                     ajax="true" >
             </p:selectBooleanCheckbox>
 
     </h:panelGrid>

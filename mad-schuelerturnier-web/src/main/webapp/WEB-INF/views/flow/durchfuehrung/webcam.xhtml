@@ -18,13 +18,29 @@
                                 setTimeout(function () {
                                     window.location.reload(1);
                                 }, 30000);
+
+
                             </script>
+
+
+                            <script type="text/javascript">
+                                function sleepCap(milliSeconds) {
+                                    PF('pc').capture();
+
+                                    var startTime = new Date().getTime(); // get the current time
+                                    while (new Date().getTime()&gt; startTime + milliSeconds);
+                                }
+                            </script>
+
+
+
+
 
                             <p:fieldset legend="Resultate eintragen:">
                                 <p:messages/>
                                     <h:form>
 
-                                        <h:panelGrid columns="1">
+                                        <h:panelGrid columns="1" id="grid">
                                             <p:row rendered="#{!webcamController.hasPic()}">
                                             <p:fileUpload fileUploadListener="#{webcamController.fileupload}"
                                                           multiple="false" auto="true" ajax="true"
@@ -33,7 +49,7 @@
                                             <br/>
                                                 <p:photoCam widgetVar="pc" listener="#{webcamController.oncapture}"  />
                                                 <br/>
-                                                <p:commandButton  id="up" value="Photo schiessen" onclick="PF('pc').capture()"  rendered="#{!webcamController.hasPic()}" ajax="false"/>
+                                                <p:commandButton  id="up" value="Photo schiessen" onclick="sleepCap(2000)"  rendered="#{!webcamController.hasPic()}" ajax="false"/>
 
                                             </p:row>
 
@@ -55,6 +71,8 @@
                                             </p:row>
 
                                         </h:panelGrid>
+
+
 
                                     </h:form>
                             </p:fieldset>

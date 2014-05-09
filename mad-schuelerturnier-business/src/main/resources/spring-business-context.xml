@@ -34,11 +34,12 @@
         </property>
     </bean>
 
-    <!-- dropbox
-    <bean id="DropboxConnector" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
-        <property name="serviceUrl" value="rmi://127.0.0.1:1199/DropboxConnector"/>
-        <property name="serviceInterface" value="com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector"/>
+    <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+    <!-- does not necessarily have to be the same name as the bean to be exported -->
+    <property name="serviceName" value="WebcamBusiness"/>
+    <property name="service" ref="webcamBusinessImpl"/>
+    <property name="serviceInterface" value="com.googlecode.madschuelerturnier.business.picture.WebcamBusiness"/>
+    <!-- defaults to 1099 -->
+    <property name="registryPort" value="1299"/>
     </bean>
-    -->
-
 </beans>

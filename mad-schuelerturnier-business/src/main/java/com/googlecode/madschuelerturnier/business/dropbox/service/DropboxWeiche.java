@@ -163,9 +163,9 @@ public class DropboxWeiche implements DropboxConnector{
     @Override
     public void saveGameAttachemt(String file, String suffix, byte[] content) {
         if(isLocal()){
-            this.connector.saveGame(content);
+            this.connector.saveGameAttachemt(file,suffix,content);
         }else {
-            this.connectorRemote.saveGame(content);
+            this.connectorRemote.saveGameAttachemt(file,suffix,content);
         }
     }
 

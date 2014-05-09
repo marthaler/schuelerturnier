@@ -3,11 +3,13 @@
  */
 package com.googlecode.madschuelerturnier.business.bus;
 
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.model.*;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListener;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListenerManager;
 import com.googlecode.madschuelerturnier.model.integration.OutgoingMessage;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Controller;
@@ -24,13 +26,12 @@ import java.io.Serializable;
 @Controller
 public class BusControllerOut implements ApplicationEventPublisherAware, ModelChangeListener {
 
+    private static final Logger LOG = Logger.getLogger(BusControllerOut.class);
+    private ApplicationEventPublisher publisher;
+
     public BusControllerOut() {
         ModelChangeListenerManager.getInstance().addListener(this);
     }
-
-    private static final Logger LOG = Logger.getLogger(BusControllerOut.class);
-
-    private ApplicationEventPublisher publisher;
 
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
@@ -39,32 +40,35 @@ public class BusControllerOut implements ApplicationEventPublisherAware, ModelCh
 
     @Override
     public void onChangeModel(Serializable object) {
+
+
+
             if(object instanceof SpielEinstellungen){
-            LOG.info("BusControllerOut senden: SpielEinstellungen");
+            LOG.debug("BusControllerOut senden: SpielEinstellungen");
             sendMessage(object);
         }
-else
+        else
         if(object instanceof Mannschaft){
-            LOG.info("BusControllerOut senden: Mannschaft");
+            LOG.debug("BusControllerOut senden: Mannschaft");
             sendMessage(object);
         }
-else
+        else
         if(object instanceof SpielZeile){
-            LOG.info("BusControllerOut senden: SpielZeile");
+            LOG.debug("BusControllerOut senden: SpielZeile");
             sendMessage(object);
         }
-    else
+         else
             if(object instanceof DBAuthUser){
-                LOG.info("BusControllerOut senden: DBAuthUser");
+                LOG.debug("BusControllerOut senden: DBAuthUser");
                 sendMessage(object);
                 // todo bins eintragen
     }
-else
+        else
         if (object instanceof Spiel) {
-            LOG.info("BusControllerOut senden: Spiel");
+            LOG.debug("BusControllerOut senden: Spiel");
             sendMessage(object);
         } else {
-            LOG.info("BusControllerOut senden: mache nichts, geaendert: " + object.getClass());
+            LOG.debug("BusControllerOut senden: mache nichts, geaendert: " + object.getClass());
         }
     }
 

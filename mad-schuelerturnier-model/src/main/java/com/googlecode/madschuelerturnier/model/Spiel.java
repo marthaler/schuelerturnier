@@ -152,7 +152,7 @@ public class Spiel extends Persistent {
         if(this.toreBBestaetigt == NOT_INIT_FLAG){
             return "--";
         }
-        return String.format("%02d", this.toreABestaetigt);
+        return String.format("%02d", this.toreBBestaetigt);
     }
 
     public String getMannschaftBName() {
