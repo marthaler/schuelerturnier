@@ -44,9 +44,13 @@
 
                                             </p:column>
 
-                                            <p:column headerText="Sichern" >
-                                                <p:commandButton value="Sichern" action="saveP" >
+                                            <p:column headerText="Id" >
+                                                <p:commandButton value="Sichern" action="saveP" ajax="false">
                                                 </p:commandButton>
+                                            </p:column>
+
+                                            <p:column headerText="Sichern" >
+                                                <h:outputText value="|#{penalty.getIdString()}|"/>
                                             </p:column>
 
                                         </p:dataTable>

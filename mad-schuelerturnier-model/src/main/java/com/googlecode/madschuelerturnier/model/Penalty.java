@@ -29,6 +29,8 @@ public class Penalty extends Persistent {
     private static final long serialVersionUID = 1L;
 
 
+    private String reihenfolgeOrig = LEER;
+
     private String reihenfolge = LEER;
 
     private String idString;
@@ -45,6 +47,11 @@ public class Penalty extends Persistent {
 
     public void addMannschaft(final Mannschaft m) {
         this.finalList.add(m);
+        reihenfolgeOrig = "";
+        for(Mannschaft m2: finalList){
+            reihenfolgeOrig = reihenfolgeOrig +"," + m2.getName();
+        }
+        reihenfolgeOrig = reihenfolgeOrig.substring(1);
     }
 
     public boolean contains(final Mannschaft m) {

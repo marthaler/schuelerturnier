@@ -38,8 +38,6 @@ public class ToXLSDumper {
     @Autowired
     private SpielRepository srepo;
 
-
-
     @Autowired
     private DBAuthUserRepository authRepo;
 
@@ -52,19 +50,22 @@ public class ToXLSDumper {
     @Autowired
     private TextRepository trepo;
 
+    @Autowired
+    private PenaltyRepository prepo;
+
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
 
     public byte[] mannschaftenFromDBtoXLS() {
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll(), prepo.findAll());
     }
 
     public byte[] mannschaftenFromDBtoXLS(SpielEinstellungen einst) {
         List<SpielEinstellungen> einstellungen = new ArrayList<SpielEinstellungen>();
         einstellungen.add(einst);
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll(),prepo.findAll());
     }
 
-    protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn, List<File> filesIn,List<Text> texteIn) {
+    protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn, List<File> filesIn,List<Text> texteIn,List<Penalty> penaltyIn) {
 
         List<Spiel> spiele = spieleIn;
         List<Mannschaft> mannschaften = mannschaftenIn;
@@ -72,6 +73,7 @@ public class ToXLSDumper {
         List<DBAuthUser> users = usersIn;
         List<File> files = filesIn;
         List<Text> texte = texteIn;
+        List<Penalty> penaltys = penaltyIn;
 
         if (spiele == null) {
             spiele = new ArrayList();
@@ -111,6 +113,10 @@ public class ToXLSDumper {
             texte = new ArrayList();
         }
 
+        if (penaltys == null) {
+            penaltys = new ArrayList();
+        }
+
         Map beans = new HashMap();
 
         beans.put("mannschaften", mannschaften);
@@ -119,6 +125,7 @@ public class ToXLSDumper {
         beans.put("users", users);
         beans.put("attachements", files);
         beans.put("texte", texte);
+        beans.put("penaltys", penaltys);
 
         XLSTransformer transformer = new XLSTransformer();
         byte[] arr = readFreshTemplate();

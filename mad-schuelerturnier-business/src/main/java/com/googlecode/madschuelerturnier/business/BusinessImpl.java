@@ -95,6 +95,9 @@ public class BusinessImpl implements Business {
     private TextRepository trepo;
 
     @Autowired
+    private PenaltyRepository prepo;
+
+    @Autowired
     @Qualifier("dropboxConnector")
     private DropboxConnector dropbox;
 
@@ -677,6 +680,14 @@ public class BusinessImpl implements Business {
         for (com.googlecode.madschuelerturnier.model.support.File f : attachements) {
             fileRepo.save(f);
             LOG.info("attachements gespeicher: " + f);
+        }
+
+        // Penalty laden und updaten
+        List<com.googlecode.madschuelerturnier.model.Penalty> penalty = xls.convertXLSToPenalty(xlsIn);
+        LOG.info("penaltys geladen: " + penalty.size());
+        for (com.googlecode.madschuelerturnier.model.Penalty p : penalty) {
+            prepo.save(p);
+            LOG.info("attachements gespeicher: " + p);
         }
 
         // Spiele laden und updaten

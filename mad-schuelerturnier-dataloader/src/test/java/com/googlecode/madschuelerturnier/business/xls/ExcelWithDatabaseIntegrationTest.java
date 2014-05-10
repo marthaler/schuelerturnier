@@ -80,5 +80,15 @@ public class ExcelWithDatabaseIntegrationTest {
 
     }
 
+    @Test
+    public void testParsePenalty() {
+        Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
+        List<Penalty> penalty = xls.convertXLSToPenalty(DataLoaderImpl.readFile("schuetu-2013.xls"));
+        Assert.assertNotNull(penalty);
+        Assert.assertEquals("nicht genau 0 Penalty", 0, penalty.size());
+
+    }
+
+
 
 }

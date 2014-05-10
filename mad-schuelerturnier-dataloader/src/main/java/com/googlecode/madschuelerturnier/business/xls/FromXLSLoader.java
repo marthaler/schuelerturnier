@@ -209,5 +209,34 @@ public class FromXLSLoader {
         return null;
     }
 
+    public List<Penalty> convertXLSToPenalty(byte[] arr) {
+
+        try {
+
+            InputStream inputXML = new BufferedInputStream(getClass().getResourceAsStream("/jxls-penalty-mapping.xml"));
+            XLSReader mainReader = ReaderBuilder.buildFromXML(inputXML);
+
+            InputStream inputXLS = new ByteArrayInputStream(arr);
+
+            List penaltys = new ArrayList();
+            Penalty penalty = new Penalty();
+
+            Map beans = new HashMap();
+            beans.put("penaltys", penaltys);
+            beans.put("penalty", penalty);
+
+            XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
+
+            LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
+
+            return (List<Penalty>) beans.get("penaltys");
+
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+
+        return null;
+    }
+
 
 }

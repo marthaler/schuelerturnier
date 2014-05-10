@@ -3,10 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business;
 
-import com.googlecode.madschuelerturnier.model.DBAuthUser;
-import com.googlecode.madschuelerturnier.model.Mannschaft;
-import com.googlecode.madschuelerturnier.model.Spiel;
-import com.googlecode.madschuelerturnier.model.Text;
+import com.googlecode.madschuelerturnier.model.*;
 import com.googlecode.madschuelerturnier.model.support.File;
 
 import java.util.List;
@@ -32,4 +29,7 @@ public interface DataLoader {
    List<Text> loadTexte();
 
     byte[] loadFile();
+
+    List<Penalty> loadPenalty();
+
 }

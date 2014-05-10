@@ -365,13 +365,27 @@ public class Spiel extends Persistent {
     }
 
 
-
-    @Override
-    public String toString() {
-
+    public String getWebsiteName(){
         if(!this.realName.isEmpty()){
             return this.realName;
         }
+
+        String ret = "";
+
+        if (this.mannschaftA != null) {
+            ret = this.getMannschaftAName() + ":" + this.getMannschaftBName();
+        } else if (this.typ == SpielEnum.GFINAL) {
+            ret = ret + "GrFin-" + this.getKategorieName();
+        } else if (this.typ == SpielEnum.KFINAL) {
+            ret = ret + "KlFin-" + this.getKategorieName();
+        } else {
+            ret = ret + this.getTyp();
+        }
+        return ret;
+    }
+
+    @Override
+    public String toString() {
 
         String ret = "";
 

@@ -43,9 +43,9 @@ public class SeleniumEintragerThreadOld extends Thread {
 
             // penalty eintragen
 
-            if (this.util.getSourceAsString().contains("form1:dataTablePen:0:j_idt52")) {
-                this.util.sendByName("form1:dataTablePen:0:j_idt52", "irgendwas");
-                this.util.clickById("form1:dataTablePen:0:j_idt56");
+            if (this.util.getSourceAsString().contains("form1:dataTablePen:0:j_idt32")) {
+                this.util.sendByName("form1:dataTablePen:0:j_idt28", "irgendwas");
+                this.util.clickById("form1:dataTablePen:0:j_idt32");
             }
 
             String id = findFirstID(this.util.getSourceAsString());

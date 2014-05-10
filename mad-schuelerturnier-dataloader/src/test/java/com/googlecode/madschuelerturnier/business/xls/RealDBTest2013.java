@@ -164,7 +164,7 @@ public class RealDBTest2013 {
 
     private void dumpMOdelToXLSFile(List<Mannschaft> mannschaften, List<Spiel> spiele, File file) {
         try {
-            byte[] wb = toXlsDumper.convertModelToXLS(mannschaften, spiele, null, null, null,null);
+            byte[] wb = toXlsDumper.convertModelToXLS(mannschaften, spiele, null, null, null,null,null);
             FileOutputStream out = new FileOutputStream(file);
             out.write(wb);
             out.close();
