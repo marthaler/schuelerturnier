@@ -70,6 +70,7 @@ public class SpielEinstellungen extends Persistent {
 
     private String websiteTurnierTitel ="";
 
+    private String websiteTurnierMeldung ="nichts";
 
     // 05 Spielverteilung
     private int zweiPausenBisKlasse = 0;

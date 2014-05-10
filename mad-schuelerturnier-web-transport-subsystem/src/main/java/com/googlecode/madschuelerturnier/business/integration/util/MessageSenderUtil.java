@@ -27,6 +27,7 @@ public class MessageSenderUtil {
         HttpClient client = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(adresse);
         StringBuffer buff = new StringBuffer();
+        BufferedReader rd;
         try {
 
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
@@ -34,7 +35,7 @@ public class MessageSenderUtil {
 
             post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = client.execute(post);
-            BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
             String line = "";
             while ((line = rd.readLine()) != null) {
@@ -42,7 +43,6 @@ public class MessageSenderUtil {
             }
 
             return (MessageWrapperToSend) XstreamUtil.deserializeFromString(buff.toString());
-
         } catch (IOException e) {
             failurecounter++;
             if(failurecounter % 100 == 0 ){
