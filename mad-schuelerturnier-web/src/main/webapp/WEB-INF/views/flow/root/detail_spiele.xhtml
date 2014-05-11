@@ -6,14 +6,6 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 template="../../../layouts/100.xhtml">
 
-    <ui:define name="heading">
-        <h:outputText value="Mannschaft bearbeiten"/>
-    </ui:define>
-
-    <ui:define name="caption">
-        <p>annschaft bearbeiten</p>
-    </ui:define>
-
     <ui:define name="main">
         <div id="main">
             <div class="page_margins">
@@ -22,7 +14,7 @@
 
                         <h:form id="form1">
 
-                            <p:fieldset legend="Spiel Korrigieren">
+                            <p:fieldset legend="Spiel korrigieren">
                                 <p:messages/>
 
                                 <h:panelGrid columns="2" id="inputelements">
@@ -31,7 +23,7 @@
                                     <p:inputText id="id" label="Id"
                                                  value="#{spiel.idString}" size="5" disabled="true"/>
 
-                                    <h:outputLabel for="a" value="Tore  #{spiel.mannschaftA.name}"/>§
+                                    <h:outputLabel for="a" value="Tore  #{spiel.mannschaftA.name}"/>
                                     <p:inputText id="a" label="a" value="#{spiel.toreABestaetigt}" size="2">
                                         <f:validateLength minimum="1" maximum="2"/>
                                     </p:inputText>

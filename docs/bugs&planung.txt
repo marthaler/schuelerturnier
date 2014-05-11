@@ -42,9 +42,9 @@ bugs:
 *****
 [__] auch text schicken beim transport
 [__] eintrager und kontrollierer der reihe nach
-[__] auch attachemnts schicken beim transport
-[__] penalty speichern funktioniert nicht
-[__] penalty in resultengine aus deb laden, damit keine neuen erstellt werden in der History
+[__] auch attachements schicken beim transport
+[xx] penalty speichern funktioniert nicht
+[__] penalty in resultengine aus db laden, damit keine neuen erstellt werden in der History
 [ok] printer funktioniert nicht
 [ok] einstellung start richtig verwenden beim generieren
 [ok] kamera funktioniert nicht auf mac (demoansicht)

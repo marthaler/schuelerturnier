@@ -369,12 +369,9 @@ public class Spiel extends Persistent {
         if(!this.realName.isEmpty()){
             return this.realName;
         }
-
         String ret = "";
 
-        if (this.mannschaftA != null) {
-            ret = this.getMannschaftAName() + ":" + this.getMannschaftBName();
-        } else if (this.typ == SpielEnum.GFINAL) {
+        if (this.typ == SpielEnum.GFINAL) {
             ret = ret + "GrFin-" + this.getKategorieName();
         } else if (this.typ == SpielEnum.KFINAL) {
             ret = ret + "KlFin-" + this.getKategorieName();
