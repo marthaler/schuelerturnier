@@ -166,14 +166,14 @@
                                         <resource>
                                             <targetPath>D:/db/Dropbox/shared/z_schuelerturnier/Informatik/app/</targetPath>
                                             <file>D:/db/Dropbox/shared/z_schuelerturnier/Informatik/app/ROOT.war</file>
-                                            <destFileName>ROOT-BAK.war</destFileName>
+                                            <destFileName>ROOT.BAK.war</destFileName>
                                             <runIf>{{ new File( "D:/db/Dropbox/shared/z_schuelerturnier/Informatik/app", "ROOT.war" ).isFile() }}</runIf>
                                         </resource>
                                         <resource>
                                             <targetPath>D:/db/Dropbox/shared/z_schuelerturnier/Informatik/app/</targetPath>
                                             <file>${project.basedir}/target/${project.artifactId}-${project.version}.war</file>
                                             <destFileName>ROOT.war</destFileName>
-                                            <runIf>{{ new File( "D:/db/Dropbox/shared/z_schuelerturnier/Informatik/app", "ROOT.war" ).isFile() }}</runIf>
+                                            <runIf>{{ new File( "D:/db/Dropbox/shared/z_schuelerturnier/Informatik/app", "ROOT.BAK.war" ).isFile() }}</runIf>
                                         </resource>
                                         <!-- ~~~~~~~~~~~~~~ -->
                                         <!-- Dropbox Copy: Mac -->
@@ -181,23 +181,16 @@
                                         <resource>
                                             <targetPath>/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app</targetPath>
                                             <file>/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/ROOT.war</file>
-                                            <destFileName>ROOT-BAK.war</destFileName>
+                                            <destFileName>ROOT.BAK.war</destFileName>
                                             <runIf>{{ new File( "/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app", "ROOT.war" ).isFile() }}</runIf>
                                         </resource>
                                         <resource>
                                             <targetPath>/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/</targetPath>
                                             <file>${project.basedir}/target/${project.artifactId}-${project.version}.war</file>
                                             <destFileName>ROOT.war</destFileName>
-                                            <runIf>{{ new File( "/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app", "ROOT.war" ).isFile() }}</runIf>
+                                            <runIf>{{ new File( "/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app", "ROOT.BAK.war" ).isFile() }}</runIf>
                                         </resource>
-                                        <!-- copy executable jar
-                                        <resource>
-                                            <targetPath>/app/</targetPath>
-                                            <file>${project.basedir}/target/${project.artifactId}-${project.version}-war-exec.jar</file>
-                                            <destFileName>app.jar</destFileName>
-                                            <runIf>{{ new File( "/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app", "ROOT.war" ).isFile() }}</runIf>
-                                        </resource>
-                                        -->
+
                                     </resources>
                                 </configuration>
                             </execution>

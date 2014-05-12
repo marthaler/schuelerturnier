@@ -47,18 +47,6 @@
             <version>${springsecurity.version}</version>
         </dependency>
 
-        <!-- Spring Security -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>${springsecurity.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${springsecurity.version}</version>
-        </dependency>
 
         <!-- JSF-303 Dependency Injection -->
         <dependency>
@@ -219,7 +207,7 @@
                                         <resource>
                                             <targetPath>/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/</targetPath>
                                             <file>${project.basedir}/target/${project.artifactId}-${project.version}-war-exec.jar</file>
-                                            <destFileName>test-exec.war</destFileName>
+                                            <destFileName>test-war-exec.jar</destFileName>
                                             <runIf>{{ new File( "/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app", "test-war-exec.BAK.jar" ).isFile() }}</runIf>
                                         </resource>
 
