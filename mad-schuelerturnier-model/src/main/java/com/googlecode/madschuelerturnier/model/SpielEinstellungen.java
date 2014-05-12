@@ -11,14 +11,16 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.joda.time.DateTime;
 
 import javax.persistence.Entity;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * Implementiert Persistent nicht und ist keine Entity, wird mit Xstream serialisiert und als Text in die DB gespeichert
+ *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
-@Entity
-public class SpielEinstellungen extends Persistent {
+public class SpielEinstellungen implements Serializable{
 
     private static final long serialVersionUID = 1L;
 

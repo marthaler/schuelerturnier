@@ -10,9 +10,27 @@ import org.apache.log4j.Logger;
  */
 public class SeleniumSpeakerThread extends Thread {
 
-    private static final Logger LOG = Logger.getLogger(SeleniumSpeakerThread.class);
+    private static final Logger LOG = Logger.getLogger(SeleniumEintragerThread.class);
 
-    private SeleniumDriverWrapper util = new SeleniumDriverWrapper();
+    private SeleniumDriverWrapper util;
+
+    private String url;
+    private String password;
+    private String user;
+    private boolean running = true;
+
+    public SeleniumSpeakerThread(String user, String password, String url) {
+        this.url = url;
+        this.password = password;
+        this.user = user;
+        util = new SeleniumDriverWrapper(url);
+    }
+
+    public void shutDown() {
+        Thread.currentThread().interrupt();
+        running = false;
+        util.destroy();
+    }
 
     @Override
     public void run() {
@@ -20,42 +38,25 @@ public class SeleniumSpeakerThread extends Thread {
         Thread.currentThread().setName("SPEAK");
 
         this.util.login("tester1915speaker", "1234");
-        this.util.sleepAMoment(1);
+        this.util.sleepAMoment();
+
         this.util.clickById("form:ac:weiter");
+        this.util.sleepAMoment();
 
         this.util.clickByLink("speaker");
 
-        for (int i = 0; i < 20000; i++) {
-
-            if (MatchOnly.restart) {
-                break;
-            }
+        while (running) {
 
             this.util.sleepAMoment();
 
             try {
-
-                this.util.sleepAMoment();
                 this.util.clickById("formular:panel:play_table:0:play");
-
             } catch (final Exception e) {
                 this.util.sleepAMoment();
                 SeleniumSpeakerThread.LOG.error("not found: formular:panel:play_table:0:play");
             }
 
             this.util.sleepAMoment(10);
-
-        }
-        this.util.distroy();
-    }
-
-    public static void main(final String[] args) {
-        final SeleniumSpeakerThread th = new SeleniumSpeakerThread();
-        th.run();
-        try {
-            th.join();
-        } catch (final InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }

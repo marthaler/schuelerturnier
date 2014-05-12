@@ -11,9 +11,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -37,7 +34,7 @@ public class SeleniumDriverWrapper {
 
     private static int TIME_OUT_IN_SECONDS = 5;
 
-    private String baseURL = "http://87.230.15.247";
+    private String baseURL;
 
     public WebDriver getDriver() {
         return driver;
@@ -45,11 +42,9 @@ public class SeleniumDriverWrapper {
 
     private SafariDriver driver = new SafariDriver();
 
-    private boolean upAndRunning = true;
-
-    public SeleniumDriverWrapper() {
-        //driver.setJavascriptEnabled(true);
+    public SeleniumDriverWrapper(String url) {
         driver.manage().timeouts().implicitlyWait(TIME_OUT_IN_SECONDS, TimeUnit.SECONDS);
+        this.baseURL = url;
     }
 
     public void login(String user, String password) {
@@ -59,7 +54,7 @@ public class SeleniumDriverWrapper {
         driver.findElement(By.id("account_form:password")).sendKeys(password);
         this.sendById("account_form:password", password);
         this.clickById("account_form:ok");
-
+        this.sleepAMoment();
     }
 
     public void getBaseURL() {
@@ -163,7 +158,6 @@ public class SeleniumDriverWrapper {
         LOG.info("clickByXpath ok: " + selector);
     }
 
-
     public void clickByXpathAndForget(String selector) {
 
         try {
@@ -176,30 +170,8 @@ public class SeleniumDriverWrapper {
         LOG.info("clickByXpath OK: " + selector);
     }
 
-
     public String getSourceAsString() {
         return driver.getPageSource();
-    }
-
-    public HtmlPage getSourceAsHtmlPage() {
-
-        HtmlPage page = null;
-        try {
-
-            URL url = new URL("http://www.aa.bb");
-
-            WebClient webClient = new WebClient(BrowserVersion.FIREFOX_17);
-            webClient.getOptions().setJavaScriptEnabled(false);
-
-
-            StringWebResponse response = new StringWebResponse(driver.getPageSource(), url);
-            page = HTMLParser.parseHtml(response, webClient.getCurrentWindow());
-
-
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-        }
-        return page;
     }
 
     public void takeScreesnshot() {
@@ -211,7 +183,7 @@ public class SeleniumDriverWrapper {
         }
     }
 
-    public void sleepAMoment(int... timeinseconds) {
+    public void sleepAMoment(int...timeinseconds) {
         try {
             if (timeinseconds.length == 0) {
                 Thread.sleep(1000);
@@ -223,7 +195,10 @@ public class SeleniumDriverWrapper {
         }
     }
 
-    public void distroy() {
+    public void destroy() {
+        clickByLink("Abmelden");
+        sleepAMoment();
+        this.driver.quit();
         this.driver.close();
     }
 

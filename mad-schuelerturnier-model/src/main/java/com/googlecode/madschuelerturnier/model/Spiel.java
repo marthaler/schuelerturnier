@@ -6,10 +6,7 @@ package com.googlecode.madschuelerturnier.model;
 import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielEnum;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -53,8 +50,8 @@ public class Spiel extends Persistent {
     // hilfsfeld zum ausgeben der finale, falls noch keine mannschaft bestimmt wurde
     private String kategorieName;
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    private Text notizen = new Text();
+    @Lob
+    private String notizen = "";
 
     // fuer jxl import
     @Transient
@@ -85,19 +82,14 @@ public class Spiel extends Persistent {
     public void setId(Long id) {  // NOSONAR
         super.setId(id);
     }
-
+@Deprecated
     public void setNotes(String notes) {
-        if (this.notizen == null) {
-            this.notizen = new Text();
-        }
-        this.notizen.setValue(notes);
+       this.notizen = notes;
     }
 
+    @Deprecated
     public String getNotes() {
-        if (this.notizen != null) {
-            return this.notizen.getValue();
-        }
-        return "";
+        return this.notizen;
     }
 
     public void setTypString(String typIn) {
@@ -438,11 +430,11 @@ public class Spiel extends Persistent {
         this.kategorieName = kategorieName;
     }
 
-    public Text getNotizen() {
+    public String getNotizen() {
         return notizen;
     }
 
-    public void setNotizen(Text notizen) {
+    public void setNotizen(String notizen) {
         this.notizen = notizen;
     }
 

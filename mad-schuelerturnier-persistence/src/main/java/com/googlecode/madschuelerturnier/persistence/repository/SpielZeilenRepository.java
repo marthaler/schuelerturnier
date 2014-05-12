@@ -32,7 +32,7 @@ public interface SpielZeilenRepository extends PagingAndSortingRepository<SpielZ
     @Query("select o from SpielZeile o where o.sonntag = 'false'")
     List<SpielZeile> findSpieleSamstag();
 
-    @Query("select o from SpielZeile o where o.phase = 0 order by o.start asc")
+    @Query("select o from SpielZeile o where o.phase = 0 and o.a.fertigGespielt = 'false' order by o.start asc")
     List<SpielZeile> findNextZeilen(Pageable pageable);
 
     @Query("select o from SpielZeile o where o.phase = 1 order by o.start asc")

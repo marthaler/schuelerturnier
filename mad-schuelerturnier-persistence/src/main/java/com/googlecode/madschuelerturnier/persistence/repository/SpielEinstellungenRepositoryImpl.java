@@ -33,7 +33,8 @@ public class SpielEinstellungenRepositoryImpl implements SpielEinstellungenRepos
         }
 
         if(cache != null){
-            return (SpielEinstellungen) XstreamUtil.deserializeFromString(cache.getValue());
+            SpielEinstellungen temp = (SpielEinstellungen) XstreamUtil.deserializeFromString(cache.getValue());
+            return temp;
         }
         return null;
     }

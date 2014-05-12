@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:sec="http://www.springframework.org/security/tags"
+                template="../../../layouts/100.xhtml">
+
+    <ui:define name="main">
+        <div id="main">
+            <div class="page_margins">
+                <div class="page">
+                    <div class="inset">
+                        <h:form id="form1">
+
+
+                            <h:panelGrid  id="websitepublisher" columns="2" style="margin-bottom:10px">
+
+
+
+                                <h:outputText value="Speaker Url: "/>
+                                <p:inputText value="#{backingBean.speaker_url}"  ajax="true" size="80"/>
+
+                                <p:separator /><p:separator />
+
+                                <h:outputText value="Speaker User: "/>
+                                <p:inputText value="#{backingBean.speaker_user}" ajax="true" size="80"/>
+
+                                <p:separator /><p:separator />
+
+                                <h:outputText value="Speaker Password: "/>
+                                <p:inputText value="#{backingBean.speaker_password}"  ajax="true" size="80"/>
+
+                                <p:separator /><p:separator />
+
+                                <h:outputText value="Speaker On:" />
+                                <p:selectBooleanCheckbox value="#{backingBean.speaker_on}" ajax="true"/>
+
+                                <p:separator /><p:separator />
+
+                                <h:outputText value="Start"/>
+                                <h:column>
+                                    <p:commandButton id="start" action="#{backingBean.start()}" value="Starten" ajax="true"/>
+                                </h:column>
+
+                                <h:outputText value="Stop"/>
+                                <h:column>
+                                    <p:commandButton id="stop" action="#{backingBean.stop()}" value="Stopen" ajax="true"/>
+                                </h:column>
+
+                                <p:blockUI block="websitepublisher" trigger="start,stop">
+                                    <p:graphicImage value="/app/resources/static/images/ajax-loader.gif"/>
+                                </p:blockUI>
+
+                            </h:panelGrid>
+
+
+
+
+
+                        </h:form>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

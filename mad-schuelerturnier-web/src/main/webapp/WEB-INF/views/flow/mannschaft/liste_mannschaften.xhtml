@@ -90,10 +90,10 @@
                                             <h:outputText value="Notizen"/>
                                         </f:facet>
                                         <p:commandButton id="notizenButton" icon="ui-icon-note"
-                                                         onclick="dlg#{ri}.show();" type="button"
+                                                         onclick="PF('dlge#{ri}').show();" type="button"
                                                          rendered="#{mannschaft.notizen.length() > 0}"/>
                                         <p:dialog id="notizen_dialog" header="Notizen zu dieser Mannschaft"
-                                                  widgetVar="dlg#{ri}" showEffect="drop" hideEffect="drop" height="200"
+                                                  widgetVar="dlge#{ri}" showEffect="drop" hideEffect="drop" height="200"
                                                   width="400">
                                             <h:outputText value="#{mannschaft.notizen}"/>
                                         </p:dialog>

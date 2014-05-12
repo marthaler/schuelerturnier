@@ -15,29 +15,44 @@ import java.util.regex.Pattern;
  */
 public class SeleniumKontrolliererThread extends Thread {
 
-    private static final Logger LOG = Logger.getLogger(SeleniumKontrolliererThread.class);
+    private static final Logger LOG = Logger.getLogger(SeleniumEintragerThread.class);
 
-    private SeleniumDriverWrapper util = new SeleniumDriverWrapper();
+    private SeleniumDriverWrapper util;
+
+    private String url;
+    private String password;
+    private String user;
+    private boolean running = true;
+
+    public SeleniumKontrolliererThread(String user, String password, String url) {
+        this.url = url;
+        this.password = password;
+        this.user = user;
+        util = new SeleniumDriverWrapper(url);
+    }
+
+    public void shutDown() {
+        Thread.currentThread().interrupt();
+        running = false;
+        util.destroy();
+    }
 
 
     @Override
     public void run() {
 
-        this.util.login("tester1915kontrollierer", "1234");
-        this.util.sleepAMoment(1);
-        this.util.clickById("form:ac:weiter");
-
         Thread.currentThread().setName("KONTROLLE");
 
-        for (int i = 0; i < 20000; i++) {
+        this.util.login("tester1915kontrollierer", "1234");
+        this.util.sleepAMoment();
 
-            if (MatchOnly.restart) {
-                break;
-            }
+        this.util.clickById("form:ac:weiter");
+
+        while (running) {
 
             this.util.clickByLink("Kontrollierer");
 
-            this.util.sleepAMoment(5);
+            this.util.sleepAMoment(2);
 
             final String str = this.util.getSourceAsString();
 
@@ -52,30 +67,14 @@ public class SeleniumKontrolliererThread extends Thread {
             }
 
             if (mannschaften.size() < 1) {
-                this.util.sleepAMoment(5);
+                this.util.sleepAMoment(2);
             } else {
                 if ((mannschaften.size() % 4) == 0) {
-                    //this.util.clickById("form1:dataTable1:0:reject",true);
                     this.util.clickById("form1:dataTable1:0:save");
                 } else {
                     this.util.clickById("form1:dataTable1:0:save");
                 }
-                i = 0;
             }
-
-        }
-        this.util.distroy();
-    }
-
-    public static void main(final String[] args) {
-        final SeleniumKontrolliererThread th = new SeleniumKontrolliererThread();
-        th.run();
-        try {
-            th.join();
-        } catch (final InterruptedException e) {
-            e.printStackTrace();
         }
     }
-
-
 }

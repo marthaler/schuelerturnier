@@ -109,11 +109,6 @@ public class ImportHandler {
                 // Objekte setzen welche sonst null wären vor dem Uebertragen
                 s.setMannschaftA(temp.getMannschaftA());
                 s.setMannschaftB(temp.getMannschaftB());
-                // notizen uebertragen
-                if (s.getNotizen() != null && s.getNotizen().getValue() != null && s.getNotizen().getValue().length() > 0) {
-                    temp.getNotizen().setValue(s.getNotizen().getValue());
-                    temp.getNotizen().setKey(s.getNotizen().getKey());
-                }
 
                 try {
                     BeanUtils.copyProperties(temp, s);
