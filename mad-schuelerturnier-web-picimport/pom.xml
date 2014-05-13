@@ -118,13 +118,7 @@
             <artifactId>commons-fileupload</artifactId>
             <version>${commons-fileupload.version}</version>
         </dependency>
-<!--
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces-mobile</artifactId>
-            <version>0.9.4</version>
-        </dependency>
--->
+
         <!-- TEST -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
@@ -180,16 +174,10 @@
                                         <!-- Dropbox Copy: Mac -->
                                         <!-- ~~~~~~~~~~~~~~ -->
                                         <resource>
-                                            <targetPath>/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app</targetPath>
-                                            <file>/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/picimport-war-exec.jar</file>
-                                            <destFileName>picimport-war-exec.BAK.jar</destFileName>
-                                            <runIf>{{ new File( "/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app", "picimport-war-exec.jar" ).isFile() }}</runIf>
-                                        </resource>
-                                        <resource>
-                                            <targetPath>/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/</targetPath>
-                                            <file>${project.basedir}/target/${project.artifactId}-${project.version}-war-exec.jar</file>
-                                            <destFileName>picimport-war-exec.jar</destFileName>
-                                            <runIf>{{ new File( "/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app", "picimport-war-exec.BAK.jar" ).isFile() }}</runIf>
+                                            <targetPath>/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/server/webapps</targetPath>
+                                            <file>${project.basedir}/target/${project.artifactId}-${project.version}.war</file>
+                                            <destFileName>import.war</destFileName>
+                                            <runIf>{{ new File( "/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app", "ROOT.war" ).isFile() }}</runIf>
                                         </resource>
                                     </resources>
                                 </configuration>
@@ -199,66 +187,7 @@
                 </plugins>
             </build>
         </profile>
-<!--
-        <profile>
-            <id>integrationtest</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
 
-                    <plugin>
-                        <groupId>org.apache.tomcat.maven</groupId>
-                        <artifactId>tomcat7-maven-plugin</artifactId>
-                        <version>2.1</version>
-                        <configuration>
-                            <fork>true</fork>
-                            <path>/</path>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>tomcat-run</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>run-war-only</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>tomcat-shutdown</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>shutdown</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>integration-test</id>
-                                <phase>integration-test</phase>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <configuration>
-                                    <excludes>
-                                        <exclude>none</exclude>
-                                    </excludes>
-                                    <includes>
-                                        <include>**/integration/**</include>
-                                    </includes>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                </plugins>
-            </build>
-        </profile>
--->
         <profile>
             <id>packages</id>
             <activation>

@@ -9,6 +9,8 @@ import org.apache.log4j.Logger;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Speichert ein beliebiges File in der DB
@@ -19,6 +21,8 @@ import javax.persistence.Lob;
  * @since 1.2.8
  */
 @Entity
+@Table(uniqueConstraints=
+@UniqueConstraint(columnNames = {"pearID", "typ"}))
 public class File extends Persistent {
 
     private static final long serialVersionUID = 1L;

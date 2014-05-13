@@ -174,7 +174,6 @@
         <module>mad-schuelerturnier-web-picimport</module>
         <module>mad-schuelerturnier-resultengine</module>
         <module>mad-schuelerturnier-dataloader</module>
-        <module>mad-schuelerturnier-remoteclient</module>
         <module>mad-schuelerturnier-web-transport-subsystem</module>
         <module>mad-schuelerturnier-dropbox</module>
         <module>mad-schuelerturnier-dropboxinterface</module>
