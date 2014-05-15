@@ -8,6 +8,7 @@ import com.googlecode.madschuelerturnier.model.*;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListener;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListenerManager;
 import com.googlecode.madschuelerturnier.model.integration.OutgoingMessage;
+import com.googlecode.madschuelerturnier.model.support.File;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -41,10 +42,8 @@ public class BusControllerOut implements ApplicationEventPublisherAware, ModelCh
     @Override
     public void onChangeModel(Serializable object) {
 
-
-
-            if(object instanceof SpielEinstellungen){
-            LOG.debug("BusControllerOut senden: SpielEinstellungen");
+        if(object instanceof Text){
+            LOG.debug("BusControllerOut senden: Text (SpielEinstellung)");
             sendMessage(object);
         }
         else
@@ -57,12 +56,19 @@ public class BusControllerOut implements ApplicationEventPublisherAware, ModelCh
             LOG.debug("BusControllerOut senden: SpielZeile");
             sendMessage(object);
         }
-         else
-            if(object instanceof DBAuthUser){
-                LOG.debug("BusControllerOut senden: DBAuthUser");
-                sendMessage(object);
-                // todo bins eintragen
-    }
+        else
+        if(object instanceof DBAuthUser){
+            LOG.debug("BusControllerOut senden: DBAuthUser");
+            sendMessage(object);
+        } else
+        if(object instanceof File){
+            LOG.debug("BusControllerOut senden: File");
+            sendMessage(object);}
+
+        else
+        if(object instanceof Penalty){
+            LOG.debug("BusControllerOut senden: Penalty");
+            sendMessage(object);}
         else
         if (object instanceof Spiel) {
             LOG.debug("BusControllerOut senden: Spiel");

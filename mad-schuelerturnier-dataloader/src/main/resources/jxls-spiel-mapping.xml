@@ -25,6 +25,7 @@
                 <mapping row="1" col="15">spiel.mannschaftAId</mapping>
                 <mapping row="1" col="16">spiel.mannschaftBId</mapping>
                 <mapping row="1" col="17">spiel.notes</mapping>
+                <mapping row="1" col="18">spiel.spielZeilenPhaseString</mapping>
             </section>
             <loopbreakcondition>
                 <rowcheck offset="0">

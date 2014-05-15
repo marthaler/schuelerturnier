@@ -322,9 +322,11 @@ public class IntegrationControllerImpl extends Thread implements ApplicationEven
             return;
         }
 
-        this.outboundMessages = this.outboundMessages + 1;
+        this.outboundMessages = this.outboundMessages + 2;
         Serializable obj = event.getPayload();
-        this.sendMessage(UUID.randomUUID().toString(), obj, MessageTyp.PAYLOAD, event.isTrans());
+        String id = UUID.randomUUID().toString();
+        this.sendMessage(id, obj, MessageTyp.PAYLOAD, event.isTrans());
+        this.sendMessage(id, obj, MessageTyp.PAYLOAD, event.isTrans());
     }
 
     public void sendMessage(OutgoingMessage event) {

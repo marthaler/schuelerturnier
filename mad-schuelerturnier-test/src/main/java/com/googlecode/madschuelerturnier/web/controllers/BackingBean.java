@@ -7,8 +7,15 @@ import com.googlecode.madschuelerturnier.SeleniumEintragerThread;
 import com.googlecode.madschuelerturnier.SeleniumKontrolliererThread;
 import com.googlecode.madschuelerturnier.SeleniumSpeakerThread;
 import com.googlecode.madschuelerturnier.SeleniumWebcamThread;
+import com.googlecode.madschuelerturnier.model.support.File;
 import org.apache.log4j.Logger;
+import org.primefaces.component.tabview.TabView;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.event.TabChangeEvent;
 import org.springframework.stereotype.Component;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  * Controller mit Session Scope, welcher den Testprozess durchführt
@@ -21,22 +28,29 @@ public class BackingBean {
 
     private static final Logger LOG = Logger.getLogger(BackingBean.class);
 
+    private byte[] game = null;
+
+
+
+    private int tab;
+
+    private String methode = "";
     private String speaker_url = "http://87.230.15.247";
     private String speaker_password = "1234";
     private String speaker_user = "tester1915speaker";
     private boolean speaker_on = true;
 
     private String eintrager_url = "http://87.230.15.247";
-    ;
+
     private String eintrager_password = "1234";
     private String eintrager_user = "tester1915eintrager";
     private boolean eintrager_on = true;
 
     private String kontrollierer_url = "http://87.230.15.247";
-    ;
+
     private String kontrollierer_password = "1234";
     private String kontrollierer_user = "tester1915kontrollierer";
-    private boolean kontrollierer_on;
+    private boolean kontrollierer_on = true;
 
     private String webcam_url = "http://localhost:8082";
     private boolean webcam_on = true;
@@ -46,6 +60,22 @@ public class BackingBean {
     private SeleniumKontrolliererThread kontrollierer;
     private SeleniumWebcamThread webcam;
 
+    public boolean hasGame(){
+if(game == null){
+    return false;
+}return true;
+    }
+
+    public void onTabChange(TabChangeEvent event) {
+       String tab = event.getTab().getId();
+        TabView view =  (TabView) event.getTab().getParent();
+        for(int i = 0; i< view.getChildCount() ; i++){
+            if(tab.equals(view.getChildren().get(i).getId())){
+                this.tab = i;
+            }
+        }
+    }
+
     public void start() {
 
         if (speaker_on) {
@@ -54,7 +84,7 @@ public class BackingBean {
         }
 
         if (eintrager_on) {
-            eintrager = new SeleniumEintragerThread(eintrager_user, eintrager_password, eintrager_url);
+            eintrager = new SeleniumEintragerThread(eintrager_user, eintrager_password, eintrager_url ,this.methode, this.game);
             eintrager.start();
         }
 
@@ -74,6 +104,12 @@ public class BackingBean {
         eintrager.shutDown();
         kontrollierer.shutDown();
         webcam.shutDown();
+    }
+
+    public void handleFileUpload(FileUploadEvent event) {
+
+        game = event.getFile().getContents();
+
     }
 
     public String getSpeaker_url() {
@@ -188,6 +224,20 @@ public class BackingBean {
         this.webcam_on = webcam_on;
     }
 
+    public String getMethode() {
+        return methode;
+    }
+
+    public void setMethode(String methode) {
+        this.methode = methode;
+    }
+    public int getTab() {
+        return tab;
+    }
+
+    public void setTab(int tab) {
+        this.tab = tab;
+    }
 
 }
                         

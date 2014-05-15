@@ -14,59 +14,33 @@
 <h:body>
 
     <pm:page id="main">
-        <pm:header title="Spielplan" theme="b">
-            <p:button styleClass="ui-btn-right ui-btn-inline" value="Mannschaft auswählen" icon="ui-icon-arrow-r" outcome="pm:settings" />
-        </pm:header>
-
         <pm:content>
 
-            <h:form id="mainForm">
+            <h:form id="settingsForm">
+                <pm:field>
+                    <p:selectOneMenu id="k" value="#{mobileController.mannschaftAuswahl}" onchange="submit()" >
+                        <f:selectItems value="#{mobileController.mannschaften}" />
+
+                        <p:ajax update="settingsForm" event="change"
+                                actionListener="#{mobileController.mannschaftAuswahl}"/>
+
+                    </p:selectOneMenu>
+                </pm:field>
 
                 <p:outputPanel id="display" style="text-align:center">
 
 
                     <p:dataList var="spiel" value="#{mobileController.getSpiele()}">
 
+                        <h:outputText style="font-weight:bold;color: red" value="#{spiel.start} | Platz:  #{spiel.platz}  | gegen: #{spiel.gegner} |  #{spiel.resultat}" rendered="#{spiel.verloren}"/>
+
+                        <h:outputText style="font-weight:bold;color: green" value="#{spiel.start} | Platz:  #{spiel.platz}  | gegen: #{spiel.gegner} | #{spiel.resultat}" rendered="#{!spiel.verloren}"/>
 
 
-                        <p:commandLink action="pm:group?transition=slide">
-
-                        <h:outputText value="#{spiel.start}">
-                            <f:convertDateTime type="date" pattern="EEE HH:mm" timeZone="Europe/Zurich"/>
-                        </h:outputText>
-                            <h:outputText value=" #{spiel.mannschaftA.name} #{spiel.mannschaftB.name}"/>
-                        </p:commandLink>
                     </p:dataList>
 
                 </p:outputPanel>
 
-
-                <p:poll interval="8"
-                        listener="#{mobileController.mannschaft}" update="display" />
-
-
-            </h:form>
-
-        </pm:content>
-    </pm:page>
-
-    <pm:page id="settings">
-        <pm:header title="Mannschaft auswählen" theme="b">
-            <p:button styleClass="ui-btn-right ui-btn-inline" value="Anzeigen" icon="ui-icon-arrow-r" outcome="pm:main" />
-        </pm:header>
-
-        <pm:content>
-
-            <h:form id="settingsForm">
-                <pm:field>
-                    <p:selectOneMenu id="city" value="#{mobileController.mannschaft}" >
-                        <f:selectItems value="#{mobileController.mannschaften}" />
-
-                        <p:ajax update="settingsForm" event="change"
-                                actionListener="#{mobileController.mannschaft}"/>
-
-                    </p:selectOneMenu>
-                </pm:field>
 
 
             </h:form>

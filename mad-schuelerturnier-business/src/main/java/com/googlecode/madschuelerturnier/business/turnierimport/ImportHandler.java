@@ -9,16 +9,19 @@ import com.googlecode.madschuelerturnier.business.vorbereitung.A0SpielVorbereitu
 import com.googlecode.madschuelerturnier.business.vorbereitung.helper.KorrekturenHelper;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
+import com.googlecode.madschuelerturnier.model.SpielZeile;
 import com.googlecode.madschuelerturnier.model.comperators.SpielZeitComperator;
 import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
+import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -33,16 +36,24 @@ import java.util.List;
 public class ImportHandler {
 
     private static final Logger LOG = Logger.getLogger(ImportHandler.class);
+
     @Autowired
     private A0SpielVorbereitungsKontroller kontroller;
+
     @Autowired
     private Business business;
+
     @Autowired
     private SpielRepository sRepo;
+
     @Autowired
     private KorrekturenHelper korrekturen;
+
     @Autowired
     private ResultateVerarbeiter verarbeiter;
+
+    @Autowired
+    private SpielZeilenRepository szRepo;
 
     public void turnierHerstellen(List<Spiel> spiele) {
 
@@ -96,6 +107,26 @@ public class ImportHandler {
             LOG.info("SpielPhasenEnum.G_ABGESCHLOSSEN: wird durchgefuehrt");
             phasenCheck(startPhase);
         }
+        // dient der uebertragung von den, auf den spielen gespeicherten SpielZeilenPhasen
+Iterable<SpielZeile> spielzeilen = szRepo.findAll();
+for(SpielZeile z : spielzeilen){
+    Spiel temp = z.getA();
+    if(temp == null){
+temp = z.getB();
+    }
+
+    if(temp == z.getC()){
+        temp = z.getC();
+    }
+
+
+    if(temp != null){
+        z.setPhase(temp.getSpielZeilenPhase());
+    }
+
+}
+
+        szRepo.save(spielzeilen);
 
     }
 

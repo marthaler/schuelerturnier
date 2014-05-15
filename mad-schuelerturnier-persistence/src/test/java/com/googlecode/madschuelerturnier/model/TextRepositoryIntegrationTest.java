@@ -27,7 +27,7 @@ public class TextRepositoryIntegrationTest {
     @Autowired
     private TextRepository repo;
 
-    @Test(expected = org.springframework.dao.DataIntegrityViolationException.class)
+    @Test(expected = javax.validation.ConstraintViolationException.class)
     public void textTest() {
 
         StringBuilder b = new StringBuilder();

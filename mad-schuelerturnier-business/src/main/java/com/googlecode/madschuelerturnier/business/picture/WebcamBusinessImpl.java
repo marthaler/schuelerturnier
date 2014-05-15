@@ -7,6 +7,7 @@ import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
+import com.googlecode.madschuelerturnier.model.support.File;
 import com.googlecode.madschuelerturnier.persistence.repository.FileRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.apache.log4j.Logger;
@@ -71,19 +72,34 @@ public final class WebcamBusinessImpl implements WebcamBusiness {
 
     @Override
     public void save(Spiel spiel, byte[] rawPicture) {
-        if (business.getSpielEinstellungen().isWebcamdemomode() && !business.getSpielEinstellungen().isWebcamdemomodescharf() ) {
+        if (business.getSpielEinstellungen().isWebcamdemomode() && !business.getSpielEinstellungen().isWebcamdemomodescharf()) {
             LOG.warn("Speichern eines Spiels im Demomodus, schreibe nicht in die Datenbank!");
             return;
         }
-        com.googlecode.madschuelerturnier.model.support.File file = new com.googlecode.madschuelerturnier.model.support.File();
+
+        File file = fileRepo.findByTypAndPearID("schirizettel", spiel.getId());
+        if (file == null) {
+            file = new File();
+        }
+
         file.setContent(rawPicture);
         file.setDateiName("schirizettel.png");
         file.setMimeType("image/png");
         file.setPearID(spiel.getId());
         file.setTyp("schirizettel");
-        fileRepo.save(file);
+
+        try {
+            this.fileRepo.save(file);
+        } catch (Exception e) {
+            LOG.info("file musste aufgrund der org.hsqldb.HsqlException vor dem speichern zuerst geloescht werden");
+            // murks wegen der: org.hsqldb.HsqlException: data exception: string data, right truncation
+            this.fileRepo.delete(file);
+            this.fileRepo.save(file);
+        }
+
         spiel.setFertigEingetragen(true);
         this.spielRepo.save(spiel);
+
     }
 
     @Override

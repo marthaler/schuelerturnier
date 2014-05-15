@@ -14,17 +14,9 @@ import java.util.regex.Pattern;
  */
 public class SeleniumWebcamThread extends Thread {
 
-    int i = 0;
-
-    public synchronized static String getIdExt() {
-        return idExt;
-    }
-
-    public synchronized static void setIdExt(String idExt) {
-        SeleniumWebcamThread.idExt = idExt;
-    }
-
     private static String idExt = "";
+    private static String aExt = "";
+    private static String bExt = "";
 
     private static final Logger LOG = Logger.getLogger(SeleniumEintragerThread.class);
 
@@ -69,26 +61,18 @@ public class SeleniumWebcamThread extends Thread {
                 this.util.clickById("form1:j_idt25:suchen");
                 this.util.sleepAMoment(3);
 
-                final String str = this.util.getSourceAsString();
-                final Pattern pattern = Pattern.compile("([M]|[K])[0-9]{3}");
-                final Matcher matcher = pattern.matcher(str);
-                final List<String> mannschaften = new ArrayList<String>();
-                while (matcher.find()) {
-                    mannschaften.add(matcher.group());
-                }
-                final String mansch = mannschaften.get(0);
-                final String m = mansch.substring(2, 4);
+                this.util.sendById("form1:j_idt25:ToreA", aExt);
                 this.util.sleepAMoment();
-                this.util.sendById("form1:j_idt25:ToreA", m);
-                this.util.sleepAMoment();
-                final String mansch2 = mannschaften.get(1);
-                final String m2 = mansch2.substring(2, 4);
-                this.util.sendById("form1:j_idt25:ToreB", m2);
+                this.util.sendById("form1:j_idt25:ToreB", bExt);
                 this.util.sleepAMoment();
 
                 this.util.clickById("form1:j_idt25:save");
 
                 this.util.sleepAMoment();
+
+                if(this.util.getSourceAsString().contains("org.hibernate.exception.ConstraintViolationException")){
+                    util.getBaseURL();
+                }
 
             } catch (Exception e) {
                 LOG.error(e.getMessage(), e);
@@ -97,4 +81,21 @@ public class SeleniumWebcamThread extends Thread {
             this.setIdExt("");
         }
     }
+
+    public synchronized static String getIdExt() {
+        return idExt;
+    }
+
+    public synchronized static void setIdExt(String idExt) {
+        SeleniumWebcamThread.idExt = idExt;
+    }
+
+    public synchronized static void setaExt(String a) {
+        SeleniumWebcamThread.aExt = a;
+    }
+
+    public synchronized static void setbExt(String b) {
+        SeleniumWebcamThread.bExt = b;
+    }
+
 }

@@ -2,47 +2,48 @@ feautures:
 **********
 
 ***********************************************
-[  ]     Knopf Jahresdump mit Jahrzahl
-[  ]     Spieleinstellung neu
-[  ]     Filter fuer Speaker wieder machen
+[  ]     Spielansage prüfen, ev mehr zeit geben
+[ok]     Knopf Jahresdump mit Jahrzahl
+[ok]     Spieleinstellung neu
+[rj]     Filter fuer Speaker wieder machen
 [  ]     Aufraeumen mit den Berechtigungen
 [ok]     ResultateVerarbeiter ohne verbindung zu Spiel Einstelungs Repo
-[  ]     Knopf Dump weg
+[ok]     Knopf Dump weg
 [ok]     M1 und 2 mit 2 GF
-[  ]     kamera view verbessern
-[  ]     testlaeufe erstellen
+[ok]     kamera view verbessern
+[ok]     testlaeufe erstellen
 [ok]     Unittest fuer Importhandler
 
-[  ]     mannschaftsplan auf webseite
-[  ]     sender, eigene nachrichten nicht mehr weiterschicken
-[  ]     schauen, dass nachrichten mit content gesendet werden nach anmeldung an master
+[ok]     mannschaftsplan auf webseite
+[ok]     sender, eigene nachrichten nicht mehr weiterschicken
+[ok]     schauen, dass nachrichten mit content gesendet werden nach anmeldung an master
 
-[  ]     audit log in der transportschicht
-[  ]     einrichten, dass der master einen sauberen dump schickt
-[  ]     prüfen ob die nachrichten wirklich der reihe nach kommen
+[rj]     audit log in der transportschicht
+[rj]     einrichten, dass der master einen sauberen dump schickt
+[rj]     prüfen ob die nachrichten wirklich der reihe nach kommen
 
 [  ]     out to website publisher schlau konfigurieren (ausbauen)
-[  ]     master einfuehren
+[ok]     master einfuehren
 
-[  ]     integrationstests aufraeumen & tomcat
+[ok]     integrationstests aufraeumen & tomcat
 
-[  ]     testlauf 2013
-[  ]     testlauf 2014
+[ip]     testlauf 2013
+[ip]     testlauf 2014
 
-[  ]     ausbauen des printers auf dem server
+[ok]     ausbauen des printers auf dem server
 
 [rj]     countdown ueber eine stunde springt (stunden einbeziehen)
 [rj]     bei den usern echten namen einfuehren und auch exportieren
 
-[  ]     auch bei > 7 mannschaftskategorien bei gemischten der Spiel string selber setzen beim C3
+[ok]     auch bei > 7 mannschaftskategorien bei gemischten der Spiel string selber setzen beim C3
 
 ==============
 
 bugs:
 *****
-[__] auch text schicken beim transport
+[ok] auch text schicken beim transport
 [__] eintrager und kontrollierer der reihe nach
-[__] auch attachements schicken beim transport
+[ok] auch attachements schicken beim transport
 [xx] penalty speichern funktioniert nicht
 [xx] penalty in resultengine aus db laden, damit keine neuen erstellt werden in der History
 [ok] printer funktioniert nicht
@@ -55,8 +56,8 @@ bugs:
 
 testen
 *************
-[  ] finalparungsregel konfigurierbar machen 2 gross finale !!! -> bei der planung einführen
-[  ] spielansagen funktionieren nicht mehr
+[ok] finalparungsregel konfigurierbar machen 2 gross finale !!! -> bei der planung einführen
+[ok] spielansagen funktionieren nicht mehr
 
 dokumentation
 *************
@@ -70,7 +71,6 @@ fuer nachher
 dokumentation
 *************
 [ok]     merkkarten fuer schiris (tore nicht punkte)
-
 [ok]     plan fuer lan und material
 
 feautures ok:

@@ -1,5 +1,6 @@
 package com.googlecode.madschuelerturnier.business.spieldurchfuehrung;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,10 +38,28 @@ public class DurchfuehrungDataDatabase implements SpielDurchfuehrungData {
 	 * @see com.googlecode.madschuelerturnier.business.spieldurchfuehrung.SpielDurchfuehrungData#getList1Wartend()
 	 */
 	public List<SpielZeile> getList1Wartend(int size) {
-        Pageable p = new PageRequest(0,size);
-        List<SpielZeile>  zeilen = this.repo.findNextZeilen(p);
-        Collections.reverse(zeilen);
-       return zeilen;
+
+        List<SpielZeile> result = new ArrayList<SpielZeile>();
+        int i = 0;
+        while(result.size() < size){
+            Pageable p = new PageRequest(i,size);
+            List<SpielZeile>  zeilen = this.repo.findNextZeilen(p);
+            if(zeilen.isEmpty()){
+                break;
+            }
+            for(SpielZeile z : zeilen){
+                if((z.getA() != null && !z.getA().isFertigEingetragen()) || (z.getB() != null && !z.getB().isFertigEingetragen()) || (z.getC() != null && !z.getC().isFertigEingetragen())){
+                    result.add(z);
+                    if(result.size() == size){
+                        break;
+                    }
+                }
+            }
+            i++;
+        }
+
+        Collections.reverse(result);
+        return result;
 	}
 
 	/* (non-Javadoc)

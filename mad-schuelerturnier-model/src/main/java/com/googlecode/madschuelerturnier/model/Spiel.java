@@ -5,6 +5,7 @@ package com.googlecode.madschuelerturnier.model;
 
 import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielEnum;
+import com.googlecode.madschuelerturnier.model.enums.SpielZeilenPhaseEnum;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -54,6 +55,10 @@ public class Spiel extends Persistent {
     private String notizen = "";
 
     // fuer jxl import
+
+    // dient dazu den spiel zeilen zustand im xls abzulegen
+    private SpielZeilenPhaseEnum spielZeilenPhase = SpielZeilenPhaseEnum.A_ANSTEHEND;
+
     @Transient
     private int mannschaftAId;
 
@@ -82,7 +87,7 @@ public class Spiel extends Persistent {
     public void setId(Long id) {  // NOSONAR
         super.setId(id);
     }
-@Deprecated
+    @Deprecated
     public void setNotes(String notes) {
        this.notizen = notes;
     }
@@ -92,33 +97,16 @@ public class Spiel extends Persistent {
         return this.notizen;
     }
 
-    public void setTypString(String typIn) {
-
-        String typS = typIn.toLowerCase();
-
-        if (typS.equals("gfinal")) {
-            this.typ = SpielEnum.GFINAL;
-        }
-        if (typS.equals("kfinal")) {
-            this.typ = SpielEnum.KFINAL;
-        }
-        if (typS.equals("gruppe")) {
-            this.typ = SpielEnum.GRUPPE;
-        }
+    public void setTypString(String in) {
+        this.typ = SpielEnum.fromString(in);
     }
 
-    public void setPlatzString(String platzIn) {
-        String platzS = platzIn.toLowerCase();
+    public void setSpielZeilenPhaseString(String in) {
+        this.spielZeilenPhase = SpielZeilenPhaseEnum.fromString(in);
+    }
 
-        if (platzS.equals("a")) {
-            this.platz = PlatzEnum.A;
-        }
-        if (platzS.equals("b")) {
-            this.platz = PlatzEnum.B;
-        }
-        if (platzS.equals("c")) {
-            this.platz = PlatzEnum.C;
-        }
+    public void setPlatzString(String in) {
+        this.platz = PlatzEnum.fromString(in);
     }
 
     public String getMannschaftAName() {
@@ -457,4 +445,13 @@ public class Spiel extends Persistent {
     public void setRealName(String realName) {
         this.realName = realName;
     }
+
+    public SpielZeilenPhaseEnum getSpielZeilenPhase() {
+        return spielZeilenPhase;
+    }
+
+    public void setSpielZeilenPhase(SpielZeilenPhaseEnum spielZeilenPhase) {
+        this.spielZeilenPhase = spielZeilenPhase;
+    }
+
 }

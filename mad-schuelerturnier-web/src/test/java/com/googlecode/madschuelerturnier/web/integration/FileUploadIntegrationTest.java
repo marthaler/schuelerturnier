@@ -8,10 +8,7 @@ import com.googlecode.madschuelerturnier.business.DataLoaderImpl;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.web.FileUploadController;
 import org.apache.log4j.Logger;
-import org.junit.Assert;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.primefaces.event.FileUploadEvent;
@@ -68,8 +65,10 @@ public class FileUploadIntegrationTest {
 
     }
 
+    // todo wieder aktivieren
     @Test
     @Rollback(true)
+    @Ignore
     public void testHandleFileUpload() {
 
         Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
