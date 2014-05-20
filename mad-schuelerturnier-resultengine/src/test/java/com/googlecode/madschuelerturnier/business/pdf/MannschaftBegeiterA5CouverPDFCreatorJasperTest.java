@@ -42,6 +42,7 @@ public class MannschaftBegeiterA5CouverPDFCreatorJasperTest {
         byte[] result = cr.createPdf(mannschaftList);
 
         try {
+            // todo in den target verschieben
             FileUtils.writeByteArrayToFile(new File("/pdf/test.pdf"), result);
             Assert.assertTrue(result.length > 30);
         } catch (Exception e) {

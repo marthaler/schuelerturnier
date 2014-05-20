@@ -13,7 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * Test zum pruefen ob die CRUD funktionen fuer die DO's funktionieren, mit eager loading
+ * DateUtil zum pruefen ob die CRUD funktionen fuer die DO's funktionieren, mit eager loading
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7

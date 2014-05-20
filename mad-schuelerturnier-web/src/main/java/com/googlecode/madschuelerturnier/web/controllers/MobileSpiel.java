@@ -1,9 +1,14 @@
 package com.googlecode.madschuelerturnier.web.controllers;
 
+import com.googlecode.madschuelerturnier.model.Spiel;
+
 /**
  * Created by dama on 15.05.14.
  */
 public class MobileSpiel {
+
+    private String zeile = "";
+    private String color;
 
     private String start;
     private String platz;
@@ -11,6 +16,12 @@ public class MobileSpiel {
 
     private boolean verloren;
     private String resultat;
+
+    private boolean amSpielen = false;
+
+    public boolean stehtBevor = true;
+
+    private Spiel spiel;
 
     public String getResultat() {
         return resultat;
@@ -51,5 +62,45 @@ public class MobileSpiel {
     public void setVerloren(boolean verloren) {
         this.verloren = verloren;
     }
+
+    public Spiel getSpiel() {
+        return spiel;
+    }
+
+    public void setSpiel(Spiel spiel) {
+        this.spiel = spiel;
+    }
+
+    public boolean isAmSpielen() {
+        return amSpielen;
+    }
+
+    public void setAmSpielen(boolean amSpielen) {
+        this.amSpielen = amSpielen;
+    }
+
+    public boolean isStehtBevor() {
+        return stehtBevor;
+    }
+
+    public void setStehtBevor(boolean stehtBevor) {
+        this.stehtBevor = stehtBevor;
+    }
+    public String getZeile() {
+        return zeile;
+    }
+
+    public void setZeile(String zeile) {
+        this.zeile = zeile;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
 
 }

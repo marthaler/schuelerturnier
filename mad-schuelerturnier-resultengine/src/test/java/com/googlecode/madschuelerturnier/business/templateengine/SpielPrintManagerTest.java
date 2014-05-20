@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 
 
 /**
- * KorrekturHelper Test
+ * KorrekturHelper DateUtil
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.6

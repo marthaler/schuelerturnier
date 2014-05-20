@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * BusinessImpl Test
+ * BusinessImpl DateUtil
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7

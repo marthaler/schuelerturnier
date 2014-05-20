@@ -46,6 +46,8 @@ public class SpielEinstellungen implements Serializable{
 
     private int aufholzeitInSekunden = 60;
 
+    private int pollrequestSpeaker = 1;
+
     private boolean automatischesAufholen = false;
 
     private boolean automatischesVorbereiten = false;
@@ -73,6 +75,9 @@ public class SpielEinstellungen implements Serializable{
     private String websiteTurnierTitel ="";
 
     private String websiteTurnierMeldung ="nichts";
+
+    private boolean mobileLinkOn = false;
+    private String mobileLink = "";
 
     // 05 Spielverteilung
     private int zweiPausenBisKlasse = 0;
@@ -341,4 +346,30 @@ public class SpielEinstellungen implements Serializable{
     public void setWebcamdemomodescharf(boolean webcamdemomodescharf) {
         this.webcamdemomodescharf = webcamdemomodescharf;
     }
+
+
+    public boolean isMobileLinkOn() {
+        return mobileLinkOn;
+    }
+
+    public void setMobileLinkOn(boolean mobileLinkOn) {
+        this.mobileLinkOn = mobileLinkOn;
+    }
+
+    public String getMobileLink() {
+        return mobileLink;
+    }
+
+    public void setMobileLink(String mobileLink) {
+        this.mobileLink = mobileLink;
+    }
+
+    public int getPollrequestSpeaker() {
+        return pollrequestSpeaker;
+    }
+
+    public void setPollrequestSpeaker(int pollrequestSpeaker) {
+        this.pollrequestSpeaker = pollrequestSpeaker;
+    }
+
 }

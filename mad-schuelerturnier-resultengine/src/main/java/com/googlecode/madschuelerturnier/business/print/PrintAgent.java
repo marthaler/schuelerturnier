@@ -186,14 +186,6 @@ public class PrintAgent implements ApplicationEventPublisherAware {
         FileUtils.deleteQuietly(new File(pathprinter + "out.xml"));
     }
 
-    public void printSchiriAnleitung() {
-        try {
-            FileUtils.copyFile(new File(this.printtemplates + "schirizettel.pdf"), new File(this.pathprinter + "schirizettel.pdf"));
-        } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
-        }
-    }
-
     private void print(File f) {
 
         try {
@@ -254,14 +246,6 @@ public class PrintAgent implements ApplicationEventPublisherAware {
         } catch (IOException e) {
             LOG.error(e.getMessage(), e);
         }
-    }
-
-    public boolean isRunning() {
-        return running;
-    }
-
-    public void setRunning(boolean running) {
-        this.running = running;
     }
 
     public String getPrinter() {

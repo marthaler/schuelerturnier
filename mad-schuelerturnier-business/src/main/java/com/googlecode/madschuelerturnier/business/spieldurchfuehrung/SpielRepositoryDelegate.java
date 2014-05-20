@@ -3,8 +3,10 @@
  */
 package com.googlecode.madschuelerturnier.business.spieldurchfuehrung;
 
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.controller.resultate.ResultateVerarbeiter;
 import com.googlecode.madschuelerturnier.model.Spiel;
+import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,6 +26,9 @@ public class SpielRepositoryDelegate {
     @Autowired
     private ResultateVerarbeiter resultateVerarbeiter;
 
+    @Autowired
+    private Business business;
+
     public List<Spiel> findAllEinzutragende() {
         return spielRepository.findAllEinzutragende();
     }
@@ -32,7 +37,6 @@ public class SpielRepositoryDelegate {
         return spielRepository.findAllZuBestaetigen();
     }
 
-    //
     public synchronized void eintragen(List<Spiel> spiele, String id) {
         long idl = Long.parseLong(id);
         for (Spiel spiel : spiele) {
@@ -40,6 +44,9 @@ public class SpielRepositoryDelegate {
             if (spiel.getId() == idl && spiel.getToreA() > -1 && spiel.getToreB() > -1) {
                 spiel.setFertigEingetragen(true);
                 spielRepository.save(spiel);
+                SpielEinstellungen einst = business.getSpielEinstellungen();
+                einst.setStarttag(spiel.getStart());
+                business.saveEinstellungen(einst);
             }
         }
     }

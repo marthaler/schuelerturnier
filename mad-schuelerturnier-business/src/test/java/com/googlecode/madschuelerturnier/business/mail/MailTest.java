@@ -7,7 +7,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * MailSender Test
+ * MailSender DateUtil
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.6

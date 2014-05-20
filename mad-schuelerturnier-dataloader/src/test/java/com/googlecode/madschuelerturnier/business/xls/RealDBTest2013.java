@@ -31,8 +31,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Test welcher die fertiggespielte db vom 2013 im Temp Verzeichnis bereitstellt
- * Diese DB wird anschliessend gestartet und steht im Test zur Verfuegung
+ * DateUtil welcher die fertiggespielte db vom 2013 im Temp Verzeichnis bereitstellt
+ * Diese DB wird anschliessend gestartet und steht im DateUtil zur Verfuegung
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7

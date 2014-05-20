@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Simpler Test zum pruefen ob die CRUD funktionen fuer die DO's funktionieren und die weitere
+ * Simpler DateUtil zum pruefen ob die CRUD funktionen fuer die DO's funktionieren und die weitere
  * Persistenz ok ist
  *
  * @author $Author: marthaler.worb@gmail.com $

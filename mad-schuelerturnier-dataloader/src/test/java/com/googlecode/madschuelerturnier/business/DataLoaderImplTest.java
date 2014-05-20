@@ -54,13 +54,13 @@ public class DataLoaderImplTest {
     @Test
     public void testLoadDefaultAllUsers() {
         List<DBAuthUser> user = DataLoaderImpl.getDataLoader().loadDBUser();
-        Assert.assertEquals(1, user.size());
+        Assert.assertEquals(5, user.size());
     }
 
     @Test
     public void testLoadAllAttachements() {
         List<File> files = DataLoaderImpl.getDataLoader().loadAttachements();
-        Assert.assertEquals(2, files.size());
+        Assert.assertEquals(0, files.size());
     }
 
     @Test

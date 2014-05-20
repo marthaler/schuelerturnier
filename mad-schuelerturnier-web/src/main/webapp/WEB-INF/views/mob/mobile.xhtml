@@ -8,7 +8,9 @@
 <f:view renderKitId="PRIMEFACES_MOBILE" />
 
 <h:head>
-
+    <script type="text/javascript">
+        var timeout = setTimeout("location.reload(true);",600000);
+    </script>
 </h:head>
 
 <h:body>
@@ -20,29 +22,18 @@
                 <pm:field>
                     <p:selectOneMenu id="k" value="#{mobileController.mannschaftAuswahl}" onchange="submit()" >
                         <f:selectItems value="#{mobileController.mannschaften}" />
-
-                        <p:ajax update="settingsForm" event="change"
-                                actionListener="#{mobileController.mannschaftAuswahl}"/>
-
+                        <p:ajax update="settingsForm" event="change" actionListener="#{mobileController.mannschaftAuswahl}"/>
                     </p:selectOneMenu>
                 </pm:field>
-
                 <p:outputPanel id="display" style="text-align:center">
-
-
                     <p:dataList var="spiel" value="#{mobileController.getSpiele()}">
-
-                        <h:outputText style="font-weight:bold;color: red" value="#{spiel.start} | Platz:  #{spiel.platz}  | gegen: #{spiel.gegner} |  #{spiel.resultat}" rendered="#{spiel.verloren}"/>
-
-                        <h:outputText style="font-weight:bold;color: green" value="#{spiel.start} | Platz:  #{spiel.platz}  | gegen: #{spiel.gegner} | #{spiel.resultat}" rendered="#{!spiel.verloren}"/>
-
-
+                        <h:outputText style="font-weight:bold;color: #{spiel.color}" value="#{spiel.zeile}"/>
                     </p:dataList>
-
+                    <h4>Finale</h4>
+                    <p:dataList var="spiel" value="#{mobileController.getFinale()}">
+                        <h:outputText style="font-weight:bold;color: #{spiel.color}" value="#{spiel.zeile}"/>
+                    </p:dataList>
                 </p:outputPanel>
-
-
-
             </h:form>
 
         </pm:content>
