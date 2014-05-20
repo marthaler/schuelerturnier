@@ -175,7 +175,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
                 if (naechste < now) {
                     SpielZeile temp = this.data.getList1Wartend(wartendSize).remove(this.data.getList1Wartend(wartendSize).size() - 1);
                     temp.setPhase(SpielZeilenPhaseEnum.B_ZUR_VORBEREITUNG);
-                    temp = this.spielzeilenRepo.save(temp);
+                    temp = spielezeileUpdatenBetreffendZeilenphaseAndSave(temp);
                     this.data.getList2ZumVorbereiten().add(temp);
 
                     // automatisches vorbereiten
@@ -199,6 +199,20 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
             }
         }
 
+    }
+
+    private SpielZeile spielezeileUpdatenBetreffendZeilenphaseAndSave(SpielZeile temp){
+
+        if(temp.getA() != null){
+            temp.getA().setSpielZeilenPhase(temp.getPhase());
+        }
+        if(temp.getB() != null){
+            temp.getB().setSpielZeilenPhase(temp.getPhase());
+        }
+        if(temp.getC() != null){
+            temp.getC().setSpielZeilenPhase(temp.getPhase());
+        }
+        return this.spielzeilenRepo.save(temp);
     }
 
     private boolean stopBecauseZumVorbereiten() {
@@ -263,7 +277,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
         SpielZeile temp = this.data.getList2ZumVorbereiten().remove(0);
         this.countdownToStart = new Countdown(this.jetzt.getSpielZeit(), new DateTime(temp.getStart()));
         temp.setPhase(SpielZeilenPhaseEnum.C_VORBEREITET);
-        temp = this.spielzeilenRepo.save(temp);
+        temp = spielezeileUpdatenBetreffendZeilenphaseAndSave(temp);
         this.data.getList3Vorbereitet().add(temp);
         // tts get
         generateText(temp);
@@ -285,7 +299,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
         if (temp.getC() != null) {
             temp.getC().setAmSpielen(true);
         }
-        temp = this.spielzeilenRepo.save(temp);
+        temp = spielezeileUpdatenBetreffendZeilenphaseAndSave(temp);
         this.data.getList4Spielend().add(temp);
 
         // zeit aufholen, falls eingestellt auf automatisch
@@ -297,7 +311,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     public synchronized void beenden() {
         SpielZeile temp = this.data.getList4Spielend().remove(0);
         temp.setPhase(SpielZeilenPhaseEnum.E_BEENDET);
-        temp = this.spielzeilenRepo.save(temp);
+        temp = spielezeileUpdatenBetreffendZeilenphaseAndSave(temp);
         this.data.getList5Beendet().add(temp);
 
         // einzutragende spiele vorbereiten
