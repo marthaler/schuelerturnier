@@ -7,15 +7,6 @@
                 xmlns:sec="http://www.springframework.org/security/tags"
                 template="../../../layouts/100.xhtml">
 
-    <ui:define name="heading">
-        <h:outputText value="Mannschaft bearbeiten"/>
-    </ui:define>
-
-    <ui:define name="caption">
-        <p>CAPTION</p>
-    </ui:define>
-
-    <!--@elvariable id="pictureAgent" type="com.googlecode.madschuelerturnier.business.picture.PictureAgent"-->
     <!--@elvariable id="penaltyAnstehend" type="java.util.List"-->
     <ui:define name="main">
         <div id="main">
@@ -24,8 +15,7 @@
                     <div class="inset">
                         <h:form id="form1">
 
-
-                            <p:fieldset legend="eintragen: ">
+                            <p:fieldset legend="Resultate eintragen:">
                                 <p:messages/>
 
                                 <h:panelGrid columns="1" id="inputelements">
@@ -37,29 +27,6 @@
                                     </script>
 
                                     <p:tab title="Einzutragende">
-
-
-                                        <h:graphicImage value="#{pictureAgent.getPicToCheck()}"/>
-
-                                        <h:panelGrid columns="2" id="save" rendered="#{pictureAgent.hasPicToCheck()}">
-
-
-                                            <p:selectOneMenu value="#{pictureAgent.selected}">
-                                                <f:selectItem itemLabel="Spiel Zuordnen" itemValue=""/>
-                                                <f:selectItems value="#{einzutragende}" var="spiel"
-                                                               itemLabel="#{spiel.idString}" itemValue="#{spiel.id}"/>
-                                            </p:selectOneMenu>
-
-
-                                            <p:commandButton id="zuweisen" value="Speichern"
-                                                             action="zuweisen" ajax="false">
-                                            </p:commandButton>
-
-                                            <p:commandButton id="loeschen" value="Löschen"
-                                                             action="#{pictureAgent.delPicToCheck()}" ajax="false">
-                                            </p:commandButton>
-
-                                        </h:panelGrid>
 
                                         <p:dataTable emptyMessage="leer" id="dataTablePen" var="penalty"
                                                      value="#{penaltyAnstehend}"
@@ -77,9 +44,13 @@
 
                                             </p:column>
 
-                                            <p:column headerText="Sichern">
-                                                <p:commandButton value="Sichern" action="saveP">
+                                            <p:column headerText="Id" >
+                                                <p:commandButton value="Sichern" action="saveP" ajax="false">
                                                 </p:commandButton>
+                                            </p:column>
+
+                                            <p:column headerText="Sichern" >
+                                                <h:outputText value="|#{penalty.getIdString()}|"/>
                                             </p:column>
 
                                         </p:dataTable>
@@ -87,7 +58,7 @@
 
                                         <!--@elvariable id="einzutragende" type="java.util.List"-->
                                         <p:dataTable id="dataTable1" var="spiel" value="#{einzutragende}"
-                                                     emptyMessage="leer">
+                                                     emptyMessage="leer" rowIndexVar="ri">
 
 
                                             <p:column>
@@ -103,16 +74,17 @@
                                                     <h:outputText value="Schirizettel"/>
                                                 </f:facet>
 
-                                                <p:commandButton id="carBtn" icon="ui-icon-image"
-                                                                 onclick="dlg#{spiel.id}.show();" type="button"
-                                                                 rendered="#{pictureAgent.existiert(spiel.id)}"/>
-                                                <p:dialog id="modalDialog" header="Schirizettel: #{spiel.idString}"
-                                                          widgetVar="dlg#{spiel.id}" width="580" height="320"
-                                                          position="50,100">
+                                                <p:commandButton id="schiriButton" icon="ui-icon-image"
+                                                                 onclick="PF('dlgf#{ri}').show();" type="button"
+                                                                 rendered="#{DBFileDownloadController.hasFile('schirizettel',spiel.id)}"/>
+                                                <p:dialog id="schiri_dialog" header="Schirizettel für: #{spiel.idString}"
+                                                          widgetVar="dlgf#{ri}" showEffect="drop" hideEffect="drop" width="580" height="320">
                                                     <p:graphicImage
-                                                            value="resources/static/schirizettel/#{spiel.id}.png"
+                                                            value="/app/files/schirizettel/id/#{spiel.id}" rendered="#{DBFileDownloadController.hasFile('schirizettel',spiel.id)}"
                                                             width="550" height="300"/>
                                                 </p:dialog>
+
+
                                             </p:column>
 
 
@@ -166,7 +138,7 @@
                                             <p:column>
                                                 <f:facet name="header">
                                                 </f:facet>
-                                                <p:commandButton id="save" icon="ui-icon-check"
+                                                <p:commandButton id="save2" icon="ui-icon-check"
                                                                  action="save" ajax="false"
                                                                  disabled="#{sec:areNotGranted('ROLE_EINTRAGER')}">
                                                     <f:param name="id" value="#{spiel.id}"/>

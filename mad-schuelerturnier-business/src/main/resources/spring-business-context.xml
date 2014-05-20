@@ -16,7 +16,7 @@
 
     <context:annotation-config/>
 
-    <aop:aspectj-autoproxy />
+    <aop:aspectj-autoproxy/>
 
 
     <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
@@ -34,4 +34,12 @@
         </property>
     </bean>
 
+    <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+    <!-- does not necessarily have to be the same name as the bean to be exported -->
+    <property name="serviceName" value="WebcamBusiness"/>
+    <property name="service" ref="webcamBusinessImpl"/>
+    <property name="serviceInterface" value="com.googlecode.madschuelerturnier.business.picture.WebcamBusiness"/>
+    <!-- defaults to 1099 -->
+    <property name="registryPort" value="1299"/>
+    </bean>
 </beans>

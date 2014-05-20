@@ -37,13 +37,7 @@ public class SpielServiceImpl implements SpielService {
 
     @Override
     public Spiel findSpiel(String id) {
-        Spiel sp = repo.findOne(Long.parseLong(id));
-
-        if (sp.getNotizen() == null) {
-            sp.setNotizen(new Text());
-            sp = repo.save(sp);
-        }
-        return sp;
+        return repo.findOne(Long.parseLong(id));
     }
 
     @Override

@@ -9,7 +9,8 @@ import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielEinstellungenRepository;
-import org.junit.Assert;
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-
 /**
- * Simpler Test zum pruefen ob die CRUD funktionen fuer die DO's funktionieren und die weitere
+ * Simpler DateUtil zum pruefen ob die CRUD funktionen fuer die DO's funktionieren und die weitere
  * Persistenz ok ist
  *
  * @author $Author: marthaler.worb@gmail.com $
@@ -38,7 +37,7 @@ public class GenerellerPersistenceTest {
     private MannschaftRepository mRepo;
 
     @Autowired
-    private SpielEinstellungenRepository sRepo;
+    private SpielEinstellungenRepository eRepo;
 
     @Autowired
     private KategorieRepository kRepo;
@@ -56,11 +55,21 @@ public class GenerellerPersistenceTest {
 
     @Test
     public void spielEinstellungen() {
-        sRepo.deleteAll();
-        SpielEinstellungen m = new SpielEinstellungen();
-        m.setPhase(SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG);
-        m = sRepo.save(m);
-        assertEquals(m, sRepo.findOne(m.getId()));
+        assertFalse(eRepo.isInitialized());
+
+        assertNull(eRepo.getEinstellungen());
+
+        SpielEinstellungen einst = new SpielEinstellungen();
+
+        eRepo.save(einst);
+        assertEquals(einst,eRepo.getEinstellungen());
+
+        einst.setSpiellaenge(40);
+        eRepo.save(einst);
+
+        assertEquals(40,eRepo.getEinstellungen().getSpiellaenge());
+
+        assertTrue(eRepo.isInitialized());
     }
 
     @Test
@@ -82,10 +91,10 @@ public class GenerellerPersistenceTest {
 
         kRepo.save(k);
 
-        Assert.assertTrue(kRepo.findAll().iterator().hasNext());
+        assertTrue(kRepo.findAll().iterator().hasNext());
         List<Kategorie> list = kRepo.getKategorienKList();
 
-        Assert.assertTrue(list.size() > 0);
+        assertTrue(list.size() > 0);
 
     }
 
@@ -102,11 +111,11 @@ public class GenerellerPersistenceTest {
 
         List<String> listen = korrekturen.getKorrekturen("testTyp");
 
-        Assert.assertEquals("testTyp: falsches Resultat", "eins", listen.get(0));
-        Assert.assertEquals("testTyp: falsches Resultat", "zwei", listen.get(1));
-        Assert.assertEquals("testTyp: falsches Resultat", "drei", listen.get(2));
+        assertEquals("testTyp: falsches Resultat", "eins", listen.get(0));
+        assertEquals("testTyp: falsches Resultat", "zwei", listen.get(1));
+        assertEquals("testTyp: falsches Resultat", "drei", listen.get(2));
 
-        Assert.assertEquals("testTyp: falsche Menge", 3, listen.size());
+        assertEquals("testTyp: falsche Menge", 3, listen.size());
 
     }
 

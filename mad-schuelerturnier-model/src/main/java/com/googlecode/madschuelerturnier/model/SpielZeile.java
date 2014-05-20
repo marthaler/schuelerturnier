@@ -30,7 +30,7 @@ public class SpielZeile extends Persistent {
 
     private boolean finale = false;
 
-    private Date start;
+    private Date start = new Date();
 
     private boolean sonntag;
 

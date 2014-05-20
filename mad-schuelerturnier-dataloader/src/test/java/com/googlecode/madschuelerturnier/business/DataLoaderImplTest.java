@@ -6,6 +6,7 @@ package com.googlecode.madschuelerturnier.business;
 import com.googlecode.madschuelerturnier.model.DBAuthUser;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
+import com.googlecode.madschuelerturnier.model.Text;
 import com.googlecode.madschuelerturnier.model.support.File;
 import org.junit.Assert;
 import org.junit.Test;
@@ -53,13 +54,20 @@ public class DataLoaderImplTest {
     @Test
     public void testLoadDefaultAllUsers() {
         List<DBAuthUser> user = DataLoaderImpl.getDataLoader().loadDBUser();
-        Assert.assertEquals(1, user.size());
+        Assert.assertEquals(5, user.size());
     }
 
     @Test
     public void testLoadAllAttachements() {
         List<File> files = DataLoaderImpl.getDataLoader().loadAttachements();
-        Assert.assertEquals(2, files.size());
+        Assert.assertEquals(0, files.size());
+    }
+
+    @Test
+    public void testLoadAllTexte() {
+        List<Text> texte = DataLoaderImpl.getDataLoader().loadTexte();
+        Assert.assertEquals(1, texte.size());
+        Assert.assertTrue(texte.get(0).getValue().length() > 30);
     }
 
 }

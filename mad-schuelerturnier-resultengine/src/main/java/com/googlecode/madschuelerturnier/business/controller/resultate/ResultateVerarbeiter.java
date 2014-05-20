@@ -6,8 +6,10 @@ package com.googlecode.madschuelerturnier.business.controller.resultate;
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLConverterRangliste;
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLOutConverter;
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLSpielMatrixConverter;
-import com.googlecode.madschuelerturnier.business.out.OutToWebsitePublisher;
+import com.googlecode.madschuelerturnier.business.controller.leiter.converter.ModelConverterRangliste;
 import com.googlecode.madschuelerturnier.business.print.SpielPrintManager;
+import com.googlecode.madschuelerturnier.business.websiteinfo.WebsiteInfoService;
+import com.googlecode.madschuelerturnier.business.websiteinfo.model.KlassenrangZeile;
 import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Penalty;
@@ -49,9 +51,11 @@ public class ResultateVerarbeiter {
     @Autowired
     private SpielEinstellungenRepository eRepo;
     @Autowired
-    private OutToWebsitePublisher ftpPublisher;
+    private ModelConverterRangliste ranglisteConverter;
+
     @Autowired
     private SpielPrintManager printer;
+
     private boolean init = false;
     private boolean uploadAllKat = false;
     private Map<String, Boolean> beendet = new HashMap<String, Boolean>();
@@ -134,38 +138,36 @@ public class ResultateVerarbeiter {
 
     @Scheduled(fixedRate = WAITTIME) //NOSONAR
     private void verarbeiten() {
-try{
-        if (!init) {
-            initialisieren();
-            init = true;
-        }
-
-        Long id = null;
         try {
-            id = spielQueue.remove();
-        } catch (NoSuchElementException e) {
-            id = null;
-        }
+            if (!init) {
+                initialisieren();
+                init = true;
+            }
 
-        while (id != null) {
-
-            // map mit den fertig flags initialisieren
-            initFertigMap();
-
-            verarbeitePenalty();
-
-            verarbeiteUploadAllKat();
-
-            verarbeiteSpiel(id);
+            Long id = null;
             try {
                 id = spielQueue.remove();
             } catch (NoSuchElementException e) {
                 id = null;
             }
+
+            while (id != null) {
+
+                // map mit den fertig flags initialisieren
+                initFertigMap();
+
+                verarbeitePenalty();
+
+                verarbeiteSpiel(id);
+                try {
+                    id = spielQueue.remove();
+                } catch (NoSuchElementException e) {
+                    id = null;
+                }
+            }
+        } catch (Exception e) {
+            LOG.fatal(e.getMessage(), e);
         }
-} catch(Exception e){
-    LOG.fatal(e.getMessage(),e);
-}
     }
 
     private void verarbeiteSpiel(Long id) {
@@ -206,8 +208,6 @@ try{
         spiel = repo.findOne(id);
 
         pruefeUndSetzeFinale(spiel, kat, katName, rangListe);
-
-        uploadKat(kat);
 
         printer.saveSpiel(spiel);
 
@@ -323,26 +323,26 @@ try{
                 gross.add(rl.getZeilen().get(0).getMannschaft());
                 gross.add(rl.getZeilen().get(1).getMannschaft());
                 // 8.2.2014: else if, damit auch die 3 er richtig gespeichert werden
-            } else if(kat.isMixedKlassen() && eRepo.findAll().get(0).isBehandleFinaleProKlassebeiZusammengefuehrten()) {
-                    finaleSuchenNachKlasse(kat, gross, klein);
-                } else {
-                    finaleSuchenNormal(kat, gross, klein);
-                }
-
-                // die richtige reihenfolge
-                Collections.sort(klein, new MannschaftsNamenComperator());
-                Collections.sort(gross, new MannschaftsNamenComperator());
-
-                kat.getGrosserFinal().setMannschaftA(gross.get(0));
-                kat.getGrosserFinal().setMannschaftB(gross.get(1));
-
-                if (!kat.hasVorUndRueckrunde()) {
-                    kat.getKleineFinal().setMannschaftA(klein.get(0));
-                    kat.getKleineFinal().setMannschaftB(klein.get(1));
-                }
-
-                this.katRepo.save(kat);
+            } else if (kat.isMixedKlassen() && eRepo.getEinstellungen().isBehandleFinaleProKlassebeiZusammengefuehrten()) {
+                finaleSuchenNachKlasse(kat, gross, klein);
+            } else {
+                finaleSuchenNormal(kat, gross, klein);
             }
+
+            // die richtige reihenfolge
+            Collections.sort(klein, new MannschaftsNamenComperator());
+            Collections.sort(gross, new MannschaftsNamenComperator());
+
+            kat.getGrosserFinal().setMannschaftA(gross.get(0));
+            kat.getGrosserFinal().setMannschaftB(gross.get(1));
+
+            if (!kat.hasVorUndRueckrunde()) {
+                kat.getKleineFinal().setMannschaftA(klein.get(0));
+                kat.getKleineFinal().setMannschaftB(klein.get(1));
+            }
+
+            this.katRepo.save(kat);
+        }
 
     }
 
@@ -403,39 +403,9 @@ try{
         gross.add(listeTief.get(0));
         gross.add(listeTief.get(1));
 
-        klein.add(listeTief.get(0));
+        klein.add(listeHoch.get(0));
         klein.add(listeHoch.get(1));
 
-    }
-
-    public void uploadAllKat() {
-        uploadAllKat = true;
-    }
-
-    private void verarbeiteUploadAllKat() {
-
-        if (!uploadAllKat) {
-            return;
-        }
-
-        LOG.info("ftpPublisher: reconnect");
-        this.ftpPublisher.reconnect();
-        for (Kategorie kat : this.katRepo.findAll()) {
-            uploadKat(kat);
-        }
-        uploadAllKat = false;
-    }
-
-    private void uploadKat(Kategorie kat) {
-        // hochladen der index seite
-        this.ftpPublisher.addPage("index.html", this.historieGenerator.generatePageIndex());
-
-        // hochladen der kategorie
-        String page = this.historieGenerator.generatePageKategorie(kat);
-        this.ftpPublisher.addPage(kat.getName() + ".html".toLowerCase(), page);
-
-        // hochladen der resultate
-        this.ftpPublisher.addPage("rangliste.html", this.rangliste.printOutGere(map.values(), true));
     }
 
     public void initialisieren() {
@@ -452,9 +422,6 @@ try{
                 this.signalFertigesSpiel(spiel.getId());
             }
         }
-
-        // hochladen der index seite
-        this.ftpPublisher.addPage("index.html", this.historieGenerator.generatePageIndex());
     }
 
     public void neuberechnenDerKategorie(Kategorie kat) {
@@ -479,8 +446,6 @@ try{
             this.signalFertigesSpiel(kat.getGrosserFinal().getId());
         }
 
-        // hochladen der index seite
-        this.ftpPublisher.addPage("index.html", this.historieGenerator.generatePageIndex());
     }
 
     public String generateSpieleMatrix() {
@@ -495,6 +460,10 @@ try{
 
     public String getRangliste() {
         return rangliste.printOutGere(map.values(), false);
+    }
+
+    public List<KlassenrangZeile> getRanglisteModel() {
+        return this.ranglisteConverter.convertKlassenrangZeile(map.values());
     }
 
     @Deprecated

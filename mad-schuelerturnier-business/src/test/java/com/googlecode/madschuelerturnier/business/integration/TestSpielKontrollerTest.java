@@ -50,10 +50,6 @@ public class TestSpielKontrollerTest {
     @Rollback(true)
     public void TestSpielKontroller() {
 
-        for (SpielEinstellungen o : einstellungen.findAll()) {
-            einstellungen.delete(o);
-        }
-
         business.initializeDB();
 
         mannschaftRepo.save(mannschaftGenerator.loadMannschaften());

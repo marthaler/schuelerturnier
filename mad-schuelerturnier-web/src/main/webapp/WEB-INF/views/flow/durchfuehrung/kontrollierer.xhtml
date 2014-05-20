@@ -31,7 +31,7 @@
                                     <script type="text/javascript">
                                         setTimeout(function () {
                                             window.location.reload(1);
-                                        }, 15000);
+                                        }, 60000);
                                     </script>
 
 
@@ -59,14 +59,14 @@
                                                 <f:facet name="header">
                                                     <h:outputText value="Schirizettel"/>
                                                 </f:facet>
-                                                <p:commandButton id="carBtn" icon="ui-icon-image"
-                                                                 onclick="dlg#{spiel.id}.show();" type="button"
-                                                                 rendered="#{pictureAgent.existiert(spiel.id)}"/>
-                                                <p:dialog id="modalDialog" header="Schirizettel: #{spiel.idString}"
-                                                          widgetVar="dlg#{spiel.id}" width="580" height="320"
+                                                <p:commandButton  icon="ui-icon-image"
+                                                                 onclick="PF('dlgaa#{spiel.id}').show();" type="button"
+                                                                 rendered="#{DBFileDownloadController.hasFile('schirizettel',spiel.id)}"/>
+                                                <p:dialog id="dlgaa#{spiel.id}" header="Schirizettel: #{spiel.idString}"
+                                                          widgetVar="dlgaa#{spiel.id}" width="580" height="320"
                                                           position="50,100">
                                                     <p:graphicImage
-                                                            value="resources/static/schirizettel/#{spiel.id}.png"
+                                                            value="/app/files/schirizettel/id/#{spiel.id}" rendered="#{DBFileDownloadController.hasFile('schirizettel',spiel.id)}"
                                                             width="550" height="300"/>
                                                 </p:dialog>
                                             </p:column>

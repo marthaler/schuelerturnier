@@ -6,15 +6,6 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 template="../../../layouts/100.xhtml">
 
-    <ui:define name="heading">
-        <h:outputText value="SpieleListe"/>
-    </ui:define>
-
-    <!--<ui:define name="header"/>-->
-    <ui:define name="caption">
-        <p>SpieleListe</p>
-    </ui:define>
-
     <ui:define name="main">
 
         <div id="main">
@@ -92,17 +83,35 @@
 
                                     <p:column>
                                         <f:facet name="header">
-                                            <h:outputText value="Korrekturen"/>
+                                            <h:outputText value="Korrekturlog"/>
                                         </f:facet>
-                                        <p:commandButton id="notitzenButton" icon="ui-icon-note"
-                                                         onclick="dlg#{ri}.show();" type="button"
-                                                         rendered="#{sp.notizen.value.length() > 0}"/>
-                                        <p:dialog id="notizen_dialog" header="Log zu diesem korrigierten Spiel"
-                                                  widgetVar="dlg#{ri}" showEffect="drop" hideEffect="drop" height="200"
+                                        <p:commandButton id="notizenButton" icon="ui-icon-note"
+                                                         onclick="PF('dlge#{ri}').show();" type="button"
+                                                         rendered="#{sp.notizen.length() > 0}"/>
+                                        <p:dialog id="notizen_dialog" header="Korrekturlog"
+                                                  widgetVar="dlge#{ri}" showEffect="drop" hideEffect="drop" height="200"
                                                   width="400">
-                                            <h:outputText value="#{sp.notizen.value}"/>
+                                            <h:outputText value="#{sp.notizen}"/>
+                                        </p:dialog>
+
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Schirizettel"/>
+                                        </f:facet>
+
+                                        <p:commandButton id="schiriButton" icon="ui-icon-image"
+                                                         onclick="PF('dlgf#{ri}').show();" type="button"
+                                                         rendered="#{DBFileDownloadController.hasFile('schirizettel',sp.id)}"/>
+                                        <p:dialog id="schiri_dialog" header="Schirizettel für: #{sp.idString}"
+                                                  widgetVar="dlgf#{ri}" showEffect="drop" hideEffect="drop" width="580" height="320">
+                                            <p:graphicImage
+                                                    value="/app/files/schirizettel/id/#{sp.id}" rendered="#{DBFileDownloadController.hasFile('schirizettel',sp.id)}"
+                                                    width="550" height="300"/>
                                         </p:dialog>
                                     </p:column>
+
 
                                     <p:column size="2">
                                         <f:facet name="header">

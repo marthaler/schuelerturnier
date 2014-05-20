@@ -48,7 +48,7 @@
     <h:outputText id="uhr"
                   value="Echte Zeit #{spielUhr.richtigeZeit} - Spiel Zeit: #{spielUhr.spielZeit} - Verspätung: #{business.spielzeitVerspaetung()}"/>
 </b>
-<p:poll interval="1" listener="#{spielUhr.getRichtigeZeit}" update="uhr"/>
+<p:poll interval="1"  update="uhr"/>
 <br/>
 <h:panelGrid columns="1" id="inputelements">
 
@@ -246,37 +246,6 @@
 
 </p:tab>
 
-<p:tab title="Beendet">
-    <p:dataTable emptyMessage="leer" id="dataTable5" var="zeile"
-                 value="#{spielDurchfuehrung.list5Beendet}">
-
-        <p:column headerText="Start">
-            <h:outputText value="#{zeile.start}">
-                <f:convertDateTime type="date" pattern="HH:mm" timeZone="Europe/Zurich"/>
-            </h:outputText>
-        </p:column>
-        <p:column>
-            <f:facet name="header">Platz A
-            </f:facet>
-            <h:outputText value="#{zeile.a}"/>
-
-        </p:column>
-        <p:column>
-            <f:facet name="header">Platz B
-            </f:facet>
-            <h:outputText value="#{zeile.b}"/>
-
-        </p:column>
-        <p:column>
-            <f:facet name="header">Platz C
-            </f:facet>
-            <h:outputText value="#{zeile.c}"/>
-        </p:column>
-
-    </p:dataTable>
-
-
-</p:tab>
 
 </p:accordionPanel>
 

@@ -4,6 +4,8 @@
 package com.googlecode.madschuelerturnier.persistence.repository;
 
 import com.googlecode.madschuelerturnier.model.SpielZeile;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -28,10 +30,10 @@ public interface SpielZeilenRepository extends PagingAndSortingRepository<SpielZ
     List<SpielZeile> findSpieleSonntag();
 
     @Query("select o from SpielZeile o where o.sonntag = 'false'")
-    List<SpielZeile> findSpieleSammstag();
+    List<SpielZeile> findSpieleSamstag();
 
-    @Query("select o from SpielZeile o where o.phase = 0 order by o.start asc")
-    List<SpielZeile> findNextZeile();
+    @Query("select o from SpielZeile o where o.phase = 0 and (o.a is not null or o.b is not null or o.c is not null) order by o.start asc")
+    List<SpielZeile> findNextZeilen(Pageable pageable);
 
     @Query("select o from SpielZeile o where o.phase = 1 order by o.start asc")
     List<SpielZeile> findBZurVorbereitung();
@@ -41,5 +43,8 @@ public interface SpielZeilenRepository extends PagingAndSortingRepository<SpielZ
 
     @Query("select o from SpielZeile o where o.phase = 3 order by o.start asc")
     List<SpielZeile> findDSpielend();
+
+    @Query("select o from SpielZeile o where o.phase = 4 order by o.start asc")
+    List<SpielZeile> findEBeendet();
 
 }

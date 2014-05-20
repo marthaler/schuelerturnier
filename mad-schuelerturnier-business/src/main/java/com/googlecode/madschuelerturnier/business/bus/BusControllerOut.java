@@ -3,11 +3,14 @@
  */
 package com.googlecode.madschuelerturnier.business.bus;
 
-import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
+import com.googlecode.madschuelerturnier.business.Business;
+import com.googlecode.madschuelerturnier.model.*;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListener;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListenerManager;
 import com.googlecode.madschuelerturnier.model.integration.OutgoingMessage;
+import com.googlecode.madschuelerturnier.model.support.File;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Controller;
@@ -22,15 +25,14 @@ import java.io.Serializable;
  * @since 1.2.8
  */
 @Controller
-public class BusControllerOut implements ApplicationEventPublisherAware , ModelChangeListener {
-
-    public BusControllerOut(){
-        ModelChangeListenerManager.getInstance().addListener(this);
-    }
+public class BusControllerOut implements ApplicationEventPublisherAware, ModelChangeListener {
 
     private static final Logger LOG = Logger.getLogger(BusControllerOut.class);
-
     private ApplicationEventPublisher publisher;
+
+    public BusControllerOut() {
+        ModelChangeListenerManager.getInstance().addListener(this);
+    }
 
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
@@ -39,15 +41,46 @@ public class BusControllerOut implements ApplicationEventPublisherAware , ModelC
 
     @Override
     public void onChangeModel(Serializable object) {
-        LOG.info("new outgoing message: " + object.getClass().getName());
 
-        if( !(object instanceof SpielEinstellungen) ){
-            LOG.info("message: senden");
-            OutgoingMessage m = new OutgoingMessage(this);
-            m.setPayload(object);
-            publisher.publishEvent(m);
-        } else{
-            LOG.info("message: mache nichts");
+        if(object instanceof Text){
+            LOG.debug("BusControllerOut senden: Text (SpielEinstellung)");
+            sendMessage(object);
         }
+        else
+        if(object instanceof Mannschaft){
+            LOG.debug("BusControllerOut senden: Mannschaft");
+            sendMessage(object);
+        }
+        else
+        if(object instanceof SpielZeile){
+            LOG.debug("BusControllerOut senden: SpielZeile");
+            sendMessage(object);
+        }
+        else
+        if(object instanceof DBAuthUser){
+            LOG.debug("BusControllerOut senden: DBAuthUser");
+            sendMessage(object);
+        } else
+        if(object instanceof File){
+            LOG.debug("BusControllerOut senden: File");
+            sendMessage(object);}
+
+        else
+        if(object instanceof Penalty){
+            LOG.debug("BusControllerOut senden: Penalty");
+            sendMessage(object);}
+        else
+        if (object instanceof Spiel) {
+            LOG.debug("BusControllerOut senden: Spiel");
+            sendMessage(object);
+        } else {
+            LOG.debug("BusControllerOut senden: mache nichts, geaendert: " + object.getClass());
+        }
+    }
+
+    private void sendMessage(Serializable object) {
+        OutgoingMessage m = new OutgoingMessage(this);
+        m.setPayload(object);
+        publisher.publishEvent(m);
     }
 }

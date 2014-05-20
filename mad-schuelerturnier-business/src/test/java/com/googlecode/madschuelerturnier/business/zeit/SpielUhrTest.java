@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test fuer die Spiel Uhr
+ * DateUtil fuer die Spiel Uhr
  *
  * @author $Author: marthaler.worb@gmail.com $
  */

@@ -127,7 +127,10 @@ public class A0SpielVorbereitungsKontroller {
             return;
         }
 
-        kategorieZuordnung(phase);
+
+        if (phase == SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG) {
+            kategorieZuordnung(phase);
+        }
 
         if (phase == SpielPhasenEnum.C_SPIELTAGE_DEFINIEREN) {
             spieltageDefinieren();
@@ -185,10 +188,6 @@ public class A0SpielVorbereitungsKontroller {
     }
 
     private void kategorieZuordnung(SpielPhasenEnum phase) {
-
-        if (phase != SpielPhasenEnum.B_KATEGORIE_ZUORDNUNG) {
-            return;
-        }
 
         A0SpielVorbereitungsKontroller.LOG
                 .info("spielphasenwechsel in: B_KATEGORIE_ZUORDNUNG");

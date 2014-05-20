@@ -1,29 +1,40 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.web.backingbeans;
 
 import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.webflow.execution.Action;
-import org.springframework.webflow.execution.Event;
-import org.springframework.webflow.execution.RequestContext;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
+ * Backing Bean fuer den Dropbox Verbindungsaufbau
+ *
  * @author marthaler.worb@gmail.com
- * @since 1.2.5
+ * @since 1.2.8
  */
 @Component
-public class DropboxBackingBean  {
+@Scope("session")
+public class DropboxBackingBean implements Serializable{
 
     private String token;
+
+    // bei der erstellung eines neuen unterordners fuer die dropboxablage
+    private String newfolder = new Date().toString();
 
     private boolean willNotConnect = false;
 
     @Autowired
+    @Qualifier("dropboxConnector")
     private DropboxConnector connector;
 
-    public void save(){
+    public void save() {
         connector.insertToken(token);
         token = "";
     }
@@ -40,13 +51,13 @@ public class DropboxBackingBean  {
         return this.connector.getLoginURL();
     }
 
-    public boolean isConnected(){
+    public boolean isConnected() {
         return connector.isConnected();
     }
 
-    public List<String> getFileList(){
-        if(!isConnected()){
-           return null;
+    public List<String> getFileList() {
+        if (!isConnected()) {
+            return null;
         }
         return connector.getAllGames();
     }
@@ -57,5 +68,13 @@ public class DropboxBackingBean  {
 
     public boolean isWillNotconnect() {
         return willNotConnect;
+    }
+
+    public String getNewfolder() {
+        return newfolder;
+    }
+
+    public void setNewfolder(String newfolder) {
+        this.newfolder = newfolder;
     }
 }

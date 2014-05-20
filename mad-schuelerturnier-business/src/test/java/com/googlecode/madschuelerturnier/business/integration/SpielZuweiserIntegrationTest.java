@@ -17,6 +17,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
@@ -26,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * BusinessImpl Test
+ * BusinessImpl DateUtil
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
@@ -104,8 +107,8 @@ public class SpielZuweiserIntegrationTest {
             LOG.info("" + spielZeile);
             LOG.info("" + "ZZ:" + spielZeile.getId());
         }
-
-        final List<SpielZeile> list = this.spielzeilenRepo.findNextZeile();
+        Pageable p = new PageRequest(0,3);
+        final List<SpielZeile> list = this.spielzeilenRepo.findNextZeilen(p);
         Assert.assertTrue(0 < list.size());
 
     }

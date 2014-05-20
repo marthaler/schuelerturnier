@@ -22,7 +22,7 @@
                             <tasks>
 
                                 <tstamp>
-                                    <format property="current.time" pattern="dd.MM.yyyy HH:mm" />
+                                    <format property="current.time" pattern="dd.MM.yyyy HH:mm"/>
                                 </tstamp>
 
                                 <echo file="${project.build.outputDirectory}/version.properties" append="false">
@@ -110,12 +110,6 @@
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
             <version>${commons-net.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.dropbox.core</groupId>
-            <artifactId>dropbox-core-sdk</artifactId>
-            <version>${dropbox.version}</version>
         </dependency>
 
         <dependency>

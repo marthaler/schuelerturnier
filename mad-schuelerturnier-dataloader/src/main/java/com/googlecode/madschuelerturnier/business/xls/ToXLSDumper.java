@@ -5,6 +5,8 @@ package com.googlecode.madschuelerturnier.business.xls;
 
 import com.google.common.io.Resources;
 import com.googlecode.madschuelerturnier.model.*;
+import com.googlecode.madschuelerturnier.model.comperators.MannschaftsNamenComperator;
+import com.googlecode.madschuelerturnier.model.comperators.SpielZeitComperator;
 import com.googlecode.madschuelerturnier.model.support.File;
 import com.googlecode.madschuelerturnier.persistence.repository.*;
 import net.sf.jxls.transformer.XLSTransformer;
@@ -19,10 +21,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Generiert einen XLS Export aus der Datenbank
@@ -40,9 +39,6 @@ public class ToXLSDumper {
     private SpielRepository srepo;
 
     @Autowired
-    private SpielEinstellungenRepository seinst;
-
-    @Autowired
     private DBAuthUserRepository authRepo;
 
     @Autowired
@@ -51,35 +47,51 @@ public class ToXLSDumper {
     @Autowired
     private FileRepository frepo;
 
+    @Autowired
+    private TextRepository trepo;
+
+    @Autowired
+    private PenaltyRepository prepo;
+
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
 
     public byte[] mannschaftenFromDBtoXLS() {
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), seinst.findAll(), krepo.findAll(),authRepo.findAll(),frepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll(), prepo.findAll());
     }
 
     public byte[] mannschaftenFromDBtoXLS(SpielEinstellungen einst) {
-        List<SpielEinstellungen> korrekturen = new ArrayList<SpielEinstellungen>();
-        korrekturen.add(einst);
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), korrekturen, krepo.findAll(),authRepo.findAll(),frepo.findAll());
+        List<SpielEinstellungen> einstellungen = new ArrayList<SpielEinstellungen>();
+        einstellungen.add(einst);
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll(),prepo.findAll());
     }
 
-    protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<SpielEinstellungen> einstellungenIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn, List<File> filesIn) {
+    protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn, List<File> filesIn,List<Text> texteIn,List<Penalty> penaltyIn) {
 
-        List<SpielEinstellungen> einstellungen = einstellungenIn;
         List<Spiel> spiele = spieleIn;
         List<Mannschaft> mannschaften = mannschaftenIn;
         List<Korrektur> korrekturen = korrekturenIn;
         List<DBAuthUser> users = usersIn;
         List<File> files = filesIn;
-
-        // SpielEinstellungen aufbereiten
-        if (einstellungen == null) {
-            einstellungen = new ArrayList();
-        }
+        List<Text> texte = texteIn;
+        List<Penalty> penaltys = penaltyIn;
 
         if (spiele == null) {
             spiele = new ArrayList();
+        } else {
+            // setze dummy Mannschaften fuer das speichern der Finale
+            Mannschaft m = new Mannschaft();
+            m.setId(0l);
+            for(Spiel s : spiele){
+                if(s.getMannschaftA() == null){
+                    s.setMannschaftA(m);
+                }
+                if(s.getMannschaftB() == null){
+                    s.setMannschaftB(m);
+                }
+            }
+
         }
+        Collections.sort(spiele,new SpielZeitComperator());
 
         if (mannschaften == null) {
             mannschaften = new ArrayList();
@@ -97,14 +109,23 @@ public class ToXLSDumper {
             files = new ArrayList();
         }
 
+        if (texte == null) {
+            texte = new ArrayList();
+        }
+
+        if (penaltys == null) {
+            penaltys = new ArrayList();
+        }
+
         Map beans = new HashMap();
 
         beans.put("mannschaften", mannschaften);
         beans.put("spiele", spiele);
-        beans.put("einstellungen", einstellungen);
         beans.put("korrekturen", korrekturen);
         beans.put("users", users);
         beans.put("attachements", files);
+        beans.put("texte", texte);
+        beans.put("penaltys", penaltys);
 
         XLSTransformer transformer = new XLSTransformer();
         byte[] arr = readFreshTemplate();

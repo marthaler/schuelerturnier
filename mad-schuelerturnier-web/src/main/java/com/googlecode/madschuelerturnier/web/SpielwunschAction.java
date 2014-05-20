@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.web;
 
 import com.googlecode.madschuelerturnier.business.Business;
@@ -38,6 +41,5 @@ public class SpielwunschAction implements Action {
         }
 
         return ev;
-
     }
 }

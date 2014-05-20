@@ -410,11 +410,15 @@ public class RanglisteneintragHistorie {
         }
 
         // penalty bereits gesetzt
-        final Penalty penalty = new Penalty();
+        Penalty penalty = null;
+        List<Mannschaft> kandidaten = new ArrayList<Mannschaft>();
 
         for (RanglisteneintragZeile ranglisteneintragZeile : pList) {
-            penalty.addMannschaft(ranglisteneintragZeile.getMannschaft());
+            kandidaten.add(ranglisteneintragZeile.getMannschaft());
         }
+
+        penalty = PenaltyLoaderFactory.getInstance().getPenalty(kandidaten);
+
 
         // verhindert, dass selber penalty bei a und b vorkommt
         if (kat.getPenaltyA() != null && kat.getPenaltyA().toMannschaftsString().equals(penalty.toMannschaftsString())) {
@@ -426,9 +430,6 @@ public class RanglisteneintragHistorie {
             LOG.debug("kein neuer penaltyB: " + this.kat.getPenaltyB().toMannschaftsString() + " + " + penalty.toMannschaftsString());
             return;
         }
-
-        penalty.setIdString(IDGeneratorContainer.getNext());
-        LOG.info("neuer penalty: " + penalty);
 
         penalty.setGr(this.gruppe);
 

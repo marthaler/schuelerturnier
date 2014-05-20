@@ -6,18 +6,23 @@ package com.googlecode.madschuelerturnier.business.vorbereitung;
 import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.vorbereitung.helper.SpielverteilerHelper;
 import com.googlecode.madschuelerturnier.business.vorbereitung.helper.SpielzeilenValidator;
+import com.googlecode.madschuelerturnier.model.Kategorie;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.SpielZeile;
+import com.googlecode.madschuelerturnier.model.comperators.KategorieKlasseUndGeschlechtComperator;
 import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
+import com.googlecode.madschuelerturnier.persistence.repository.KategorieRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.SpielZeilenRepository;
+import org.apache.commons.io.output.StringBuilderWriter;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,6 +41,9 @@ public class E5Spielverteiler {
     private SpielRepository spielRepo;
 
     @Autowired
+    private KategorieRepository katRepo;
+
+    @Autowired
     private SpielzeilenValidator val;
 
     @Autowired
@@ -45,9 +53,13 @@ public class E5Spielverteiler {
     private Business business;
 
 
-    public void spieleAutomatischVerteilen() {
+    public String spieleAutomatischVerteilen() {
+
+        StringBuilder result = new StringBuilder();
 
         behandleFinalspielzeilen();
+
+        SpielZeile vorherVorher = null;
 
         SpielZeile vorher = null;
 
@@ -57,28 +69,32 @@ public class E5Spielverteiler {
 
         helper.init(gruppenSpiele);
 
-        for (SpielZeile zeilen : gruppenSpieleZeilen) {
+        for (SpielZeile zeileJetzt : gruppenSpieleZeilen) {
 
-            if (zeilen.isPause() && !isSammstagNachNeuekategoriesperre(zeilen)) {
-                vorher = zeilen;
+            if (zeileJetzt.isPause() && !isSamstagNachNeuekategoriesperre(zeileJetzt)) {
+                vorherVorher = vorher;
+                vorher = zeileJetzt;
                 continue;
             }
 
-            stopA(vorher, gruppenSpiele, zeilen);
+            stopA(vorher, vorherVorher ,gruppenSpiele, zeileJetzt);
 
-            stopB(vorher, gruppenSpiele, zeilen);
+            stopB(vorher, vorherVorher,gruppenSpiele, zeileJetzt);
 
-            stopC(vorher, gruppenSpiele, zeilen);
+            stopC(vorher, vorherVorher,gruppenSpiele, zeileJetzt);
 
-            vorher = spielzeilenRepo.save(zeilen);
+            vorherVorher = vorher;
+
+            vorher = spielzeilenRepo.save(zeileJetzt);
 
         }
 
 
         LOG.info("spiele verteilt ");
         if (gruppenSpiele.size() > 0) {
-            LOG.fatal("NICHT ZUGEORDNETE SPIELE !!! " + gruppenSpiele.size());
-            LOG.fatal("NICHT ZUGEORDNETE SPIELE --> " + gruppenSpiele);
+            result.append("NICHT ZUGEORDNETE SPIELE !!! " + gruppenSpiele.size());
+            result.append("NICHT ZUGEORDNETE SPIELE --> " + gruppenSpiele);
+            LOG.fatal(result.toString());
         }
 
         LOG.info("werde jetzt ueberzaehlige pausen loeschen");
@@ -87,10 +103,10 @@ public class E5Spielverteiler {
         List<SpielZeile> zeilenSa = business.getSpielzeilen(false);
         removeUeberschuss(zeilenSo);
         removeUeberschuss(zeilenSa);
-
+return result.toString();
     }
 
-    private void stopA(SpielZeile vorher, List<Spiel> gruppenSpiele, SpielZeile zeilen) {
+    private void stopA(SpielZeile vorher,SpielZeile vorherVorher,List<Spiel> gruppenSpiele, SpielZeile zeilen) {
         boolean stopA = false;
 
         int iA = 0;
@@ -108,7 +124,9 @@ public class E5Spielverteiler {
             zeilen.setKonfliktText(null);
             zeilen.setPause(false);
 
-            String ret = val.validateSpielZeilen(vorher, zeilen);
+            String ret = "";
+            ret = val.validateSpielZeilen(vorher, vorherVorher, zeilen);
+
             if (ret == null || ret.equals("")) {
                 gruppenSpiele.remove(tempSpiel);
                 helper.consumeSpiel(tempSpiel);
@@ -121,7 +139,7 @@ public class E5Spielverteiler {
         }
     }
 
-    private void stopC(SpielZeile vorher, List<Spiel> gruppenSpiele, SpielZeile zeilen) {
+    private void stopC(SpielZeile vorher, SpielZeile vorherVorher,List<Spiel> gruppenSpiele, SpielZeile zeilen) {
         boolean stopC = false;
 
         int iC = 0;
@@ -139,7 +157,9 @@ public class E5Spielverteiler {
             zeilen.setKonfliktText(null);
             zeilen.setPause(false);
 
-            String ret = val.validateSpielZeilen(vorher, zeilen);
+            String ret = "";
+            ret = val.validateSpielZeilen(vorher, vorherVorher, zeilen);
+
             if (ret == null || ret.equals("")) {
                 helper.consumeSpiel(tempSpiel);
                 gruppenSpiele.remove(tempSpiel);
@@ -152,7 +172,7 @@ public class E5Spielverteiler {
         }
     }
 
-    private void stopB(SpielZeile vorher, List<Spiel> gruppenSpiele, SpielZeile zeilen) {
+    private void stopB(SpielZeile vorher, SpielZeile vorherVorher,List<Spiel> gruppenSpiele, SpielZeile zeilen) {
         boolean stopB = false;
 
         int iB = 0;
@@ -170,7 +190,9 @@ public class E5Spielverteiler {
             zeilen.setKonfliktText(null);
             zeilen.setPause(false);
 
-            String ret = val.validateSpielZeilen(vorher, zeilen);
+            String ret = "";
+            ret = val.validateSpielZeilen(vorher, vorherVorher, zeilen);
+
             if (ret == null || ret.equals("")) {
 
                 helper.consumeSpiel(tempSpiel);
@@ -185,6 +207,64 @@ public class E5Spielverteiler {
     }
 
     private void behandleFinalspielzeilen() {
+
+        List<Kategorie> kategorien = katRepo.findAll();
+        Collections.sort(kategorien, new KategorieKlasseUndGeschlechtComperator());
+
+        List<SpielZeile> finalspieleZeilen = spielzeilenRepo.findFinalSpielZeilen();
+        List<SpielZeile> finalspieleZeilenGeaendert = new ArrayList<SpielZeile>();
+        List<Spiel> spieleGeaendert = new ArrayList<Spiel>();
+
+        boolean first = true;
+        Spiel letztesFinale = null;
+
+        for(Kategorie k: kategorien){
+
+            SpielZeile zeile = finalspieleZeilen.remove(0);
+
+            if(first){
+                mergeKleinerFinalToSpielzeile(spieleGeaendert, k, zeile);
+                first = false;
+            } else{
+                mergeKleinerFinalToSpielzeile(spieleGeaendert, k, zeile);
+                mergeGrosserFinalToSpielzeile(spieleGeaendert, zeile, letztesFinale);
+            }
+
+            letztesFinale = k.getGrosserFinal();
+            finalspieleZeilenGeaendert.add(zeile);
+
+        }
+
+        SpielZeile zeile = finalspieleZeilen.remove(0);
+        mergeGrosserFinalToSpielzeile(spieleGeaendert, zeile, letztesFinale);
+        finalspieleZeilenGeaendert.add(zeile);
+
+        spielRepo.save(spieleGeaendert);
+        spielzeilenRepo.save(finalspieleZeilenGeaendert);
+
+    }
+
+    private void mergeKleinerFinalToSpielzeile(List<Spiel> spieleGeaendert, Kategorie k, SpielZeile zeile) {
+        // kleiner finale
+        if(k.getKleineFinal() != null){
+        zeile.setB(k.getKleineFinal());
+        k.getKleineFinal().setPlatz(PlatzEnum.B);
+        k.getKleineFinal().setStart(zeile.getStart());
+
+        spieleGeaendert.add(k.getKleineFinal());
+        }
+    }
+
+    private void mergeGrosserFinalToSpielzeile(List<Spiel> spieleGeaendert, SpielZeile zeile, Spiel grosserFinal) {
+        // grosser finale
+        zeile.setA(grosserFinal);
+        grosserFinal.setPlatz(PlatzEnum.A);
+        grosserFinal.setStart(zeile.getStart());
+
+        spieleGeaendert.add(grosserFinal);
+    }
+
+    private void behandleFinalspielzeilenAlt() {
         int i = 0;
         List<Spiel> finalSpiele = spielRepo.findFinalSpiel();
 
@@ -196,12 +276,14 @@ public class E5Spielverteiler {
                 continue;
             }
 
+
             try {
                 zeilen.setA(finalSpiele.get(i));
                 finalSpiele.get(i).setPlatz(PlatzEnum.A);
                 finalSpiele.get(i).setStart(zeilen.getStart());
                 spielRepo.save(finalSpiele.get(i));
                 i++;
+
                 zeilen = spielzeilenRepo.save(zeilen);
                 zeilen.setB(finalSpiele.get(i));
                 finalSpiele.get(i).setPlatz(PlatzEnum.B);
@@ -226,8 +308,8 @@ public class E5Spielverteiler {
 
                 if (ieg == iB) {
 
-                    // falls bereits spaeter als 16 uhr am Sammstag, keine neue Kategorie mehr verplanen
-                    if (isSammstagNachNeuekategoriesperre(zeile)) {
+                    // falls bereits spaeter als 16 uhr am Samstag, keine neue Kategorie mehr verplanen
+                    if (isSamstagNachNeuekategoriesperre(zeile)) {
                         if (!helper.isFirstSpielInGruppe(spiel)) {
                             firstEgal = spiel;
                         }
@@ -241,8 +323,8 @@ public class E5Spielverteiler {
             if (zeile.getSpieltageszeit() == spiel.getMannschaftA().getKategorie().getSpielwunsch()) {
                 if (ineg == iB) {
 
-                    // falls bereits spaeter als 16 uhr am Sammstag, keine neue Kategorie mehr verplanen
-                    if (isSammstagNachNeuekategoriesperre(zeile)) {
+                    // falls bereits spaeter als 16 uhr am Samstag, keine neue Kategorie mehr verplanen
+                    if (isSamstagNachNeuekategoriesperre(zeile)) {
                         if (!helper.isFirstSpielInGruppe(spiel)) {
                             return spiel;
                         }
@@ -257,9 +339,9 @@ public class E5Spielverteiler {
     }
 
 
-    private boolean isSammstagNachNeuekategoriesperre(SpielZeile zeile) {
+    private boolean isSamstagNachNeuekategoriesperre(SpielZeile zeile) {
         DateTime start = new DateTime(zeile.getStart());
-        return zeile.getSpieltageszeit() == SpielTageszeit.SAMMSTAGNACHMITTAG && start.getHourOfDay() > 17;
+        return zeile.getSpieltageszeit() == SpielTageszeit.SAMSTAGNACHMITTAG && start.getHourOfDay() > 17;
     }
 
     private void removeUeberschuss(List<SpielZeile> zeilen) {

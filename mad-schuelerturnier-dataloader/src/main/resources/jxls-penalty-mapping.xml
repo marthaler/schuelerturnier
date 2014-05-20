@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<workbook>
+    <worksheet name="sch-penalty">
+        <section startRow="0" endRow="0">
+        </section>
+        <loop startRow="1" endRow="1" items="penaltys" var="penalty"
+              varType="com.googlecode.madschuelerturnier.model.Penalty">
+            <section startRow="1" endRow="1">
+                <mapping row="1" col="0">penalty.id</mapping>
+                <mapping row="1" col="1">penalty.idString</mapping>
+                <mapping row="1" col="2">penalty.reihenfolgeOrig</mapping>
+                <mapping row="1" col="3">penalty.reihenfolge</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+
+</workbook>

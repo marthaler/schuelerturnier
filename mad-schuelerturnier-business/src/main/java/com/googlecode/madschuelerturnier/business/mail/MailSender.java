@@ -7,6 +7,7 @@ import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 
 /**
@@ -18,22 +19,25 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class MailSender {
 
-    public void sendMail(String to, String from,String subject, String text){
+    private static final Logger LOG = Logger.getLogger(MailSender.class);
+
+    public void sendMail(String to, String from, String subject, String text) {
 
         try {
-        Email email = new SimpleEmail();
-        email.setHostName("asmtp.mail.hostpoint.ch");
-        email.setSmtpPort(587);
-        email.setAuthenticator(new DefaultAuthenticator("robot@schuelerturnier-scworb.ch", "LoginPrepareAction"));
-        email.setSSLOnConnect(true);
-        email.setFrom(from);
-        email.setSubject(subject);
-        email.setMsg(text);
-        email.addTo(to);
+            Email email = new SimpleEmail();
 
+            email.setHostName("asmtp.mail.hostpoint.ch");
+            email.setSmtpPort(587);
+            email.setAuthenticator(new DefaultAuthenticator("robot@schuelerturnier-scworb.ch", "LoginPrepareAction"));
+            email.setSSLOnConnect(true);
+            email.setFrom(from);
+            email.setSubject(subject);
+            email.setMsg(text);
+            email.setCharset("utf-8");
+            email.addTo(to);
             email.send();
         } catch (EmailException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
         }
     }
 

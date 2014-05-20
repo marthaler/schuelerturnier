@@ -10,12 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring-business-context.xml"})
 public class TestModelFactory {
 
-    @Autowired
-    private ModelFactory fact;
+    private ModelFactory fact = new ModelFactory();
 
     @Test
     public void getInstanceTest() throws Exception {

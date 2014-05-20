@@ -1,10 +1,10 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.web;
 
 import com.googlecode.madschuelerturnier.business.controller.leiter.converter.HTMLOutConverter;
-import com.googlecode.madschuelerturnier.business.out.OutToWebsitePublisher;
-import com.googlecode.madschuelerturnier.business.picture.PictureAgent;
 import com.googlecode.madschuelerturnier.business.print.PrintAgent;
-import com.googlecode.madschuelerturnier.business.scanner.ScannerAgent;
 import com.googlecode.madschuelerturnier.web.utils.ContextInformationListener;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.TimeZone;
 
 /**
  * @author marthaler.worb@gmail.com
@@ -32,15 +33,6 @@ public class LoginPrepareAction {
     private PrintAgent printAgent;
 
     @Autowired
-    private OutToWebsitePublisher outToWebsite;
-
-    @Autowired
-    private ScannerAgent scannerAgent;
-
-    @Autowired
-    private PictureAgent pictureAgent;
-
-    @Autowired
     private HTMLOutConverter converter;
 
     private String ip;
@@ -50,7 +42,7 @@ public class LoginPrepareAction {
     public void execute() throws IOException {
 
         if (init) {
-            LOG.info("LoginPrepareAction: bereits aufgerufen, nicht mehr noetig");
+            LOG.debug("LoginPrepareAction: bereits aufgerufen, nicht mehr noetig");
             return;
         }
 
@@ -78,12 +70,6 @@ public class LoginPrepareAction {
         printAgent.init(path + STATIC + delim);
 
         converter.setPath(path + STATIC + delim);
-
-        outToWebsite.init(path + STATIC + delim);
-
-        pictureAgent.init(path + STATIC + delim);
-
-        scannerAgent.init(path + STATIC + delim);
 
         init = true;
 

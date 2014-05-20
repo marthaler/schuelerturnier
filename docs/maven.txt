@@ -23,12 +23,13 @@ mvn clean jfx:native
 
 release:maven-jgitflow-plugin
 *******
-mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha26:release-start -DreleaseVersion=1.2.9
-mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha26:release-finish -DdevelopmentVersion=1.3.0-SNAPSHOT -DpushChanges=true -Duser=marthaler.worb@gmail.com -Dpassword=***
+mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha27:release-start -DreleaseVersion=1.2.9
+mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha27:release-finish -DdevelopmentVersion=1.3.0-SNAPSHOT -DpushChanges=true -Duser=marthaler.worb@gmail.com -Dpassword=***
 
 starten:
 *******
 java -jar /app/app.jar -Ddb.url=jdbc:hsqldb:file:/app/db/db -Dftp.folder=daniel -Dtransport.local.url=127.0.0.1 -Dtransport.local.port=8080/app/transport -Dtransport.local.address=http://localhost:8080/app/transport  -Dtransport.remote.address=http://localhost:8081/app/transport
 
-java -jar /Users/dama/Documents/schuelerturnier/mad-schuelerturnier-printer-gui/target/jfx/native/mad-schuelerturnier-printer-gui-1.2.8-SNAPSHOT-jfx.jar
-java -jar /Users/dama/Documents/schuelerturnier/mad-schuelerturnier-web/target/mad-schuelerturnier-web-1.2.8-SNAPSHOT-war-exec.jar -Dtransport.local.address=http://localhost:8080/app/transport  -Dtransport.remote.address=http://localhost:8081/app/transport
+java -jar /Users/dama/Documents/schuelerturnier/mad-schuelerturnier-printer-gui/target/jfx/native/mad-schuelerturnier-printer-gui-1.3.0-SNAPSHOT-jfx.jar
+java -jar /Users/dama/Documents/schuelerturnier/mad-schuelerturnier-web/target/mad-schuelerturnier-web-1.3.0-SNAPSHOT-war-exec.jar -Dtransport.local.address=http://localhost:8081/app/transport  -Dtransport.remote.address=http://87.230.15.247/app/transport -Ddb.url=jdbc:hsqldb:file:/app/db/db
+java -jar /Users/dama/Documents/schuelerturnier/mad-schuelerturnier-web-picimport/target/mad-schuelerturnier-web-picimport-1.3.0-SNAPSHOT-war-exec.jar

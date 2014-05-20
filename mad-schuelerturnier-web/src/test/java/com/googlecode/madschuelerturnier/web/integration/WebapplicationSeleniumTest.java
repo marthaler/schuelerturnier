@@ -2,7 +2,6 @@ package com.googlecode.madschuelerturnier.web.integration;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,7 +29,6 @@ public class WebapplicationSeleniumTest {
     @Test
     @Ignore
     public void simpleCheck() throws IOException {
-
 
 
         HtmlPage page = client.getPage("http://localhost:8080");

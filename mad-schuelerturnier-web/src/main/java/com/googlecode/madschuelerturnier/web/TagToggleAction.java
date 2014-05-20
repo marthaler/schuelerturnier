@@ -24,12 +24,8 @@ public class TagToggleAction implements Action {
     private KorrekturenHelper helper;
 
     public Event execute(RequestContext context) {
-
         ParameterMap request = context.getRequestParameters();
-
         helper.spielZeileKorrigieren(request.get("id"));
-
         return new Event(this, "weiter");
-
     }
 }

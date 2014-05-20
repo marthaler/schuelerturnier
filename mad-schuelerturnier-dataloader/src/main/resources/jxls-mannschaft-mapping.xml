@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <workbook>
-    <worksheet idx="0">
+    <worksheet name="sch-mannschaften">
         <section startRow="0" endRow="0">
         </section>
         <loop startRow="1" endRow="1" items="mannschaften" var="mannschaft"

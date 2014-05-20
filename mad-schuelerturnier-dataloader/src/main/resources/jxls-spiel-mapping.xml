@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <workbook>
 
-    <worksheet idx="1">
+    <worksheet name="sch-spiele">
         <section startRow="0" endRow="0">
         </section>
         <loop startRow="1" endRow="1" items="spiele" var="spiel"
@@ -25,6 +25,7 @@
                 <mapping row="1" col="15">spiel.mannschaftAId</mapping>
                 <mapping row="1" col="16">spiel.mannschaftBId</mapping>
                 <mapping row="1" col="17">spiel.notes</mapping>
+                <mapping row="1" col="18">spiel.spielZeilenPhaseString</mapping>
             </section>
             <loopbreakcondition>
                 <rowcheck offset="0">

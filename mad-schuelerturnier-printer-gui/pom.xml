@@ -68,7 +68,9 @@
                         <executions>
                             <execution>
                                 <phase>install</phase>
-                                <goals><goal>native</goal></goals>
+                                <goals>
+                                    <goal>native</goal>
+                                </goals>
                             </execution>
                         </executions>
                         <configuration>

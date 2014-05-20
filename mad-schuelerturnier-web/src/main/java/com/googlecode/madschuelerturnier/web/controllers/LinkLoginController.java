@@ -36,19 +36,19 @@ public class LinkLoginController {
     public String loginPrepare(@PathVariable("token") String token, HttpServletRequest request) {
 
         DBAuthUser user = repo.findByLinktoken(token);
-        if(user == null){
+        if (user == null) {
             SecurityContextHolder.getContext().setAuthentication(null);
-        } else{
-        try {
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
-            authToken.setDetails(new WebAuthenticationDetails(request));
-            Authentication authentication = this.provider.authenticate(authToken);
+        } else {
+            try {
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+                authToken.setDetails(new WebAuthenticationDetails(request));
+                Authentication authentication = this.provider.authenticate(authToken);
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        } catch (Exception e) {
-            SecurityContextHolder.getContext().setAuthentication(null);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            } catch (Exception e) {
+                SecurityContextHolder.getContext().setAuthentication(null);
 
-        }
+            }
         }
 
         return "redirect:/app/flow";

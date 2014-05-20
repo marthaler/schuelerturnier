@@ -3,12 +3,9 @@
  */
 package com.googlecode.madschuelerturnier.web.controllers;
 
-import com.googlecode.madschuelerturnier.model.DBAuthUser;
 import com.googlecode.madschuelerturnier.model.support.File;
-import com.googlecode.madschuelerturnier.persistence.repository.DBAuthUserRepository;
 import com.googlecode.madschuelerturnier.persistence.repository.FileRepository;
 import org.apache.log4j.Logger;
-import org.hsqldb.HsqlException;
 import org.primefaces.event.FileUploadEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -25,7 +22,7 @@ import java.io.Serializable;
  */
 @Component
 @Scope("session")
-public class DBFileUploadController implements Serializable{
+public class DBFileUploadController implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(DBFileUploadController.class);
 
@@ -41,16 +38,16 @@ public class DBFileUploadController implements Serializable{
 
     public void handleFileUpload(FileUploadEvent event) {
 
-        File file = repo.findByTypAndPearID(typeToSet,Integer.parseInt(idToMatchWith));
+        File file = repo.findByTypAndPearID(typeToSet, Long.parseLong(idToMatchWith));
 
-        if(file == null){
+        if (file == null) {
             file = new File();
         }
 
         file.setContent(event.getFile().getContents());
         file.setDateiName(event.getFile().getFileName());
 
-        file.setPearID(Integer.parseInt(idToMatchWith));
+        file.setPearID(Long.parseLong(idToMatchWith));
 
         file.setTyp(typeToSet);
 
@@ -58,14 +55,14 @@ public class DBFileUploadController implements Serializable{
 
         this.idToMatchWith = null;
         this.typeToSet = null;
-try {
-    this.repo.save(file);
-} catch(Exception e){
-    LOG.info("file musste aufgrund der org.hsqldb.HsqlException vor dem speichern zuerst geloescht werden");
-    // murks wegen der: org.hsqldb.HsqlException: data exception: string data, right truncation
-    this.repo.delete(file);
-    this.repo.save(file);
-}
+        try {
+            this.repo.save(file);
+        } catch (Exception e) {
+            LOG.info("file musste aufgrund der org.hsqldb.HsqlException vor dem speichern zuerst geloescht werden");
+            // murks wegen der: org.hsqldb.HsqlException: data exception: string data, right truncation
+            this.repo.delete(file);
+            this.repo.save(file);
+        }
 
 
     }
@@ -77,6 +74,7 @@ try {
     public void setTypeToSet(String typeToSet) {
         this.typeToSet = typeToSet;
     }
+
     public String getIdToMatchWith() {
         return idToMatchWith;
     }
@@ -85,7 +83,7 @@ try {
         this.idToMatchWith = idToMatchWith;
     }
 
-    public void prepare(){
+    public void prepare() {
         LOG.debug("noop beim upload");
     }
 

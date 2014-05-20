@@ -33,7 +33,6 @@
     </view-state>
 
     <!-- Init -->
-
     <action-state id="initialisieren">
         <evaluate expression="loginPrepareAction.execute()"/>
         <evaluate expression="startAction.start(currentUser)"/>
@@ -89,6 +88,10 @@
             <evaluate expression="mannschaftRepository.save(mannschaftBean)"/>
             <evaluate expression="business.updateAutocompletesMannschaft(mannschaftBean)"/>
         </transition>
+        <transition on="delete" to="mannschaftsliste" bind="true">
+            <evaluate expression="business.updateAutocompletesMannschaft(mannschaftBean)"/>
+            <evaluate expression="mannschaftRepository.delete(mannschaftBean.id)"/>
+        </transition>
         <transition on="upload" to="newmannschaft_view" bind="true">
         </transition>
     </view-state>
@@ -108,6 +111,14 @@
             <evaluate expression="dropboxDumper.initialize()"/>
             <evaluate expression="business.sendDumpToRemotes()"/>
         </transition>
+
+
+        <transition on="dropbox_chose_new" to="initialisieren">
+            <evaluate expression="business.initializeDropbox(dropboxBackingBean.newfolder)"/>
+            <evaluate expression="dropboxDumper.initialize()"/>
+            <evaluate expression="business.sendDumpToRemotes()"/>
+        </transition>
+
 
     </view-state>
 
@@ -164,13 +175,12 @@
         <transition on="save" to="spieleinstellungen" bind="true">
             <set name="flashScope.tr" value="true" type="java.lang.Boolean"/>
             <set name="flashScope.fa" value="false" type="java.lang.Boolean"/>
-            <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"
-                      result="flowScope.spieleinstellungen"/>
+            <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)" result="flowScope.spieleinstellungen"/>
             <evaluate expression="business.initZeilen(flashScope.fa)" result="flowScope.spielZeilenSa"/>
             <evaluate expression="business.initZeilen(flashScope.tr)" result="flowScope.spielZeilenSo"/>
         </transition>
 
-        <transition on="man" to="spieleinstellungen" bind="true">
+        <transition on="manuellekorrekturen" to="spieleinstellungen" bind="true">
             <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"/>
             <evaluate expression="f6SpielverteilerManuelleKorrekturen.korrekturenVornehmen()"/>
         </transition>
@@ -244,9 +254,6 @@
             <evaluate expression="business.anstehendePenalty()" result="flowScope.penaltyAnstehend"/>
             <evaluate expression="spielRepositoryDelegate.findAllEinzutragende()" result="flowScope.einzutragende"/>
         </on-render>
-        <transition on="zuweisen" to="eintrager">
-            <evaluate expression="pictureAgent.zuweisen()"/>
-        </transition>
         <transition on="save" to="eintrager">
             <evaluate expression="spielRepositoryDelegate.eintragen(flowScope.einzutragende,requestParameters.id)"/>
             <evaluate expression="spielRepositoryDelegate.findAllEinzutragende()" result="flowScope.einzutragende"/>
@@ -254,6 +261,11 @@
         <transition on="saveP" to="eintrager">
             <evaluate expression="business.penaltyEintragen(flowScope.penaltyAnstehend)"/>
         </transition>
+        <transition on="upload" to="eintrager" bind="true">
+        </transition>
+    </view-state>
+
+    <view-state id="webcam" view="durchfuehrung/webcam.xhtml" redirect="true">
     </view-state>
 
     <view-state id="v_historie" view="beobachter/historie.xhtml" redirect="true"/>
@@ -368,6 +380,10 @@
 
         <transition on="kontrollierer" to="kontrollierer">
             <evaluate expression="spielRepositoryDelegate.findAllZuBestaetigen()" result="flowScope.bestaetigen"/>
+        </transition>
+
+        <transition on="webcam" to="webcam">
+
         </transition>
 
     </global-transitions>

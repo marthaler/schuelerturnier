@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile">
+
+<f:view renderKitId="PRIMEFACES_MOBILE" />
+
+<h:head>
+    <script type="text/javascript">
+        var timeout = setTimeout("location.reload(true);",600000);
+    </script>
+</h:head>
+
+<h:body>
+
+    <pm:page id="main">
+        <pm:content>
+
+            <h:form id="settingsForm">
+                <pm:field>
+                    <p:selectOneMenu id="k" value="#{mobileController.mannschaftAuswahl}" onchange="submit()" >
+                        <f:selectItems value="#{mobileController.mannschaften}" />
+                        <p:ajax update="settingsForm" event="change" actionListener="#{mobileController.mannschaftAuswahl}"/>
+                    </p:selectOneMenu>
+                </pm:field>
+                <p:outputPanel id="display" style="text-align:center">
+                    <p:dataList var="spiel" value="#{mobileController.getSpiele()}">
+                        <h:outputText style="font-weight:bold;color: #{spiel.color}" value="#{spiel.zeile}"/>
+                    </p:dataList>
+                    <h4>Finale</h4>
+                    <p:dataList var="spiel" value="#{mobileController.getFinale()}">
+                        <h:outputText style="font-weight:bold;color: #{spiel.color}" value="#{spiel.zeile}"/>
+                    </p:dataList>
+                </p:outputPanel>
+            </h:form>
+
+        </pm:content>
+    </pm:page>
+</h:body>
+
+</html>

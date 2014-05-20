@@ -4,7 +4,6 @@
 package com.googlecode.madschuelerturnier.web.security;
 
 import com.googlecode.madschuelerturnier.business.security.DBAuthProvider;
-import com.googlecode.madschuelerturnier.persistence.repository.DBAuthUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -42,7 +41,7 @@ public class DoLoginController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
         } catch (Exception e) {
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Anmeldefehler, bitte probieren sie es noch einmal", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Anmeldefehler, bitte probieren sie es noch einmal", ""));
             SecurityContextHolder.getContext().setAuthentication(null);
         }
     }

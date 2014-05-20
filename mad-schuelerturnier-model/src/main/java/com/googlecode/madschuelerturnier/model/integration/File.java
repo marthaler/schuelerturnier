@@ -13,7 +13,7 @@ import java.util.Date;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8
  */
-public class File implements Serializable{
+public class File implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,18 +30,16 @@ public class File implements Serializable{
     }
 
     public void setContent(byte[] contentn) {
-         this.content = new byte[contentn.length];
+        this.content = new byte[contentn.length];
         System.arraycopy(
                 contentn, 0,
                 this.content, 0,
                 content.length
         );
 
-        if( content.length > 0){
-            kbyte = "" +content.length / 1000 + " Kb";
+        if (content.length > 0) {
+            kbyte = "" + content.length / 1000 + " Kb";
         }
-
-        this.content = content;
     }
 
     public String getName() {
@@ -56,9 +54,9 @@ public class File implements Serializable{
         return kbyte;
     }
 
-    public void updateDruckzeit(){
+    public void updateDruckzeit() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-        this.druckzeit =   simpleDateFormat.format(new Date());
+        this.druckzeit = simpleDateFormat.format(new Date());
     }
 
     public String getDruckzeit() {

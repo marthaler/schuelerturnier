@@ -3,12 +3,9 @@
  */
 package com.googlecode.madschuelerturnier.persistence.repository;
 
-import com.googlecode.madschuelerturnier.model.AuditLog;
 import com.googlecode.madschuelerturnier.model.support.File;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
-import java.util.List;
 
 /**
  * Repository interface for {@link com.googlecode.madschuelerturnier.model.Gruppe} instances. Provides basic CRUD operations due to the extension of
@@ -23,6 +20,6 @@ public interface FileRepository extends JpaRepository<File, Long> {
     public File findByName(String dateiName);
 
     @Query("select o from File o  where o.typ = ?1 and o.pearID = ?2")
-    public File findByTypAndPearID(String typ, Integer pearID);
+    public File findByTypAndPearID(String typ, Long pearID);
 
 }

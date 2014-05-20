@@ -30,7 +30,7 @@ public class Gruppe extends Persistent {
 
     private GeschlechtEnum geschlecht = null;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Mannschaft> mannschaften = new ArrayList<Mannschaft>();
 
@@ -72,6 +72,18 @@ public class Gruppe extends Persistent {
         return geschlecht;
     }
 
+    public int evaluateFloorKlasse(){
+        if(this.mannschaften == null || this.mannschaften.size() <1){
+            return -1;
+        }
+        int ret = 11;
+        for(Mannschaft m : this.mannschaften){
+            if(m.getKlasse() < ret){
+                ret = m.getKlasse();
+            }
+        }
+        return ret;
+    }
 
     /**
      * fuegt eine mannschaft der Liste hinzu wenn versucht wird eine mannschaft
@@ -128,7 +140,7 @@ public class Gruppe extends Persistent {
         }
 
         // workaround weil JPA anscheinend auf der kategorie den gruppennicht die selben Mannschaften zuordnen kann
-        if (this.kategorie != null && this == this.kategorie.getGruppeB() && this.kategorie.getGruppeA()!= null && this.kategorie.getGruppeA().getMannschaften() != null && this.kategorie.getGruppeA().getMannschaften().size() == 3) {
+        if (this.kategorie != null && this == this.kategorie.getGruppeB() && this.kategorie.getGruppeA() != null && this.kategorie.getGruppeA().getMannschaften() != null && this.kategorie.getGruppeA().getMannschaften().size() == 3) {
             return this.kategorie.getGruppeA().getMannschaften();
         }
 

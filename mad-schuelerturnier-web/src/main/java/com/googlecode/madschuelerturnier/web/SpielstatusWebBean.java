@@ -1,5 +1,7 @@
 package com.googlecode.madschuelerturnier.web;
-
+/**
+ * Apache License 2.0
+ */
 import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.vorbereitung.A0SpielVorbereitungsKontroller;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
@@ -163,6 +165,7 @@ public class SpielstatusWebBean implements Serializable {
         this.init();
         this.kategoriezuordnungsphase = kategoriezuordnungsphase;
     }
+
 
     public boolean isSpielzuordnungsphase() {
         init();

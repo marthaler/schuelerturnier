@@ -14,7 +14,7 @@
 
                         <h:form id="form">
 
-                        <p:messages/>
+                            <p:messages/>
 
                             <p:accordionPanel id="ac" activeIndex="2">
                                 <p:tab title="Neues Spiel initialisieren">
@@ -23,7 +23,6 @@
                                         <p:commandButton id="submit" value="Initialisieren" action="save" execute="@form" update="@form"/>
                                     </h:panelGroup>
 
-
                                 </p:tab>
                                 <p:tab title="Spiel aus XLS hochladen">
 
@@ -31,7 +30,7 @@
                                     <p:fileUpload fileUploadListener="#{fileUploadController.handleFileUpload}"
                                                   multiple="false" auto="true" ajax="true"
                                                   widgetVar="dialogUpLoad" mode="advanced"
-                                                  oncomplete="document.getElementById('form:ok').click()"/>
+                                                  oncomplete="document.getElementById('form:ac:ok').click()"/>
                                     <br/>
                                     <!--kruecke zum feuern der weiterleitungsaction nach upload-->
                                     <p:commandButton id="ok" value="Initialisieren" action="ok" style="display: none"/>
@@ -40,19 +39,21 @@
                                 <p:tab  title="Spiel von XLS aus Dropbox laden" rendered="#{dropboxBackingBean.isConnected()}">
 
 
-                                    <h:panelGrid columns="1" id="dropbox_panel_chose"  > 
+                                    <h:panelGrid columns="1" id="dropbox_panel_chose"> 
+                                        <h:column>
+                                            <p:inputText id="newdropboxfolder" value="#{dropboxBackingBean.newfolder}"/><p:commandButton  value="-> Neu" action="dropbox_chose_new" ajax="false"/> 
+                                        </h:column>
 
                                         <ui:repeat value="#{dropboxBackingBean.fileList}" var="file">
                                             <p:column>
 
-                                                <br/>
-                                                <p:commandButton  value="#{file}" action="dropbox_chose" ajax="false"> 
+                                                <br/><br/>
+                                                <p:commandButton  value="Vorhanden -> #{file}" action="dropbox_chose" ajax="false"> 
                                                     <f:param name="dropbox_file" value="#{file}"/>
                                                 </p:commandButton>
 
                                             </p:column>
                                         </ui:repeat>
-
 
                                     </h:panelGrid>
 

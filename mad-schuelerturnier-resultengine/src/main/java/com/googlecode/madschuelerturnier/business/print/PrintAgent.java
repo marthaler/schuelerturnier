@@ -109,7 +109,7 @@ public class PrintAgent implements ApplicationEventPublisherAware {
 
             if (running) {
                 // TODO remove printer in app
-        //        this.print(f);
+                //        this.print(f);
             }
 
             try {
@@ -163,7 +163,7 @@ public class PrintAgent implements ApplicationEventPublisherAware {
             doc.close();
 
 
-            if(this.applicationEventPublisher != null){
+            if (this.applicationEventPublisher != null) {
                 com.googlecode.madschuelerturnier.model.integration.File file = new com.googlecode.madschuelerturnier.model.integration.File();
                 file.setContent(IOUtils.toByteArray(new FileInputStream(new File(outputFile))));
                 file.setName(name + ".pdf");
@@ -184,14 +184,6 @@ public class PrintAgent implements ApplicationEventPublisherAware {
             }
         }
         FileUtils.deleteQuietly(new File(pathprinter + "out.xml"));
-    }
-
-    public void printSchiriAnleitung() {
-        try {
-            FileUtils.copyFile(new File(this.printtemplates + "schirizettel.pdf"), new File(this.pathprinter + "schirizettel.pdf"));
-        } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
-        }
     }
 
     private void print(File f) {
@@ -256,14 +248,6 @@ public class PrintAgent implements ApplicationEventPublisherAware {
         }
     }
 
-    public boolean isRunning() {
-        return running;
-    }
-
-    public void setRunning(boolean running) {
-        this.running = running;
-    }
-
     public String getPrinter() {
         return printer;
     }
@@ -274,6 +258,6 @@ public class PrintAgent implements ApplicationEventPublisherAware {
 
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        this.applicationEventPublisher =  applicationEventPublisher;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 }

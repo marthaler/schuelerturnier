@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by dama on 20.12.13.
  */
-public class LoginBean implements Serializable{
+public class LoginBean implements Serializable {
 
     private String user;
     private String password;

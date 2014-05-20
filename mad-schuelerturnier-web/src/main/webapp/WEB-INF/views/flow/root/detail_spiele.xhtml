@@ -6,14 +6,6 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 template="../../../layouts/100.xhtml">
 
-    <ui:define name="heading">
-        <h:outputText value="Mannschaft bearbeiten"/>
-    </ui:define>
-
-    <ui:define name="caption">
-        <p>annschaft bearbeiten</p>
-    </ui:define>
-
     <ui:define name="main">
         <div id="main">
             <div class="page_margins">
@@ -22,12 +14,19 @@
 
                         <h:form id="form1">
 
-                            <p:fieldset legend="Spiel Korrigieren">
+                            <p:fieldset legend="Spiel korrigieren">
                                 <p:messages/>
 
                                 <h:panelGrid columns="2" id="inputelements">
-
-
+                                    <p:commandButton id="schiriButton" icon="ui-icon-image"
+                                                     onclick="PF('dlgf').show();" type="button"
+                                                     rendered="#{DBFileDownloadController.hasFile('schirizettel',spiel.id)}"/>
+                                    <p:dialog id="schiri_dialog" header="Schirizettel"
+                                              widgetVar="dlgf" showEffect="drop" hideEffect="drop" width="580" height="320">
+                                        <p:graphicImage
+                                                value="/app/files/schirizettel/id/#{spiel.id}" rendered="#{DBFileDownloadController.hasFile('schirizettel',spiel.id)}"
+                                                width="550" height="300"/>
+                                    </p:dialog>
                                     <h:outputLabel for="id" value="Id "/>
                                     <p:inputText id="id" label="Id"
                                                  value="#{spiel.idString}" size="5" disabled="true"/>
@@ -43,12 +42,15 @@
                                     </p:inputText>
 
                                     <h:outputLabel for="notizen" value="Log"/>
-                                    <p:inputTextarea id="notizen" rows="5" cols="30" value="#{spiel.notizen.value}"
+                                    <p:inputTextarea id="notizen" rows="5" cols="30" value="#{spiel.notizen}"
                                                      autoResize="false"/>
 
                                     <h:panelGroup id="button" layout="block">
                                         <p:commandButton id="submit" value="Speichern" action="save" ajax="false"/>
                                     </h:panelGroup>
+
+
+
 
                                 </h:panelGrid>
                             </p:fieldset>

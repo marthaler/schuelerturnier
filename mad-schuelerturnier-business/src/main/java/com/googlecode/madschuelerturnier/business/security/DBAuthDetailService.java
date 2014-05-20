@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -44,7 +43,7 @@ public class DBAuthDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         if (username.equals("root") && repo.count() < 1) {
-             return createRoot();
+            return createRoot();
         }
 
         UserDetails user = repo.findByUsername(username);
@@ -115,7 +114,6 @@ public class DBAuthDetailService implements UserDetailsService {
             }
         }
     }
-
 
 
     public Collection<String> alleRollen() {

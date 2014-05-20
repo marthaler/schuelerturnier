@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 
 
 /**
- * StartAction Test
+ * StartAction DateUtil
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.6

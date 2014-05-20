@@ -18,26 +18,26 @@ public class ModelChangeListenerManager {
     private static ModelChangeListenerManager instance;
 
     public static ModelChangeListenerManager getInstance() {
-        if(instance == null){
+        if (instance == null) {
             instance = new ModelChangeListenerManager();
         }
         return instance;
     }
 
-    private ModelChangeListenerManager(){
+    private ModelChangeListenerManager() {
 
     }
 
-    public void addListener(ModelChangeListener listener){
+    public void addListener(ModelChangeListener listener) {
         this.listener.add(listener);
     }
 
-    public void removeListener(ModelChangeListener listener){
+    public void removeListener(ModelChangeListener listener) {
         this.listener.remove(listener);
     }
 
-    public void publish(Persistent p){
-        for (ModelChangeListener l :listener) {
+    public void publish(Persistent p) {
+        for (ModelChangeListener l : listener) {
             l.onChangeModel(p);
         }
     }
