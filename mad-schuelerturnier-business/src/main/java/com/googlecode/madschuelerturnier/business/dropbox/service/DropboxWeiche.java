@@ -56,7 +56,7 @@ public class DropboxWeiche implements DropboxConnector{
         LOG.info("DropboxWeiche verbindung ok");
         }
         catch (Exception e){
-            LOG.error(e.getMessage(),e);
+            LOG.info(e.getMessage());
             connectorRemote = null;
         }
     }

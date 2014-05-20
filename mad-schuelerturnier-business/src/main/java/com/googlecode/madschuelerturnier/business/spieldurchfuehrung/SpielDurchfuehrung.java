@@ -64,6 +64,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     @Autowired
     private PrintAgent agent;
 
+
     @Autowired
     private SpielPrintManager spielPrinter;
 
@@ -266,6 +267,8 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
             String jahr = ""+ new DateTime(this.business.getSpielEinstellungen().getStarttag()).getYear();
 
             this.infoservice.dumpJetzt(jahr);
+
+
 
             endranglistegedruckt = true;
             LOG.debug("checkSpielende: spiel abgeschlossen");

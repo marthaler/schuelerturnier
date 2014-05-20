@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
@@ -45,6 +46,9 @@ public class MobileController {
 
     @Autowired
     private MannschaftRepository mrepo;
+
+    @Autowired
+    SessionHelper session;
 
     private MobileSpiel finale;
 
@@ -240,6 +244,9 @@ public class MobileController {
     }
 
     public String getMannschaftAuswahl() {
+
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        session.invoke(request,"mobile");
 
         Map<String, Object> requestCookieMap = FacesContext.getCurrentInstance()
                 .getExternalContext()

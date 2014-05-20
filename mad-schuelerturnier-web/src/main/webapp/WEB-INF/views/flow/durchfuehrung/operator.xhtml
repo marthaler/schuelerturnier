@@ -140,9 +140,9 @@
 
 
             <h:outputText id="output22"
-                          value="Pollrequests in Sekunden Speaker: #{spielDurchfuehrung.pollrequestSpeaker} "/>
+                          value="Pollrequests in Sekunden Speaker: #{spieleinstellungen.pollrequestSpeaker} "/>
 
-            <p:slider for="pollrequestSpeaker" display="output22"
+            <p:slider for="pollrequestsSpeaker2" display="output22"
                       displayTemplate="Pollrequests in Sekunden Speaker: {value}" ajax="true"
                       minValue="1" maxValue="30" style="width:200px"/>
 
@@ -186,13 +186,14 @@
             </p:selectBooleanCheckbox>
 
 
-        </h:panelGrid>
 
+        </h:panelGrid>
+        <h:inputHidden id="pollrequestsSpeaker2"
+                       value="#{spieleinstellungen.pollrequestSpeaker}"/>
         <h:inputHidden id="wartendSize" value="#{spielDurchfuehrung.wartendSize}"/>
         <h:inputHidden id="minutenZumVorbereiten"
                        value="#{spielDurchfuehrung.minutenZumVorbereiten}"/>
-        <h:inputHidden id="pollrequestsSpeaker"
-                       value="#{spielDurchfuehrung.pollrequestSpeaker}"/>
+
 
 
 
@@ -310,7 +311,16 @@
             <p:commandButton id="dump" action="#{websiteInfoService.dumpJetztVonSeite()}" value="Dump erstellen" ajax="true" enabled="#{dropboxWeiche.isConnected()}"/>
         </h:column>
 
-        <p:blockUI block="websitepublisher" trigger="dump">
+        <h:outputText value="Dump der Statistiken sofort erstellen (Jahr angeben): "/>
+        <h:column>
+
+            <p:separator /><p:separator />
+
+            <p:inputMask mask="9999" value="#{sessionHelper.jahr}" size="4"/>
+            <p:commandButton id="dumpstat" action="#{sessionHelper.dump()}" value="Dump erstellen" ajax="true" enabled="#{dropboxWeiche.isConnected()}"/>
+        </h:column>
+
+        <p:blockUI block="websitepublisher" trigger="dump,dumpstat">
             <p:graphicImage value="/app/resources/static/images/ajax-loader.gif"/>
         </p:blockUI>
 

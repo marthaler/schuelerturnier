@@ -3,12 +3,12 @@
  */
 package com.googlecode.madschuelerturnier.web.controllers;
 
-import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.business.websiteinfo.WebsiteInfoService;
 import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
+import com.googlecode.madschuelerturnier.model.support.WebSessionLog;
+import com.googlecode.madschuelerturnier.persistence.repository.WebSessionLogRepository;
 import com.googlecode.madschuelerturnier.web.SpielstatusWebBean;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Controller fuer die Webseiteninformationen
@@ -29,28 +30,28 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @RequestMapping(value = "/website")
 public class WebsiteInfoController {
 
-    private static final Logger LOG = Logger.getLogger(WebsiteInfoController.class);
-
-    private int count = 0;
-
     @Autowired
     private WebsiteInfoService service;
 
     @Autowired
     private SpielstatusWebBean spielstatusWebBean;
 
-    @RequestMapping(value = "/info/{jahr}", method = RequestMethod.GET)
-    public String getWebsiteinfo(@PathVariable("jahr") String jahr, Model model) {
+    @Autowired
+    SessionHelper session;
 
-        count ++;
-        LOG.info("session call -> " + count);
+    @RequestMapping(value = "/info/{jahr}", method = RequestMethod.GET)
+    public String getWebsiteinfo(@PathVariable("jahr") String jahr, Model model, HttpServletRequest request) {
+
+        session.invoke(request,"web");
+
         // fuer die anschaltung der details im jahr auch wenn im aktuellen die details ausgeblendet sind
-        if(jahr.length() == 4){
+        if (jahr.length() == 4) {
             model.addAttribute("thisyear", false);
-        } else{
+        } else {
             model.addAttribute("thisyear", true);
             jahr = "now"; // = jetzt
         }
+
 
         SpielEinstellungen einstellungen = service.getEinstellungen(jahr);
 
@@ -59,8 +60,8 @@ public class WebsiteInfoController {
 
         boolean liste = ganzeListe || anmeldung;
 
-        model.addAttribute("maedchen", service.getMaedchenMannschaften(jahr,liste));
-        model.addAttribute("knaben", service.getKnabenMannschaften(jahr,liste));
+        model.addAttribute("maedchen", service.getMaedchenMannschaften(jahr, liste));
+        model.addAttribute("knaben", service.getKnabenMannschaften(jahr, liste));
 
         model.addAttribute("gruppenspiele", service.getGruppenspiele(jahr));
         model.addAttribute("finalspiele", service.getFinalspiele(jahr));
@@ -73,5 +74,6 @@ public class WebsiteInfoController {
         return "website/info";
 
     }
+
 
 }
