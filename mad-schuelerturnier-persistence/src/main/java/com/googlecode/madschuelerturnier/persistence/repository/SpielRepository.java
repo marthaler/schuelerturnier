@@ -30,7 +30,7 @@ public interface SpielRepository extends JpaRepository<Spiel, Long> {
     @Query("select o from Spiel o where o.typ = 1 or o.typ = 2 order by o.start,o.platz asc ")
     List<Spiel> findFinalSpielAsc();
 
-    @Query("select o from Spiel o where o.fertigGespielt = TRUE and o.fertigEingetragen = FALSE")
+    @Query("select o from Spiel o where o.fertigGespielt = TRUE and o.fertigEingetragen = FALSE order by o.start asc")
     List<Spiel> findAllEinzutragende();
 
     @Query("select o from Spiel o where o.fertigGespielt = TRUE and o.fertigEingetragen = TRUE and o.fertigBestaetigt = FALSE")

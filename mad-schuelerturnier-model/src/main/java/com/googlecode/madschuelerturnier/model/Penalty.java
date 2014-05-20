@@ -28,6 +28,7 @@ public class Penalty extends Persistent {
 
     private static final long serialVersionUID = 1L;
 
+    private String reihenfolgeOrig = LEER;
 
     private String reihenfolge = LEER;
 
@@ -43,8 +44,22 @@ public class Penalty extends Persistent {
     private boolean gespielt = false;
     private boolean bestaetigt = false;
 
+    public void addMannschaftInitial(final Mannschaft m) {
+        this.finalList.add(m);
+        reihenfolgeOrig = "";
+        for(Mannschaft m2: finalList){
+            reihenfolgeOrig = reihenfolgeOrig +"," + m2.getName();
+        }
+        reihenfolgeOrig = reihenfolgeOrig.substring(1);
+    }
+
     public void addMannschaft(final Mannschaft m) {
         this.finalList.add(m);
+        reihenfolge = "";
+        for(Mannschaft m2: finalList){
+            reihenfolge = reihenfolge +"," + m2.getName();
+        }
+        reihenfolge = reihenfolge.substring(1);
     }
 
     public boolean contains(final Mannschaft m) {
@@ -158,5 +173,18 @@ public class Penalty extends Persistent {
         return LEER;
     }
 
+    public String getReihenfolgeOrig() {
+        return reihenfolgeOrig;
+    }
+
+    public void setReihenfolgeOrig(String reihenfolgeOrig) {
+        this.reihenfolgeOrig = reihenfolgeOrig;
+    }
+
+    // getter und setter fuer xls export und import
+
+    public void setId(Long id) {  // NOSONAR
+        super.setId(id);
+    }
 
 }

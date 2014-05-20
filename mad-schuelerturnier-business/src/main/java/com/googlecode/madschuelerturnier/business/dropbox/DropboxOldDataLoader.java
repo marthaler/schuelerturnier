@@ -18,7 +18,7 @@ import java.util.List;
  * @since 1.2.8
  */
 @Component
-public class DropboxOldDataLoader  {
+public class DropboxOldDataLoader {
 
     private static final Logger LOG = Logger.getLogger(DropboxOldDataLoader.class);
 
@@ -29,11 +29,11 @@ public class DropboxOldDataLoader  {
     Business business;
 
     @Async
-   public void loadData(DropboxConnector connector){
+    public void loadData(DropboxConnector connector) {
         List<String> files = connector.getFilesInAltFolder();
-        for(String file :files){
+        for (String file : files) {
             business.updateAutocompletesMannschaften(loader.convertXLSToMannschaften(connector.loadFile(file)));
         }
-   }
+    }
 
 }

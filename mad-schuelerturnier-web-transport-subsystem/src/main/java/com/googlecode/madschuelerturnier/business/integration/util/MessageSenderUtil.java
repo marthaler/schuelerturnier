@@ -7,7 +7,8 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
+
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 
@@ -21,10 +22,12 @@ public class MessageSenderUtil {
 
     private static final Logger LOG = Logger.getLogger(MessageSenderUtil.class);
 
-    public static MessageWrapperToSend send(String adresse,MessageWrapperToSend obj) {
-        HttpClient client = new DefaultHttpClient();
+    private static int failurecounter = 0;
+    public static MessageWrapperToSend send(String adresse, MessageWrapperToSend obj) {
+        HttpClient client = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(adresse);
         StringBuffer buff = new StringBuffer();
+        BufferedReader rd;
         try {
 
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
@@ -32,18 +35,20 @@ public class MessageSenderUtil {
 
             post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             HttpResponse response = client.execute(post);
-            BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
             String line = "";
             while ((line = rd.readLine()) != null) {
                 buff.append(line);
             }
 
-           return (MessageWrapperToSend) XstreamUtil.deserializeFromString(buff.toString());
-
+            return (MessageWrapperToSend) XstreamUtil.deserializeFromString(buff.toString());
         } catch (IOException e) {
-            LOG.debug(e.getMessage());
+            failurecounter++;
+            if(failurecounter % 100 == 0 ){
+                LOG.error(e.getMessage(),e);
+            }
         }
-    return null;
+        return null;
     }
 }

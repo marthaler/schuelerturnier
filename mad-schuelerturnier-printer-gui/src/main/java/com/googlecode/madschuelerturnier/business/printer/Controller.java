@@ -3,14 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business.printer;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import com.googlecode.madschuelerturnier.business.integration.IntegrationControllerImpl;
-
 import com.googlecode.madschuelerturnier.business.integration.core.TransportControllerFactory;
 import com.googlecode.madschuelerturnier.model.integration.File;
 import com.googlecode.madschuelerturnier.model.integration.IncommingMessage;
@@ -21,8 +14,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Paint;
@@ -35,6 +26,11 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationListener;
 
 import javax.print.*;
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Controller und model fuer den printer
@@ -83,6 +79,7 @@ public class Controller implements Initializable, ApplicationListener<IncommingM
     public Controller() {
         INSTANCE = this;
     }
+
     private void init() {
         if (this.init) {
             return;
@@ -150,7 +147,6 @@ public class Controller implements Initializable, ApplicationListener<IncommingM
             LOG.error(e.getMessage(), e);
         }
     }
-
 
 
     public static Controller getInstance() {

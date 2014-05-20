@@ -4,11 +4,8 @@ import com.googlecode.madschuelerturnier.business.integration.core.TransportEndp
 import com.googlecode.madschuelerturnier.model.integration.OutgoingMessage;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
- *
- *
  * @author marthaler.worb@gmail.com
  * @since 1.2.8
  */

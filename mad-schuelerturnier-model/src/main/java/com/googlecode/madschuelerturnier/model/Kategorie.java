@@ -222,6 +222,20 @@ public class Kategorie extends Persistent {
         return false;
     }
 
+    public int evaluateLowestClass(){
+        int result = 10;
+        List<Integer> inte = this.getKlassen();
+        if(inte == null || inte.isEmpty()){
+            return -1;
+        }
+        for(Integer i : inte){
+            if(i< result){
+result = i;
+            }
+        }
+        return result;
+    }
+
     // normale getter & setter
 
     public Spiel getKleineFinal() {

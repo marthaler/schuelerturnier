@@ -1,40 +1,63 @@
 feautures:
 **********
 
-[  ]     sender, eigene nachrichten nicht mehr weiterschicken
-[  ]     schauen, dass nachrichten mit content gesendet werden nach anmeldung an master
-[  ]     masterstate reparieren
-[  ]     audit log in der transportschicht
-[  ]     einrichten, dass der master einen sauberen dump schickt
-[  ]     prüfen ob die nachrichten wirklich der reihe nach kommen
+***********************************************
+[  ]     Spielansage prüfen, ev mehr zeit geben
+[ok]     Knopf Jahresdump mit Jahrzahl
+[ok]     Spieleinstellung neu
+[rj]     Filter fuer Speaker wieder machen
+[  ]     Aufraeumen mit den Berechtigungen
+[ok]     ResultateVerarbeiter ohne verbindung zu Spiel Einstelungs Repo
+[ok]     Knopf Dump weg
+[ok]     M1 und 2 mit 2 GF
+[ok]     kamera view verbessern
+[ok]     testlaeufe erstellen
+[ok]     Unittest fuer Importhandler
 
-[  ]     out to website publisher schlau konfigurieren
-[  ]     master einfuehren
-[  ]     Bilder in die DB
-[  ]     Ansagen in die DB
-[  ]     bei den usern echten namen einfuehren und auch exportieren
-[  ]     Neuer Scanner bauen
-[  ]     integrationstests aufraeumen & tomcat
+[ok]     mannschaftsplan auf webseite
+[ok]     sender, eigene nachrichten nicht mehr weiterschicken
+[ok]     schauen, dass nachrichten mit content gesendet werden nach anmeldung an master
 
-[  ]     testlauf 2013
-[  ]     testlauf 2014
+[rj]     audit log in der transportschicht
+[rj]     einrichten, dass der master einen sauberen dump schickt
+[rj]     prüfen ob die nachrichten wirklich der reihe nach kommen
+
+[  ]     out to website publisher schlau konfigurieren (ausbauen)
+[ok]     master einfuehren
+
+[ok]     integrationstests aufraeumen & tomcat
+
+[ip]     testlauf 2013
+[ip]     testlauf 2014
+
+[ok]     ausbauen des printers auf dem server
 
 [rj]     countdown ueber eine stunde springt (stunden einbeziehen)
+[rj]     bei den usern echten namen einfuehren und auch exportieren
 
-
+[ok]     auch bei > 7 mannschaftskategorien bei gemischten der Spiel string selber setzen beim C3
 
 ==============
 
 bugs:
 *****
-
-[  ] spielansagen funktionieren nicht mehr
+[ok] auch text schicken beim transport
+[__] eintrager und kontrollierer der reihe nach
+[ok] auch attachements schicken beim transport
+[xx] penalty speichern funktioniert nicht
+[xx] penalty in resultengine aus db laden, damit keine neuen erstellt werden in der History
+[ok] printer funktioniert nicht
+[ok] einstellung start richtig verwenden beim generieren
+[ok] kamera funktioniert nicht auf mac (demoansicht)
+[ok] webseite bei der ersten ansicht nummern nicht mehr anzeigen
+[ok] text reparieren in den 1. webseitenasichtsperren funktion
 
 ==============
 
 testen
 *************
-[  ]     finalparungsregel konfigurierbar machen 2 gross finale
+[ok] finalparungsregel konfigurierbar machen 2 gross finale !!! -> bei der planung einführen
+[ok] spielansagen funktionieren nicht mehr
 
 dokumentation
 *************
@@ -48,11 +71,16 @@ fuer nachher
 dokumentation
 *************
 [ok]     merkkarten fuer schiris (tore nicht punkte)
-
 [ok]     plan fuer lan und material
 
 feautures ok:
 **********
+[ok]     Bilder in die DB
+
+[ok]     Ansagen in die DB
+
+[ok]     Neuer Scanner bauen
+
 [ok]     finalparungsregel konfigurierbar machen 2 gross finale
 
 [ok]     stammdaten menu aufraeumen und ueberfluessigen code loeschen
@@ -122,7 +150,7 @@ feautures ok:
 
 [ok]     gererangliste publishen
 
-[ok]     machen, dass keine gruppe sammstag und sonntag spielen muss
+[ok]     machen, dass keine gruppe samstag und sonntag spielen muss
 
 [ok]     spieldurchfuehrung absichern mit laden aus der db beim neustart
 
@@ -153,13 +181,19 @@ feautures ok:
 [ok]     automatischer gong auschaltbar machen
 
 [ok]     bei schirizettel ohne zuordnung bei finalen wird nicht die kategorie angezeigt sondern nur gf
+
 [ok]     version wird nicht angezeigt nach release
+
 [ok]     drucken geht nicht nach release
+
 [ok]     beim letzten Finalspiel phase auf beendet und letzte liste drucken
 
 [ok]     Rangliste drucken immer bei 1
+
 [ok]     Rangliste, letzte Seite drucken
+
 [ok]     schlaue Startseite
+
 [ok]     wenn fertig dinge nicht ausblenden
 
 bugs ok:

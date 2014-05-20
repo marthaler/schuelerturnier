@@ -7,6 +7,7 @@ import com.googlecode.madschuelerturnier.model.*;
 import com.googlecode.madschuelerturnier.model.support.File;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import net.sf.jxls.reader.ReaderBuilder;
+import net.sf.jxls.reader.ReaderConfig;
 import net.sf.jxls.reader.XLSReadStatus;
 import net.sf.jxls.reader.XLSReader;
 import org.apache.log4j.Logger;
@@ -82,37 +83,6 @@ public class FromXLSLoader {
             LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
 
             return (List<Spiel>) beans.get("spiele");
-
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-        }
-
-        return null;
-    }
-
-    public SpielEinstellungen convertXLSToEinstellung(byte[] arr) {
-
-        try {
-
-            InputStream inputXML = new BufferedInputStream(getClass().getResourceAsStream("/jxls-einstellungen-mapping.xml"));
-            XLSReader mainReader = ReaderBuilder.buildFromXML(inputXML);
-
-            InputStream inputXLS = new ByteArrayInputStream(arr);
-
-            List einstellungen = new ArrayList();
-            SpielEinstellungen einstellung = new SpielEinstellungen();
-
-            Map beans = new HashMap();
-            beans.put("einstellungen", einstellungen);
-            beans.put("einstellunge", einstellung);
-
-            XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
-
-            LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
-
-            List<SpielEinstellungen> einst = (List<SpielEinstellungen>) beans.get("einstellungen");
-
-            return einst.get(0);
 
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
@@ -203,6 +173,63 @@ public class FromXLSLoader {
 
             return (List<File>) beans.get("attachements");
 
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+
+        return null;
+    }
+
+    public List<Text> convertXLSToTexte(byte[] arr) {
+
+        try {
+
+            InputStream inputXML = new BufferedInputStream(getClass().getResourceAsStream("/jxls-text-mapping.xml"));
+            XLSReader mainReader = ReaderBuilder.buildFromXML(inputXML);
+
+            InputStream inputXLS = new ByteArrayInputStream(arr);
+
+            List texte = new ArrayList();
+            Text text = new Text();
+
+            Map beans = new HashMap();
+            beans.put("texte", texte);
+            beans.put("text", text);
+
+            XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
+
+            LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
+
+            return (List<Text>) beans.get("texte");
+
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+
+        return null;
+    }
+
+    public List<Penalty> convertXLSToPenalty(byte[] arr) {
+
+        try {
+
+            InputStream inputXML = new BufferedInputStream(getClass().getResourceAsStream("/jxls-penalty-mapping.xml"));
+            XLSReader mainReader = ReaderBuilder.buildFromXML(inputXML);
+
+            InputStream inputXLS = new ByteArrayInputStream(arr);
+
+            List penaltys = new ArrayList();
+            Penalty penalty = new Penalty();
+
+            Map beans = new HashMap();
+            beans.put("penaltys", penaltys);
+            beans.put("penalty", penalty);
+
+            XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
+
+            LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
+
+            return (List<Penalty>) beans.get("penaltys");
 
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);

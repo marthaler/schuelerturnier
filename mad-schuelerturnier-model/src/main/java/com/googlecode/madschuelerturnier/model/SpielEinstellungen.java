@@ -4,17 +4,23 @@
 package com.googlecode.madschuelerturnier.model;
 
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
+
+import com.googlecode.madschuelerturnier.model.util.XstreamUtil;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.joda.time.DateTime;
 
 import javax.persistence.Entity;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * Implementiert Persistent nicht und ist keine Entity, wird mit Xstream serialisiert und als Text in die DB gespeichert
+ *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
-@Entity
-public class SpielEinstellungen extends Persistent {
+public class SpielEinstellungen implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -40,6 +46,8 @@ public class SpielEinstellungen extends Persistent {
 
     private int aufholzeitInSekunden = 60;
 
+    private int pollrequestSpeaker = 1;
+
     private boolean automatischesAufholen = false;
 
     private boolean automatischesVorbereiten = false;
@@ -50,7 +58,29 @@ public class SpielEinstellungen extends Persistent {
 
     private boolean gongEinschalten = false;
 
-    private boolean behandleFinaleProKlassebeiZusammengefuehrten = false;
+    private boolean behandleFinaleProKlassebeiZusammengefuehrten = true;
+
+    private boolean webcamdemomode = false;
+
+    private boolean webcamdemomodescharf = false;
+
+    private boolean websiteInMannschaftslistenmode = false;
+
+    private boolean websiteEnableDownloadLink = false;
+    private String websiteDownloadLink = "";
+
+    private boolean websiteEnableProgrammDownloadLink = false;
+    private String websiteProgrammDownloadLink = "";
+
+    private String websiteTurnierTitel ="";
+
+    private String websiteTurnierMeldung ="nichts";
+
+    private boolean mobileLinkOn = false;
+    private String mobileLink = "";
+
+    // 05 Spielverteilung
+    private int zweiPausenBisKlasse = 0;
 
     public SpielEinstellungen() {
         DateTime date = new DateTime();
@@ -141,6 +171,7 @@ public class SpielEinstellungen extends Persistent {
         this.test = test;
     }
 
+    @Deprecated
     public Date getStart() {
         return this.start;
     }
@@ -152,7 +183,7 @@ public class SpielEinstellungen extends Persistent {
     public void setStartJetzt(final boolean startJetzt) {
         this.startJetzt = startJetzt;
     }
-
+@Deprecated
     public void setStart(final Date start) {
         this.start = start;
     }
@@ -222,88 +253,21 @@ public class SpielEinstellungen extends Persistent {
     }
 
     @Override
-    public boolean equals(Object o) {       // NOSONAR
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        if (!super.equals(o)) {
-            return false;
-        }
-
-        SpielEinstellungen that = (SpielEinstellungen) o;
-
-        if (abbrechenZulassen != that.abbrechenZulassen) {
-            return false;
-        }
-        if (aufholzeitInSekunden != that.aufholzeitInSekunden) {
-            return false;
-        }
-        if (automatischesAnsagen != that.automatischesAnsagen) {
-            return false;
-        }
-        if (automatischesAufholen != that.automatischesAufholen) {
-            return false;
-        }
-        if (automatischesVorbereiten != that.automatischesVorbereiten) {
-            return false;
-        }
-        if (gongEinschalten != that.gongEinschalten) {
-            return false;
-        }
-        if (pause != that.pause) {
-            return false;
-        }
-        if (spiellaenge != that.spiellaenge) {
-            return false;
-        }
-        if (startJetzt != that.startJetzt) {
-            return false;
-        }
-        if (verschnellerungsFaktor != that.verschnellerungsFaktor) {
-            return false;
-        }
-        if (phase != that.phase) {
-            return false;
-        }
-        if (spielVertauschungen != null ? !spielVertauschungen.equals(that.spielVertauschungen) : that.spielVertauschungen != null) {
-            return false;
-        }
-        if (start != null ? !start.equals(that.start) : that.start != null) {
-            return false;
-        }
-        if (starttag != null ? !starttag.equals(that.starttag) : that.starttag != null) {
-            return false;
-        }
-        if (starttagstr != null ? !starttagstr.equals(that.starttagstr) : that.starttagstr != null) {
-            return false;
-        }
-        return !(test != null ? !test.equals(that.test) : that.test != null);
-
+    public boolean equals(Object o) {
+        return EqualsBuilder.reflectionEquals(this, o);
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (phase != null ? phase.hashCode() : 0);
-        result = 31 * result + (starttag != null ? starttag.hashCode() : 0);
-        result = 31 * result + (starttagstr != null ? starttagstr.hashCode() : 0);
-        result = 31 * result + (test != null ? test.hashCode() : 0);
-        result = 31 * result + (start != null ? start.hashCode() : 0);
-        result = 31 * result + verschnellerungsFaktor;
-        result = 31 * result + (startJetzt ? 1 : 0);
-        result = 31 * result + (spielVertauschungen != null ? spielVertauschungen.hashCode() : 0);
-        result = 31 * result + pause;
-        result = 31 * result + spiellaenge;
-        result = 31 * result + aufholzeitInSekunden;
-        result = 31 * result + (automatischesAufholen ? 1 : 0);
-        result = 31 * result + (automatischesVorbereiten ? 1 : 0);
-        result = 31 * result + (automatischesAnsagen ? 1 : 0);
-        result = 31 * result + (abbrechenZulassen ? 1 : 0);
-        result = 31 * result + (gongEinschalten ? 1 : 0);
-        return result;
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    public boolean isWebcamdemomode() {
+        return webcamdemomode;
+    }
+
+    public void setWebcamdemomode(boolean webcamdemomode) {
+        this.webcamdemomode = webcamdemomode;
     }
 
     public boolean isBehandleFinaleProKlassebeiZusammengefuehrten() {
@@ -313,4 +277,99 @@ public class SpielEinstellungen extends Persistent {
     public void setBehandleFinaleProKlassebeiZusammengefuehrten(boolean behandleFinaleProKlassebeiZusammengefuehrten) {
         this.behandleFinaleProKlassebeiZusammengefuehrten = behandleFinaleProKlassebeiZusammengefuehrten;
     }
+
+    public boolean getWebsiteInMannschaftslistenmode() {
+        return websiteInMannschaftslistenmode;
+    }
+
+    public void setWebsiteInMannschaftslistenmode(boolean websiteInMannschaftslistenmode) {
+        this.websiteInMannschaftslistenmode = websiteInMannschaftslistenmode;
+    }
+
+    public int getZweiPausenBisKlasse() {
+        return zweiPausenBisKlasse;
+    }
+
+    public void setZweiPausenBisKlasse(int zweiPausenBisKlasse) {
+        this.zweiPausenBisKlasse = zweiPausenBisKlasse;
+    }
+
+    public boolean isWebsiteInMannschaftslistenmode() {
+        return websiteInMannschaftslistenmode;
+    }
+
+    public boolean isWebsiteEnableDownloadLink() {
+        return websiteEnableDownloadLink;
+    }
+
+    public void setWebsiteEnableDownloadLink(boolean websiteEnableDownloadLink) {
+        this.websiteEnableDownloadLink = websiteEnableDownloadLink;
+    }
+
+    public String getWebsiteDownloadLink() {
+        return websiteDownloadLink;
+    }
+
+    public void setWebsiteDownloadLink(String websiteDownloadLink) {
+        this.websiteDownloadLink = websiteDownloadLink;
+    }
+
+    public String getWebsiteTurnierTitel() {
+        return websiteTurnierTitel;
+    }
+
+    public void setWebsiteTurnierTitel(String websiteTurnierTitel) {
+        this.websiteTurnierTitel = websiteTurnierTitel;
+    }
+
+
+    public boolean isWebsiteEnableProgrammDownloadLink() {
+        return websiteEnableProgrammDownloadLink;
+    }
+
+    public void setWebsiteEnableProgrammDownloadLink(boolean websiteEnableProgrammDownloadLink) {
+        this.websiteEnableProgrammDownloadLink = websiteEnableProgrammDownloadLink;
+    }
+
+    public String getWebsiteProgrammDownloadLink() {
+        return websiteProgrammDownloadLink;
+    }
+
+    public void setWebsiteProgrammDownloadLink(String websiteProgrammDownloadLink) {
+        this.websiteProgrammDownloadLink = websiteProgrammDownloadLink;
+    }
+
+    public boolean isWebcamdemomodescharf() {
+        return webcamdemomodescharf;
+    }
+
+    public void setWebcamdemomodescharf(boolean webcamdemomodescharf) {
+        this.webcamdemomodescharf = webcamdemomodescharf;
+    }
+
+
+    public boolean isMobileLinkOn() {
+        return mobileLinkOn;
+    }
+
+    public void setMobileLinkOn(boolean mobileLinkOn) {
+        this.mobileLinkOn = mobileLinkOn;
+    }
+
+    public String getMobileLink() {
+        return mobileLink;
+    }
+
+    public void setMobileLink(String mobileLink) {
+        this.mobileLink = mobileLink;
+    }
+
+    public int getPollrequestSpeaker() {
+        return pollrequestSpeaker;
+    }
+
+    public void setPollrequestSpeaker(int pollrequestSpeaker) {
+        this.pollrequestSpeaker = pollrequestSpeaker;
+    }
+
 }

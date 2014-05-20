@@ -51,26 +51,26 @@ public class LinkLoginSendlinkController {
             LOG.error(e.getMessage(), e);
         }
 
-        if(request.getServerPort() == 443){
-        adresse = "https://" + ipA.getHostAddress();
-        }else{
-            adresse ="http://" + ipA.getHostAddress() + ":" + request.getServerPort();
+        if (request.getServerPort() == 443) {
+            adresse = "https://" + ipA.getHostAddress();
+        } else {
+            adresse = "http://" + ipA.getHostAddress() + ":" + request.getServerPort();
         }
 
-        DBAuthUser user = repo.findByMail(bean.getMail());
+        DBAuthUser user = repo.findByMail(bean.getMail().toLowerCase().trim());
 
-        if(user == null){
-            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, "Eingegebene Emailadresse wurde nicht gefunden",""));
+        if (user == null) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Eingegebene Emailadresse wurde nicht gefunden", ""));
             return;
         }
 
-        String text = "Sie haben einen Anmeldelink für die Schülerturnier Applikation bestellt: \n"+
-        adresse + "/app/login/link/"+user.getLinktoken() + "\n\n"+
+        String text = "Sie haben einen Anmeldelink für die Schülerturnier Applikation bestellt: \n" +
+                adresse + "/app/login/link/" + user.getLinktoken() + "\n\n" +
 
-        "Falls sie ihr Passwort ändern möchten können sie das nach dem anklicken \n des Links tun indem sie "+
+                "Falls sie ihr Passwort ändern möchten können sie das nach dem anklicken \n des Links tun indem sie " +
                 "ihren Benutzernamen (oben rechts) anklicken";
 
-        sender.sendMail(user.getMail(),"informatik@schuelerturnier-scworb.ch","Anmeldung per Link" , text);
+        sender.sendMail(user.getMail(), "informatik@schuelerturnier-scworb.ch", "Anmeldung per Link", text);
 
     }
 

@@ -58,7 +58,7 @@ public class MavenVersionUtil {
     }
 
     public String getTime() {
-        if(this.showTime){
+        if (this.showTime) {
             return this.time;
         }
         return "";

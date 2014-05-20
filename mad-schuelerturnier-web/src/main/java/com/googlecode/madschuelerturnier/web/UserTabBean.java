@@ -1,7 +1,8 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.web;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import org.primefaces.event.TabChangeEvent;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -10,13 +11,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserTabBean {
 
-    private int activeIndex =0;
-
+    private int activeIndex = 0;
 
     public void onTabChange(TabChangeEvent event) {
-        activeIndex = Integer.parseInt(event.getTab().getId() .replace("tab",""));
+        activeIndex = Integer.parseInt(event.getTab().getId().replace("tab", ""));
     }
-
 
     public int getActiveIndex() {
         return activeIndex;

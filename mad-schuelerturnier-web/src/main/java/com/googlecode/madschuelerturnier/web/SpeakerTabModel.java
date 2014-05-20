@@ -1,5 +1,7 @@
 package com.googlecode.madschuelerturnier.web;
-
+/**
+ * Apache License 2.0
+ */
 import org.primefaces.event.TabChangeEvent;
 import org.springframework.stereotype.Component;
 

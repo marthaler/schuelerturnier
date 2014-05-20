@@ -31,7 +31,7 @@
 
                                     <h:outputLabel value="Starttag "/>
                                     <p:calendar id="starttag" value="#{spieleinstellungen.starttag}"
-                                                disabled="#{!empty spielZeilenSa}"/>
+                                                />
 
                                     <h:outputLabel value="Spiellaenge "/>
                                     <p:inputMask value="#{spieleinstellungen.spiellaenge}"
@@ -42,7 +42,7 @@
                                                  disabled="#{!empty spielZeilenSa}"/>
 
                                     <p:commandButton id="submit" value="Speichern" action="save"
-                                                     rendered="#{empty spielZeilenSa}"/>
+                                                     />
 
 
                                 </h:panelGrid>
@@ -62,7 +62,7 @@
 
                                 <br/>
 
-                                <p:commandButton widgetVar="submit2" id="man" value="Change" action="man"
+                                <p:commandButton widgetVar="submit2" id="manuellekorrekturen" value="ChangeManuelleKorrekturen" action="man"
                                                  ajax="false" execute="@form" update="@form"/>
 
 

@@ -16,18 +16,16 @@ import com.googlecode.madschuelerturnier.model.comperators.KategorieNameComperat
 import com.googlecode.madschuelerturnier.model.enums.SpielPhasenEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielTageszeit;
 import com.googlecode.madschuelerturnier.model.integration.StartFile;
+import com.googlecode.madschuelerturnier.model.util.XstreamUtil;
 import com.googlecode.madschuelerturnier.persistence.repository.*;
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -61,6 +59,9 @@ public class BusinessImpl implements Business {
     private SpielZeilenRepository spielzeilenRepo;
 
     @Autowired
+    private SpielRepository spielRepository;
+
+    @Autowired
     private SpielEinstellungenRepository spielEinstellungenRepo;
 
     @Autowired
@@ -71,9 +72,6 @@ public class BusinessImpl implements Business {
 
     @Autowired
     private Zeitgeber zeitgeber;
-
-    @Autowired
-    private ToXLSDumper xlsdumper;
 
     @Autowired
     private FromXLSLoader xls;
@@ -94,9 +92,14 @@ public class BusinessImpl implements Business {
     private ImportHandler importHandler;
 
     @Autowired
-    private DropboxConnector dropbox;
+    private TextRepository trepo;
 
-    private SpielEinstellungen einstellungen;
+    @Autowired
+    private PenaltyRepository prepo;
+
+    @Autowired
+    @Qualifier("dropboxConnector")
+    private DropboxConnector dropbox;
 
     final Set<String> schulhaeuser = new HashSet<String>();
 
@@ -110,7 +113,7 @@ public class BusinessImpl implements Business {
 
     @PostConstruct //NOSONAR
     private void init() {
-        einstellungen = getSpielEinstellungen();
+        SpielEinstellungen einstellungen = getSpielEinstellungen();
         if (einstellungen != null && einstellungen.isStartJetzt()) {
             this.startClock();
         }
@@ -157,7 +160,7 @@ public class BusinessImpl implements Business {
     public List<String> getSchulhausListe(final String query) {
         final Set<String> strings = new HashSet<String>();
 
-        if(this.schulhaeuser.size() < 1){
+        if (this.schulhaeuser.size() < 1) {
             updateAutocompletesMannschaften(getMannschaften());
         }
 
@@ -178,7 +181,7 @@ public class BusinessImpl implements Business {
     public List<String> getEmailsListe(final String query) {
         final Set<String> strings = new HashSet<String>();
 
-        if(emails.size() < 1){
+        if (emails.size() < 1) {
             this.updateAutocompletesMannschaften(getMannschaften());
         }
 
@@ -199,7 +202,7 @@ public class BusinessImpl implements Business {
     public List<String> getPersonenListe(final String query) {
         final Set<String> strings = new HashSet<String>();
 
-        if(namen.size() < 1){
+        if (namen.size() < 1) {
             this.updateAutocompletesMannschaften(getMannschaften());
         }
 
@@ -247,31 +250,21 @@ public class BusinessImpl implements Business {
      * @see com.googlecode.madschuelerturnier.business.sdfdf#getSpielEinstellungen()
      */
     public SpielEinstellungen getSpielEinstellungen() {
-
-        // noch nicht im cache
-        if (this.einstellungen == null && this.spielEinstellungenRepo.count() > 0) {
-            this.einstellungen = this.spielEinstellungenRepo.findAll().get(0);
-        }
+        SpielEinstellungen einstellungen = spielEinstellungenRepo.getEinstellungen();
 
         // einstellungen bereits im cache
-        if (this.einstellungen != null) {
+        if (einstellungen != null) {
 
             if (verarbeiter.isFertig()) {
                 einstellungen.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
                 this.saveEinstellungen(einstellungen);
             }
-            return einstellungen;
         }
+        return this.spielEinstellungenRepo.getEinstellungen();
+    }
 
-        // noch nicht aus der db geladen, laden
-        if (this.spielEinstellungenRepo.count() > 1) {
-            einstellungen = this.spielEinstellungenRepo.findAll().iterator().next();
-            return einstellungen;
-        }
-
-        // noch nicht initialisiert
-        return null;
-
+    public void setSpielEinstellungen(SpielEinstellungen einstellungenNeu) {
+        saveEinstellungen(einstellungenNeu);
     }
 
     /*
@@ -284,13 +277,9 @@ public class BusinessImpl implements Business {
         if (einstellungenNeu == null) {
             return null;
         }
-        if (verarbeiter.isFertig()) {
-            einstellungen.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
-        }
 
-        // falls keine aenderung wird einstellung zurueckgegeben
-        if (this.einstellungen != null && einstellungenNeu.equals(this.einstellungen)) {
-            return einstellungenNeu;
+        if (verarbeiter.isFertig()) {
+            einstellungenNeu.setPhase(SpielPhasenEnum.G_ABGESCHLOSSEN);
         }
 
         // spieldatum auf 0 Uhr zuruecksetzen
@@ -299,9 +288,9 @@ public class BusinessImpl implements Business {
         time = time.minusMillis(millis);
         einstellungenNeu.setStarttag(new Date(time.getMillis()));
 
+        this.spielEinstellungenRepo.save(einstellungenNeu);
 
-        this.einstellungen = this.spielEinstellungenRepo.save(einstellungenNeu);
-        return this.einstellungen;
+        return spielEinstellungenRepo.getEinstellungen();
     }
 
 
@@ -325,9 +314,9 @@ public class BusinessImpl implements Business {
             k.setSpielwunsch(SpielTageszeit.SAMSTAGMORGEN);
             spielwunsch = "morgen";
         } else if (wunsch.equals(SpielTageszeit.SAMSTAGMORGEN)) {
-            k.setSpielwunsch(SpielTageszeit.SAMMSTAGNACHMITTAG);
+            k.setSpielwunsch(SpielTageszeit.SAMSTAGNACHMITTAG);
             spielwunsch = "nachmittag";
-        } else if (wunsch.equals(SpielTageszeit.SAMMSTAGNACHMITTAG)) {
+        } else if (wunsch.equals(SpielTageszeit.SAMSTAGNACHMITTAG)) {
             k.setSpielwunsch(SpielTageszeit.SONNTAGMORGEN);
             spielwunsch = "sonntag";
         }
@@ -405,15 +394,18 @@ public class BusinessImpl implements Business {
 
         List<SpielZeile> ret;
         if (!sonntag) {
-            ret = this.spielzeilenRepo.findSpieleSammstag();
+            ret = this.spielzeilenRepo.findSpieleSamstag();
 
         } else {
             ret = this.spielzeilenRepo.findSpieleSonntag();
         }
 
         SpielZeile vorher = null;
+        SpielZeile vorVorher = null;
+
         for (final SpielZeile spielZeile : ret) {
-            this.val.validateSpielZeilen(vorher, spielZeile);
+            this.val.validateSpielZeilen(vorher, vorVorher,spielZeile);
+            vorVorher = vorher;
             vorher = spielZeile;
         }
 
@@ -482,7 +474,7 @@ public class BusinessImpl implements Business {
                 zeile.setSpieltageszeit(SpielTageszeit.SAMSTAGMORGEN);
             }
             if (!sonntag && (start.getHourOfDay() > MITTAG)) {
-                zeile.setSpieltageszeit(SpielTageszeit.SAMMSTAGNACHMITTAG);
+                zeile.setSpieltageszeit(SpielTageszeit.SAMSTAGNACHMITTAG);
             }
 
             zeile.setStart(start.toDate());
@@ -628,49 +620,42 @@ public class BusinessImpl implements Business {
 
     @Override
     public boolean isDBInitialized() {
-        return this.getSpielEinstellungen() != null;
+        return spielEinstellungenRepo.isInitialized();
     }
 
     @Override
     public void initializeDB() {
-        if (this.spielEinstellungenRepo.count() > 0) {
+        SpielEinstellungen einst = getSpielEinstellungen();
+        if (einst != null) {
             BusinessImpl.LOG.info("achtung versuch spiel einstellungen zu initialisieren obwohl bereits in der db vorhanden ");
-            this.einstellungen = spielEinstellungenRepo.findAll().get(0);
         } else {
             SpielEinstellungen eins = new SpielEinstellungen();
-            this.einstellungen = this.spielEinstellungenRepo.save(eins);
+            this.spielEinstellungenRepo.save(eins);
         }
     }
 
-    public void sendDumpToRemotes(){
-        // sende das initiale file an die weiteren empfaenger
-        StartFile file = new StartFile();
-        byte[] arr = this.xlsdumper.mannschaftenFromDBtoXLS();
-        file.setContent(arr);
-        this.outSender.onChangeModel(file);
-// todo !!!
-      //      IOUtils.write(arr,new FileWriter(new File("/test.xml")));
-
+    public void sendDumpToRemotes() {
+        // todo !!! weg !!!
     }
 
     public void generateSpielFromXLS(byte[] xlsIn) {
 
-        if(this.initialized){
+        if (this.initialized) {
             LOG.info("generateSpielFromXLS: ist aber bereits initialisiert, mache nichts");
             return;
         }
 
         this.initialized = true;
 
-        // Einstellungen sichern
-        SpielEinstellungen einstellungen = xls.convertXLSToEinstellung(xlsIn);
-        saveEinstellungen(einstellungen);
-        LOG.info("einstellungen gespeicher: " + einstellungen);
+        // Texte sichern
+        List<Text> text = xls.convertXLSToTexte(xlsIn);
+        trepo.save(text);
+        LOG.info("texte gespeicher: " + text);
 
         // Mannschaften laden und updaten
         List<Mannschaft> mannschaftsliste = xls.convertXLSToMannschaften(xlsIn);
         for (Mannschaft m : mannschaftsliste) {
-            mannschaftsRepo.save(m);
+            m = mannschaftsRepo.save(m);
             LOG.info("mannschaft gespeicher: " + m);
         }
 
@@ -697,10 +682,18 @@ public class BusinessImpl implements Business {
             LOG.info("attachements gespeicher: " + f);
         }
 
+        // Penalty laden und updaten
+        List<com.googlecode.madschuelerturnier.model.Penalty> penalty = xls.convertXLSToPenalty(xlsIn);
+        LOG.info("penaltys geladen: " + penalty.size());
+        for (com.googlecode.madschuelerturnier.model.Penalty p : penalty) {
+            prepo.save(p);
+            LOG.info("attachements gespeicher: " + p);
+        }
+
         // Spiele laden und updaten
         List<Spiel> spiele = xls.convertXLSToSpiele(xlsIn);
         LOG.info("spiele geladen: " + spiele.size());
-
+        // NICHT! spiele = spielRepository.save(spiele);
         importHandler.turnierHerstellen(spiele);
 
         this.initializeDB();
@@ -710,6 +703,11 @@ public class BusinessImpl implements Business {
 
     @Override
     public void initializeDropbox(String file) {
-        generateSpielFromXLS(dropbox.selectGame(file));
+        byte[] xls = dropbox.selectGame(file);
+        if (xls == null) {
+            this.initializeDB();
+        } else {
+            generateSpielFromXLS(xls);
+        }
     }
 }

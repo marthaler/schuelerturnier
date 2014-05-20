@@ -3,8 +3,10 @@
  */
 package com.googlecode.madschuelerturnier.business.vorbereitung.helper;
 
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.SpielZeile;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -18,8 +20,12 @@ import java.util.Set;
 @Component
 public class SpielzeilenValidator {
 
-    public String validateSpielZeilen(SpielZeile zeileVorher,
-                                      SpielZeile zeileJetzt) {
+    @Autowired
+    private Business business;
+
+    public String validateSpielZeilen(SpielZeile zeileVorher,SpielZeile zeileVorVorher, SpielZeile zeileJetzt) {
+
+        int zweipausenBisKlasse = business.getSpielEinstellungen().getZweiPausenBisKlasse();
 
         // Mannschafts konflikt reseten
         for (Mannschaft m : zeileJetzt.getAllMannschaften()) {
@@ -30,8 +36,17 @@ public class SpielzeilenValidator {
         Set<Mannschaft> konflikte = new HashSet<Mannschaft>();
 
         // pruefung durchfuehren
-        ret = pruefe(zeileVorher, zeileJetzt, ret, konflikte);
+        ret = pruefeObInVorherigerZeileVorhanden(zeileVorVorher, zeileJetzt, ret, konflikte, true,zweipausenBisKlasse );
 
+        ret = pruefeObInVorherigerZeileVorhanden(zeileVorher, zeileJetzt, ret, konflikte, false,zweipausenBisKlasse);
+
+        ret = pruefeDoppelteIngleicherZeile(zeileJetzt, ret);
+
+        zeileJetzt.setKonfliktText(ret);
+        return ret;
+    }
+
+    private String pruefeDoppelteIngleicherZeile(SpielZeile zeileJetzt, String ret) {
         Set<Mannschaft> doppelte = new HashSet<Mannschaft>();
         for (Mannschaft jetzt : zeileJetzt.getAllMannschaften()) {
             int i = 0;
@@ -48,7 +63,7 @@ public class SpielzeilenValidator {
 
         if (doppelte.size() > 0) {
 
-            ret = ret + " In dieser Zeile hat es doppelte Mannschaften:";
+            ret = ret + " in dieser zeile hat es doppelte mannschaften:";
 
             for (Mannschaft mannschaft : doppelte) {
                 ret = ret + " " + mannschaft.getName();
@@ -56,11 +71,10 @@ public class SpielzeilenValidator {
 
             ret = ret + "!";
         }
-        zeileJetzt.setKonfliktText(ret);
         return ret;
     }
 
-    private String pruefe(SpielZeile zeileVorher, SpielZeile zeileJetzt, String retIn, Set<Mannschaft> konflikte) {
+    private String pruefeObInVorherigerZeileVorhanden(SpielZeile zeileVorher, SpielZeile zeileJetzt, String retIn, Set<Mannschaft> konflikte, boolean vorvorher,int zweipausenBisKlasse) {
 
         String ret = retIn;
 
@@ -68,14 +82,23 @@ public class SpielzeilenValidator {
             List<Mannschaft> vorherList = zeileVorher.getAllMannschaften();
 
             for (Mannschaft jetzt : zeileJetzt.getAllMannschaften()) {
+
+                // skip wenn vorvorher und groesser als zweipausenBisKlasse
+                if(vorvorher && zweipausenBisKlasse < jetzt.getKlasse()){
+                    continue;
+                }
+
                 if (vorherList.contains(jetzt)) {
                     jetzt.setKonflikt(true);
                     konflikte.add(jetzt);
-
                 }
             }
             if (konflikte.size() > 0) {
-                ret = ret + " Bereits in der voherigen Zeile vorhanden:";
+                if(vorvorher){
+                    ret = ret + " Bereits in der vor-voherigen zeile vorhanden:";
+                } else {
+                    ret = ret + " Bereits in der voherigen zeile vorhanden:";
+                }
                 for (Mannschaft mannschaft : konflikte) {
                     ret = ret + " " + mannschaft.getName();
                 }

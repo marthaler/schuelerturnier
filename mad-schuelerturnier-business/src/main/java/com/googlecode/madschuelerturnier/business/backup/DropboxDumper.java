@@ -10,6 +10,7 @@ import com.googlecode.madschuelerturnier.model.callback.ModelChangeListener;
 import com.googlecode.madschuelerturnier.model.callback.ModelChangeListenerManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,7 @@ import javax.annotation.PostConstruct;
 import java.io.Serializable;
 
 /**
- * Speichert die ganze DB asl XLS in die Dropbox falls dies die Master Instanz ist
+ * Speichert die ganze DB als XLS in die Dropbox falls dieser Server die Master Instanz ist
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8
@@ -35,6 +36,7 @@ public class DropboxDumper implements ModelChangeListener {
     private ToXLSDumper dumper;
 
     @Autowired
+    @Qualifier("dropboxConnector")
     private DropboxConnector dropbox;
 
     @Autowired

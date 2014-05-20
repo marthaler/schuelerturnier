@@ -7,13 +7,18 @@ import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * Repository interface for {@link SpielEinstellungen} instances. Provides basic CRUD operations due to the extension of
- * {@link JpaRepository}. Includes custom implemented functionality by extending {@link JpaRepository}.
+ * Trick fuer die Speicherung und den Zugriff auf das Spieleinstellungsobjekt, welches bloss als
+ * Xstream Text abgespeichert ist
  *
  * @author $Author: marthaler.worb@gmail.com $
- * @since 0.7
+ * @since 1.3.0
  */
-public interface SpielEinstellungenRepository extends JpaRepository<SpielEinstellungen, Long> {
+public interface SpielEinstellungenRepository {
 
+    public SpielEinstellungen getEinstellungen();
+
+    public void save(SpielEinstellungen einstellung);
+
+    public boolean isInitialized();
 
 }

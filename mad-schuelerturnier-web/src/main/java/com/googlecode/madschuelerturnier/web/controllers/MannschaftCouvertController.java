@@ -3,7 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.web.controllers;
 
-import com.googlecode.madschuelerturnier.business.pdf.MannschaftBegeiterA5CouverPDFCreator;
+import com.googlecode.madschuelerturnier.business.pdf.MannschaftBegleiterA5CouverPDFCreator;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +28,13 @@ public class MannschaftCouvertController {
     private static final Logger LOG = Logger.getLogger(MannschaftCouvertController.class);
 
     @Autowired
-    private MannschaftBegeiterA5CouverPDFCreator cr;
+    private MannschaftBegleiterA5CouverPDFCreator cr;
 
     @RequestMapping(value = "/couvertdownload", method = RequestMethod.GET)
     public void getFile(HttpServletResponse response) {
         try {
             response.setContentType("application/pdf");
-            response.setHeader("Content-disposition","inline; filename=couverts.pdf");
+            response.setHeader("Content-disposition", "inline; filename=couverts.pdf");
             response.setHeader("Cache-Control", "no-cache");
             response.setDateHeader("Expires", 0);
             response.setHeader("Pragma", "No-cache");
@@ -45,7 +45,7 @@ public class MannschaftCouvertController {
             IOUtils.copy(is, response.getOutputStream());
             response.flushBuffer();
         } catch (IOException ex) {
-            LOG.error(ex.getMessage(),ex);
+            LOG.error(ex.getMessage(), ex);
         }
 
     }

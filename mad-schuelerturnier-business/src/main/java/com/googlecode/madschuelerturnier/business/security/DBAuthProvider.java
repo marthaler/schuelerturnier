@@ -25,26 +25,26 @@ public class DBAuthProvider extends AbstractUserDetailsAuthenticationProvider {
     @Autowired
     AuditLogRepository repo;
 
-    private Md5PasswordEncoder md5Encoder  = new Md5PasswordEncoder();
+    private Md5PasswordEncoder md5Encoder = new Md5PasswordEncoder();
 
     @Override
     protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
 
         UserDetails loadedUser = this.userDetailsService.loadUserByUsername(username);
 
-        try{
-        if ( md5Encoder.isPasswordValid(loadedUser.getPassword(), authentication.getCredentials().toString(), null) || loadedUser.getPassword().equals( authentication.getCredentials().toString())) {
+        try {
+            if (md5Encoder.isPasswordValid(loadedUser.getPassword(), authentication.getCredentials().toString(), null) || loadedUser.getPassword().equals(authentication.getCredentials().toString())) {
 
+                AuditLog l = new AuditLog();
+                l.setText(username + " hat sich angemeldet");
+                repo.save(l);
+
+                return loadedUser;
+            }
+
+        } catch (UsernameNotFoundException e) {
             AuditLog l = new AuditLog();
-            l.setText(username +" hat sich angemeldet");
-            repo.save(l);
-
-            return loadedUser;
-        }
-
-        } catch(UsernameNotFoundException e){
-            AuditLog l = new AuditLog();
-                    l.setText("fehlgeschlagener anmeldungsversuch von: " + username + " -> " +e.getMessage());
+            l.setText("fehlgeschlagener anmeldungsversuch von: " + username + " -> " + e.getMessage());
             repo.save(l);
             throw e;
         }
@@ -55,7 +55,6 @@ public class DBAuthProvider extends AbstractUserDetailsAuthenticationProvider {
 
         throw new BadCredentialsException("passwort ungueltig");
     }
-
 
 
     @Override

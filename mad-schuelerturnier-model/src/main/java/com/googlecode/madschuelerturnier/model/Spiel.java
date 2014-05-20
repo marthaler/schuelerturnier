@@ -5,11 +5,9 @@ package com.googlecode.madschuelerturnier.model;
 
 import com.googlecode.madschuelerturnier.model.enums.PlatzEnum;
 import com.googlecode.madschuelerturnier.model.enums.SpielEnum;
+import com.googlecode.madschuelerturnier.model.enums.SpielZeilenPhaseEnum;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -48,13 +46,19 @@ public class Spiel extends Persistent {
     private boolean fertigBestaetigt = false;
     private boolean zurueckgewiesen = false;
 
+    private String realName = "";
+
     // hilfsfeld zum ausgeben der finale, falls noch keine mannschaft bestimmt wurde
     private String kategorieName;
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    private Text notizen = new Text();
+    @Lob
+    private String notizen = "";
 
     // fuer jxl import
+
+    // dient dazu den spiel zeilen zustand im xls abzulegen
+    private SpielZeilenPhaseEnum spielZeilenPhase = SpielZeilenPhaseEnum.A_ANSTEHEND;
+
     @Transient
     private int mannschaftAId;
 
@@ -71,53 +75,38 @@ public class Spiel extends Persistent {
 
     }
 
+    public int evaluateFloorKlasse(){
+        if(this.getGruppe() == null){
+            return -1;
+        }
+        return this.getGruppe().evaluateFloorKlasse();
+    }
+
     // getter und setter fuer xls export und import
 
     public void setId(Long id) {  // NOSONAR
         super.setId(id);
     }
-
+    @Deprecated
     public void setNotes(String notes) {
-        if (this.notizen == null) {
-            this.notizen = new Text();
-        }
-        this.notizen.setValue(notes);
+       this.notizen = notes;
     }
 
+    @Deprecated
     public String getNotes() {
-        if (this.notizen != null) {
-            return this.notizen.getValue();
-        }
-        return "";
+        return this.notizen;
     }
 
-    public void setTypString(String typIn) {
-
-        String typS = typIn.toLowerCase();
-
-        if (typS.equals("gfinal")) {
-            this.typ = SpielEnum.GFINAL;
-        }
-        if (typS.equals("kfinal")) {
-            this.typ = SpielEnum.KFINAL;
-        }
-        if (typS.equals("gruppe")) {
-            this.typ = SpielEnum.GRUPPE;
-        }
+    public void setTypString(String in) {
+        this.typ = SpielEnum.fromString(in);
     }
 
-    public void setPlatzString(String platzIn) {
-        String platzS = platzIn.toLowerCase();
+    public void setSpielZeilenPhaseString(String in) {
+        this.spielZeilenPhase = SpielZeilenPhaseEnum.fromString(in);
+    }
 
-        if (platzS.equals("a")) {
-            this.platz = PlatzEnum.A;
-        }
-        if (platzS.equals("b")) {
-            this.platz = PlatzEnum.B;
-        }
-        if (platzS.equals("c")) {
-            this.platz = PlatzEnum.C;
-        }
+    public void setPlatzString(String in) {
+        this.platz = PlatzEnum.fromString(in);
     }
 
     public String getMannschaftAName() {
@@ -130,6 +119,20 @@ public class Spiel extends Persistent {
             return "A, KF ";
         }
 
+    }
+
+    public String evaluateToreABestateigtString(){
+        if(this.toreABestaetigt == NOT_INIT_FLAG){
+            return "--";
+        }
+        return String.format("%02d", this.toreABestaetigt);
+    }
+
+    public String evaluateToreBBestateigtString(){
+        if(this.toreBBestaetigt == NOT_INIT_FLAG){
+            return "--";
+        }
+        return String.format("%02d", this.toreBBestaetigt);
     }
 
     public String getMannschaftBName() {
@@ -342,6 +345,22 @@ public class Spiel extends Persistent {
     }
 
 
+    public String getWebsiteName(){
+        if(!this.realName.isEmpty()){
+            return this.realName;
+        }
+        String ret = "";
+
+        if (this.typ == SpielEnum.GFINAL) {
+            ret = ret + "GrFin-" + this.getKategorieName();
+        } else if (this.typ == SpielEnum.KFINAL) {
+            ret = ret + "KlFin-" + this.getKategorieName();
+        } else {
+            ret = ret + this.getTyp();
+        }
+        return ret;
+    }
+
     @Override
     public String toString() {
 
@@ -399,12 +418,12 @@ public class Spiel extends Persistent {
         this.kategorieName = kategorieName;
     }
 
-    public Text getNotizen() {
+    public String getNotizen() {
         return notizen;
     }
 
-    public void setNotizen(Text notitzen) {
-        this.notizen = notitzen;
+    public void setNotizen(String notizen) {
+        this.notizen = notizen;
     }
 
     public int getMannschaftAId() {
@@ -422,4 +441,17 @@ public class Spiel extends Persistent {
     public void setMannschaftBId(int mannschaftBId) {
         this.mannschaftBId = mannschaftBId;
     }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public SpielZeilenPhaseEnum getSpielZeilenPhase() {
+        return spielZeilenPhase;
+    }
+
+    public void setSpielZeilenPhase(SpielZeilenPhaseEnum spielZeilenPhase) {
+        this.spielZeilenPhase = spielZeilenPhase;
+    }
+
 }

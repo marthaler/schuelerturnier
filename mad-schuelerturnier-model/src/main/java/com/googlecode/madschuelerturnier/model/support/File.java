@@ -6,21 +6,23 @@ package com.googlecode.madschuelerturnier.model.support;
 
 import com.googlecode.madschuelerturnier.model.Persistent;
 import org.apache.log4j.Logger;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
-import javax.persistence.*;
-import java.io.IOException;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Speichert ein beliebiges File in der DB
  * Es existiert die Moeglichkeit den Inhalt als Base64 String zu
  * holen und zu setzen
- * @author $Author: marthaler.worb@gmail.com $
  *
+ * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8
  */
 @Entity
+@Table(uniqueConstraints=
+@UniqueConstraint(columnNames = {"pearID", "typ"}))
 public class File extends Persistent {
 
     private static final long serialVersionUID = 1L;
@@ -34,7 +36,7 @@ public class File extends Persistent {
     private String typ;
 
     // id des zugehoerigen datensatzes im restlichen model
-    private Integer pearID;
+    private Long pearID;
 
     private String mimeType;
 
@@ -65,25 +67,19 @@ public class File extends Persistent {
     }
 
     // spezielle zugriffsmethoden
-    public String getContentBase64(){
-        BASE64Encoder encoder = new BASE64Encoder();
-        return encoder.encode(this.content);
+    public String getContentBase64() {
+        return org.apache.commons.codec.binary.Base64.encodeBase64String(this.content);
     }
 
-    public void setContentBase64(String content){
-        BASE64Decoder decoder = new BASE64Decoder();
-        try {
-            this.content = decoder.decodeBuffer(content);
-        } catch (IOException e) {
-            LOG.error(e.getMessage(),e);
-        }
+    public void setContentBase64(String content) {
+        this.content = org.apache.commons.codec.binary.Base64.decodeBase64(content);
     }
 
-    public Integer getPearID() {
+    public Long getPearID() {
         return pearID;
     }
 
-    public void setPearID(Integer pearID) {
+    public void setPearID(Long pearID) {
         this.pearID = pearID;
     }
 
@@ -95,9 +91,9 @@ public class File extends Persistent {
         this.mimeType = mimeType;
     }
 
-    public String getSuffix(){
+    public String getSuffix() {
         String[] arr = this.dateiName.split("\\.");
-        if(arr.length<2){
+        if (arr.length < 2) {
             return "bin";
         }
 

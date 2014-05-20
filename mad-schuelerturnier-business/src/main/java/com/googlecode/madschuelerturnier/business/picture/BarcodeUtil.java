@@ -1,3 +1,6 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.business.picture;
 
 import com.google.zxing.*;
@@ -14,6 +17,12 @@ import org.apache.log4j.Logger;
 import java.awt.image.BufferedImage;
 import java.util.*;
 
+/**
+ * Kodieren und dekodieren von QR Codes
+ *
+ * @author marthaler.worb@gmail.com
+ * @since 1.2.7
+ */
 public final class BarcodeUtil {
 
     private static final Logger LOG = Logger.getLogger(BarcodeUtil.class);
@@ -40,10 +49,7 @@ public final class BarcodeUtil {
         BinaryBitmap bitmap = new BinaryBitmap(new GlobalHistogramBinarizer(source));
         Collection<Result> results = new ArrayList<Result>(1);
 
-
         try {
-
-
             // Look for multiple barcodes
             MultipleBarcodeReader multiReader = new GenericMultipleBarcodeReader(reader);
             Result[] theResults = multiReader.decodeMultiple(bitmap, HINTS);
@@ -51,49 +57,38 @@ public final class BarcodeUtil {
                 results.addAll(Arrays.asList(theResults));
             }
 
-
             if (results.isEmpty()) {
-
                 // Look for pure barcode
                 Result theResult = reader.decode(bitmap, HINTS_PURE);
                 if (theResult != null) {
                     results.add(theResult);
                 }
-
             }
 
             if (results.isEmpty()) {
-
                 // Look for normal barcode in photo
                 Result theResult = reader.decode(bitmap, HINTS);
                 if (theResult != null) {
                     results.add(theResult);
                 }
-
             }
 
             if (results.isEmpty()) {
-
                 // Try again with other binarizer
                 BinaryBitmap hybridBitmap = new BinaryBitmap(new HybridBinarizer(source));
                 Result theResult = reader.decode(hybridBitmap, HINTS);
                 if (theResult != null) {
                     results.add(theResult);
                 }
-
             }
 
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
         }
 
-
         for (Result result : results) {
-
             return result.getText();
-
         }
-
 
         return "";
     }
@@ -104,8 +99,6 @@ public final class BarcodeUtil {
         QRCodeWriter writer = new QRCodeWriter();
         BitMatrix matrix;
         try {
-
-
             Map<EncodeHintType, Object> hints = new EnumMap<EncodeHintType, Object>(EncodeHintType.class);
             hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
             hints.put(EncodeHintType.MARGIN, 1);
