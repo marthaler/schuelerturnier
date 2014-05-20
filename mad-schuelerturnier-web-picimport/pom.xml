@@ -20,6 +20,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data-jpa.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.googlecode.madschuelerturnier</groupId>
             <artifactId>mad-schuelerturnier-model</artifactId>
             <version>${project.version}</version>
