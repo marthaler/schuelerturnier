@@ -74,7 +74,7 @@
                         <configuration>
                             <onejarVersion>0.97</onejarVersion>
                             <attachToBuild>true</attachToBuild>
-                            <classifier></classifier>
+                            <classifier />
                         </configuration>
                         <goals>
                             <goal>one-jar</goal>
