@@ -44,9 +44,6 @@ public class SpielRepositoryDelegate {
             if (spiel.getId() == idl && spiel.getToreA() > -1 && spiel.getToreB() > -1) {
                 spiel.setFertigEingetragen(true);
                 spielRepository.save(spiel);
-                SpielEinstellungen einst = business.getSpielEinstellungen();
-                einst.setStarttag(spiel.getStart());
-                business.saveEinstellungen(einst);
             }
         }
     }
@@ -62,6 +59,11 @@ public class SpielRepositoryDelegate {
                     spiel.setToreABestaetigt(spiel.getToreA());
                     spiel.setToreBBestaetigt(spiel.getToreB());
                     spielRepository.save(spiel);
+
+                    SpielEinstellungen einst = business.getSpielEinstellungen();
+                    einst.setStarttag(spiel.getStart());
+                    business.saveEinstellungen(einst);
+
                     resultateVerarbeiter.signalFertigesSpiel(spiel.getId());
                 } else {
                     spiel.setZurueckgewiesen(true);
