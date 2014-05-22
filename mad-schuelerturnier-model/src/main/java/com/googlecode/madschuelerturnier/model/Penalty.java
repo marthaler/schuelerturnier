@@ -146,11 +146,11 @@ public class Penalty extends Persistent {
         StringBuilder stringBuilder = new StringBuilder();
         Mannschaft latest = null;
         for (Mannschaft m : finalList) {
-            stringBuilder.append(m.getName().toLowerCase() + ",");
+            stringBuilder.append(m.getName() + ",");
             latest = m;
         }
         String ret = stringBuilder.toString();
-        return ret.replace(latest.getName().toLowerCase() + ",", latest.getName().toLowerCase());
+        return ret.replace(latest.getName() + ",", latest.getName().toLowerCase());
     }
 
     public String getReihenfolge() {

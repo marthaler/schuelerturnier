@@ -1,13 +1,7 @@
 package com.googlecode.madschuelerturnier;
 
 import com.googlecode.madschuelerturnier.util.SeleniumDriverWrapper;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created with IntelliJ IDEA. User: dama Date: 02.01.13 Time: 19:30 To change this template use File | Settings | File Templates.
@@ -59,10 +53,9 @@ public class SeleniumWebcamThread extends Thread {
                 this.util.sleepAMoment();
 
                 this.util.clickById("form1:j_idt25:suchen");
-                this.util.sleepAMoment(3);
+                this.util.sleepAMoment(2);
 
                 this.util.sendById("form1:j_idt25:ToreA", aExt);
-                this.util.sleepAMoment();
                 this.util.sendById("form1:j_idt25:ToreB", bExt);
                 this.util.sleepAMoment();
 
@@ -70,15 +63,15 @@ public class SeleniumWebcamThread extends Thread {
 
                 this.util.sleepAMoment();
 
-                if(this.util.getSourceAsString().contains("org.hibernate.exception.ConstraintViolationException")){
+                if (this.util.getSourceAsString().contains("org.hibernate.exception.ConstraintViolationException")) {
                     util.getBaseURL();
                 }
-
+                this.setIdExt("");
             } catch (Exception e) {
                 LOG.error(e.getMessage(), e);
             }
 
-            this.setIdExt("");
+
         }
     }
 

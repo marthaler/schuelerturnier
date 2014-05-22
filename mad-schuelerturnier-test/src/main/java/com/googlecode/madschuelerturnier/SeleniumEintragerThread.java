@@ -7,7 +7,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,21 +49,22 @@ public class SeleniumEintragerThread extends Thread {
         util.destroy();
     }
 
+    Set<String> idSpeicher = new HashSet<String>();
+    int i = 0;
+
     @Override
     public void run() {
 
         Thread.currentThread().setName("O_EINTR");
-
+        anUndAb();
         while (running) {
-
-            this.util.clickByLink("Abmelden");
-            this.util.sleepAMoment();
-
-            this.util.login("tester1915eintrager", "1234");
-            this.util.sleepAMoment();
-
+            i++;
             this.util.clickById("form:ac:weiter");
             this.util.sleepAMoment();
+            if (i % 10 == 0) {
+                anUndAb();
+
+            }
 
             // penalty eintragen
             if (this.util.getSourceAsString().contains("form1:dataTablePen:0:j_idt32")) {
@@ -73,53 +76,58 @@ public class SeleniumEintragerThread extends Thread {
 
             String id = findFirstID(this.util.getSourceAsString());
 
+
+            if (idSpeicher.contains(id)) {
+                continue;
+            }
+
             if (SeleniumWebcamThread.getIdExt() == null || SeleniumWebcamThread.getIdExt().isEmpty()) {
                 SeleniumWebcamThread.setIdExt(id);
+
+                idSpeicher.add(id);
 
                 String a = "99";
                 String b = "99";
 
                 if (methode.equals("echt")) {
 
-                    for(Spiel sp : spiele){
-                        if(sp.getIdString().equals(id)){
-                            a = ""+sp.getToreABestaetigt();
-                            b = ""+sp.getToreBBestaetigt();
+                    for (Spiel sp : spiele) {
+                        if (sp.getIdString().equals(id)) {
+                            a = "" + sp.getToreABestaetigt();
+                            b = "" + sp.getToreBBestaetigt();
                         }
                     }
 
                 } else if (methode.equals("random3")) {
 
                     java.util.Random random = new java.util.Random();
-                    a = ""+random.nextInt(3);
-                    b = ""+random.nextInt(3);
+                    a = "" + random.nextInt(3);
+                    b = "" + random.nextInt(3);
 
 
                 } else if (methode.equals("random9")) {
 
                     java.util.Random random = new java.util.Random();
-                    a = ""+random.nextInt(9);
-                    b = ""+random.nextInt(9);
+                    a = "" + random.nextInt(9);
+                    b = "" + random.nextInt(9);
 
                 } else if (methode.equals("aufsteigend")) {
 
-                    List<Integer> res  = findGoals(this.util.getSourceAsString());
+                    List<Integer> res = findGoals(this.util.getSourceAsString());
 
-                    a = ""+(10 -res.get(0));
-                    b = ""+(10 -res.get(1));
-
+                    a = "" + (10 - res.get(0));
+                    b = "" + (10 - res.get(1));
 
 
                 } else if (methode.equals("absteigend")) {
 
-                    List<Integer> res  = findGoals(this.util.getSourceAsString());
-                    a = ""+res.get(0).toString();
-                    b = ""+res.get(1).toString();
+                    List<Integer> res = findGoals(this.util.getSourceAsString());
+                    a = "" + res.get(0).toString();
+                    b = "" + res.get(1).toString();
                 }
 
                 SeleniumWebcamThread.setaExt(a);
                 SeleniumWebcamThread.setbExt(b);
-
 
 
             }
@@ -127,6 +135,18 @@ public class SeleniumEintragerThread extends Thread {
             this.util.sleepAMoment(10);
 
         }
+    }
+
+
+    private void anUndAb() {
+        this.util.clickByLink("Abmelden");
+        this.util.sleepAMoment();
+
+        this.util.login("tester1915eintrager", "1234");
+        this.util.sleepAMoment();
+
+        this.util.clickById("form:ac:weiter");
+        this.util.sleepAMoment();
     }
 
     private String findFirstID(String str) {

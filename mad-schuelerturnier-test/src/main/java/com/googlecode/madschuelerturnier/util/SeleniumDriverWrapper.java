@@ -1,10 +1,5 @@
 package com.googlecode.madschuelerturnier.util;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.StringWebResponse;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HTMLParser;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -17,7 +12,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -183,7 +177,7 @@ public class SeleniumDriverWrapper {
         }
     }
 
-    public void sleepAMoment(int...timeinseconds) {
+    public void sleepAMoment(int... timeinseconds) {
         try {
             if (timeinseconds.length == 0) {
                 Thread.sleep(1000);

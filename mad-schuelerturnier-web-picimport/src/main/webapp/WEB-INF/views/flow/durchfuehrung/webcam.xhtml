@@ -3,8 +3,6 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:sec="http://www.springframework.org/security/tags"
                 template="../../../layouts/100.xhtml">
 
     <ui:define name="main">
@@ -18,49 +16,55 @@
                                 setTimeout(function () {
                                     window.location.reload(1);
                                 }, 180000);
-
-
                             </script>
 
-
-                            <p:fieldset legend="Resultate eintragen:">
+                            <p:fieldset id="pane" legend="Resultate eintragen:">
                                 <p:messages/>
-                                    <h:form>
+                                <h:form>
 
-                                        <h:panelGrid columns="1" id="grid">
-                                            <p:row rendered="#{!webcamController.hasPic()}">
-                                            <p:fileUpload fileUploadListener="#{webcamController.fileupload}"
-                                                          multiple="false" auto="true" ajax="true"
-                                                          widgetVar="dialogUpLoad" mode="advanced" rendered="#{!webcamController.hasPic()}"
-                                                          oncomplete="document.getElementById('form1:j_idt25:up').click()"/>
+                                    <h:panelGrid columns="1" id="grid">
+                                        <p:row rendered="#{!webcamController.hasPic()}">
+                                            <p:photoCam widgetVar="pc" listener="#{webcamController.oncapture}"/>
                                             <br/>
-                                                <p:photoCam widgetVar="pc" listener="#{webcamController.oncapture}"  />
-                                                <br/>
-                                                <p:commandButton  id="up" value="Photo schiessen" onclick="PF('pc').capture();"  rendered="#{!webcamController.hasPic()}" ajax="false"/>
+                                            <p:commandButton id="up" value="Photo schiessen"
+                                                             onclick="PF('pc').capture();"
+                                                             rendered="#{!webcamController.hasPic()}" ajax="false"/>
+                                        </p:row>
 
-                                            </p:row>
+                                        <p:row rendered="#{webcamController.hasPic() &amp;&amp; !webcamController.hasCode() &amp;&amp; !webcamController.hasSpiel() }">
+                                            <p:graphicImage id="pic" widgetWar="pic" value="/app/webcam/download"/><br/>
+                                            <br/>
+                                            <h:outputText value="Spiel Code zum Suchen: "/><br/>
+                                            <p:inputText value="#{webcamController.code}"/><br/><br/>
+                                            <p:commandButton id="suchen" value="Spiel Suchen"
+                                                             action="#{webcamController.search}" ajax="false"/>
+                                            <p:commandButton id="abbrechen" value="Abbrechen"
+                                                             action="#{webcamController.reset}" ajax="false"/>
+                                        </p:row>
 
-                                            <p:row rendered="#{webcamController.hasPic() &amp;&amp; !webcamController.hasCode() &amp;&amp; !webcamController.hasSpiel() }">
-                                                <p:graphicImage id="pic" widgetWar="pic" value="/app/webcam/download"  /><br/> <br/>
-                                                <h:outputText value="Spiel Code zum Suchen: " /><br/>
-                                                <p:inputText value="#{webcamController.code}"  /><br/><br/>
-                                                <p:commandButton  id="suchen" value="Spiel Suchen"  action="#{webcamController.search}" ajax="false"/>
-                                                <p:commandButton  id="abbrechen" value="Abbrechen" action="#{webcamController.reset}" ajax="false"/>
-                                            </p:row>
+                                        <p:row rendered="#{webcamController.hasSpiel()}">
+                                            <p:graphicImage id="pic2" widgetWar="pic"
+                                                            value="/app/webcam/download"/><br/><br/>
+                                            <h:outputText
+                                                    value="Spiel Code: #{webcamController.spiel.idString}"/><br/><br/>
+                                            <h:outputText
+                                                    value="#{webcamController.spiel.mannschaftA.getName()}: "/><p:inputText
+                                                id="ToreA" value="#{webcamController.spiel.toreA}"/><br/><br/>
+                                            <h:outputText
+                                                    value="#{webcamController.spiel.mannschaftB.getName()}: "/><p:inputText
+                                                id="ToreB" value="#{webcamController.spiel.toreB}"/><br/><br/><br/>
+                                            <p:commandButton id="save" value="Sichern" action="#{webcamController.save}"
+                                                             ajax="false"/>
+                                            <p:commandButton id="abbrechen2" value="Abbrechen"
+                                                             action="#{webcamController.reset}" ajax="false"/>
+                                        </p:row>
 
-                                            <p:row rendered="#{webcamController.hasSpiel()}">
-                                                <p:graphicImage id="pic2" widgetWar="pic" value="/app/webcam/download"  /><br/><br/>
-                                                <h:outputText value="Spiel Code: #{webcamController.spiel.idString}" /><br/><br/>
-                                                <h:outputText value="#{webcamController.spiel.mannschaftA.getName()}: " /><p:inputText id="ToreA" value="#{webcamController.spiel.toreA}"  /><br/><br/>
-                                                <h:outputText value="#{webcamController.spiel.mannschaftB.getName()}: " /><p:inputText id="ToreB" value="#{webcamController.spiel.toreB}"  /><br/><br/><br/>
-                                                <p:commandButton  id="save" value="Sichern"  action="#{webcamController.save}" ajax="false"/>
-                                                <p:commandButton  id="abbrechen2" value="Abbrechen" action="#{webcamController.reset}" ajax="false"/>
-                                            </p:row>
+                                        <p:blockUI block="grid" trigger="save">
+                                            <p:graphicImage value="/app/resources/static/images/ajax-loader.gif"/>
+                                        </p:blockUI>
+                                    </h:panelGrid>
 
-                                        </h:panelGrid>
-
-
-                                    </h:form>
+                                </h:form>
                             </p:fieldset>
                         </h:form>
                     </div>

@@ -7,15 +7,11 @@ import com.googlecode.madschuelerturnier.SeleniumEintragerThread;
 import com.googlecode.madschuelerturnier.SeleniumKontrolliererThread;
 import com.googlecode.madschuelerturnier.SeleniumSpeakerThread;
 import com.googlecode.madschuelerturnier.SeleniumWebcamThread;
-import com.googlecode.madschuelerturnier.model.support.File;
 import org.apache.log4j.Logger;
 import org.primefaces.component.tabview.TabView;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.TabChangeEvent;
 import org.springframework.stereotype.Component;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 
 /**
  * Controller mit Session Scope, welcher den Testprozess durchführt
@@ -30,11 +26,9 @@ public class BackingBean {
 
     private byte[] game = null;
 
-
-
     private int tab;
 
-    private String methode = "";
+    private String methode = "absteigend";
     private String speaker_url = "http://87.230.15.247";
     private String speaker_password = "1234";
     private String speaker_user = "tester1915speaker";
@@ -60,17 +54,18 @@ public class BackingBean {
     private SeleniumKontrolliererThread kontrollierer;
     private SeleniumWebcamThread webcam;
 
-    public boolean hasGame(){
-if(game == null){
-    return false;
-}return true;
+    public boolean hasGame() {
+        if (game == null) {
+            return false;
+        }
+        return true;
     }
 
     public void onTabChange(TabChangeEvent event) {
-       String tab = event.getTab().getId();
-        TabView view =  (TabView) event.getTab().getParent();
-        for(int i = 0; i< view.getChildCount() ; i++){
-            if(tab.equals(view.getChildren().get(i).getId())){
+        String tab = event.getTab().getId();
+        TabView view = (TabView) event.getTab().getParent();
+        for (int i = 0; i < view.getChildCount(); i++) {
+            if (tab.equals(view.getChildren().get(i).getId())) {
                 this.tab = i;
             }
         }
@@ -84,7 +79,7 @@ if(game == null){
         }
 
         if (eintrager_on) {
-            eintrager = new SeleniumEintragerThread(eintrager_user, eintrager_password, eintrager_url ,this.methode, this.game);
+            eintrager = new SeleniumEintragerThread(eintrager_user, eintrager_password, eintrager_url, this.methode, this.game);
             eintrager.start();
         }
 
@@ -231,6 +226,7 @@ if(game == null){
     public void setMethode(String methode) {
         this.methode = methode;
     }
+
     public int getTab() {
         return tab;
     }
