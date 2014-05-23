@@ -40,26 +40,26 @@ public class SeleniumWebcamThread extends Thread {
         while (running) {
             try {
                 if (idExt == null || idExt.isEmpty()) {
-                    this.util.sleepAMoment(5);
+                    this.util.sleepAMoment(2);
                     continue;
                 }
 
                 LOG.info("EINTRAGEN: " + idExt);
                 this.util.sleepAMoment();
-                this.util.clickById("form1:j_idt25:up");
+                this.util.clickById("form1:j_idt24:up");
                 this.util.sleepAMoment();
 
-                this.util.sendById("form1:j_idt25:j_idt35", idExt);
+                this.util.sendById("form1:j_idt24:j_idt32", idExt);
                 this.util.sleepAMoment();
 
-                this.util.clickById("form1:j_idt25:suchen");
+                this.util.clickById("form1:j_idt24:suchen");
                 this.util.sleepAMoment(2);
 
-                this.util.sendById("form1:j_idt25:ToreA", aExt);
-                this.util.sendById("form1:j_idt25:ToreB", bExt);
+                this.util.sendById("form1:j_idt24:ToreA", aExt);
+                this.util.sendById("form1:j_idt24:ToreB", bExt);
                 this.util.sleepAMoment();
 
-                this.util.clickById("form1:j_idt25:save");
+                this.util.clickById("form1:j_idt24:save");
 
                 this.util.sleepAMoment();
 

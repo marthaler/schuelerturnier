@@ -15,6 +15,6 @@ public interface WebcamBusiness {
 
     Spiel findSpielByDecodedPic(byte[] rawPicture);
 
-    Map<String, Spiel> loadSpieleCache();
+    Map<String,Spiel> loadSpieleCache();
 
 }

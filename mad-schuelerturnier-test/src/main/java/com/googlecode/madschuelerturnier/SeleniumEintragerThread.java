@@ -56,16 +56,17 @@ public class SeleniumEintragerThread extends Thread {
     public void run() {
 
         Thread.currentThread().setName("O_EINTR");
-        anUndAb();
+
         while (running) {
-            i++;
+            i ++;
+            this.util.clickByLink("Abmelden");
+            this.util.sleepAMoment();
+
+            this.util.login("tester1915eintrager", "1234");
+            this.util.sleepAMoment();
+
             this.util.clickById("form:ac:weiter");
             this.util.sleepAMoment();
-            if (i % 10 == 0) {
-                anUndAb();
-
-            }
-
             // penalty eintragen
             if (this.util.getSourceAsString().contains("form1:dataTablePen:0:j_idt32")) {
                 this.util.sendByName("form1:dataTablePen:0:j_idt28", "irgendwas");
@@ -78,13 +79,17 @@ public class SeleniumEintragerThread extends Thread {
 
 
             if (idSpeicher.contains(id)) {
-                continue;
+                if(i <5){
+                    continue;
+                }
+
             }
 
             if (SeleniumWebcamThread.getIdExt() == null || SeleniumWebcamThread.getIdExt().isEmpty()) {
                 SeleniumWebcamThread.setIdExt(id);
 
                 idSpeicher.add(id);
+                i=0;
 
                 String a = "99";
                 String b = "99";
@@ -132,22 +137,11 @@ public class SeleniumEintragerThread extends Thread {
 
             }
 
-            this.util.sleepAMoment(10);
+            this.util.sleepAMoment(3);
 
         }
     }
 
-
-    private void anUndAb() {
-        this.util.clickByLink("Abmelden");
-        this.util.sleepAMoment();
-
-        this.util.login("tester1915eintrager", "1234");
-        this.util.sleepAMoment();
-
-        this.util.clickById("form:ac:weiter");
-        this.util.sleepAMoment();
-    }
 
     private String findFirstID(String str) {
         String ret = StringUtils.substringBetween(str, "Schirizettel für: ", "</span>");

@@ -28,7 +28,7 @@ public class BackingBean {
 
     private int tab;
 
-    private String methode = "absteigend";
+    private String methode = "aufsteigend";
     private String speaker_url = "http://87.230.15.247";
     private String speaker_password = "1234";
     private String speaker_user = "tester1915speaker";

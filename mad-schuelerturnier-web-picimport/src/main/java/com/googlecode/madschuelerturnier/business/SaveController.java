@@ -3,6 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.business;
 
+
 import com.googlecode.madschuelerturnier.model.Spiel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class SaveController {
     private static final Logger LOG = Logger.getLogger(SaveController.class);
 
     @Autowired
+
     WebcamBusiness webcamBusiness;
 
     @Async
