@@ -58,6 +58,7 @@ public class SeleniumEintragerThread extends Thread {
         Thread.currentThread().setName("O_EINTR");
 
         while (running) {
+            try{
             i ++;
             this.util.clickByLink("Abmelden");
             this.util.sleepAMoment();
@@ -72,7 +73,6 @@ public class SeleniumEintragerThread extends Thread {
                 this.util.sendByName("form1:dataTablePen:0:j_idt28", "irgendwas");
                 this.util.clickById("form1:dataTablePen:0:j_idt32");
                 this.util.sleepAMoment();
-
             }
 
             String id = findFirstID(this.util.getSourceAsString());
@@ -87,7 +87,6 @@ public class SeleniumEintragerThread extends Thread {
 
             if (SeleniumWebcamThread.getIdExt() == null || SeleniumWebcamThread.getIdExt().isEmpty()) {
                 SeleniumWebcamThread.setIdExt(id);
-
                 idSpeicher.add(id);
                 i=0;
 
@@ -133,11 +132,14 @@ public class SeleniumEintragerThread extends Thread {
 
                 SeleniumWebcamThread.setaExt(a);
                 SeleniumWebcamThread.setbExt(b);
-
+                this.util.sleepAMoment(10);
 
             }
 
             this.util.sleepAMoment(3);
+            } catch(Exception e){
+                LOG.error("!!! " + e.getMessage());
+            }
 
         }
     }

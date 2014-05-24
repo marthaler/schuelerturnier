@@ -60,6 +60,7 @@ public class Penalty extends Persistent {
             reihenfolge = reihenfolge +"," + m2.getName();
         }
         reihenfolge = reihenfolge.substring(1);
+        reihenfolge = reihenfolge.toUpperCase();
     }
 
     public boolean contains(final Mannschaft m) {
@@ -150,7 +151,7 @@ public class Penalty extends Persistent {
             latest = m;
         }
         String ret = stringBuilder.toString();
-        return ret.replace(latest.getName() + ",", latest.getName().toLowerCase());
+        return ret.replace(latest.getName() + ",", latest.getName().toUpperCase());
     }
 
     public String getReihenfolge() {

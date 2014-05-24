@@ -40,12 +40,11 @@ public class SeleniumWebcamThread extends Thread {
         while (running) {
             try {
                 if (idExt == null || idExt.isEmpty()) {
-                    this.util.sleepAMoment(2);
+                    this.util.sleepAMoment();
                     continue;
                 }
 
                 LOG.info("EINTRAGEN: " + idExt);
-                this.util.sleepAMoment();
                 this.util.clickById("form1:j_idt24:up");
                 this.util.sleepAMoment();
 
@@ -57,11 +56,7 @@ public class SeleniumWebcamThread extends Thread {
 
                 this.util.sendById("form1:j_idt24:ToreA", aExt);
                 this.util.sendById("form1:j_idt24:ToreB", bExt);
-                this.util.sleepAMoment();
-
                 this.util.clickById("form1:j_idt24:save");
-
-                this.util.sleepAMoment();
 
                 if (this.util.getSourceAsString().contains("org.hibernate.exception.ConstraintViolationException")) {
                     util.getBaseURL();
@@ -70,8 +65,6 @@ public class SeleniumWebcamThread extends Thread {
             } catch (Exception e) {
                 LOG.error(e.getMessage(), e);
             }
-
-
         }
     }
 

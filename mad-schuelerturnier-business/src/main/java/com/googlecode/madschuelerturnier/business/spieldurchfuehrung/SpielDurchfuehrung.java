@@ -262,13 +262,9 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
             // letzte resultate drucken
             spielPrinter.printPage();
 
-
-
             String jahr = ""+ new DateTime(this.business.getSpielEinstellungen().getStarttag()).getYear();
 
             this.infoservice.dumpJetzt(jahr);
-
-
 
             endranglistegedruckt = true;
             LOG.debug("checkSpielende: spiel abgeschlossen");
@@ -281,7 +277,9 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
         this.countdownToStart = new Countdown(this.jetzt.getSpielZeit(), new DateTime(temp.getStart()));
         temp.setPhase(SpielZeilenPhaseEnum.C_VORBEREITET);
         temp = spielezeileUpdatenBetreffendZeilenphaseAndSave(temp);
-        this.data.getList3Vorbereitet().add(temp);
+        List<SpielZeile> zeile = this.data.getList3Vorbereitet();
+        zeile.add(temp);
+        this.data.setList3Vorbereitet(zeile);
         // tts get
         generateText(temp);
     }
@@ -314,7 +312,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     public synchronized void beenden() {
         SpielZeile temp = this.data.getList4Spielend().remove(0);
         temp.setPhase(SpielZeilenPhaseEnum.E_BEENDET);
-        temp = spielezeileUpdatenBetreffendZeilenphaseAndSave(temp);
+
         this.data.getList5Beendet().add(temp);
 
         // einzutragende spiele vorbereiten
@@ -336,7 +334,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
             spiel.setFertigGespielt(true);
             spielRepo.save(spiel);
         }
-
+        temp = spielezeileUpdatenBetreffendZeilenphaseAndSave(temp);
         gong();
     }
 

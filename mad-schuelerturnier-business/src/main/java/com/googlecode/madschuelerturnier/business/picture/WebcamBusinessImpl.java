@@ -109,8 +109,12 @@ public final class WebcamBusinessImpl implements WebcamBusiness {
             this.fileRepo.save(file);
         }
 
-        spiel.setFertigEingetragen(true);
-        this.spielRepo.save(spiel);
+
+        orig.setFertigEingetragen(true);
+        orig.setToreA(spiel.getToreA());
+        orig.setToreB(spiel.getToreB());
+
+        this.spielRepo.save(orig);
 
     }
 

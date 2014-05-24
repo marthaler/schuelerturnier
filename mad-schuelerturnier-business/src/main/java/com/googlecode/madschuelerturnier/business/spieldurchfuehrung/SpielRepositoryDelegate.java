@@ -62,6 +62,7 @@ public class SpielRepositoryDelegate {
 
                     SpielEinstellungen einst = business.getSpielEinstellungen();
                     einst.setStarttag(spiel.getStart());
+                    einst.setStart(spiel.getStart());
                     business.saveEinstellungen(einst);
 
                     resultateVerarbeiter.signalFertigesSpiel(spiel.getId());
