@@ -52,16 +52,19 @@ public class SeleniumWebcamThread extends Thread {
                 this.util.sleepAMoment();
 
                 this.util.clickById("form1:j_idt24:suchen");
-                this.util.sleepAMoment(2);
+                this.util.sleepAMoment();
 
                 this.util.sendById("form1:j_idt24:ToreA", aExt);
                 this.util.sendById("form1:j_idt24:ToreB", bExt);
                 this.util.clickById("form1:j_idt24:save");
+                this.util.sleepAMoment();
 
                 if (this.util.getSourceAsString().contains("org.hibernate.exception.ConstraintViolationException")) {
                     util.getBaseURL();
                 }
                 this.setIdExt("");
+                this.setaExt("22");
+                this.setbExt("22");
             } catch (Exception e) {
                 LOG.error(e.getMessage(), e);
             }
