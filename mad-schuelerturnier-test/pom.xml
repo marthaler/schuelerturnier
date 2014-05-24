@@ -210,6 +210,12 @@
                                             <destFileName>test.war</destFileName>
                                             <runIf>{{ new File( "/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app", "ROOT.war" ).isFile() }}</runIf>
                                         </resource>
+                                        <resource>
+                                            <targetPath>/app/server/webapps</targetPath>
+                                            <file>${project.basedir}/target/${project.artifactId}-${project.version}.war</file>
+                                            <destFileName>test.war</destFileName>
+                                            <runIf>{{ new File( "/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app", "ROOT.war" ).isFile() }}</runIf>
+                                        </resource>
                                     </resources>
                                 </configuration>
                             </execution>
