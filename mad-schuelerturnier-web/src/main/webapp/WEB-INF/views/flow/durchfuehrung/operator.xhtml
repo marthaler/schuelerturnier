@@ -51,7 +51,6 @@
                                      ajax="true">
             </p:selectBooleanCheckbox>
 
-
             <h:outputText id="output2"
                           value="Aufholzeit in Sekunden: #{spieleinstellungen.aufholzeitInSekunden}"/>
 
@@ -306,16 +305,15 @@
         <h:column>
 
             <p:inputMask mask="9999" value="#{websiteInfoService.jahrFuerDump}" size="4"/>
-            <p:commandButton id="dump" action="#{websiteInfoService.dumpJetztVonSeite()}" value="Dump erstellen" ajax="true" enabled="#{dropboxWeiche.isConnected()}"/>
+            <p:commandButton id="dump" action="#{websiteInfoService.dumpJetztVonSeite()}" value="Jahresdump erstellen" ajax="true" enabled="#{dropboxWeiche.isConnected()}"/>
         </h:column>
 
-        <h:outputText value="Dump der Statistiken sofort erstellen (Jahr angeben): "/>
+        <h:outputText value="Dump der Statistiken erstellen"/>
         <h:column>
 
-            <p:separator /><p:separator />
+            <p:separator />
 
-            <p:inputMask mask="9999" value="#{sessionHelper.jahr}" size="4"/>
-            <p:commandButton id="dumpstat" action="#{sessionHelper.dump()}" value="Dump erstellen" ajax="true" enabled="#{dropboxWeiche.isConnected()}"/>
+            <p:commandButton id="dumpstat" action="#{sessionHelper.dump()}" value="Statistikdump erstellen" ajax="true" enabled="#{dropboxWeiche.isConnected()}"/>
         </h:column>
 
         <p:blockUI block="websitepublisher" trigger="dump,dumpstat">

@@ -101,6 +101,9 @@ public class BusinessImpl implements Business {
     @Qualifier("dropboxConnector")
     private DropboxConnector dropbox;
 
+    @Autowired
+    private AsyncAtachementLoader attachementLoader;
+
     final Set<String> schulhaeuser = new HashSet<String>();
 
     final Set<String> namen = new HashSet<String>();
@@ -676,15 +679,16 @@ public class BusinessImpl implements Business {
 
         // Attachements laden und updaten
         List<com.googlecode.madschuelerturnier.model.support.File> attachements = xls.convertXLSToFiles(xlsIn);
-        LOG.info("attachements geladen: " + attachements.size());
-        for (com.googlecode.madschuelerturnier.model.support.File f : attachements) {
-            fileRepo.save(f);
-            LOG.info("attachements gespeicher: " + f);
-        }
+        this.attachementLoader.loadfiles(attachements);
 
         // Penalty laden und updaten
         List<com.googlecode.madschuelerturnier.model.Penalty> penalty = xls.convertXLSToPenalty(xlsIn);
-        LOG.info("penaltys geladen: " + penalty.size());
+        if(penalty != null){
+            LOG.info("penaltys geladen: " + penalty.size());
+        } else{
+            LOG.info("penaltys geladen: KEINE");
+        }
+
         for (com.googlecode.madschuelerturnier.model.Penalty p : penalty) {
             prepo.save(p);
             LOG.info("attachements gespeicher: " + p);

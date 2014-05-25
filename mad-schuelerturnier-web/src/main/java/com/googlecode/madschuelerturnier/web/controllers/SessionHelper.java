@@ -49,7 +49,7 @@ public class SessionHelper {
     }
 
     public void dump(){
-        dropboxConnector.saveOldGame(jahr + "stat", XstreamUtil.serializeToString(logRepo.findAll()));
+        dropboxConnector.saveFile("statistikdump.xml",XstreamUtil.serializeToString(logRepo.findAll()).getBytes());
     }
 
 }

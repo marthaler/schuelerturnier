@@ -38,6 +38,7 @@ public class SeleniumWebcamThread extends Thread {
         util.getBaseURL();
 
         while (running) {
+
             try {
                 if (idExt == null || idExt.isEmpty()) {
                     this.util.sleepAMoment();
@@ -65,6 +66,7 @@ public class SeleniumWebcamThread extends Thread {
                 this.setIdExt("");
                 this.setaExt("22");
                 this.setbExt("22");
+                this.util.sleepAMoment();
             } catch (Exception e) {
                 LOG.error(e.getMessage(), e);
             }

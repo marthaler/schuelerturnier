@@ -11,6 +11,8 @@
                 <mapping row="1" col="1">penalty.idString</mapping>
                 <mapping row="1" col="2">penalty.reihenfolgeOrig</mapping>
                 <mapping row="1" col="3">penalty.reihenfolge</mapping>
+                <mapping row="1" col="4">penalty.gespielt</mapping>
+                <mapping row="1" col="5">penalty.bestaetigt</mapping>
             </section>
             <loopbreakcondition>
                 <rowcheck offset="0">

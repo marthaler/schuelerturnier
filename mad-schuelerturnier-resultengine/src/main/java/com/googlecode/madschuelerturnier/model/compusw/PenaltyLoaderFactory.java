@@ -54,8 +54,19 @@ public class PenaltyLoaderFactory {
 
         Penalty result = repo.findPenaltyByOriginalreihenfolge(dump.toMannschaftsString());
 
+
         if(result != null){
-            return result;
+
+            // todo umbenennen des getters
+            if(result.getRealFinalList() != null && !result.getRealFinalList().isEmpty()){
+                return result;
+            }
+
+            for(Mannschaft m: mannschaften){
+                result.addMannschaftInitial(m);
+            }
+
+            return repo.save(result);
         }
 
         // dump uebernehmen und speichern und zurueckgeben

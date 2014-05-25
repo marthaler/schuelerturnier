@@ -323,7 +323,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
         try {
             DbxEntry.WithChildren listing = client.getMetadataWithChildren(this.rootFolder + "/alt");
             for (DbxEntry child : listing.children) {
-                if (child.isFile() && child.name.contains("xml")) {
+                if (child.isFile() && child.name.contains("websitedump.xml") && !child.name.contains("stat")) {
 
                     LOG.info("DropboxConnectorImpl: will load OldGames files");
                     ByteArrayOutputStream outputStream = null;
