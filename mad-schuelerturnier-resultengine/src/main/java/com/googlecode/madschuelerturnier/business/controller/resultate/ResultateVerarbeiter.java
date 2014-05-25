@@ -463,7 +463,19 @@ public class ResultateVerarbeiter {
     }
 
     public List<KlassenrangZeile> getRanglisteModel() {
-        return this.ranglisteConverter.convertKlassenrangZeile(map.values());
+
+        List<RanglisteneintragHistorie> ranglisten = new ArrayList<RanglisteneintragHistorie>();
+
+        // *_A und *_B wegfiltern, damit nur die echte Historien verwendet wird
+        Set<String> set = map.keySet();
+
+        for(String key: set){
+            if(!key.contains("_A") && !key.contains("_B")){
+                ranglisten.add(map.get(key));
+            }
+        }
+
+        return this.ranglisteConverter.convertKlassenrangZeile(ranglisten);
     }
 
     @Deprecated

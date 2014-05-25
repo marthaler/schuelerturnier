@@ -19,6 +19,9 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Dient der Verarbeitung der hochgeladenenSchirzettel
@@ -72,6 +75,14 @@ public final class WebcamBusinessImpl implements WebcamBusiness {
 
     @Override
     public void save(Spiel spiel, byte[] rawPicture) {
+
+        Spiel orig = spielRepo.findSpielByIdString(spiel.getIdString());
+
+        if(orig == null || orig.isFertigBestaetigt()){
+            LOG.info("achtung, es wurde versucht ein spiel zu speichern, das bereits bestaetigt war oder nicht existiert= geht nicht");
+            return;
+        }
+
         if (business.getSpielEinstellungen().isWebcamdemomode() && !business.getSpielEinstellungen().isWebcamdemomodescharf()) {
             LOG.warn("Speichern eines Spiels im Demomodus, schreibe nicht in die Datenbank!");
             return;
@@ -81,6 +92,7 @@ public final class WebcamBusinessImpl implements WebcamBusiness {
         if (file == null) {
             file = new File();
         }
+
 
         file.setContent(rawPicture);
         file.setDateiName("schirizettel.png");
@@ -97,8 +109,12 @@ public final class WebcamBusinessImpl implements WebcamBusiness {
             this.fileRepo.save(file);
         }
 
-        spiel.setFertigEingetragen(true);
-        this.spielRepo.save(spiel);
+
+        orig.setFertigEingetragen(true);
+        orig.setToreA(spiel.getToreA());
+        orig.setToreB(spiel.getToreB());
+
+        this.spielRepo.save(orig);
 
     }
 
@@ -109,12 +125,22 @@ public final class WebcamBusinessImpl implements WebcamBusiness {
         try {
             image = ImageIO.read(in);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(),e);
         }
         String code = BarcodeUtil.decode(image);
 
         return findeSpiel(code);
 
+    }
+
+    @Override
+    public Map<String, Spiel> loadSpieleCache() {
+        List<Spiel> spieleList = this.spielRepo.findAll();
+        Map<String, Spiel> result = new HashMap<String, Spiel>();
+        for(Spiel s: spieleList){
+            result.put(s.getIdString(),s);
+        }
+        return result;
     }
 
 }

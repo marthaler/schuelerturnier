@@ -3,8 +3,10 @@
  */
 package com.googlecode.madschuelerturnier.web.controllers;
 
+import com.googlecode.madschuelerturnier.business.BarcodeUtil;
+import com.googlecode.madschuelerturnier.business.SaveController;
+import com.googlecode.madschuelerturnier.business.WebcamBusiness;
 import com.googlecode.madschuelerturnier.model.Spiel;
-import com.googlecode.madschuelerturnier.web.WebcamBusiness;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.primefaces.event.CaptureEvent;
@@ -15,12 +17,17 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Controller mit Session Scope, welcher den Schirizettel Scan unterstuetzen
@@ -31,12 +38,17 @@ import java.io.InputStream;
 @Component
 @Scope("session")
 @RequestMapping("/webcam")
-public class WebcamController {
+public class WebcamController implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(WebcamController.class);
 
     @Autowired
     WebcamBusiness webcamBusiness;
+
+    @Autowired
+    SaveController saveController;
+
+    private Map<String, Spiel> spiele;
 
     private Spiel spiel;
     private byte[] rawPicture;
@@ -53,6 +65,11 @@ public class WebcamController {
         }
     }
 
+    @PostConstruct
+    private void init() {
+        spiele = this.webcamBusiness.loadSpieleCache();
+    }
+
     public void fileupload(FileUploadEvent event) {
         this.rawPicture = event.getFile().getContents();
         decodePicAndSearchSpiel();
@@ -61,9 +78,9 @@ public class WebcamController {
     public void oncapture(CaptureEvent captureEvent) {
         LOG.info("capture: event here");
         try {
-            Thread.sleep(1000);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
         this.rawPicture = captureEvent.getData();
         LOG.info("capture: event ok");
@@ -72,7 +89,7 @@ public class WebcamController {
 
     public void decodePicAndSearchSpiel() {
 
-        this.spiel = this.webcamBusiness.findSpielByDecodedPic(this.rawPicture);
+        this.spiel = this.findSpielByDecodedPic(this.rawPicture);
 
         if (this.spiel == null) {
             createError("Spiel mit dem Code: " + this.code + " nicht gefunden");
@@ -89,7 +106,7 @@ public class WebcamController {
     }
 
     public void search() {
-        this.spiel = webcamBusiness.findeSpiel(code);
+        this.spiel = findSpiel(code);
         if (spiel == null) {
             createError("Spiel mit dem Code: " + this.code + " nicht gefunden");
             this.code = null;
@@ -97,9 +114,10 @@ public class WebcamController {
     }
 
     public void save() {
-        this.webcamBusiness.save(this.spiel, this.rawPicture);
+        this.saveController.save(this.spiel, this.rawPicture);
         this.rawPicture = null;
         this.spiel = null;
+        this.code = null;
     }
 
     private void createError(String text) {
@@ -143,5 +161,34 @@ public class WebcamController {
         }
         return true;
     }
+
+    public Spiel findSpielByDecodedPic(byte[] rawPicture) {
+        InputStream in = new ByteArrayInputStream(rawPicture);
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(in);
+        } catch (IOException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        String code = BarcodeUtil.decode(image);
+
+        return findSpiel(code);
+
+    }
+
+    private Spiel findSpiel(String code) {
+        Spiel s = this.spiele.get(code.toUpperCase());
+        if (s == null) {
+            return null;
+        }
+        if (s.getToreA() == -1) {
+            s.setToreA(0);
+        }
+        if (s.getToreB() == -1) {
+            s.setToreB(0);
+        }
+        return s;
+    }
+
 }
                         

@@ -89,8 +89,8 @@ public class WebcamBusinessImplTest {
 
         obj.save(spiel2, null);
 
-        verify(this.fileRepo,times(1)).save(any(File.class));
-        verify(this.spielRepo,times(1)).save(any(Spiel.class));
+        verify(this.fileRepo,times(0)).save(any(File.class));
+        verify(this.spielRepo,times(0)).save(any(Spiel.class));
 
     }
 

@@ -319,6 +319,10 @@
         </transition>
     </view-state>
 
+    <view-state id="liste_sessions" view="root/liste_sessions.xhtml" redirect="true">
+
+    </view-state>
+
     <view-state id="edit_spiel" view="root/detail_spiele.xhtml" redirect="true" model="spiel">
         <transition on="save" to="liste_spiel" bind="true">
             <evaluate expression="spielServiceImpl.doKorrektur(spiel)"/>
@@ -380,6 +384,10 @@
 
         <transition on="kontrollierer" to="kontrollierer">
             <evaluate expression="spielRepositoryDelegate.findAllZuBestaetigen()" result="flowScope.bestaetigen"/>
+        </transition>
+
+        <transition on="to_sessions" to="liste_sessions">
+            <evaluate expression="webSessionLogRepository.findAll()" result="flowScope.sessions"/>
         </transition>
 
         <transition on="webcam" to="webcam">

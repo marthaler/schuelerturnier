@@ -2,11 +2,11 @@ feautures:
 **********
 
 ***********************************************
-[  ]     Spielansage prüfen, ev mehr zeit geben
+[??]     Spielansage prüfen, ev mehr zeit geben
 [ok]     Knopf Jahresdump mit Jahrzahl
 [ok]     Spieleinstellung neu
 [rj]     Filter fuer Speaker wieder machen
-[  ]     Aufraeumen mit den Berechtigungen
+[ip]     Aufraeumen mit den Berechtigungen
 [ok]     ResultateVerarbeiter ohne verbindung zu Spiel Einstelungs Repo
 [ok]     Knopf Dump weg
 [ok]     M1 und 2 mit 2 GF
@@ -22,7 +22,7 @@ feautures:
 [rj]     einrichten, dass der master einen sauberen dump schickt
 [rj]     prüfen ob die nachrichten wirklich der reihe nach kommen
 
-[  ]     out to website publisher schlau konfigurieren (ausbauen)
+[ok]     out to website publisher schlau konfigurieren (ausbauen)
 [ok]     master einfuehren
 
 [ok]     integrationstests aufraeumen & tomcat
@@ -42,10 +42,10 @@ feautures:
 bugs:
 *****
 [ok] auch text schicken beim transport
-[__] eintrager und kontrollierer der reihe nach
+[ok] eintrager und kontrollierer der reihe nach
 [ok] auch attachements schicken beim transport
-[xx] penalty speichern funktioniert nicht
-[xx] penalty in resultengine aus db laden, damit keine neuen erstellt werden in der History
+[ok] penalty speichern funktioniert nicht
+[ok] penalty in resultengine aus db laden, damit keine neuen erstellt werden in der History
 [ok] printer funktioniert nicht
 [ok] einstellung start richtig verwenden beim generieren
 [ok] kamera funktioniert nicht auf mac (demoansicht)

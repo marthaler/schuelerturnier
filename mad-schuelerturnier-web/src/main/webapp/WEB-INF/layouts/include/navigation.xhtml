@@ -96,6 +96,11 @@
                                 value="Spielkorrekturen" icon="ui-icon-notice"
                                 action="gt_resultatekorrekturen"/>
 
+                    <p:menuitem id="mm_sessions"
+                                rendered="#{sec:areAnyGranted('ROLE_ROOT') and spielstatusWebBean.spielend}"
+                                value="Sessions" icon="ui-icon-notice"
+                                action="to_sessions"/>
+
                     <p:menuitem id="mm_spiele_vertauschungen" value="Manuelle Korrekturen" icon="ui-icon-carat-2-n-s"
                                 action="korrekturen"/>
                 </p:submenu>
@@ -147,12 +152,14 @@
 
                 <!-- spielen : rollen : beobachter : mobile -->
                 <p:menuitem id="m_beobachter_mob"
-                           rendered="#{sec:areAnyGranted('ROLE_BEOBACHTER') and spielstatusWebBean.spielend}"
-                           label="Mobile" icon="ui-icon-image" url="/app/mob" target="_new">
+                            value="Spielplan-Mobil"
+                            rendered="#{sec:areAnyGranted('ROLE_BEOBACHTER') and spielstatusWebBean.spielend}"
+                            label="Mobile" icon="ui-icon-image" url="/app/mob" target="_new">
                 </p:menuitem>
 
                 <!-- spielen : rollen : beobachter : resultate -->
                 <p:menuitem id="m_beobachter_info"
+                            value="Webseitenanzeige"
                             rendered="#{sec:areAnyGranted('ROLE_BEOBACHTER') and spielstatusWebBean.spielend}"
                             label="Mobile" icon="ui-icon-image" url="/app/website/info/now" target="_new">
                 </p:menuitem>

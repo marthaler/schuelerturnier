@@ -32,5 +32,4 @@
     <bean id="facesContextListener" class="org.springframework.faces.webflow.FlowFacesContextLifecycleListener"/>
 
 
-
 </beans>

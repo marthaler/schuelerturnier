@@ -15,11 +15,4 @@
     <context:component-scan base-package="com.googlecode.madschuelerturnier.web.controllers"/>
 
 
-    <bean id="WebcamBusiness" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
-        <property name="serviceUrl" value="rmi://87.230.15.247:1299/WebcamBusiness" />
-        <property name="serviceInterface" value="com.googlecode.madschuelerturnier.web.WebcamBusiness" />
-    </bean>
-
-
-
 </beans>
