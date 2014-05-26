@@ -51,7 +51,6 @@
                                      ajax="true">
             </p:selectBooleanCheckbox>
 
-
             <h:outputText id="output2"
                           value="Aufholzeit in Sekunden: #{spieleinstellungen.aufholzeitInSekunden}"/>
 
@@ -84,8 +83,6 @@
                 <f:selectItem itemLabel="3" itemValue="3"/>
                 <f:selectItem itemLabel="4" itemValue="4"/>
                 <f:selectItem itemLabel="5" itemValue="5"/>
-                <f:selectItem itemLabel="10" itemValue="10"/>
-                <f:selectItem itemLabel="15" itemValue="15"/>
             </p:selectOneMenu>
 
         <br/>
@@ -140,9 +137,9 @@
 
 
             <h:outputText id="output22"
-                          value="Pollrequests in Sekunden Speaker: #{spielDurchfuehrung.pollrequestSpeaker} "/>
+                          value="Pollrequests in Sekunden Speaker: #{spieleinstellungen.pollrequestSpeaker} "/>
 
-            <p:slider for="pollrequestSpeaker" display="output22"
+            <p:slider for="pollrequestsSpeaker2" display="output22"
                       displayTemplate="Pollrequests in Sekunden Speaker: {value}" ajax="true"
                       minValue="1" maxValue="30" style="width:200px"/>
 
@@ -186,13 +183,14 @@
             </p:selectBooleanCheckbox>
 
 
-        </h:panelGrid>
 
+        </h:panelGrid>
+        <h:inputHidden id="pollrequestsSpeaker2"
+                       value="#{spieleinstellungen.pollrequestSpeaker}"/>
         <h:inputHidden id="wartendSize" value="#{spielDurchfuehrung.wartendSize}"/>
         <h:inputHidden id="minutenZumVorbereiten"
                        value="#{spielDurchfuehrung.minutenZumVorbereiten}"/>
-        <h:inputHidden id="pollrequestsSpeaker"
-                       value="#{spielDurchfuehrung.pollrequestSpeaker}"/>
+
 
 
 
@@ -307,10 +305,18 @@
         <h:column>
 
             <p:inputMask mask="9999" value="#{websiteInfoService.jahrFuerDump}" size="4"/>
-            <p:commandButton id="dump" action="#{websiteInfoService.dumpJetztVonSeite()}" value="Dump erstellen" ajax="true" enabled="#{dropboxWeiche.isConnected()}"/>
+            <p:commandButton id="dump" action="#{websiteInfoService.dumpJetztVonSeite()}" value="Jahresdump erstellen" ajax="true" enabled="#{dropboxWeiche.isConnected()}"/>
         </h:column>
 
-        <p:blockUI block="websitepublisher" trigger="dump">
+        <h:outputText value="Dump der Statistiken erstellen"/>
+        <h:column>
+
+            <p:separator />
+
+            <p:commandButton id="dumpstat" action="#{sessionHelper.dump()}" value="Statistikdump erstellen" ajax="true" enabled="#{dropboxWeiche.isConnected()}"/>
+        </h:column>
+
+        <p:blockUI block="websitepublisher" trigger="dump,dumpstat">
             <p:graphicImage value="/app/resources/static/images/ajax-loader.gif"/>
         </p:blockUI>
 

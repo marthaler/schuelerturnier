@@ -3,6 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.web.controllers;
 
+import com.googlecode.madschuelerturnier.business.mobile.MatchInfoService;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.comperators.MannschaftsNamenComperator;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
@@ -41,29 +43,21 @@ public class MobileController {
     private SpielRepository srepo;
 
     @Autowired
-    private KategorieRepository krepo;
+    private MatchInfoService matchinfo;
 
     @Autowired
-    private MannschaftRepository mrepo;
+    SessionHelper session;
 
     private MobileSpiel finale;
 
     public List<String> getMannschaften() {
-        List<String> res = new ArrayList<String>();
-        res.add("Mannschaft wählen");
-        List<Mannschaft> all = mrepo.findAll();
-        Collections.sort(all, new MannschaftsNamenComperator());
-        for (Mannschaft m : all) {
-            res.add(m.getName().toUpperCase());
-        }
-        return res;
+        return matchinfo.getMannschaftsNamen();
     }
 
     public List<MobileSpiel> getSpiele() {
 
         List<MobileSpiel> res = new ArrayList<MobileSpiel>();
-        List<Spiel> spiele = srepo.findAll();
-
+        List<Spiel> spiele = srepo.findSpielFromMannschaft(matchinfo.evaluateMannschaftId(this.getMannschaftAuswahl().toUpperCase()));
         Collections.sort(spiele, new SpielZeitComperator());
 
         boolean finaleok = false;
@@ -176,11 +170,9 @@ public class MobileController {
                     verloren = Boolean.FALSE;
                 }
 
-                this.finale = getMobileSpiel(gfinale, mannschaft, "(" + kfinale.getToreABestaetigt() + ":" + kfinale.getToreBBestaetigt() + ")", verloren);
-                this.finale.setZeile("kleiner Finale: " + this.finale.getZeile());
+                this.finale = getMobileSpiel(gfinale, kfinale.getMannschaftBName(), "(" + kfinale.getToreABestaetigt() + ":" + kfinale.getToreBBestaetigt() + ")", verloren);
+                this.finale.setZeile("Kl. Finale: " + this.finale.getZeile().replace("Platz","Pl."));
                 return;
-
-
             } else if (kfinale.getMannschaftB().getName().equals(mannschaft)) {
                 Boolean verloren = null;
                 if (kfinale.getToreABestaetigt() < kfinale.getToreBBestaetigt()) {
@@ -190,15 +182,14 @@ public class MobileController {
                     verloren = Boolean.TRUE;
                 }
 
-                this.finale = getMobileSpiel(gfinale, mannschaft, "(" + kfinale.getToreBBestaetigt() + ":" + kfinale.getToreABestaetigt() + ")", verloren);
-                this.finale.setZeile("Kleiner Finale: " + this.finale.getZeile());
+                this.finale = getMobileSpiel(gfinale, kfinale.getMannschaftAName(), "(" + kfinale.getToreBBestaetigt() + ":" + kfinale.getToreABestaetigt() + ")", verloren);
+                this.finale.setZeile("Kl. Finale: " + this.finale.getZeile().replace("Platz","Pl."));
                 return;
-            } else {
-                this.finale = new MobileSpiel();
-                finale.setZeile("Einzug ins Finale leider nicht geschafft");
             }
 
-        } else if (gfinale != null && gfinale.getMannschaftA() != null && gfinale.getMannschaftB() != null) {
+        }
+
+        if (gfinale != null && gfinale.getMannschaftA() != null && gfinale.getMannschaftB() != null) {
 
             if (gfinale.getMannschaftA().getName().equals(mannschaft)) {
                 Boolean verloren = null;
@@ -209,8 +200,8 @@ public class MobileController {
                     verloren = Boolean.FALSE;
                 }
 
-                this.finale = getMobileSpiel(gfinale, mannschaft, "(" + gfinale.getToreABestaetigt() + ":" + gfinale.getToreBBestaetigt() + ")", verloren);
-                this.finale.setZeile("grosser Finale: " + this.finale.getZeile());
+                this.finale = getMobileSpiel(gfinale, gfinale.getMannschaftBName(), "(" + gfinale.getToreABestaetigt() + ":" + gfinale.getToreBBestaetigt() + ")", verloren);
+                this.finale.setZeile("Gr. Finale: " + this.finale.getZeile().replace("Platz","Pl."));
                 return;
             } else if (gfinale.getMannschaftB().getName().equals(mannschaft)) {
                 Boolean verloren = null;
@@ -221,25 +212,27 @@ public class MobileController {
                     verloren = Boolean.TRUE;
                 }
 
-                this.finale = getMobileSpiel(gfinale, mannschaft, "(" + gfinale.getToreBBestaetigt() + ":" + gfinale.getToreABestaetigt() + ")", verloren);
-                this.finale.setZeile("grosser Finale: " + this.finale.getZeile());
+                this.finale = getMobileSpiel(gfinale, gfinale.getMannschaftAName(), "(" + gfinale.getToreBBestaetigt() + ":" + gfinale.getToreABestaetigt() + ")", verloren);
+                this.finale.setZeile("Gr. Finale: " + this.finale.getZeile().replace("Platz","Pl."));
                 return;
-            } else {
-                this.finale = new MobileSpiel();
-                finale.setZeile("Einzug ins Finale leider nicht geschafft");
-
             }
-        } else {
-            this.finale = new MobileSpiel();
+        }
 
-            Date d = s.getMannschaftA().getKategorie().getLatestSpiel().getStart();
-            DateTime dd = new DateTime(d);
-            dd = dd.plusMinutes(15);
-            finale.setZeile("Paarung bekannt ab: " + DateUtil.getShortTimeDayString(dd.toDate()));
+        // finale noch nicht gesetzt !!
+        if(gfinale.getMannschaftA() == null && gfinale.getMannschaftB() == null){
+            this.finale = new MobileSpiel();
+            finale.setZeile("Paarung bekannt ab: " + this.matchinfo.evaluateFinalSpielPaarungBekannt(s.getMannschaftA()));
+        }
+        else {
+            this.finale = new MobileSpiel();
+            finale.setZeile("Einzug ins Finale leider nicht geschafft");
         }
     }
 
     public String getMannschaftAuswahl() {
+
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        session.invoke(request,"mobile");
 
         Map<String, Object> requestCookieMap = FacesContext.getCurrentInstance()
                 .getExternalContext()

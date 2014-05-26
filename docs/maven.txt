@@ -23,8 +23,8 @@ mvn clean jfx:native
 
 release:maven-jgitflow-plugin
 *******
-mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha27:release-start -DreleaseVersion=1.2.9
-mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha27:release-finish -DdevelopmentVersion=1.3.0-SNAPSHOT -DpushChanges=true -Duser=marthaler.worb@gmail.com -Dpassword=***
+mvn external.atlassian.jgitflow:gitflow-maven-plugin:1.0-m1:release-start -DreleaseVersion=1.3.1 -P dropbox,packages -DP dropbox,packages
+mvn external.atlassian.jgitflow:gitflow-maven-plugin:1.0-m1:release-finish -DdevelopmentVersion=1.3.2-SNAPSHOT -DpushChanges=true -Duser=marthaler.worb@gmail.com -Dpassword=*** -Darguments="-DskipTests" -Dmaven.test.skip=true -DskipTests -P dropbox,packages -DP dropbox,packages
 
 starten:
 *******

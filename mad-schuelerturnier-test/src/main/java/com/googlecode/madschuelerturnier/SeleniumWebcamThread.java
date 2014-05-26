@@ -1,13 +1,7 @@
 package com.googlecode.madschuelerturnier;
 
 import com.googlecode.madschuelerturnier.util.SeleniumDriverWrapper;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created with IntelliJ IDEA. User: dama Date: 02.01.13 Time: 19:30 To change this template use File | Settings | File Templates.
@@ -24,7 +18,7 @@ public class SeleniumWebcamThread extends Thread {
 
     private String url;
     private boolean running = true;
-
+private int errorcount;
     public SeleniumWebcamThread(String url) {
         this.url = url;
         util = new SeleniumDriverWrapper(url);
@@ -44,41 +38,45 @@ public class SeleniumWebcamThread extends Thread {
         util.getBaseURL();
 
         while (running) {
+
             try {
                 if (idExt == null || idExt.isEmpty()) {
-                    this.util.sleepAMoment(5);
+                    this.util.sleepAMoment();
                     continue;
                 }
 
                 LOG.info("EINTRAGEN: " + idExt);
-                this.util.sleepAMoment();
-                this.util.clickById("form1:j_idt25:up");
-                this.util.sleepAMoment();
-
-                this.util.sendById("form1:j_idt25:j_idt35", idExt);
+                this.util.clickById("form1:j_idt24:up");
                 this.util.sleepAMoment();
 
-                this.util.clickById("form1:j_idt25:suchen");
+                this.util.sendById("form1:j_idt24:j_idt32", idExt);
+                this.util.sleepAMoment();
+
+                this.util.clickById("form1:j_idt24:suchen");
                 this.util.sleepAMoment(3);
 
-                this.util.sendById("form1:j_idt25:ToreA", aExt);
-                this.util.sleepAMoment();
-                this.util.sendById("form1:j_idt25:ToreB", bExt);
-                this.util.sleepAMoment();
-
-                this.util.clickById("form1:j_idt25:save");
-
+                this.util.sendById("form1:j_idt24:ToreA", aExt);
+                this.util.sendById("form1:j_idt24:ToreB", bExt);
+                this.util.clickById("form1:j_idt24:save");
                 this.util.sleepAMoment();
 
-                if(this.util.getSourceAsString().contains("org.hibernate.exception.ConstraintViolationException")){
+                if (this.util.getSourceAsString().contains("org.hibernate.exception.ConstraintViolationException")) {
                     util.getBaseURL();
                 }
-
+                this.setIdExt("");
+                this.setaExt("22");
+                this.setbExt("22");
+                this.util.sleepAMoment();
             } catch (Exception e) {
-                LOG.error(e.getMessage(), e);
-            }
+                LOG.error("!!! " + e.getMessage());
+                errorcount++;
 
-            this.setIdExt("");
+                if (errorcount > 5) {
+                    this.running = false;
+                    SeleniumWebcamThread th = new SeleniumWebcamThread(url);
+                    th.run();
+                }
+            }
         }
     }
 

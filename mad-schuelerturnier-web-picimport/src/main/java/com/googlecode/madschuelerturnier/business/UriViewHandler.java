@@ -1,4 +1,4 @@
-package com.googlecode.madschuelerturnier.web.utils;
+package com.googlecode.madschuelerturnier.business;
 
 import javax.faces.application.ViewHandler;
 import javax.faces.application.ViewHandlerWrapper;

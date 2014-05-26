@@ -60,11 +60,6 @@ public class WebcamController {
 
     public void oncapture(CaptureEvent captureEvent) {
         LOG.info("capture: event here");
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            LOG.error(e.getMessage(),e);
-        }
         this.rawPicture = captureEvent.getData();
         LOG.info("capture: event ok");
         decodePicAndSearchSpiel();
@@ -100,6 +95,12 @@ public class WebcamController {
         this.WebcamBusiness.save(this.spiel, this.rawPicture);
         this.rawPicture = null;
         this.spiel = null;
+        this.code = null;
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createError(String text) {

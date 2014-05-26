@@ -34,6 +34,9 @@ public class Penalty extends Persistent {
 
     private String idString;
 
+    private boolean gespielt = false;
+    private boolean bestaetigt = false;
+
     @OneToOne
     private Gruppe gruppe = null;
 
@@ -41,8 +44,7 @@ public class Penalty extends Persistent {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Mannschaft> finalList = new ArrayList<Mannschaft>();
 
-    private boolean gespielt = false;
-    private boolean bestaetigt = false;
+
 
     public void addMannschaftInitial(final Mannschaft m) {
         this.finalList.add(m);
@@ -60,6 +62,7 @@ public class Penalty extends Persistent {
             reihenfolge = reihenfolge +"," + m2.getName();
         }
         reihenfolge = reihenfolge.substring(1);
+        reihenfolge = reihenfolge.toUpperCase();
     }
 
     public boolean contains(final Mannschaft m) {
@@ -115,6 +118,7 @@ public class Penalty extends Persistent {
         return this.gespielt;
     }
 
+    // todo refactoring des getters zu retreaveFinalList
     public List<Mannschaft> getFinallist() {
         List<Mannschaft> result = new ArrayList<Mannschaft>();
         if (this.reihenfolge != null && !this.reihenfolge.equals("")) {
@@ -132,6 +136,10 @@ public class Penalty extends Persistent {
         return this.finalList;
     }
 
+    public List<Mannschaft> getRealFinalList(){
+        return this.finalList;
+    }
+
     @Override
     public String toString() {
         return toMannschaftsString();
@@ -146,11 +154,11 @@ public class Penalty extends Persistent {
         StringBuilder stringBuilder = new StringBuilder();
         Mannschaft latest = null;
         for (Mannschaft m : finalList) {
-            stringBuilder.append(m.getName().toLowerCase() + ",");
+            stringBuilder.append(m.getName() + ",");
             latest = m;
         }
         String ret = stringBuilder.toString();
-        return ret.replace(latest.getName().toLowerCase() + ",", latest.getName().toLowerCase());
+        return ret.replace(latest.getName() + ",", latest.getName().toUpperCase());
     }
 
     public String getReihenfolge() {

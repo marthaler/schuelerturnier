@@ -48,7 +48,7 @@
     <h:outputText id="uhr"
                   value="Echte Zeit #{spielUhr.richtigeZeit} - Spiel Zeit: #{spielUhr.spielZeit} - Verspätung: #{business.spielzeitVerspaetung()}"/>
 </b>
-<p:poll interval="1"  update="uhr"/>
+<p:poll interval="#{spieleinstellungen.pollrequestSpeaker}"  update="uhr"/>
 <br/>
 <h:panelGrid columns="1" id="inputelements">
 
@@ -183,7 +183,7 @@
             <h:outputText id="zeit3"
                           value="#{spielDurchfuehrung.countdownToStart.zeit}"/>
 
-            <p:poll interval="1" update="zeit3"/>
+            <p:poll interval="#{spieleinstellungen.pollrequestSpeaker}" update="zeit3"/>
 
         </p:column>
 
@@ -231,7 +231,7 @@
 
         <p:column>
             <h:outputText id="zeit2" value="#{spielDurchfuehrung.countdown.zeit}"/>
-            <p:poll interval="1" update="zeit2"/>
+            <p:poll interval="#{spieleinstellungen.pollrequestSpeaker}" update="zeit2"/>
         </p:column>
 
         <p:column>
