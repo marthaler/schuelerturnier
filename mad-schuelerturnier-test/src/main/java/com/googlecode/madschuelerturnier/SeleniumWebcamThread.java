@@ -18,7 +18,7 @@ public class SeleniumWebcamThread extends Thread {
 
     private String url;
     private boolean running = true;
-
+private int errorcount;
     public SeleniumWebcamThread(String url) {
         this.url = url;
         util = new SeleniumDriverWrapper(url);
@@ -53,7 +53,7 @@ public class SeleniumWebcamThread extends Thread {
                 this.util.sleepAMoment();
 
                 this.util.clickById("form1:j_idt24:suchen");
-                this.util.sleepAMoment();
+                this.util.sleepAMoment(3);
 
                 this.util.sendById("form1:j_idt24:ToreA", aExt);
                 this.util.sendById("form1:j_idt24:ToreB", bExt);
@@ -68,7 +68,14 @@ public class SeleniumWebcamThread extends Thread {
                 this.setbExt("22");
                 this.util.sleepAMoment();
             } catch (Exception e) {
-                LOG.error(e.getMessage(), e);
+                LOG.error("!!! " + e.getMessage());
+                errorcount++;
+
+                if (errorcount > 5) {
+                    this.running = false;
+                    SeleniumWebcamThread th = new SeleniumWebcamThread(url);
+                    th.run();
+                }
             }
         }
     }

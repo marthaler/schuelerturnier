@@ -27,6 +27,7 @@ public class SeleniumEintragerThread extends Thread {
     private String user;
     private boolean running = true;
     private String methode;
+    private byte[] arr;
 
     private List<Spiel> spiele = null;
 
@@ -36,11 +37,9 @@ public class SeleniumEintragerThread extends Thread {
         this.user = user;
         util = new SeleniumDriverWrapper(url);
         this.methode = methode;
-
+        this.arr = arr;
         FromXLSLoader loader = new FromXLSLoader();
         spiele = loader.convertXLSToSpiele(arr);
-
-
     }
 
     public void shutDown() {
@@ -50,7 +49,10 @@ public class SeleniumEintragerThread extends Thread {
     }
 
     Set<String> idSpeicher = new HashSet<String>();
+
     int i = 0;
+
+    int errorcount = 0;
 
     @Override
     public void run() {
@@ -59,6 +61,13 @@ public class SeleniumEintragerThread extends Thread {
 
         while (running) {
             try{
+
+                this.util.sleepAMoment();
+                this.util.sleepAMoment();
+                this.util.getBaseURL();
+                this.util.sleepAMoment();
+                this.util.sleepAMoment();
+
             i ++;
             this.util.clickByLink("Abmelden");
             this.util.sleepAMoment();
@@ -139,8 +148,14 @@ public class SeleniumEintragerThread extends Thread {
             this.util.sleepAMoment(3);
             } catch(Exception e){
                 LOG.error("!!! " + e.getMessage());
-            }
+                errorcount ++;
 
+                if(errorcount > 5){
+                    this.running = false;
+                    SeleniumEintragerThread th = new SeleniumEintragerThread( user,  password,  url,  methode,  arr);
+                    th.run();
+                }
+            }
         }
     }
 

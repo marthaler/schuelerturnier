@@ -3,6 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.web.controllers;
 
+import com.googlecode.madschuelerturnier.business.mobile.MatchInfoService;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.comperators.MannschaftsNamenComperator;
@@ -42,10 +43,7 @@ public class MobileController {
     private SpielRepository srepo;
 
     @Autowired
-    private KategorieRepository krepo;
-
-    @Autowired
-    private MannschaftRepository mrepo;
+    private MatchInfoService matchinfo;
 
     @Autowired
     SessionHelper session;
@@ -53,21 +51,13 @@ public class MobileController {
     private MobileSpiel finale;
 
     public List<String> getMannschaften() {
-        List<String> res = new ArrayList<String>();
-        res.add("Mannschaft wählen");
-        List<Mannschaft> all = mrepo.findAll();
-        Collections.sort(all, new MannschaftsNamenComperator());
-        for (Mannschaft m : all) {
-            res.add(m.getName().toUpperCase());
-        }
-        return res;
+        return matchinfo.getMannschaftsNamen();
     }
 
     public List<MobileSpiel> getSpiele() {
 
         List<MobileSpiel> res = new ArrayList<MobileSpiel>();
-        List<Spiel> spiele = srepo.findAll();
-
+        List<Spiel> spiele = srepo.findSpielFromMannschaft(matchinfo.evaluateMannschaftId(this.getMannschaftAuswahl().toUpperCase()));
         Collections.sort(spiele, new SpielZeitComperator());
 
         boolean finaleok = false;
@@ -231,17 +221,12 @@ public class MobileController {
         // finale noch nicht gesetzt !!
         if(gfinale.getMannschaftA() == null && gfinale.getMannschaftB() == null){
             this.finale = new MobileSpiel();
-            Date d = s.getMannschaftA().getKategorie().getLatestSpiel().getStart();
-            DateTime dd = new DateTime(d);
-            dd = dd.plusMinutes(15);
-            finale.setZeile("Paarung bekannt ab: " + DateUtil.getShortTimeDayString(dd.toDate()));
+            finale.setZeile("Paarung bekannt ab: " + this.matchinfo.evaluateFinalSpielPaarungBekannt(s.getMannschaftA()));
         }
         else {
             this.finale = new MobileSpiel();
             finale.setZeile("Einzug ins Finale leider nicht geschafft");
-
         }
-
     }
 
     public String getMannschaftAuswahl() {

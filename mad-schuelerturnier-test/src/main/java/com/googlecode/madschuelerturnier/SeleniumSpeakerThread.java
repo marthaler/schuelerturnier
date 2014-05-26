@@ -19,6 +19,8 @@ public class SeleniumSpeakerThread extends Thread {
     private String user;
     private boolean running = true;
 
+    private int errorcount =0;
+
     public SeleniumSpeakerThread(String user, String password, String url) {
         this.url = url;
         this.password = password;
@@ -34,7 +36,7 @@ public class SeleniumSpeakerThread extends Thread {
 
     @Override
     public void run() {
-
+try{
         Thread.currentThread().setName("SPEAK");
 
         this.util.login("tester1915speaker", "1234");
@@ -58,5 +60,15 @@ public class SeleniumSpeakerThread extends Thread {
 
             this.util.sleepAMoment(10);
         }
+    } catch (Exception e) {
+        LOG.error("!!! " + e.getMessage());
+        errorcount++;
+
+        if (errorcount > 5) {
+            this.running = false;
+            SeleniumSpeakerThread th = new SeleniumSpeakerThread(user, password, url);
+            th.run();
+        }
+    }
     }
 }
