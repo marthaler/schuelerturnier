@@ -34,6 +34,12 @@ public class SeleniumKontrolliererThread extends Thread {
     }
 
 
+    public void shutDown() {
+        Thread.currentThread().interrupt();
+        running = false;
+        util.destroy();
+    }
+
     @Override
     public void run() {
 
