@@ -24,17 +24,13 @@ public class SeleniumKontrolliererThread extends Thread {
     private String user;
     private boolean running = true;
 
+    private int errorcount = 0;
+
     public SeleniumKontrolliererThread(String user, String password, String url) {
         this.url = url;
         this.password = password;
         this.user = user;
         util = new SeleniumDriverWrapper(url);
-    }
-
-    public void shutDown() {
-        Thread.currentThread().interrupt();
-        running = false;
-        util.destroy();
     }
 
 
@@ -49,30 +45,41 @@ public class SeleniumKontrolliererThread extends Thread {
         this.util.clickById("form:ac:weiter");
 
         while (running) {
+            try {
+                this.util.clickByLink("Kontrollierer");
 
-            this.util.clickByLink("Kontrollierer");
-
-            this.util.sleepAMoment(2);
-
-            final String str = this.util.getSourceAsString();
-
-            final Pattern pattern = Pattern.compile("([M]|[K])[0-9]{3}");
-
-            final Matcher matcher = pattern.matcher(str);
-
-            final List<String> mannschaften = new ArrayList<String>();
-
-            while (matcher.find()) {
-                mannschaften.add(matcher.group());
-            }
-
-            if (mannschaften.size() < 1) {
                 this.util.sleepAMoment(2);
-            } else {
-                if ((mannschaften.size() % 4) == 0) {
-                    this.util.clickById("form1:dataTable1:0:save");
+
+                final String str = this.util.getSourceAsString();
+
+                final Pattern pattern = Pattern.compile("([M]|[K])[0-9]{3}");
+
+                final Matcher matcher = pattern.matcher(str);
+
+                final List<String> mannschaften = new ArrayList<String>();
+
+                while (matcher.find()) {
+                    mannschaften.add(matcher.group());
+                }
+
+                if (mannschaften.size() < 1) {
+                    this.util.sleepAMoment(2);
                 } else {
-                    this.util.clickById("form1:dataTable1:0:save");
+                    if ((mannschaften.size() % 4) == 0) {
+                        this.util.clickById("form1:dataTable1:0:save");
+                    } else {
+                        this.util.clickById("form1:dataTable1:0:save");
+                    }
+                }
+
+            } catch (Exception e) {
+                LOG.error("!!! " + e.getMessage());
+                errorcount++;
+
+                if (errorcount > 5) {
+                    this.running = false;
+                    SeleniumKontrolliererThread th = new SeleniumKontrolliererThread(user, password, url);
+                    th.run();
                 }
             }
         }

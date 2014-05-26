@@ -4,6 +4,7 @@ import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
 import com.googlecode.madschuelerturnier.model.support.WebSessionLog;
 import com.googlecode.madschuelerturnier.model.util.XstreamUtil;
 import com.googlecode.madschuelerturnier.persistence.repository.WebSessionLogRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,8 @@ import java.util.Date;
 @Component
 public class SessionHelper {
 
+    private static final Logger LOG = Logger.getLogger(MobileController.class);
+
     private String jahr;
 
     @Autowired
@@ -27,6 +30,7 @@ public class SessionHelper {
     private DropboxConnector dropboxConnector;
 
     public void invoke(HttpServletRequest request, String typ) {
+        try{
         String id = request.getSession().getId();
         WebSessionLog logS = logRepo.findWebSessionLogById(id);
         if (logS == null) {
@@ -38,6 +42,9 @@ public class SessionHelper {
         logS.setRequests(logS.getRequests() + 1);
         logS.setEnd(new Date());
         logRepo.save(logS);
+        } catch (Exception e){
+            LOG.info("fehler bei der session-speicherung: " + e.getMessage());
+        }
     }
 
     public String getJahr() {

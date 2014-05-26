@@ -24,6 +24,9 @@ public interface SpielRepository extends JpaRepository<Spiel, Long> {
     @Query("select o from Spiel o where o.typ = 1 or o.typ = 2")
     List<Spiel> findFinalSpiel();
 
+    @Query("select o from Spiel o where o.mannschaftA.id = ?1 or o.mannschaftB.id = ?1")
+    List<Spiel> findSpielFromMannschaft(Long id);
+
     @Query("select o from Spiel o where o.typ = 0 order by o.start,o.platz asc")
     List<Spiel> findGruppenSpielAsc();
 
