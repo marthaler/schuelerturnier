@@ -62,6 +62,10 @@ public class MobileController {
 
         boolean finaleok = false;
 
+        if(this.getMannschaftAuswahl() == null || this.getMannschaftAuswahl().isEmpty() || this.getMannschaftAuswahl().length() > 5){
+            return null;
+        }
+
         for (Spiel s : spiele) {
 
 

@@ -19,6 +19,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Zum Testen des Date Utils
@@ -30,7 +31,8 @@ public class DateUtilTest {
 
 
     @Test
-    public void ensureExpectedPojoCount() {
+    public void testDateUtilFormat() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Europe/Zurich"));
         Date d = new Date(66644333);
         String str = DateUtil.getShortTimeDayString(d);
         Assert.assertEquals("Datum falsch formatiert","Do 19:30",str);
