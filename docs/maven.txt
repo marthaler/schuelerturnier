@@ -21,10 +21,11 @@ mvn release:prepare release:perform  -B -Pimac -DreleaseVersion=1.2.0 -Ddevelopm
 
 mvn clean jfx:native
 
-release:maven-jgitflow-plugin
+release:jgitflow-maven-plugin
 *******
-mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha27:release-start -DreleaseVersion=1.3.1
-mvn com.atlassian.maven.plugins:maven-jgitflow-plugin:1.0-alpha27:release-finish -DdevelopmentVersion=1.3.0-SNAPSHOT -DpushChanges=true -Duser=marthaler.worb@gmail.com -Dpassword=*** -Darguments="-DskipTests" -Dmaven.test.skip=true -DskipTests
+mvn external.atlassian.jgitflow:jgitflow-maven-plugin:1.0-m1:release-start -DdevelopmentVersion=1.3.4-SNAPSHOT -DreleaseVersion=1.3.3 -Dusername=marthaler.worb@mail.com -D***
+mvn external.atlassian.jgitflow:jgitflow-maven-plugin:1.0-m1:release-finish -DdevelopmentVersion=1.3.4-SNAPSHOT -DreleaseVersion=1.3.3 -Dusername=marthaler.worb@mail.com -D***
+
 starten:
 *******
 java -jar /app/app.jar -Ddb.url=jdbc:hsqldb:file:/app/db/db -Dftp.folder=daniel -Dtransport.local.url=127.0.0.1 -Dtransport.local.port=8080/app/transport -Dtransport.local.address=http://localhost:8080/app/transport  -Dtransport.remote.address=http://localhost:8081/app/transport
