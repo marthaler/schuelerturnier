@@ -468,6 +468,16 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
             </plugin>
+
+            <plugin>
+                <groupId>external.atlassian.jgitflow</groupId>
+                <artifactId>jgitflow-maven-plugin</artifactId>
+                <version>1.0-m1</version>
+                <configuration>
+                    <!-- see goals wiki page for configuration options -->
+                </configuration>
+            </plugin>
+
         </plugins>
 
         <pluginManagement>
@@ -672,21 +682,6 @@
                     </configuration>
                 </plugin>
 
-                <plugin>
-                    <groupId>com.dkirrane.maven.plugins</groupId>
-                    <artifactId>ggitflow-maven-plugin</artifactId>
-                    <version>1.5-SNAPSHOT</version>
-                    <configuration>
-                        <releaseProfiles>dropbox,packages</releaseProfiles>
-                        <pushFeatures>true</pushFeatures>
-                        <pushReleases>true</pushReleases>
-                        <pushHotfixes>true</pushHotfixes>
-                        <skipBuild>false</skipBuild>
-                        <skipDeploy>false</skipDeploy>
-                        <skipTests>true</skipTests>
-                    </configuration>
-                </plugin>
-
             </plugins>
         </pluginManagement>
     </build>
@@ -695,10 +690,6 @@
         <pluginRepository>
             <id>onejar-maven-plugin.googlecode.com</id>
             <url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
-        </pluginRepository>
-        <pluginRepository>
-            <id>sonatype</id>
-            <url>https://oss.sonatype.org/content/groups/public</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -734,22 +725,6 @@
             </snapshots>
         </repository>
 
-        <!-- For PrimeFaces JSF component library
-        <repository>
-            <id>prime-repo</id>
-            <name>Prime Technology Maven Repository</name>
-            <url>http://repository.prime.com.tr</url>
-            <layout>default</layout>
-        </repository>
-
-        <repository>
-            <id>prime-repo2</id>
-            <name>PrimeFaces Maven Repository</name>
-            <url>http://repository.primefaces.org</url>
-            <layout>default</layout>
-        </repository>
-
--->
     </repositories>
 
 
