@@ -56,6 +56,10 @@ public class MobileController {
 
     public List<MobileSpiel> getSpiele() {
 
+        if(this.getMannschaftAuswahl() == null){
+            return new ArrayList<MobileSpiel>();
+        }
+
         List<MobileSpiel> res = new ArrayList<MobileSpiel>();
         List<Spiel> spiele = srepo.findSpielFromMannschaft(matchinfo.evaluateMannschaftId(this.getMannschaftAuswahl().toUpperCase()));
         Collections.sort(spiele, new SpielZeitComperator());
