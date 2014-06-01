@@ -23,8 +23,8 @@ mvn clean jfx:native
 
 release:jgitflow-maven-plugin
 *******
-mvn external.atlassian.jgitflow:jgitflow-maven-plugin:1.0-m1:release-start -DdevelopmentVersion=1.3.4-SNAPSHOT -DreleaseVersion=1.3.3 -Dusername=marthaler.worb@mail.com -D***
-mvn external.atlassian.jgitflow:jgitflow-maven-plugin:1.0-m1:release-finish -DdevelopmentVersion=1.3.4-SNAPSHOT -DreleaseVersion=1.3.3 -Dusername=marthaler.worb@mail.com -D***
+mvn external.atlassian.jgitflow:jgitflow-maven-plugin:1.0-m1:release-start -DdevelopmentVersion=1.3.4-SNAPSHOT -DreleaseVersion=1.3.3
+mvn external.atlassian.jgitflow:jgitflow-maven-plugin:1.0-m1:release-finish -DdevelopmentVersion=1.3.4-SNAPSHOT -DreleaseVersion=1.3.3 -Darguments="-DskipTests" -Dmaven.test.skip=true -DskipTests
 
 starten:
 *******
