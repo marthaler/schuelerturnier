@@ -2,7 +2,7 @@
     <parent>
         <artifactId>mad-schuelerturnier-parent</artifactId>
         <groupId>com.googlecode.madschuelerturnier</groupId>
-        <version>1.3.4</version>
+        <version>1.3.5-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>mad-schuelerturnier-dropboxinterface</artifactId>
