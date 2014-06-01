@@ -153,7 +153,7 @@ public class SeleniumEintragerThread extends Thread {
                 if(errorcount > 5){
                     this.running = false;
                     SeleniumEintragerThread th = new SeleniumEintragerThread( user,  password,  url,  methode,  arr);
-                    th.run();
+                    th.start();
                 }
             }
         }
