@@ -36,6 +36,14 @@ public class BarcodeUtilTest {
         }
         Assert.assertEquals("BZ", BarcodeUtil.decode(img));
 
+        URL defaultImage2= this.getClass().getResource("/pictures/test4.png");
+        try {
+            img = ImageIO.read(new File(defaultImage2.getPath().toString()));
+        } catch (IOException e) {
+            LOG.error(e.getMessage(), e);
+        }
+        Assert.assertEquals("DL", BarcodeUtil.decode(img));
+
         // voller test mit Erstellen des Codes
         Assert.assertEquals("ich bin ein test", BarcodeUtil.decode(BarcodeUtil.encode("ich bin ein test")));
 
