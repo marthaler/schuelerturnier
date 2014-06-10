@@ -54,6 +54,8 @@ public class WebcamController implements Serializable {
     private byte[] rawPicture;
     private String code;
 
+    Boolean gefunde = null;
+
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public void getFile(HttpServletResponse response) {
         try {
@@ -77,14 +79,15 @@ public class WebcamController implements Serializable {
 
     public void oncapture(CaptureEvent captureEvent) {
         LOG.info("capture: event here");
+
         try {
-            Thread.sleep(200);
+            Thread.sleep(800);
         } catch (InterruptedException e) {
-            LOG.error(e.getMessage(), e);
+            e.printStackTrace();
         }
+
         this.rawPicture = captureEvent.getData();
         LOG.info("capture: event ok");
-        decodePicAndSearchSpiel();
     }
 
     public void decodePicAndSearchSpiel() {
@@ -103,6 +106,7 @@ public class WebcamController implements Serializable {
     public void reset() {
         this.rawPicture = null;
         this.spiel = null;
+        this.code = null;
     }
 
     public void search() {
@@ -115,9 +119,7 @@ public class WebcamController implements Serializable {
 
     public void save() {
         this.saveController.save(this.spiel, this.rawPicture);
-        this.rawPicture = null;
-        this.spiel = null;
-        this.code = null;
+        reset();
     }
 
     private void createError(String text) {
