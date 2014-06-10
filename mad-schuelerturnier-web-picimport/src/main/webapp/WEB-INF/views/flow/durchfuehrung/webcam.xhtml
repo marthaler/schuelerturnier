@@ -28,9 +28,9 @@
                                             <br/>
                                             <p:commandButton id="up" value="Suchen"
                                                              onclick="PF('pc').capture();"
-                                                             rendered="#{!webcamController.hasPic()}" ajax="false"/>
+                                                             rendered="#{!webcamController.hasPic()}" ajax="true"/>
+                                            <p:poll interval="5"  update="grid1" rendered="#{!webcamController.hasPic()}"/>
                                         </p:row>
-
 
 
                                         <p:row rendered="#{webcamController.hasPic() &amp;&amp; !webcamController.hasCode() &amp;&amp; !webcamController.hasSpiel() }">
@@ -44,7 +44,7 @@
 
                                             <h:outputText value="Spiel Code zum Suchen: "/><br/>
                                             <p:focus for="code" />
-                                            <p:inputText id = "code" value="#{webcamController.code}"/><br/>
+                                            <p:inputText id = "code" value="#{webcamController.code}" ajax="true"/><br/>
                                             <p:commandButton id="suchen" value="Suchen mit Code:" action="#{webcamController.search}" ajax="false"/>
 
                                         </p:row>
