@@ -168,17 +168,18 @@ public class MobileController {
         Spiel kfinale = s.getMannschaftA().getKategorie().getKleineFinal();
         Spiel gfinale = s.getMannschaftA().getKategorie().getGrosserFinal();
 
+        // kleiner Finale evaluieren
         if (kfinale != null && kfinale.getMannschaftA() != null && kfinale.getMannschaftB() != null) {
             if (kfinale.getMannschaftA().getName().equals(mannschaft)) {
                 Boolean verloren = null;
                 if (kfinale.getToreABestaetigt() < kfinale.getToreBBestaetigt()) {
                     verloren = Boolean.TRUE;
                 }
-                if (gfinale.getToreABestaetigt() > kfinale.getToreBBestaetigt()) {
+                if (kfinale.getToreABestaetigt() > kfinale.getToreBBestaetigt()) {
                     verloren = Boolean.FALSE;
                 }
 
-                this.finale = getMobileSpiel(gfinale, kfinale.getMannschaftBName(), "(" + kfinale.getToreABestaetigt() + ":" + kfinale.getToreBBestaetigt() + ")", verloren);
+                this.finale = getMobileSpiel(kfinale, kfinale.getMannschaftBName(), "(" + kfinale.getToreABestaetigt() + ":" + kfinale.getToreBBestaetigt() + ")", verloren);
                 this.finale.setZeile("Kl. Finale: " + this.finale.getZeile().replace("Platz","Pl."));
                 return;
             } else if (kfinale.getMannschaftB().getName().equals(mannschaft)) {
@@ -190,13 +191,13 @@ public class MobileController {
                     verloren = Boolean.TRUE;
                 }
 
-                this.finale = getMobileSpiel(gfinale, kfinale.getMannschaftAName(), "(" + kfinale.getToreBBestaetigt() + ":" + kfinale.getToreABestaetigt() + ")", verloren);
+                this.finale = getMobileSpiel(kfinale, kfinale.getMannschaftAName(), "(" + kfinale.getToreBBestaetigt() + ":" + kfinale.getToreABestaetigt() + ")", verloren);
                 this.finale.setZeile("Kl. Finale: " + this.finale.getZeile().replace("Platz","Pl."));
                 return;
             }
-
         }
 
+        // grosser Finale evaluieren
         if (gfinale != null && gfinale.getMannschaftA() != null && gfinale.getMannschaftB() != null) {
 
             if (gfinale.getMannschaftA().getName().equals(mannschaft)) {
