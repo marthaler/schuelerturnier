@@ -26,21 +26,27 @@
                                         <p:row rendered="#{!webcamController.hasPic()}">
                                             <p:photoCam widgetVar="pc" listener="#{webcamController.oncapture}"/>
                                             <br/>
-                                            <p:commandButton id="up" value="Suchen"
+                                            <p:commandButton id="up" value="(1) Foto"
                                                              onclick="PF('pc').capture();"
                                                              rendered="#{!webcamController.hasPic()}" ajax="true"/>
-                                            <p:poll interval="5"  update="grid1" rendered="#{!webcamController.hasPic()}"/>
+
+                                            <p:commandButton id="up2" value="(2) Senden"
+                                                             onclick="PF('pc').capture();"
+                                                             rendered="#{!webcamController.hasPic()}" ajax="false"/>
                                         </p:row>
 
 
                                         <p:row rendered="#{webcamController.hasPic() &amp;&amp; !webcamController.hasCode() &amp;&amp; !webcamController.hasSpiel() }">
                                             <p:graphicImage id="pic" widgetWar="pic" value="/app/webcam/download"/><br/>
                                             <br/>
-
+<!--
                                             <p:commandButton id="erkennen" value="Erkennen"
                                                              action="#{webcamController.decodePicAndSearchSpiel()}" ajax="false" />
 
-                                            <p:separator /><br/>
+                                                                      <p:separator /><br/>
+
+-->
+
 
                                             <h:outputText value="Spiel Code zum Suchen: "/><br/>
                                             <p:focus for="code" />
@@ -65,10 +71,6 @@
                                                              ajax="false"/>
 
                                         </p:row>
-
-                                        <p:blockUI block="grid1" trigger="save">
-                                            <p:graphicImage value="/app/resources/static/images/ajax-loader.gif"/>
-                                        </p:blockUI>
 
 
                                     </h:panelGrid>
