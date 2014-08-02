@@ -1,15 +1,22 @@
+/**
+ * Apache License 2.0
+ */
 package com.googlecode.madschuelerturnier.web.security;
 
 import java.io.Serializable;
 
 /**
- * Created by dama on 20.12.13.
+ * Dient als Behaelter fuer die login Informationen von der Loginmaske
+ *
+ * @author marthaler.worb@gmail.com
+ * @since 1.3.1
  */
 public class LoginBean implements Serializable {
 
     private String user;
     private String password;
     private String mail;
+    private boolean rememberme;
 
     public String getUser() {
         return user;
@@ -33,5 +40,13 @@ public class LoginBean implements Serializable {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public boolean isRememberme() {
+        return rememberme;
+    }
+
+    public void setRememberme(boolean rememberme) {
+        this.rememberme = rememberme;
     }
 }

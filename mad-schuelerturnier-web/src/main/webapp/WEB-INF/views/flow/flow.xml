@@ -8,6 +8,11 @@
     <var name="loginBean" class="com.googlecode.madschuelerturnier.web.security.LoginBean"/>
 
     <decision-state id="start">
+        <!-- durchfuehren des logins im falle eines autologons-->
+        <on-entry>
+            <evaluate expression="doLoginController.checkAutoLogon()"/>
+        </on-entry>
+
         <if test="currentUser == null || ! currentUser.isAuthenticated()" then="login"/>
         <if test="!dropboxBackingBean.isConnected() AND !dropboxBackingBean.isWillNotconnect()" then="dropboxconnect"/>
         <if test="currentUser != null AND currentUser.isAuthenticated()" then="initialisieren"/>
