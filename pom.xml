@@ -8,13 +8,14 @@
         <version>0.1.1</version>
     </parent>
 
-    <groupId>ch.emad.fbt</groupId>
-    <artifactId>emad-fbt</artifactId>
-    <version>0.0.7-SNAPSHOT</version>
+    <groupId>com.googlecode.madschuelerturnier</groupId>
+    <artifactId>mad-schuelerturnier-parent</artifactId>
+    <version>1.3.5-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
     <properties>
+
         <emad-dropbox.version>0.0.20</emad-dropbox.version>
         <commons-httpclient.version>3.1</commons-httpclient.version>
         <tomcat-catalina.version>8.0.9</tomcat-catalina.version>
