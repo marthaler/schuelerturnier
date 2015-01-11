@@ -135,6 +135,36 @@
 
     </dependencies>
 
+        <build>
+
+            <plugins>
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>copy</id>
+                            <phase>install</phase>
+                            <goals>
+                                <goal>copy</goal>
+                            </goals>
+                            <configuration>
+                                <artifactItems>
+                                    <artifactItem>
+                                        <groupId>com.googlecode.madschuelerturnier</groupId>
+                                        <artifactId>mad-schuelerturnier-web</artifactId>
+                                        <version>${project.version}</version>
+                                        <type>war</type>
+                                    </artifactItem>
+                                </artifactItems>
+                                <outputDirectory>target</outputDirectory>
+                                <stripVersion>true</stripVersion>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </build>
+
     <profiles>
         <profile>
             <id>dropbox</id>
