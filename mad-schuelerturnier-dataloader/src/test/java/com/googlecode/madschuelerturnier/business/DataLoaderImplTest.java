@@ -53,7 +53,6 @@ public class DataLoaderImplTest {
     }
 
     @Test
-    @Ignore
     public void testLoadDefaultAllUsers() {
         List<DBAuthUser> user = DataLoaderImpl.getDataLoader().loadDBUser();
         Assert.assertEquals(5, user.size());
