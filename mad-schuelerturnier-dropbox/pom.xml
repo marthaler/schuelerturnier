@@ -10,11 +10,6 @@
     <name>mad-schuelerturnier-dropbox</name>
 
     <dependencies>
-        <dependency>
-            <groupId>com.dropbox.core</groupId>
-            <artifactId>dropbox-core-sdk</artifactId>
-            <version>${dropbox.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>com.googlecode.madschuelerturnier</groupId>
@@ -46,6 +41,12 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.emad.dropbox</groupId>
+            <artifactId>emad-dropbox-impl</artifactId>
+            <version>${emad-dropbox.version}</version>
         </dependency>
 
     </dependencies>

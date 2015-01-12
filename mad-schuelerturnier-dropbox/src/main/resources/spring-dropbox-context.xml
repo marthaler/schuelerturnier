@@ -24,13 +24,4 @@
         <property name="nullValue" value=""/>
     </bean>
 
-    <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
-        <!-- does not necessarily have to be the same name as the bean to be exported -->
-        <property name="serviceName" value="DropboxConnectorRemote"/>
-        <property name="service" ref="localDropboxConnector"/>
-        <property name="serviceInterface" value="com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector"/>
-        <!-- defaults to 1099 -->
-        <property name="registryPort" value="1199"/>
-    </bean>
-
 </beans>

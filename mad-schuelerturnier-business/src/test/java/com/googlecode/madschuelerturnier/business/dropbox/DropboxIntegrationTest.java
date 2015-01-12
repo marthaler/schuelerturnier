@@ -3,8 +3,6 @@
  */
 package com.googlecode.madschuelerturnier.business.dropbox;
 
-import ch.emad.dropbox.DropboxConnector;
-import ch.emad.dropbox.DropboxConnectorImpl;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 
@@ -38,7 +36,7 @@ public class DropboxIntegrationTest {
 
         Assert.assertTrue(conn.isConnected());
         String ff = "";
-        List<String> files = conn.getFilesInFolder("/");
+        List<String> files = conn.getFilesInFolder();
         Assert.assertTrue(files.size() > 0);
 
         for (String file : files) {

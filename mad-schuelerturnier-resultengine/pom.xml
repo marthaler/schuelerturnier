@@ -145,6 +145,11 @@
             <version>1.4.01</version>
         </dependency>
 
+        <dependency>
+            <groupId>ch.emad.dropbox</groupId>
+            <artifactId>emad-dropbox-impl</artifactId>
+            <version>${emad-dropbox.version}</version>
+        </dependency>
     </dependencies>
 
 

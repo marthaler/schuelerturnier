@@ -49,12 +49,12 @@
             <version>1.3.2</version>
         </dependency>
 
-
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
             <version>${zxing.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>javase</artifactId>
@@ -72,7 +72,6 @@
             <artifactId>mad-schuelerturnier-resultengine</artifactId>
             <version>${project.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>commons-httpclient</groupId>
@@ -98,14 +97,6 @@
             <artifactId>jsr250-api</artifactId>
         </dependency>
 
-        <!-- ftp test -->
-        <dependency>
-            <groupId>org.mockftpserver</groupId>
-            <artifactId>MockFtpServer</artifactId>
-            <version>${mockftp.version}</version>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
@@ -124,6 +115,13 @@
             <version>${aspectjweaver.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>ch.emad.dropbox</groupId>
+            <artifactId>emad-dropbox-impl</artifactId>
+            <version>${emad-dropbox.version}</version>
+        </dependency>
+
+
     </dependencies>
 
 
@@ -135,7 +133,6 @@
             </activation>
             <build>
                 <plugins>
-
 
                     <plugin>
                         <artifactId>maven-surefire-plugin</artifactId>

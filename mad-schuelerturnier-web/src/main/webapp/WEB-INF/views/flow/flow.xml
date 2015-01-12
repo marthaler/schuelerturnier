@@ -12,8 +12,8 @@
         <on-entry>
             <evaluate expression="doLoginController.checkAutoLogon()"/>
         </on-entry>
-
         <if test="currentUser == null || ! currentUser.isAuthenticated()" then="login"/>
+
         <if test="!dropboxBackingBean.isConnected() AND !dropboxBackingBean.isWillNotconnect()" then="dropboxconnect"/>
         <if test="currentUser != null AND currentUser.isAuthenticated()" then="initialisieren"/>
     </decision-state>

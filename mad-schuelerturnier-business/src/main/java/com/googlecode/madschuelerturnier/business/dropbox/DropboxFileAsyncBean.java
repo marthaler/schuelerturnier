@@ -1,5 +1,5 @@
 /**
- * Apache License 2.0
+ * Copyright (C) eMad, 2014.
  */
 package com.googlecode.madschuelerturnier.business.dropbox;
 
@@ -32,11 +32,11 @@ public class DropboxFileAsyncBean {
 
     @Async
     protected void deleteFromDropbox(File f) {
-        dropbox.deleteGameAttachemt(getFileName(f));
+        dropbox.deleteGameAttachemt(getFileName(f),f.getSuffix());
     }
 
     protected byte[] loadFromDropbox(File f) {
-        return dropbox.loadGameAttachemt(getFileName(f));
+        return dropbox.loadGameAttachemt(getFileName(f),f.getSuffix());
     }
 
     private String getFileName(File f) {

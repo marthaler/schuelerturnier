@@ -42,4 +42,7 @@
     <!-- defaults to 1099 -->
     <property name="registryPort" value="1299"/>
     </bean>
+
+    <bean class="ch.emad.dropbox.SpringContextDropbox"/>
+
 </beans>

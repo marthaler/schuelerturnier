@@ -1,5 +1,5 @@
 /**
- * Apache License 2.0
+ * Copyright (C) eMad, 2014.
  */
 package com.googlecode.madschuelerturnier.business.dropbox;
 
