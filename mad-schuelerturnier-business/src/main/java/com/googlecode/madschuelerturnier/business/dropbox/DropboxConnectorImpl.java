@@ -32,6 +32,9 @@ public class DropboxConnectorImpl implements DropboxConnector {
     @Autowired
     ch.emad.dropbox.DropboxConnector driver;
 
+    @Autowired
+    DropboxStarter starter;
+
     @Autowired(required = false)
     Stage stage;
 
@@ -59,6 +62,11 @@ public class DropboxConnectorImpl implements DropboxConnector {
         } catch (Exception e) {
             LOG.info(e.getMessage());
         }
+        this.starter.doTheStuff(this);
+    }
+
+    public void setSelectedGame(String selectedGame) {
+        this.selectedGame = selectedGame;
     }
 
     private String selectedGame = "";

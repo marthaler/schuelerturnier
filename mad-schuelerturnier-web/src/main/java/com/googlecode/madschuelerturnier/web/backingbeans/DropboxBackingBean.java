@@ -4,6 +4,7 @@
 package com.googlecode.madschuelerturnier.web.backingbeans;
 
 import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
+import com.googlecode.madschuelerturnier.business.dropbox.DropboxStarter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
@@ -30,6 +31,9 @@ public class DropboxBackingBean implements Serializable{
     private String newfolder = new Date().toString();
 
     private boolean willNotConnect = false;
+
+    @Autowired
+    DropboxStarter starter;
 
     @Autowired
     @Qualifier("dropboxConnector")
@@ -68,6 +72,11 @@ public class DropboxBackingBean implements Serializable{
     }
 
     public boolean isWillNotconnect() {
+
+        if(starter.noNeedToConnect()){
+            return true;
+        }
+
         return willNotConnect;
     }
 

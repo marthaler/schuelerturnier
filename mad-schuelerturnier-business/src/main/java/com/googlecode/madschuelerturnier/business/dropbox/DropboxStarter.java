@@ -1,12 +1,15 @@
-/*
- * Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
+/**
+ * Copyright (C) eMad, 2014.
  */
 package com.googlecode.madschuelerturnier.business.dropbox;
 
+import com.googlecode.madschuelerturnier.business.Business;
 import com.googlecode.madschuelerturnier.stages.Stage;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.remoting.rmi.RmiProxyFactoryBean;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 
@@ -29,24 +32,26 @@ public class DropboxStarter {
     private static final Logger LOG = Logger.getLogger(DropboxStarter.class);
 
     @Autowired
-    ch.emad.dropbox.DropboxConnector driver;
+    Business business;
 
-    @PostConstruct
-    public void init() {
+    private boolean noNeedToConnect = false;
 
-            byte[] arr = driver.loadFile("fixiertesjahr.txt");
+    @Async
+    public void doTheStuff(DropboxConnectorImpl driver){
 
-            String res;
-            if(arr != null && arr.length > 0){
-                res = new String(arr);
-            } else{
+        byte[] arr = driver.loadFile("fixiertesjahr.txt");
+        String res;
 
-            }
+        if(arr != null && arr.length > 0){
+            res = new String(arr);
+            noNeedToConnect = true;
+            business.generateSpielFromXLS(driver.loadFile(res+"/"+res+".xls"));
+            driver.setSelectedGame(res);
+        }
+    }
 
-
-
-
-
+    public boolean noNeedToConnect(){
+        return noNeedToConnect;
     }
 
 }
