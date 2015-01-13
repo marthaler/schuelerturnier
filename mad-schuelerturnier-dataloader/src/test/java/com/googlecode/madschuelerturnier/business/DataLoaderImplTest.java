@@ -9,6 +9,7 @@ import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.Text;
 import com.googlecode.madschuelerturnier.model.support.File;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;

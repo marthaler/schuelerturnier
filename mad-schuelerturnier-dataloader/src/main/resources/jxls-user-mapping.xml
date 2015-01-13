@@ -12,6 +12,8 @@
                 <mapping row="1" col="2">user.password</mapping>
                 <mapping row="1" col="3">user.mail</mapping>
                 <mapping row="1" col="4">user.authoritiesString</mapping>
+                <!--<mapping row="1" col="5">user.autologin</mapping>
+                <mapping row="1" col="6">user.linktoken</mapping>-->
             </section>
             <loopbreakcondition>
                 <rowcheck offset="0">

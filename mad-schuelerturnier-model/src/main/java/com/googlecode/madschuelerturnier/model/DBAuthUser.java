@@ -32,6 +32,8 @@ public class DBAuthUser extends Persistent implements UserDetails {
     private String authoritiesString;
     private String mail;
 
+    private boolean autologin = false;
+
     private String linktoken = UUID.randomUUID().toString();
 
     @Transient
@@ -135,5 +137,13 @@ public class DBAuthUser extends Persistent implements UserDetails {
 
     public String getLinktoken() {
         return linktoken;
+    }
+
+    public boolean isAutologin() {
+        return autologin;
+    }
+
+    public void setAutologin(boolean autologin) {
+        this.autologin = autologin;
     }
 }

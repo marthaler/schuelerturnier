@@ -43,11 +43,9 @@ public class LinkLoginController {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
                 authToken.setDetails(new WebAuthenticationDetails(request));
                 Authentication authentication = this.provider.authenticate(authToken);
-
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (Exception e) {
                 SecurityContextHolder.getContext().setAuthentication(null);
-
             }
         }
 

@@ -45,7 +45,11 @@
                                 <h:outputLabel for="password" value="Passwort:"/>
                                 <h:inputSecret id="password" value="#{loginBean.password}" size="40"
                                                onkeypress="if (event.keyCode == 13) { document.getElementById('account_form:ok').click(); return false; }"/>
+
+                                <h:outputLabel for="rememberme" value="angemeldet bleiben:"/>
+                                <p:selectBooleanCheckbox id="rememberme" value="#{loginBean.rememberme}" />
                                 <br/>
+
                                 <p:commandButton id="ok" value="Login" action="ok" ajax="false"/>
                                 <br/> <br/><br/>
                                 <p:commandLink id="neu" value="Anmeldelink Senden" oncomplete="PF('dlgnu').show();"/>
@@ -61,6 +65,8 @@
                                                  onkeypress="if (event.keyCode == 13) { document.getElementById('account_form:mailSenden').click(); return false; }"/>
 
                                 </h:panelGrid>
+
+
 
                                 <p:commandButton id="mailSenden" value="Senden" action="mail" ajax="false"/>
 

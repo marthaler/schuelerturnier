@@ -45,7 +45,7 @@
 <p:fieldset legend="Spieldurchfuehrung">
 <p:messages/>
 <b>
-    <h:outputText id="uhr"
+    <p:graphicImage   lt="image"  value="http://upload.wikimedia.org/wikipedia/de/b/b6/BLS_AG_logo.svg" cache="true" width="50"/> _ <h:outputText id="uhr"
                   value="Echte Zeit #{spielUhr.richtigeZeit} - Spiel Zeit: #{spielUhr.spielZeit} - Verspätung: #{business.spielzeitVerspaetung()}"/>
 </b>
 <p:poll interval="#{spieleinstellungen.pollrequestSpeaker}"  update="uhr"/>
@@ -265,3 +265,7 @@
 </ui:define>
 
 </ui:composition>
+
+
+
+

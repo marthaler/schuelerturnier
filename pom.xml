@@ -2,170 +2,42 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>ch.emad.root</groupId>
+        <artifactId>emad-root</artifactId>
+        <version>0.1.1</version>
+    </parent>
+
     <groupId>com.googlecode.madschuelerturnier</groupId>
     <artifactId>mad-schuelerturnier-parent</artifactId>
-    <version>1.3.4</version>
+    <version>1.3.8</version>
 
     <packaging>pom</packaging>
 
     <properties>
 
-        <!-- ============= -->
-        <!-- GENERELL -->
-        <!-- ============= -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <emad-dropbox.version>0.0.20</emad-dropbox.version>
+        <commons-httpclient.version>3.1</commons-httpclient.version>
+        <tomcat-catalina.version>8.0.9</tomcat-catalina.version>
+        <commons-email.version>1.3.2</commons-email.version>
+        <biweekly.version>0.4.0</biweekly.version>
+        <burlap.version>2.1.7</burlap.version>
+        <hessian.version>4.0.38</hessian.version>
 
+        <httpclient.version>4.3.6</httpclient.version>
+        <openpojo.version>0.6.2</openpojo.version>
+
+        <servlet-api.version>2.5</servlet-api.version>
+
+
+        <hibernate-entitymanager.version>4.3.7.Final</hibernate-entitymanager.version>
+        <hibernate-validator.version>5.2.0.Alpha1</hibernate-validator.version>
+        <spring-security.version>4.0.0.RC1</spring-security.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.7</java.version>
 
-        <tomcat-version>7.0.26</tomcat-version>
-        <!--ok:7.0.26 -> nok:8.0.0-RC10 -> nok:8.0.1 -> ??:8.0.3 -> ??:8.0.5-->
-
-        <!-- ============= -->
-        <!-- LIB-VERSIONEN -->
-        <!-- ============= -->
-
-        <!-- SPRING -->
-        <springframework.version>4.0.4.RELEASE</springframework.version>
-        <!--ok:3.2.1.RELEASE -> ok:3.2.3.RELEASE -> ok:3.2.4.RELEASE -> nok:4.0.0.RC1 -> ??:4.0.0.RELEASE -> ??:4.0.1.RELEASE -> ??:4.0.2.RELEASE -> ??:4.0.3.RELEASE -> ??:4.0.4.RELEASE-->
-
-        <springsecurity.version>3.2.0.RELEASE</springsecurity.version>
-        <!--3.1.3.RELEASE -> nok:3.2.0.M1 -> ok:3.2.0.M2 -> ok:3.2.0.RC2 -> ok:3.2.0.RELEASE -> ??:3.2.2.RELEASE -> ??:4.0.0.M1-->
-
-        <!-- WEB -->
-        <springwebflow.version>2.3.3.RELEASE</springwebflow.version>
-        <!--3.1.3.RELEASE -> nok:3.2.0.M1 -> ok:3.2.0.M2 -> ok:3.2.0.RC2 -> ok:2.3.3.RELEASE -> xx:2.4.0.M1-->
-
-        <commons-fileupload.version>1.3</commons-fileupload.version>
-        <!-- ok:1.2.2 -> ok:1.3 -> ??:1.3.1 -->
-
-        <!-- JSF & CO -->
-        <primefaces.version>5.0</primefaces.version>
-        <!--(5.0.RC1 nicht wegen primefaces upload) -->
-        <!-- ok:3.5.RC1 -> ok:3.5 -> ok:4.0.RC1 -> ok:4.0 -> nok:5.0.RC1-->
-
-        <jsf.version>2.1.7</jsf.version>
-        <!--(2.2.5 nicht wegen primefaces upload) -->
-        <!--ok:2.1.7 -> nok:2.2.0 -> nok:2.2.1 -> nok:2.2.2 -> nok:2.2.3 -> nok:2.2.4 -> nok:2.2.5 -> nok:2.2.5-jbossorg-2 ??:2.2.6-->
-
-        <!-- PERSISTENZ -->
-        <spring-data-jpa.version>1.5.1.RELEASE</spring-data-jpa.version>
-        <!-- ok:1.3.2.RELEASE -> ok:1.3.4.RELEASE -> ok:1.4.1.RELEASE -> ok:1.4.2.RELEASE -> nok:1.5.0.M1 -> xx:1.5.0.RC1 -> ??:1.5.1.RELEASE -> ??:1.6.0.RC1-->
-
-        <!-- jsf-impl: 2.2.6-jbossorg-4-->
-
-        <hibernate-entitymanager.version>4.3.5.Final</hibernate-entitymanager.version>
-        <!-- nok:4.3.0.CR1: wegen java.lang.NoSuchMethodError: javax.persistence.Table.indexes()[Ljavax/persistence/Index; nach @Tabel annotation -->
-        <!-- ok:4.1.7.Final -> 4.2.8.Final -> ok:4.2.0.CR1 -> ok:4.3.0.Beta3 ok:4.3.0.Beta4 -> ok:4.3.0.Beta5 -> nok:4.3.0.CR1 -> nok:4.3.1.Final -> nok:4.3.1.Final -> nok:4.3.4.Final -> nok:4.3.5.Final-->
-
-        <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version>
-
-        <hsqldb.version>2.3.1</hsqldb.version>
-        <!-- ok:2.2.9 -> ok:2.3.0 -> ok:2.3.1 -> ??:2.3.2-->
-
-        <!-- VALIDATION -->
-        <hibernate-validator.version>5.1.0.Alpha1</hibernate-validator.version>
-        <!-- 5.0.0.Beta1 -> ok:5.0.1.Final -> ok:5.1.0.Alpha1 -> ??:5.1.0.Beta1 -> ??:5.1.1.Final-->
-
-        <validation-api.version>1.1.0.Final</validation-api.version>
-        <!-- ok:1.1.0.Alpha1 -> ok:1.1.0.Final -->
-
-        <!-- WEITERE -->
-        <slf4j.version>1.7.7</slf4j.version>
-        <!-- ok:1.7.2 -> ok:1.7.5 -> ok:1.7.6 -> ok:1.7.7-->
-
-        <jodatime.version>2.3</jodatime.version>
-        <!-- ok:2.1 -> ok:2.2 -> ok:2.3 -> ??:3.1-->
-
-        <xstream.version>1.4.7</xstream.version>
-        <!--ok:1.4.5 -> ok:1.4.6 -> xx:1.4.7-->
-
-        <poi.version>3.10-FINAL</poi.version>
-        <!--ok:3.9 -> ok:3.10-beta2 -> ??:3.10-FINAL-->
-
-        <itext.version>4.2.1</itext.version>
-        <!--ok:4.2.0 -> ok:4.2.1-->
-
-        <zxing.version>2.3.0</zxing.version>
-        <!--ok:2.2 -> ok:2.3.0 -> ??:3.0.0 -> nok:3.0.1-->
-
-        <htmlcleaner.version>2.8</htmlcleaner.version>
-        <!--ok2.2.1 -> ok:2.5 -> ok:2.6 -> ok:2.6.1 -> ok:2.7 -> ??:2.8-->
-
-        <commons-configuration.version>1.10</commons-configuration.version>
-        <!--ok:1.9 -> ok:1.10-->
-
-        <commons-cli.version>20040117.000000</commons-cli.version>
-
-        <core-renderer.version>R8</core-renderer.version>
-
-        <guava.version>16.0.1</guava.version>
-        <!-- 14.0 -> ok:14.0.1 -> ok:15.0-rc1 -> ok:15.0 -> ok:16.0-rc1 -> ok:16.0 -> ok:16.0.1 -> ??:17.0 -->
-
-        <commons-email.version>1.3.1</commons-email.version>
-        <!-- ok:1.3 -> ok:1.3.1-->
-
-        <selenium.version>2.33.0</selenium.version>
-        <!-- ok:2.32.0 -> ok:2.33.0-->
-
-        <htmlunit.version>2.14</htmlunit.version>
-        <!-- ok:2.11 -> ok:2.12 -> ok:2.13 -> ??:2.14-->
-
-        <httpclient.version>4.3.3</httpclient.version>
-        <!-- ok:4.3.1 -> ok:4.3.2 -> ok:4.3.3 -->
-
-        <commons-net.version>3.3</commons-net.version>
-        <!-- ok:3.2 -> ok:3.3-->
-
-        <batik-ext.version>1.7</batik-ext.version>
-
-        <jsr250-api.version>1.0</jsr250-api.version>
-
-        <log4j.version>1.2.17</log4j.version>
-
-        <commons-io.version>2.4</commons-io.version>
-        <!-- ok:1.4 -> ok:2.4-->
-
-        <commons-lang3.version>3.3.2</commons-lang3.version>
-        <!-- ok:3.1 -> ??:3.3.2-->
-
-        <jxls.version>1.0.5</jxls.version>
-        <!-- ok:1.0.2 -> ok:1.0.3 -> ??:1.0.5-->
-
-        <velocity.version>1.7-beta1</velocity.version>
-
-        <velocitytools.version>2.0</velocitytools.version>
-
-        <!-- WEITERE:test -->
-        <mockftp.version>2.4</mockftp.version>
-        <!-- ok:2.0.2 -> ok:2.4 -->
-
-        <junit.version>4.11</junit.version>
-
-        <openpojo.version>0.4.9</openpojo.version>
-        <!-- ok:0.4.2 -> ok:0.4.5 -> ok:0.4.6 -> ??:0.4.9 -> ??:0.5.0-->
-
-        <activemq.version>5.9.0</activemq.version>
-        <!-- ok:5.8.0 -> ok:5.9.0-->
-
-        <privilegedaccessor.version>1.2.2</privilegedaccessor.version>
-
-        <dropbox.version>1.7.6</dropbox.version>
-        <!-- ok:1.7.5 -> ok:1.7.6-->
-
-        <itext.version>5.5.0</itext.version>
-        <!-- ok:5.0.6 -> ok:5.4.5 -> ??:5.5.0-->
-
-        <cglib.version>2.2</cglib.version>
-        <!-- ok:2.2 -> ??:3.1-->
-
-        <aspectjweaver.version>1.6.11</aspectjweaver.version>
-        <!-- 1.6.11:2.2 -> xx:1.8.0.M1 -> ??:1.8.0.RC2 -> ??:1.8.0 -->
-
     </properties>
-
-    <prerequisites>
-        <maven>3.0.0</maven>
-    </prerequisites>
 
     <modules>
         <module>mad-schuelerturnier-business</module>
@@ -176,264 +48,22 @@
         <module>mad-schuelerturnier-resultengine</module>
         <module>mad-schuelerturnier-dataloader</module>
         <module>mad-schuelerturnier-web-transport-subsystem</module>
-        <module>mad-schuelerturnier-dropbox</module>
+        <!--<module>mad-schuelerturnier-dropbox</module>
         <module>mad-schuelerturnier-dropboxinterface</module>
-        <!--<module>mad-schuelerturnier-attic</module>-->
+        <module>mad-schuelerturnier-attic</module>-->
     </modules>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <developers>
-        <developer>
-            <id>menzi</id>
-            <name>daniel marthaler</name>
-            <email>marthaler.worb@gmail.com</email>
-        </developer>
-    </developers>
-
-    <issueManagement>
-        <system>googlecode</system>
-        <url>https://mad-schuelerturnier.googlecode.com/issues/entry</url>
-    </issueManagement>
 
     <scm>
         <developerConnection>scm:git:https://github.com/marthaler/schuelerturnier.git</developerConnection>
         <connection>scm:git:https://github.com/marthaler/schuelerturnier.git</connection>
-        <url>http://marthaler.github.io/schuelerturnier/</url>
     </scm>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-        </dependency>
-
-
-
     </dependencies>
 
     <dependencyManagement>
 
         <dependencies>
-
-
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${commons-lang3.version}</version>
-            </dependency>
-
-            <!-- weitere -->
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>joda-time</groupId>
-                <artifactId>joda-time</artifactId>
-                <version>${jodatime.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.thoughtworks.xstream</groupId>
-                <artifactId>xstream</artifactId>
-                <version>${xstream.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>jcl-over-slf4j</artifactId>
-                <version>${slf4j.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>${slf4j.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
-
-            <!-- fuer @PostConstruct in Springbeans -->
-            <dependency>
-                <groupId>javax.annotation</groupId>
-                <artifactId>jsr250-api</artifactId>
-                <version>${jsr250-api.version}</version>
-            </dependency>
-
-            <!-- spring -->
-
-            <!-- Core utilities used by other modules. Define this if you use Spring 
-                Utility APIs (org.springframework.core.*/org.springframework.util.*) -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
-                <version>${springframework.version}</version>
-            </dependency>
-
-            <!-- Expression Language (depends on spring-core) Define this if you use 
-                Spring Expression APIs (org.springframework.expression.*) -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-expression</artifactId>
-                <version>${springframework.version}</version>
-            </dependency>
-
-            <!-- Bean Factory and JavaBeans utilities (depends on spring-core) Define 
-                this if you use Spring Bean APIs (org.springframework.beans.*) -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-beans</artifactId>
-                <version>${springframework.version}</version>
-            </dependency>
-
-            <!-- Aspect Oriented Programming (AOP) Framework (depends on spring-core, 
-                spring-beans) Define this if you use Spring AOP APIs (org.springframework.aop.*) -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-aop</artifactId>
-                <version>${springframework.version}</version>
-            </dependency>
-
-            <!-- com.googlecode.madschuelerturnier.business.printer.com.googlecode.madschuelerturnier.business.App Context (depends on spring-core, spring-expression, spring-aop,
-                spring-beans) This is the central artifact for Spring's Dependency Injection 
-                Container and is generally always defined -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>${springframework.version}</version>
-            </dependency>
-
-            <!-- Various com.googlecode.madschuelerturnier.business.printer.com.googlecode.madschuelerturnier.business.App Context utilities, including EhCache, JavaMail,
-                Quartz, and Freemarker integration Define this if you need any of these integrations -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context-support</artifactId>
-                <version>${springframework.version}</version>
-            </dependency>
-
-            <!-- Transaction Management Abstraction (depends on spring-core, spring-beans, 
-                spring-aop, spring-context) Define this if you use Spring Transactions or 
-                DAO Exception Hierarchy (org.springframework.transaction.*/org.springframework.dao.*) -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-tx</artifactId>
-                <version>${springframework.version}</version>
-            </dependency>
-
-            <!-- Object-to-XML Mapping (OXM) abstraction and integration with JAXB, 
-                JiBX, Castor, XStream, and XML Beans. (depends on spring-core, spring-beans, 
-                spring-context) Define this if you need OXM (org.springframework.oxm.*)
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-oxm</artifactId>
-                <version>${springframework.version}</version>
-            </dependency>
-            -->
-
-
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-remoting</artifactId>
-                <version>2.0.8</version>
-            </dependency>
-
-            <!-- Web application development utilities applicable to both Servlet 
-                and Portlet Environments (depends on spring-core, spring-beans, spring-context) 
-                Define this if you use Spring MVC, or wish to use Struts, JSF, or another 
-                controllers framework with Spring (org.springframework.controllers.*) -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>${springframework.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <!-- Support for testing Spring applications with tools such as JUnit 
-                and TestNG This artifact is generally always defined with a 'test' scope 
-                for the integration testing framework and unit testing stubs -->
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-test</artifactId>
-                <version>${springframework.version}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>hamcrest-core</artifactId>
-                        <groupId>org.hamcrest</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>1.9.5</version>
-                <scope>test</scope>
-            </dependency>
-
         </dependencies>
 
     </dependencyManagement>
@@ -441,327 +71,58 @@
     <build>
 
         <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ftp</artifactId>
-                <version>2.2</version>
-            </extension>
         </extensions>
 
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>external.atlassian.jgitflow</groupId>
-                <artifactId>jgitflow-maven-plugin</artifactId>
-                <version>1.0-m1</version>
+                <version>3.2</version>
                 <configuration>
-                    <!-- see goals wiki page for configuration options -->
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
-
         </plugins>
 
         <pluginManagement>
 
             <plugins>
-
-                <plugin>
-                    <groupId>com.atlassian.maven.plugins</groupId>
-                    <artifactId>maven-jgitflow-plugin</artifactId>
-                    <version>1.0-alpha26</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.1</version>
-                    <configuration>
-                        <verbose>true</verbose>
-                        <fork>true</fork>
-                        <compilerVersion>${java.version}</compilerVersion>
-                    </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.16</version>
-
-                    <configuration>
-                        <excludes>
-                            <exclude>**/integration/**</exclude>
-                        </excludes>
-                    </configuration>
-
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.apache.maven.surefire</groupId>
-                            <!-- Use the older JUnit 4 provider -->
-                            <artifactId>surefire-junit4</artifactId>
-                            <version>2.13</version>
-                        </dependency>
-                    </dependencies>
-
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.7</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>2.4</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.8</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>2.5</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.6</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.2</version>
-                    <configuration>
-                        <reportPlugins>
-                            <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-project-info-reports-plugin</artifactId>
-                                <version>2.5.1</version>
-                                <configuration>
-                                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-                                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-                                </configuration>
-                                <!-- simpler configuration without reportSets available for usual 
-                                    cases -->
-                                <reports>
-                                    <report>index</report>
-                                    <report>project-team</report>
-                                    <report>license</report>
-                                    <report>mailing-list</report>
-                                    <report>dependencies</report>
-                                    <report>dependency-convergence</report>
-                                    <report>plugin-management</report>
-                                    <report>cim</report>
-                                    <report>issue-tracking</report>
-                                    <report>scm</report>
-                                    <report>summary</report>
-                                </reports>
-                            </plugin>
-                            <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-javadoc-plugin</artifactId>
-                                <version>2.9.1</version>
-                            </plugin>
-                            <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-surefire-report-plugin</artifactId>
-                                <version>2.6</version>
-                            </plugin>
-
-                            <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-checkstyle-plugin</artifactId>
-                                <version>2.6</version>
-
-                            </plugin>
-
-                            <plugin>
-                                <groupId>org.codehaus.mojo</groupId>
-                                <artifactId>findbugs-maven-plugin</artifactId>
-                                <version>2.3.1</version>
-                                <configuration>
-                                    <argLine>-Xmx256m</argLine>
-                                    <argLine>-XX:MaxPermSize=256m</argLine>
-                                </configuration>
-                            </plugin>
-
-                            <plugin>
-                                <groupId>org.codehaus.mojo</groupId>
-                                <artifactId>jdepend-maven-plugin</artifactId>
-                                <version>2.0-beta-2</version>
-                            </plugin>
-                            <plugin>
-                                <groupId>org.codehaus.mojo</groupId>
-                                <artifactId>cobertura-maven-plugin</artifactId>
-                                <version>2.4</version>
-                            </plugin>
-                            <plugin>
-                                <groupId>org.codehaus.mojo</groupId>
-                                <artifactId>taglist-maven-plugin</artifactId>
-                                <version>2.4</version>
-                            </plugin>
-                            <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-jxr-plugin</artifactId>
-                                <version>2.1</version>
-                            </plugin>
-                            <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-pmd-plugin</artifactId>
-                                <version>2.5</version>
-                                <configuration>
-                                    <linkXref>true</linkXref>
-                                    <minimumTokens>100</minimumTokens>
-                                    <minimumPriority>3</minimumPriority>
-                                    <!-- Change minimum priority to see more or less integration -->
-                                    <targetJdk>${java.version}</targetJdk>
-                                </configuration>
-                            </plugin>
-                        </reportPlugins>
-                    </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.4</version>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                                <addDefaultSpecificationEntries>false</addDefaultSpecificationEntries>
-                            </manifest>
-                        </archive>
-                    </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.9.1</version>
-                    <configuration>
-                        <skip>true</skip>
-                    </configuration>
-                </plugin>
-
             </plugins>
-        </pluginManagement>
-    </build>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>onejar-maven-plugin.googlecode.com</id>
-            <url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
-        </pluginRepository>
-    </pluginRepositories>
+        </pluginManagement>
+
+    </build>
 
     <repositories>
 
-        <!-- For developing against latest Spring milestones -->
         <repository>
-            <id>org.springframework.maven.milestone</id>
-            <name>Spring Maven Milestone Repository</name>
-            <url>http://maven.springframework.org/milestone</url>
+            <id>emad</id>
+            <name>emad</name>
+            <url>http://schuelerturnier-scworb.ch/repo</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
         </repository>
 
-        <!-- For Hibernate Validator  -->
         <repository>
-            <id>org.jboss.repository.releases</id>
-            <name>JBoss Maven Release Repository</name>
-            <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+            <id>emadsnap</id>
+            <name>emadsnap</name>
+            <url>http://schuelerturnier-scworb.ch/reposnap</url>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
-        </repository>
-
-        <!-- For Sun Mojarra JSF 2 implementation -->
-        <repository>
-            <id>maven2-repository.dev.java.net</id>
-            <name>Java.net Repository for Maven</name>
-            <url>http://download.java.net/maven/2/</url>
-            <snapshots>
+            <releases>
                 <enabled>false</enabled>
-            </snapshots>
+            </releases>
         </repository>
 
     </repositories>
 
-
-    <distributionManagement>
-        <repository>
-            <id>file-repository</id>
-            <url>file:/repository/</url>
-        </repository>
-    </distributionManagement>
-
     <profiles>
-        <profile>
-            <id>integrationtest</id>
-
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-
-            <modules>
-                <module>mad-schuelerturnier-test</module>
-            </modules>
-        </profile>
-
-
-        <profile>
-            <id>packages</id>
-
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-
-            <modules>
-                <module>mad-schuelerturnier-printer-gui</module>
-            </modules>
-        </profile>
-
-
     </profiles>
 
 </project>

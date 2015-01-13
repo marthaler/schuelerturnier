@@ -1,3 +1,6 @@
+/**
+ * Copyright (C) eMad, 2014.
+ */
 package com.googlecode.madschuelerturnier.business.dropbox;
 
 import com.googlecode.madschuelerturnier.business.Business;

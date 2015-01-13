@@ -85,7 +85,7 @@ public class F6SpielverteilerManuelleKorrekturen {
     private SpielZeile findZeile(boolean sonntag, String zeit) {
         Iterable<SpielZeile> zeilen = spielzeilenRepo.findAll();
         for (SpielZeile spielZeile : zeilen) {
-            LOG.info("found:" + spielZeile);
+            LOG.debug("found:" + spielZeile);
             if (spielZeile.isSonntag() == sonntag) {
                 if (spielZeile.getZeitAsString().equals(zeit)) {
                     return spielZeile;
