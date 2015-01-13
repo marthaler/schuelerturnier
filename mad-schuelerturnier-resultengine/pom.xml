@@ -30,18 +30,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.googlecode.madschuelerturnier</groupId>
-            <artifactId>mad-schuelerturnier-dropboxinterface</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.googlecode.madschuelerturnier</groupId>
-            <artifactId>mad-schuelerturnier-dropbox</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>${poi.version}</version>
