@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 @Profile("prod")
-public class ProductionStage {
+public class ProductionStage extends Stage{
 
     public StageEnum getStage(){
         return StageEnum.PRODUCTION;
