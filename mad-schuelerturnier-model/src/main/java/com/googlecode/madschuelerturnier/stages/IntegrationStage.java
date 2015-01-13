@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 @Profile("int")
-public class IntegrationStage {
+public class IntegrationStage extends Stage{
 
     public StageEnum getStage(){
         return StageEnum.INTEGRATION;
