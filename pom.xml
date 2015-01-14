@@ -10,7 +10,7 @@
 
     <groupId>com.googlecode.madschuelerturnier</groupId>
     <artifactId>mad-schuelerturnier-parent</artifactId>
-    <version>1.3.11-SNAPSHOT</version>
+    <version>1.3.11</version>
 
     <packaging>pom</packaging>
 
