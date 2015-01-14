@@ -14,6 +14,7 @@ import org.springframework.util.DigestUtils;
 import javax.annotation.PostConstruct;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -101,9 +102,9 @@ public class DropboxConnectorImpl implements DropboxConnector {
         }
         List<String> result = new ArrayList<String>();
         for (String str : driver.getFilesInFolder(this.rootFolder + "/alt")) {
-            if (str.contains("xls")) {
+
                 result.add(str);
-            }
+
         }
         return result;
     }
@@ -208,8 +209,16 @@ public class DropboxConnectorImpl implements DropboxConnector {
 
     @Override
     public Map<String, String> loadOldGames() {
-        LOG.fatal("IMPLEMENT !!!");
-        return null;
+        Map<String,String> result = new HashMap<String,String>();
+            List<String> liste = this.getFilesInAltFolder();
+            for (String child : liste) {
+                if (child.contains("websitedump.xml") && !child.contains("stat")) {
+                    String key = child.replace(rootFolder, "");
+                    key = key.replace("websitedump.xml", "");
+                    result.put(key, new String(this.loadFile(child)));
+                }
+            }
+        return result;
     }
 
     private String generateMD5(byte[] args) {
