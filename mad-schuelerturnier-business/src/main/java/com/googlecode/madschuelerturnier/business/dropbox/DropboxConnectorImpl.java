@@ -42,7 +42,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
     @PostConstruct
     public void init() {
 
-        if(stage == null){
+        if (stage == null) {
             stage = new Stage();
         }
 
@@ -101,10 +101,8 @@ public class DropboxConnectorImpl implements DropboxConnector {
             return null;
         }
         List<String> result = new ArrayList<String>();
-        for  (String str : driver.getFilesInFolder(this.rootFolder + "/alt")) {
-
-                result.add(str);
-
+        for (String str : driver.getFilesInFolder(this.rootFolder + "/alt")) {
+            result.add(str);
         }
         return result;
     }
@@ -115,16 +113,16 @@ public class DropboxConnectorImpl implements DropboxConnector {
 
     @Override
     public byte[] loadFile(String file) {
-        if(!file.contains(this.rootFolder)){
-            file = rootFolder + "/" +file;
+        if (!file.contains(this.rootFolder)) {
+            file = rootFolder + "/" + file;
         }
         return driver.loadFile(file);
     }
 
     @Override
     public void saveFile(String file, byte[] content) {
-        if(!file.contains(this.rootFolder)){
-            file = rootFolder + "/" +file;
+        if (!file.contains(this.rootFolder)) {
+            file = rootFolder + "/" + file;
         }
         driver.saveFile(file, content);
     }
@@ -151,16 +149,16 @@ public class DropboxConnectorImpl implements DropboxConnector {
     }
 
     @Override
-    public byte[] loadGameAttachemt(String file,String suffix) {
-        return this.loadFile(this.rootFolder + "/" +this.selectedGame + "/attachements/" + file +"." + suffix);
+    public byte[] loadGameAttachemt(String file, String suffix) {
+        return this.loadFile(this.rootFolder + "/" + this.selectedGame + "/attachements/" + file + "." + suffix);
     }
 
-    private String loadGameAttachemtMD5(String file,String suffix) {
+    private String loadGameAttachemtMD5(String file, String suffix) {
         if (!this.isConnected()) {
             LOG.info("dropbox nicht verbunden.");
             return null;
         }
-        byte[] f = this.loadFile(this.rootFolder + "/" +this.selectedGame + "/attachements/md5/" + file + ".md5.txt");
+        byte[] f = this.loadFile(this.rootFolder + "/" + this.selectedGame + "/attachements/md5/" + file + ".md5.txt");
         if (f != null) {
             return new String(f);
         }
@@ -173,22 +171,22 @@ public class DropboxConnectorImpl implements DropboxConnector {
             LOG.info("dropbox nicht verbunden.");
             return;
         }
-        if (this.generateMD5(content).equals(loadGameAttachemtMD5(file,suffix))) {
+        if (this.generateMD5(content).equals(loadGameAttachemtMD5(file, suffix))) {
             LOG.debug("brauche attachement nicht zu sichern inhalt ist gleich");
         } else {
             deleteGameAttachemt(file, suffix);
-            this.saveFile(this.rootFolder + "/" +this.selectedGame + "/attachements/" + file, content);
-            this.saveFile(this.rootFolder + "/" +this.selectedGame + "/attachements/md5/" + file + ".md5.txt", generateMD5(content).getBytes());
+            this.saveFile(this.rootFolder + "/" + this.selectedGame + "/attachements/" + file, content);
+            this.saveFile(this.rootFolder + "/" + this.selectedGame + "/attachements/md5/" + file + ".md5.txt", generateMD5(content).getBytes());
         }
     }
 
     @Override
-    public void deleteGameAttachemt(String file,String suffix) {
+    public void deleteGameAttachemt(String file, String suffix) {
 
-        if(!file.contains(this.rootFolder)){
-            file = rootFolder + "/" +file;
+        if (!file.contains(this.rootFolder)) {
+            file = rootFolder + "/" + file;
         }
-        file = file +"."+suffix;
+        file = file + "." + suffix;
         this.driver.deleteFile(file);
     }
 
@@ -201,7 +199,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
     @Override
     public void saveOldGame(String jahr, String content) {
         try {
-            this.saveFile(this.rootFolder + "/" +"alt/" + jahr + "-websitedump.xml", content.getBytes("utf-8"));
+            this.saveFile(this.rootFolder + "/" + "alt/" + jahr + "-websitedump.xml", content.getBytes("utf-8"));
         } catch (UnsupportedEncodingException e) {
             LOG.error(e.getMessage(), e);
         }
@@ -209,15 +207,15 @@ public class DropboxConnectorImpl implements DropboxConnector {
 
     @Override
     public Map<String, String> loadOldGames() {
-        Map<String,String> result = new HashMap<String,String>();
-            List<String> liste = this.getFilesInAltFolder();
-            for (String child : liste) {
-                if (child.contains("websitedump.xml") && !child.contains("stat")) {
-                    String key = child.replace(rootFolder, "");
-                    key = key.replace("websitedump.xml", "");
-                    result.put(key, new String(this.loadFile(child)));
-                }
+        Map<String, String> result = new HashMap<String, String>();
+        List<String> liste = this.getFilesInAltFolder();
+        for (String child : liste) {
+            if (child.contains("websitedump.xml") && !child.contains("stat")) {
+                String key = child.replace(rootFolder, "");
+                key = key.replace("-websitedump.xml", "");
+                result.put(key, new String(this.loadFile("alt/"+ child)));
             }
+        }
         return result;
     }
 

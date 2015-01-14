@@ -3,7 +3,9 @@
  */
 package com.googlecode.madschuelerturnier.business.utils;
 
+import com.googlecode.madschuelerturnier.stages.Stage;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
@@ -23,6 +25,9 @@ public class MavenVersionUtil {
 
     private String version = "-";
     private String time = "-";
+
+    @Autowired
+    private Stage stage;
 
     private boolean showTime = false;
 
@@ -65,7 +70,11 @@ public class MavenVersionUtil {
     }
 
     public String getVersion() {
-        return this.version;
+        String stageS = "";
+        if(this.stage != null){
+            stageS = "(" + stage + ")";
+        }
+        return this.version + stageS;
     }
 
     public boolean isShowTime() {
