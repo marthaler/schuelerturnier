@@ -101,7 +101,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
             return null;
         }
         List<String> result = new ArrayList<String>();
-        for (String str : driver.getFilesInFolder(this.rootFolder + "/alt")) {
+        for  (String str : driver.getFilesInFolder(this.rootFolder + "/alt")) {
 
                 result.add(str);
 
