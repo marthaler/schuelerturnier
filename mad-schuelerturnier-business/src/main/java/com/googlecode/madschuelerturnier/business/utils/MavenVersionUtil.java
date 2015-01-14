@@ -26,7 +26,7 @@ public class MavenVersionUtil {
     private String version = "-";
     private String time = "-";
 
-    @Autowired
+    @Autowired(required = false)
     private Stage stage;
 
     private boolean showTime = false;
@@ -72,7 +72,7 @@ public class MavenVersionUtil {
     public String getVersion() {
         String stageS = "";
         if(this.stage != null){
-            stageS = "(" + stage + ")";
+            stageS = " (" + stage.getStage().getText() + ")";
         }
         return this.version + stageS;
     }
