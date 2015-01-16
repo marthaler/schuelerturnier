@@ -3,10 +3,12 @@
  */
 package com.googlecode.madschuelerturnier.business.dropbox;
 
+import ch.emad.dropbox.DropboxConnectorLocalImpl;
 import com.googlecode.madschuelerturnier.stages.Stage;
 import com.googlecode.madschuelerturnier.stages.StageEnum;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
@@ -44,6 +46,17 @@ public class DropboxConnectorImpl implements DropboxConnector {
 
         if (stage == null) {
             stage = new Stage();
+        }
+
+        // dev implementation bei der entwicklung
+        DropboxConnectorLocalImpl impl = new DropboxConnectorLocalImpl();
+            impl.setRootPath("C:\\Users\\u203244\\Dropbox\\shared\\z_schuelerturnier\\Informatik\\applikationsdaten\\dev");
+            if(impl.isConnected()){
+                rootFolder = "";
+                driver = impl;
+
+                this.starter.doTheStuff(this);
+                return;
         }
 
         rootFolder = rootFolder + "/" + stage.getStage().getText();

@@ -87,9 +87,11 @@ public class SchiriBackingBean implements Serializable{
     public List<String> getNext(){
         List<String> ret = new ArrayList<String>();
         for(SpielZeile zeile : durchfuehrung.getList3Vorbereitet()){
-                ret.add(zeile.getA().toString());
+            ret.add(zeile.getA().toString());
             ret.add(zeile.getB().toString());
             ret.add(zeile.getC().toString());
+
+            //mad
         }
         return ret;
     }
