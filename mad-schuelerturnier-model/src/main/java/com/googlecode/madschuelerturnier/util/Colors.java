@@ -23,7 +23,7 @@ public class Colors implements Serializable {
     private List<String> foreground = new ArrayList<String>();
     private List<String> namen = new ArrayList<String>();
 
-    public Colors(){
+    public  Colors(){
         colors.add("Yellow");
         colors.add("Orange");
         colors.add("Pink");
