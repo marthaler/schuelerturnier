@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+  ~ Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
+  -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:pm="http://primefaces.org/mobile">
+
+<f:view renderKitId="PRIMEFACES_MOBILE"/>
+
+<h:head>
+
+</h:head>
+
+<h:body>
+
+	<h:form id="game">
+
+	<pm:page id="game" >
+		<pm:content>
+
+
+				<p:commandButton type="submit" action="color" value="#{schiriBackingBean.game.mannschaftA.name}"  style="font-weight:bold;color:#{schiriBackingBean.getColorA()}; background-color:#{schiriBackingBean.getBColorA()}">
+					<f:param name="id" value="a"/>
+				</p:commandButton>
+
+
+				<p:commandButton type="submit" action="color" value="#{schiriBackingBean.game.mannschaftB.name}" style="font-weight:bold;color:#{schiriBackingBean.getColorB()}; background-color:#{schiriBackingBean.getBColorB()}">
+					<f:param name="id" value="b"/>
+				</p:commandButton>
+
+
+		</pm:content>
+	</pm:page>
+	</h:form>
+
+</h:body>
+
+</html>

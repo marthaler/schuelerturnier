@@ -60,6 +60,8 @@ public class Mannschaft extends Persistent {
 
     private String begleitpersonTelefon = null;
 
+    private String color = "Blau";
+
     @Email
     private String begleitpersonEmail = null;
 
@@ -423,5 +425,13 @@ public class Mannschaft extends Persistent {
             return "k";
         }
         return "";
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

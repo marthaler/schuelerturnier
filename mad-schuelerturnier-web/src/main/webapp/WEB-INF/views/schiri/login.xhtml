@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:pm="http://primefaces.org/mobile">
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:pm="http://primefaces.org/mobile">
 
-<f:view renderKitId="PRIMEFACES_MOBILE" />
+<f:view renderKitId="PRIMEFACES_MOBILE"/>
 
 <h:head>
 
@@ -13,42 +13,32 @@
 
 <h:body>
 
+	<pm:page id="viewLogin">
+		<pm:content>
 
-    <pm:page id="viewLogin" rendered="#{!schiriBackingBean.isLoggedIn()}">
-<pm:content>
-            <h:form id="formLogin">
-                <pm:field>
-                    <p:outputLabel for="basic" value="Benutzername" />
-                </pm:field>
-                <pm:field>
-                    <p:inputText id="basic" value="#{schiriBackingBean.user}" />
-                </pm:field>
+			<h:form id="formViewLogin">
+				<p:messages display="icon"/>
+				<pm:field>
+					<p:outputLabel for="basic" value="Benutzername"/>
+				</pm:field>
+				<pm:field>
+					<p:inputText id="basic" value="#{schiriBackingBean.user}"/>
+				</pm:field>
 
-                <pm:field>
-                    <p:outputLabel for="password" value="Passwort" />
-                </pm:field>
-                <pm:field>
-                    <p:password id="password" value="#{schiriBackingBean.password}" />
-                </pm:field>
-                <br/>
-                <pm:field>
-                    <p:commandButton value="Anmelden"  type="submit"  action="#{schiriBackingBean.login}"/>
-                </pm:field>
-            </h:form>
-</pm:content>
-    </pm:page>
+				<pm:field>
+					<p:outputLabel for="password" value="Passwort"/>
+				</pm:field>
+				<pm:field>
+					<p:password id="password" value="#{schiriBackingBean.password}"/>
+				</pm:field>
+				<br/>
+				<pm:field>
+					<p:commandButton value="Anmelden" type="submit" action="login"/>
+				</pm:field>
 
-    <pm:page id="viewSelectGame" rendered="#{schiriBackingBean.isLoggedIn()}">
-        <pm:content>
-        <h:form id="formSelectGame">
-            <p:dataList var="spiel" value="#{schiriBackingBean.getNext()}">
-                <h:outputText style="font-weight:bold;color: #{spiel.color}" value="bla"/>
-            </p:dataList>
-
-        </h:form>
-        </pm:content>
-    </pm:page>
-
+			</h:form>
+		</pm:content>
+	</pm:page>
 
 </h:body>
 

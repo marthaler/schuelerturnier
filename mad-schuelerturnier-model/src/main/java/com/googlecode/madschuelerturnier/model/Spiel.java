@@ -71,6 +71,9 @@ public class Spiel extends Persistent {
     @OneToOne
     private Mannschaft mannschaftB;
 
+    @OneToOne
+    private Schiri schiri;
+
     public Spiel() {
 
     }
@@ -453,5 +456,6 @@ public class Spiel extends Persistent {
     public void setSpielZeilenPhase(SpielZeilenPhaseEnum spielZeilenPhase) {
         this.spielZeilenPhase = spielZeilenPhase;
     }
+
 
 }

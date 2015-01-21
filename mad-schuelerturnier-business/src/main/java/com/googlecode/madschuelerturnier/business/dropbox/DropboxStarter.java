@@ -4,6 +4,8 @@
 package com.googlecode.madschuelerturnier.business.dropbox;
 
 import com.googlecode.madschuelerturnier.business.Business;
+import com.googlecode.madschuelerturnier.business.spieldurchfuehrung.SpielDurchfuehrung;
+import com.googlecode.madschuelerturnier.model.SpielEinstellungen;
 import com.googlecode.madschuelerturnier.stages.Stage;
 import com.googlecode.madschuelerturnier.stages.StageEnum;
 import org.apache.log4j.Logger;
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -42,6 +45,9 @@ public class DropboxStarter {
     Stage stage;
 
     private boolean noNeedToConnect = false;
+
+    @Autowired
+    private SpielDurchfuehrung durchfuehrung;
 
     @Async
     public void doTheStuff(DropboxConnectorImpl driver){
@@ -67,7 +73,15 @@ public class DropboxStarter {
                 // todo
                 String testdate = res.getProperty("testmode");
 
+                noNeedToConnect = true;
+                business.generateSpielFromXLS(driver.loadFile(res.getProperty("file")+"/"+res.getProperty("file")+".xls"));
+                driver.setSelectedGame(res.getProperty("file"));
 
+                SpielEinstellungen einst = business.getSpielEinstellungen();
+                einst.setStarttag(new Date());
+                einst.setStartJetzt(true);
+                business.saveEinstellungen(einst);
+                business.startClock();
 
             }
         }
