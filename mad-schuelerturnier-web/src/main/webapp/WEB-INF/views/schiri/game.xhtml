@@ -22,15 +22,19 @@
 	<pm:page id="game" >
 		<pm:content>
 
+				<p:commandButton type="submit" action="wechseln" value="Richtung Thun" />
 
-				<p:commandButton type="submit" action="color" value="#{schiriBackingBean.game.mannschaftA.name}"  style="font-weight:bold;color:#{schiriBackingBean.getColorA()}; background-color:#{schiriBackingBean.getBColorA()}">
-					<f:param name="id" value="a"/>
+
+				<p:commandButton type="submit" action="color" value="#{schiriBackingBean.mannschaftEins.name}"  style="font-weight:bold;color:#{schiriBackingBean.getColorEins()}; background-color:#{schiriBackingBean.getBColorEins()}">
+					<f:param name="id" value="eins"/>
 				</p:commandButton>
 
 
-				<p:commandButton type="submit" action="color" value="#{schiriBackingBean.game.mannschaftB.name}" style="font-weight:bold;color:#{schiriBackingBean.getColorB()}; background-color:#{schiriBackingBean.getBColorB()}">
-					<f:param name="id" value="b"/>
+				<p:commandButton type="submit" action="color" value="#{schiriBackingBean.mannschaftZwei.name}" style="font-weight:bold;color:#{schiriBackingBean.getColorZwei()}; background-color:#{schiriBackingBean.getBColorZwei()}">
+					<f:param name="id" value="zwei"/>
 				</p:commandButton>
+
+				<p:commandButton type="submit" action="wechseln" value="Richtung Bern"/>
 
 
 		</pm:content>

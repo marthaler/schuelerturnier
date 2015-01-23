@@ -5,6 +5,7 @@ package com.googlecode.madschuelerturnier.web.backingbeans.schiri;
 
 import com.googlecode.madschuelerturnier.business.spieldurchfuehrung.SpielDurchfuehrung;
 import com.googlecode.madschuelerturnier.model.DBAuthUser;
+import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Schiri;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.SpielZeile;
@@ -36,6 +37,8 @@ import java.util.List;
 @Component
 @Scope("session")
 public class SchiriBackingBean implements Serializable {
+
+    private boolean wechsel = false;
 
     Colors colors = new Colors();
 
@@ -224,27 +227,46 @@ public class SchiriBackingBean implements Serializable {
     }
 
     public void colorchange(String id){
-        if(id.equals("a")){
-            game.getMannschaftA().setColor(this.colors.getNextFarbe(game.getMannschaftA().getColor()));
+        if(id.equals("eins")){
+            getMannschaftEins().setColor(this.colors.getNextFarbe(getMannschaftEins().getColor()));
         } else {
-            game.getMannschaftB().setColor(this.colors.getNextFarbe(game.getMannschaftA().getColor()));
+            getMannschaftZwei().setColor(this.colors.getNextFarbe(getMannschaftZwei().getColor()));
         }
     }
 
-    public String getColorA(){
-        return colors.getColor(game.getMannschaftA().getColor());
+    public Mannschaft getMannschaftEins(){
+
+        if(wechsel){
+            return game.getMannschaftB();
+        }
+        return game.getMannschaftA();
     }
 
-    public String getColorB(){
-        return colors.getColor(game.getMannschaftB().getColor());
+    public Mannschaft getMannschaftZwei(){
+        if(wechsel){
+            return game.getMannschaftA();
+        }
+        return game.getMannschaftB();
     }
 
-    public String getBColorA(){
-        return colors.getBackground(game.getMannschaftA().getColor());
+    public void wechseln(){
+        this.wechsel = !wechsel ;
     }
 
-    public String getBColorB(){
-        return colors.getBackground(game.getMannschaftB().getColor());
+    public String getColorEins(){
+        return colors.getColor(getMannschaftEins().getColor());
+    }
+
+    public String getColorZwei(){
+        return colors.getColor(getMannschaftZwei().getColor());
+    }
+
+    public String getBColorEins(){
+        return colors.getBackground(getMannschaftEins().getColor());
+    }
+
+    public String getBColorZwei(){
+        return colors.getBackground(getMannschaftZwei().getColor());
     }
 
 }

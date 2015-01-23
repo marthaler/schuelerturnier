@@ -35,11 +35,17 @@
         <transition on="color" to="game2">
             <evaluate expression="schiriBackingBean.colorchange(requestParameters.id)"/>
         </transition>
+        <transition on="wechseln" to="game2">
+            <evaluate expression="schiriBackingBean.wechseln()"/>
+        </transition>
     </view-state>
 
     <view-state id="game2" view="game.xhtml">
         <transition on="color" to="game">
             <evaluate expression="schiriBackingBean.colorchange(requestParameters.id)"/>
+        </transition>
+        <transition on="wechseln" to="game">
+            <evaluate expression="schiriBackingBean.wechseln()"/>
         </transition>
     </view-state>
 

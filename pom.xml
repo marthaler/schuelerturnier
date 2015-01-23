@@ -16,7 +16,7 @@
 
     <properties>
 
-        <emad-dropbox.version>0.0.22</emad-dropbox.version>
+        <emad-dropbox.version>0.0.23</emad-dropbox.version>
         <commons-httpclient.version>3.1</commons-httpclient.version>
         <tomcat-catalina.version>8.0.9</tomcat-catalina.version>
         <commons-email.version>1.3.2</commons-email.version>

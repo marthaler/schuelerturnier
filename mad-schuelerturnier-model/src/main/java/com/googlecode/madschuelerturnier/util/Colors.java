@@ -55,16 +55,16 @@ public class Colors implements Serializable {
         foreground.add("White");
         foreground.add("White");
         foreground.add("Black");
-        foreground.add("Whyte");
+        foreground.add("White");
     }
 
     public String getBackground(String farbe){
         int i = namen.indexOf(farbe);
-        return foreground.get(i);
+        return colors.get(i);
     }
     public String getColor(String farbe){
         int i = namen.indexOf(farbe);
-        return colors.get(i);
+        return foreground.get(i);
     }
 
     public List<String> getColors(){
