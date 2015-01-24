@@ -30,6 +30,12 @@
         </dependency>
 
         <dependency>
+            <groupId>ch.emad.schuetu</groupId>
+            <artifactId>emad-schuetu-reports</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>${poi.version}</version>

@@ -3,6 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.model;
 
+import ch.emad.schuetu.reports.interfaces.CouvertReportable;
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
 import org.apache.log4j.Logger;
 import org.hibernate.validator.constraints.Email;
@@ -18,7 +19,7 @@ import java.util.UUID;
  * @since 0.7
  */
 @Entity
-public class Mannschaft extends Persistent {
+public class Mannschaft extends Persistent implements CouvertReportable {
 
     private static final Logger LOG = Logger.getLogger(Mannschaft.class);
 
@@ -80,7 +81,6 @@ public class Mannschaft extends Persistent {
     @OneToOne(fetch = FetchType.EAGER)
     private Gruppe gruppeB = null;
 
-
     public String getName() {
 
         String nu = "";
@@ -103,13 +103,13 @@ public class Mannschaft extends Persistent {
         return "" + this.geschlecht + this.klasse + nu + this.teamNummer;
     }
 
+
     public boolean isMemberofGroupA() {
         if (this.gruppeA.getMannschaften().contains(this)) {
             return true;
         }
         return false;
     }
-
 
     // berechnungen
     public int getSpieleAbgeschlossen() {
@@ -433,5 +433,25 @@ public class Mannschaft extends Persistent {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    @Override
+    public String getAnrede() {
+        return this.begleitpersonAnrede;
+    }
+
+    @Override
+    public String getNameVorname() {
+        return this.getBegleitpersonName();
+    }
+
+    @Override
+    public String getStrasse() {
+        return this.begleitpersonStrasse;
+    }
+
+    @Override
+    public String getPLZOrt() {
+        return this.getBegleitpersonPLZOrt();
     }
 }

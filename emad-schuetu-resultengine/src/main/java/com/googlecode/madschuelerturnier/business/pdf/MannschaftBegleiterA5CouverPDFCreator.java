@@ -36,6 +36,9 @@ public class MannschaftBegleiterA5CouverPDFCreator {
     @Autowired
     private MannschaftRepository repo;
 
+    @Autowired
+    private JasperResultConverter converter;
+
     private static final Logger LOG = Logger.getLogger(MannschaftBegleiterA5CouverPDFCreator.class);
 
     public byte[] createPdfFromDB() {
@@ -45,32 +48,8 @@ public class MannschaftBegleiterA5CouverPDFCreator {
     }
 
     protected byte[] createPdf(List<Mannschaft> mannschaften) {
-        try {
-            InputStream inputStream = getTemplate("couvert.jrxml");
-
-            JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(mannschaften);
-
-            Map parameters = new HashMap();
-
-            JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
-            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, beanColDataSource);
-
-            JRExporter exporter = new JRPdfExporter();
-            exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,stream);
-            exporter.exportReport();
-            return stream.toByteArray();
-
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-        }
-        return null;
+        return converter.createPdf(mannschaften,"couvert");
     }
 
-    private InputStream getTemplate(String template){
-        return this.getClass().getClassLoader().getResourceAsStream(template);
-    }
 }
 
