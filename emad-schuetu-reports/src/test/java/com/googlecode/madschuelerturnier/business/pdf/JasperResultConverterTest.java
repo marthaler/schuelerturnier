@@ -7,8 +7,6 @@
  */
 package com.googlecode.madschuelerturnier.business.pdf;
 
-import com.googlecode.madschuelerturnier.business.pdf.JasperResultConverter;
-import com.googlecode.madschuelerturnier.model.Mannschaft;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
