@@ -39,7 +39,7 @@
             <artifactId>core-renderer</artifactId>
             <version>${core-renderer.version}</version>
         </dependency>
-
+<!--
         <dependency>
             <groupId>net.sourceforge.htmlcleaner</groupId>
             <artifactId>htmlcleaner</artifactId>
@@ -67,6 +67,7 @@
             <artifactId>velocity</artifactId>
             <version>${velocity.version}</version>
         </dependency>
+        -->
         <!--
         <dependency>
             <groupId>org.apache.velocity</groupId>
@@ -80,14 +81,14 @@
 
             </exclusions>
         </dependency>
-         -->
+
         <dependency>
             <groupId>com.e-movimento.tinytools</groupId>
             <artifactId>privilegedaccessor</artifactId>
             <version>${privilegedaccessor.version}</version>
             <scope>test</scope>
         </dependency>
-
+       -->
         <dependency>
             <groupId>com.lowagie</groupId>
             <artifactId>itext</artifactId>
@@ -105,8 +106,9 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>5.6.0</version>
+            <version>6.0.0</version>
         </dependency>
+
 
         <dependency>
             <groupId>xml-apis</groupId>
