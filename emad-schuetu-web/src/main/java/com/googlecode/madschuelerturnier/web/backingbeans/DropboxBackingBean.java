@@ -57,7 +57,11 @@ public class DropboxBackingBean implements Serializable{
     }
 
     public boolean isConnected() {
-        return connector.isConnected();
+        try {
+            return connector.isConnected();
+        } catch (Exception e){
+            return false;
+        }
     }
 
     public List<String> getFileList() {

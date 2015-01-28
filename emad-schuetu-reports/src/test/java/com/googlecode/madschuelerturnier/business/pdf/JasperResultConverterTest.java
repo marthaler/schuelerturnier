@@ -39,17 +39,24 @@ public class JasperResultConverterTest {
         }
 
         JasperResultConverter cr = new JasperResultConverter();
-        byte[] result = cr.createPdf(mannschaftList,"couvert");
+        byte[] result = cr.createPdf(mannschaftList,"rechnung");
 
         try {
             // todo in den target verschieben
-            FileUtils.writeByteArrayToFile(new File("d:/pdf/test.pdf"), result);
+            FileUtils.writeByteArrayToFile(new File("d:/test2.pdf"), result);
             Assert.assertTrue(result.length > 30);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
+    public File targetDir(){
+        String relPath = getClass().getProtectionDomain().getCodeSource().getLocation().getFile();
+        File targetDir = new File(relPath+"../../target");
+        if(!targetDir.exists()) {
+            targetDir.mkdir();
+        }
+        return targetDir;
+    }
 }
 

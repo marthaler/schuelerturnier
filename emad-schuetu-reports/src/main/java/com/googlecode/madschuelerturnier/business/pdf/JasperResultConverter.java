@@ -19,6 +19,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.Collections;
@@ -43,6 +45,10 @@ public class JasperResultConverter {
             JRBeanCollectionDataSource beanColDataSource = new JRBeanCollectionDataSource(data);
 
             Map parameters = new HashMap();
+
+
+            BufferedImage wespe01 = ImageIO.read(getClass().getResource("/images/wespe01.png"));
+            parameters.put("wespe01", wespe01 );
 
             JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
             JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
