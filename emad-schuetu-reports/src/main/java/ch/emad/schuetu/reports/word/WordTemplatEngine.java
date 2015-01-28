@@ -41,15 +41,20 @@ public class WordTemplatEngine {
 
     private static final String DOCUMENT_XML = "word/document.xml";
 
-    public byte[] createPDFFromTemplate(String template, Map<String, String> replaceMap)throws  Exception{
+    public byte[] createPDFFromDOCXTemplate(String template, Map<String, String> replaceMap)throws  Exception{
         // validate
         String ret = validateTemplate(template, replaceMap);
         if(!ret.isEmpty()){
             LOG.error(ret);
-            throw new Exception("ungueltiger template aufruf");
+            throw new Exception("ungueltiger template aufruf " + ret);
         }
         // docx replace
         byte[] docx = replacePlaceholdersInDOCX(template, replaceMap);
+
+        byte[] pdf = convertDOCXToPDF(docx);
+
+        return pdf;
+
     }
 
     private String validateTemplate(String template, Map<String, String> replaceMap) {

@@ -25,6 +25,7 @@ import java.util.Map;
 public class WordTemplateehnigeTest {
 
     private String template = "betreuer-rechnung-2";
+
     @Test
     public void testTemplateengine() {
         // template laden und parameter auslesen
