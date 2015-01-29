@@ -226,7 +226,11 @@ public class DropboxConnectorImpl implements DropboxConnector {
             if (child.contains("websitedump.xml") && !child.contains("stat")) {
                 String key = child.replace(rootFolder, "");
                 key = key.replace("-websitedump.xml", "");
-                result.put(key, new String(this.loadFile("alt/"+ child)));
+                try {
+                    result.put(key, new String(this.loadFile("alt/"+ child),"UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    LOG.error(e.getMessage(),e);
+                }
             }
         }
         return result;
