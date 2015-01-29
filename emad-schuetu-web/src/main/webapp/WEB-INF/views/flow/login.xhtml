@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../layouts/100.xhtml">
+
+    <ui:define name="heading">
+        <h:outputText value="Anmeldung"/>
+    </ui:define>
+
+    <ui:define name="caption">
+
+    </ui:define>
+
+
+    <ui:define name="scripts">
+        <script type="text/javascript">
+            /* <![CDATA[ */
+            jQuery(document).ready(function () {
+                document.getElementById("account_form:user").focus();
+            });
+            /* ]]> */
+        </script>
+    </ui:define>
+
+
+    <ui:define name="main">
+        <div id="main">
+            <div class="page_margins">
+                <div class="page">
+                    <div class="inset">
+
+
+                        <h:form id="account_form">
+                            <h3>Anmeldung</h3>
+                            <br/>
+
+                            <p:messages closable="true"/>
+                            <br/>
+                            <h:panelGrid columns="2" style="margin-bottom:10px">
+                                <h:outputLabel for="user" value="Benutzername oder Mail:"/>
+                                <h:inputText id="user" value="#{loginBean.user}" size="40"
+                                             onkeypress="if (event.keyCode == 13) { document.getElementById('account_form:ok').click(); return false; }"/>
+                                <h:outputLabel for="password" value="Passwort:"/>
+                                <h:inputSecret id="password" value="#{loginBean.password}" size="40"
+                                               onkeypress="if (event.keyCode == 13) { document.getElementById('account_form:ok').click(); return false; }"/>
+
+                                <h:outputLabel for="rememberme" value="angemeldet bleiben:"/>
+                                <p:selectBooleanCheckbox id="rememberme" value="#{loginBean.rememberme}" />
+                                <br/>
+
+                                <p:commandButton id="ok" value="Login" action="ok" ajax="false"/>
+                                <br/> <br/><br/>
+                                <p:commandLink id="neu" value="Anmeldelink Senden" oncomplete="PF('dlgnu').show();"/>
+                            </h:panelGrid>
+
+                            <p:dialog id="dlgnu"
+                                      header="Emailadresse angeben, an die der Anmeldelink Link verschickt werden soll"
+                                      widgetVar="dlgnu" resizable="false" modal="true">
+                                <h:panelGrid columns="2" style="margin-bottom:10px">
+                                    <h:outputLabel for="mail" value="Emailadresse:"/>
+                                    <h:inputText id="mail" value="#{loginBean.mail}" size="50" ajax="false"
+                                                 onkeypress="if (event.keyCode == 13) { document.getElementById('account_form:mailSenden').click(); return false; }"/>
+
+                                </h:panelGrid>
+
+
+
+                                <p:commandButton id="mailSenden" value="Senden" action="mail" ajax="false"/>
+
+                            </p:dialog>
+
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </ui:define>
+
+</ui:composition>

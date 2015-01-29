@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+  ~ Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
+  -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:pm="http://primefaces.org/mobile">
+
+<f:view renderKitId="PRIMEFACES_MOBILE"/>
+
+<h:head>
+
+</h:head>
+
+<h:body>
+
+	<h:form id="game">
+
+	<pm:page id="game" >
+		<pm:content>
+
+				<p:commandButton type="submit" action="wechseln" value="Richtung Thun" />
+
+
+				<p:commandButton type="submit" action="color" value="#{schiriBackingBean.mannschaftEins.name}"  style="font-weight:bold;color:#{schiriBackingBean.getColorEins()}; background-color:#{schiriBackingBean.getBColorEins()}">
+					<f:param name="id" value="eins"/>
+				</p:commandButton>
+
+
+				<p:commandButton type="submit" action="color" value="#{schiriBackingBean.mannschaftZwei.name}" style="font-weight:bold;color:#{schiriBackingBean.getColorZwei()}; background-color:#{schiriBackingBean.getBColorZwei()}">
+					<f:param name="id" value="zwei"/>
+				</p:commandButton>
+
+				<p:commandButton type="submit" action="wechseln" value="Richtung Bern"/>
+
+
+		</pm:content>
+	</pm:page>
+	</h:form>
+
+</h:body>
+
+</html>

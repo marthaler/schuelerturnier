@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
+  -->
+
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <view-state id="login" view="login.xhtml">
+        <transition on="login" to="logindes" bind="true">
+            <evaluate expression="schiriBackingBean.login()"/>
+        </transition>
+    </view-state>
+
+    <decision-state id="logindes">
+        <if test="currentUser == null || ! currentUser.isAuthenticated()" then="login"/>
+        <if test="schiriBackingBean.isSchiriAktivated()" then="selectgame"/>
+        <if test="!schiriBackingBean.isSchiriAktivated()" then="notenabled"/>
+    </decision-state>
+
+    <view-state id="notenabled" view="notenabled.xhtml">
+        <transition on="login" to="login"/>
+    </view-state >
+
+    <view-state id="selectgame" view="selectgame.xhtml">
+        <transition on="game" to="game">
+            <evaluate expression="schiriBackingBean.selectGame(requestParameters.id)"/>
+        </transition>
+
+    </view-state >
+
+    <view-state id="game" view="game.xhtml">
+        <transition on="color" to="game2">
+            <evaluate expression="schiriBackingBean.colorchange(requestParameters.id)"/>
+        </transition>
+        <transition on="wechseln" to="game2">
+            <evaluate expression="schiriBackingBean.wechseln()"/>
+        </transition>
+    </view-state>
+
+    <view-state id="game2" view="game.xhtml">
+        <transition on="color" to="game">
+            <evaluate expression="schiriBackingBean.colorchange(requestParameters.id)"/>
+        </transition>
+        <transition on="wechseln" to="game">
+            <evaluate expression="schiriBackingBean.wechseln()"/>
+        </transition>
+    </view-state>
+
+
+
+</flow>
