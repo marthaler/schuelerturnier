@@ -103,6 +103,7 @@
 
                     <p:menuitem id="mm_spiele_vertauschungen" value="Manuelle Korrekturen" icon="ui-icon-carat-2-n-s"
                                 action="korrekturen"/>
+                    <p:menuitem id="mm_kontakte" value="Kontakte" icon="ui-icon-plus" action="kontakte"/>
                 </p:submenu>
 
                 <!-- spielen: rollen : eintrager-->
@@ -163,7 +164,6 @@
                             rendered="#{sec:areAnyGranted('ROLE_BEOBACHTER') and spielstatusWebBean.spielend}"
                             label="Mobile" icon="ui-icon-image" url="/app/website/info/now" target="_new">
                 </p:menuitem>
-
 
                 <!-- info -->
                 <p:menuitem id="m_user" style="position: absolute; right:84px;"

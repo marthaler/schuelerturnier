@@ -324,6 +324,18 @@
         </transition>
     </view-state>
 
+    <view-state id="kontakte" view="kontakte.xhtml" redirect="true">
+        <transition on="detail" to="kontakt">
+            <evaluate expression="kontakteBB.newOrFindOne(RequestParameters.id)"/>
+        </transition>
+    </view-state>
+
+    <view-state id="kontakt" view="kontakt.xhtml" redirect="true">
+        <transition on="save" to="kontakte">
+            <evaluate expression="kontakteBB.save()"/>
+        </transition>
+    </view-state>
+
     <view-state id="liste_sessions" view="root/liste_sessions.xhtml" redirect="true">
 
     </view-state>
@@ -396,6 +408,10 @@
         </transition>
 
         <transition on="webcam" to="webcam">
+
+        </transition>
+
+        <transition on="kontakte" to="kontakte">
 
         </transition>
 
