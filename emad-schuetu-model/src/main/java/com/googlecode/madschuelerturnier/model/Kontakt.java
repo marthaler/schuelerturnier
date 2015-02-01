@@ -4,6 +4,7 @@
 package com.googlecode.madschuelerturnier.model;
 
 import ch.emad.schuetu.reports.interfaces.CouvertReportable;
+import ch.emad.schuetu.reports.interfaces.RechnungReportable;
 import com.googlecode.madschuelerturnier.model.enums.AnredeEnum;
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
 import org.apache.log4j.Logger;
@@ -27,7 +28,7 @@ import java.util.UUID;
  * @since 1.3.13
  */
 @Entity
-public class Kontakt extends Persistent implements CouvertReportable {
+public class Kontakt extends Persistent implements CouvertReportable, RechnungReportable {
 
     private AnredeEnum anrede = AnredeEnum.AN;
     private String name;
@@ -35,6 +36,16 @@ public class Kontakt extends Persistent implements CouvertReportable {
     private String strasse;
     private String PLZ;
     private String ort;
+
+    private String liste;
+    private String ressor;
+
+    private boolean rechnung = false;
+
+    private int anzahl;
+    private float preis;
+    private float betrag;
+    private String ESR;
 
     public String getListe() {
         return liste;
@@ -52,8 +63,6 @@ public class Kontakt extends Persistent implements CouvertReportable {
         this.ressor = ressor;
     }
 
-    private String liste;
-    private String ressor;
 
     @Override
     public String getAnrede() {
@@ -115,4 +124,58 @@ public class Kontakt extends Persistent implements CouvertReportable {
         this.vorname = vorname;
     }
 
+
+    public boolean isRechnung() {
+        return rechnung;
+    }
+
+    public void setRechnung(boolean rechnung) {
+        this.rechnung = rechnung;
+    }
+
+    @Override
+    public int getAnzahl() {
+        return anzahl;
+    }
+
+    @Override
+    public void setAnzahl(int anzahl) {
+        this.anzahl = anzahl;
+    }
+
+    @Override
+    public float getBetrag() {
+        return betrag;
+    }
+
+    @Override
+    public String getESR() {
+        return null;
+    }
+
+    @Override
+    public void setESR(String esr) {
+
+    }
+
+    public void setBetrag(float betrag) {
+        this.betrag = betrag;
+    }
+
+
+
+    @Override
+    public float getPreis() {
+        return preis;
+    }
+
+    @Override
+    public void setPreis(float preis) {
+        this.preis = preis;
+    }
+
+    // jxls
+    public void setId(Long id) {  // NOSONAR
+        super.setId(id);
+    }
 }

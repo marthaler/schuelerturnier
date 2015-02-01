@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class PojoTest {
     // Configured for expectation, so we know when a class gets added or removed.
-    private static final int EXPECTED_CLASS_COUNT = 14;
+    private static final int EXPECTED_CLASS_COUNT = 15;
 
     // The package to test
     private static final String POJO_PACKAGE = "com.googlecode.madschuelerturnier.model";

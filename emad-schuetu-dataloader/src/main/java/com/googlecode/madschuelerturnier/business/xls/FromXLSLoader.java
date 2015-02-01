@@ -238,5 +238,35 @@ public class FromXLSLoader {
         return null;
     }
 
+    public List<Kontakt> convertXLSToKontakt(byte[] arr) {
+
+        try {
+
+            InputStream inputXML = new BufferedInputStream(getClass().getResourceAsStream("/jxls-kontakt-mapping.xml"));
+            XLSReader mainReader = ReaderBuilder.buildFromXML(inputXML);
+
+            InputStream inputXLS = new ByteArrayInputStream(arr);
+
+            List kontakte = new ArrayList();
+            Kontakt kontakt = new Kontakt();
+
+            Map beans = new HashMap();
+            beans.put("kontakte", kontakte);
+            beans.put("kontakt", kontakt);
+
+            XLSReadStatus readStatus = mainReader.read(inputXLS, beans);
+
+            LOG.info(JXLS_LESESTATUS + readStatus.isStatusOK());
+
+            return (List<Kontakt>) beans.get("kontakte");
+
+        } catch (Exception e) {
+           e.printStackTrace();
+            LOG.error(e.getMessage(), e);
+        }
+
+        return null;
+    }
+
 
 }

@@ -298,6 +298,8 @@ result = i;
     public String toString() {
         return "Kategorie [kleineFinal=" + kleineFinal + ", grosserFinal=" + grosserFinal + ", gruppeA=" + gruppeA + ", gruppeB=" + gruppeB + ", penaltyA=" + penaltyA + ", penaltyB=" + penaltyB + "]";
     }
-
+    public void setId(Long id) {  // NOSONAR
+        super.setId(id);
+    }
 
 }
