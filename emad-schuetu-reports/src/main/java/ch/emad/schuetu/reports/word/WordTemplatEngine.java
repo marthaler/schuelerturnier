@@ -43,6 +43,22 @@ public class WordTemplatEngine {
 
     public byte[] createPDFFromDOCXTemplate(String template, Map<String, String> replaceMap)throws  Exception{
         // validate
+        String ret = validateTemplate(readFile(template), replaceMap);
+        if(!ret.isEmpty()){
+            LOG.error(ret);
+            throw new Exception("ungueltiger template aufruf " + ret);
+        }
+        // docx replace
+        byte[] docx = replacePlaceholdersInDOCX(template, replaceMap);
+
+        byte[] pdf = convertDOCXToPDF(docx);
+
+        return pdf;
+
+    }
+
+    public byte[] createPDFFromDOCXTemplate(byte[] template, Map<String, String> replaceMap) throws  Exception{
+        // validate
         String ret = validateTemplate(template, replaceMap);
         if(!ret.isEmpty()){
             LOG.error(ret);
@@ -57,7 +73,7 @@ public class WordTemplatEngine {
 
     }
 
-    private String validateTemplate(String template, Map<String, String> replaceMap) {
+    public String validateTemplate(byte [] template, Map<String, String> replaceMap) {
         StringBuilder builder = new StringBuilder();
         Map<String,String> map = getParametermapForTemplate(template, true);
 
@@ -67,8 +83,8 @@ public class WordTemplatEngine {
             }
         }
 
-        if(replaceMap.size() < map.size()){
-            builder.append("Es wurden nicht alle Keys übergeben:\n");
+        if(replaceMap.size() > map.size()){
+            builder.append("Es wurden nicht alle Keys im Word Template gedunden, es fehlen "+(replaceMap.size() -map.size()) +"\n");
         }
 
         return builder.toString();
@@ -120,7 +136,7 @@ public class WordTemplatEngine {
         return null;
     }
 
-    protected byte[] mergePDF(List<byte[]> pdf) {
+    public byte[] mergePDF(List<byte[]> pdf) {
         PDFMergerUtility ut = new PDFMergerUtility();
         for (byte[] b : pdf) {
             ut.addSource(new ByteArrayInputStream(b));
@@ -135,10 +151,10 @@ public class WordTemplatEngine {
         return out.toByteArray();
     }
 
-    protected Map getParametermapForTemplate(String template, boolean substitueValues) {
+    protected Map getParametermapForTemplate(byte[] template, boolean substitueValues) {
         Map<String,String> map = new HashMap<String,String>();
         try {
-            ZipInputStream zipIn = new ZipInputStream(new ByteArrayInputStream(readFile(template)));
+            ZipInputStream zipIn = new ZipInputStream(new ByteArrayInputStream(template));
             ZipEntry inEntry;
             while ((inEntry = zipIn.getNextEntry()) != null) {
                 if (inEntry.getName().equals(DOCUMENT_XML)) {

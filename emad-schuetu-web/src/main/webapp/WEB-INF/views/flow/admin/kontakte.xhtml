@@ -5,7 +5,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
-                template="../../layouts/100.xhtml">
+                template="../../../layouts/100.xhtml">
 
     <ui:define name="main">
 
@@ -20,14 +20,11 @@
 
                         <h:form id="form">
 
+                            <p:commandButton action="detail" icon="ui-icon-copy" ajax="false" value="Neuen Kontakt erstellen"/>
 
+							<br/>
 
-
-                            <p:commandButton action="detail" icon="ui-icon-copy" ajax="false" value="Neuen Kontakt erstellen">
-
-                            </p:commandButton>
-<br/>
-                            <p:selectOneMenu id="list" value="#{kontakteBB.selectedList}" onchange="submit()">
+							<p:selectOneMenu id="list" value="#{kontakteBB.selectedList}" onchange="submit()">
                                 <f:selectItem itemLabel="Alle Listen" itemValue="%%%" />
                                 <f:selectItems value="#{kontakteBB.allLists}" />
                             </p:selectOneMenu>
@@ -65,6 +62,7 @@
                                         </p:commandButton>
 
                                     </p:column>
+
                                 </p:dataTable>
 
                         </h:form>

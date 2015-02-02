@@ -30,7 +30,7 @@ public class WordTemplateehnigeTest {
     public void testTemplateengine() {
         // template laden und parameter auslesen
         WordTemplatEngine engine = new WordTemplatEngine();
-        Map<String,String> map = engine.getParametermapForTemplate(template,true);
+        Map<String,String> map = engine.getParametermapForTemplate(engine.readFile(template),true);
 
         System.out.println(map);
 
@@ -41,7 +41,7 @@ public class WordTemplateehnigeTest {
         }
 
         // parameter ersetzen
-        byte[] docx = engine.replacePlaceholdersInDOCX(template,engine.getParametermapForTemplate(template,true));
+        byte[] docx = engine.replacePlaceholdersInDOCX(engine.readFile(template),engine.getParametermapForTemplate(engine.readFile(template),true));
         byte[] pdf = engine.convertDOCXToPDF(docx);
         File dir = targetDir();
         String file = dir.getAbsolutePath() + "/pdf.pdf";

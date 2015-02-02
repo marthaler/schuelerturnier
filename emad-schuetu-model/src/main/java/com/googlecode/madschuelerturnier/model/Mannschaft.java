@@ -4,6 +4,7 @@
 package com.googlecode.madschuelerturnier.model;
 
 import ch.emad.schuetu.reports.interfaces.CouvertReportable;
+import ch.emad.schuetu.reports.interfaces.RechnungReportable;
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
 import org.apache.log4j.Logger;
 import org.hibernate.validator.constraints.Email;
@@ -19,11 +20,14 @@ import java.util.UUID;
  * @since 0.7
  */
 @Entity
-public class Mannschaft extends Persistent implements CouvertReportable {
+public class Mannschaft extends Persistent implements CouvertReportable, RechnungReportable {
 
     private static final Logger LOG = Logger.getLogger(Mannschaft.class);
 
     private static final long serialVersionUID = 1L;
+
+    @Transient
+    private String esr;
 
     private int teamNummer = -1;
 
@@ -453,5 +457,40 @@ public class Mannschaft extends Persistent implements CouvertReportable {
     @Override
     public String getPLZOrt() {
         return this.getBegleitpersonPLZOrt();
+    }
+
+    @Override
+    public void setAnzahl(int anzahl) {
+        throw new RuntimeException("do not use");
+    }
+
+    @Override
+    public void setPreis(float preis) {
+        throw new RuntimeException("do not use");
+    }
+
+    @Override
+    public int getAnzahl() {
+        return this.getAnzahlSpieler();
+    }
+
+    @Override
+    public float getPreis() {
+        return 7;
+    }
+
+    @Override
+    public float getBetrag() {
+        return getPreis()* this.getAnzahl();
+    }
+
+    @Override
+    public String getESR() {
+        return this.esr;
+    }
+
+    @Override
+    public void setESR(String esr) {
+        this.esr = esr;
     }
 }

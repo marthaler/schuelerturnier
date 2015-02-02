@@ -22,7 +22,10 @@ public interface DropboxConnector {
 
     void insertToken(String token);
 
+    @Deprecated
     List<String> getFilesInFolder();
+
+    List<String> getFilesInFolder(String folder);
 
     List<String> getFilesInAltFolder();
 

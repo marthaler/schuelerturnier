@@ -108,6 +108,11 @@ public class DropboxConnectorImpl implements DropboxConnector {
         return driver.getFilesInFolder(this.rootFolder);
     }
 
+    @Override
+    public List<String> getFilesInFolder(String folder) {
+        return driver.getFilesInFolder(this.rootFolder +"/" + folder);
+    }
+
     public List<String> getFilesInAltFolder() {
         if (!this.isConnected()) {
             LOG.info("dropbox nicht verbunden.");
