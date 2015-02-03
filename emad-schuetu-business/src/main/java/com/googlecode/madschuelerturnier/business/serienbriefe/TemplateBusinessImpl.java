@@ -11,6 +11,7 @@ import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 
@@ -39,6 +40,7 @@ public class TemplateBusinessImpl implements TemplateBusiness {
     private static Map<String, TemplateBusinessBean> templateBusinessBeanMap = new HashMap<String, TemplateBusinessBean>();
 
     @Autowired
+    @Qualifier("dropboxConnector")
     private DropboxConnector dropbox;
 
     @Autowired

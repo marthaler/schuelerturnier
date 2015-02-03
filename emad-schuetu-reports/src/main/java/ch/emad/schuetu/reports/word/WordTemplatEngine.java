@@ -13,6 +13,7 @@ import org.apache.pdfbox.util.PDFMergerUtility;
 import org.apache.poi.xwpf.converter.pdf.PdfConverter;
 import org.apache.poi.xwpf.converter.pdf.PdfOptions;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.springframework.beans.BeanUtils;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +57,11 @@ public class WordTemplatEngine {
 
         return pdf;
 
+    }
+
+    public List<String> findMethoads(Object obj){
+       // org.apache.commons.lang3.reflect.MethodUtils.
+        return null;
     }
 
     public byte[] createPDFFromDOCXTemplate(byte[] template, Map<String, String> replaceMap) throws  Exception{
