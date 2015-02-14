@@ -1,68 +1,36 @@
-/*
- * Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
- */
-
 /**
  * Apache License 2.0
  */
-package com.googlecode.madschuelerturnier.business.pdf;
+package ch.emad.schuetu.reports.pdf;
 
-
-import org.apache.commons.io.FileUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.util.ImageIOUtil;
-import org.junit.Assert;
-import org.junit.Test;
 
-import javax.imageio.ImageIO;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * MannschaftBegeiterA5CouverPDFCreatorTest
+ * PDF Manipulationen
  *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.2.8
  */
-public class JasperResultConverterTest {
+public class PDFUtil {
 
-    //@Test
-    public void finaleSuchenNormal() {
+    public static List<byte[]> splitPDFToPNG(byte [] in) {
 
-
-        List<Mannschaft2> mannschaftList = new ArrayList<Mannschaft2>();
-        for (int i = 0; i < 10; i++) {
-
-            Mannschaft2 m = new Mannschaft2(i);
-
-
-            mannschaftList.add(m);
-
-        }
-
-        JasperResultConverter cr = new JasperResultConverter();
-        byte[] result = cr.createPdf(mannschaftList,"couvert2");
-
-        try {
-            // todo in den target verschieben
-            FileUtils.writeByteArrayToFile(new File("d:/test2.pdf"), result);
-            Assert.assertTrue(result.length > 30);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
+        List<byte[]> outlist = new ArrayList<>();
         PDDocument document = null;
         try {
-            document = PDDocument.loadNonSeq(new File("d:/Test.pdf"), null);
+            InputStream ins = new ByteArrayInputStream(in);
+            document = PDDocument.load(ins);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -78,7 +46,9 @@ public class JasperResultConverterTest {
                 e.printStackTrace();
             }
             try {
-                ImageIOUtil.writeImage(bim, "png", "d:/png" + "-" + page, 300);
+                ByteArrayOutputStream outStr = new ByteArrayOutputStream();
+                ImageIOUtil.writeImage(bim, "png", outStr, 300);
+                outlist.add(outStr.toByteArray());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -88,12 +58,8 @@ public class JasperResultConverterTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
+        return outlist;
     }
-
-
-
 
     public File targetDir(){
         String relPath = getClass().getProtectionDomain().getCodeSource().getLocation().getFile();
@@ -103,7 +69,6 @@ public class JasperResultConverterTest {
         }
         return targetDir;
     }
-
 
 }
 

@@ -11,6 +11,12 @@
 
     <dependencies>
 
+		<dependency>
+			<groupId>ch.emad.dropbox</groupId>
+			<artifactId>emad-dropbox-interface</artifactId>
+			<version>${emad-dropbox.version}</version>
+		</dependency>
+
         <dependency>
             <groupId>org.docx4j</groupId>
             <artifactId>docx4j</artifactId>
