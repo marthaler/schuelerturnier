@@ -50,13 +50,13 @@
         <dependency>
             <groupId>com.caucho</groupId>
             <artifactId>hessian</artifactId>
-            <version>4.0.33</version>
+            <version>${hessian.version}</version>
         </dependency>
 
         <dependency>
             <groupId>burlap</groupId>
             <artifactId>burlap</artifactId>
-            <version>2.1.7</version>
+            <version>${burlap.version}</version>
         </dependency>
 
 
@@ -134,7 +134,7 @@
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.9</version>
+            <version>${commons-codec.version}</version>
         </dependency>
 
 
