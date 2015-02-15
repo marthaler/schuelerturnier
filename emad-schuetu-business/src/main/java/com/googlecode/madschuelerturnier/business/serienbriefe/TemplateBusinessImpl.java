@@ -3,11 +3,9 @@
  */
 package com.googlecode.madschuelerturnier.business.serienbriefe;
 
-import ch.emad.schuetu.reports.interfaces.CouvertReportable;
+import com.googlecode.madschuelerturnier.interfaces.CouvertReportable;
 import ch.emad.schuetu.reports.word.WordTemplatEngine;
 import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
-import com.googlecode.madschuelerturnier.business.websiteinfo.WebsiteInfoService;
-import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +19,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * @author $Author: marthaler.worb@gmail.com $
@@ -49,7 +45,7 @@ public class TemplateBusinessImpl implements TemplateBusiness {
     @Autowired
     private WordTemplatEngine wordengine;
 
-    @PostConstruct
+    //@PostConstruct
     private void initTrigger() {
         init();
     }

@@ -3,8 +3,7 @@
  */
 package com.googlecode.madschuelerturnier.model;
 
-import ch.emad.schuetu.reports.interfaces.CouvertReportable;
-import ch.emad.schuetu.reports.interfaces.RechnungReportable;
+import com.googlecode.madschuelerturnier.interfaces.*;
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
 import org.apache.log4j.Logger;
 import org.hibernate.validator.constraints.Email;

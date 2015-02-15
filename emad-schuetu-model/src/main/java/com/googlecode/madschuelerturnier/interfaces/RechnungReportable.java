@@ -1,4 +1,4 @@
-package ch.emad.schuetu.reports.interfaces;
+package com.googlecode.madschuelerturnier.interfaces;
 
 public interface RechnungReportable extends CouvertReportable{
 

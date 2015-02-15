@@ -51,4 +51,6 @@ public interface DropboxConnector {
 
     Map<String,String> loadOldGames();
 
+    void deleteFile(String file);
+
 }

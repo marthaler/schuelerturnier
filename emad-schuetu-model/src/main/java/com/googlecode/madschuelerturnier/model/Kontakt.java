@@ -3,23 +3,11 @@
  */
 package com.googlecode.madschuelerturnier.model;
 
-import ch.emad.schuetu.reports.interfaces.CouvertReportable;
-import ch.emad.schuetu.reports.interfaces.RechnungReportable;
-import com.googlecode.madschuelerturnier.model.enums.AnredeEnum;
-import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
-import org.apache.log4j.Logger;
-import org.hibernate.validator.constraints.Email;
 
-import javax.persistence.Column;
+import com.googlecode.madschuelerturnier.model.enums.AnredeEnum;
+import com.googlecode.madschuelerturnier.interfaces.*;
+
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Lob;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 /**
  * Ein Kontakt zum Versand von Couverts und Serienbriefen

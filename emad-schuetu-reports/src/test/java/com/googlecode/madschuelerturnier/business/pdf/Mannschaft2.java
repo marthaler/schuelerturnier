@@ -6,13 +6,11 @@ package com.googlecode.madschuelerturnier.business.pdf;/*
  * Apache License 2.0
  */
 
-import ch.emad.schuetu.reports.interfaces.CouvertReportable;
+import com.googlecode.madschuelerturnier.interfaces.CouvertReportable;
 import org.apache.commons.io.FileUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

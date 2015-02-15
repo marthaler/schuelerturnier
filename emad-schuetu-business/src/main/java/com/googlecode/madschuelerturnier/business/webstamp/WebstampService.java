@@ -1,13 +1,14 @@
 /**
  * Apache License 2.0
  */
-package ch.emad.schuetu.reports.webstamp;
+package com.googlecode.madschuelerturnier.business.webstamp;
 
-import ch.emad.dropbox.DropboxConnector;
+import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
 import ch.emad.schuetu.reports.pdf.PDFUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -75,17 +75,17 @@ public class WebstampService {
         for (String file : files) {
             //umwandeln in einzelne png und in liste speichern
             if (file.contains(".pdf")) {
-                byte[] pdf = connector.loadFile(file);
+                byte[] pdf = connector.loadFile("stamps/neu/" + file);
                 out.addAll(PDFUtil.splitPDFToPNG(pdf));
                 // pdf in alt ordner verschieben
-                connector.saveFile("/stamps/alt/" + name + ".pdf", pdf);
-                connector.deleteFile(file);
+                connector.saveFile("stamps/alt/" + name + ".pdf", pdf);
+                connector.deleteFile("stamps/neu/"+file);
             }
         }
         // fertige png's im neu ordner speichern
         for (byte[] file : out) {
             i++;
-            connector.saveFile("/stamps/neu/" + name + "-" + String.format("%03i", i) + ".png", file);
+            connector.saveFile("stamps/neu/" + name + "-" + String.format("%03d", i) + ".png", file);
         }
 
         // zaehler neu stellen

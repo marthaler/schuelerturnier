@@ -17,6 +17,12 @@
 			<version>${emad-dropbox.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>ch.emad.schuetu</groupId>
+			<artifactId>emad-schuetu-model</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
         <dependency>
             <groupId>org.docx4j</groupId>
             <artifactId>docx4j</artifactId>

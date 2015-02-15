@@ -241,6 +241,11 @@ public class DropboxConnectorImpl implements DropboxConnector {
         return result;
     }
 
+    @Override
+    public void deleteFile(String file) {
+        this.driver.deleteFile(file);
+    }
+
     private String generateMD5(byte[] args) {
         return DigestUtils.md5DigestAsHex(args);
     }
