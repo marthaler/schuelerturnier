@@ -8,7 +8,7 @@ package com.googlecode.madschuelerturnier.stages;
  * @since 0.0.1
  */
 public enum StageEnum {
-    DEVELOPMENT("dev"),TEST("test"),PRODUCTION("prod"), INTEGRATION("int");
+    DEVELOPMENT("dev"),TEST("test"),PRODUCTION("prod"), INTEGRATION("int"),VERSION("vers");
 
     private String text;
 
