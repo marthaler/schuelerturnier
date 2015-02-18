@@ -38,7 +38,7 @@ public class JasperResultConverter {
 
     private static final Logger LOG = Logger.getLogger(JasperResultConverter.class);
 
-    protected byte[] createPdf(List data,String jrxml) {
+    public byte[] createPdf(List data,String jrxml) {
         try {
             InputStream inputStream = getTemplate("pdf/" + jrxml +".jrxml");
 

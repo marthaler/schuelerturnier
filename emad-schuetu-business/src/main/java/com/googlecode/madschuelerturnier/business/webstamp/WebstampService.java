@@ -56,11 +56,11 @@ public class WebstampService {
            return null;
         }
         String file = pngs.remove(0);
-        byte[] in= connector.loadFile(file);
+        byte[] in= connector.loadFile("stamps/neu/" + file);
         byte[] ret = rotatePic(in,90);
 
-        connector.saveFile(file.replace("neu","alt"),in);
-        connector.deleteFile(file);
+        connector.saveFile("stamps/alt/" + file,in);
+        connector.deleteFile("stamps/neu/" + file);
 
         return ret;
     }

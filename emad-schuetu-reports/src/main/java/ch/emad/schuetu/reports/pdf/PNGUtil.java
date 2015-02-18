@@ -1,4 +1,8 @@
-package com.googlecode.madschuelerturnier.business.pdf;/*
+/*
+ * Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
+ */
+
+package ch.emad.schuetu.reports.pdf;/*
  * Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
  */
 
@@ -22,52 +26,7 @@ import java.io.IOException;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
-public class Mannschaft2  implements CouvertReportable {
-
-    private int count;
-
-    public Mannschaft2(int count){
-        this.count = count;
-    }
-
-
-    public String getAnrede() {
-        return "Anrede " + count;
-    }
-
-
-    public String getNameVorname() {
-        return "Name Vorname " + count;
-    }
-
-
-    public String getStrasse() {
-        return "Strasse " + count;
-    }
-
-
-    public String getPLZOrt() {
-        return "PLZ Ort " + count;
-    }
-
-    public ByteArrayInputStream getStamp(){
-        try {
-            return new ByteArrayInputStream(rotate(FileUtils.readFileToByteArray(new File("d:/png-39.png")), 90));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public ByteArrayInputStream getPic(){
-        try {
-            return new ByteArrayInputStream(rotate(FileUtils.readFileToByteArray(new File("d:/png-39.png")), 90));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+public class PNGUtil {
 
     public static byte[] rotate(byte[] img, double angle)
     {Image image = null;

@@ -7,11 +7,13 @@ import com.googlecode.madschuelerturnier.business.serienbriefe.TemplateBusiness;
 import com.googlecode.madschuelerturnier.business.serienbriefe.TemplateBusinessImpl;
 import com.googlecode.madschuelerturnier.model.support.File;
 import com.googlecode.madschuelerturnier.persistence.repository.FileRepository;
+import com.googlecode.madschuelerturnier.web.backingbeans.KontakteBackingBean;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,7 @@ import java.io.InputStream;
  * @since 1.2.8
  */
 @Controller
+@Scope("session")
 public class TemplateDownloadController {
 
     private static final Logger LOG = Logger.getLogger(TemplateDownloadController.class);
@@ -36,16 +39,24 @@ public class TemplateDownloadController {
     @Autowired
     private TemplateBusiness controller;
 
+    @Autowired
+    private KontakteBackingBean kontakte;
+
     public StreamedContent getFileAsStreamedContent(String name) {
         InputStream is = new ByteArrayInputStream(controller.getTemplate(name));
         return new DefaultStreamedContent(is, "application/pdf", name+".pdf");
     }
 
-    public StreamedContent getFileAsStreamedContent() {
-        InputStream is = new ByteArrayInputStream(controller.getRechnungen());
-        return new DefaultStreamedContent(is, "application/pdf","rechnungen.pdf");
+    public StreamedContent getFileAsStreamedContentReal(String name) {
+
+        InputStream is = new ByteArrayInputStream(controller.getBriefe(kontakte.getAll(),name));
+        return new DefaultStreamedContent(is, "application/pdf",name+".pdf");
     }
 
+    public StreamedContent downloadCouverts() {
+        InputStream is = new ByteArrayInputStream(kontakte.downloadCouverts());
+        return new DefaultStreamedContent(is, "application/pdf","couverts.pdf");
+    }
 
 
 }

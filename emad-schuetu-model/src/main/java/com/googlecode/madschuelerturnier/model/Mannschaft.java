@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +21,9 @@ import java.util.UUID;
  */
 @Entity
 public class Mannschaft extends Persistent implements CouvertReportable, RechnungReportable {
+
+    @Transient
+    private byte[] stamp;
 
     private static final Logger LOG = Logger.getLogger(Mannschaft.class);
 
@@ -448,6 +452,13 @@ public class Mannschaft extends Persistent implements CouvertReportable, Rechnun
         return this.getBegleitpersonName();
     }
 
+    public String getVorname() {
+        if(this.begleitpersonName != null && this.getBegleitpersonName().contains(" ")){
+            return this.getBegleitpersonName().split(" ")[0];
+        }
+        return this.getBegleitpersonName();
+    }
+
     @Override
     public String getStrasse() {
         return this.begleitpersonStrasse;
@@ -456,6 +467,16 @@ public class Mannschaft extends Persistent implements CouvertReportable, Rechnun
     @Override
     public String getPLZOrt() {
         return this.getBegleitpersonPLZOrt();
+    }
+
+    @Override
+    public ByteArrayInputStream getStamp() {
+        return new ByteArrayInputStream(stamp);
+    }
+
+    @Override
+    public void setStamp(byte[] stamp) {
+this.stamp = stamp;
     }
 
     @Override
@@ -479,8 +500,8 @@ public class Mannschaft extends Persistent implements CouvertReportable, Rechnun
     }
 
     @Override
-    public float getBetrag() {
-        return getPreis()* this.getAnzahl();
+    public String getBetrag() {
+        return "Fr. " + (getPreis()* this.getAnzahl());
     }
 
     @Override

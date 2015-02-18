@@ -3,8 +3,8 @@
  */
 package com.googlecode.madschuelerturnier.business.serienbriefe;
 
-import com.googlecode.madschuelerturnier.interfaces.CouvertReportable;
 import ch.emad.schuetu.reports.word.WordTemplatEngine;
+import ch.emad.schuetu.reports.word.WordTemplatModelchanger;
 import com.googlecode.madschuelerturnier.business.dropbox.DropboxConnector;
 import com.googlecode.madschuelerturnier.persistence.repository.MannschaftRepository;
 import org.apache.log4j.Logger;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 
-import javax.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -104,7 +103,7 @@ public class TemplateBusinessImpl implements TemplateBusiness {
             try {
                 arr.add(wordengine.createPDFFromDOCXTemplate(templateBusinessBeanMap.get(name).getTemplate(), m));
             } catch (Exception e) {
-                e.printStackTrace();
+                LOG.error(e);
             }
         }
         return wordengine.mergePDF(arr);
@@ -113,6 +112,26 @@ public class TemplateBusinessImpl implements TemplateBusiness {
     @Override
     public byte[] getRechnungen() {
         return this.getTemplate("betreuer-rechnung-2",TemplateMapper.convertRechnungen(repo.findAll()));
+    }
+
+    public byte[] getBriefe(List values,String template) {
+
+        List<byte[]> liste = new ArrayList<byte[]>();
+
+        TemplateBusinessBean map = templateBusinessBeanMap.get(template);
+        Map<String, String> temp = map.getTemplateValueMap();
+
+        for(Object obj :values){
+            Map<String,String> mm = WordTemplatEngine.convertToValueMap(obj, temp);
+            try {
+                liste.add(wordengine.createPDFFromDOCXTemplate(templateBusinessBeanMap.get(template).getTemplate(), mm));
+            } catch (Exception e) {
+                LOG.error(e);
+            }
+        }
+
+        return wordengine.mergePDF(liste);
+
     }
 
     @Async
@@ -148,6 +167,8 @@ public class TemplateBusinessImpl implements TemplateBusiness {
             bean.setTemplateValueMapHere(true);
         } else {
             bean.setTemplateValueMapHere(false);
+            bean.setValidationError("templates/" + bean.getName() + ".properties fehlt");
+            bean.setTemplateValide(false);
             templateBusinessBeanMap.put(bean.getName(), bean);
             return;
         }
@@ -159,6 +180,7 @@ public class TemplateBusinessImpl implements TemplateBusiness {
                 bean.setTemplateValide(true);
             } else {
                 bean.setValidationError(result);
+                bean.setTemplateValide(false);
                 templateBusinessBeanMap.put(bean.getName(), bean);
                 return;
             }
@@ -166,7 +188,9 @@ public class TemplateBusinessImpl implements TemplateBusiness {
             byte[] finished = wordengine.createPDFFromDOCXTemplate(bean.getTemplate(), bean.getTemplateValueMap());
             bean.setOktemplate(finished);
         } catch (Exception e) {
-            e.printStackTrace();
+            bean.setValidationError(e.getMessage());
+            bean.setTemplateValide(false);
+            LOG.error(e);
         }
         templateBusinessBeanMap.put(bean.getName(), bean);
     }

@@ -42,7 +42,12 @@ public class WordTemplateehnigeTest {
 
         // parameter ersetzen
         byte[] docx = engine.replacePlaceholdersInDOCX(engine.readFile(template),engine.getParametermapForTemplate(engine.readFile(template),true));
-        byte[] pdf = engine.convertDOCXToPDF(docx);
+        byte[] pdf = new byte[0];
+        try {
+            pdf = engine.convertDOCXToPDF(docx);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         File dir = targetDir();
         String file = dir.getAbsolutePath() + "/pdf.pdf";
         String filedocx = dir.getAbsolutePath() + "/pdf.docx";

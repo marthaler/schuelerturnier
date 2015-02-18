@@ -66,12 +66,16 @@
                                     </p:column>
 
 									<p:column id="download2"  headerText="Download">
-										<p:commandButton value="XXX" ajax="false">
-											<p:fileDownload value="#{templateDownloadController.getFileAsStreamedContent()}" />
+										<p:commandButton value="#{template.name}" ajax="false">
+											<p:fileDownload value="#{templateDownloadController.getFileAsStreamedContentReal(template.name)}" />
 										</p:commandButton>
 									</p:column>
 
                                 </p:dataTable>
+
+							<p:commandButton value="#{kontakteBB.couvertTitel()}" ajax="false" disabled="#{!kontakteBB.areCouvertOk()}">
+								<p:fileDownload value="#{templateDownloadController.downloadCouverts()}" />
+							</p:commandButton>
 
                         </h:form>
                     </div>

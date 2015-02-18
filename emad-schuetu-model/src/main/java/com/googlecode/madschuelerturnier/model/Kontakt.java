@@ -8,6 +8,8 @@ import com.googlecode.madschuelerturnier.model.enums.AnredeEnum;
 import com.googlecode.madschuelerturnier.interfaces.*;
 
 import javax.persistence.Entity;
+import javax.persistence.Transient;
+import java.io.ByteArrayInputStream;
 
 /**
  * Ein Kontakt zum Versand von Couverts und Serienbriefen
@@ -17,6 +19,11 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Kontakt extends Persistent implements CouvertReportable, RechnungReportable {
+
+    @Transient
+    private byte[] stamp;
+
+    private String esr;
 
     private AnredeEnum anrede = AnredeEnum.AN;
     private String name;
@@ -71,8 +78,18 @@ public class Kontakt extends Persistent implements CouvertReportable, RechnungRe
     public String getPLZOrt() {
         return this.PLZ + " " + ort;
     }
-    public void setAnrede(String anrede) {
 
+    @Override
+    public ByteArrayInputStream getStamp() {
+        return new ByteArrayInputStream(stamp);
+    }
+
+    @Override
+    public void setStamp(byte[] stamp) {
+        this.stamp = stamp;
+    }
+
+    public void setAnrede(String anrede) {
         this.anrede = AnredeEnum.fromString(anrede);
     }
 
@@ -131,19 +148,19 @@ public class Kontakt extends Persistent implements CouvertReportable, RechnungRe
         this.anzahl = anzahl;
     }
 
-    @Override
-    public float getBetrag() {
-        return betrag;
+
+    public String getBetrag() {
+        return ""+betrag;
     }
 
     @Override
     public String getESR() {
-        return null;
+        return esr;
     }
 
     @Override
     public void setESR(String esr) {
-
+this.esr = esr;
     }
 
     public void setBetrag(float betrag) {

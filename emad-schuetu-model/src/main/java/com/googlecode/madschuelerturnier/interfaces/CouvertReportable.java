@@ -1,10 +1,9 @@
 package com.googlecode.madschuelerturnier.interfaces;
 
+import java.io.ByteArrayInputStream;
+
 public interface CouvertReportable {
 
-    public String getAnrede();
-    public String getNameVorname();
-    public String getStrasse();
-    public String getPLZOrt();
+
 
 }

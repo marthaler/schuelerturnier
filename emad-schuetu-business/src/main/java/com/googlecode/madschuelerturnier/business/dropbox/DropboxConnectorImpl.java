@@ -51,6 +51,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
         // dev implementation bei der entwicklung
         DropboxConnectorLocalImpl impl = new DropboxConnectorLocalImpl();
             impl.setRootPath("C:\\Users\\u203244\\Dropbox\\shared\\z_schuelerturnier\\Informatik\\applikationsdaten\\dev");
+
             if(impl.isConnected()){
                 rootFolder = "";
                 driver = impl;

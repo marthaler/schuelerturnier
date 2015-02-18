@@ -10,6 +10,7 @@ import org.apache.commons.lang.CharEncoding;
 import org.apache.log4j.Logger;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.apache.pdfbox.util.PDFMergerUtility;
+import org.apache.poi.xwpf.converter.core.XWPFConverterException;
 import org.apache.poi.xwpf.converter.pdf.PdfConverter;
 import org.apache.poi.xwpf.converter.pdf.PdfOptions;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -43,25 +44,15 @@ public class WordTemplatEngine {
 
     private static final String DOCUMENT_XML = "word/document.xml";
 
-    public byte[] createPDFFromDOCXTemplate(String template, Map<String, String> replaceMap)throws  Exception{
-        // validate
-        String ret = validateTemplate(readFile(template), replaceMap);
-        if(!ret.isEmpty()){
-            LOG.error(ret);
-            throw new Exception("ungueltiger template aufruf " + ret);
-        }
-        // docx replace
-        byte[] docx = replacePlaceholdersInDOCX(template, replaceMap);
+    public static Map<String,String> convertToValueMap(Object obj, Map<String, String> replaceMap){
+        Map<String,String> ret = new HashMap<String,String>();
 
-        byte[] pdf = convertDOCXToPDF(docx);
+            for (String key : replaceMap.keySet()) {
+                String method = replaceMap.get(key);
+                ret.put(key, WordTemplatModelchanger.invokeMethod(method, obj));
+            }
 
-        return pdf;
-
-    }
-
-    public List<String> findMethoads(Object obj){
-       // org.apache.commons.lang3.reflect.MethodUtils.
-        return null;
+        return ret;
     }
 
     public byte[] createPDFFromDOCXTemplate(byte[] template, Map<String, String> replaceMap) throws  Exception{
@@ -129,7 +120,7 @@ public class WordTemplatEngine {
         return output.toByteArray();
     }
 
-    protected byte[] convertDOCXToPDF(byte[] docx) {
+    protected byte[] convertDOCXToPDF(byte[] docx) throws Exception {
         try {
             InputStream in = new ByteArrayInputStream(docx);
             XWPFDocument document = new XWPFDocument(in);
@@ -137,10 +128,10 @@ public class WordTemplatEngine {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             PdfConverter.getInstance().convert(document, out, options);
             return out.toByteArray();
-        } catch (IOException e) {
+        } catch (IOException | XWPFConverterException e) {
             LOG.error(e.getMessage(),e);
+            throw new Exception("fehler beim konvertieren des .docx in ein pdf: " + e.getMessage());
         }
-        return null;
     }
 
     public byte[] mergePDF(List<byte[]> pdf) {

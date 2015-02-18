@@ -29,19 +29,18 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-@Component
 public class WordTemplatModelchanger {
 
     private static final Logger LOG = Logger.getLogger(WordTemplatModelchanger.class);
 
-    public byte[] createPDFFromDOCXTemplate(Object list, String template, Map<String, String> gettermap){
-        return null;
-    }
-    public String invokeMethod(String method,Object obj) {
+    public static String invokeMethod(String method,Object obj) {
         try {
             Method meth = obj.getClass().getMethod(method);
-            Object returnValue = meth.invoke(obj, meth);
-            return returnValue.toString();
+            Object returnValue = meth.invoke(obj);
+            if(returnValue != null){
+                return returnValue.toString();
+            }
+            return "";
         } catch (SecurityException e) {
             LOG.error(e);
         } catch (NoSuchMethodException e) {
