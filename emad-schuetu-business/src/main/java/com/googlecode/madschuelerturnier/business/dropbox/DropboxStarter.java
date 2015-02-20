@@ -70,12 +70,11 @@ public class DropboxStarter {
             driver.setSelectedGame(res.getProperty("file"));
 
             if(stage != null && ! stage.equals(StageEnum.PRODUCTION) && !res.getProperty("testmode").isEmpty()){
-                // todo
+                driver.setSelectedGame(res.getProperty("file"));
                 String testdate = res.getProperty("testmode");
-
                 noNeedToConnect = true;
                 business.generateSpielFromXLS(driver.loadFile(res.getProperty("file")+"/"+res.getProperty("file")+".xls"));
-                driver.setSelectedGame(res.getProperty("file"));
+
 
                 SpielEinstellungen einst = business.getSpielEinstellungen();
                 einst.setStarttag(new Date());

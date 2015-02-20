@@ -3,12 +3,13 @@
  */
 package com.googlecode.madschuelerturnier.model;
 
-import ch.emad.schuetu.reports.interfaces.CouvertReportable;
+import com.googlecode.madschuelerturnier.interfaces.*;
 import com.googlecode.madschuelerturnier.model.enums.GeschlechtEnum;
 import org.apache.log4j.Logger;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -19,11 +20,17 @@ import java.util.UUID;
  * @since 0.7
  */
 @Entity
-public class Mannschaft extends Persistent implements CouvertReportable {
+public class Mannschaft extends Persistent implements CouvertReportable, RechnungReportable {
+
+    @Transient
+    private byte[] stamp;
 
     private static final Logger LOG = Logger.getLogger(Mannschaft.class);
 
     private static final long serialVersionUID = 1L;
+
+    @Transient
+    private String esr;
 
     private int teamNummer = -1;
 
@@ -445,6 +452,13 @@ public class Mannschaft extends Persistent implements CouvertReportable {
         return this.getBegleitpersonName();
     }
 
+    public String getVorname() {
+        if(this.begleitpersonName != null && this.getBegleitpersonName().contains(" ")){
+            return this.getBegleitpersonName().split(" ")[0];
+        }
+        return this.getBegleitpersonName();
+    }
+
     @Override
     public String getStrasse() {
         return this.begleitpersonStrasse;
@@ -453,5 +467,50 @@ public class Mannschaft extends Persistent implements CouvertReportable {
     @Override
     public String getPLZOrt() {
         return this.getBegleitpersonPLZOrt();
+    }
+
+    @Override
+    public ByteArrayInputStream getStamp() {
+        return new ByteArrayInputStream(stamp);
+    }
+
+    @Override
+    public void setStamp(byte[] stamp) {
+this.stamp = stamp;
+    }
+
+    @Override
+    public void setAnzahl(int anzahl) {
+        throw new RuntimeException("do not use");
+    }
+
+    @Override
+    public void setPreis(float preis) {
+        throw new RuntimeException("do not use");
+    }
+
+    @Override
+    public int getAnzahl() {
+        return this.getAnzahlSpieler();
+    }
+
+    @Override
+    public float getPreis() {
+        return 7;
+    }
+
+    @Override
+    public String getBetrag() {
+        return "Fr. " + (getPreis()* this.getAnzahl());
+    }
+
+    @Override
+    public String getESR() {
+        return this.esr;
+    }
+
+    @Override
+    public void setESR(String esr) {
+        this.esr = esr;
     }
 }

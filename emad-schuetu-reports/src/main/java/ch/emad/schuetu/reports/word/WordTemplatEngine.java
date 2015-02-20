@@ -10,9 +10,11 @@ import org.apache.commons.lang.CharEncoding;
 import org.apache.log4j.Logger;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.apache.pdfbox.util.PDFMergerUtility;
+import org.apache.poi.xwpf.converter.core.XWPFConverterException;
 import org.apache.poi.xwpf.converter.pdf.PdfConverter;
 import org.apache.poi.xwpf.converter.pdf.PdfOptions;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.springframework.beans.BeanUtils;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +44,18 @@ public class WordTemplatEngine {
 
     private static final String DOCUMENT_XML = "word/document.xml";
 
-    public byte[] createPDFFromDOCXTemplate(String template, Map<String, String> replaceMap)throws  Exception{
+    public static Map<String,String> convertToValueMap(Object obj, Map<String, String> replaceMap){
+        Map<String,String> ret = new HashMap<String,String>();
+
+            for (String key : replaceMap.keySet()) {
+                String method = replaceMap.get(key);
+                ret.put(key, WordTemplatModelchanger.invokeMethod(method, obj));
+            }
+
+        return ret;
+    }
+
+    public byte[] createPDFFromDOCXTemplate(byte[] template, Map<String, String> replaceMap) throws  Exception{
         // validate
         String ret = validateTemplate(template, replaceMap);
         if(!ret.isEmpty()){
@@ -57,7 +71,7 @@ public class WordTemplatEngine {
 
     }
 
-    private String validateTemplate(String template, Map<String, String> replaceMap) {
+    public String validateTemplate(byte [] template, Map<String, String> replaceMap) {
         StringBuilder builder = new StringBuilder();
         Map<String,String> map = getParametermapForTemplate(template, true);
 
@@ -67,8 +81,8 @@ public class WordTemplatEngine {
             }
         }
 
-        if(replaceMap.size() < map.size()){
-            builder.append("Es wurden nicht alle Keys übergeben:\n");
+        if(replaceMap.size() > map.size()){
+            builder.append("Es wurden nicht alle Keys im Word Template gedunden, es fehlen "+(replaceMap.size() -map.size()) +"\n");
         }
 
         return builder.toString();
@@ -106,7 +120,7 @@ public class WordTemplatEngine {
         return output.toByteArray();
     }
 
-    protected byte[] convertDOCXToPDF(byte[] docx) {
+    protected byte[] convertDOCXToPDF(byte[] docx) throws Exception {
         try {
             InputStream in = new ByteArrayInputStream(docx);
             XWPFDocument document = new XWPFDocument(in);
@@ -114,13 +128,13 @@ public class WordTemplatEngine {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             PdfConverter.getInstance().convert(document, out, options);
             return out.toByteArray();
-        } catch (IOException e) {
+        } catch (IOException | XWPFConverterException e) {
             LOG.error(e.getMessage(),e);
+            throw new Exception("fehler beim konvertieren des .docx in ein pdf: " + e.getMessage());
         }
-        return null;
     }
 
-    protected byte[] mergePDF(List<byte[]> pdf) {
+    public byte[] mergePDF(List<byte[]> pdf) {
         PDFMergerUtility ut = new PDFMergerUtility();
         for (byte[] b : pdf) {
             ut.addSource(new ByteArrayInputStream(b));
@@ -135,10 +149,10 @@ public class WordTemplatEngine {
         return out.toByteArray();
     }
 
-    protected Map getParametermapForTemplate(String template, boolean substitueValues) {
+    protected Map getParametermapForTemplate(byte[] template, boolean substitueValues) {
         Map<String,String> map = new HashMap<String,String>();
         try {
-            ZipInputStream zipIn = new ZipInputStream(new ByteArrayInputStream(readFile(template)));
+            ZipInputStream zipIn = new ZipInputStream(new ByteArrayInputStream(template));
             ZipEntry inEntry;
             while ((inEntry = zipIn.getNextEntry()) != null) {
                 if (inEntry.getName().equals(DOCUMENT_XML)) {

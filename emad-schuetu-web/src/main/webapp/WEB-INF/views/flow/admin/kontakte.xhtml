@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="../../../layouts/100.xhtml">
+
+    <ui:define name="main">
+
+        <div id="main">
+
+            <div class="page_margins">
+                <div class="page">
+                    <div class="inset">
+
+                        <p:messages/>
+
+
+                        <h:form id="form">
+
+                            <p:commandButton action="detail" icon="ui-icon-copy" ajax="false" value="Neuen Kontakt erstellen"/>
+
+							<br/>
+
+							<p:selectOneMenu id="list" value="#{kontakteBB.selectedList}" onchange="submit()">
+                                <f:selectItem itemLabel="Alle Listen" itemValue="%%%" />
+                                <f:selectItems value="#{kontakteBB.allLists}" />
+                            </p:selectOneMenu>
+
+                            <p:selectOneMenu id="ressor" value="#{kontakteBB.selectedRessor}" onchange="submit()">
+                                <f:selectItem itemLabel="Alle Ressorts" itemValue="%%%" />
+                                <f:selectItems value="#{kontakteBB.allRessorts}" />
+                            </p:selectOneMenu>
+
+                                <p:dataTable emptyMessage="leer" widgetVar="kontakte" id="tbl" var="kontakt" value="#{kontakteBB.all}"  rowIndexVar="ri">
+
+                                    <p:column>
+                                        <f:facet name="nr">
+                                            <h:outputText value="Nr."/>
+                                        </f:facet>
+                                        <h:outputText value="#{ri +1}"/>
+                                    </p:column>
+
+                                    <p:column id="name" filterBy="name"  headerText="Name" filterMatchMode="contains">
+                                        <h:outputText value="#{kontakt.name}"/>
+                                    </p:column>
+
+                                    <p:column id="vorname" filterBy="captainName"  headerText="Captain"  filterMatchMode="contains">
+                                        <h:outputText value="#{kontakt.vorname}"/>
+                                    </p:column>
+
+                                    <p:column size="2">
+                                        <f:facet name="header">
+                                            <h:outputText value=""/>
+                                        </f:facet>
+
+                                        <p:commandButton action="detail"
+                                                         icon="ui-icon-search">
+                                            <f:param name="id" value="#{kontakt.id}"/>
+                                        </p:commandButton>
+
+                                    </p:column>
+
+                                </p:dataTable>
+
+                        </h:form>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

@@ -95,6 +95,9 @@ public class BusinessImpl implements Business {
     private TextRepository trepo;
 
     @Autowired
+    private KontaktRepository krepo;
+
+    @Autowired
     private PenaltyRepository prepo;
 
     @Autowired
@@ -699,6 +702,12 @@ public class BusinessImpl implements Business {
         LOG.info("spiele geladen: " + spiele.size());
         // NICHT! spiele = spielRepository.save(spiele);
         importHandler.turnierHerstellen(spiele);
+
+
+        // Kontakte laden und updaten
+        List<Kontakt> kontakte = xls.convertXLSToKontakt(xlsIn);
+        LOG.info("kontakte geladen: " + kontakte.size());
+        krepo.save(kontakte);
 
         this.initializeDB();
 

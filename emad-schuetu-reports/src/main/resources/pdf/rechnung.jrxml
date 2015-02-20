@@ -29,6 +29,10 @@
 	<field name="PLZOrt" class="java.lang.String">
 		<fieldDescription><![CDATA[PLZOrt]]></fieldDescription>
 	</field>
+	<field name="pic" class="java.io.ByteArrayInputStream">
+    		<fieldDescription><![CDATA[pic]]></fieldDescription>
+    	</field>
+
 	<detail>
 		<band height="595">
 			<property name="local_mesure_unitheight" value="mm"/>
@@ -62,10 +66,13 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{PLZOrt}]]></textFieldExpression>
 			</textField>
+
 			<image>
-				<reportElement x="30" y="40" width="120" height="63" uuid="e5bd9044-6f74-4ab2-8566-a1877b3edf6b"/>
-				<imageExpression><![CDATA[$P{wespe01}]]></imageExpression>
-			</image>
+            				<reportElement x="30" y="40" width="120" height="63" uuid="e5bd9044-6f74-4ab2-8566-a1877b3edf6b"/>
+            				<imageExpression><![CDATA[$F{pic}]]></imageExpression>
+            			</image>
+
+
 			<textField>
 				<reportElement x="340" y="160" width="190" height="80" uuid="821d2005-1e52-4623-92f0-e5a87fa1252e"/>
 				<textElement rotation="None">

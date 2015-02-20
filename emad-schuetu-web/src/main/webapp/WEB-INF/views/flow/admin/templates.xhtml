@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="../../../layouts/100.xhtml">
+
+    <ui:define name="main">
+
+        <div id="main">
+
+            <div class="page_margins">
+                <div class="page">
+                    <div class="inset">
+
+                        <p:messages/>
+
+                        <h:form id="form">
+
+                                <p:dataTable emptyMessage="leer" widgetVar="kontakte" id="tbl" var="template" value="#{templateBusiness.templateBeans}"  rowIndexVar="ri">
+
+									<p:column id="checkVersion"  headerText="Check Version">
+										<h:outputText value="#{template.checkVersion}"/>
+									</p:column>
+
+                                    <p:column id="name"  headerText="Name">
+                                        <h:outputText value="#{template.name}"/>
+                                    </p:column>
+
+									<p:column id="templateHere"  headerText="Word Template vorhanden">
+										<h:outputText value="#{template.templateHere}"/>
+									</p:column>
+
+									<p:column id="templateValueMapHere"  headerText="Properties vorhanden">
+										<h:outputText value="#{template.templateValueMapHere}"/>
+									</p:column>
+
+									<p:column id="templateValide"  headerText="Word Template gültig">
+										<h:outputText value="#{template.templateValide}"/>
+									</p:column>
+
+									<p:column id="validationError"  headerText="Fehler">
+										<p:commandButton id="notizenButton" icon="ui-icon-note"
+														 onclick="PF('dlge#{ri}').show();" type="button"
+														 rendered="#{!template.templateValide}"/>
+										<p:dialog id="notizen_dialog" header="Fehlermeldung"
+												  widgetVar="dlge#{ri}" showEffect="drop" hideEffect="drop" height="200"
+												  width="500">
+											<h:outputText value="#{template.validationErrorHTML}"  escape="false"/>
+										</p:dialog>
+									</p:column>
+
+									<p:column id="download"  headerText="Download">
+										<p:commandButton value="Downl." ajax="false"   rendered="#{template.templateValide}">
+											<p:fileDownload value="#{templateDownloadController.getFileAsStreamedContent(template.name)}" />
+										</p:commandButton>
+									</p:column>
+
+									<p:column>
+                                        <p:commandButton value="Reload" action="reload"
+                                                          ajax="false">
+                                            <f:param name="name" value="#{template.name}"/>
+                                        </p:commandButton>
+                                    </p:column>
+
+									<p:column id="download2"  headerText="Download">
+										<p:commandButton value="#{template.name}" ajax="false">
+											<p:fileDownload value="#{templateDownloadController.getFileAsStreamedContentReal(template.name)}" />
+										</p:commandButton>
+									</p:column>
+
+                                </p:dataTable>
+
+							<p:commandButton value="#{kontakteBB.couvertTitel()}" ajax="false" disabled="#{!kontakteBB.areCouvertOk()}">
+								<p:fileDownload value="#{templateDownloadController.downloadCouverts()}" />
+							</p:commandButton>
+
+                        </h:form>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

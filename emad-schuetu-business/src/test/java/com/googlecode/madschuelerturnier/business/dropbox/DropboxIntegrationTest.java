@@ -30,7 +30,7 @@ public class DropboxIntegrationTest {
         System.out.println("code von der webseite eingeben (und enter drücken): ");
         String code = null;
 
-        code = (String) JOptionPane.showInputDialog("Bitte Code von der URL eingeben", url);
+        code = JOptionPane.showInputDialog("Bitte Code von der URL eingeben", url);
 
         conn.insertToken(code);
 

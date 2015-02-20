@@ -77,6 +77,11 @@ public final class DataLoaderImpl implements DataLoader {
     }
 
     @Override
+    public List<Kontakt> loadKontakte() {
+        return xls.convertXLSToKontakt(readFile("schuetu-" + jahr + ".xls"));
+    }
+
+    @Override
     public List<Mannschaft> loadMannschaften(boolean knaben, boolean maedchen, Integer... klassenIn) {
 
         List<Mannschaft> result = new ArrayList<Mannschaft>();

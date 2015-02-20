@@ -32,4 +32,6 @@ public interface DataLoader {
 
     List<Penalty> loadPenalty();
 
+    List<Kontakt> loadKontakte();
+
 }

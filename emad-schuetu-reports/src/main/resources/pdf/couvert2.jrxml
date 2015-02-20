@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
+<!-- 2015-02-18T23:05:11 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="C5" pageWidth="425" pageHeight="551" columnWidth="401" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4c8fa0bb-664a-41f6-ad85-31d398072483">
+	<property name="com.jaspersoft.studio.unit." value="mm"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="mm"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="mm"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<field name="anrede" class="java.lang.String">
+		<fieldDescription><![CDATA[anrede]]></fieldDescription>
+	</field>
+	<field name="nameVorname" class="java.lang.String">
+		<fieldDescription><![CDATA[nameVorname]]></fieldDescription>
+	</field>
+	<field name="strasse" class="java.lang.String">
+		<fieldDescription><![CDATA[strasse]]></fieldDescription>
+	</field>
+	<field name="PLZOrt" class="java.lang.String">
+		<fieldDescription><![CDATA[PLZOrt]]></fieldDescription>
+	</field>
+	<field name="stamp" class="java.io.ByteArrayInputStream">
+		<fieldDescription><![CDATA[stamp]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="550">
+			<property name="local_mesure_unitheight" value="mm"/>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+			<image>
+				<reportElement positionType="Float" x="130" y="260" width="283" height="283" uuid="e5bd9044-6f74-4ab2-8566-a1877b3edf6b">
+					<property name="local_mesure_unitwidth" value="mm"/>
+					<property name="local_mesure_unitheight" value="mm"/>
+					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
+				</reportElement>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+				<imageExpression><![CDATA[$F{stamp}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="136" y="291" width="20" height="140" uuid="6c97a73c-95a6-4964-9002-7a6c22390d0d"/>
+				<textElement rotation="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{anrede}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="122" y="291" width="20" height="140" uuid="cf2671bb-7cae-409a-aab8-e85c234d87a7"/>
+				<textElement rotation="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nameVorname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="108" y="291" width="20" height="140" uuid="be706226-be01-4259-8dc6-a58f242c975b"/>
+				<textElement rotation="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{strasse}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="94" y="291" width="20" height="140" uuid="821d2005-1e52-4623-92f0-e5a87fa1252e"/>
+				<textElement rotation="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PLZOrt}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

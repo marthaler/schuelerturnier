@@ -47,6 +47,8 @@ public final class WebsiteInfoService {
 
     private Map<String,WebsiteInfoJahresDump> alt = new HashMap<String,WebsiteInfoJahresDump>();
 
+    private boolean init = false;
+
     @Autowired
     private MannschaftRepository mannschaftRepo;
 
@@ -86,6 +88,16 @@ public final class WebsiteInfoService {
 
     private WebsiteInfoService() {
 
+    }
+
+    public Collection<String> getOldJahre(){
+        // zum initialisieren des dumps
+        if(!init){
+            getOldJahredump("2011");
+            init = true;
+        }
+
+        return this.alt.keySet();
     }
 
     public List<Spiel> getGruppenspiele(String jahr){

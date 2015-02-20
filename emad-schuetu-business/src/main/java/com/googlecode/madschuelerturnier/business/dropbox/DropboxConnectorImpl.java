@@ -51,6 +51,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
         // dev implementation bei der entwicklung
         DropboxConnectorLocalImpl impl = new DropboxConnectorLocalImpl();
             impl.setRootPath("C:\\Users\\u203244\\Dropbox\\shared\\z_schuelerturnier\\Informatik\\applikationsdaten\\dev");
+
             if(impl.isConnected()){
                 rootFolder = "";
                 driver = impl;
@@ -106,6 +107,11 @@ public class DropboxConnectorImpl implements DropboxConnector {
     @Override
     public List<String> getFilesInFolder() {
         return driver.getFilesInFolder(this.rootFolder);
+    }
+
+    @Override
+    public List<String> getFilesInFolder(String folder) {
+        return driver.getFilesInFolder(this.rootFolder +"/" + folder);
     }
 
     public List<String> getFilesInAltFolder() {
@@ -234,6 +240,11 @@ public class DropboxConnectorImpl implements DropboxConnector {
             }
         }
         return result;
+    }
+
+    @Override
+    public void deleteFile(String file) {
+        this.driver.deleteFile(file);
     }
 
     private String generateMD5(byte[] args) {

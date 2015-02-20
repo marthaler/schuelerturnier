@@ -22,7 +22,10 @@ public interface DropboxConnector {
 
     void insertToken(String token);
 
+    @Deprecated
     List<String> getFilesInFolder();
+
+    List<String> getFilesInFolder(String folder);
 
     List<String> getFilesInAltFolder();
 
@@ -47,5 +50,7 @@ public interface DropboxConnector {
     void saveOldGame(String jahr,String content);
 
     Map<String,String> loadOldGames();
+
+    void deleteFile(String file);
 
 }

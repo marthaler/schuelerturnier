@@ -11,9 +11,12 @@
             <p:menubar id="menubar" styleClass="menubar">
 
                 <!-- home -->
-                <p:menuitem id="m_home" rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.init}"
+                <p:submenu id="m_home" rendered="#{sec:areAnyGranted('ROLE_ADMIN') }"
                             title="Home" icon="ui-icon-home"
-                            action="flow"/>
+                            action="flow">
+					<p:menuitem id="mm_kontakte" value="Kontakte" icon="ui-icon-plus" action="kontakte"/>
+					<p:menuitem id="mm_templates" value="Templates" icon="ui-icon-plus" action="templates"/>
+				</p:submenu>
 
                 <!-- vorbereitung: anmeldung -->
                 <p:submenu id="m_anmeldung"
@@ -84,6 +87,8 @@
 
                 </p:submenu>
 
+
+
                 <!-- spielen: rollen -->
                 <!-- spielen: rollen : root-->
                 <p:submenu id="m_root"
@@ -103,6 +108,7 @@
 
                     <p:menuitem id="mm_spiele_vertauschungen" value="Manuelle Korrekturen" icon="ui-icon-carat-2-n-s"
                                 action="korrekturen"/>
+
                 </p:submenu>
 
                 <!-- spielen: rollen : eintrager-->
@@ -163,7 +169,6 @@
                             rendered="#{sec:areAnyGranted('ROLE_BEOBACHTER') and spielstatusWebBean.spielend}"
                             label="Mobile" icon="ui-icon-image" url="/app/website/info/now" target="_new">
                 </p:menuitem>
-
 
                 <!-- info -->
                 <p:menuitem id="m_user" style="position: absolute; right:84px;"

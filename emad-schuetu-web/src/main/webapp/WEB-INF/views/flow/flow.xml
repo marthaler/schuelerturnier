@@ -324,6 +324,30 @@
         </transition>
     </view-state>
 
+    <view-state id="kontakte" view="admin/kontakte.xhtml" redirect="true">
+        <transition on="detail" to="kontakt">
+            <evaluate expression="kontakteBB.newOrFindOne(RequestParameters.id)"/>
+        </transition>
+    </view-state>
+
+	<view-state id="templates" view="admin/templates.xhtml" redirect="true">
+		<transition on="reload" to="templates2">
+			<evaluate expression="templateBusiness.reloadBean(RequestParameters.name)"/>
+		</transition>
+	</view-state>
+
+	<view-state id="templates2" view="admin/templates.xhtml" redirect="true">
+		<transition on="reload" to="templates">
+			<evaluate expression="templateBusiness.reloadBean(RequestParameters.name)"/>
+		</transition>
+	</view-state>
+
+    <view-state id="kontakt" view="admin/kontakt.xhtml" redirect="true">
+        <transition on="save" to="kontakte">
+            <evaluate expression="kontakteBB.save()"/>
+        </transition>
+    </view-state>
+
     <view-state id="liste_sessions" view="root/liste_sessions.xhtml" redirect="true">
 
     </view-state>
@@ -398,6 +422,14 @@
         <transition on="webcam" to="webcam">
 
         </transition>
+
+        <transition on="kontakte" to="kontakte">
+
+        </transition>
+
+		<transition on="templates" to="templates">
+
+		</transition>
 
     </global-transitions>
 

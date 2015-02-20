@@ -4,6 +4,7 @@
 package com.googlecode.madschuelerturnier.business;
 
 import com.googlecode.madschuelerturnier.model.DBAuthUser;
+import com.googlecode.madschuelerturnier.model.Kontakt;
 import com.googlecode.madschuelerturnier.model.Mannschaft;
 import com.googlecode.madschuelerturnier.model.Spiel;
 import com.googlecode.madschuelerturnier.model.Text;
@@ -69,6 +70,12 @@ public class DataLoaderImplTest {
         List<Text> texte = DataLoaderImpl.getDataLoader().loadTexte();
         Assert.assertEquals(1, texte.size());
         Assert.assertTrue(texte.get(0).getValue().length() > 30);
+    }
+
+    @Test
+    public void testLoadAllKontakte() {
+        List<Kontakt> kontakte = DataLoaderImpl.getDataLoader().loadKontakte();
+        Assert.assertEquals(2, kontakte.size());
     }
 
 }
