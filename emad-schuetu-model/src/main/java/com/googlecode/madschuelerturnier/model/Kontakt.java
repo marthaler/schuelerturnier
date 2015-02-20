@@ -39,7 +39,7 @@ public class Kontakt extends Persistent implements CouvertReportable, RechnungRe
 
     private int anzahl;
     private float preis;
-    private float betrag;
+    private String betrag;
     private String ESR;
 
     public String getListe() {
@@ -163,7 +163,7 @@ public class Kontakt extends Persistent implements CouvertReportable, RechnungRe
 this.esr = esr;
     }
 
-    public void setBetrag(float betrag) {
+    public void setBetrag(String betrag) {
         this.betrag = betrag;
     }
 
