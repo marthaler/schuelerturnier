@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.0.1.final using JasperReports Library version 6.0.0  -->
-<!-- 2015-02-09T23:26:56 -->
+<!-- 2015-02-18T23:05:11 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="C5" pageWidth="425" pageHeight="551" columnWidth="401" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4c8fa0bb-664a-41f6-ad85-31d398072483">
 	<property name="com.jaspersoft.studio.unit." value="mm"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
@@ -29,7 +29,11 @@
 			<property name="local_mesure_unitheight" value="mm"/>
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<image>
-				<reportElement positionType="Float" x="0" y="0" width="424" height="550" uuid="e5bd9044-6f74-4ab2-8566-a1877b3edf6b"/>
+				<reportElement positionType="Float" x="130" y="260" width="283" height="283" uuid="e5bd9044-6f74-4ab2-8566-a1877b3edf6b">
+					<property name="local_mesure_unitwidth" value="mm"/>
+					<property name="local_mesure_unitheight" value="mm"/>
+					<property name="com.jaspersoft.studio.unit.height" value="mm"/>
+				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
 				<imageExpression><![CDATA[$F{stamp}]]></imageExpression>
 			</image>
