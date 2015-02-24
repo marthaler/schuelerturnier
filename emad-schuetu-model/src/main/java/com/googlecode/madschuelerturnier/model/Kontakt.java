@@ -40,7 +40,6 @@ public class Kontakt extends Persistent implements CouvertReportable, RechnungRe
     private int anzahl;
     private float preis;
     private String betrag;
-    private String ESR;
 
     public String getListe() {
         return liste;
