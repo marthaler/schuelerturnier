@@ -6,13 +6,6 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 template="../../../layouts/100.xhtml">
 
-    <ui:define name="heading">
-        <h:outputText value="Mannschaft bearbeiten"/>
-    </ui:define>
-
-    <ui:define name="caption">
-        <p>annschaft bearbeiten</p>
-    </ui:define>
 
     <ui:define name="main">
         <div id="main">
@@ -63,7 +56,6 @@
                                         <f:validateLength minimum="3" maximum="40"/>
                                     </p:autoComplete>
 
-
                                     <h:outputLabel for="liste" value="Liste"/>
                                     <p:selectOneMenu id="liste" value="#{kontakteBB.selected.liste}">
                                         <f:selectItem itemLabel="sponsoren" itemValue="sponsoren"/>
@@ -80,123 +72,6 @@
 										<f:selectItem itemLabel="werbung" itemValue="werbung"/>
                                     </p:selectOneMenu>
 
-
-
-
-
-                                    <!--
-
-																		private String strasse;
-																		private String PLZ;
-																		private String ort;
-
-																		private String liste;
-																		private String ressor;
-									-->
-                                   <!--
-                                    <h:outputLabel for="b_anrede" value="Begleitperson Anrede"/>
-                                    <p:selectOneMenu id="b_anrede" value="#{mannschaftBean.begleitpersonAnrede}">
-                                        <f:selectItem itemLabel="An" itemValue="An"/>
-                                        <f:selectItem itemLabel="Frau" itemValue="Frau"/>
-                                        <f:selectItem itemLabel="Herr" itemValue="Herr"/>
-                                    </p:selectOneMenu>
-
-                                    <h:outputLabel for="begleitperson" value="Begleitperson Name"/>
-                                    <p:autoComplete id="begleitperson" label="Begleitperson"
-                                                    completeMethod="#{business.getPersonenListe}"
-                                                    value="#{mannschaftBean.begleitpersonName}" size="40">
-                                        <f:validateLength minimum="3" maximum="40"/>
-                                    </p:autoComplete>
-
-                                    <h:outputLabel for="b_strasse" value="Begleitperson Strasse"/>
-                                    <p:inputText id="b_strasse"
-                                                 value="#{mannschaftBean.begleitpersonStrasse}" size="40"/>
-
-                                    <h:outputLabel for="b_ort" value="Begleitperson Ort"/>
-                                    <p:inputText id="b_ort"
-                                                 value="#{mannschaftBean.begleitpersonPLZOrt}" size="40"/>
-
-                                    <h:outputLabel for="begleitpersonTelefon" value="Begleitperson Telefon"/>
-                                    <p:inputMask id="begleitpersonTelefon" label="begleitpersonTelefon"
-                                                 value="#{mannschaftBean.begleitpersonTelefon}" mask="999 999 99 99" size="40">
-                                    </p:inputMask>
-
-                                    <h:outputLabel for="begleitpersonEmail" value="Begleitperson Email"/>
-                                    <p:autoComplete id="begleitpersonEmail" label="begleitpersonEmail"
-                                                    completeMethod="#{business.getEmailsListe}"
-                                                 value="#{mannschaftBean.begleitpersonEmail}" size="40">
-                                        <f:validateLength minimum="0" maximum="40"/>
-                                    </p:autoComplete>
-
-                                    <h:outputLabel for="klasseb" value="Klassenbezeichner (Bsp: b für 2b)"/>
-                                    <p:inputText id="klasseb" label="Klassenbezeichner"
-                                                 value="#{mannschaftBean.klassenBezeichnung}" size="5">
-                                        <f:validateLength minimum="0" maximum="5"/>
-                                    </p:inputText>
-
-                                    <h:outputLabel for="schulhaus" value="Schulhaus "/>
-                                    <p:autoComplete id="schulhaus" label="Schulhaus"
-                                                    completeMethod="#{business.getSchulhausListe}"
-                                                    value="#{mannschaftBean.schulhaus}" size="40">
-                                        <f:validateLength minimum="3" maximum="40"/>
-                                    </p:autoComplete>
-
-                                    <h:outputLabel for="spieler" value="Anzahl Spieler "/>
-
-
-                                    <p:selectOneMenu id="spieler" value="#{mannschaftBean.anzahlSpieler}">
-                                        <f:selectItem itemLabel="1" itemValue="1"/>
-                                        <f:selectItem itemLabel="2" itemValue="2"/>
-                                        <f:selectItem itemLabel="3" itemValue="3"/>
-                                        <f:selectItem itemLabel="4" itemValue="4"/>
-                                        <f:selectItem itemLabel="5" itemValue="5"/>
-                                        <f:selectItem itemLabel="6" itemValue="6"/>
-                                        <f:selectItem itemLabel="7" itemValue="7"/>
-                                        <f:selectItem itemLabel="8" itemValue="8"/>
-                                        <f:selectItem itemLabel="9" itemValue="9"/>
-                                        <f:selectItem itemLabel="10" itemValue="10"/>
-                                        <f:selectItem itemLabel="11" itemValue="11"/>
-                                        <f:selectItem itemLabel="12" itemValue="12"/>
-                                        <f:selectItem itemLabel="13" itemValue="13"/>
-                                        <f:selectItem itemLabel="14" itemValue="14"/>
-                                        <f:selectItem itemLabel="15" itemValue="15"/>
-                                    </p:selectOneMenu>
-
-
-                                    <h:outputLabel for="klasse" value="Klasse"/>
-                                    <p:selectOneMenu id="klasse" value="#{mannschaftBean.klasse}"
-                                                     event="onchange" disabled="#{! spielstatusWebBean.anmeldephase}">
-                                        <f:selectItem itemLabel="1" itemValue="1"/>
-                                        <f:selectItem itemLabel="2" itemValue="2"/>
-                                        <f:selectItem itemLabel="3" itemValue="3"/>
-                                        <f:selectItem itemLabel="4" itemValue="4"/>
-                                        <f:selectItem itemLabel="5" itemValue="5"/>
-                                        <f:selectItem itemLabel="6" itemValue="6"/>
-                                        <f:selectItem itemLabel="7" itemValue="7"/>
-                                        <f:selectItem itemLabel="8" itemValue="8"/>
-                                        <f:selectItem itemLabel="9" itemValue="9"/>
-                                    </p:selectOneMenu>
-
-                                    <h:outputLabel for="geschlecht" value="M / K"/>
-                                    <p:selectOneMenu id="geschlecht"
-                                                     value="#{mannschaftBean.geschlecht}"
-                                                     disabled="#{! spielstatusWebBean.anmeldephase}">
-                                        <f:selectItem itemLabel="Knaben" itemValue="K"/>
-                                        <f:selectItem itemLabel="M&#228;dchen" itemValue="M"/>
-                                    </p:selectOneMenu>
-
-                                    <h:outputLabel for="spielwunsch" value="Spielwunsch"/>
-                                    <p:selectOneMenu id="spielwunsch" value="#{mannschaftBean.spielWunschHint}"  event="onchange" disabled="#{! spielstatusWebBean.anmeldephase}">
-                                        <f:selectItem itemLabel="-" itemValue=""/>
-                                        <f:selectItem itemLabel="Samstag" itemValue="morgen"/>
-                                        <f:selectItem itemLabel="Samstag Nachmittag (Bitte nicht benutzen)" itemValue="nachmittag"/>
-                                        <f:selectItem itemLabel="Sonntag Morgen" itemValue="sonntag"/>
-                                    </p:selectOneMenu>
-
-                                    <h:outputLabel for="notizen" value="Notizen"/>
-                                    <p:inputTextarea id="notizen" rows="5" cols="30" value="#{mannschaftBean.notizen}"
-                                                     autoResize="false"/>
--->
                                     <h:panelGroup id="button" layout="block">
                                         <p:commandButton id="submit" value="Speichern" action="save" execute="@form" update="@form"/>
 
@@ -210,8 +85,6 @@
                                         </p:confirmDialog>
 
                                     </h:panelGroup>
-
-
 
                     </h:panelGrid>
                             </p:fieldset>

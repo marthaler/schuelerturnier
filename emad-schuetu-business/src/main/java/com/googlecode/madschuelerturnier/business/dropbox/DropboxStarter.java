@@ -46,6 +46,8 @@ public class DropboxStarter {
 
     private boolean noNeedToConnect = false;
 
+    private String selectedGame;
+
     @Autowired
     private SpielDurchfuehrung durchfuehrung;
 
@@ -66,8 +68,10 @@ public class DropboxStarter {
                 return;
             }
             noNeedToConnect = true;
-            business.generateSpielFromXLS(driver.loadFile(res.getProperty("file")+"/"+res.getProperty("file")+".xls"));
             driver.setSelectedGame(res.getProperty("file"));
+            this.selectedGame = res.getProperty("file");
+            business.generateSpielFromXLS(driver.loadFile(res.getProperty("file")+"/"+res.getProperty("file")+".xls"));
+
 
             if(stage != null && ! stage.equals(StageEnum.PRODUCTION) && !res.getProperty("testmode").isEmpty()){
                 driver.setSelectedGame(res.getProperty("file"));
@@ -90,4 +94,11 @@ public class DropboxStarter {
         return noNeedToConnect;
     }
 
+    public String getSelectedGame() {
+        return selectedGame;
+    }
+
+    public void setSelectedGame(String selectedGame) {
+        this.selectedGame = selectedGame;
+    }
 }

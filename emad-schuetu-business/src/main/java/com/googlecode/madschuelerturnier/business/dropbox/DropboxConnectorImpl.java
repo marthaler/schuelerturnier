@@ -50,17 +50,20 @@ public class DropboxConnectorImpl implements DropboxConnector {
 
         // dev implementation bei der entwicklung
         DropboxConnectorLocalImpl impl = new DropboxConnectorLocalImpl();
-            impl.setRootPath("C:\\Users\\u203244\\Dropbox\\shared\\z_schuelerturnier\\Informatik\\applikationsdaten\\dev");
 
+
+        rootFolder = rootFolder + "/" + stage.getStage().getText();
+        impl.setRootPath("C:\\Users\\u203244\\Dropbox" + rootFolder);
             if(impl.isConnected()){
                 rootFolder = "";
                 driver = impl;
 
                 this.starter.doTheStuff(this);
+
+
+
                 return;
         }
-
-        rootFolder = rootFolder + "/" + stage.getStage().getText();
 
         // versuche den remote dienst zu holen und ersetze den lokal zugewiesenen falls vorhanden
         LOG.info("DropboxConnectorImpl: versuche verbindung mit rmi://87.230.15.247:4199/DropboxConnectorRemote");
@@ -169,7 +172,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
 
     @Override
     public byte[] loadGameAttachemt(String file, String suffix) {
-        return this.loadFile(this.rootFolder + "/" + this.selectedGame + "/attachements/" + file + "." + suffix);
+        return this.loadFile(this.rootFolder + "/" + starter.getSelectedGame() + "/attachements/" + file + "." + suffix);
     }
 
     private String loadGameAttachemtMD5(String file, String suffix) {
@@ -177,7 +180,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
             LOG.info("dropbox nicht verbunden.");
             return null;
         }
-        byte[] f = this.loadFile(this.rootFolder + "/" + this.selectedGame + "/attachements/md5/" + file + ".md5.txt");
+        byte[] f = this.loadFile(this.rootFolder + "/" +  starter.getSelectedGame() + "/attachements/md5/" + file + ".md5.txt");
         if (f != null) {
             return new String(f);
         }
