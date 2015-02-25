@@ -197,7 +197,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
             LOG.debug("brauche attachement nicht zu sichern inhalt ist gleich");
         } else {
             deleteGameAttachemt(file, suffix);
-            this.saveFile(this.rootFolder + "/" + this.selectedGame + "/attachements/" + file, content);
+            this.saveFile(this.rootFolder + "/" + this.selectedGame + "/attachements/" + file+"." + suffix, content);
             this.saveFile(this.rootFolder + "/" + this.selectedGame + "/attachements/md5/" + file + ".md5.txt", generateMD5(content).getBytes());
         }
     }
