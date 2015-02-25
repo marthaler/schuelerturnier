@@ -14,15 +14,15 @@
                 <p:submenu id="m_home" rendered="#{sec:areAnyGranted('ROLE_ADMIN') }"
                             title="Home" icon="ui-icon-home"
                             action="flow">
-					<p:menuitem id="mm_kontakte" value="Kontakte" icon="ui-icon-plus" action="kontakte"/>
-					<p:menuitem id="mm_templates" value="Templates" icon="ui-icon-plus" action="templates"/>
+					<p:menuitem id="mm_kontakte" value="Kontakte" icon="ui-icon-plus" action="kontakte" rendered="#{sec:areAnyGranted('ROLE_KONTAKTE')"/>
+					<p:menuitem id="mm_templates" value="Templates" icon="ui-icon-plus" action="templates" rendered="#{sec:areAnyGranted('ROLE_ADMIN')"/>
 				</p:submenu>
 
                 <!-- vorbereitung: anmeldung -->
                 <p:submenu id="m_anmeldung"
                            rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.anmeldephase}"
                            label="Anmeldephase" icon="ui-icon-refresh">
-                    <p:menuitem id="mm_hinzu" value="Mannschaft hinzufügen" icon="ui-icon-plus" action="newmannschaft"/>
+                    <p:menuitem id="mm_hinzu" value="Mannschaft hinzufügen" icon="ui-icon-plus" action="newmannschaft" />
                     <p:menuitem id="mm_auflisten" value="Mannschaften auflisten" icon="ui-icon-carat-2-n-s"
                                 action="mannschaftsliste"/>
                     <p:menuitem id="mm_phasen1" rendered="#{sec:areAnyGranted('ROLE_OPERATOR')}"

@@ -20,6 +20,7 @@
                 <mapping row="1" col="11">kontakt.preis</mapping>
 				<mapping row="1" col="12">kontakt.betrag</mapping>
 				<mapping row="1" col="13">kontakt.ESR</mapping>
+				<mapping row="1" col="14">kontakt.enabled</mapping>
             </section>
             <loopbreakcondition>
                 <rowcheck offset="0">

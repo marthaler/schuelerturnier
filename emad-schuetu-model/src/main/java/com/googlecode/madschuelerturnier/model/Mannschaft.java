@@ -505,6 +505,16 @@ this.stamp = stamp;
     }
 
     @Override
+    public void setEnabled(boolean enabled) {
+        throw new RuntimeException("methode darf nicht aufgerufen werden auf einer Mannschaft");
+    }
+
+    @Override
+    public boolean getEnabled() {
+        return true;
+    }
+
+    @Override
     public String getESR() {
         return this.esr;
     }

@@ -23,4 +23,7 @@ public interface RechnungReportable extends CouvertReportable{
 
     public String getBetrag();
 
+    public void setEnabled(boolean enabled);
+    public boolean getEnabled();
+
 }

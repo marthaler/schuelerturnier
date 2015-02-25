@@ -70,14 +70,14 @@
                                         <f:selectItem itemLabel="bauten" itemValue="bauten"/>
                                         <f:selectItem itemLabel="spielplanung" itemValue="spielplanung"/>
 										<f:selectItem itemLabel="werbung" itemValue="werbung"/>
+										<f:selectItem itemLabel="sekretariat" itemValue="sekretariat"/>
                                     </p:selectOneMenu>
+
+									<h:outputLabel for="aktiviert" value="Aktiviert"/>
+									<p:inputSwitch id="aktiviert" value="#{kontakteBB.selected.enabled}"/>
 
                                     <h:panelGroup id="button" layout="block">
                                         <p:commandButton id="submit" value="Speichern" action="save" execute="@form" update="@form"/>
-
-                                        <p:commandButton value="Löschen" action="delete">
-                                            <p:confirm header="Bitte Bestätigen" message="Wirklich löschen?" icon="ui-icon-alert" rendered="#{spielstatusWebBean.anmeldephase}"/>
-                                        </p:commandButton>
 
                                         <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
                                             <p:commandButton value="Ja" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" action="delete" ajax="false"/>
