@@ -83,7 +83,7 @@ public class DoLoginController {
         DBAuthUser user;
         try {
             user = repo.findByLinktoken(rememberMeToken);
-        } catch(javax.persistence.NonUniqueResultException e){
+        } catch(Exception e){
             return;
         }
 
