@@ -80,8 +80,13 @@ public class DoLoginController {
             rememberMeToken = msch.getValue();
         }
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        DBAuthUser user;
+        try {
+            user = repo.findByLinktoken(rememberMeToken);
+        } catch(javax.persistence.NonUniqueResultException e){
+            return;
+        }
 
-        DBAuthUser user = repo.findByLinktoken(rememberMeToken);
         if(user != null && user.isAutologin()){
             linklogin.loginPrepare(rememberMeToken,request);
         }
