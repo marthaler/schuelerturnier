@@ -22,18 +22,19 @@
 
                             <p:commandButton action="detail" icon="ui-icon-copy" ajax="false" value="Neuen Kontakt erstellen"/>
 
-							<br/>
-
+							<br/><br/>
+							<h:outputLabel for="list" value="Liste: "/>
 							<p:selectOneMenu id="list" value="#{kontakteBB.selectedList}" onchange="submit()">
                                 <f:selectItem itemLabel="Alle Listen" itemValue="%%%" />
                                 <f:selectItems value="#{kontakteBB.allLists}" />
                             </p:selectOneMenu>
 
+							<h:outputLabel for="ressor" value="Ressort: "/>
                             <p:selectOneMenu id="ressor" value="#{kontakteBB.selectedRessor}" onchange="submit()">
                                 <f:selectItem itemLabel="Alle Ressorts" itemValue="%%%" />
                                 <f:selectItems value="#{kontakteBB.allRessorts}" />
                             </p:selectOneMenu>
-
+							<br/><br/>
                                 <p:dataTable emptyMessage="leer" widgetVar="kontakte" id="tbl" var="kontakt" value="#{kontakteBB.all}"  rowIndexVar="ri">
 
                                     <p:column>
@@ -47,17 +48,22 @@
                                         <h:outputText value="#{kontakt.name}"/>
                                     </p:column>
 
-                                    <p:column id="vorname" filterBy="captainName"  headerText="Captain"  filterMatchMode="contains">
+                                    <p:column id="vorname" filterBy="captainName"  headerText="Vorname">
                                         <h:outputText value="#{kontakt.vorname}"/>
                                     </p:column>
 
-                                    <p:column size="2">
-                                        <f:facet name="header">
-                                            <h:outputText value=""/>
-                                        </f:facet>
+									<p:column id="strasse"   headerText="Strasse">
+										<h:outputText value="#{kontakt.strasse}"/>
+									</p:column>
+
+									<p:column id="enabled" filterBy="captainName"  headerText="Aktiviert">
+										<p:inputSwitch value="#{kontakt.enabled}" disabled="true"/>
+									</p:column>
+
+                                    <p:column  size="6" headerText="">
 
                                         <p:commandButton action="detail"
-                                                         icon="ui-icon-search">
+                                                         icon="ui-icon-search" value="bearbeiten">
                                             <f:param name="id" value="#{kontakt.id}"/>
                                         </p:commandButton>
 

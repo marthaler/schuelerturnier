@@ -40,7 +40,8 @@ public class Kontakt extends Persistent implements CouvertReportable, RechnungRe
     private int anzahl;
     private float preis;
     private String betrag;
-    private String ESR;
+
+    private boolean enabled;
 
     public String getListe() {
         return liste;
@@ -151,6 +152,16 @@ public class Kontakt extends Persistent implements CouvertReportable, RechnungRe
 
     public String getBetrag() {
         return ""+betrag;
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    @Override
+    public boolean getEnabled() {
+        return this.enabled;
     }
 
     @Override
