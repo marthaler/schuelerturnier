@@ -38,6 +38,7 @@ public class PropAppImpl implements Prop {
     public Map<String, Boolean> getBools() {
         Map<String, Boolean> map = new HashMap<String, Boolean>();
         map.put("changejahr", Boolean.FALSE);
+        map.put("registrationon", Boolean.FALSE);
         return map;
     }
 
