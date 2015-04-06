@@ -5,7 +5,7 @@
         <section startRow="0" endRow="0">
         </section>
         <loop startRow="1" endRow="1" items="penaltys" var="penalty"
-              varType="com.googlecode.madschuelerturnier.model.Penalty">
+              varType="ch.emad.model.schuetu.model.Penalty">
             <section startRow="1" endRow="1">
                 <mapping row="1" col="0">penalty.id</mapping>
                 <mapping row="1" col="1">penalty.idString</mapping>

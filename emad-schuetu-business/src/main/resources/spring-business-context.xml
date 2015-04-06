@@ -38,7 +38,7 @@
     <!-- does not necessarily have to be the same name as the bean to be exported -->
     <property name="serviceName" value="WebcamBusiness"/>
     <property name="service" ref="webcamBusinessImpl"/>
-    <property name="serviceInterface" value="com.googlecode.madschuelerturnier.business.picture.WebcamBusiness"/>
+    <property name="serviceInterface" value="ch.emad.business.schuetu.picture.WebcamBusiness"/>
     <!-- defaults to 1099 -->
     <property name="registryPort" value="1299"/>
     </bean>

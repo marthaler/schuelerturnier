@@ -4,7 +4,7 @@
         <section startRow="0" endRow="0">
         </section>
         <loop startRow="1" endRow="1" items="korrekturen" var="korrektur"
-              varType="com.googlecode.madschuelerturnier.model.Korrektur">
+              varType="ch.emad.model.schuetu.model.Korrektur">
             <section startRow="1" endRow="1">
                 <mapping row="1" col="0">korrektur.id</mapping>
                 <mapping row="1" col="1">korrektur.typ</mapping>

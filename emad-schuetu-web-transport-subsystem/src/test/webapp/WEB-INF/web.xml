@@ -5,7 +5,7 @@
     <!-- Just here so the JSF implementation can initialize, *not* used at runtime -->
     <servlet>
         <servlet-name>servlet</servlet-name>
-        <servlet-class>com.googlecode.madschuelerturnier.integration.TransportTestServlet</servlet-class>
+        <servlet-class>TransportTestServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 

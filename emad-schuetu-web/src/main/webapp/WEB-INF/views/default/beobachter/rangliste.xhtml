@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="../../../layouts/root.xhtml">
+
+
+    <ui:define name="main">
+        <div id="main">
+            <div class="page_margins">
+                <div class="page">
+                    <div class="inset">
+
+                        <p:fieldset legend="Schlussrangliste">
+                            <h:panelGroup id="matrix" layout="block">
+                                <h:outputText value="#{beobachterBean.getRangliste()}" escape="false"/>
+                            </h:panelGroup>
+
+                        </p:fieldset>
+
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

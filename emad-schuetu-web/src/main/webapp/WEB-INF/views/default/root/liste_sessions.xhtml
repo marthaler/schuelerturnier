@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="../../../layouts/root.xhtml">
+
+    <ui:define name="main">
+
+        <div id="main">
+
+            <div class="page_margins">
+                <div class="page">
+                    <div class="inset">
+
+                        <p:messages/>
+                        <h:form id="form1">
+
+                            <p:fieldset legend="Alle Sessions">
+
+                                <p:dataTable emptyMessage="leer" id="tbl" var="sess" value="#{sessions}"
+                                             paginator="false" rowIndexVar="ri" sortMode="multiple">
+
+
+
+                                    <p:column>
+                                        <f:facet name="header" widt="20">
+                                            <h:outputText value="Nr."/>
+                                        </f:facet>
+                                        <h:outputText value="#{ri +1}"/>
+                                    </p:column>
+
+                                    <p:column sortBy="#{sess.typ}">
+                                        <f:facet name="header">
+                                            <h:outputText value="Typ"/>
+                                        </f:facet>
+                                        <h:outputText value="#{sess.typ}"/>
+                                    </p:column>
+
+
+                                    <p:column sortBy="#{sess.start}">
+                                        <f:facet name="header">
+                                            <h:outputText value="Start"/>
+                                        </f:facet>
+
+
+                                        <h:outputText value="#{sess.start}">
+
+                                            <f:convertDateTime type="date" pattern="EEE HH:mm" timeZone="Europe/Zurich"/>
+
+                                        </h:outputText>
+
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Ende"/>
+                                        </f:facet>
+
+
+                                        <h:outputText value="#{sess.end}">
+
+                                            <f:convertDateTime type="date" pattern="EEE HH:mm" timeZone="Europe/Zurich"/>
+
+                                        </h:outputText>
+
+                                    </p:column>
+
+                                    <p:column sortBy="#{sess.requests}">
+                                        <f:facet name="header" widt="40">
+                                            <h:outputText value="RecCount"/>
+                                        </f:facet>
+                                        <h:outputText value="#{sess.requests}"/>
+                                    </p:column>
+
+                                    <p:column width="420" sortBy="#{sess.userAgent}">
+                                        <f:facet name="header">
+                                            <h:outputText value="Useragent"/>
+                                        </f:facet>
+                                        <h:outputText value="#{sess.userAgent}"/>
+                                    </p:column>
+
+                                </p:dataTable>
+
+                            </p:fieldset>
+
+
+                            <br/>
+
+
+                        </h:form>
+
+                    </div>
+                    <br/>
+                </div>
+            </div>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

@@ -4,16 +4,12 @@
 package ch.emad.schuetu.reports.word;
 
 
-import com.googlecode.madschuelerturnier.business.pdf.JasperResultConverter;
-import com.googlecode.madschuelerturnier.business.pdf.Mannschaft2;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**

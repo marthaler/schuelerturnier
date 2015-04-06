@@ -4,7 +4,7 @@
         <section startRow="0" endRow="0">
         </section>
         <loop startRow="1" endRow="1" items="kontakte" var="kontakt"
-              varType="com.googlecode.madschuelerturnier.model.Kontakt">
+              varType="ch.emad.model.schuetu.model.Kontakt">
             <section startRow="1" endRow="1">
                 <mapping row="1" col="0">kontakt.id</mapping>
                 <mapping row="1" col="1">kontakt.anrede</mapping>
