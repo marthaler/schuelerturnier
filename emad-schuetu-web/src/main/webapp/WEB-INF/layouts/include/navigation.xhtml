@@ -19,7 +19,7 @@
 				<!-- jahr -->
 				<p:submenu id="m_jahr" label="Jahreswahl: #{currentUser.principal.wahlJahr}"
 						   icon="ui-icon-refresh" action="jahreswahl"
-						   rendered="#{sec:areAnyGranted('ROLE_USER') and propProvider.readBoolean('changejahr')}"
+						   rendered="#{sec:areAnyGranted('ROLE_USER') and propProvider.readBoolean('app.show.jahreswechse')}"
 						   style="position: absolute; right:135px;">
 					<p:menuitem id="mm_jahr" value="Jahr wechseln" icon="ui-icon-calendar" action="jahreswahl"
 								rendered="#{sec:areAnyGranted('ROLE_USER')}"/>
@@ -27,9 +27,41 @@
 
 				<!-- info -->
 				<p:menuitem id="m_user" style="position: absolute; right:84px;"
-							rendered="#{sec:areAnyGranted('ROLE_USER')}"
+							rendered="#{sec:areAnyGranted('ROLE_USER') and !sec:areAnyGranted('ROLE_ADMIN')}"
 							value="#{request.userPrincipal.name}" icon="ui-icon-person"
 							action="user"/>
+
+                <!-- admin -->
+                <p:submenu id="m_admin" style="position: absolute; right:84px;"
+                            rendered="#{sec:areAnyGranted('ROLE_ADMIN')}"
+                            label="Administration" icon="ui-icon-person"
+                            action="user">
+
+                    <!-- info:admin -->
+                    <p:menuitem id="m_useradmin"
+                                rendered="#{sec:areAnyGranted('ROLE_ADMIN')}"
+                                value="#{request.userPrincipal.name}" icon="ui-icon-person"
+                                action="user"/>
+
+                    <!-- info:props -->
+                    <p:menuitem id="m_props"
+                                rendered="#{sec:areAnyGranted('ROLE_ADMIN')}"
+                                value="Properties" icon="ui-icon-person"
+                                action="properties"/>
+
+                    <!-- info:audit -->
+                    <p:menuitem id="m_audit"
+                                rendered="#{sec:areAnyGranted('ROLE_ADMIN')}"
+                                value="Audit" icon="ui-icon-person"
+                                action="audit"/>
+
+                    <!-- info:audit -->
+                    <p:menuitem id="m_check"
+                                rendered="#{sec:areAnyGranted('ROLE_ADMIN')}"
+                                value="Check" icon="ui-icon-person"
+                                action="check"/>
+
+                </p:submenu>
 
 				<!-- logout -->
 				<p:menuitem id="m_logout" style="position: absolute; right: 4px;"

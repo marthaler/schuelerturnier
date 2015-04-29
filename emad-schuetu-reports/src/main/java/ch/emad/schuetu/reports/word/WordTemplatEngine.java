@@ -48,8 +48,12 @@ public class WordTemplatEngine {
         Map<String,String> ret = new HashMap<String,String>();
 
             for (String key : replaceMap.keySet()) {
-                String method = replaceMap.get(key);
-                ret.put(key, WordTemplatModelchanger.invokeMethod(method, obj));
+                if(replaceMap.get(key).startsWith("$$")){
+                    ret.put(key,replaceMap.get(key).replace("$$","") );
+                } else {
+                    String method = replaceMap.get(key);
+                    ret.put(key, WordTemplatModelchanger.invokeMethod(method, obj));
+                }
             }
 
         return ret;

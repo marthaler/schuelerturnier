@@ -4,6 +4,8 @@
 package ch.emad.business.schuetu.serienbriefe;
 
 import ch.emad.business.schuetu.dropbox.DropboxConnector;
+import ch.emad.model.schuetu.interfaces.RechnungReportable;
+import ch.emad.model.schuetu.model.Mannschaft;
 import ch.emad.schuetu.reports.word.WordTemplatEngine;
 import ch.emad.persistence.schuetu.repository.MannschaftRepository;
 import org.apache.log4j.Logger;
@@ -110,7 +112,12 @@ public class TemplateBusinessImpl implements TemplateBusiness {
 
     @Override
     public byte[] getRechnungen() {
-        return this.getTemplate("betreuer-rechnung-2",TemplateMapper.convertRechnungen(repo.findAll()));
+        return this.getTemplate("betreuer-rechnung",TemplateMapper.convertRechnungen(repo.findAll()));
+    }
+
+    public byte[] getRechnungen(List<RechnungReportable> rg) {
+        List<Mannschaft> rgasman = (List)rg;
+        return this.getTemplate("betreuer-rechnung",TemplateMapper.convertRechnungen(rgasman));
     }
 
     public byte[] getBriefe(List values,String template) {

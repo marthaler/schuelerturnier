@@ -27,6 +27,8 @@
                 <mapping row="1" col="16">mannschaft.anzahlSpieler</mapping>
                 <mapping row="1" col="17">mannschaft.notizen</mapping>
                 <mapping row="1" col="18">mannschaft.spielWunschHint</mapping>
+                <mapping row="1" col="19">mannschaft.enabled</mapping>
+                <mapping row="1" col="20">mannschaft.ESR</mapping>
             </section>
             <loopbreakcondition>
                 <rowcheck offset="0">

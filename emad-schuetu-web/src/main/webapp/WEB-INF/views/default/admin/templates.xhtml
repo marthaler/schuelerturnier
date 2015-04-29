@@ -19,6 +19,15 @@
 
                         <h:form id="form">
 
+
+                            <p:commandButton value="Betreuerrechnung mit vorhandener ESR Nummer drucken" ajax="false">
+                                <p:fileDownload value="#{betrVersandBB.downloadRechnungen()}" />
+                            </p:commandButton>
+
+                            <p:commandButton value="Couverts mit vorhandener ESR Drucken" ajax="false">
+                                <p:fileDownload value="#{betrVersandBB.downloadCouverts()}" />
+                            </p:commandButton>
+
                                 <p:dataTable emptyMessage="leer" widgetVar="kontakte" id="tbl" var="template" value="#{templateBusiness.templateBeans}"  rowIndexVar="ri">
 
 									<p:column id="checkVersion"  headerText="Check Version">

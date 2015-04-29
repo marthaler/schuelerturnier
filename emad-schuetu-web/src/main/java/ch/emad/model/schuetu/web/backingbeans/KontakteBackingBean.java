@@ -79,6 +79,13 @@ public class KontakteBackingBean implements Serializable{
         return converter.createPdf(list,"couvert2");
     }
 
+    public byte[] downloadCouverts(List<RechnungReportable> rechungen){
+        for(RechnungReportable rep : rechungen){
+            rep.setStamp(stampS.getNextStamp());
+        }
+        return converter.createPdf(rechungen,"couvert2");
+    }
+
     public List<String> getAllLists(){
         List<String> ret = new ArrayList<>();
         for(String re : service.getOldJahre()){

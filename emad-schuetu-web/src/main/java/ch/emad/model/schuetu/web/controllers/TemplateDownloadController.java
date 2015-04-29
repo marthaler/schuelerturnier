@@ -4,11 +4,13 @@
 package ch.emad.model.schuetu.web.controllers;
 
 import ch.emad.business.schuetu.serienbriefe.TemplateBusiness;
+import ch.emad.business.schuetu.serienbriefe.TemplateBusinessImpl;
 import ch.emad.model.schuetu.web.backingbeans.KontakteBackingBean;
 import org.apache.log4j.Logger;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 

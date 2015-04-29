@@ -10,7 +10,6 @@
                 xmlns:sec="http://www.springframework.org/security/tags">
 
 
-
                 <!-- vorbereitung: anmeldung -->
                 <p:submenu id="m_anmeldung"
                            rendered="#{sec:areAnyGranted('ROLE_ADMIN') and spielstatusWebBean.anmeldephase}"
@@ -77,6 +76,14 @@
 
                     <p:menuitem rendered="#{sec:areAnyGranted('ROLE_ADMIN')}"
                                 value="Spieleinstellungen" icon="ui-icon-carat-2-n-s" action="spieleinstellungen"/>
+
+                    <p:menuitem rendered="#{sec:areAnyGranted('ROLE_ADMIN')}"
+                                value="Kontakte" icon="ui-icon-carat-2-n-s" action="kontakte"/>
+
+                    <p:menuitem rendered="#{sec:areAnyGranted('ROLE_ADMIN')}"
+                                value="Templates" icon="ui-icon-carat-2-n-s" action="templates"/>
+
+
 
                 </p:submenu>
 

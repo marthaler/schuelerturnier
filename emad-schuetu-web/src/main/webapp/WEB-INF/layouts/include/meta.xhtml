@@ -4,7 +4,7 @@
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 				xmlns="http://www.w3.org/1999/xhtml">
 
-	<meta name="title" content="#{infoBean.appName}"/>
-	<meta name="description" content="#{infoBean.appName}"/>
+	<meta name="title" content="#{propProvider.readString('appname')}"/>
+	<meta name="description" content="#{propProvider.readString('appname')}"/>
 
 </ui:composition>

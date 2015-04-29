@@ -3,6 +3,7 @@
  */
 package ch.emad.model.schuetu.model;
 
+import ch.emad.model.common.exceptions.MadRException;
 import ch.emad.model.schuetu.interfaces.CouvertReportable;
 import ch.emad.model.schuetu.interfaces.RechnungReportable;
 import ch.emad.model.schuetu.model.enums.GeschlechtEnum;
@@ -11,6 +12,7 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import java.io.ByteArrayInputStream;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -30,8 +32,7 @@ public class Mannschaft extends Persistent implements CouvertReportable, Rechnun
 
     private static final long serialVersionUID = 1L;
 
-    @Transient
-    private String esr;
+    private String esr = "";
 
     private int teamNummer = -1;
 
@@ -70,6 +71,8 @@ public class Mannschaft extends Persistent implements CouvertReportable, Rechnun
     private String begleitpersonTelefon = null;
 
     private String color = "Blau";
+
+    private boolean rechnungDrucken;
 
     @Email
     private String begleitpersonEmail = null;
@@ -502,16 +505,19 @@ this.stamp = stamp;
 
     @Override
     public String getBetrag() {
-        return "Fr. " + (getPreis()* this.getAnzahl());
+        return "Fr. " + (getPreis()* this.getAnzahl())+"0";
     }
 
     @Override
     public void setEnabled(boolean enabled) {
-        throw new RuntimeException("methode darf nicht aufgerufen werden auf einer Mannschaft");
+        new MadRException("nicht verwenden");
     }
 
     @Override
     public boolean getEnabled() {
+        if(esr == null || esr.isEmpty()){
+            return false;
+        }
         return true;
     }
 

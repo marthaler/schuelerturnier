@@ -9,7 +9,6 @@ import ch.emad.model.schuetu.model.comperators.SpielZeitComperator;
 import ch.emad.model.schuetu.model.enums.SpielEnum;
 import ch.emad.persistence.schuetu.repository.SpielRepository;
 import ch.emad.model.schuetu.util.DateUtil;
-import ch.emad.web.common.controllers.SessionHelper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

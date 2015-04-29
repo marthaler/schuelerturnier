@@ -7,7 +7,7 @@ import ch.emad.business.schuetu.websiteinfo.WebsiteInfoService;
 import ch.emad.model.schuetu.model.SpielEinstellungen;
 import ch.emad.model.schuetu.model.enums.SpielPhasenEnum;
 import ch.emad.model.schuetu.web.SpielstatusWebBean;
-import ch.emad.web.common.controllers.SessionHelper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
