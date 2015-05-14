@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<workbook>
+
+    <worksheet name="sch-attachements">
+        <section startRow="0" endRow="0">
+        </section>
+        <loop startRow="1" endRow="1" items="attachements" var="attachement"
+              varType="ch.emad.model.schuetu.model.support.File2">
+            <section startRow="1" endRow="1">
+                <mapping row="1" col="0">attachement.id</mapping>
+                <mapping row="1" col="1">attachement.typ</mapping>
+                <mapping row="1" col="2">attachement.pearID</mapping>
+                <mapping row="1" col="3">attachement.mimeType</mapping>
+                <mapping row="1" col="4">attachement.dateiName</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="1"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+
+</workbook>

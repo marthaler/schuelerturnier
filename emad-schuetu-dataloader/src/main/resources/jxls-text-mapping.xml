@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<workbook>
+    <worksheet name="sch-text">
+        <section startRow="0" endRow="0">
+        </section>
+        <loop startRow="1" endRow="1" items="texte" var="text"
+              varType="ch.emad.model.schuetu.model.Text2">
+            <section startRow="1" endRow="1">
+                <mapping row="1" col="0">text.id</mapping>
+                <mapping row="1" col="1">text.key</mapping>
+                <mapping row="1" col="2">text.value</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="0"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+
+</workbook>

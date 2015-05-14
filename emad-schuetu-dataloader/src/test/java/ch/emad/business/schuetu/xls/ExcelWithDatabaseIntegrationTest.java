@@ -33,7 +33,7 @@ public class ExcelWithDatabaseIntegrationTest {
 
     @Test
     public void testParseMannschaften() {
-
+/**
         List<GPLer> m = null;
         List<GPLer> m2 = null;
         List<GPLer> m3 = null;
@@ -54,14 +54,14 @@ public class ExcelWithDatabaseIntegrationTest {
         }
 
         for (GPLer gpLer : m2) {
-            if()
+
             System.out.println(gpLer);
         }
 
         for (GPLer gpLer : m3) {
             System.out.println(gpLer);
         }
-
+**/
     }
 
 }
