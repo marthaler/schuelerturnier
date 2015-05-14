@@ -28,6 +28,12 @@
                                 <p:fileDownload value="#{betrVersandBB.downloadCouverts()}" />
                             </p:commandButton>
 
+                            <p:commandButton value="10 Fenstercouverts bedrucken" ajax="false">
+                                <p:fileDownload value="#{betrVersandBB.download10Stamps()}" />
+                            </p:commandButton>
+
+
+
                                 <p:dataTable emptyMessage="leer" widgetVar="kontakte" id="tbl" var="template" value="#{templateBusiness.templateBeans}"  rowIndexVar="ri">
 
 									<p:column id="checkVersion"  headerText="Check Version">

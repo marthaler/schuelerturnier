@@ -3,16 +3,18 @@
  */
 package ch.emad.business.schuetu.xls;
 
-import ch.emad.business.schuetu.DataLoaderImpl;
 import ch.emad.model.schuetu.model.*;
 import ch.emad.model.common.model.*;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.junit.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Testet den XLS Export aus der Datenbank
@@ -22,76 +24,44 @@ import java.util.List;
  */
 public class ExcelWithDatabaseIntegrationTest {
 
+    Map<String,GPLer> land = new HashMap<>();
+    Map<String,GPLer> verein = new HashMap<>();
+
     private static final Logger LOG = Logger.getLogger(ExcelWithDatabaseIntegrationTest.class);
 
-    private FromXLSLoader2 xls = null;
-
-    private File file = null;
-
-    @Before
-    public void before() {
-
-        xls = new FromXLSLoader2();
-
-        try {
-            file = File.createTempFile("tempX", "");
-        } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
-        }
-    }
-
-    @After
-    public void after() {
-        FileUtils.deleteQuietly(file);
-    }
+    private FromXLSLoader2 xls = new FromXLSLoader2();
 
     @Test
     public void testParseMannschaften() {
-        List<Mannschaft> m = xls.convertXLSToMannschaften(DataLoaderImpl.readFile("schuetu-2013.xls"));
-        Assert.assertTrue(m.size() > 10);
-    }
 
-    @Test
-    public void testParseSpiele() {
-        // lokale ausfuehrung auf imac
-        Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
-        List<Spiel> s = xls.convertXLSToSpiele(DataLoaderImpl.readFile("schuetu-2013.xls"));
-        Assert.assertTrue(s.size() > 10);
-    }
-
-    @Test
-    public void testParseKorrekturen() {
-        Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
-        List<Korrektur> korrektur = xls.convertXLSToKorrektur(DataLoaderImpl.readFile("schuetu-2013.xls"));
-        Assert.assertNotNull(korrektur);
-        Assert.assertEquals("nicht genau eine Korrektur", 15, korrektur.size());
-
-        Assert.assertEquals("Inhalt nicht richtig", "spielzeile", korrektur.get(0).getTyp());
-        Assert.assertEquals("Inhalt nicht richtig", "4", korrektur.get(0).getWert());
-        Assert.assertEquals("Inhalt nicht richtig", 1, korrektur.get(0).getReihenfolge());
-    }
+        List<GPLer> m = null;
+        List<GPLer> m2 = null;
+        List<GPLer> m3 = null;
+        try {
+            m = xls.convertXLSToGPler(FileUtils.readFileToByteArray(new File("d:/gp/2015.xls")));
+            m2 = xls.convertXLSToGPler(FileUtils.readFileToByteArray(new File("d:/gp/2014.xls")));
+            m3 = xls.convertXLSToGPler(FileUtils.readFileToByteArray(new File("d:/gp/2013.xls")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(m.size());
+        System.out.println(m2.size());
+        System.out.println(m3.size());
 
 
-    @Test
-    public void testParseText() {
-        Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
-        List<Text> text2 = xls.convertXLSToTexte(DataLoaderImpl.readFile("schuetu-2013.xls"));
-        Assert.assertNotNull(text2);
-        Assert.assertEquals("nicht genau eine Text", 1, text2.size());
+        for (GPLer gpLer : m) {
+            System.out.println(gpLer);
+        }
+
+        for (GPLer gpLer : m2) {
+            if()
+            System.out.println(gpLer);
+        }
+
+        for (GPLer gpLer : m3) {
+            System.out.println(gpLer);
+        }
 
     }
-
-    @Test
-    public void testParsePenalty() {
-        Assume.assumeTrue(System.getProperty("user.name").contains("dama"));
-        List<Penalty> penalty = xls.convertXLSToPenalty(DataLoaderImpl.readFile("schuetu-2013.xls"));
-        Assert.assertNotNull(penalty);
-        Assert.assertEquals("nicht genau 0 Penalty", 0, penalty.size());
-
-    }
-
-
-
-
 
 }

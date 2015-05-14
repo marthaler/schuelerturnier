@@ -10,18 +10,7 @@
 	<queryString language="SQL">
 		<![CDATA[]]>
 	</queryString>
-	<field name="anrede" class="java.lang.String">
-		<fieldDescription><![CDATA[anrede]]></fieldDescription>
-	</field>
-	<field name="nameVorname" class="java.lang.String">
-		<fieldDescription><![CDATA[nameVorname]]></fieldDescription>
-	</field>
-	<field name="strasse" class="java.lang.String">
-		<fieldDescription><![CDATA[strasse]]></fieldDescription>
-	</field>
-	<field name="PLZOrt" class="java.lang.String">
-		<fieldDescription><![CDATA[PLZOrt]]></fieldDescription>
-	</field>
+
 	<field name="stamp" class="java.io.ByteArrayInputStream">
 		<fieldDescription><![CDATA[stamp]]></fieldDescription>
 	</field>
@@ -38,34 +27,7 @@
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
 				<imageExpression><![CDATA[$F{stamp}]]></imageExpression>
 			</image>
-			<textField>
-				<reportElement x="136" y="370" width="20" height="140" uuid="6c97a73c-95a6-4964-9002-7a6c22390d0d"/>
-				<textElement rotation="Right">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{anrede}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="122" y="370" width="20" height="140" uuid="cf2671bb-7cae-409a-aab8-e85c234d87a7"/>
-				<textElement rotation="Right">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{nameVorname}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="108" y="370" width="20" height="140" uuid="be706226-be01-4259-8dc6-a58f242c975b"/>
-				<textElement rotation="Right">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{strasse}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="94" y="370" width="20" height="140" uuid="821d2005-1e52-4623-92f0-e5a87fa1252e"/>
-				<textElement rotation="Right">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{PLZOrt}]]></textFieldExpression>
-			</textField>
+
 		</band>
 	</detail>
 </jasperReport>

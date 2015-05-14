@@ -59,6 +59,12 @@ public class BetreuerVersandBackingBean implements Serializable{
         return new DefaultStreamedContent(is, "application/pdf", "couverts.pdf");
     }
 
+    public StreamedContent download10Stamps(){
+        InputStream is = new ByteArrayInputStream(kontakteBB.download10Stamps());
+        return new DefaultStreamedContent(is, "application/pdf", "couverts.pdf");
+    }
+
+
     public StreamedContent downloadRechnungen(){
         InputStream is = new ByteArrayInputStream(template.getBriefe(getRechungen(),"betreuer-rechnung"));
         return new DefaultStreamedContent(is, "application/pdf", "rechnungen.pdf");

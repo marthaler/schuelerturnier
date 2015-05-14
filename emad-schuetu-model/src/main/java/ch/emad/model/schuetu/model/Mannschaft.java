@@ -72,8 +72,6 @@ public class Mannschaft extends Persistent implements CouvertReportable, Rechnun
 
     private String color = "Blau";
 
-    private boolean rechnungDrucken;
-
     @Email
     private String begleitpersonEmail = null;
 

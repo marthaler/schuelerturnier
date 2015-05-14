@@ -86,6 +86,18 @@ public class KontakteBackingBean implements Serializable{
         return converter.createPdf(rechungen,"couvert2");
     }
 
+    public byte[] download10Stamps(){
+        ArrayList<RechnungReportable> stamps = new ArrayList<>();
+
+        for(int i = 0; i<10;i++){
+            stamps.add(new Mannschaft());
+        }
+        for(RechnungReportable rep : stamps){
+            rep.setStamp(stampS.getNextStamp());
+        }
+        return converter.createPdf(stamps,"marke");
+    }
+
     public List<String> getAllLists(){
         List<String> ret = new ArrayList<>();
         for(String re : service.getOldJahre()){

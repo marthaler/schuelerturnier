@@ -61,19 +61,22 @@ public class ToXLSDumper2 {
     @Autowired
     private KontaktRepository korepo;
 
+    @Autowired
+    private RechnungRepository rrepo;
+
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
 
     public byte[] mannschaftenFromDBtoXLS() {
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll(), prepo.findAll(),korepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll(), prepo.findAll(),korepo.findAll(),rrepo.findAll());
     }
 
     public byte[] mannschaftenFromDBtoXLS(SpielEinstellungen einst) {
         List<SpielEinstellungen> einstellungen = new ArrayList<SpielEinstellungen>();
         einstellungen.add(einst);
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll(),prepo.findAll(),korepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll(),prepo.findAll(),korepo.findAll(),rrepo.findAll());
     }
 
-    protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn, List<File> filesIn,List<Text> texteIn,List<Penalty> penaltyIn,List<Kontakt> kontakteIn) {
+    public byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn, List<File> filesIn,List<Text> texteIn,List<Penalty> penaltyIn,List<Kontakt> kontakteIn,List<Rechnung> rechnungIn) {
 
         List<Spiel> spiele = spieleIn;
         List<Mannschaft> mannschaften = mannschaftenIn;
@@ -83,6 +86,7 @@ public class ToXLSDumper2 {
         List<Text> texte = texteIn;
         List<Penalty> penaltys = penaltyIn;
         List<Kontakt> kontakte = kontakteIn;
+        List<Rechnung> rechnungen = rechnungIn;
 
         if (spiele == null) {
             spiele = new ArrayList();
@@ -111,7 +115,7 @@ public class ToXLSDumper2 {
         }
 
         if (users == null) {
-            korrekturen = new ArrayList();
+            users = new ArrayList();
         }
 
         if (file2s == null) {
@@ -130,6 +134,10 @@ public class ToXLSDumper2 {
             kontakte = new ArrayList();
         }
 
+        if (rechnungen == null) {
+            rechnungen = new ArrayList();
+        }
+
         Map beans = new HashMap();
 
         beans.put("mannschaften", mannschaften);
@@ -140,6 +148,7 @@ public class ToXLSDumper2 {
         beans.put("texte", texte);
         beans.put("penaltys", penaltys);
         beans.put("kontakte", kontakte);
+        beans.put("rechnungen", rechnungen);
 
         XLSTransformer transformer = new XLSTransformer();
         byte[] arr = readFreshTemplate();
@@ -161,6 +170,8 @@ public class ToXLSDumper2 {
         }
         return null;
     }
+
+
 
     /*
     * Template neu lesen, falls nicht schon bereits ein Template uebergeben wurde (= nicht null ist)

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<workbook>
+
+    <worksheet name="Grand-Prix von Bern (16,093km)">
+        <section startRow="0" endRow="0">
+        </section>
+        <loop startRow="1" endRow="1" items="gplers" var="gpler"
+              varType="ch.emad.model.schuetu.model.GPLer">
+            <section startRow="1" endRow="1">
+                <mapping row="1" col="0">gpler.platz</mapping>
+                <mapping row="1" col="1">gpler.alterskategorieplatz</mapping>
+                <mapping row="1" col="2">gpler.platzbeidegeschlechter</mapping>
+                <mapping row="1" col="3">gpler.nummer</mapping>
+                <mapping row="1" col="4">gpler.nam</mapping>
+                <mapping row="1" col="5">gpler.kategorie</mapping>
+                <mapping row="1" col="6">gpler.verein</mapping>
+                <mapping row="1" col="7">gpler.rel</mapping>
+                <mapping row="1" col="8">gpler.km05</mapping>
+                <mapping row="1" col="9">gpler.km10</mapping>
+                <mapping row="1" col="10">gpler.km16</mapping>
+            </section>
+            <loopbreakcondition>
+                <rowcheck offset="0">
+                    <cellcheck offset="1"/>
+                    <cellcheck offset="2"/>
+                    <cellcheck offset="3"/>
+                    <cellcheck offset="4"/>
+                    <cellcheck offset="5"/>
+                    <cellcheck offset="6"/>
+                </rowcheck>
+            </loopbreakcondition>
+        </loop>
+    </worksheet>
+
+</workbook>
