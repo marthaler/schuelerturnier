@@ -11,7 +11,11 @@
 
     <dependencies>
 
-
+        <dependency>
+            <groupId>ch.emad</groupId>
+            <artifactId>emad-framework-model</artifactId>
+            <version>${emad-framework.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>

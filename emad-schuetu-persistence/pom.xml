@@ -12,6 +12,18 @@
     <dependencies>
 
         <dependency>
+            <groupId>ch.emad</groupId>
+            <artifactId>emad-framework-persistence</artifactId>
+            <version>${emad-framework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.emad</groupId>
+            <artifactId>emad-framework-model</artifactId>
+            <version>${emad-framework.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>ch.emad.schuetu</groupId>
             <artifactId>emad-schuetu-model</artifactId>
             <version>${project.version}</version>

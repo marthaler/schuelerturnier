@@ -27,7 +27,7 @@
 
     <listener>
         <!--soll zuerst geladen werden um die informatione ueber den Context von Anfang an zur verfuegung zu haben-->
-        <listener-class>com.googlecode.madschuelerturnier.business.ContextInformationListener</listener-class>
+        <listener-class>ch.emad.business.schuetu.ContextInformationListener</listener-class>
     </listener>
 
     <listener>

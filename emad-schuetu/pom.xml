@@ -16,6 +16,8 @@
 
     <properties>
 
+        <emad-framework.version>0.0.26</emad-framework.version>
+
 		<spring-security.version>3.2.5.RELEASE</spring-security.version>
 		<poi.version>3.11</poi.version>
 		<org.apache.poi.xwpf.converter.pdf.version>1.0.4</org.apache.poi.xwpf.converter.pdf.version>
@@ -55,6 +57,11 @@
     <build>
 
         <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ftp</artifactId>
+                <version>2.3</version>
+            </extension>
         </extensions>
 
         <plugins>
@@ -105,6 +112,22 @@
         </repository>
 
     </repositories>
+
+    <distributionManagement>
+
+        <repository>
+            <id>emad</id>
+            <name>emad</name>
+            <url>ftp://schuelerturnier-scworb.ch/repo</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>emadsnap</id>
+            <name>emadsnap</name>
+            <url>ftp://schuelerturnier-scworb.ch/reposnap</url>
+        </snapshotRepository>
+
+    </distributionManagement>
 
     <profiles>
     </profiles>

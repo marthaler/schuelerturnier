@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                template="../../../layouts/root.xhtml">
+
+
+    <ui:define name="main">
+
+        <div id="main">
+
+            <div class="page_margins">
+                <div class="page">
+                    <div class="inset">
+
+                        <p:messages/>
+
+                        <h:form id="form1">
+
+                            <p:fieldset legend="Korrekturen"> <p:commandButton action="new"
+                                                                               icon="ui-icon-copy" ajax="false"
+                                                                               value="Neue Korrektur erstellen">
+                            </p:commandButton>
+                                <br/> <br/>
+                                <p:dataTable emptyMessage="leer" id="tbl" var="korrektur" value="#{korrekturen}"
+                                             paginator="false" rowIndexVar="ri">
+
+
+                                    <p:column>
+                                        <f:facet name="id">
+                                            <h:outputText value="Nr."/>
+                                        </f:facet>
+                                        <h:outputText value="#{korrektur.id}"/>
+                                    </p:column>
+
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Typ"/>
+                                        </f:facet>
+                                        <h:outputText value="#{korrektur.typ}"/>
+                                    </p:column>
+
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Wert"/>
+                                        </f:facet>
+                                        <h:outputText value="#{korrektur.wert}"/>
+                                    </p:column>
+
+
+                                    <p:column size="2">
+                                        <p:commandButton action="detail_korrektur"
+                                                         icon="ui-icon-search" ajax="false" value="bearbeiten">
+                                            <f:param name="id" value="#{korrektur.id}"/>
+                                        </p:commandButton>
+
+                                        <p:commandButton action="delete"
+                                                         icon="ui-icon-trash" ajax="false" value="löschen">
+                                            <f:param name="id" value="#{korrektur.id}"/>
+                                        </p:commandButton>
+
+                                    </p:column>
+
+
+                                </p:dataTable>
+
+                            </p:fieldset>
+
+
+                            <br/>
+
+
+                        </h:form>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

@@ -27,7 +27,7 @@
 
     <bean id="WebcamBusiness" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
         <property name="serviceUrl" value="rmi://87.230.15.247:1299/WebcamBusiness"/>
-        <property name="serviceInterface" value="com.googlecode.madschuelerturnier.business.WebcamBusiness"/>
+        <property name="serviceInterface" value="ch.emad.business.schuetu.WebcamBusiness"/>
     </bean>
 
 

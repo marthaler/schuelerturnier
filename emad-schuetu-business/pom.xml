@@ -26,7 +26,7 @@
                                     <format property="current.time" pattern="dd.MM.yyyy HH:mm" />
                                 </tstamp>
 
-                                <echo file="${project.build.outputDirectory}/version.properties" append="false">
+                                <echo file="${project.build.outputDirectory}/versionlocal.properties" append="false">
                                     version=${project.version}
                                     timestamp=${current.time}
                                 </echo>
@@ -43,6 +43,18 @@
     </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>ch.emad</groupId>
+            <artifactId>emad-framework-business</artifactId>
+            <version>${emad-framework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.emad</groupId>
+            <artifactId>emad-framework-persistence</artifactId>
+            <version>${emad-framework.version}</version>
+        </dependency>
 
 		<dependency>
 			<groupId>org.apache.poi</groupId>

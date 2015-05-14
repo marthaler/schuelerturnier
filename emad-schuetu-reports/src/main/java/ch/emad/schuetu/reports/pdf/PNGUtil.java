@@ -10,15 +10,11 @@ package ch.emad.schuetu.reports.pdf;/*
  * Apache License 2.0
  */
 
-import com.googlecode.madschuelerturnier.interfaces.CouvertReportable;
-import org.apache.commons.io.FileUtils;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 
 
