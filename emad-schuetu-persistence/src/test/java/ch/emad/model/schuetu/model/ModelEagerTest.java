@@ -4,6 +4,7 @@
 package ch.emad.model.schuetu.model;
 
 import ch.emad.model.schuetu.model.enums.GeschlechtEnum;
+import ch.emad.persistence.SpringContextPersistence;
 import ch.emad.persistence.schuetu.repository.KategorieRepository;
 import ch.emad.persistence.schuetu.repository.SpielRepository;
 import org.apache.log4j.Logger;
@@ -20,7 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @since 0.7
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:spring-persistence-context.xml")
+@ContextConfiguration(classes= SpringContextPersistence.class)
 public class ModelEagerTest {
 
     private static final Logger LOG = Logger.getLogger(ModelEagerTest.class);

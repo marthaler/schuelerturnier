@@ -2,8 +2,8 @@ package ch.emad.persistence.schuetu;
 
 import ch.emad.model.schuetu.model.SpielEinstellungen;
 
-import ch.emad.persistence.schuetu.repository.KategorieRepository;
-import ch.emad.persistence.schuetu.repository.MannschaftRepository;
+import ch.emad.persistence.SpringContextPersistence;
+import ch.emad.persistence.schuetu.repository.*;
 import ch.emad.model.schuetu.model.Gruppe;
 import ch.emad.model.schuetu.model.Kategorie;
 import ch.emad.model.schuetu.model.Mannschaft;
@@ -11,7 +11,6 @@ import ch.emad.model.schuetu.model.enums.GeschlechtEnum;
 
 import static org.junit.Assert.*;
 
-import ch.emad.persistence.schuetu.repository.SpielEinstellungenRepository2;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,21 +29,19 @@ import java.util.List;
  * @since 0.7
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:spring-persistence-context-test.xml")
-@Transactional
+@ContextConfiguration(classes= SpringContextPersistence.class)
 public class GenerellerPersistenceTest {
 
     @Autowired
     private MannschaftRepository mRepo;
 
-    @Autowired
-    private SpielEinstellungenRepository2 eRepo;
 
     @Autowired
     private KategorieRepository kRepo;
 
     @Autowired
-    private KorrekturPersistence korrekturen;
+    private GruppeRepository gRepo;
+
 
     @Test
     public void testMannschaft() {
@@ -54,24 +51,6 @@ public class GenerellerPersistenceTest {
         assertEquals(m, mRepo.findOne(m.getId()));
     }
 
-    @Test
-    public void spielEinstellungen() {
-        assertFalse(eRepo.isInitialized());
-
-        assertNull(eRepo.getEinstellungen());
-
-        SpielEinstellungen einst = new SpielEinstellungen();
-
-        eRepo.save(einst);
-        assertEquals(einst,eRepo.getEinstellungen());
-
-        einst.setSpiellaenge(40);
-        eRepo.save(einst);
-
-        assertEquals(40,eRepo.getEinstellungen().getSpiellaenge());
-
-        assertTrue(eRepo.isInitialized());
-    }
 
     @Test
     public void testKategorie() {
@@ -84,10 +63,12 @@ public class GenerellerPersistenceTest {
         Gruppe g = new Gruppe();
         List<Mannschaft> ml = new ArrayList<Mannschaft>();
         ml.add(m);
-
+        g = gRepo.save(g);
         g.setMannschaften(ml);
 
+
         Kategorie k = new Kategorie();
+        k = kRepo.save(k);
         k.setGruppeA(g);
 
         kRepo.save(k);
@@ -99,25 +80,6 @@ public class GenerellerPersistenceTest {
 
     }
 
-    @Test
-    public void testKorrekturen() {
 
-        korrekturen.save("testTyp", "eins");
-        korrekturen.save("testTyp", "zwei");
-        korrekturen.save("testTyp", "drei");
-
-        korrekturen.save("testTyp2", "_1");
-        korrekturen.save("testTyp2", "_2");
-        korrekturen.save("testTyp2", "_3");
-
-        List<String> listen = korrekturen.getKorrekturen("testTyp");
-
-        assertEquals("testTyp: falsches Resultat", "eins", listen.get(0));
-        assertEquals("testTyp: falsches Resultat", "zwei", listen.get(1));
-        assertEquals("testTyp: falsches Resultat", "drei", listen.get(2));
-
-        assertEquals("testTyp: falsche Menge", 3, listen.size());
-
-    }
 
 }

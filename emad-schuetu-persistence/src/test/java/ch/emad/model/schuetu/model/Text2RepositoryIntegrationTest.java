@@ -4,6 +4,7 @@
 package ch.emad.model.schuetu.model;
 
 import ch.emad.model.common.model.Text;
+import ch.emad.persistence.SpringContextPersistence;
 import ch.emad.persistence.common.TextRepository;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -20,7 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @since 0.7
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:spring-persistence-context.xml")
+@ContextConfiguration(classes= SpringContextPersistence.class)
 public class Text2RepositoryIntegrationTest {
 
     private static final Logger LOG = Logger.getLogger(Text2RepositoryIntegrationTest.class);

@@ -2,6 +2,7 @@ package ch.emad.persistence.schuetu;
 
 import ch.emad.model.schuetu.model.Spiel;
 import ch.emad.model.schuetu.model.SpielZeile;
+import ch.emad.persistence.SpringContextPersistence;
 import ch.emad.persistence.schuetu.repository.SpielZeilenRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,7 +24,7 @@ import java.util.List;
  * @since 0.7
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:spring-persistence-context-test.xml")
+@ContextConfiguration(classes= SpringContextPersistence.class)
 @Transactional
 public class SpielZeilenTest {
 
