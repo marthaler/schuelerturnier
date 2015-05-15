@@ -35,7 +35,7 @@
         <module>../emad-schuetu-web-picimport</module>
         <module>../emad-schuetu-resultengine</module>
         <module>../emad-schuetu-dataloader</module>
-        <module>../emad-schuetu-web-transport-subsystem</module>
+        <!--<module>../emad-schuetu-web-transport-subsystem</module>-->
         <module>../emad-schuetu-reports</module>
     </modules>
 
