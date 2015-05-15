@@ -14,11 +14,10 @@
 <div class="page">
 <div class="inset">
 <h:form id="form1">
-
 <p:fieldset legend="Status">
     <br/>
-    <p:commandButton id="masteroff" value="Setze diesen Node als Master" action="setmaster" ajax="false" rendered="#{!integrationControllerImpl.isMaster()}" />
-    <p:commandButton id="masteron" value="Dieser Node ist der Master" action="setmaster" disabled="true" ajax="false" rendered="#{integrationControllerImpl.isMaster()}" />
+    <p:commandButton id="masteroff" value="Setze diesen Node als Master" action="setmaster" ajax="false" rendered="#{!spieleinstellungen.isMaster()}" />
+    <p:commandButton id="masteron" value="Dieser Node ist der Master" action="setmaster" disabled="true" ajax="false" rendered="#{spieleinstellungen.isMaster()}" />
     <br/><br/>
     <p:separator/>
     <h:outputText id="zeit" value="Echte Zeit #{spielUhr.richtigeZeit} - Spiel Zeit: #{spielUhr.spielZeit} - Verspätung: #{business.spielzeitVerspaetung()}"/>

@@ -4,7 +4,6 @@
 package ch.emad.model.schuetu.model;
 
 import ch.emad.model.schuetu.model.enums.SpielPhasenEnum;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.joda.time.DateTime;
@@ -18,7 +17,7 @@ import java.util.Date;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
-public class SpielEinstellungen implements Serializable{
+public class SpielEinstellungen implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -70,12 +69,22 @@ public class SpielEinstellungen implements Serializable{
     private boolean websiteEnableProgrammDownloadLink = false;
     private String websiteProgrammDownloadLink = "";
 
-    private String websiteTurnierTitel ="";
+    private String websiteTurnierTitel = "";
 
-    private String websiteTurnierMeldung ="nichts";
+    private String websiteTurnierMeldung = "nichts";
 
     private boolean mobileLinkOn = false;
     private String mobileLink = "";
+
+    public boolean isMaster() {
+        return master;
+    }
+
+    public void setMaster(boolean master) {
+        this.master = master;
+    }
+
+    private boolean master = false;
 
     // 05 Spielverteilung
     private int zweiPausenBisKlasse = 0;
@@ -181,7 +190,8 @@ public class SpielEinstellungen implements Serializable{
     public void setStartJetzt(final boolean startJetzt) {
         this.startJetzt = startJetzt;
     }
-@Deprecated
+
+    @Deprecated
     public void setStart(final Date start) {
         this.start = start;
     }
