@@ -3,8 +3,10 @@
  */
 package ch.emad.business.schuetu.dropbox;
 
+import ch.emad.business.common.properties.PropProvider;
+import ch.emad.business.common.stages.DevelopmentStage;
+import ch.emad.business.common.stages.Stage;
 import ch.emad.dropbox.DropboxConnectorLocalImpl;
-import ch.emad.model.schuetu.stages.Stage;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,7 +34,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
     private static final Logger LOG = Logger.getLogger(DropboxConnectorImpl.class);
 
     @Autowired
-            @Qualifier("dropbox")
+    @Qualifier("dropbox")
     ch.emad.dropbox.DropboxConnector driver;
 
     @Autowired
@@ -41,18 +43,21 @@ public class DropboxConnectorImpl implements DropboxConnector {
     @Autowired(required = false)
     Stage stage;
 
+    @Autowired
+    PropProvider prop;
+
     @PostConstruct
     public void init() {
 
         if (stage == null) {
-            stage = new Stage();
+            stage = new DevelopmentStage();
         }
 
         // dev implementation bei der entwicklung
         DropboxConnectorLocalImpl impl = new DropboxConnectorLocalImpl();
 
 
-        rootFolder = rootFolder + "/" + stage.getStage().getText();
+        rootFolder = rootFolder + "/" + stage.getStageString().replace(")","").replace("(","");
         impl.setRootPath("C:\\Users\\u203244\\Dropbox" + rootFolder);
             if(impl.isConnected()){
                 rootFolder = "";

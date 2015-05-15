@@ -3,7 +3,7 @@
  */
 package ch.emad.business.schuetu.utils;
 
-import ch.emad.model.schuetu.stages.Stage;
+import ch.emad.business.common.stages.Stage;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

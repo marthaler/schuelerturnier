@@ -3,11 +3,11 @@
  */
 package ch.emad.business.schuetu.dropbox;
 
+import ch.emad.business.common.stages.Stage;
+import ch.emad.business.common.stages.StageEnum;
 import ch.emad.business.schuetu.Business;
 import ch.emad.business.schuetu.spieldurchfuehrung.SpielDurchfuehrung;
 import ch.emad.model.schuetu.model.SpielEinstellungen;
-import ch.emad.model.schuetu.stages.Stage;
-import ch.emad.model.schuetu.stages.StageEnum;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;

@@ -71,6 +71,11 @@ public class WebstampService {
         List<byte[]> out = new ArrayList<byte[]>();
         // pdfs holen
         List<String> files = connector.getFilesInFolder("stamps/neu");
+
+        if(files == null){
+            return;
+        }
+
         for (String file : files) {
             //umwandeln in einzelne png und in liste speichern
             if (file.contains(".pdf")) {
