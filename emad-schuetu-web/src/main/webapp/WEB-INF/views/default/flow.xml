@@ -212,7 +212,8 @@
         </transition>
 
         <transition on="setmaster" to="spiel_start" bind="true">
-            <evaluate expression="integrationControllerImpl.thisMaster()"/>
+            <evaluate expression="flowScope.spieleinstellungen.setMaster('true')"/>
+            <evaluate expression="business.saveEinstellungen(flowScope.spieleinstellungen)"/>
         </transition>
 
     </view-state>
