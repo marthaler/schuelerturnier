@@ -22,7 +22,6 @@ public class SaveController {
     private static final Logger LOG = Logger.getLogger(SaveController.class);
 
     @Autowired
-
     WebcamBusiness webcamBusiness;
 
     @Async

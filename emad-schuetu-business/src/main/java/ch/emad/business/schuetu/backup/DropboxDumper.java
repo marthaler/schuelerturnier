@@ -4,7 +4,6 @@
 package ch.emad.business.schuetu.backup;
 
 import ch.emad.business.schuetu.dropbox.DropboxConnector;
-import ch.emad.business.schuetu.integration.IntegrationController;
 import ch.emad.business.schuetu.xls.ToXLSDumper2;
 import ch.emad.model.schuetu.model.callback.ModelChangeListener;
 import ch.emad.model.schuetu.model.callback.ModelChangeListenerManager;
@@ -39,8 +38,7 @@ public class DropboxDumper implements ModelChangeListener {
     @Qualifier("dropboxConnector2")
     private DropboxConnector dropbox;
 
-    @Autowired
-    private IntegrationController master;
+
 
     public DropboxDumper() {
 
@@ -55,7 +53,7 @@ public class DropboxDumper implements ModelChangeListener {
     @Scheduled(fixedRate = 60000)
     public void run() {
 
-        if (changed && init && master.isMaster()) {
+        if (changed && init) {
             if (dropbox.isConnected()) {
                 dropbox.saveGame(dumper.mannschaftenFromDBtoXLS());
             }

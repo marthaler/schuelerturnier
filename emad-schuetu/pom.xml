@@ -37,6 +37,8 @@
         <module>../emad-schuetu-dataloader</module>
         <!--<module>../emad-schuetu-web-transport-subsystem</module>-->
         <module>../emad-schuetu-reports</module>
+        <module>../emad-schuetu-test</module>
+        <module>../emad-schuetu-attic</module>
     </modules>
 
     <scm>
