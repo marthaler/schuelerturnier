@@ -3,7 +3,7 @@
     <parent>
         <groupId>ch.emad.schuetu</groupId>
         <artifactId>emad-schuetu</artifactId>
-        <version>1.3.20-SNAPSHOT</version>
+        <version>1.3.20</version>
         <relativePath>../emad-schuetu</relativePath>
     </parent>
     <!--  -->
