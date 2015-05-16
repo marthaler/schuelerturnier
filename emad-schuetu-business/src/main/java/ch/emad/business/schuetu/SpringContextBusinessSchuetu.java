@@ -6,6 +6,7 @@ import ch.emad.business.schuetu.picture.WebcamBusiness;
 import ch.emad.business.schuetu.picture.WebcamBusinessImpl;
 import ch.emad.model.schuetu.model.Mannschaft;
 import ch.emad.persistence.SpringContextPersistence;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -13,6 +14,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
 public class SpringContextBusinessSchuetu {
+
+    private static final Logger LOG = Logger.getLogger(SpringContextBusinessSchuetu.class);
 
     @Autowired
     private WebcamBusinessImpl webcam;
@@ -46,6 +49,7 @@ public class SpringContextBusinessSchuetu {
             a = a + "3";
         }
 
+        LOG.info("set the port for webcam: " + Integer.parseInt(a));
         exp.setRegistryPort(Integer.parseInt(a));
         return exp;
     }

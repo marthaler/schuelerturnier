@@ -3,6 +3,7 @@
  */
 package ch.emad.business.schuetu.bus;
 
+import ch.emad.model.common.model.DBAuthUser;
 import ch.emad.model.common.model.Text;
 import ch.emad.model.schuetu.model.*;
 import ch.emad.model.schuetu.model.callback.ModelChangeListener;
@@ -56,7 +57,7 @@ public class BusControllerOut implements ApplicationEventPublisherAware, ModelCh
             sendMessage(object);
         }
         else
-        if(object instanceof DBAuthUser2){
+        if(object instanceof DBAuthUser){
             LOG.debug("BusControllerOut senden: DBAuthUser");
             sendMessage(object);
         } else

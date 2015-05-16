@@ -5,7 +5,6 @@ package ch.emad.model.schuetu.web.backingbeans.schiri;
 
 import ch.emad.business.schuetu.spieldurchfuehrung.SpielDurchfuehrung;
 import ch.emad.model.common.model.DBAuthUser;
-import ch.emad.model.schuetu.model.DBAuthUser2;
 import ch.emad.model.schuetu.model.Mannschaft;
 import ch.emad.model.schuetu.model.Schiri;
 import ch.emad.model.schuetu.util.Colors;

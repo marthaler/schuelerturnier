@@ -5,7 +5,7 @@
         <section startRow="0" endRow="0">
         </section>
         <loop startRow="1" endRow="1" items="texte" var="text"
-              varType="ch.emad.model.schuetu.model.Text2">
+              varType="ch.emad.model.common.model.Text">
             <section startRow="1" endRow="1">
                 <mapping row="1" col="0">text.id</mapping>
                 <mapping row="1" col="1">text.key</mapping>
