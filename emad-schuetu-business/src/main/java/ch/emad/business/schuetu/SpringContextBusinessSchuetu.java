@@ -30,7 +30,7 @@ public class SpringContextBusinessSchuetu {
         exp.setService(webcam);
         exp.setServiceInterface(WebcamBusiness.class);
 
-        String a = "334";
+        String a = "335";
         String stage = props.readString("st");
 
         if(stage.equals("d")){

@@ -4,12 +4,12 @@
 package ch.emad.business.schuetu.bus;
 
 import ch.emad.model.common.model.DBAuthUser;
+import ch.emad.model.common.model.File;
 import ch.emad.model.common.model.Text;
 import ch.emad.model.schuetu.model.*;
 import ch.emad.model.schuetu.model.callback.ModelChangeListener;
 import ch.emad.model.schuetu.model.callback.ModelChangeListenerManager;
 import ch.emad.model.schuetu.model.integration.OutgoingMessage;
-import ch.emad.model.schuetu.model.support.File2;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
@@ -61,7 +61,7 @@ public class BusControllerOut implements ApplicationEventPublisherAware, ModelCh
             LOG.debug("BusControllerOut senden: DBAuthUser");
             sendMessage(object);
         } else
-        if(object instanceof File2){
+        if(object instanceof File){
             LOG.debug("BusControllerOut senden: File");
             sendMessage(object);}
 

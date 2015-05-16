@@ -13,7 +13,6 @@ import ch.emad.persistence.common.FileRepository;
 import ch.emad.persistence.common.TextRepository;
 import ch.emad.persistence.schuetu.repository.*;
 import ch.emad.model.schuetu.model.integration.IncommingMessage;
-import ch.emad.model.schuetu.model.support.File2;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
