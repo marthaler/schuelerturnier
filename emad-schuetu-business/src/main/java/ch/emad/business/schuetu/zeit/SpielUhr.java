@@ -26,7 +26,7 @@ public class SpielUhr implements ApplicationListener<ZeitPuls> {
     private String spielZeit = NOT_INIT;
 
     public void onApplicationEvent(final ZeitPuls event) {
-        final SimpleDateFormat fmt = new SimpleDateFormat("HH:mm:ss MM.dd");
+        final SimpleDateFormat fmt = new SimpleDateFormat("HH:mm:ss (dd.MM)");
         this.richtigeZeit = fmt.format(event.getEchteZeit().toDate());
         this.spielZeit = fmt.format(event.getSpielZeit().toDate());
     }

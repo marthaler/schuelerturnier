@@ -166,7 +166,7 @@ public class ToXLSDumper2 {
     */
     private byte[] readFreshTemplate() {
         byte[] in = null;
-        URL url = Resources.getResource("jxls-template2.xls");
+        URL url = Resources.getResource("/jxls-template2.xls");
         try {
             in = Resources.toByteArray(url);
         } catch (IOException e) {
