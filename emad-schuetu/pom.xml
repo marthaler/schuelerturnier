@@ -16,7 +16,7 @@
 
     <properties>
 
-        <emad-framework.version>0.0.26</emad-framework.version>
+        <emad-framework.version>0.0.30</emad-framework.version>
 
 		<spring-security.version>3.2.5.RELEASE</spring-security.version>
 		<poi.version>3.11</poi.version>

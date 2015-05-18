@@ -1,39 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core">
-    <div id="header">
-        <f:view contentType="text/html"/>
-
-        <div class="page_margins">
-            <div class="page">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns="http://www.w3.org/1999/xhtml">
+	<div id="header">
+		<f:view contentType="text/html"/>
+		<div class="page_margins">
+			<div class="page">
             
                 <span class="appname">
-                    <h:outputText value=" "/>
-                    
+                    <!--<h:outputText value="#{propProvider.readString('appname')}"/>-->
                 </span>
 
                 <span class="companylogo">
-                    <h:outputLink value="#{request.contextPath}/">
-                        <!--
-                      <h:graphicImage value="/app/resources/static/images/logo.gif"
-                                      width="150px" height="16px"/>
-                                      -->
-                    </h:outputLink>
+                    <h:outputLink value="#{request.contextPath}/"/>
+      			</span>
 
-
-
-      </span>
-                <!--
-             <h:graphicImage value="/app/resources/static/images/header.png"
-                             width="960px" height="150px"
-                             title="Schülerturnier Webapp"/>
-                             -->
-
-
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 
 </ui:composition>

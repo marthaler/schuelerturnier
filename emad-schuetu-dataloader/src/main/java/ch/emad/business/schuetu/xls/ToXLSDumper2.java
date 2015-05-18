@@ -13,7 +13,6 @@ import ch.emad.persistence.common.TextRepository;
 import ch.emad.persistence.schuetu.repository.*;
 import com.google.common.io.Resources;
 import ch.emad.model.schuetu.model.comperators.SpielZeitComperator;
-import ch.emad.model.schuetu.model.support.File2;
 import net.sf.jxls.transformer.XLSTransformer;
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Workbook;

@@ -1,26 +1,74 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:p="http://primefaces.org/ui"
-        >
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:sec="http://www.springframework.org/security/tags"
+				xmlns="http://www.w3.org/1999/xhtml">
 
-    <!--@elvariable id="spielstatusWebBean" type="com.googlecode.madschuelerturnier.web.SpielstatusWebBean"-->
-    <div id="mainnav">
-        <h:form id="form_m">
-            <p:menubar id="menubar" styleClass="menubar">
+	<div id="mainnav">
+		<h:form id="form_m">
+			<p:menubar id="menubar" styleClass="menubar">
 
+				<!-- home -->
+				<p:menuitem id="m_home" value="Home" rendered="#{sec:areAnyGranted('ROLE_USER')}"
+							title="Home" icon="ui-icon-home"
+							action="dashboard"/>
 
+				<ui:include src="../../views/default/navigation.xhtml"/>
 
+				<!-- jahr -->
+				<p:submenu id="m_jahr" label="Jahreswahl: #{currentUser.principal.wahlJahr}"
+						   icon="ui-icon-refresh" action="jahreswahl"
+						   rendered="#{sec:areAnyGranted('ROLE_USER') and propProvider.readBoolean('app.show.jahreswechse')}"
+						   style="position: absolute; right:135px;">
+					<p:menuitem id="mm_jahr" value="Jahr wechseln" icon="ui-icon-calendar" action="jahreswahl"
+								rendered="#{sec:areAnyGranted('ROLE_USER')}"/>
+				</p:submenu>
 
-                <!-- info -->
-                <p:menuitem id="abbrechen" style="position: absolute; right:84px;"
-                        value="Abbrechen"
-                            action="#{webcamController.reset}" ajax="false" icon="ui-icon-refresh"/>
+				<!-- info -->
+				<p:menuitem id="m_user" style="position: absolute; right:84px;"
+							rendered="#{sec:areAnyGranted('ROLE_USER') and !sec:areAnyGranted('ROLE_ADMIN')}"
+							value="#{request.userPrincipal.name}" icon="ui-icon-person"
+							action="user"/>
 
+                <!-- admin -->
+                <p:submenu id="m_admin" style="position: absolute; right:84px;"
+                            rendered="#{sec:areAnyGranted('ROLE_ADMIN')}"
+                            label="Administration" icon="ui-icon-person"
+                            action="user">
 
-            </p:menubar>
+                    <!-- info:admin -->
+                    <p:menuitem id="m_useradmin"
+                                rendered="#{sec:areAnyGranted('ROLE_ADMIN')}"
+                                value="#{request.userPrincipal.name}" icon="ui-icon-person"
+                                action="user"/>
 
-        </h:form>
-    </div>
+                    <!-- info:props -->
+                    <p:menuitem id="m_props"
+                                rendered="#{sec:areAnyGranted('ROLE_ADMIN')}"
+                                value="Properties" icon="ui-icon-person"
+                                action="properties"/>
+
+                    <!-- info:audit -->
+                    <p:menuitem id="m_audit"
+                                rendered="#{sec:areAnyGranted('ROLE_ADMIN')}"
+                                value="Audit" icon="ui-icon-person"
+                                action="audit"/>
+
+                    <!-- info:audit -->
+                    <p:menuitem id="m_check"
+                                rendered="#{sec:areAnyGranted('ROLE_ADMIN')}"
+                                value="Check" icon="ui-icon-person"
+                                action="check"/>
+
+                </p:submenu>
+
+				<!-- logout -->
+				<p:menuitem id="m_logout" style="position: absolute; right: 4px;"
+							rendered="#{sec:areAnyGranted('ROLE_USER')}"
+							value="Abmelden" icon="ui-icon-power"  action="logout"/>
+			</p:menubar>
+
+		</h:form>
+	</div>
 </ui:composition>

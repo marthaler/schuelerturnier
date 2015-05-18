@@ -49,13 +49,13 @@
             <artifactId>emad-framework-business</artifactId>
             <version>${emad-framework.version}</version>
         </dependency>
-
+<!--
         <dependency>
             <groupId>ch.emad</groupId>
             <artifactId>emad-framework-persistence</artifactId>
             <version>${emad-framework.version}</version>
         </dependency>
-
+-->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml-schemas</artifactId>
@@ -134,6 +134,8 @@
             <artifactId>emad-dropbox-impl</artifactId>
             <version>${emad-dropbox.version}</version>
         </dependency>
+
+
 
 
     </dependencies>

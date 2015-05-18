@@ -7,7 +7,6 @@ import ch.emad.model.common.model.DBAuthUser;
 import ch.emad.model.common.model.File;
 import ch.emad.model.common.model.Text;
 import ch.emad.model.schuetu.model.*;
-import ch.emad.model.schuetu.model.support.File2;
 import ch.emad.persistence.schuetu.repository.MannschaftRepository;
 import net.sf.jxls.reader.ReaderBuilder;
 import net.sf.jxls.reader.XLSReadStatus;

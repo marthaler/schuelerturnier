@@ -217,14 +217,12 @@
                 </executions>
             </plugin>
 
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-
                 <executions>
                     <execution>
-                        <phase>install</phase>
+                        <phase>process-resources</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
@@ -232,7 +230,7 @@
 
                             <tasks>
                                 <echo message="replace: src/main/webapp/static"/>
-                                <delete includeEmptyDirs="true">
+                                <delete includeEmptyDirs="true" failonerror="false">
                                     <fileset dir="${project.build.directory}/../src/main/webapp/static"/>
                                 </delete>
                                 <copy todir="${project.build.directory}/../src/main/webapp/static">
@@ -240,7 +238,7 @@
                                 </copy>
 
                                 <echo message="replace: /src/main/webapp/WEB-INF/layouts"/>
-                                <delete failonerror="false" includeEmptyDirs="true">
+                                <delete failonerror="false" includeEmptyDirs="true" >
                                     <fileset dir="${project.build.directory}/../src/main/webapp/WEB-INF/layouts"/>
                                 </delete>
                                 <copy todir="${project.build.directory}/../src/main/webapp/WEB-INF/layouts">
@@ -267,79 +265,10 @@
                     </execution>
                 </executions>
             </plugin>
-
-
-
-
         </plugins>
 
     </build>
-
     <profiles>
-        <profile>
-            <id>dropbox</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-
-                    <plugin>
-                        <groupId>com.github.goldin</groupId>
-                        <artifactId>copy-maven-plugin</artifactId>
-                        <version>0.2.5</version>
-                        <dependencies>
-
-                        </dependencies>
-                        <executions>
-                            <execution>
-                                <id>create-archive</id>
-                                <phase>install</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <resources>
-                                        <!-- ~~~~~~~~~~~~~~ -->
-                                        <!-- Dropbox Copy: Windows -->
-                                        <!-- ~~~~~~~~~~~~~~ -->
-                                        <resource>
-                                            <targetPath>D:/db/Dropbox/shared/z_schuelerturnier/Informatik/app/</targetPath>
-                                            <file>D:/db/Dropbox/shared/z_schuelerturnier/Informatik/app/ROOT.war</file>
-                                            <destFileName>ROOT.BAK.war</destFileName>
-                                            <runIf>{{ new File( "D:/db/Dropbox/shared/z_schuelerturnier/Informatik/app", "ROOT.war" ).isFile() }}</runIf>
-                                        </resource>
-                                        <resource>
-                                            <targetPath>D:/db/Dropbox/shared/z_schuelerturnier/Informatik/app/</targetPath>
-                                            <file>${project.basedir}/target/${project.artifactId}-${project.version}.war</file>
-                                            <destFileName>ROOT.war</destFileName>
-                                            <runIf>{{ new File( "D:/db/Dropbox/shared/z_schuelerturnier/Informatik/app", "ROOT.BAK.war" ).isFile() }}</runIf>
-                                        </resource>
-                                        <!-- ~~~~~~~~~~~~~~ -->
-                                        <!-- Dropbox Copy: Mac -->
-                                        <!-- ~~~~~~~~~~~~~~ -->
-                                        <resource>
-                                            <targetPath>/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app</targetPath>
-                                            <file>/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/ROOT.war</file>
-                                            <destFileName>ROOT.BAK.war</destFileName>
-                                            <runIf>{{ new File( "/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app", "ROOT.war" ).isFile() }}</runIf>
-                                        </resource>
-                                        <resource>
-                                            <targetPath>/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app/</targetPath>
-                                            <file>${project.basedir}/target/${project.artifactId}-${project.version}.war</file>
-                                            <destFileName>ROOT.war</destFileName>
-                                            <runIf>{{ new File( "/Users/dama/Dropbox/shared/z_schuelerturnier/Informatik/app", "ROOT.BAK.war" ).isFile() }}</runIf>
-                                        </resource>
-
-                                    </resources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
         <profile>
             <id>integrationtest</id>
             <activation>

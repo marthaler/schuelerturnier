@@ -453,67 +453,66 @@
     * @section content-tables
     */
     table {
+        border-collapse: collapse;
+        margin-bottom: 10px;
+    }
 
-    /*border-collapse: collapse;*
-    margin-bottom: 10px;
-}
+    table caption {
+        font-variant: small-caps;
+    }
 
-table caption {
-    font-variant: small-caps;
-}
+    table.full {
+        width: 100%;
+    }
 
-table.full {
-    width: 100%;
-}
+    table.fixed {
+        table-layout: fixed;
+    }
 
-table.fixed {
-    table-layout: fixed;
-}
+    th, td {
+    }
 
-th, td {
-}
+    th.icon, td.icon {
+        width: 40px;
+        text-align: center;
+        padding: 5px;
+    }
 
-th.icon, td.icon {
-    width: 40px;
-    text-align: center;
-    padding: 5px;
-}
+    th.text, td.text {
+        width: 300px;
+        padding: 5px;
+    }
 
-th.text, td.text {
-    width: 300px;
-    padding: 5px;
-}
+    th.action, td.action {
+        width: 100px;
+        text-align: center;
+        padding: 5px;
+    }
 
-th.action, td.action {
-    width: 100px;
-    text-align: center;
-    padding: 5px;
-}
+    thead th {
+        font-weight: normal;
+        color: #666666;
+        border-bottom: 2px #888 solid;
+    }
 
-thead th {
-    font-weight: normal;
-    color: #666666;
-    border-bottom: 2px #888 solid;
-}
+    tbody th {
+        background: #e0e0e0;
+        color: #333;
+    }
 
-tbody th {
-    background: #e0e0e0;
-    color: #333;
-}
+    tbody th[scope="row"], tbody th.sub {
+        background: #f0f0f0;
+    }
 
-tbody th[scope="row"], tbody th.sub {
-    background: #f0f0f0;
-}
+    tbody th {
+        border-bottom: 1px solid #fff;
+        text-align: left;
+    }
 
-tbody th {
-    border-bottom: 1px solid #fff;
-    text-align: left;
-}
-
-/*tbody td {
-    padding: 0;
-    vertical-align: top;
-}*/
+    /*tbody td {
+        padding: 0;
+        vertical-align: top;
+    }*/
     tbody td .button {
         padding-left: 0;
         padding-right: 0;

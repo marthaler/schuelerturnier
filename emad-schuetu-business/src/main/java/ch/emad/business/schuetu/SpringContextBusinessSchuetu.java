@@ -4,15 +4,14 @@ package ch.emad.business.schuetu;
 import ch.emad.business.common.properties.PropProvider;
 import ch.emad.business.schuetu.picture.WebcamBusiness;
 import ch.emad.business.schuetu.picture.WebcamBusinessImpl;
-import ch.emad.model.schuetu.model.Mannschaft;
-import ch.emad.persistence.SpringContextPersistence;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.*;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@Configuration
+
+//@Configuration
 public class SpringContextBusinessSchuetu {
 
     private static final Logger LOG = Logger.getLogger(SpringContextBusinessSchuetu.class);

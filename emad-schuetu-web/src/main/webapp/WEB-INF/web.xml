@@ -114,7 +114,7 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
-				ch.emad.web.SpringContextRootWeb
+				ch.emad.web.SpringContextDump
 			</param-value>
 		</init-param>
 		<load-on-startup>2</load-on-startup>
