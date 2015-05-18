@@ -427,7 +427,7 @@ public class BusinessImpl implements Business {
         List<SpielZeile> zeilen;
 
         BusinessImpl.LOG.info("date: starttag -->" + this.getSpielEinstellungen().getStarttag());
-        final DateTime start2 = new DateTime(this.getSpielEinstellungen().getStarttag(), DateTimeZone.forID("Europe/Zurich"));
+        final DateTime start2 = new DateTime(this.getSpielEinstellungen().getStart(), DateTimeZone.forID("Europe/Zurich"));
         BusinessImpl.LOG.info("date: starttag Europe/Zurich -->" + start2);
 
         if (!sonntag) {
