@@ -45,7 +45,7 @@ public final class XstreamUtil {
 
             return xStream.fromXML(string);
         } catch (Exception e) {
-            LOG.error("fehler beim deserialisieren: " + string);
+            LOG.error("fehler beim deserialisieren: " + string,e);
         }
         return null;
     }

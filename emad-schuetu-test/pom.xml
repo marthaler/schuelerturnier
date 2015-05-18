@@ -204,7 +204,7 @@
                                 <artifactItems>
                                     <artifactItem>
                                         <groupId>ch.emad.schuetu</groupId>
-                                        <artifactId>emad-schuetutest-web</artifactId>
+                                        <artifactId>emad-schuetu-test</artifactId>
                                         <version>${project.version}</version>
                                         <type>war</type>
                                     </artifactItem>

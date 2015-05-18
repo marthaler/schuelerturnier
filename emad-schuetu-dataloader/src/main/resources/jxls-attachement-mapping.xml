@@ -5,7 +5,7 @@
         <section startRow="0" endRow="0">
         </section>
         <loop startRow="1" endRow="1" items="attachements" var="attachement"
-              varType="ch.emad.model.schuetu.model.support.File">
+              varType="ch.emad.model.common.model.File">
             <section startRow="1" endRow="1">
                 <mapping row="1" col="0">attachement.id</mapping>
                 <mapping row="1" col="1">attachement.typ</mapping>

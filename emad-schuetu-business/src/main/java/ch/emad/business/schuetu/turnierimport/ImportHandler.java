@@ -152,7 +152,8 @@ temp = z.getB();
                 LOG.info("spielimport: " + temp.getIdString() + "-" +  s.getIdString());
                 LOG.info("spielimport, start aus xls: " + temp.getStart());
                 LOG.info("spielimport, generiert: " + startGeneriert);
-                temp.setStart(startGeneriert);
+                LOG.info("setze den wert aus dem xls fuer start: " + temp.getStart());
+                //temp.setStart(startGeneriert);
                 temp.setPlatz(platzGeneriert);
                 temp = sRepo.save(temp);
                 // signalisiere fertiges Spiel an Resultate Verabeiter
