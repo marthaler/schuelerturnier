@@ -23,7 +23,7 @@ public class SpielzeilenValidator {
     @Autowired
     private Business business;
 
-    public String validateSpielZeilen(SpielZeile zeileVorher,SpielZeile zeileVorVorher, SpielZeile zeileJetzt) {
+    public String validateSpielZeilen(SpielZeile zeileVorher, SpielZeile zeileVorVorher, SpielZeile zeileJetzt) {
 
         int zweipausenBisKlasse = business.getSpielEinstellungen().getZweiPausenBisKlasse();
 
@@ -36,9 +36,9 @@ public class SpielzeilenValidator {
         Set<Mannschaft> konflikte = new HashSet<Mannschaft>();
 
         // pruefung durchfuehren
-        ret = pruefeObInVorherigerZeileVorhanden(zeileVorVorher, zeileJetzt, ret, konflikte, true,zweipausenBisKlasse );
+        ret = pruefeObInVorherigerZeileVorhanden(zeileVorVorher, zeileJetzt, ret, konflikte, true, zweipausenBisKlasse);
 
-        ret = pruefeObInVorherigerZeileVorhanden(zeileVorher, zeileJetzt, ret, konflikte, false,zweipausenBisKlasse);
+        ret = pruefeObInVorherigerZeileVorhanden(zeileVorher, zeileJetzt, ret, konflikte, false, zweipausenBisKlasse);
 
         ret = pruefeDoppelteIngleicherZeile(zeileJetzt, ret);
 
@@ -74,7 +74,7 @@ public class SpielzeilenValidator {
         return ret;
     }
 
-    private String pruefeObInVorherigerZeileVorhanden(SpielZeile zeileVorher, SpielZeile zeileJetzt, String retIn, Set<Mannschaft> konflikte, boolean vorvorher,int zweipausenBisKlasse) {
+    private String pruefeObInVorherigerZeileVorhanden(SpielZeile zeileVorher, SpielZeile zeileJetzt, String retIn, Set<Mannschaft> konflikte, boolean vorvorher, int zweipausenBisKlasse) {
 
         String ret = retIn;
 
@@ -84,7 +84,7 @@ public class SpielzeilenValidator {
             for (Mannschaft jetzt : zeileJetzt.getAllMannschaften()) {
 
                 // skip wenn vorvorher und groesser als zweipausenBisKlasse
-                if(vorvorher && zweipausenBisKlasse < jetzt.getKlasse()){
+                if (vorvorher && zweipausenBisKlasse < jetzt.getKlasse()) {
                     continue;
                 }
 
@@ -94,7 +94,7 @@ public class SpielzeilenValidator {
                 }
             }
             if (konflikte.size() > 0) {
-                if(vorvorher){
+                if (vorvorher) {
                     ret = ret + " Bereits in der vor-voherigen zeile vorhanden:";
                 } else {
                     ret = ret + " Bereits in der voherigen zeile vorhanden:";

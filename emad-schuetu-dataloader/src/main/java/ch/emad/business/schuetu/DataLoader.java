@@ -5,7 +5,10 @@ package ch.emad.business.schuetu;
 
 import ch.emad.model.common.model.DBAuthUser;
 import ch.emad.model.common.model.Text;
-import ch.emad.model.schuetu.model.*;
+import ch.emad.model.schuetu.model.Kontakt;
+import ch.emad.model.schuetu.model.Mannschaft;
+import ch.emad.model.schuetu.model.Penalty;
+import ch.emad.model.schuetu.model.Spiel;
 
 import java.util.List;
 
@@ -27,7 +30,7 @@ public interface DataLoader {
 
     List<Mannschaft> loadMannschaften(boolean knaben, boolean maedchen, Integer... klassenIn);
 
-   List<Text> loadTexte();
+    List<Text> loadTexte();
 
     byte[] loadFile();
 

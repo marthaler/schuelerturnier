@@ -44,8 +44,8 @@ public class TemplateBusinessBean {
     }
 
     public String getValidationErrorHTML() {
-        if(validationError != null){
-            return validationError.replace("\n","</br>");
+        if (validationError != null) {
+            return validationError.replace("\n", "</br>");
         }
         return "";
     }
@@ -54,7 +54,7 @@ public class TemplateBusinessBean {
         this.validationError = validationError;
     }
 
-    private Map<String,String> templateValueMap;
+    private Map<String, String> templateValueMap;
 
     public String getName() {
         return name;
@@ -117,7 +117,7 @@ public class TemplateBusinessBean {
     }
 
     public void countCheckversion() {
-        this.checkVersion ++;
+        this.checkVersion++;
     }
 
 }

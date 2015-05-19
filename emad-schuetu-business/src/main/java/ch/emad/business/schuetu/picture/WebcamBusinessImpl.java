@@ -78,7 +78,7 @@ public final class WebcamBusinessImpl implements WebcamBusiness {
 
         Spiel orig = spielRepo.findSpielByIdString(spiel.getIdString());
 
-        if(orig == null || orig.isFertigBestaetigt()){
+        if (orig == null || orig.isFertigBestaetigt()) {
             LOG.info("achtung, es wurde versucht ein spiel zu speichern, das bereits bestaetigt war oder nicht existiert= geht nicht");
             return;
         }
@@ -125,7 +125,7 @@ public final class WebcamBusinessImpl implements WebcamBusiness {
         try {
             image = ImageIO.read(in);
         } catch (IOException e) {
-            LOG.error(e.getMessage(),e);
+            LOG.error(e.getMessage(), e);
         }
         String code = BarcodeUtil.decode(image);
 
@@ -137,8 +137,8 @@ public final class WebcamBusinessImpl implements WebcamBusiness {
     public Map<String, Spiel> loadSpieleCache() {
         List<Spiel> spieleList = this.spielRepo.findAll();
         Map<String, Spiel> result = new HashMap<String, Spiel>();
-        for(Spiel s: spieleList){
-            result.put(s.getIdString(),s);
+        for (Spiel s : spieleList) {
+            result.put(s.getIdString(), s);
         }
         return result;
     }

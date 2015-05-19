@@ -1,7 +1,3 @@
-/*
- * Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
- */
-
 /**
  * Apache License 2.0
  */
@@ -29,6 +25,6 @@ public interface KontaktRepository extends JpaRepository<Kontakt, Long> {
     public List<String> slectAllRessorts();
 
     @Query("SELECT o FROM Kontakt o where o.ressor LIKE ?1 and o.liste LIKE ?2")
-    public List<Kontakt> findFiltredKontakteRessor(String ressor,String list);
+    public List<Kontakt> findFiltredKontakteRessor(String ressor, String list);
 
 }

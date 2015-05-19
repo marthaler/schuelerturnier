@@ -3,22 +3,24 @@
  */
 package ch.emad.business.schuetu;
 
-import ch.emad.business.schuetu.turnierimport.ImportHandler;
-import ch.emad.business.schuetu.xls.FromXLSLoader2;
 import ch.emad.business.schuetu.bus.BusControllerOut;
 import ch.emad.business.schuetu.controller.resultate.ResultateVerarbeiter;
 import ch.emad.business.schuetu.dropbox.DropboxConnector;
+import ch.emad.business.schuetu.turnierimport.ImportHandler;
 import ch.emad.business.schuetu.vorbereitung.helper.SpielzeilenValidator;
+import ch.emad.business.schuetu.xls.FromXLSLoader2;
 import ch.emad.business.schuetu.zeit.Zeitgeber;
+import ch.emad.model.common.model.DBAuthUser;
+import ch.emad.model.common.model.File;
+import ch.emad.model.common.model.Text;
 import ch.emad.model.schuetu.model.*;
-import ch.emad.model.common.model.*;
+import ch.emad.model.schuetu.model.comperators.KategorieNameComperator;
+import ch.emad.model.schuetu.model.enums.SpielPhasenEnum;
+import ch.emad.model.schuetu.model.enums.SpielTageszeit;
 import ch.emad.persistence.common.DBAuthUserRepository;
 import ch.emad.persistence.common.FileRepository;
 import ch.emad.persistence.common.TextRepository;
 import ch.emad.persistence.schuetu.repository.*;
-import ch.emad.model.schuetu.model.comperators.KategorieNameComperator;
-import ch.emad.model.schuetu.model.enums.SpielPhasenEnum;
-import ch.emad.model.schuetu.model.enums.SpielTageszeit;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -411,7 +413,7 @@ public class BusinessImpl implements Business {
         SpielZeile vorVorher = null;
 
         for (final SpielZeile spielZeile : ret) {
-            this.val.validateSpielZeilen(vorher, vorVorher,spielZeile);
+            this.val.validateSpielZeilen(vorher, vorVorher, spielZeile);
             vorVorher = vorher;
             vorher = spielZeile;
         }
@@ -687,9 +689,9 @@ public class BusinessImpl implements Business {
 
         // Penalty laden und updaten
         List<Penalty> penalty = xls.convertXLSToPenalty(xlsIn);
-        if(penalty != null){
+        if (penalty != null) {
             LOG.info("penaltys geladen: " + penalty.size());
-        } else{
+        } else {
             LOG.info("penaltys geladen: KEINE");
         }
 

@@ -12,7 +12,6 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import java.io.ByteArrayInputStream;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -455,7 +454,7 @@ public class Mannschaft extends Persistent implements CouvertReportable, Rechnun
     }
 
     public String getVorname() {
-        if(this.begleitpersonName != null && this.getBegleitpersonName().contains(" ")){
+        if (this.begleitpersonName != null && this.getBegleitpersonName().contains(" ")) {
             return this.getBegleitpersonName().split(" ")[0];
         }
         return this.getBegleitpersonName();
@@ -478,7 +477,7 @@ public class Mannschaft extends Persistent implements CouvertReportable, Rechnun
 
     @Override
     public void setStamp(byte[] stamp) {
-this.stamp = stamp;
+        this.stamp = stamp;
     }
 
     @Override
@@ -503,7 +502,7 @@ this.stamp = stamp;
 
     @Override
     public String getBetrag() {
-        return "Fr. " + (getPreis()* this.getAnzahl())+"0";
+        return "Fr. " + (getPreis() * this.getAnzahl()) + "0";
     }
 
     @Override
@@ -513,7 +512,7 @@ this.stamp = stamp;
 
     @Override
     public boolean getEnabled() {
-        if(esr == null || esr.isEmpty()){
+        if (esr == null || esr.isEmpty()) {
             return false;
         }
         return true;

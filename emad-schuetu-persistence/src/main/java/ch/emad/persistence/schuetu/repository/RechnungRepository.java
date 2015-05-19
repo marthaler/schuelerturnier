@@ -1,16 +1,10 @@
-/*
- * Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
- */
-
 /**
  * Apache License 2.0
  */
 package ch.emad.persistence.schuetu.repository;
 
-import ch.emad.model.schuetu.model.Penalty;
 import ch.emad.model.schuetu.model.Rechnung;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 
 /**

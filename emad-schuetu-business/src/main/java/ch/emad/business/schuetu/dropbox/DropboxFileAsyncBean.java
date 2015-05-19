@@ -32,11 +32,11 @@ public class DropboxFileAsyncBean {
 
     @Async
     protected void deleteFromDropbox(File f) {
-        dropbox.deleteGameAttachemt(getFileName(f),f.getSuffix());
+        dropbox.deleteGameAttachemt(getFileName(f), f.getSuffix());
     }
 
     protected byte[] loadFromDropbox(File f) {
-        return dropbox.loadGameAttachemt(getFileName(f),f.getSuffix());
+        return dropbox.loadGameAttachemt(getFileName(f), f.getSuffix());
     }
 
     private String getFileName(File f) {

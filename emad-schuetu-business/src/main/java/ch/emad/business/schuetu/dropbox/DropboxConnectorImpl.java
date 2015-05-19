@@ -57,17 +57,16 @@ public class DropboxConnectorImpl implements DropboxConnector {
         DropboxConnectorLocalImpl impl = new DropboxConnectorLocalImpl();
 
 
-        rootFolder = rootFolder + "/" + stage.getStageString().replace(")","").replace("(","");
+        rootFolder = rootFolder + "/" + stage.getStageString().replace(")", "").replace("(", "");
         impl.setRootPath("C:\\Users\\u203244\\Dropbox" + rootFolder);
-            if(impl.isConnected()){
-                rootFolder = "";
-                driver = impl;
+        if (impl.isConnected()) {
+            rootFolder = "";
+            driver = impl;
 
-                this.starter.doTheStuff(this);
+            this.starter.doTheStuff(this);
 
 
-
-                return;
+            return;
         }
 
         // versuche den remote dienst zu holen und ersetze den lokal zugewiesenen falls vorhanden
@@ -119,7 +118,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
 
     @Override
     public List<String> getFilesInFolder(String folder) {
-        return driver.getFilesInFolder(this.rootFolder +"/" + folder);
+        return driver.getFilesInFolder(this.rootFolder + "/" + folder);
     }
 
     public List<String> getFilesInAltFolder() {
@@ -185,7 +184,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
             LOG.info("dropbox nicht verbunden.");
             return null;
         }
-        byte[] f = this.loadFile(this.rootFolder + "/" +  starter.getSelectedGame() + "/attachements/md5/" + file + ".md5.txt");
+        byte[] f = this.loadFile(this.rootFolder + "/" + starter.getSelectedGame() + "/attachements/md5/" + file + ".md5.txt");
         if (f != null) {
             return new String(f);
         }
@@ -202,7 +201,7 @@ public class DropboxConnectorImpl implements DropboxConnector {
             LOG.debug("brauche attachement nicht zu sichern inhalt ist gleich");
         } else {
             deleteGameAttachemt(file, suffix);
-            this.saveFile(this.rootFolder + "/" + this.selectedGame + "/attachements/" + file+"." + suffix, content);
+            this.saveFile(this.rootFolder + "/" + this.selectedGame + "/attachements/" + file + "." + suffix, content);
             this.saveFile(this.rootFolder + "/" + this.selectedGame + "/attachements/md5/" + file + ".md5.txt", generateMD5(content).getBytes());
         }
     }
@@ -241,9 +240,9 @@ public class DropboxConnectorImpl implements DropboxConnector {
                 String key = child.replace(rootFolder, "");
                 key = key.replace("-websitedump.xml", "");
                 try {
-                    result.put(key, new String(this.loadFile("alt/"+ child),"UTF-8"));
+                    result.put(key, new String(this.loadFile("alt/" + child), "UTF-8"));
                 } catch (UnsupportedEncodingException e) {
-                    LOG.error(e.getMessage(),e);
+                    LOG.error(e.getMessage(), e);
                 }
             }
         }
@@ -253,6 +252,11 @@ public class DropboxConnectorImpl implements DropboxConnector {
     @Override
     public void deleteFile(String file) {
         this.driver.deleteFile(file);
+    }
+
+    @Override
+    public String getDescription() {
+        return driver.getDescription();
     }
 
     private String generateMD5(byte[] args) {

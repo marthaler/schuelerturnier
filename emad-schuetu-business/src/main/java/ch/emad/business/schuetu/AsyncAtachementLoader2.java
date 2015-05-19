@@ -27,7 +27,7 @@ public class AsyncAtachementLoader2 {
     private static final Logger LOG = Logger.getLogger(BusinessImpl.class);
 
     @Async
-    public void loadfiles(List<File> attachements){
+    public void loadfiles(List<File> attachements) {
         // Attachements laden und updaten
         LOG.info("attachements geladen: " + attachements.size());
         for (File f : attachements) {

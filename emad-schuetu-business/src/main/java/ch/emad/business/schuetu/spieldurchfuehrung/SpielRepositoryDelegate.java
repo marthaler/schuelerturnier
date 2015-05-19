@@ -3,8 +3,8 @@
  */
 package ch.emad.business.schuetu.spieldurchfuehrung;
 
-import ch.emad.business.schuetu.controller.resultate.ResultateVerarbeiter;
 import ch.emad.business.schuetu.Business;
+import ch.emad.business.schuetu.controller.resultate.ResultateVerarbeiter;
 import ch.emad.model.schuetu.model.Spiel;
 import ch.emad.model.schuetu.model.SpielEinstellungen;
 import ch.emad.persistence.schuetu.repository.SpielRepository;

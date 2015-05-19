@@ -1,7 +1,3 @@
-/*
- * Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
- */
-
 /**
  * Apache License 2.0
  */
@@ -10,7 +6,6 @@ package ch.emad.persistence.schuetu.repository;
 import ch.emad.model.common.model.Text;
 import ch.emad.model.schuetu.model.SpielEinstellungen;
 import ch.emad.model.schuetu.model.util.XstreamUtil;
-
 import ch.emad.persistence.common.TextRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,11 +28,11 @@ public class SpielEinstellungenRepositoryImpl2 implements SpielEinstellungenRepo
     @Override
     public SpielEinstellungen getEinstellungen() {
 
-        if(!isInitialized()){
+        if (!isInitialized()) {
             initialize();
         }
 
-        if(cache != null){
+        if (cache != null) {
             SpielEinstellungen temp = (SpielEinstellungen) XstreamUtil.deserializeFromString(cache.getValue());
             return temp;
         }
@@ -48,12 +43,12 @@ public class SpielEinstellungenRepositoryImpl2 implements SpielEinstellungenRepo
     public void save(SpielEinstellungen einstellung) {
         String xstream = XstreamUtil.serializeToString(einstellung);
         // cache noch nicht hier, neuen, leeren erstellen
-        if(cache == null){
+        if (cache == null) {
             cache = new Text();
             cache.setKey(KEY);
         }
         // ist anders, also speichern
-        if(!xstream.equals(cache.getValue())){
+        if (!xstream.equals(cache.getValue())) {
             cache.setValue(xstream);
             cache = repo.save(cache);
         }
@@ -62,7 +57,7 @@ public class SpielEinstellungenRepositoryImpl2 implements SpielEinstellungenRepo
     @Override
     public boolean isInitialized() {
 
-        if(this.cache != null && !this.cache.getValue().isEmpty()){
+        if (this.cache != null && !this.cache.getValue().isEmpty()) {
             return true;
         }
 
@@ -70,8 +65,8 @@ public class SpielEinstellungenRepositoryImpl2 implements SpielEinstellungenRepo
 
     }
 
-    private void initialize(){
-        if(cache == null){
+    private void initialize() {
+        if (cache == null) {
             cache = repo.findTextByKey(KEY);
         }
     }

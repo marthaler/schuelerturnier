@@ -43,7 +43,6 @@ public class DropboxDumper implements ModelChangeListener {
     private DropboxConnector dropbox;
 
 
-
     public DropboxDumper() {
 
     }
@@ -57,7 +56,7 @@ public class DropboxDumper implements ModelChangeListener {
     @Scheduled(fixedRate = 60000)
     public void run() {
 
-        if (changed && init && business.getSpielEinstellungen()!= null && business.getSpielEinstellungen().isMaster()) {
+        if (changed && init && business.getSpielEinstellungen() != null && business.getSpielEinstellungen().isMaster()) {
             if (dropbox.isConnected()) {
                 dropbox.saveGame(dumper.mannschaftenFromDBtoXLS());
             }

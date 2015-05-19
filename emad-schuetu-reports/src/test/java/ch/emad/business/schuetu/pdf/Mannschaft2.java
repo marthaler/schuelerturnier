@@ -1,7 +1,4 @@
-package ch.emad.business.schuetu.pdf;/*
- * Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
- */
-
+package ch.emad.business.schuetu.pdf;
 /**
  * Apache License 2.0
  */

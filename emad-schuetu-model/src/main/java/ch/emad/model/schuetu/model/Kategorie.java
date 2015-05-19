@@ -222,15 +222,15 @@ public class Kategorie extends Persistent {
         return false;
     }
 
-    public int evaluateLowestClass(){
+    public int evaluateLowestClass() {
         int result = 10;
         List<Integer> inte = this.getKlassen();
-        if(inte == null || inte.isEmpty()){
+        if (inte == null || inte.isEmpty()) {
             return -1;
         }
-        for(Integer i : inte){
-            if(i< result){
-result = i;
+        for (Integer i : inte) {
+            if (i < result) {
+                result = i;
             }
         }
         return result;
@@ -298,6 +298,7 @@ result = i;
     public String toString() {
         return "Kategorie [kleineFinal=" + kleineFinal + ", grosserFinal=" + grosserFinal + ", gruppeA=" + gruppeA + ", gruppeB=" + gruppeB + ", penaltyA=" + penaltyA + ", penaltyB=" + penaltyB + "]";
     }
+
     public void setId(Long id) {  // NOSONAR
         super.setId(id);
     }

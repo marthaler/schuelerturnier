@@ -1,32 +1,17 @@
-/*
- * Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
- */
 
 /**
  * Apache License 2.0
  */
 package ch.emad.model.schuetu.model;
 
-import ch.emad.model.common.exceptions.MadRException;
-import ch.emad.model.schuetu.interfaces.CouvertReportable;
-import ch.emad.model.schuetu.interfaces.RechnungReportable;
-import ch.emad.model.schuetu.model.enums.GeschlechtEnum;
-import org.apache.log4j.Logger;
-import org.hibernate.validator.constraints.Email;
-
-import javax.persistence.*;
-import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import javax.persistence.Entity;
 
 /**
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
 @Entity
-public class GPLer extends Persistent  {
+public class GPLer extends Persistent {
 
     private String nummer;
 
@@ -75,14 +60,14 @@ public class GPLer extends Persistent  {
     }
 
     public void setNam(String nam) {
-        try{
-        String[] a = nam.split(",");
-        name = a[0].trim();
-        String[] b = a[1].split("\\(");
-        vorname = b[0].trim();
-        land = b[1].replace(")","").trim();
-        } catch(Exception e){
-            System.out.println("->"+e.getMessage());
+        try {
+            String[] a = nam.split(",");
+            name = a[0].trim();
+            String[] b = a[1].split("\\(");
+            vorname = b[0].trim();
+            land = b[1].replace(")", "").trim();
+        } catch (Exception e) {
+            System.out.println("->" + e.getMessage());
             name = nam;
         }
     }

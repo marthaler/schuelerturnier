@@ -1,6 +1,3 @@
-/*
- * Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
- */
 
 /**
  * Apache License 2.0

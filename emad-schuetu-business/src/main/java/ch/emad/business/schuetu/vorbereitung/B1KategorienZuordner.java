@@ -204,9 +204,9 @@ public class B1KategorienZuordner {
 */
                         // todo vereinfachen -> hier anchauen
                         kategorieRepo.delete(temp);
-                        if(kategorieMinusOne != null){
-                        kategorieRepo.save(kategorieMinusOne);
-                        }else{
+                        if (kategorieMinusOne != null) {
+                            kategorieRepo.save(kategorieMinusOne);
+                        } else {
                             LOG.warn("versuche eine kategorie null zu loeschen: " + kategorieMinusOne);
                         }
                     }

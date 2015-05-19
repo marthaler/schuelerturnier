@@ -41,11 +41,11 @@ public final class XstreamUtil {
 
     public static Object deserializeFromString(String string) {
         try {
-           string = string.replace("com.googlecode.madschuelerturnier.model.SpielEinstellungen","ch.emad.model.schuetu.model.SpielEinstellungen");
+            string = string.replace("com.googlecode.madschuelerturnier.model.SpielEinstellungen", "ch.emad.model.schuetu.model.SpielEinstellungen");
 
             return xStream.fromXML(string);
         } catch (Exception e) {
-            LOG.error("fehler beim deserialisieren: " + string,e);
+            LOG.error("fehler beim deserialisieren: " + string, e);
         }
         return null;
     }

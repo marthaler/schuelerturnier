@@ -1,6 +1,4 @@
-/*
- * Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
- */
+
 
 package ch.emad.schuetu.business;
 

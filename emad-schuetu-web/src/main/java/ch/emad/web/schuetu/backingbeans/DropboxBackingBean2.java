@@ -90,4 +90,8 @@ public class DropboxBackingBean2 implements Serializable{
     public void setNewfolder(String newfolder) {
         this.newfolder = newfolder;
     }
+
+    public String getDescription() {
+        return connector.getDescription();
+    }
 }

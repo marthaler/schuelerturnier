@@ -45,12 +45,11 @@ public class Penalty extends Persistent {
     private List<Mannschaft> finalList = new ArrayList<Mannschaft>();
 
 
-
     public void addMannschaftInitial(final Mannschaft m) {
         this.finalList.add(m);
         reihenfolgeOrig = "";
-        for(Mannschaft m2: finalList){
-            reihenfolgeOrig = reihenfolgeOrig +"," + m2.getName();
+        for (Mannschaft m2 : finalList) {
+            reihenfolgeOrig = reihenfolgeOrig + "," + m2.getName();
         }
         reihenfolgeOrig = reihenfolgeOrig.substring(1);
     }
@@ -58,8 +57,8 @@ public class Penalty extends Persistent {
     public void addMannschaft(final Mannschaft m) {
         this.finalList.add(m);
         reihenfolge = "";
-        for(Mannschaft m2: finalList){
-            reihenfolge = reihenfolge +"," + m2.getName();
+        for (Mannschaft m2 : finalList) {
+            reihenfolge = reihenfolge + "," + m2.getName();
         }
         reihenfolge = reihenfolge.substring(1);
         reihenfolge = reihenfolge.toUpperCase();
@@ -136,7 +135,7 @@ public class Penalty extends Persistent {
         return this.finalList;
     }
 
-    public List<Mannschaft> getRealFinalList(){
+    public List<Mannschaft> getRealFinalList() {
         return this.finalList;
     }
 

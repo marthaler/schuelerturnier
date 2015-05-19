@@ -7,12 +7,18 @@ import ch.emad.business.schuetu.controller.resultate.ResultateVerarbeiter;
 import ch.emad.model.common.model.DBAuthUser;
 import ch.emad.model.common.model.File;
 import ch.emad.model.common.model.Text;
-import ch.emad.model.schuetu.model.*;
+import ch.emad.model.schuetu.model.Mannschaft;
+import ch.emad.model.schuetu.model.Penalty;
+import ch.emad.model.schuetu.model.Spiel;
+import ch.emad.model.schuetu.model.SpielZeile;
+import ch.emad.model.schuetu.model.integration.IncommingMessage;
 import ch.emad.persistence.common.DBAuthUserRepository;
 import ch.emad.persistence.common.FileRepository;
 import ch.emad.persistence.common.TextRepository;
-import ch.emad.persistence.schuetu.repository.*;
-import ch.emad.model.schuetu.model.integration.IncommingMessage;
+import ch.emad.persistence.schuetu.repository.MannschaftRepository;
+import ch.emad.persistence.schuetu.repository.PenaltyRepository;
+import ch.emad.persistence.schuetu.repository.SpielRepository;
+import ch.emad.persistence.schuetu.repository.SpielZeilenRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -79,7 +85,7 @@ public class BusControllerIn implements ApplicationListener<IncommingMessage> {
         }
         if (obj instanceof Spiel) {
             Spiel spiel = (Spiel) obj;
-            if(spiel.isFertigEingetragen()){
+            if (spiel.isFertigEingetragen()) {
                 resultEngine.signalFertigesSpiel(spiel.getId());
             }
             sRepo.save((Spiel) obj);

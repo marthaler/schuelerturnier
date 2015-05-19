@@ -44,32 +44,32 @@ public class DropboxStarter {
     private SpielDurchfuehrung durchfuehrung;
 
     @Async
-    public void doTheStuff(DropboxConnectorImpl driver){
+    public void doTheStuff(DropboxConnectorImpl driver) {
 
         byte[] arr = driver.loadFile("startup.properties");
         Properties res;
 
-        if(arr != null && arr.length > 0){
+        if (arr != null && arr.length > 0) {
             res = new Properties();
             try {
                 res.load(new StringReader(new String(arr)));
             } catch (IOException e) {
-                LOG.error(e.getMessage(),e);
+                LOG.error(e.getMessage(), e);
             }
-            if(res.getProperty("file") == null || res.getProperty("file").isEmpty()){
+            if (res.getProperty("file") == null || res.getProperty("file").isEmpty()) {
                 return;
             }
             noNeedToConnect = true;
             driver.setSelectedGame(res.getProperty("file"));
             this.selectedGame = res.getProperty("file");
-            business.generateSpielFromXLS(driver.loadFile(res.getProperty("file")+"/"+res.getProperty("file")+".xls"));
+            business.generateSpielFromXLS(driver.loadFile(res.getProperty("file") + "/" + res.getProperty("file") + ".xls"));
 
 
-            if(stage != null && ! stage.equals(StageEnum.PRODUCTION) && !res.getProperty("testmode").isEmpty()){
+            if (stage != null && !stage.equals(StageEnum.PRODUCTION) && !res.getProperty("testmode").isEmpty()) {
                 driver.setSelectedGame(res.getProperty("file"));
                 String testdate = res.getProperty("testmode");
                 noNeedToConnect = true;
-                business.generateSpielFromXLS(driver.loadFile(res.getProperty("file")+"/"+res.getProperty("file")+".xls"));
+                business.generateSpielFromXLS(driver.loadFile(res.getProperty("file") + "/" + res.getProperty("file") + ".xls"));
 
 
                 SpielEinstellungen einst = business.getSpielEinstellungen();
@@ -82,7 +82,7 @@ public class DropboxStarter {
         }
     }
 
-    public boolean noNeedToConnect(){
+    public boolean noNeedToConnect() {
         return noNeedToConnect;
     }
 

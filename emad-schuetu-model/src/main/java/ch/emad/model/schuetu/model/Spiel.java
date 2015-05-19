@@ -7,7 +7,10 @@ import ch.emad.model.schuetu.model.enums.PlatzEnum;
 import ch.emad.model.schuetu.model.enums.SpielEnum;
 import ch.emad.model.schuetu.model.enums.SpielZeilenPhaseEnum;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import java.util.Date;
 
 /**
@@ -78,8 +81,8 @@ public class Spiel extends Persistent {
 
     }
 
-    public int evaluateFloorKlasse(){
-        if(this.getGruppe() == null){
+    public int evaluateFloorKlasse() {
+        if (this.getGruppe() == null) {
             return -1;
         }
         return this.getGruppe().evaluateFloorKlasse();
@@ -90,9 +93,10 @@ public class Spiel extends Persistent {
     public void setId(Long id) {  // NOSONAR
         super.setId(id);
     }
+
     @Deprecated
     public void setNotes(String notes) {
-       this.notizen = notes;
+        this.notizen = notes;
     }
 
     @Deprecated
@@ -124,15 +128,15 @@ public class Spiel extends Persistent {
 
     }
 
-    public String evaluateToreABestateigtString(){
-        if(this.toreABestaetigt == NOT_INIT_FLAG){
+    public String evaluateToreABestateigtString() {
+        if (this.toreABestaetigt == NOT_INIT_FLAG) {
             return "--";
         }
         return String.format("%02d", this.toreABestaetigt);
     }
 
-    public String evaluateToreBBestateigtString(){
-        if(this.toreBBestaetigt == NOT_INIT_FLAG){
+    public String evaluateToreBBestateigtString() {
+        if (this.toreBBestaetigt == NOT_INIT_FLAG) {
             return "--";
         }
         return String.format("%02d", this.toreBBestaetigt);
@@ -348,8 +352,8 @@ public class Spiel extends Persistent {
     }
 
 
-    public String getWebsiteName(){
-        if(!this.realName.isEmpty()){
+    public String getWebsiteName() {
+        if (!this.realName.isEmpty()) {
             return this.realName;
         }
         String ret = "";

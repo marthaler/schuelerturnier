@@ -18,11 +18,11 @@ public class KategorieKlasseUndGeschlechtComperator implements Comparator<Katego
 
     public int compare(Kategorie a, Kategorie b) {
 
-if(a.evaluateLowestClass() < b.evaluateLowestClass()){
-    return -1;
-}
+        if (a.evaluateLowestClass() < b.evaluateLowestClass()) {
+            return -1;
+        }
 
-        if(a.evaluateLowestClass() > b.evaluateLowestClass()){
+        if (a.evaluateLowestClass() > b.evaluateLowestClass()) {
             return 1;
         }
 

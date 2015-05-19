@@ -1,6 +1,4 @@
-/***************************************************************************************************************************************************************************************************************************
- * Copyright (C) Schweizerische Bundesbahnen SBB, 2014.
- */
+
 
 /**
  * Apache License 2.0
@@ -52,5 +50,7 @@ public interface DropboxConnector {
     Map<String,String> loadOldGames();
 
     void deleteFile(String file);
+
+    String getDescription();
 
 }

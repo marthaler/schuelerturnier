@@ -262,7 +262,7 @@ public class FromXLSLoader2 {
             return (List<Kontakt>) beans.get("kontakte");
 
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
             LOG.error(e.getMessage(), e);
         }
 

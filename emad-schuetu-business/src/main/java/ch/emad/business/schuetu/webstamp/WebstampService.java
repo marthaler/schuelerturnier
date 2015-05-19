@@ -51,14 +51,14 @@ public class WebstampService {
     }
 
     public byte[] getNextStamp() {
-        if(countAvailableStamps()<1){
-           return null;
+        if (countAvailableStamps() < 1) {
+            return null;
         }
         String file = pngs.remove(0);
-        byte[] in= connector.loadFile("stamps/neu/" + file);
-        byte[] ret = rotatePic(in,90);
+        byte[] in = connector.loadFile("stamps/neu/" + file);
+        byte[] ret = rotatePic(in, 90);
 
-        connector.saveFile("stamps/alt/" + file,in);
+        connector.saveFile("stamps/alt/" + file, in);
         connector.deleteFile("stamps/neu/" + file);
 
         return ret;
@@ -72,7 +72,7 @@ public class WebstampService {
         // pdfs holen
         List<String> files = connector.getFilesInFolder("stamps/neu");
 
-        if(files == null){
+        if (files == null) {
             return;
         }
 
@@ -83,7 +83,7 @@ public class WebstampService {
                 out.addAll(PDFUtil.splitPDFToPNG(pdf));
                 // pdf in alt ordner verschieben
                 connector.saveFile("stamps/alt/" + name + ".pdf", pdf);
-                connector.deleteFile("stamps/neu/"+file);
+                connector.deleteFile("stamps/neu/" + file);
             }
         }
         // fertige png's im neu ordner speichern
@@ -129,7 +129,7 @@ public class WebstampService {
 
         if (image instanceof BufferedImage) {
             im = (BufferedImage) image;
-        }else {
+        } else {
             // Create a buffered image with transparency
             BufferedImage bimage = new BufferedImage(image.getWidth(null), image.getHeight(null), BufferedImage.TYPE_INT_ARGB);
             // Draw the image on to the buffered image

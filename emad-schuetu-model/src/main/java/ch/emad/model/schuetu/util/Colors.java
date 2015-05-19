@@ -1,7 +1,3 @@
-/*
- * Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
- */
-
 /**
  * Apache License 2.0
  */
@@ -23,7 +19,7 @@ public class Colors implements Serializable {
     private List<String> foreground = new ArrayList<String>();
     private List<String> namen = new ArrayList<String>();
 
-    public  Colors(){
+    public Colors() {
         colors.add("Yellow");
         colors.add("Orange");
         colors.add("Pink");
@@ -58,23 +54,24 @@ public class Colors implements Serializable {
         foreground.add("White");
     }
 
-    public String getBackground(String farbe){
+    public String getBackground(String farbe) {
         int i = namen.indexOf(farbe);
         return colors.get(i);
     }
-    public String getColor(String farbe){
+
+    public String getColor(String farbe) {
         int i = namen.indexOf(farbe);
         return foreground.get(i);
     }
 
-    public List<String> getColors(){
+    public List<String> getColors() {
         return namen;
     }
 
-    public String getNextFarbe(String farbe){
+    public String getNextFarbe(String farbe) {
         int i = namen.indexOf(farbe);
         i++;
-        if(i == namen.size()){
+        if (i == namen.size()) {
             return namen.get(0);
         }
         return namen.get(i);

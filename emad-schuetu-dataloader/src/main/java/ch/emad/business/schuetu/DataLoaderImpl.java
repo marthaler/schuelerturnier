@@ -5,10 +5,14 @@ package ch.emad.business.schuetu;
 
 import ch.emad.business.schuetu.xls.FromXLSLoader2;
 import ch.emad.model.common.model.DBAuthUser;
-import ch.emad.model.common.model.*;
-import ch.emad.model.schuetu.model.*;
-import com.google.common.io.Resources;
+import ch.emad.model.common.model.File;
+import ch.emad.model.common.model.Text;
+import ch.emad.model.schuetu.model.Kontakt;
+import ch.emad.model.schuetu.model.Mannschaft;
+import ch.emad.model.schuetu.model.Penalty;
+import ch.emad.model.schuetu.model.Spiel;
 import ch.emad.model.schuetu.model.enums.GeschlechtEnum;
+import com.google.common.io.Resources;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;

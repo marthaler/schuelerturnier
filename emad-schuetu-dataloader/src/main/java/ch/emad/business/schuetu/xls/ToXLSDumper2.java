@@ -7,12 +7,12 @@ import ch.emad.model.common.model.DBAuthUser;
 import ch.emad.model.common.model.File;
 import ch.emad.model.common.model.Text;
 import ch.emad.model.schuetu.model.*;
+import ch.emad.model.schuetu.model.comperators.SpielZeitComperator;
 import ch.emad.persistence.common.DBAuthUserRepository;
 import ch.emad.persistence.common.FileRepository;
 import ch.emad.persistence.common.TextRepository;
 import ch.emad.persistence.schuetu.repository.*;
 import com.google.common.io.Resources;
-import ch.emad.model.schuetu.model.comperators.SpielZeitComperator;
 import net.sf.jxls.transformer.XLSTransformer;
 import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -63,16 +63,16 @@ public class ToXLSDumper2 {
     private static final Logger LOG = Logger.getLogger(MannschaftRepository.class);
 
     public byte[] mannschaftenFromDBtoXLS() {
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll(), prepo.findAll(),korepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll(), prepo.findAll(), korepo.findAll());
     }
 
     public byte[] mannschaftenFromDBtoXLS(SpielEinstellungen einst) {
         List<SpielEinstellungen> einstellungen = new ArrayList<SpielEinstellungen>();
         einstellungen.add(einst);
-        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll(),prepo.findAll(),korepo.findAll());
+        return convertModelToXLS(repo.findAll(), srepo.findAll(), krepo.findAll(), authRepo.findAll(), frepo.findAll(), trepo.findAll(), prepo.findAll(), korepo.findAll());
     }
 
-    protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn, List<File> filesIn,List<Text> texteIn,List<Penalty> penaltyIn,List<Kontakt> kontakteIn) {
+    protected byte[] convertModelToXLS(List<Mannschaft> mannschaftenIn, List<Spiel> spieleIn, List<Korrektur> korrekturenIn, List<DBAuthUser> usersIn, List<File> filesIn, List<Text> texteIn, List<Penalty> penaltyIn, List<Kontakt> kontakteIn) {
 
         List<Spiel> spiele = spieleIn;
         List<Mannschaft> mannschaften = mannschaftenIn;
@@ -89,17 +89,17 @@ public class ToXLSDumper2 {
             // setze dummy Mannschaften fuer das speichern der Finale
             Mannschaft m = new Mannschaft();
             m.setId(0l);
-            for(Spiel s : spiele){
-                if(s.getMannschaftA() == null){
+            for (Spiel s : spiele) {
+                if (s.getMannschaftA() == null) {
                     s.setMannschaftA(m);
                 }
-                if(s.getMannschaftB() == null){
+                if (s.getMannschaftB() == null) {
                     s.setMannschaftB(m);
                 }
             }
 
         }
-        Collections.sort(spiele,new SpielZeitComperator());
+        Collections.sort(spiele, new SpielZeitComperator());
 
         if (mannschaften == null) {
             mannschaften = new ArrayList();
@@ -166,7 +166,7 @@ public class ToXLSDumper2 {
     */
     private byte[] readFreshTemplate() {
         byte[] in = null;
-        URL url = Resources.getResource("/jxls-template2.xls");
+        URL url = Resources.getResource("/jxls-template.xls");
         try {
             in = Resources.toByteArray(url);
         } catch (IOException e) {

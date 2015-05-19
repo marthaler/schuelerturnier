@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns="http://www.w3.org/1999/xhtml">
+
+<f:view contentType="text/html" encoding="CP1252" locale="de">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+        <link rel="shortcut icon" href="${request.contextPath}/app/resources/static/images/favicon.ico"/>
+
+        <ui:include src="../../layouts/include/meta.xhtml"/>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+        <!--/* yaml */-->
+        <link rel="stylesheet" type="text/css"
+              href="${request.contextPath}/app/resources/static/styles/yaml/core/base.css"/>
+        <link rel="stylesheet" type="text/css"
+              href="${request.contextPath}/app/resources/static/styles/yaml/screen/forms.css"/>
+
+
+        <!--/* mod */-->
+        <link rel="stylesheet" type="text/css"
+              href="${request.contextPath}/app/resources/static/styles/css/screen/basemod.css"/>
+        <link rel="stylesheet" type="text/css"
+              href="${request.contextPath}/app/resources/static/styles/css/screen/content.css"/>
+
+        <!--/* custom css */-->
+        <link rel="stylesheet" type="text/css"
+              href="${request.contextPath}/app/resources/static/styles/navigation.css"/>
+        <link rel="stylesheet" type="text/css"
+              href="${request.contextPath}/app/resources/static/styles/customprimefaces.css"/>
+        <link rel="stylesheet" type="text/css"
+              href="${request.contextPath}/app/resources/static/styles/webapp.css"/>
+
+        <ui:insert name="stylesheets"/>
+
+        <h:outputText escape="false"
+                      value="&lt;!--[if lte IE 7]&gt;&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;${request.contextPath}/app/resources/static/styles/css/patches/patch.css&quot;/&gt;&lt;![endif]--&gt;"/>
+
+    </h:head>
+
+    <h:body>
+
+        <ui:insert name="main">
+            <ui:include src="../../layouts/include/main.xhtml"/>
+        </ui:insert>
+
+    </h:body>
+
+</f:view>
+</html>

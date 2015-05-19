@@ -26,8 +26,8 @@ public class SerienbriefImpl {
     @Autowired
     private WebsiteInfoService service;
 
-    private Set<CouvertReportable> getAdressen(String jahr,String listName){
-        if(listName.equals("betreuer")) {
+    private Set<CouvertReportable> getAdressen(String jahr, String listName) {
+        if (listName.equals("betreuer")) {
             List<Spiel> gruppenspiele = service.getGruppenspiele(jahr);
             Set<CouvertReportable> mannschaften = new TreeSet<CouvertReportable>();
             for (Spiel spiel : gruppenspiele) {
@@ -37,15 +37,15 @@ public class SerienbriefImpl {
             return mannschaften;
         }
 
-        if(listName.equals("schulen")){
+        if (listName.equals("schulen")) {
 
         }
 
-        if(listName.equals("sponsoren")){
+        if (listName.equals("sponsoren")) {
 
         }
 
-        if(listName.equals("helfer")){
+        if (listName.equals("helfer")) {
 
         }
 

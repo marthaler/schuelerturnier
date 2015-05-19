@@ -6,8 +6,8 @@ package ch.emad.business.schuetu.serienbriefe;
 import ch.emad.business.schuetu.dropbox.DropboxConnector;
 import ch.emad.model.schuetu.interfaces.RechnungReportable;
 import ch.emad.model.schuetu.model.Mannschaft;
-import ch.emad.schuetu.reports.word.WordTemplatEngine;
 import ch.emad.persistence.schuetu.repository.MannschaftRepository;
+import ch.emad.schuetu.reports.word.WordTemplatEngine;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,13 +16,7 @@ import org.springframework.stereotype.Controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author $Author: marthaler.worb@gmail.com $
@@ -100,7 +94,7 @@ public class TemplateBusinessImpl implements TemplateBusiness {
     @Override
     public byte[] getTemplate(String name, Collection<Map<String, String>> map) {
         List<byte[]> arr = new ArrayList<>();
-        for(Map<String, String> m :map){
+        for (Map<String, String> m : map) {
             try {
                 arr.add(wordengine.createPDFFromDOCXTemplate(templateBusinessBeanMap.get(name).getTemplate(), m));
             } catch (Exception e) {
@@ -112,23 +106,23 @@ public class TemplateBusinessImpl implements TemplateBusiness {
 
     @Override
     public byte[] getRechnungen() {
-        return this.getTemplate("betreuer-rechnung",TemplateMapper.convertRechnungen(repo.findAll()));
+        return this.getTemplate("betreuer-rechnung", TemplateMapper.convertRechnungen(repo.findAll()));
     }
 
     public byte[] getRechnungen(List<RechnungReportable> rg) {
-        List<Mannschaft> rgasman = (List)rg;
-        return this.getTemplate("betreuer-rechnung",TemplateMapper.convertRechnungen(rgasman));
+        List<Mannschaft> rgasman = (List) rg;
+        return this.getTemplate("betreuer-rechnung", TemplateMapper.convertRechnungen(rgasman));
     }
 
-    public byte[] getBriefe(List values,String template) {
+    public byte[] getBriefe(List values, String template) {
 
         List<byte[]> liste = new ArrayList<byte[]>();
 
         TemplateBusinessBean map = templateBusinessBeanMap.get(template);
         Map<String, String> temp = map.getTemplateValueMap();
 
-        for(Object obj :values){
-            Map<String,String> mm = WordTemplatEngine.convertToValueMap(obj, temp);
+        for (Object obj : values) {
+            Map<String, String> mm = WordTemplatEngine.convertToValueMap(obj, temp);
             try {
                 liste.add(wordengine.createPDFFromDOCXTemplate(templateBusinessBeanMap.get(template).getTemplate(), mm));
             } catch (Exception e) {

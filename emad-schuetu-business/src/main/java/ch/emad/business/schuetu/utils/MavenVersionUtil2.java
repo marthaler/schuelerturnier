@@ -71,7 +71,7 @@ public class MavenVersionUtil2 {
 
     public String getVersion() {
         String stageS = "";
-        if(this.stage != null){
+        if (this.stage != null) {
             stageS = " (" + stage.getStage().getText() + ")";
         }
         return this.version + stageS;

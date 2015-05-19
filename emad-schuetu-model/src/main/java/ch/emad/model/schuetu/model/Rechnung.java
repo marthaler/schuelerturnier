@@ -1,23 +1,12 @@
-/*
- * Copyright (C) Schweizerische Bundesbahnen SBB, 2015.
- */
-
 /**
  * Apache License 2.0
  */
 package ch.emad.model.schuetu.model;
 
-import ch.emad.model.schuetu.exceptions.TurnierException;
 import org.apache.log4j.Logger;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author $Author: marthaler.worb@gmail.com $

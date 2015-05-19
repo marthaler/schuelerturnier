@@ -76,11 +76,11 @@ public class E5Spielverteiler {
                 continue;
             }
 
-            stopA(vorher, vorherVorher ,gruppenSpiele, zeileJetzt);
+            stopA(vorher, vorherVorher, gruppenSpiele, zeileJetzt);
 
-            stopB(vorher, vorherVorher,gruppenSpiele, zeileJetzt);
+            stopB(vorher, vorherVorher, gruppenSpiele, zeileJetzt);
 
-            stopC(vorher, vorherVorher,gruppenSpiele, zeileJetzt);
+            stopC(vorher, vorherVorher, gruppenSpiele, zeileJetzt);
 
             vorherVorher = vorher;
 
@@ -102,10 +102,10 @@ public class E5Spielverteiler {
         List<SpielZeile> zeilenSa = business.getSpielzeilen(false);
         removeUeberschuss(zeilenSo);
         removeUeberschuss(zeilenSa);
-return result.toString();
+        return result.toString();
     }
 
-    private void stopA(SpielZeile vorher,SpielZeile vorherVorher,List<Spiel> gruppenSpiele, SpielZeile zeilen) {
+    private void stopA(SpielZeile vorher, SpielZeile vorherVorher, List<Spiel> gruppenSpiele, SpielZeile zeilen) {
         boolean stopA = false;
 
         int iA = 0;
@@ -138,7 +138,7 @@ return result.toString();
         }
     }
 
-    private void stopC(SpielZeile vorher, SpielZeile vorherVorher,List<Spiel> gruppenSpiele, SpielZeile zeilen) {
+    private void stopC(SpielZeile vorher, SpielZeile vorherVorher, List<Spiel> gruppenSpiele, SpielZeile zeilen) {
         boolean stopC = false;
 
         int iC = 0;
@@ -171,7 +171,7 @@ return result.toString();
         }
     }
 
-    private void stopB(SpielZeile vorher, SpielZeile vorherVorher,List<Spiel> gruppenSpiele, SpielZeile zeilen) {
+    private void stopB(SpielZeile vorher, SpielZeile vorherVorher, List<Spiel> gruppenSpiele, SpielZeile zeilen) {
         boolean stopB = false;
 
         int iB = 0;
@@ -217,14 +217,14 @@ return result.toString();
         boolean first = true;
         Spiel letztesFinale = null;
 
-        for(Kategorie k: kategorien){
+        for (Kategorie k : kategorien) {
 
             SpielZeile zeile = finalspieleZeilen.remove(0);
 
-            if(first){
+            if (first) {
                 mergeKleinerFinalToSpielzeile(spieleGeaendert, k, zeile);
                 first = false;
-            } else{
+            } else {
                 mergeKleinerFinalToSpielzeile(spieleGeaendert, k, zeile);
                 mergeGrosserFinalToSpielzeile(spieleGeaendert, zeile, letztesFinale);
             }
@@ -245,12 +245,12 @@ return result.toString();
 
     private void mergeKleinerFinalToSpielzeile(List<Spiel> spieleGeaendert, Kategorie k, SpielZeile zeile) {
         // kleiner finale
-        if(k.getKleineFinal() != null){
-        zeile.setB(k.getKleineFinal());
-        k.getKleineFinal().setPlatz(PlatzEnum.B);
-        k.getKleineFinal().setStart(zeile.getStart());
+        if (k.getKleineFinal() != null) {
+            zeile.setB(k.getKleineFinal());
+            k.getKleineFinal().setPlatz(PlatzEnum.B);
+            k.getKleineFinal().setStart(zeile.getStart());
 
-        spieleGeaendert.add(k.getKleineFinal());
+            spieleGeaendert.add(k.getKleineFinal());
         }
     }
 

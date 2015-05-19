@@ -21,9 +21,9 @@ public class Schiri extends DBAuthUser {
 
     private int matchcount = 0;
 
-    private String spielIDs ="";
+    private String spielIDs = "";
 
-    public Schiri(){
+    public Schiri() {
         List<String> auths = super.getAuths();
         auths.add("schiri");
         super.setAuths(auths);

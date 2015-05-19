@@ -6,7 +6,10 @@ package ch.emad.business.schuetu.bus;
 import ch.emad.model.common.model.DBAuthUser;
 import ch.emad.model.common.model.File;
 import ch.emad.model.common.model.Text;
-import ch.emad.model.schuetu.model.*;
+import ch.emad.model.schuetu.model.Mannschaft;
+import ch.emad.model.schuetu.model.Penalty;
+import ch.emad.model.schuetu.model.Spiel;
+import ch.emad.model.schuetu.model.SpielZeile;
 import ch.emad.model.schuetu.model.callback.ModelChangeListener;
 import ch.emad.model.schuetu.model.callback.ModelChangeListenerManager;
 import ch.emad.model.schuetu.model.integration.OutgoingMessage;
@@ -42,35 +45,25 @@ public class BusControllerOut implements ApplicationEventPublisherAware, ModelCh
     @Override
     public void onChangeModel(Serializable object) {
 
-        if(object instanceof Text){
+        if (object instanceof Text) {
             LOG.debug("BusControllerOut senden: Text (SpielEinstellung)");
             sendMessage(object);
-        }
-        else
-        if(object instanceof Mannschaft){
+        } else if (object instanceof Mannschaft) {
             LOG.debug("BusControllerOut senden: Mannschaft");
             sendMessage(object);
-        }
-        else
-        if(object instanceof SpielZeile){
+        } else if (object instanceof SpielZeile) {
             LOG.debug("BusControllerOut senden: SpielZeile");
             sendMessage(object);
-        }
-        else
-        if(object instanceof DBAuthUser){
+        } else if (object instanceof DBAuthUser) {
             LOG.debug("BusControllerOut senden: DBAuthUser");
             sendMessage(object);
-        } else
-        if(object instanceof File){
+        } else if (object instanceof File) {
             LOG.debug("BusControllerOut senden: File");
-            sendMessage(object);}
-
-        else
-        if(object instanceof Penalty){
+            sendMessage(object);
+        } else if (object instanceof Penalty) {
             LOG.debug("BusControllerOut senden: Penalty");
-            sendMessage(object);}
-        else
-        if (object instanceof Spiel) {
+            sendMessage(object);
+        } else if (object instanceof Spiel) {
             LOG.debug("BusControllerOut senden: Spiel");
             sendMessage(object);
         } else {

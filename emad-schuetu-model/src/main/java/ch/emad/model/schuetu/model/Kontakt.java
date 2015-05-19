@@ -68,7 +68,7 @@ public class Kontakt extends Persistent implements CouvertReportable, RechnungRe
 
     @Override
     public String getNameVorname() {
-        return name +" " + vorname;
+        return name + " " + vorname;
     }
 
     @Override
@@ -152,7 +152,7 @@ public class Kontakt extends Persistent implements CouvertReportable, RechnungRe
 
 
     public String getBetrag() {
-        return ""+betrag;
+        return "" + betrag;
     }
 
     @Override
@@ -172,13 +172,12 @@ public class Kontakt extends Persistent implements CouvertReportable, RechnungRe
 
     @Override
     public void setESR(String esr) {
-this.esr = esr;
+        this.esr = esr;
     }
 
     public void setBetrag(String betrag) {
         this.betrag = betrag;
     }
-
 
 
     @Override

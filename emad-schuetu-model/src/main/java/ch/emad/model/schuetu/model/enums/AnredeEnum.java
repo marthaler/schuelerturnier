@@ -5,6 +5,7 @@ package ch.emad.model.schuetu.model.enums;
 
 /**
  * Eine Anrede
+ *
  * @author $Author: marthaler.worb@gmail.com $
  * @since 1.3.13
  */

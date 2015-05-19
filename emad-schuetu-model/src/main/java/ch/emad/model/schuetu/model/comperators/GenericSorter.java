@@ -1,15 +1,11 @@
-
 /**
  * Apache License 2.0
  */
 package ch.emad.model.schuetu.model.comperators;
 
-import ch.emad.model.schuetu.model.Persistent;
 import org.apache.log4j.Logger;
 
-import java.io.Serializable;
 import java.lang.reflect.Method;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -20,11 +16,11 @@ import java.util.List;
  * @author $Author: marthaler.worb@gmail.com $
  * @since 0.7
  */
-public class GenericSorter  {
+public class GenericSorter {
 
     private static final Logger LOG = Logger.getLogger(GenericSorter.class);
 
-    public static<T> void  sortAsc(List<T> list, String methodName) {
+    public static <T> void sortAsc(List<T> list, String methodName) {
         Comparator<T> byNameComparator = null;
         try {
             byNameComparator = (Comparator<T>) newMethodComparator(list.get(0).getClass(), methodName);
@@ -34,13 +30,13 @@ public class GenericSorter  {
         Collections.sort(list, byNameComparator);
     }
 
-    public static<T> void  sortDesc(List<T> list, String methodName) {
+    public static <T> void sortDesc(List<T> list, String methodName) {
         sortAsc(list, methodName);
         Collections.reverse(list);
     }
 
 
-    private static<T> Comparator<T>  newMethodComparator(Class<T> cls, String methodName) throws Exception {
+    private static <T> Comparator<T> newMethodComparator(Class<T> cls, String methodName) throws Exception {
         Method method = cls.getMethod(methodName);
         if (method.getParameterTypes().length != 0)
             throw new Exception("Method " + method + " takes parameters");
@@ -52,7 +48,7 @@ public class GenericSorter  {
         return newMethodComparator(method, (Class<? extends Comparable>) returnType);
     }
 
-    private static<T,R extends Comparable<R>> Comparator<T> newMethodComparator(
+    private static <T, R extends Comparable<R>> Comparator<T> newMethodComparator(
             final Method method, final Class<R> returnType) throws Exception {
         return new Comparator<T>() {
             @Override

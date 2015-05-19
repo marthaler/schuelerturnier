@@ -30,7 +30,7 @@ public class Gruppe extends Persistent {
 
     private GeschlechtEnum geschlecht = null;
 
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Mannschaft> mannschaften = new ArrayList<Mannschaft>();
 
@@ -72,13 +72,13 @@ public class Gruppe extends Persistent {
         return geschlecht;
     }
 
-    public int evaluateFloorKlasse(){
-        if(this.mannschaften == null || this.mannschaften.size() <1){
+    public int evaluateFloorKlasse() {
+        if (this.mannschaften == null || this.mannschaften.size() < 1) {
             return -1;
         }
         int ret = 11;
-        for(Mannschaft m : this.mannschaften){
-            if(m.getKlasse() < ret){
+        for (Mannschaft m : this.mannschaften) {
+            if (m.getKlasse() < ret) {
                 ret = m.getKlasse();
             }
         }

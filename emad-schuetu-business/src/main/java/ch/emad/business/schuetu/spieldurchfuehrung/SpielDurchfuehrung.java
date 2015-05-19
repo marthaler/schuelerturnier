@@ -83,7 +83,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     private SpielDurchfuehrungData data;
 
 
-	private boolean init = false;
+    private boolean init = false;
 
     public void onApplicationEvent(final ZeitPuls event) {
 
@@ -202,15 +202,15 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
 
     }
 
-    private SpielZeile spielezeileUpdatenBetreffendZeilenphaseAndSave(SpielZeile temp){
+    private SpielZeile spielezeileUpdatenBetreffendZeilenphaseAndSave(SpielZeile temp) {
 
-        if(temp.getA() != null){
+        if (temp.getA() != null) {
             temp.getA().setSpielZeilenPhase(temp.getPhase());
         }
-        if(temp.getB() != null){
+        if (temp.getB() != null) {
             temp.getB().setSpielZeilenPhase(temp.getPhase());
         }
-        if(temp.getC() != null){
+        if (temp.getC() != null) {
             temp.getC().setSpielZeilenPhase(temp.getPhase());
         }
         return this.spielzeilenRepo.save(temp);
@@ -262,7 +262,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
             // letzte resultate drucken
             spielPrinter.printPage();
 
-            String jahr = ""+ new DateTime(this.business.getSpielEinstellungen().getStarttag()).getYear();
+            String jahr = "" + new DateTime(this.business.getSpielEinstellungen().getStarttag()).getYear();
 
             this.infoservice.dumpJetzt(jahr);
 

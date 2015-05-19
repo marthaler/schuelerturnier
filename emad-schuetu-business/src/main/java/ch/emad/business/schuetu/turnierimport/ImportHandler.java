@@ -3,9 +3,9 @@
  */
 package ch.emad.business.schuetu.turnierimport;
 
-import ch.emad.business.schuetu.vorbereitung.A0SpielVorbereitungsKontroller;
 import ch.emad.business.schuetu.Business;
 import ch.emad.business.schuetu.controller.resultate.ResultateVerarbeiter;
+import ch.emad.business.schuetu.vorbereitung.A0SpielVorbereitungsKontroller;
 import ch.emad.business.schuetu.vorbereitung.helper.KorrekturenHelper;
 import ch.emad.model.schuetu.model.Spiel;
 import ch.emad.model.schuetu.model.SpielEinstellungen;
@@ -107,23 +107,23 @@ public class ImportHandler {
             phasenCheck(startPhase);
         }
         // dient der uebertragung von den, auf den spielen gespeicherten SpielZeilenPhasen
-Iterable<SpielZeile> spielzeilen = szRepo.findAll();
-for(SpielZeile z : spielzeilen){
-    Spiel temp = z.getA();
-    if(temp == null){
-temp = z.getB();
-    }
+        Iterable<SpielZeile> spielzeilen = szRepo.findAll();
+        for (SpielZeile z : spielzeilen) {
+            Spiel temp = z.getA();
+            if (temp == null) {
+                temp = z.getB();
+            }
 
-    if(temp == z.getC()){
-        temp = z.getC();
-    }
+            if (temp == z.getC()) {
+                temp = z.getC();
+            }
 
 
-    if(temp != null){
-        z.setPhase(temp.getSpielZeilenPhase());
-    }
+            if (temp != null) {
+                z.setPhase(temp.getSpielZeilenPhase());
+            }
 
-}
+        }
 
         szRepo.save(spielzeilen);
 
@@ -149,7 +149,7 @@ temp = z.getB();
                 }
 
                 // generierter Start wieder setzen, wegen dem Timezone problem
-                LOG.info("spielimport: " + temp.getIdString() + "-" +  s.getIdString());
+                LOG.info("spielimport: " + temp.getIdString() + "-" + s.getIdString());
                 LOG.info("spielimport, start aus xls: " + temp.getStart());
                 LOG.info("spielimport, generiert: " + startGeneriert);
                 LOG.info("setze den wert aus dem xls fuer start: " + temp.getStart());
