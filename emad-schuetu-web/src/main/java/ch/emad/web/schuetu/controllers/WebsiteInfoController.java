@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
  * @since 1.2.8
  */
 @Component
-@Scope("session")
 @RequestMapping(value = "/website")
 public class WebsiteInfoController {
 
@@ -36,7 +35,7 @@ public class WebsiteInfoController {
     private SpielstatusWebBean spielstatusWebBean;
 
     @Autowired
-    SessionHelper session;
+    private SessionHelper session;
 
     @RequestMapping(value = "/info/{jahr}", method = RequestMethod.GET)
     public String getWebsiteinfo(@PathVariable("jahr") String jahr, Model model, HttpServletRequest request) {
