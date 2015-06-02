@@ -29,24 +29,24 @@ public class BackingBean {
     private int tab;
 
     private String methode = "aufsteigend";
-    private String speaker_url = "http://87.230.15.247";
+    private String speaker_url = "http://87.230.15.247:3332";
     private String speaker_password = "1234";
     private String speaker_user = "tester1915speaker";
     private boolean speaker_on = true;
 
-    private String eintrager_url = "http://87.230.15.247";
+    private String eintrager_url = "http://87.230.15.247:3332";
 
     private String eintrager_password = "1234";
     private String eintrager_user = "tester1915eintrager";
     private boolean eintrager_on = true;
 
-    private String kontrollierer_url = "http://87.230.15.247";
+    private String kontrollierer_url = "http://87.230.15.247:3332";
 
     private String kontrollierer_password = "1234";
     private String kontrollierer_user = "tester1915kontrollierer";
     private boolean kontrollierer_on = true;
 
-    private String webcam_url = "http://localhost:8082";
+    private String webcam_url = "https://localhost:8082";
     private boolean webcam_on = true;
 
     private SeleniumSpeakerThread speaker;

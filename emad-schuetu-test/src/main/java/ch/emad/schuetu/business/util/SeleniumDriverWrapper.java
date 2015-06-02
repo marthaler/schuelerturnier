@@ -52,7 +52,7 @@ public class SeleniumDriverWrapper {
     }
 
     public void getBaseURL() {
-        driver.get(baseURL + "/app/flow");
+        driver.get(baseURL + "/app/default");
     }
 
     public void sendById(String selector, String keys) {

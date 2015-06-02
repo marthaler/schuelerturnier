@@ -352,7 +352,7 @@ public class SpielDurchfuehrung implements ApplicationListener<ZeitPuls> {
     private void gong() {
         // bell setzen
         if (business.getSpielEinstellungen().isGongEinschalten()) {
-            text.add("resources" + delim + "static" + delim + "sound" + delim + "bell01.mov");
+            text.add("resources" + delim + "sound" + delim + "bell01.mov");
         }
     }
 
