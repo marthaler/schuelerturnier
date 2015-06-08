@@ -10,7 +10,7 @@
 
     <groupId>ch.emad.schuetu</groupId>
     <artifactId>emad-schuetu</artifactId>
-    <version>1.3.26-SNAPSHOT</version>
+    <version>0.0.29-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
