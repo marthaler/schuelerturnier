@@ -1,8 +1,6 @@
-
 /*
  *
  */
-
 package ch.emad.business;
 
 import ch.emad.business.common.properties.PropProvider;
@@ -41,6 +39,8 @@ public class SpringContextBusinessPicimport {
         if (stage.equals("p")) {
             port = port + "3";
         }
+
+        port = "3353";
 
         LOG.info("set the port for webcamsource: " + Integer.parseInt(port));
 

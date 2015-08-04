@@ -13,6 +13,7 @@ import ch.emad.persistence.schuetu.repository.SpielRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -29,7 +30,7 @@ import java.util.Map;
  * @author marthaler.worb@gmail.com
  * @since 1.3.0
  */
-@Component
+@RestController
 public final class WebcamBusinessImpl implements WebcamBusiness {
 
     private static final Logger LOG = Logger.getLogger(WebcamBusinessImpl.class);
